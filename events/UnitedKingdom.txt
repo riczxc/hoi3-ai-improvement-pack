@@ -1,0 +1,18 @@
+###################################
+# Destruction of the French Fleet #
+###################################
+country_event = {
+	
+	id = 2601
+
+	is_triggered_only = yes
+	
+	title = "EVTNAME2601"
+	desc = "EVTDESC2601"
+	picture = "naval_reinforcements"
+
+	option = {
+		name = "EVTOPTA2601"			# How dare they!
+		relation = { who = ENG value = -10 }
+	}
+}
