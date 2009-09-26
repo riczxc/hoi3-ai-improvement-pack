@@ -277,10 +277,10 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	local ConsumerNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() --/ TotalIC
 
 	-- MONEY
-	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/math.min(MaxIC*ai_configuration.MINIMUM_MONEY_STOCKPILE,45000)
+	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/ministerCountry:GetTotalIC()
 
 	-- SUPPLY
-	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(MaxIC*ai_configuration.MINIMUM_SUPPLY_STOCKPILE,45000)
+	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/(10*ministerCountry:GetTotalIC())
 	-- 100% supply prod. at 0 stock, 50% at 1/2 goal stock and 0% at goal stock
 	local SupplyNeed = MaxIC*(1-math.min(1, SupplyStockFactor ))
 
@@ -297,13 +297,8 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- Distribute IC --
 
 	-- dissent?
-	if dissent > 0.001 then
-		-- set needed plus dissent boost
-		ConsumerNeed = ConsumerNeed + MaxIC*math.min(dissent/10, 1.0)
-	else
-		-- set needed to get to goal up/down but never less than need (dissent!)
-		ConsumerNeed = math.max(ConsumerNeed, MaxIC*( 1-math.min( 1, MoneyStockFactor)))
-	end
+	ConsumerNeed = math.max( ConsumerNeed + MaxIC*math.min(dissent/10, 1.0), MaxIC*( 2-math.min( 2, MoneyStockFactor)))
+	
 	-- not more than AvailIC
 	ConsumerNeed = math.min(AvailIC, ConsumerNeed)
 	changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ConsumerNeed ) )
@@ -347,11 +342,11 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		AvailIC = AvailIC - ReinforcementNeed
 
 		ProductionNeed = math.min(ProductionNeed, AvailIC)
-		-- Production, keep 5% of IC for upgrades if needed
-		if UpgradeNeed >  (AvailIC * 0.05) and (ProductionNeed >= AvailIC) then
-			-- keep 5% for upgrades
-			ProductionNeed = AvailIC*0.95
-		end
+		-- Production, keep upto 50% of IC for upgrades if needed
+		--if UpgradeNeed >  0 and (ProductionNeed+UpgradeNeed < AvailIC) then
+			-- keep for upgrades
+			ProductionNeed = math.min(ProductionNeed, AvailIC-math.min(0.5*AvailIC, UpgradeNeed))
+		--end
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
 		AvailIC = AvailIC - ProductionNeed
 
