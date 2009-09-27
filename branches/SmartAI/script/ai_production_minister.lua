@@ -297,7 +297,8 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- Distribute IC --
 
 	-- dissent?
-	ConsumerNeed = math.max( ConsumerNeed + MaxIC*math.min(dissent/10, 1.0), MaxIC*( 2-math.min( 2, MoneyStockFactor)))
+	-- limited money production to 90% IC
+	ConsumerNeed = math.max( ConsumerNeed + MaxIC*math.min(dissent/10, 1.0), MaxIC*math.min(0.9, 2-math.min( 2, MoneyStockFactor)))
 	
 	-- not more than AvailIC
 	ConsumerNeed = math.min(AvailIC, ConsumerNeed)
