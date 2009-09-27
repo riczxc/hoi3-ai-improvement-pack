@@ -20,13 +20,14 @@ end
 
 -- Trade specific global variables and constants.
 -- Variables will be updated by HFInit_ManageTrade.
--- gTradesByGoods2Country = {}
-gImportsByGoods2Country = {}
-gExportsByGoods2Country = {}
-gGlobalStockpile = {}
+gEconomy = {}
+gEconomy["deal"] = {}
+gEconomy["import"] = {}
+gEconomy["export"] = {}
+gEconomy["stock"] = {}
+gEconomy["AI"] = {}
+gEconomy["manual"] = {}
 gDayCount = -1
-gTradingCountriesAI = {}
-gTradingCountriesHuman = {}
 G_MEASURED_TIME_PERIOD = 8 -- For how many days are we accounting for
 G_AVERAGING_TIME_PERIOD = 7 -- How many days are averaged (must be < G_MEASURED_TIME_PERIOD)
 G_MAX_GC_OVER_PRODUCTION = 15 -- How much IC are allowed to put into GC in %
@@ -34,7 +35,7 @@ TRADING_THRESHOLD = 0.4
 
 -- Must be called by ForeignMinister_ManageTrade
 function HFInit_ManageTrade(ai, ministerTag)
-	-- Update gGlobalStockpile once a day for all countries
+	-- Update gEconomy["stock"] once a day for all countries
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	if tostring(ministerTag) == '---' then -- Always first country called a day	
 		gDayCount = gDayCount + 1
@@ -42,7 +43,7 @@ function HFInit_ManageTrade(ai, ministerTag)
 		-- save today's trades
 		BufferingTrades()
 		-- reset 'today'
-		gTradingCountriesHuman = {}
+		gEconomy["manual"] = {}
 
 		day = math.mod(gDayCount, G_MEASURED_TIME_PERIOD) -- Measuring a period of G_MEASURED_TIME_PERIOD days
 		for country in CCurrentGameState.GetCountries() do
@@ -54,43 +55,70 @@ function HFInit_ManageTrade(ai, ministerTag)
 				strCountryTag = tostring(countryTag)
 				--Utils.LUA_DEBUGOUT(strCountryTag)
 
-				if gGlobalStockpile[strCountryTag] == nil then
-					gGlobalStockpile[strCountryTag] = {}
-					--Utils.LUA_DEBUGOUT("gGlobalStockpile for " .. strCountryTag .. " not set!")
+				if gEconomy["stock"][strCountryTag] == nil then
+					gEconomy["stock"][strCountryTag] = {}
+					--Utils.LUA_DEBUGOUT("gEconomy["stock"] for " .. strCountryTag .. " not set!")
 				end
 
 				local pool = country:GetPool()
 
 				for goods = 0, MAX_GOODS do
-					if gGlobalStockpile[strCountryTag][goods] == nil then
-						gGlobalStockpile[strCountryTag][goods] = {}
+					if gEconomy["stock"][strCountryTag][goods] == nil then
+						gEconomy["stock"][strCountryTag][goods] = {}
 					end
 
-					gGlobalStockpile[strCountryTag][goods][day] = pool:Get(goods):Get()
+					gEconomy["stock"][strCountryTag][goods][day] = pool:Get(goods):Get()
 
 					--Utils.LUA_DEBUGOUT("	" .. GOODS_TO_STRING[goods] .. " - Income: " .. country:GetDailyIncome(goods):Get() .. " Expense: " .. country:GetDailyExpense(goods):Get() .. " Balance: " .. country:GetDailyBalance(goods):Get())
 				end
 				-- if country was not AI controlled 'yesterday'
-				if gTradingCountriesAI[strCountryTag] == nil then
+				if gEconomy["AI"][strCountryTag] == nil then
 					-- add country to list of manual (human) trading countries
-					gTradingCountriesHuman[strCountryTag] = strCountryTag
+					gEconomy["manual"][strCountryTag] = strCountryTag
 					--Utils.LUA_DEBUGOUT("Trade of " .. strCountryTag .. " is controlled by human player.")
 				end
 			end
 		end
 		-- reset for 'tomorrow'
-		gTradingCountriesAI = {}
+		gEconomy["AI"] = {}
 	end
 
 	-- Add this country to the list of AI controlled countries
-	gTradingCountriesAI[tostring(ministerTag)] = tostring(ministerTag)
+	gEconomy["AI"][tostring(ministerTag)] = tostring(ministerTag)
+end
+
+function TradeSpam( goods, BuyerCountry, SellerCountry)
+	if not gEconomy["deal"][goods] then
+		gEconomy["deal"][goods] = {}
+	end
+	if not gEconomy["deal"][goods][BuyerCountry] then
+		gEconomy["deal"][goods][BuyerCountry] = {}
+	end
+	if not gEconomy["deal"][goods][BuyerCountry][SellerCountry] then		
+		gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount-30
+	end
+	-- less than 30 days ago?
+	if gEconomy["deal"][goods][BuyerCountry][SellerCountry] > gDayCount-30 then
+		Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." tries to SPAM "..tostring(BuyerCountry:GetCountryTag()).." with "
+			..tostring( GOODS_TO_STRING[goods]).." after only "
+			..tostring(gDayCount-gEconomy["deal"][goods][BuyerCountry][SellerCountry]).." days!")
+		return true
+	else -- ok
+		return false
+	end
+end
+
+function TradeSpamSet(goods, BuyerCountry, SellerCountry)
+	Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." trying to sell to "..tostring(BuyerCountry:GetCountryTag()).." some "..tostring( GOODS_TO_STRING[goods]))
+	gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount
+	Utils.LUA_DEBUGOUT(tostring(gDayCount)..": ".."---")
 end
 
 function BufferingTrades()
 	--Utils.LUA_DEBUGOUT("->BufferingTrades")
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
-	gImportsByGoods2Country = {}
-	gExportsByGoods2Country = {}
+	gEconomy["import"] = {}
+	gEconomy["export"] = {}
 	local Iters = 0
 	local Counter = 0
 	for AliceCountry in CCurrentGameState.GetCountries() do
@@ -130,18 +158,18 @@ function BufferingTrades()
 									-- if Bob2Alice > 0 then
 										-- AliceTag, BobTag = BobTag, AliceTag
 									-- end
-									if nil == gExportsByGoods2Country[goods] then
-										gImportsByGoods2Country[goods] = {}
-										gExportsByGoods2Country[goods] = {}
+									if nil == gEconomy["export"][goods] then
+										gEconomy["import"][goods] = {}
+										gEconomy["export"][goods] = {}
 									end
-									if nil == gExportsByGoods2Country[goods][tostring(BobTag)] then
-										gExportsByGoods2Country[goods][tostring(BobTag)] = {}
+									if nil == gEconomy["export"][goods][tostring(BobTag)] then
+										gEconomy["export"][goods][tostring(BobTag)] = {}
 									end
-									if nil == gImportsByGoods2Country[goods][tostring(AliceTag)] then
-										gImportsByGoods2Country[goods][tostring(AliceTag)] = {}
+									if nil == gEconomy["import"][goods][tostring(AliceTag)] then
+										gEconomy["import"][goods][tostring(AliceTag)] = {}
 									end									
-									gExportsByGoods2Country[goods][tostring(BobTag)][tostring(AliceTag)]= Bob2Alice
-									gImportsByGoods2Country[goods][tostring(AliceTag)][tostring(BobTag)] = Bob2Alice
+									gEconomy["export"][goods][tostring(BobTag)][tostring(AliceTag)]= Bob2Alice
+									gEconomy["import"][goods][tostring(AliceTag)][tostring(BobTag)] = Bob2Alice
 									-- reverse switch
 									if switch then
 										--Utils.LUA_DEBUGOUT("Switch (2)")
@@ -167,7 +195,7 @@ end
 -- 		 will always return true on first day (gDayCount == 0).
 function IsTradeControlledByHuman(countryTag)
 	key = tostring(countryTag)
-	if gTradingCountriesHuman[key] then
+	if gEconomy["manual"][key] then
 		return true
 	else
 		return false
@@ -179,7 +207,7 @@ end
 -- Note: This function needs some days to return good results.
 function GetAverageBalance(ministerCountry, goods)
 	key = tostring(ministerCountry:GetCountryTag())
-	if gGlobalStockpile[key] == nil then
+	if gEconomy["stock"][key] == nil then
 		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - HFInit_ManageTrade wasn't called yet.")
 		-- HFInit_ManageTrade wasn't called yet.
 		return 0
@@ -196,7 +224,7 @@ function GetAverageBalance(ministerCountry, goods)
 
 	sum = 0
 	for i = 0, period - 1 do
-		sum = sum + (gGlobalStockpile[key][goods][today] - gGlobalStockpile[key][goods][yesterday])
+		sum = sum + (gEconomy["stock"][key][goods][today] - gEconomy["stock"][key][goods][yesterday])
 		today = Zmod(today - 1, G_MEASURED_TIME_PERIOD)
 		yesterday = Zmod(yesterday - 1, G_MEASURED_TIME_PERIOD)
 	end

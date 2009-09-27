@@ -121,7 +121,7 @@ end
 -- return true if country has money, makes money and doesn't overproduce CG to do so
 function IsRich(AliceCountry)
 	local MoneyStockFactor = AliceCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/AliceCountry:GetTotalIC()
-	if	-- loaded bank account 
+	if	-- loaded bank account
 		MoneyStockFactor > 5 and
 		-- current cg setting less than 110% need or dissent (so high cg allowed if dissent)
 		(AliceCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()*1.1 > AliceCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() or
@@ -246,10 +246,13 @@ function ProposeTrades(ai, AliceTag)
 	if '---' == AliceTag or AliceCountry:GetTransports() == 0 then
 		return
 	end
-	local bestBuyingScore = -10000
-	local bestBuyingAction = nil
-	local bestSupplyBuyingScore = -10000
-	local bestSupplyBuyingAction = nil
+	
+	local best = {}
+	local bestSupply = {}
+	best["score"] = -10000
+	best["action"] = nil
+	bestSupply["score"] = -10000
+	bestSupply["action"] = nil
 	local AliceBuys = 0
 	local BobDemand = 0
 	local AliceMinTradeSize = MinTradeSize(AliceCountry)
@@ -268,19 +271,22 @@ function ProposeTrades(ai, AliceTag)
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- BUYING --- "..tostring(GOODS_TO_STRING[goods]))
 				-- lets check every possible trading partner
 				for BobCountry in CCurrentGameState.GetCountries() do
-					-- not same country, BobBalance>minTrade, BobStock>min
-					if	tostring(BobCountry:GetCountryTag()) ~= tostring(AliceTag) then
-						local BobSells = Selling(BobCountry, goods)
-						if BobSells >= AliceMinTradeSize then
---~ 							if tostring(AliceCountry:GetCountryTag())=='JAP' and math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
- 							--Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobCountry:GetCountryTag() )
-							--		.." proposing "..tostring( math.min(AliceBuys, BobSells, 50)).." of "..tostring(GOODS_TO_STRING[goods]))
---~ 							end
-							-- lets try and buy from Bob (min amount between buyer and seller demand and not more than 50)
-							if goods ~= CGoodsPool._SUPPLIES_ then
-								bestBuyingScore, bestBuyingAction = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, bestBuyingScore, bestBuyingAction )
-							else
-								bestSupplyBuyingScore, bestSupplyBuyingAction = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, bestSupplyBuyingScore, bestSupplyBuyingAction )
+					-- 50:50 to spread trades across more countries
+					if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
+						-- not same country, BobBalance>minTrade, BobStock>min
+						if	tostring(BobCountry:GetCountryTag()) ~= tostring(AliceTag) then
+							local BobSells = Selling(BobCountry, goods)
+							if BobSells >= AliceMinTradeSize then
+	--~ 							if tostring(AliceCountry:GetCountryTag())=='JAP' and math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
+								--Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobCountry:GetCountryTag() )
+								--		.." proposing "..tostring( math.min(AliceBuys, BobSells, 50)).." of "..tostring(GOODS_TO_STRING[goods]))
+	--~ 							end
+								-- lets try and buy from Bob (min amount between buyer and seller demand and not more than 50)
+								if goods ~= CGoodsPool._SUPPLIES_ then
+									best = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, best )
+								else
+									bestSupply = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, bestSupply)
+								end
 							end
 						end
 					end
@@ -291,16 +297,18 @@ function ProposeTrades(ai, AliceTag)
 	end
 
 	-- do supplies before anything else
-	if  bestSupplyBuyingAction then
-		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying supplies, score: "..tostring(bestSupplyBuyingScore))
-		ai:PostAction( bestSupplyBuyingAction )
-	elseif  bestBuyingAction then
-		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying something, score: "..tostring(bestBuyingScore))
-		ai:PostAction( bestBuyingAction )
+	if  bestSupply["action"] then
+		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying supplies, score: "..tostring(bestSupply["score"]))
+		TradeSpamSet(bestSupply["goods"], bestSupply["buyer"], bestSupply["seller"])
+		ai:PostAction( bestSupply["action"] )
+	elseif  best["action"] then
+		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying something, score: "..tostring(best["score"]))
+		TradeSpamSet(best["goods"], best["buyer"], best["seller"])
+		ai:PostAction( best["action"] )
 	end
 end
 
-function ProposeTradeCalc(ai, goods, requested, BobSells, BuyerCountry, SellerCountry, bestScore, bestAction )
+function ProposeTradeCalc(ai, goods, requested, BobSells, BuyerCountry, SellerCountry, best )
 	local BuyerTag = BuyerCountry:GetCountryTag()
 	local SellerTag = SellerCountry:GetCountryTag()
 
@@ -323,24 +331,19 @@ function ProposeTradeCalc(ai, goods, requested, BobSells, BuyerCountry, SellerCo
 			score = score*chance
 			-- save score if 50% chance and better than previous score
 			if	chance > 50 and
-				score > bestScore --(not ai:AlreadyTradingResourceOtherWay( TradeAction:GetRoute()))
+				score > best["score"] --(not ai:AlreadyTradingResourceOtherWay( TradeAction:GetRoute()))
 			then
---~ 				if tostring(SellerCountry:GetCountryTag())=='JAP' or tostring(BuyerCountry:GetCountryTag())=='JAP' then
---~ 					Utils.LUA_DEBUGOUT("ProposeTradeCalc "..tostring( SellerTag ).."2"..tostring( BuyerTag )
---~ 					.." Good: " .. tostring(GOODS_TO_STRING[goods])
---~ 					.." Chance: " .. tostring(chance).."-" .. tostring(ai:GetSpamPenalty(SellerTag))
---~ 					.." Score: " .. tostring(score)
---~ 					.." Requested: "..tostring(requested))
---~ 				end
-					--Utils.LUA_DEBUGOUT(tostring( BuyerTag ).."2"..tostring( SellerTag )
-						--.." proposing "..tostring( requested ).." of "..tostring(GOODS_TO_STRING[goods]).." Score:"..tostring(score).." Chance:"..tostring(chance))
-				return 	score, TradeAction
-			else
-				return 	bestScore, bestAction
+				if not TradeSpam( goods, BuyerCountry, SellerCountry) then
+					best["score"] = score
+					best["action"] = TradeAction
+					best["seller"] = SellerCountry
+					best["buyer"] = BuyerCountry
+					best["goods"] = goods
+				end
 			end
 		end
 	end
-	return 	bestScore, bestAction
+	return 	best
 end
 
 
@@ -359,9 +362,9 @@ function TradesOtherWay(AliceTag, BobTag, goods, Bob2Alice)
 end
 
 function ExistsExport(AliceTag, goods)
-	if goods ~= CGoodsPool._MONEY_ and gExportsByGoods2Country[goods] and gExportsByGoods2Country[goods][tostring(AliceTag)] then
-		-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gExportsByGoods2Country[goods][tostring(AliceTag)]))		
-		-- for BobTag, Export in pairs(gExportsByGoods2Country[goods][tostring(AliceTag)]) do
+	if goods ~= CGoodsPool._MONEY_ and gEconomy["export"][goods] and gEconomy["export"][goods][tostring(AliceTag)] then
+		-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(AliceTag)]))		
+		-- for BobTag, Export in pairs(gEconomy["export"][goods][tostring(AliceTag)]) do
 			-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(Export).." "..tostring(GOODS_TO_STRING[goods]).." to "..tostring(BobTag))
 		-- end
 		return true
@@ -370,9 +373,9 @@ function ExistsExport(AliceTag, goods)
 end
 
 function ExistsImport(AliceTag, goods)
-	if goods ~= CGoodsPool._MONEY_ and gImportsByGoods2Country[goods] and gImportsByGoods2Country[goods][tostring(AliceTag)] then
+	if goods ~= CGoodsPool._MONEY_ and gEconomy["import"][goods] and gEconomy["import"][goods][tostring(AliceTag)] then
 		--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring( AliceTag ).." imports "..tostring(GOODS_TO_STRING[goods]))
-		-- for BobTag, Import in pairs(gExportsByGoods2Country[goods][tostring(AliceTag)]) do
+		-- for BobTag, Import in pairs(gEconomy["export"][goods][tostring(AliceTag)]) do
 			-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." imports "..tostring(Import).." "..tostring(GOODS_TO_STRING[goods]).." from "..tostring(BobTag))
 		-- end
 		return true
