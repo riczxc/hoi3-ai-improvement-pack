@@ -7,7 +7,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 
 ==CCurrentGameState==
 ||CProvince ||GetProvince(int provineId)||
-||int ||GetAIRand() --my guess return value is between 0 and 100???||
+||int ||GetAIRand()||Return value is between 0 and int.MAX_VALUE||
 ||List`<CCountry>` ||GetCountries()||
 ||???||GetInstance||
 ||CCountryTag||GetPlayer()||
@@ -58,8 +58,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||???||GetGovernment||
 ||bool ||IsMajor()||
 ||bool||HasConstruction||
-||CDistributionSetting GetProductionDistributionAt(int distributionSetting)||
-||CDistributionSetting GetLeadershipDistributionAt(int distributionSetting)||
+||CDistributionSetting||GetProductionDistributionAt(int distributionSetting)||
+||CDistributionSetting||GetLeadershipDistributionAt(int distributionSetting)||
 ||int||GetTotalIC()||
 ||int||GetAvailableIC()||
 ||CGoodsPool ||GetPool()||
