@@ -256,7 +256,7 @@ function BuildImprovement(ai, AvailIC, ministerTag, improvement, improvementCost
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built " .. tostring(improvement) .. " for " .. tostring(improvementCost).."$ at "..tostring(provinceId))
 		--Utils.LUA_DEBUGOUT("E")
 	end
-	---Utils.LUA_DEBUGOUT("F")
+	--Utils.LUA_DEBUGOUT("F")
 	return AvailIC
 end
 
@@ -417,7 +417,7 @@ function ChanceSupportBrigade(ministerCountry, bBuildReserve, orderlist, AvailIC
 		SubUnitList.Append( orderlist, anti_tank )
 		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( anti_tank, 1, bBuildReserve ):Get()
 		-- Utils.LUA_DEBUGOUT( tostring(anti_tank:GetKey()) )
-	elseif 5==rem  and ministerCountry:GetTechnologyStatus():IsUnitAvailable(anti_air) then
+	elseif 4==rem  and ministerCountry:GetTechnologyStatus():IsUnitAvailable(anti_air) then
 		SubUnitList.Append( orderlist, anti_air )
 		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( anti_air, 1, bBuildReserve ):Get()
 		-- Utils.LUA_DEBUGOUT( tostring(anti_air:GetKey()) )
