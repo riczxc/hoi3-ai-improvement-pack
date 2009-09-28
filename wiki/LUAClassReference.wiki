@@ -1,4 +1,4 @@
-#labels reference,documentation
+#labels reference,documentation,Featured
 This file is based on work done by [http://forum.paradoxplaza.com/forum/showthread.php?t=421039 Dominik, strongbowmatt] and [http://forum.paradoxplaza.com/forum/showthread.php?t=430111 azeno].
 
 =Widely known classes=
