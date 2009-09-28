@@ -182,13 +182,13 @@ function LoadProductionRatio(minister, ministerCountry)
 		-- So, be sure that the first template of a type is the most basic template
 		-- Next, you define the brigades of a template
 		prod_ratio['infantry_template'] = { 	-- Infantry
-											{ 5, infantry, infantry, infantry };
-											{ 25, infantry, infantry, infantry, artillery };
-											{ 20, infantry, infantry, infantry, anti_tank };
+											{ 10, infantry, infantry, infantry };
+											{ 30, infantry, infantry, infantry, artillery };
+											{ 25, infantry, infantry, infantry, anti_tank };
 											{ 10, infantry, infantry, infantry, anti_air };
 											{ 10, infantry, infantry, heavy_armor };
 											{ 5, infantry, infantry, sh_armor };
-											{ 25, infantry, infantry, infantry, engineer }
+											{ 10, infantry, infantry, infantry, engineer }
 										}		
 		prod_ratio['marine_template'] = {		-- Marine
 											{ 30, marine, marine, marine };
@@ -253,11 +253,11 @@ function LoadProductionRatio(minister, ministerCountry)
 		-- So, be sure that the first template of a type is the most basic template
 		-- Next, you define the brigades of a template
 		prod_ratio['infantry_template'] = { 	-- Infantry
-											{ 20, infantry, infantry, infantry };
+											{ 25, infantry, infantry, infantry };
 											{ 25, infantry, infantry, artillery };
 											{ 20, infantry, infantry, anti_tank };
 											{ 20, infantry, infantry, anti_air };
-											{ 15, infantry, infantry, infantry, engineer }
+											{ 10, infantry, infantry, infantry, engineer }
 										}		
 		prod_ratio['marine_template'] = {		-- Marine
 											{ 50, marine, marine, marine };
@@ -321,11 +321,11 @@ function LoadProductionRatio(minister, ministerCountry)
 		-- So, be sure that the first template of a type is the most basic template
 		-- Next, you define the brigades of a template
 		prod_ratio['infantry_template'] = { 	-- Infantry
-											{ 20, infantry, infantry, infantry };
+											{ 25, infantry, infantry, infantry };
 											{ 30, infantry, infantry, artillery };
 											{ 25, infantry, infantry, anti_tank };
 											{ 15, infantry, infantry, anti_air };
-											{ 10, infantry, infantry, engineer }
+											{ 5, infantry, infantry, engineer }
 										}		
 		prod_ratio['marine_template'] = {		-- Marine
 											{ 50, marine, marine, marine };
@@ -458,11 +458,11 @@ function LoadProductionRatio(minister, ministerCountry)
 		-- So, be sure that the first template of a type is the most basic template
 		-- Next, you define the brigades of a template
 		prod_ratio['infantry_template'] = { 	-- Infantry
-											{ 30, infantry, infantry, infantry };
+											{ 35, infantry, infantry, infantry };
 											{ 35, infantry, infantry, artillery };
 											{ 10, infantry, infantry, anti_tank };
 											{ 10, infantry, infantry, anti_air };
-											{ 15, infantry, infantry, engineer }
+											{ 10, infantry, infantry, engineer }
 										}		
 		prod_ratio['marine_template'] = {		-- Marine
 											{ 50, marine, marine, marine };

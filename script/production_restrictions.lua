@@ -1,6 +1,7 @@
 function LoadRestrictions(minister, ministerCountry)
 	--Utils.LUA_DEBUGOUT( "ENTER LoadRestrictions function" )
 	local ministerTag = tostring(minister:GetCountryTag())
+	local ic_total = ministerCountry:GetTotalIC()
 	local year = CCurrentGameState.GetCurrentDate():GetYear()
 	local prod_restrictions = { }
 	
@@ -35,11 +36,11 @@ function LoadRestrictions(minister, ministerCountry)
 	
 	-- You can add unit, for example:
 	-- prod_restrictions["tactical_bomber"] = { 50, tactical_bomber, 50, cas }
-	-- When it want to build a tactical bomber, AI will build 50% of time cas instead
+	-- When it want to build a tactical bomber, AI will build 50% of time CAS instead
 	
 	-- You can restrict the construction of a unit too:
 	-- prod_restrictions["transport_ship"] = { 10, transport_ship }
-	-- AI will build only 1/10 transport ship it wants
+	-- AI will build only 10% of transport ship it wants
 
 	----------------------------------------------------------------------------------------------------
 	-- DEFAULT RESTRICTIONS
@@ -122,10 +123,21 @@ function LoadRestrictions(minister, ministerCountry)
 	elseif ministerTag == 'FRA' then
 		--Utils.LUA_DEBUGOUT( "FRANCE" )
 		
-		prod_restrictions["transport_ship"] = { 33, transport_ship }			-- FRA builds only 1/3 transport ship
-		
-	----------------------------------------------------------------------------------------------------
+		prod_restrictions["transport_ship"] = { 33, transport_ship }			-- FRA builds only 1/3 transport ship			
+	
 	end	
+	------------------------------------------COUNTRY WITH LESS THAN 40 IC---------------------------------------------------
+	if ic_total <= 40 then
+		--Utils.LUA_DEBUGOUT( "COUNTRY WITH 40- IC" )
+		
+		-- No need of Bombers for minor countries
+		prod_restrictions["naval_bomber"] = { 0, naval_bomber }
+		prod_restrictions["strategic_bomber"] = { 0, strategic_bomber}
+		prod_restrictions["tactical_bomber"] = { 0, tactical_bomber }
+
+	end
+	---------------------------------------------------------------------------------------------------
+	
 	--Utils.LUA_DEBUGOUT( "EXIT LoadRestrictions function" )
 	--Utils.LUA_DEBUGOUT("\n")
 	return prod_restrictions
