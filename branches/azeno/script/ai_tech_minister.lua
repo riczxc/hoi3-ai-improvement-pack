@@ -5,48 +5,61 @@
 function BalanceLeadershipSliders(ai, ministerCountry)
 	local PRIO_SETTINGS = {
 		[0] = CDistributionSetting._LEADERSHIP_DIPLOMACY_,
-			CDistributionSetting._LEADERSHIP_NCO_,
-			CDistributionSetting._LEADERSHIP_ESPIONAGE_,
+			CDistributionSetting._LEADERSHIP_NCO_, 
+			CDistributionSetting._LEADERSHIP_ESPIONAGE_, 
 			CDistributionSetting._LEADERSHIP_RESEARCH_
 	}
-
-	local sum = 0
-	local changes = CArrayFix(4)
-	local AvailLS = 1
-
-	-- Officer ratio. aims at 100% in peace time
-	local OfficerGoal = 1
-	-- Officer ratio. aims at 200% for maximum org. in war
-	if ministerCountry:IsAtWar() then
-		OfficerGoal = 2
-	-- Officer ratio. aims at 150% in preparation of war
-	elseif ministerCountry:GetStrategy():IsPreparingWar() then
-		OfficerGoal = 1.5
-	end
-	local OfficerNeed = (OfficerGoal-ministerCountry:GetOfficerRatio():Get())/OfficerGoal
-	-- aim for 110% in peace time
-	changes:SetAt( CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint( OfficerNeed*100 ) )
 	
-	AvailLS = AvailLS - OfficerNeed
+	local sum = 0
+	local changes = CArrayFix(4)	
 
-	-- aim for 1/5 IC or at least 20 and use 1/2 of avail LS
-	local DiploNeed = math.max(20, ministerCountry:GetTotalIC()/5)
-	DiploNeed = 0.5 * AvailLS *	math.max(0, (DiploNeed-ministerCountry:GetDiplomaticInfluence():Get())/DiploNeed)
-	AvailLS = AvailLS - DiploNeed
-	changes:SetAt( CDistributionSetting._LEADERSHIP_DIPLOMACY_, CFixedPoint( DiploNeed*100 ) )
+
+	-- Officer ratio.
+	if ministerCountry:GetOfficerRatio():Get() < 0.75 then
+		changes:SetAt( CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint( 10 ) )
+	elseif ministerCountry:GetOfficerRatio():Get() < 0.9 then
+		changes:SetAt( CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint( 30 ) )
+	elseif ministerCountry:GetOfficerRatio():Get() < 1.2 then
+		changes:SetAt( CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint( 20 ) )
+	else
+		changes:SetAt( CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint( 0 ) )
+	end
+	
+	-- if we need DI, we take it.
+	if ministerCountry:GetDiplomaticInfluence():Get() < 10 then
+		changes:SetAt( CDistributionSetting._LEADERSHIP_DIPLOMACY_, CFixedPoint( 20 ) )
+	else
+		changes:SetAt( CDistributionSetting._LEADERSHIP_DIPLOMACY_, CFixedPoint( 0 ) )
+	end
+	
+	
 	
 	-- always go for 10%, more is useless, unless if GiE
 	if ministerCountry:IsGovernmentInExile() then
-		changes:SetAt( CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint( AvailLS*100 ) )
-		AvailLS = 0
+		changes:SetAt( CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint( 100 ) )
 	else
-		changes:SetAt( CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint( math.min(0.1, AvailLS)*100 ) )
-		AvailLS = AvailLS - math.min(0.1, AvailLS)
+		changes:SetAt( CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint(10 ) )
+	end
+	
+	
+	
+	if  ministerCountry:GetTotalIC() < 6 then
+		changes:SetAt( CDistributionSetting._LEADERSHIP_RESEARCH_, CFixedPoint( 0 ) )
+	else
+		changes:SetAt( CDistributionSetting._LEADERSHIP_RESEARCH_, CFixedPoint( 100 ) )
 	end
 
-	-- remainder into research
-	changes:SetAt( CDistributionSetting._LEADERSHIP_RESEARCH_, CFixedPoint( AvailLS*100 ) )
 
+	local factor_left = 100
+	for i = 0, table.getn(PRIO_SETTINGS) do -- normalize
+		local index = PRIO_SETTINGS[i]
+		local factor = changes:GetAt( index ):Get()
+		factor = math.min(factor, factor_left)
+		factor_left = math.max(factor_left - factor, 0.0)
+						
+		changes:SetAt( index, CFixedPoint(factor) )
+	end
+	
 	local command = CChangeLeadershipCommand( ministerCountry:GetCountryTag(), changes )
 	ai:Post( command )
 end
@@ -78,64 +91,26 @@ function ProposeResearch(minister)
 	local sortedTechs = {}
 	local ministerCountry = minister:GetCountry()
 	local ministerTag = minister:GetCountryTag()
-	
-	local listmaj = {}
-	local listimp = {}
-	local listnorm = {}
-	
-	--Utils.LUA_DEBUGOUT( tostring(ministerTag) )
-	-- Construct lists of favourite tech for the country
-	if ai_configuration.USE_RESEARCH_MOD > 0 then
-		listmaj, listimp, listnorm = ConstructPriorityList(minister)
-	end
-	-------------------------------DEBUG------------------------------------
-	--Utils.LUA_DEBUGOUT( "--------------LISTE TECH: 1--------------------" )
---	local j = 1
---	while listmaj[j] do
---		Utils.LUA_DEBUGOUT( listmaj[j] )
---		j = j + 1
---	end
---	Utils.LUA_DEBUGOUT( "--------------LISTE TECH: 2--------------------" )
---	j = 1
---	while listimp[j] do
---		Utils.LUA_DEBUGOUT( listimp[j] )
---		j = j + 1
---	end
---	Utils.LUA_DEBUGOUT( "--------------LISTE TECH: 3--------------------" )
---	j = 1
---	while listnorm[j] do
---		Utils.LUA_DEBUGOUT( listnorm[j] )
---		j = j + 1
---	end
---	Utils.LUA_DEBUGOUT( "---------------------------------------" )
-	-------------------------------------------------------------------	
-	local score = 0
-	
+
 	for tech in CTechnologyDataBase.GetTechnologies() do
 		if  minister:CanResearch( tech ) and tech:IsValid() then
-			if ai_configuration.USE_RESEARCH_MOD > 0 then
-				--Utils.LUA_DEBUGOUT( "Using AIRI" )
-				score = CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnorm )
-			else
-				--Utils.LUA_DEBUGOUT( "Not using AIRI" )
-				score = CalculateTechScore( minister, ministerCountry, tech )
-				score = score + math.mod( CCurrentGameState.GetAIRand(), 2) -- lets add a small random factor for variety
-			end
+			local score = CalculateTechScore( minister, ministerCountry, tech )
+			score = score + math.mod( CCurrentGameState.GetAIRand(), 2) -- lets add a small random factor for variety
 			table.insert( sortedTechs, {score, tech} )
 		end
 	end
 	table.sort( sortedTechs, function(x, y) return x[1] > y[1] end ) -- highest score first	
 	
---	Utils.LUA_DEBUGOUT(tostring(ministerTag) .. ".sortedTechs = {")
---	for _, debugtech in ipairs(sortedTechs) do
---		if debugtech == nil then
---			Utils.LUA_DEBUGOUT("nil in list")
+	--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. ".sortedTechs = {")
+	--for _, debugtech in ipairs(sortedTechs) do
+	--	if debugtech == nil then
+	---		Utils.LUA_DEBUGOUT("nil in list")
 --		else
---			Utils.LUA_DEBUGOUT( "(" .. tostring(debugtech[1]) .. ", (" .. tostring(debugtech[2]:GetKey()) .. ")" )
---		end
+	--		Utils.LUA_DEBUGOUT( "(" .. tostring(debugtech[1]) .. ", (" .. tostring(debugtech[2]:GetKey()) .. ")" )
+	--	end
 
---	end
---	Utils.LUA_DEBUGOUT("}\n")
+	--end
+	--Utils.LUA_DEBUGOUT("}\n")
 	
 	return sortedTechs
 end
@@ -217,89 +192,3 @@ function CalculateTechScore( minister, ministerCountry, tech )
 	return Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), 'CalculateTechScore', score, ministerCountry, tech )
 end
 
-
-function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnorm )
-	
-	local nomTech = tostring(tech:GetKey())
-	local techStatus = ministerCountry:GetTechnologyStatus()
-	
-	local score = 0
-	local majeure = 14
-	local importante = 12
-	local normale = 9
-	local find = 0
-	
-	--Utils.LUA_DEBUGOUT( nomTech )
-	
-	--------------------------------------------------------------
-	-- lvl 1 tech check
-	local i = 1
-	while listmaj[i] and find == 0 do 
-		if listmaj[i] == nomTech then
-			--Utils.LUA_DEBUGOUT( "I find it!")
-			score = majeure
-			find = 1		
-		end
-		i = i + 1
-	end
-	-- lvl 2 tech check
-	i = 1
-	while listimp[i] and find == 0 do 
-		if listimp[i] == nomTech then
-			--Utils.LUA_DEBUGOUT( "I find it!")
-			score = importante
-			find = 1			
-		end
-		i = i + 1
-	end
-	-- lvl 3 tech check
-	i = 1
-	while listnorm[i] and find == 0 do 
-		if listnorm[i] == nomTech then
-			--Utils.LUA_DEBUGOUT( "I find it!")
-			score = normale
-			find = 1
-		end
-		i = i + 1
-	end
-	--------------------------------------------------------------
-	-- Cavalry boost when this tech is low (need lvl 3 to unlock motorised infantry)
-	if nomTech == 'cavalry_smallarms' or nomTech == 'cavalry_support'
-		or nomTech == 'cavalry_guns' or nomTech == 'cavalry_at' then
-		--Utils.LUA_DEBUGOUT( "Cavalry tech!!!" )
-		if techStatus:GetLevel(tech) < 3 then
-			score = majeure
-			--Utils.LUA_DEBUGOUT( "Need a little boost" )
-		end
-	-- All Countries need Operational Level Organisation doctrine
-	elseif nomTech == 'operational_level_organisation' then
-		score = majeure
-	end
-	
-	--Utils.LUA_DEBUGOUT( 'SCORE de base: ' .. score )
-	--------------------------------------------------------------
-	-- Give Penalty or Bonus for years concern
-	local techLvl = techStatus:GetLevel(tech)
-	local nYear = techStatus:GetYear(tech, techLvl + 1 );
-	
-	nYear = nYear - CCurrentGameState.GetCurrentDate():GetYear();
-	if nYear > 2 then
-		score = score - 10
-	elseif nYear < -3 then
-		score = score + 3
-	else
-		score = score - nYear
-	end
-	--Utils.LUA_DEBUGOUT( 'SCORE après années: ' .. score )
-	--------------------------------------------------------------
-	-- Small random factor
-	score = score + math.mod( CCurrentGameState.GetAIRand(), 3)
-	
-	if score < 0 then
-		score = 0
-	end
-	--------------------------------------------------------------
-	
-	--Utils.LUA_DEBUGOUT( 'SCORE après hasard: ' .. score )
-	return Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), "CalculScore", score, ministerCountry, tech, listmaj, listimp, listnorm)
-end
