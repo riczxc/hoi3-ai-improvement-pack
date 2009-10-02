@@ -116,7 +116,7 @@ function ProductionMinister_Tick(minister)
 					and AvailIC > 0 then
 						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, infra, infraCost, provinceId)
 					end
-					
+
 					if 1==chance and ministerCountry:IsBuildingAllowed(radarStation, province) and
 					( province:HasBuilding( antiAir ) or province:HasBuilding( costalFort ) or province:HasBuilding( navalBase ) or
 						province:HasBuilding( landFort ) or province:HasBuilding( airBase )) and not province:HasBuilding( radarStation )
@@ -296,10 +296,9 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 
 	-- Distribute IC --
 
-	-- dissent?
-	-- limited money production to 90% IC
-	ConsumerNeed = math.max( ConsumerNeed + MaxIC*math.min(dissent/10, 1.0), MaxIC*math.min(0.9, 2-math.min( 2, MoneyStockFactor)))
-	
+	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
+	ConsumerNeed = ConsumerNeed + MaxIC * math.min(math.max(dissent/10, 2-MoneyStockFactor) 0.9)
+
 	-- not more than AvailIC
 	ConsumerNeed = math.min(AvailIC, ConsumerNeed)
 	changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ConsumerNeed ) )
