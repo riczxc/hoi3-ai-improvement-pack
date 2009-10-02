@@ -297,7 +297,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- Distribute IC --
 
 	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
-	ConsumerNeed = ConsumerNeed + MaxIC * math.min(math.max(dissent/10, 2-MoneyStockFactor) 0.9)
+	ConsumerNeed = ConsumerNeed + MaxIC * math.min(math.max(dissent/10, 2-MoneyStockFactor), 0.9)
 
 	-- not more than AvailIC
 	ConsumerNeed = math.min(AvailIC, ConsumerNeed)
@@ -341,17 +341,13 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
 		AvailIC = AvailIC - ReinforcementNeed
 
-		ProductionNeed = math.min(ProductionNeed, AvailIC)
-		-- Production, keep upto 50% of IC for upgrades if needed
-		--if UpgradeNeed >  0 and (ProductionNeed+UpgradeNeed < AvailIC) then
-			-- keep for upgrades
-			ProductionNeed = math.min(ProductionNeed, AvailIC-math.min(0.5*AvailIC, UpgradeNeed))
-		--end
+		-- distribute same percentage of IC needed to upgrade and production
+		local equalizer = math.min(1, AvailIC/(ProductionNeed+UpgradeNeed))
+		ProductionNeed = equalizer * ProductionNeed
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
 		AvailIC = AvailIC - ProductionNeed
 
-		-- Upgrade (max AvailIC)
-		UpgradeNeed = math.min(UpgradeNeed, AvailIC )
+		UpgradeNeed = equalizer*UpgradeNeed
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
 		AvailIC = AvailIC - UpgradeNeed
 	end
