@@ -21,7 +21,7 @@ end
 -- Trade specific global variables and constants.
 -- Variables will be updated by HFInit_ManageTrade.
 gEconomy = {}
-gEconomy["deal"] = {}
+--~ gEconomy["deal"] = {}
 gEconomy["import"] = {}
 gEconomy["export"] = {}
 gEconomy["stock"] = {}
@@ -87,32 +87,32 @@ function HFInit_ManageTrade(ai, ministerTag)
 	gEconomy["AI"][tostring(ministerTag)] = tostring(ministerTag)
 end
 
-function TradeSpam( goods, BuyerCountry, SellerCountry)
-	if not gEconomy["deal"][goods] then
-		gEconomy["deal"][goods] = {}
-	end
-	if not gEconomy["deal"][goods][BuyerCountry] then
-		gEconomy["deal"][goods][BuyerCountry] = {}
-	end
-	if not gEconomy["deal"][goods][BuyerCountry][SellerCountry] then
-		gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount-30
-	end
-	-- less than 30 days ago?
-	if gEconomy["deal"][goods][BuyerCountry][SellerCountry] > gDayCount-30 then
+--~ function TradeSpam( goods, BuyerCountry, SellerCountry)
+--~ 	if not gEconomy["deal"][goods] then
+--~ 		gEconomy["deal"][goods] = {}
+--~ 	end
+--~ 	if not gEconomy["deal"][goods][BuyerCountry] then
+--~ 		gEconomy["deal"][goods][BuyerCountry] = {}
+--~ 	end
+--~ 	if not gEconomy["deal"][goods][BuyerCountry][SellerCountry] then
+--~ 		gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount-30
+--~ 	end
+--~ 	-- less than 30 days ago?
+--~ 	if gEconomy["deal"][goods][BuyerCountry][SellerCountry] > gDayCount-30 then
 --~ 		Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." tries to SPAM "..tostring(BuyerCountry:GetCountryTag()).." with "
 --~ 			..tostring( GOODS_TO_STRING[goods]).." after only "
 --~ 			..tostring(gDayCount-gEconomy["deal"][goods][BuyerCountry][SellerCountry]).." days!")
-		return true
-	else -- ok
-		return false
-	end
-end
+--~ 		return true
+--~ 	else -- ok
+--~ 		return false
+--~ 	end
+--~ end
 
-function TradeSpamSet(goods, BuyerCountry, SellerCountry)
-	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." trying to sell to "..tostring(BuyerCountry:GetCountryTag()).." some "..tostring( GOODS_TO_STRING[goods]))
-	gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount
-	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": ".."---")
-end
+--~ function TradeSpamSet(goods, BuyerCountry, SellerCountry)
+--~ 	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." trying to sell to "..tostring(BuyerCountry:GetCountryTag()).." some "..tostring( GOODS_TO_STRING[goods]))
+--~ 	gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount
+--~ 	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": ".."---")
+--~ end
 
 function BufferingTrades()
 	--Utils.LUA_DEBUGOUT("->BufferingTrades")
