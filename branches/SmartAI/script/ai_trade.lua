@@ -17,13 +17,16 @@ function ForeignMinister_ManageTrade(ai, ministerTag)
 --~ 	end
 	-- skip first day
 	if gDayCount > 0 and ministerTag:IsReal() and ministerTag:IsValid() and ministerTag:GetCountry():Exists() then
-		--if 'JAP' == tostring(ministerTag) then --math.mod( CCurrentGameState.GetAIRand(), 6) == 0 then
+		--math.mod( CCurrentGameState.GetAIRand(), 6) == 0 then
 		if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 then
+--~ 			if 'USA' == tostring(ministerTag) then
+--~ 				Utils.LUA_DEBUGOUT("ForeignMinister_ManageTrade")
+--~ 			end
 			ProposeTrades(ai, ministerTag)
 			EvalutateExistingTrades(ai, ministerTag)
 		end
 	end
-	
+
 end
 
 function EvalutateExistingTrades(ai, AliceTag)
@@ -181,7 +184,7 @@ function Selling(country, goods)
 		if IsPoor(country) then
 			-- IC (1-50)
 			return math.min(50, math.max(1, country:GetTotalIC()/4))
-		else			
+		else
 			return 0
 		end
 	end
@@ -246,7 +249,7 @@ function ProposeTrades(ai, AliceTag)
 	if '---' == AliceTag or AliceCountry:GetTransports() == 0 then
 		return
 	end
-	
+
 	local best = {}
 	local bestSupply = {}
 	best["score"] = -10000
@@ -272,7 +275,7 @@ function ProposeTrades(ai, AliceTag)
 				-- lets check every possible trading partner
 				for BobCountry in CCurrentGameState.GetCountries() do
 					-- 50:50 to spread trades across more countries
-					if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
+					--if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
 						-- not same country, BobBalance>minTrade, BobStock>min
 						if	tostring(BobCountry:GetCountryTag()) ~= tostring(AliceTag) then
 							local BobSells = Selling(BobCountry, goods)
@@ -289,7 +292,7 @@ function ProposeTrades(ai, AliceTag)
 								end
 							end
 						end
-					end
+					--end
 				end
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- DONE BUYING --- "..tostring(GOODS_TO_STRING[goods]))
 			end -- otherwise not top stock but pos. balance so no action needed
@@ -298,12 +301,18 @@ function ProposeTrades(ai, AliceTag)
 
 	-- do supplies before anything else
 	if  bestSupply["action"] then
+--~ 		if 'USA' == tostring(ministerTag) then
+--~ 			Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying supplies, score: "..tostring(bestSupply["score"]))
+--~ 		end
 		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying supplies, score: "..tostring(bestSupply["score"]))
-		TradeSpamSet(bestSupply["goods"], bestSupply["buyer"], bestSupply["seller"])
+--~ 		TradeSpamSet(bestSupply["goods"], bestSupply["buyer"], bestSupply["seller"])
 		ai:PostAction( bestSupply["action"] )
 	elseif  best["action"] then
+--~ 		if 'USA' == tostring(ministerTag) then
+--~ 			Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying something, score: "..tostring(best["score"]))
+--~ 		end
 		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying something, score: "..tostring(best["score"]))
-		TradeSpamSet(best["goods"], best["buyer"], best["seller"])
+--~ 		TradeSpamSet(best["goods"], best["buyer"], best["seller"])
 		ai:PostAction( best["action"] )
 	end
 end
@@ -328,18 +337,20 @@ function ProposeTradeCalc(ai, goods, requested, BobSells, BuyerCountry, SellerCo
 			local score = requested/math.min(50, 1.1*BobSells)
 			-- 100 to 0
 			local chance = TradeAction:GetAIAcceptance() - ai:GetSpamPenalty(SellerTag) --DiploScore_OfferTrade(ai, BuyerTag, SellerTag, nil, TradeAction)
-			score = score*chance
+			score = score*chance*(0.9+math.mod( CCurrentGameState.GetAIRand(), 21)/20)
 			-- save score if 50% chance and better than previous score
 			if	chance > 50 and
 				score > best["score"] --(not ai:AlreadyTradingResourceOtherWay( TradeAction:GetRoute()))
 			then
-				if not TradeSpam( goods, BuyerCountry, SellerCountry) then
-					best["score"] = score
-					best["action"] = TradeAction
-					best["seller"] = SellerCountry
-					best["buyer"] = BuyerCountry
-					best["goods"] = goods
-				end
+				best["score"] = score
+				best["action"] = TradeAction
+				best["seller"] = SellerCountry
+				best["buyer"] = BuyerCountry
+				best["goods"] = goods
+--~ 				if 'USA' == tostring(SellerTag) or 'USA' == tostring(BuyerTag) then
+--~ 					Utils.LUA_DEBUGOUT(tostring( SellerTag ).."2"..tostring( BuyerTag )
+--~ 						.." proposing "..tostring(requested).." of "..tostring(GOODS_TO_STRING[goods]).." scoring: "..tostring(score))
+--~ 				end
 			end
 		end
 	end
@@ -363,7 +374,7 @@ end
 
 function ExistsExport(AliceTag, goods)
 	if goods ~= CGoodsPool._MONEY_ and gEconomy["export"][goods] and gEconomy["export"][goods][tostring(AliceTag)] then
-		-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(AliceTag)]))		
+		-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(AliceTag)]))
 		-- for BobTag, Export in pairs(gEconomy["export"][goods][tostring(AliceTag)]) do
 			-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(Export).." "..tostring(GOODS_TO_STRING[goods]).." to "..tostring(BobTag))
 		-- end
@@ -556,7 +567,7 @@ function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
 		return 0
 	end
 
-	if SellerDemand > 0 and  BuyerDemand > 0 then	
+	if SellerDemand > 0 and  BuyerDemand > 0 then
 		-- buyer satisfaction 2 to 0
 		local buyerScore = 1.8*(math.min(50, Amount)/math.min(50, BuyerDemand)) + 0.2*(1-math.min(1, BuyerStock/90000))
 		-- seller satisfaction 2 to 0
