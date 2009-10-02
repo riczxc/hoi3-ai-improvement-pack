@@ -37,7 +37,7 @@ TRADING_THRESHOLD = 0.4
 function HFInit_ManageTrade(ai, ministerTag)
 	-- Update gEconomy["stock"] once a day for all countries
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
-	if tostring(ministerTag) == '---' then -- Always first country called a day	
+	if tostring(ministerTag) == '---' then -- Always first country called a day
 		gDayCount = gDayCount + 1
 		--Utils.LUA_DEBUGOUT("--> Day " .. tostring(gDayCount))
 		-- save today's trades
@@ -94,14 +94,14 @@ function TradeSpam( goods, BuyerCountry, SellerCountry)
 	if not gEconomy["deal"][goods][BuyerCountry] then
 		gEconomy["deal"][goods][BuyerCountry] = {}
 	end
-	if not gEconomy["deal"][goods][BuyerCountry][SellerCountry] then		
+	if not gEconomy["deal"][goods][BuyerCountry][SellerCountry] then
 		gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount-30
 	end
 	-- less than 30 days ago?
 	if gEconomy["deal"][goods][BuyerCountry][SellerCountry] > gDayCount-30 then
-		Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." tries to SPAM "..tostring(BuyerCountry:GetCountryTag()).." with "
-			..tostring( GOODS_TO_STRING[goods]).." after only "
-			..tostring(gDayCount-gEconomy["deal"][goods][BuyerCountry][SellerCountry]).." days!")
+--~ 		Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." tries to SPAM "..tostring(BuyerCountry:GetCountryTag()).." with "
+--~ 			..tostring( GOODS_TO_STRING[goods]).." after only "
+--~ 			..tostring(gDayCount-gEconomy["deal"][goods][BuyerCountry][SellerCountry]).." days!")
 		return true
 	else -- ok
 		return false
@@ -109,9 +109,9 @@ function TradeSpam( goods, BuyerCountry, SellerCountry)
 end
 
 function TradeSpamSet(goods, BuyerCountry, SellerCountry)
-	Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." trying to sell to "..tostring(BuyerCountry:GetCountryTag()).." some "..tostring( GOODS_TO_STRING[goods]))
+	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." trying to sell to "..tostring(BuyerCountry:GetCountryTag()).." some "..tostring( GOODS_TO_STRING[goods]))
 	gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount
-	Utils.LUA_DEBUGOUT(tostring(gDayCount)..": ".."---")
+	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": ".."---")
 end
 
 function BufferingTrades()
@@ -130,13 +130,13 @@ function BufferingTrades()
 			local BobTag = BobCountry:GetCountryTag()
 			--if tostring(BobTag) ~= tostring(AliceTag) then
 				for route in AliceCountry:GetRelation( BobTag ):GetTradeRoutes() do
-					if route:IsValid() then				
+					if route:IsValid() then
 						for goods = 0, MAX_GOODS do
 							if goods ~= CGoodsPool._MONEY_ then
 								local switch = false
 								local Bob2Alice = route:GetTradedToOf(goods):Get()
 								--local Alice2Bob = route:GetTradedFromOf(goods):Get()
-								if  0~=Bob2Alice then								
+								if  0~=Bob2Alice then
 									-- direction?
 									if tostring(route:GetConvoyResponsible()) == tostring(BobTag) and Bob2Alice>0 then
 										--Utils.LUA_DEBUGOUT("Switch (1)")
@@ -154,7 +154,7 @@ function BufferingTrades()
 									-- else
 										--Utils.LUA_DEBUGOUT(tostring(BobTag).." 2 "..tostring(AliceTag).." (2) "..tostring(Bob2Alice).." "..tostring( GOODS_TO_STRING[goods]))
 									end
-									
+
 									-- if Bob2Alice > 0 then
 										-- AliceTag, BobTag = BobTag, AliceTag
 									-- end
@@ -167,7 +167,7 @@ function BufferingTrades()
 									end
 									if nil == gEconomy["import"][goods][tostring(AliceTag)] then
 										gEconomy["import"][goods][tostring(AliceTag)] = {}
-									end									
+									end
 									gEconomy["export"][goods][tostring(BobTag)][tostring(AliceTag)]= Bob2Alice
 									gEconomy["import"][goods][tostring(AliceTag)][tostring(BobTag)] = Bob2Alice
 									-- reverse switch
