@@ -337,7 +337,7 @@ function ProposeTradeCalc(ai, goods, requested, BobSells, BuyerCountry, SellerCo
 			local score = requested/math.min(50, 1.1*BobSells)
 			-- 100 to 0
 			local chance = TradeAction:GetAIAcceptance() - ai:GetSpamPenalty(SellerTag) --DiploScore_OfferTrade(ai, BuyerTag, SellerTag, nil, TradeAction)
-			score = score*chance*(0.9+math.mod( CCurrentGameState.GetAIRand(), 21)/20)
+			score = score*chance*(0.9+math.mod( CCurrentGameState.GetAIRand(), 21)/10)
 			-- save score if 50% chance and better than previous score
 			if	chance > 50 and
 				score > best["score"] --(not ai:AlreadyTradingResourceOtherWay( TradeAction:GetRoute()))
