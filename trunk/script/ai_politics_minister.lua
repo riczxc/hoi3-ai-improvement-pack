@@ -1,12 +1,25 @@
-
+require('utils')
 require('ai_diplomacy')
+require('helper_functions')
 
 function PoliticsMinister_Tick(minister)
-	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.POLITICS_DELAY) > 0 then
+	--Utils.LUA_DEBUGOUT("PoliticsMinister_Tick")
+	local ministerCountry = minister:GetCountry()
+	if not IsValidCountry(ministerCountry) then
+		--Utils.LUA_DEBUGOUT("PoliticsMinister_TickEnd")
 		return
 	end
-	
-	local ministerCountry = minister:GetCountry()
+
+	local politicsDelay = 7
+	if ai_configuration ~= nil and ai_configuration.POLITICS_DELAY ~= nil then
+		politicsDelay = ai_configuration.POLITICS_DELAY
+	end
+
+	if math.mod( CCurrentGameState.GetAIRand(), politicsDelay) > 0 then
+		--Utils.LUA_DEBUGOUT("PoliticsMinister_TickEnd")
+		return
+	end
+
 	local ministerTag = minister:GetCountryTag()
 	local ai = minister:GetOwnerAI()
 
@@ -24,6 +37,7 @@ function PoliticsMinister_Tick(minister)
 			end
 		end
 	end
+	--Utils.LUA_DEBUGOUT("PoliticsMinister_TickEnd")
 end
 
 function HandleMobilization( minister )
@@ -48,7 +62,7 @@ function HandleMobilization( minister )
 		end
 	elseif not ministerCountry:IsMobilized() then
 		local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleMobilization' )
-		
+
 		if countrySpecific == nil then
 			-- check if a neighbor is starting to look threatening
 			local ourTotalIC = ministerCountry:GetTotalIC()
@@ -58,11 +72,11 @@ function HandleMobilization( minister )
 				neutrality = neutrality - threat
 				if neutrality  < 10 then
 					threat = threat * CalculateAlignmentFactor(ai, ministerCountry, neighborCountry:GetCountry())
-					
+
 					if ourTotalIC > 50 and neighborCountry:GetCountry():GetTotalIC() < ministerCountry:GetTotalIC() then
 						threat = threat / 2 -- we can handle them if they descide to attack anyway
 					end
-					
+
 					if  threat > 30 then
 						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighborCountry) )
 						local warDesirability = CalculateWarDesirability( ai, neighborCountry:GetCountry(), ministerTag )
@@ -91,22 +105,64 @@ function HandleLaws(minister)
 	else
 		-- see if we can get a better law
 		for group in CLawDataBase.GetGroups() do
-			if not (tostring(group:GetKey()) == 'education_investment_law' or tostring(group:GetKey()) == 'training_laws') then
-				local newLaw = nil
-				local currentLaw = ministerCountry:GetLaw( group )
-				local index = currentLaw:GetIndex() + 1
-				if index < CLawDataBase.GetNumberOfLaws() then
-					newLaw = CLawDataBase.GetLaw( index )
-					if not (group:GetIndex() == newLaw:GetGroup():GetIndex()) then 
-						newLaw = nil
+			local currentLaw = ministerCountry:GetLaw( group )
+			local newLaw = nil
+
+			if tostring(group:GetKey()) == 'industrial_policy_laws' then
+				if not ministerCountry:IsAtWar() then
+					-- Aim for mixed_industry
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
+					if not newLaw:ValidFor( ministerTag ) then
+						-- Aim for consumer_product_orientation
+						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
 					end
 				end
-				if newLaw and newLaw:ValidFor( ministerTag ) then
-					--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " - NEW LAW " .. tostring( newLaw:GetKey() ) .. " from - " .. tostring(group:GetKey()) )
-					local command = CChangeLawCommand( ministerTag, newLaw, group )
-					ai:Post( command )
+			elseif tostring(group:GetKey()) == 'education_investment_law' then
+				-- Make decision based on money production
+				local desire = GetDesireInGoods(ministerCountry, CGoodsPool._MONEY_)
+				local index = GetLawIndexByName('medium_large_education_investment')
+				if IsRich(ministerCountry) then
+					index = GetLawIndexByName('big_education_investment')
+				elseif IsPoor(ministerCountry) then
+					index = GetLawIndexByName('average_education_investment')
 				end
-			end		
+				newLaw = CLawDataBase.GetLaw(index)
+			elseif tostring(group:GetKey()) == 'training_laws' then
+				-- Make decision based on manpower
+				-- If we've alot reduce recruiting time to spam infantry
+				-- If we're short increase recruiting time to save manpower
+				local manpower = ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()
+				local index = GetLawIndexByName('specialist_training')
+				if manpower > 3 then
+					index = GetLawIndexByName('minimal_training')
+				elseif manpower > 2 then
+					index = GetLawIndexByName('basic_training')
+				elseif manpower > 1 then
+					index = GetLawIndexByName('advanced_training')
+				end
+				newLaw = CLawDataBase.GetLaw(index)
+			end
+
+			if newLaw == nil then
+				local index = currentLaw:GetIndex() + 1
+				while index < CLawDataBase.GetNumberOfLaws() do
+					local tmpLaw = CLawDataBase.GetLaw( index )
+					if not (group:GetIndex() == tmpLaw:GetGroup():GetIndex()) then
+						break
+					end
+					if not tmpLaw:ValidFor( ministerTag ) then
+						break
+					end
+					newLaw = tmpLaw
+					index = index + 1
+				end
+			end
+
+			if newLaw and newLaw:ValidFor( ministerTag ) and not (newLaw:GetIndex() == currentLaw:GetIndex()) then
+				--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " - NEW LAW " .. tostring( newLaw:GetKey() ) .. " from - " .. tostring(group:GetKey()) )
+				local command = CChangeLawCommand( ministerTag, newLaw, group )
+				ai:Post( command )
+			end
 		end
 	end
 end
@@ -116,9 +172,9 @@ function HandlePuppets(minister)
 	local ministerCountry = minister:GetCountry()
 	local ministerTag = minister:GetCountryTag()
 	local ai = minister:GetOwnerAI()
-	
+
 	if ministerCountry:CanCreatePuppet() then
 		Utils.CallCountryAI( ministerTag, 'HandlePuppets', minister )
 	end
-	
+
 end
