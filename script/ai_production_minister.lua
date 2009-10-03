@@ -429,6 +429,7 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 	if ministerCountry:GetNumOfPorts() > 0 then
 		-- 10%
 		local buffer = 0.1
+		local minTransportNeed = ministerCountry:GetTotalIC() / 10
 
 		if ministerCountry:GetStrategy():IsPreparingWar() then
 			-- add 10%
@@ -447,7 +448,7 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 		end
 
 		local freeTransports = (minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports())/defines.economy.CONVOY_CONSTRUCTION_SIZE
-		local neededTransports = math.max(math.ceil(ministerCountry:GetTotalNeededTransports()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE), 1)
+		local neededTransports = math.max(math.ceil(ministerCountry:GetTotalNeededTransports()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE), minTransportNeed)
 
 		local cost = ministerCountry:GetConvoyBuildCost():Get()
 		local transportCommand = CConstructConvoyCommand( ministerTag, false, 1 )
