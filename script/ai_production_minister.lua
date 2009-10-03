@@ -116,7 +116,7 @@ function ProductionMinister_Tick(minister)
 					and AvailIC > 0 then
 						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, infra, infraCost, provinceId)
 					end
-					
+
 					if 1==chance and ministerCountry:IsBuildingAllowed(radarStation, province) and
 					( province:HasBuilding( antiAir ) or province:HasBuilding( costalFort ) or province:HasBuilding( navalBase ) or
 						province:HasBuilding( landFort ) or province:HasBuilding( airBase )) and not province:HasBuilding( radarStation )
@@ -256,7 +256,7 @@ function BuildImprovement(ai, AvailIC, ministerTag, improvement, improvementCost
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built " .. tostring(improvement) .. " for " .. tostring(improvementCost).."$ at "..tostring(provinceId))
 		--Utils.LUA_DEBUGOUT("E")
 	end
-	---Utils.LUA_DEBUGOUT("F")
+	--Utils.LUA_DEBUGOUT("F")
 	return AvailIC
 end
 
@@ -277,10 +277,10 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	local ConsumerNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() --/ TotalIC
 
 	-- MONEY
-	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/math.min(MaxIC*ai_configuration.MINIMUM_MONEY_STOCKPILE,45000)
+	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/ministerCountry:GetTotalIC()
 
 	-- SUPPLY
-	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(MaxIC*ai_configuration.MINIMUM_SUPPLY_STOCKPILE,45000)
+	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/(10*ministerCountry:GetTotalIC())
 	-- 100% supply prod. at 0 stock, 50% at 1/2 goal stock and 0% at goal stock
 	local SupplyNeed = MaxIC*(1-math.min(1, SupplyStockFactor ))
 
@@ -296,14 +296,9 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 
 	-- Distribute IC --
 
-	-- dissent?
-	if dissent > 0.001 then
-		-- set needed plus dissent boost
-		ConsumerNeed = ConsumerNeed + MaxIC*math.min(dissent/10, 1.0)
-	else
-		-- set needed to get to goal up/down but never less than need (dissent!)
-		ConsumerNeed = math.max(ConsumerNeed, MaxIC*( 1-math.min( 1, MoneyStockFactor)))
-	end
+	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
+	ConsumerNeed = ConsumerNeed + MaxIC * math.min(math.max(dissent/10, 1-MoneyStockFactor), 0.9)
+
 	-- not more than AvailIC
 	ConsumerNeed = math.min(AvailIC, ConsumerNeed)
 	changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ConsumerNeed ) )
@@ -346,17 +341,13 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
 		AvailIC = AvailIC - ReinforcementNeed
 
-		ProductionNeed = math.min(ProductionNeed, AvailIC)
-		-- Production, keep 5% of IC for upgrades if needed
-		if UpgradeNeed >  (AvailIC * 0.05) and (ProductionNeed >= AvailIC) then
-			-- keep 5% for upgrades
-			ProductionNeed = AvailIC*0.95
-		end
+		-- distribute same percentage of IC needed to upgrade and production
+		local equalizer = math.min(1, AvailIC/(ProductionNeed+UpgradeNeed))
+		ProductionNeed = equalizer * ProductionNeed
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
 		AvailIC = AvailIC - ProductionNeed
 
-		-- Upgrade (max AvailIC)
-		UpgradeNeed = math.min(UpgradeNeed, AvailIC )
+		UpgradeNeed = equalizer*UpgradeNeed
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
 		AvailIC = AvailIC - UpgradeNeed
 	end
@@ -421,7 +412,7 @@ function ChanceSupportBrigade(ministerCountry, bBuildReserve, orderlist, AvailIC
 		SubUnitList.Append( orderlist, anti_tank )
 		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( anti_tank, 1, bBuildReserve ):Get()
 		-- Utils.LUA_DEBUGOUT( tostring(anti_tank:GetKey()) )
-	elseif 5==rem  and ministerCountry:GetTechnologyStatus():IsUnitAvailable(anti_air) then
+	elseif 4==rem  and ministerCountry:GetTechnologyStatus():IsUnitAvailable(anti_air) then
 		SubUnitList.Append( orderlist, anti_air )
 		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( anti_air, 1, bBuildReserve ):Get()
 		-- Utils.LUA_DEBUGOUT( tostring(anti_air:GetKey()) )
