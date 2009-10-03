@@ -26,7 +26,6 @@ function ProductionMinister_Tick(minister)
 
 	-- ai list of requests, in prio order
 	local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
-	local bBuildReserve = bShouldBuildReserve
 	local requestQueue = ai:GetReqProdQueue()
 	while (not requestQueue:IsEmpty()) and AvailIC > 0.0 do
 		----------------------------------- Random for Tail or Head Data
@@ -37,7 +36,8 @@ function ProductionMinister_Tick(minister)
 		else
 			unit = requestQueue:GetHeadData().pUnit
 		end
-		bBuildReserve = bShouldBuildReserve
+
+		local bBuildReserve = bShouldBuildReserve
 		if not unit:IsRegiment() then
 			--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
 			bBuildReserve = false
@@ -80,7 +80,7 @@ function ProductionMinister_Tick(minister)
 
 	-- any requests by strategic ai
 	for subunit in CSubUnitDataBase.GetSubUnitList() do
-		bBuildReserve = bShouldBuildReserve
+		local bBuildReserve = bShouldBuildReserve
 		if not subunit:IsRegiment() then
 			--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
 			bBuildReserve = false
@@ -420,7 +420,7 @@ end
 
 function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
 	--Utils.LUA_DEBUGOUT( "ENTER Build division function")
-	local prod_ratio = {}	
+	local prod_ratio = {}
 
 	--Utils.LUA_DEBUGOUT( "Start Load production function")
 	-- Load country's division templates
