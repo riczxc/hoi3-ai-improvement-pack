@@ -385,7 +385,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int||_MODIFIER_LOCAL_MANPOWER_||
 ||int||_MODIFIER_GLOBAL_REVOLT_RISK_||
 
-==SpyMission== = {
+==SpyMission==
 ||SPYMISSION_COUNTER_ESPIONAGE,||
 ||SPYMISSION_LOWER_NATIONAL_UNITY,||
 ||SPYMISSION_MILITARY,||
@@ -394,7 +394,6 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||SPYMISSION_DISRUPT_PRODUCTION,||
 ||SPYMISSION_DISRUPT_RESEARCH,||
 ||??? is this list complete ???||
-}
 
 ==CSpyPresence==
 ||int ||MAX_SPY_LEVEL||
