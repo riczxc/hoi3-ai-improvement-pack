@@ -234,6 +234,10 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||void ||RemoveTail()||
 ||CSubUnitConstructionEntry GetTailData()||
 
+==CSubUnitConstructionEntry==
+||int||nPrio||
+||CSubUnitDefinition||pUnit||
+
 ==CTechnologyDataBase==
 ||??? ||GetCategories||
 ||List`<CTechnology>` ||GetTechnologies()||
@@ -591,9 +595,6 @@ COfferMilitaryAccessAction==
 {{{||GetBombingImpact||
 ||GetAlliesImpact||
 ||GetConvoyImpact}}}||
-==CSubUnitConstructionEntry==
-||nPrio||
-||pUnit||
 ==CUnitList==
 ||GetTotalStrength||
 ==CSimpleRandom==
