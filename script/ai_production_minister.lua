@@ -30,7 +30,7 @@ function ProductionMinister_Tick(minister)
 	local requestQueue = ai:GetReqProdQueue()
 	while (not requestQueue:IsEmpty()) and AvailIC > 0.0 do
 		----------------------------------- Random for Tail or Head Data
-		local ranNumber = math.random(1,2)
+		local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 2)+1
 		local unit = 1
 		if ranNumber == 1 then
 			unit = requestQueue:GetTailData().pUnit
