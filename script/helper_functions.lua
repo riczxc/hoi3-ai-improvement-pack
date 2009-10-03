@@ -4,6 +4,31 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 -- START Common helper functions
 -------------------------------------------------------------------------------
 
+function IsValidCountry(country)
+	local countryTag = country:GetCountryTag()
+	return countryTag:IsReal() and countryTag:IsValid() and country:Exists()
+end
+
+function GetAverageInfrastructure(country)
+	if IsValidCountry(country) then
+		local provinceCount = 0
+		local infrastructure = 0
+		for provinceId in country:GetOwnedProvinces() do
+			local province = CCurrentGameState.GetProvince(provinceId)
+			infrastructure = infrastructure + province:GetInfrastructure():Get()
+			provinceCount = provinceCount + 1
+		end
+
+		if provinceCount > 0 then
+			return infrastructure / provinceCount
+		else
+			return 0
+		end
+	else
+		return 1
+	end
+end
+
 -- Modulo function with the property, that the remainder of a division z / d
 -- and z < 0 is positive. For example: zmod(-2, 30) = 28.
 function Zmod(z, d)
@@ -378,4 +403,37 @@ end
 
 -------------------------------------------------------------------------------
 -- END Trade specific functions
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+-- START Politics specific functions
+-------------------------------------------------------------------------------
+
+gPolitics = {}
+gPolitics["law_tables"] = {}
+gPoliticsInitialized = false
+
+function HFInit_Politics()
+	if gPoliticsInitialized then
+		return
+	end
+
+	for law in CLawDataBase.GetLawList() do
+		gPolitics["law_tables"][tostring(law:GetKey())] = law:GetIndex()
+	end
+
+	gPoliticsInitialized = true
+end
+
+function GetLawIndexByName(name)
+	HFInit_Politics() -- Make sure gPolitics["law_tables"] is set up properly
+	if gPolitics["law_tables"][name] then
+		return gPolitics["law_tables"][name]
+	else
+		return 0 -- Index for no law
+	end
+end
+
+-------------------------------------------------------------------------------
+-- END Politics specific functions
 -------------------------------------------------------------------------------
