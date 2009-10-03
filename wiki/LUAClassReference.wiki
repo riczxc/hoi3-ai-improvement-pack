@@ -117,8 +117,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int ||GetProvinceID()||
 ||List`<???>`||GetUnits()||
 ||??? ||GetContinent()||
-||CFixedPoint ||GetInfrastructure()||
-||???||GetMaxInfrastructure||
+||CFixedPoint||GetInfrastructure()||
+||CFixedPoint||GetMaxInfrastructure()||
 ||bool ||HasBuilding(CBuilding building)||
 ||bool ||IsFrontProvince(bool ???)||
 ||???||HasAdjacentEnemyOrCB||
