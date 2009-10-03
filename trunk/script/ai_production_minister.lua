@@ -49,16 +49,10 @@ function ProductionMinister_Tick(minister)
 			local orderlist = SubUnitList()
 			local unitName = tostring(unit:GetKey())
 
-			if unitName == "infantry_brigade" or unitName == "bergsjaeger_brigade" or unitName == "marine_brigade"
-			or unitName == "paratrooper_brigade" or unitName == "cavalry_brigade" or unitName == "garrison_brigade"
-			or unitName == "militia_brigade" or unitName == "light_armor_brigade" or unitName == "armor_brigade"
-			or unitName == "motorized_brigade" or unitName == "mechanized_brigade" then
+			if unit:IsRegiment() then
 				--Utils.LUA_DEBUGOUT( "Brigade unit")
 				orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
-			elseif unitName == "battlecruiser" or unitName == "battleship" or unitName == "carrier"
-			or unitName == "destroyer" or unitName == "escort_carrier" or unitName == "heavy_cruiser"
-			or unitName == "light_cruiser" or unitName == "nuclear_submarine" or unitName == "submarine"
-			or unitName == "super_heavy_battleship" or unitName == "transport_ship" then
+			elseif unit:IsShip() then
 				--Utils.LUA_DEBUGOUT( "Naval unit")
 				orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
 			elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
