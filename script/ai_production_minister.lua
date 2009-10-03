@@ -420,35 +420,7 @@ end
 
 function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
 	--Utils.LUA_DEBUGOUT( "ENTER Build division function")
-	local prod_ratio = {}
-	local type_template = 'infantry_template'
-
-	--Utils.LUA_DEBUGOUT( unit_name )
-	--infantry
-	if unit_name == "infantry_brigade" then
-		type_template = 'infantry_template'
-	elseif unit_name == "bergsjaeger_brigade" then
-		type_template = 'mountain_template'
-	elseif unit_name == "marine_brigade" then
-		type_template = 'marine_template'
-	elseif unit_name == "militia_brigade" then
-		type_template = 'militia_template'
-	elseif unit_name == "garrison_brigade" then
-		type_template = 'garrison_template'
-	elseif unit_name == "cavalry_brigade" then
-		type_template = 'cavalry_template'
-	elseif unit_name == "paratrooper_brigade" then
-		type_template = 'paratrooper_template'
-	--armor/motorized
-	elseif unit_name == "light_armor_brigade" then
-		type_template = 'light_armor_template'
-	elseif unit_name == "armor_brigade" then
-		type_template = 'armor_template'
-	elseif unit_name == "motorized_brigade" then
-		type_template = 'motorized_template'
-	elseif unit_name == "mechanized_brigade" then
-		type_template = 'mechanized_template'
-	end
+	local prod_ratio = {}	
 
 	--Utils.LUA_DEBUGOUT( "Start Load production function")
 	-- Load country's division templates
@@ -461,16 +433,16 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	local rem = math.mod( CCurrentGameState.GetAIRand(), 100)
 
 	-- Determine which template AI will builds
-	while prod_ratio[type_template][i] and template_number == 0 do
-		pourcent = pourcent - prod_ratio[type_template][i][1]
-		--Utils.LUA_DEBUGOUT(prod_ratio[type_template][i][1])
+	while prod_ratio[unit_name][i] and template_number == 0 do
+		pourcent = pourcent - prod_ratio[unit_name][i][1]
+		--Utils.LUA_DEBUGOUT(prod_ratio[unit_name][i][1])
 		if rem >= pourcent then
 			--Utils.LUA_DEBUGOUT( "Find")
 			template_number = i
 			j = 2
 			-- Check every brigades in the template, if they are available
-			while prod_ratio[type_template][template_number][j] do
-				if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[type_template][template_number][j]) == false then
+			while prod_ratio[unit_name][template_number][j] do
+				if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[unit_name][template_number][j]) == false then
 					--Utils.LUA_DEBUGOUT( "Not available")
 					template_number = 1		-- If not, build the first template
 				end
@@ -482,10 +454,10 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	if template_number ~= 0 then
 		j = 2
 		-- Start to build all brigades of the template
-		while prod_ratio[type_template][template_number][j] do
-			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[type_template][template_number][j]) then
-				SubUnitList.Append( orderlist, prod_ratio[type_template][template_number][j] )
-				AvailIC = AvailIC - ministerCountry:GetBuildCostIC( prod_ratio[type_template][template_number][j], 1, bBuildReserve ):Get()
+		while prod_ratio[unit_name][template_number][j] do
+			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[unit_name][template_number][j]) then
+				SubUnitList.Append( orderlist, prod_ratio[unit_name][template_number][j] )
+				AvailIC = AvailIC - ministerCountry:GetBuildCostIC( prod_ratio[unit_name][template_number][j], 1, bBuildReserve ):Get()
 			end
 			j = j + 1
 		end
