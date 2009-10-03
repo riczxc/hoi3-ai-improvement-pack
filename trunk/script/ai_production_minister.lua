@@ -14,14 +14,13 @@ function ProductionMinister_Tick(minister)
 	local capitalProvId =  ministerCountry:GetActingCapitalLocation():GetProvinceID()
 	local StartIC = AvailIC
 	local TotalIC = ministerCountry:GetTotalIC()
-	local unit_name
 	-----------------------------------
 	-- Variable to use or not Darkzodiak's Division System and Unit Restrictions
 	local useDivisionSystem = 1
 	-----------------------------------
-	
+
 	--Utils.LUA_DEBUGOUT( tostring(minister:GetCountryTag()) )
-	
+
 	-- we need convoys at all?
 	AvailIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 
@@ -42,7 +41,7 @@ function ProductionMinister_Tick(minister)
 		else
 			unit = requestQueue:GetHeadData().pUnit
 		end
-		bBuildReserve = bShouldBuildReserve		
+		bBuildReserve = bShouldBuildReserve
 		if not unit:IsRegiment() then
 			--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
 			bBuildReserve = false
@@ -51,40 +50,40 @@ function ProductionMinister_Tick(minister)
 		local cost = ministerCountry:GetBuildCostIC( unit, 1, bBuildReserve ):Get()
 		-- only build sensible stuff
 		if cost < TotalIC then
-			local orderlist = SubUnitList()			
-			unit_name = tostring(unit:GetKey())
+			local orderlist = SubUnitList()
+			local unitName = tostring(unit:GetKey())
 			---------------------------------------------------------------
 			-- If we are using division system
-			if useDivisionSystem > 0 then			
-				if unit_name == "infantry_brigade" or unit_name == "bergsjaeger_brigade" or unit_name == "marine_brigade"
-				or unit_name == "paratrooper_brigade" or unit_name == "cavalry_brigade" or unit_name == "garrison_brigade"
-				or unit_name == "militia_brigade" or unit_name == "light_armor_brigade" or unit_name == "armor_brigade"
-				or unit_name == "motorized_brigade" or unit_name == "mechanized_brigade" then
+			if useDivisionSystem > 0 then
+				if unitName == "infantry_brigade" or unitName == "bergsjaeger_brigade" or unitName == "marine_brigade"
+				or unitName == "paratrooper_brigade" or unitName == "cavalry_brigade" or unitName == "garrison_brigade"
+				or unitName == "militia_brigade" or unitName == "light_armor_brigade" or unitName == "armor_brigade"
+				or unitName == "motorized_brigade" or unitName == "mechanized_brigade" then
 					--Utils.LUA_DEBUGOUT( "Brigade unit")
-					orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
-				elseif unit_name == "battlecruiser" or unit_name == "battleship" or unit_name == "carrier"
-				or unit_name == "destroyer" or unit_name == "escort_carrier" or unit_name == "heavy_cruiser"
-				or unit_name == "light_cruiser" or unit_name == "nuclear_submarine" or unit_name == "submarine"
-				or unit_name == "super_heavy_battleship" or unit_name == "transport_ship" then
+					orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+				elseif unitName == "battlecruiser" or unitName == "battleship" or unitName == "carrier"
+				or unitName == "destroyer" or unitName == "escort_carrier" or unitName == "heavy_cruiser"
+				or unitName == "light_cruiser" or unitName == "nuclear_submarine" or unitName == "submarine"
+				or unitName == "super_heavy_battleship" or unitName == "transport_ship" then
 					--Utils.LUA_DEBUGOUT( "Naval unit")
-					orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
-				elseif unit_name == "cag" or unit_name == "cas" or unit_name == "flying_bomb"
-				or unit_name == "flying_rocket" or unit_name == "interceptor" or unit_name == "multi_role"
-				or unit_name == "naval_bomber" or unit_name == "rocket_interceptor" or unit_name == "strategic_bomber"
-				or unit_name == "tactical_bomber" or unit_name == "transport_plane" then
+					orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+				elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
+				or unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role"
+				or unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber"
+				or unitName == "tactical_bomber" or unitName == "transport_plane" then
 					--Utils.LUA_DEBUGOUT( "Air Unit")
-					orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
+					orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
 				else
 					AvailIC = AvailIC - cost
 					SubUnitList.Append( orderlist, unit )
-				end			
+				end
 			---------------------------------------------------------------
 			else
-				if unit_name == "infantry_brigade" and math.mod( CCurrentGameState.GetAIRand(), 3)>1 then
+				if unitName == "infantry_brigade" and math.mod( CCurrentGameState.GetAIRand(), 3)>1 then
 					-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " messing with queue " .. tostring(unit:GetKey()) .. " changed to")
 					orderlist, AvailIC = ChanceSupportBrigade(ministerCountry, bBuildReserve, orderlist, AvailIC)
 				-- if ENG tries to build transport del it in 9 out of 10
-				elseif unit_name == "transport_ship" and 'ENG' == tostring(ministerTag) and 0~=math.mod( CCurrentGameState.GetAIRand(), 10) then
+				elseif unitName == "transport_ship" and 'ENG' == tostring(ministerTag) and 0~=math.mod( CCurrentGameState.GetAIRand(), 10) then
 					--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " failed to build " .. tostring(unit:GetKey()))
 				else
 					AvailIC = AvailIC - cost
@@ -103,10 +102,10 @@ function ProductionMinister_Tick(minister)
 		end
 		-----------------------------------
 	end
-	
+
 	-- any requests by strategic ai
 	for subunit in CSubUnitDataBase.GetSubUnitList() do
-		bBuildReserve = bShouldBuildReserve		
+		bBuildReserve = bShouldBuildReserve
 		if not subunit:IsRegiment() then
 			--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
 			bBuildReserve = false
@@ -122,7 +121,7 @@ function ProductionMinister_Tick(minister)
 			-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built (S) " .. tostring(subunit:GetKey()))
 		end
 	end
-	
+
 	-- got AvailIC left not built something yet?
 	if AvailIC > 0 then
 		-- 50% building or inf
@@ -238,15 +237,15 @@ function ProductionMinister_Tick(minister)
 				if useDivisionSystem > 0 then
 					if ministerCountry:GetTechnologyStatus():IsUnitAvailable(infantry) then
 						-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built inf div with... ")
-						unit_name = "infantry_brigade"
-						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unit_name)
+						local unitName = "infantry_brigade"
+						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
 					else
-						unit_name = "militia_brigade"
-						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unit_name)
+						local unitName = "militia_brigade"
+						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
 						--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built mil ")
-					end				
+					end
 				---------------------------------------------------------------
-				else	
+				else
 					if ministerCountry:GetTechnologyStatus():IsUnitAvailable(infantry) then
 						-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built inf div with... ")
 						orderlist, AvailIC = InfantryDivision(ministerCountry, bShouldBuildReserve, orderlist, AvailIC)
@@ -463,7 +462,7 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	--Utils.LUA_DEBUGOUT( "ENTER Build division function")
 	local prod_ratio = {}
 	local type_template = 'infantry_template'
-	
+
 	--Utils.LUA_DEBUGOUT( unit_name )
 	--infantry
 	if unit_name == "infantry_brigade" then
@@ -477,32 +476,32 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	elseif unit_name == "garrison_brigade" then
 		type_template = 'garrison_template'
 	elseif unit_name == "cavalry_brigade" then
-		type_template = 'cavalry_template'		
+		type_template = 'cavalry_template'
 	elseif unit_name == "paratrooper_brigade" then
-		type_template = 'paratrooper_template'		
+		type_template = 'paratrooper_template'
 	--armor/motorized
 	elseif unit_name == "light_armor_brigade" then
-		type_template = 'light_armor_template'			
+		type_template = 'light_armor_template'
 	elseif unit_name == "armor_brigade" then
-		type_template = 'armor_template'			
+		type_template = 'armor_template'
 	elseif unit_name == "motorized_brigade" then
-		type_template = 'motorized_template'		
+		type_template = 'motorized_template'
 	elseif unit_name == "mechanized_brigade" then
-		type_template = 'mechanized_template'					
+		type_template = 'mechanized_template'
 	end
-	
+
 	--Utils.LUA_DEBUGOUT( "Start Load production function")
 	-- Load country's division templates
 	prod_ratio = LoadProductionRatio(minister, ministerCountry)
-		
+
 	local i = 1
 	local j = 1
 	local pourcent = 100
 	local template_number = 0
 	local rem = math.mod( CCurrentGameState.GetAIRand(), 100)
-	
+
 	-- Determine which template AI will builds
-	while prod_ratio[type_template][i] and template_number == 0 do 
+	while prod_ratio[type_template][i] and template_number == 0 do
 		pourcent = pourcent - prod_ratio[type_template][i][1]
 		--Utils.LUA_DEBUGOUT(prod_ratio[type_template][i][1])
 		if rem >= pourcent then
@@ -510,8 +509,8 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 			template_number = i
 			j = 2
 			-- Check every brigades in the template, if they are available
-			while prod_ratio[type_template][template_number][j] do				
-				if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[type_template][template_number][j]) == false then					
+			while prod_ratio[type_template][template_number][j] do
+				if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[type_template][template_number][j]) == false then
 					--Utils.LUA_DEBUGOUT( "Not available")
 					template_number = 1		-- If not, build the first template
 				end
@@ -523,7 +522,7 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	if template_number ~= 0 then
 		j = 2
 		-- Start to build all brigades of the template
-		while prod_ratio[type_template][template_number][j] do 
+		while prod_ratio[type_template][template_number][j] do
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[type_template][template_number][j]) then
 				SubUnitList.Append( orderlist, prod_ratio[type_template][template_number][j] )
 				AvailIC = AvailIC - ministerCountry:GetBuildCostIC( prod_ratio[type_template][template_number][j], 1, bBuildReserve ):Get()
@@ -539,28 +538,28 @@ end
 function BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
 	--Utils.LUA_DEBUGOUT( "ENTER BuildNavalAndAir function")
 	local prod_restrictions = {}
-	
+
 	-- Load country's restrictions
 	prod_restrictions = LoadRestrictions(minister, ministerCountry)
-	
+
 	local i = 1
 	local pourcent = 100
 	local find = 0
 	local rem = math.mod( CCurrentGameState.GetAIRand(), 100)
-	
-	while prod_restrictions[unit_name][i] and find == 0 do 
+
+	while prod_restrictions[unit_name][i] and find == 0 do
 		pourcent = pourcent - prod_restrictions[unit_name][i]
 		--Utils.LUA_DEBUGOUT(prod_restrictions[unit_name][i])
-		if rem >= pourcent then		
+		if rem >= pourcent then
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_restrictions[unit_name][i+1]) then
 				--Utils.LUA_DEBUGOUT( "Find")
-				find = 1			
+				find = 1
 				SubUnitList.Append( orderlist, prod_restrictions[unit_name][i+1] )
 				AvailIC = AvailIC - ministerCountry:GetBuildCostIC( prod_restrictions[unit_name][i+1], 1, bBuildReserve ):Get()
 			end
 		end
 		i = i + 2
-	end	
+	end
 	--Utils.LUA_DEBUGOUT( "EXIT BuildNavalAndAir function")
 	--Utils.LUA_DEBUGOUT("\n")
 	return orderlist, AvailIC
