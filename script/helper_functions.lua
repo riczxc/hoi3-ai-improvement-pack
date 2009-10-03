@@ -401,6 +401,36 @@ function GetTradingScore(ministerCountry, goods, amount)
 	end
 end
 
+-- return true if country has money, makes money and doesn't overproduce CG to do so
+function IsRich(AliceCountry)
+	local MoneyStockFactor = AliceCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/AliceCountry:GetTotalIC()
+	if	-- loaded bank account
+		MoneyStockFactor > 5 and
+		-- current cg setting less than 110% need or dissent (so high cg allowed if dissent)
+		(AliceCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()*1.1 > AliceCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() or
+			AliceCountry:GetDissent():Get() > 0.01)
+	then
+		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
+		return true
+	else
+		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." NOT IsRich ")
+		return false
+	end
+end
+
+-- return true if country has barely money
+function IsPoor(AliceCountry)
+	local MoneyStockFactor = AliceCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/AliceCountry:GetTotalIC()
+	if	MoneyStockFactor < 2
+	then
+		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsPoor ")
+		return true
+	else
+		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." NOT IsPoor ")
+		return false
+	end
+end
+
 -------------------------------------------------------------------------------
 -- END Trade specific functions
 -------------------------------------------------------------------------------
