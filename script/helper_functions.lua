@@ -4,6 +4,8 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 -- START Common helper functions
 -------------------------------------------------------------------------------
 
+gCommon = {}
+gCommon["average_infra"] = {}
 function IsValidCountry(country)
 	local countryTag = country:GetCountryTag()
 	return countryTag:IsReal() and countryTag:IsValid() and country:Exists()
@@ -11,8 +13,15 @@ end
 
 function GetAverageInfrastructure(country)
 	if IsValidCountry(country) then
+		local key = tostring(country:GetCountryTag())
+		if gCommon["average_infra"][key] then
+			return gCommon["average_infra"][key]
+		end
+
 		local provinceCount = 0
 		local infrastructure = 0
+		local result = 0
+
 		for provinceId in country:GetOwnedProvinces() do
 			local province = CCurrentGameState.GetProvince(provinceId)
 			infrastructure = infrastructure + province:GetInfrastructure():Get()
@@ -20,10 +29,11 @@ function GetAverageInfrastructure(country)
 		end
 
 		if provinceCount > 0 then
-			return infrastructure / provinceCount
-		else
-			return 0
+			result = infrastructure / provinceCount
 		end
+
+		gCommon["average_infra"][key] = result
+		return result
 	else
 		return 1
 	end
