@@ -15,10 +15,10 @@ function ForeignMinister_ManageTrade(ai, ministerTag)
 --~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_RARE_MATERIALS_): " .. tostring(GetAverageBalance('GER', CGoodsPool._RARE_MATERIALS_)))
 --~ 		Utils.LUA_DEBUGOUT(" - - - - - - - - ")
 --~ 	end
-	-- skip first week
-	if gDayCount > 6 and ministerTag:IsReal() and ministerTag:IsValid() and ministerTag:GetCountry():Exists() then
-		if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 then
-			ProposeTrades(ai, ministerTag)
+	-- skip first week, config chance, only valid countries
+	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then
+		ProposeTrades(ai, ministerTag)
+		if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
 			EvalutateExistingTrades(ai, ministerTag)
 		end
 	end
