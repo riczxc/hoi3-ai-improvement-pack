@@ -20,9 +20,6 @@ function PoliticsMinister_Tick(minister)
 		return
 	end
 
-	local ministerTag = minister:GetCountryTag()
-	local ai = minister:GetOwnerAI()
-
 	HandleLaws(minister)
 	HandleMobilization(minister)
 	HandlePuppets(minister)
@@ -31,9 +28,10 @@ function PoliticsMinister_Tick(minister)
 	if ministerCountry:MayLiberateCountries() then
 		for member in ministerCountry:GetPossibleLiberations() do
 			if minister:IsCapitalSafeToLiberate( member ) then
+				local ministerTag = minister:GetCountryTag()
 				--Utils.LUA_DEBUGOUT("CLiberateCountryCommand(" .. tostring(member) .. ", " .. tostring(ministerTag) ..")")
 				local command = CLiberateCountryCommand( member, ministerTag )
-				ai:Post( command )
+				minister:GetOwnerAI():Post( command )
 			end
 		end
 	end
@@ -94,15 +92,14 @@ function HandleMobilization( minister )
 	end
 end
 
-function HandleLaws(minister)
-	local ministerCountry = minister:GetCountry()
+function HandleLaws(minister)	
 	local ministerTag = minister:GetCountryTag()
-	local ai = minister:GetOwnerAI()
 
 	local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleLaws' )
 	if countrySpecific then
 		countrySpecific( minister )
 	else
+		local ministerCountry = minister:GetCountry()
 		-- see if we can get a better law
 		for group in CLawDataBase.GetGroups() do
 			local currentLaw = ministerCountry:GetLaw( group )
@@ -119,7 +116,6 @@ function HandleLaws(minister)
 				end
 			elseif tostring(group:GetKey()) == 'education_investment_law' then
 				-- Make decision based on money production
-				local desire = GetDesireInGoods(ministerCountry, CGoodsPool._MONEY_)
 				local index = GetLawIndexByName('medium_large_education_investment')
 				if IsRich(ministerCountry) then
 					index = GetLawIndexByName('big_education_investment')
@@ -130,14 +126,14 @@ function HandleLaws(minister)
 			elseif tostring(group:GetKey()) == 'training_laws' then
 				-- Make decision based on manpower
 				-- If we've alot reduce recruiting time to spam infantry
-				-- If we're short increase recruiting time to save manpower
-				local manpower = ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()
+				-- If we're short increase recruiting time to save manpowerFactor
+				local manpowerFactor = ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()
 				local index = GetLawIndexByName('specialist_training')
-				if manpower > 3 then
+				if manpowerFactor > 3 then
 					index = GetLawIndexByName('minimal_training')
-				elseif manpower > 2 then
+				elseif manpowerFactor > 2 then
 					index = GetLawIndexByName('basic_training')
-				elseif manpower > 1 then
+				elseif manpowerFactor > 1 then
 					index = GetLawIndexByName('advanced_training')
 				end
 				newLaw = CLawDataBase.GetLaw(index)
@@ -161,7 +157,7 @@ function HandleLaws(minister)
 			if newLaw and newLaw:ValidFor( ministerTag ) and not (newLaw:GetIndex() == currentLaw:GetIndex()) then
 				--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " - NEW LAW " .. tostring( newLaw:GetKey() ) .. " from - " .. tostring(group:GetKey()) )
 				local command = CChangeLawCommand( ministerTag, newLaw, group )
-				ai:Post( command )
+				minister:GetOwnerAI():Post( command )
 			end
 		end
 	end
@@ -169,12 +165,7 @@ end
 
 
 function HandlePuppets(minister)
-	local ministerCountry = minister:GetCountry()
-	local ministerTag = minister:GetCountryTag()
-	local ai = minister:GetOwnerAI()
-
-	if ministerCountry:CanCreatePuppet() then
-		Utils.CallCountryAI( ministerTag, 'HandlePuppets', minister )
+	if minister:GetCountry():CanCreatePuppet() then
+		Utils.CallCountryAI( minister:GetCountryTag(), 'HandlePuppets', minister )
 	end
-
 end
