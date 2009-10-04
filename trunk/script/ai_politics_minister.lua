@@ -42,55 +42,55 @@ end
 
 function HandleMobilization( minister )
 	local ministerCountry = minister:GetCountry()
-	local ministerTag = minister:GetCountryTag()
-	local ai = minister:GetOwnerAI()
-	local did_it = 0
-
 	-- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
-	if not ministerCountry:IsMobilized() and ministerCountry:GetStrategy():IsPreparingWar() then
-		local neutrality = ministerCountry:GetNeutrality() * 0.9
-		for country in CCurrentGameState.GetCountries() do
-			local countryTag = country:GetCountryTag()
-			if did_it == 0 and countryTag:IsValid() and country:Exists() and countryTag:IsReal() and not (countryTag == ministerTag) then
-				if ministerCountry:GetStrategy():IsPreparingWarWith(countryTag) and neutrality < ministerCountry:GetMaxNeutralityForWarWith(countryTag) then
-					--Utils.LUA_DEBUGOUT( "MOBILIZE BECAUSE OF PREP FOR WAR " .. tostring(ministerTag) )
-					local command = CToggleMobilizationCommand( ministerTag, true )
-					ai:Post( command )
-					did_it = 1
-				end
-			end
-		end
-	elseif not ministerCountry:IsMobilized() then
-		local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleMobilization' )
-
-		if countrySpecific == nil then
-			-- check if a neighbor is starting to look threatening
-			local ourTotalIC = ministerCountry:GetTotalIC()
-			local neutrality = ministerCountry:GetNeutrality():Get() * 0.9
-			for neighborCountry in ministerCountry:GetNeighbours() do
-				local threat = ministerCountry:GetRelation(neighborCountry):GetThreat():Get()
-				neutrality = neutrality - threat
-				if neutrality  < 10 then
-					threat = threat * CalculateAlignmentFactor(ai, ministerCountry, neighborCountry:GetCountry())
-
-					if ourTotalIC > 50 and neighborCountry:GetCountry():GetTotalIC() < ministerCountry:GetTotalIC() then
-						threat = threat / 2 -- we can handle them if they descide to attack anyway
-					end
-
-					if  threat > 30 then
-						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighborCountry) )
-						local warDesirability = CalculateWarDesirability( ai, neighborCountry:GetCountry(), ministerTag )
-						if warDesirability > 70 then
-							local command = CToggleMobilizationCommand( ministerTag, true )
-							ai:Post( command )
-						end
+	if not ministerCountry:IsMobilized() then
+		local ministerTag = minister:GetCountryTag()
+		local ai = minister:GetOwnerAI()
+		if ministerCountry:GetStrategy():IsPreparingWar() then
+			local neutrality = ministerCountry:GetNeutrality() * 0.9
+			for country in CCurrentGameState.GetCountries() do
+				local countryTag = country:GetCountryTag()
+				if IsValidCountry(country) and countryTag ~= ministerTag then
+					if ministerCountry:GetStrategy():IsPreparingWarWith(countryTag) and neutrality < ministerCountry:GetMaxNeutralityForWarWith(countryTag) then
+						--Utils.LUA_DEBUGOUT( "MOBILIZE BECAUSE OF PREP FOR WAR " .. tostring(ministerTag) )
+						local command = CToggleMobilizationCommand( ministerTag, true )
+						ai:Post( command )
+						return
 					end
 				end
-				--Utils.LUA_DEBUGOUT( "_____________MOBILZIE")
 			end
 		else
-			countrySpecific( minister )
-		end
+			local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleMobilization' )
+
+			if countrySpecific == nil then
+				-- check if a neighbor is starting to look threatening
+				local ourTotalIC = ministerCountry:GetTotalIC()
+				local neutrality = ministerCountry:GetNeutrality():Get() * 0.9
+				for neighborCountry in ministerCountry:GetNeighbours() do
+					local threat = ministerCountry:GetRelation(neighborCountry):GetThreat():Get()
+					neutrality = neutrality - threat
+					if neutrality  < 10 then
+						threat = threat * CalculateAlignmentFactor(ai, ministerCountry, neighborCountry:GetCountry())
+
+						if ourTotalIC > 50 and neighborCountry:GetCountry():GetTotalIC() < ministerCountry:GetTotalIC() then
+							threat = threat / 2 -- we can handle them if they descide to attack anyway
+						end
+
+						if  threat > 30 then
+							--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighborCountry) )
+							local warDesirability = CalculateWarDesirability( ai, neighborCountry:GetCountry(), ministerTag )
+							if warDesirability > 70 then
+								local command = CToggleMobilizationCommand( ministerTag, true )
+								ai:Post( command )
+							end
+						end
+					end
+					--Utils.LUA_DEBUGOUT( "_____________MOBILZIE")
+				end
+			else
+				countrySpecific( minister )
+			end
+		end		
 	end
 end
 
