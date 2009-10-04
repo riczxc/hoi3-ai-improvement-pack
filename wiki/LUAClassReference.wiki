@@ -458,21 +458,27 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||float ||CalculateTheirPercievedMilitaryStrengh()||
 ||float ||CalculateOurMilitaryStrength()||
 
+
 =Minister classes=
 ==CAIAgent==
 ||CCountryTag||GetCountryTag()||
 ||CCountry||GetCountry()||
 ||CAI ||GetOwnerAI()||
+
 ==CAIPoliticsMinister : CAIAgent==
 ||bool ||IsCapitalSafeToLiberate(CCountryTag countryTag)||
+
 ==CAITechMinister : CAIAgent==
 ||CArrayFix ||GetFolderModifers()||
 ||bool ||CanResearch(CTechnology tech)||
+
 ==CAIEspionageMinister : CAIAgent==
+
 ==CAIProductionMinister : CAIAgent==
 ||int ||CountTransportsUnderConstruction()||
 ||int ||CountEscortsUnderConstruction()||
 ||int ||CountTotalDesiredEscorts()||
+
 ==CAIForeignMinister : CAIAgent==
 ||???||Propose||
 ||???||ProposeWar||
@@ -482,9 +488,11 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||???||GetProposedWarTarget||
 ||float ||GetSpamPenalty(CCountryTag countryTag)||
 ||bool ||HasTradeGoneStale(CTradeRoute route)||
+
 ==CAISubscriber==
 ||???||WantTicks||
 ||???||Create||
+
 
 =Action classes=
 !!! Some methods are guessed !!!||
