@@ -69,7 +69,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 											CancelTrade(ai, route, AliceTag, BobTag)
 											return
 									-- we (alice) buy supplies and have no money
-									elseif AliceImport > 0 and IsPoor(AliceCountry) then
+									elseif AliceImport > 0 and (IsPoor(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
 										-- if 'USA' == tostring(AliceTag) then
  											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (2) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
 										-- end
