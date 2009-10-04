@@ -3,11 +3,17 @@
 -----------------------------------------------------------
 
 require('ai_trade')
+require('helper_functions')
 require('production_division_templates')
 require('production_restrictions')
+require('production_province_improvements')
 
 function ProductionMinister_Tick(minister)
 	local ministerCountry = minister:GetCountry()
+	if not IsValidCountry(ministerCountry) then
+		return
+	end
+
 	local AvailIC = ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() - ministerCountry:GetUsedIC():Get()
 	local ministerTag = minister:GetCountryTag()
 	local ai = minister:GetOwnerAI()
@@ -24,203 +30,336 @@ function ProductionMinister_Tick(minister)
 		return 0
 	end
 
-	-- ai list of requests, in prio order
-	local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
-	local requestQueue = ai:GetReqProdQueue()
-	while (not requestQueue:IsEmpty()) and AvailIC > 0.0 do
-		----------------------------------- Random for Tail or Head Data
-		local unit = 1
-		if 0==math.mod( CCurrentGameState.GetAIRand(), 2) then
-			unit = requestQueue:GetTailData().pUnit
-			requestQueue:RemoveTail()
-		else
-			unit = requestQueue:GetHeadData().pUnit
-			requestQueue:RemoveHead()
-		end
+	local ratioProvince = GetICRatioForProvinceImprovements(ministerCountry) * 100
+	local improvements = nil
+	local building = {}
+	local dice = nil
+	local provinceIndex = {}
+	local nothingBuiltCounter = 0
+	while (AvailIC > 0) and (nothingBuiltCounter < 10) do
+		local availICInThisIteration = AvailIC
 
-		local bBuildReserve = bShouldBuildReserve
-		if not unit:IsRegiment() then
-			--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
-			bBuildReserve = false
-		end
-		-----------------------------------
-		local cost = ministerCountry:GetBuildCostIC( unit, 1, bBuildReserve ):Get()
-		-- only build sensible stuff
-		if cost < TotalIC then
-			local orderlist = SubUnitList()
-			local unitName = tostring(unit:GetKey())
+		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
 
-			if unit:IsRegiment() then
-				--Utils.LUA_DEBUGOUT( "Brigade unit")
-				orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
-			elseif unit:IsShip() then
-				--Utils.LUA_DEBUGOUT( "Naval unit")
-				orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
-			elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
-			or unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role"
-			or unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber"
-			or unitName == "tactical_bomber" or unitName == "transport_plane" then
-				--Utils.LUA_DEBUGOUT( "Air Unit")
-				orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
-			else
-				AvailIC = AvailIC - cost
-				SubUnitList.Append( orderlist, unit )
-			end
-
-			local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID() )
-			ai:Post( construct )
-		end
-	end
-
-	-- any requests by strategic ai
-	for subunit in CSubUnitDataBase.GetSubUnitList() do
-		local bBuildReserve = bShouldBuildReserve
-		if not subunit:IsRegiment() then
-			--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
-			bBuildReserve = false
-		end
-		local count = ministerCountry:GetStrategy():GetWantedSubUnits(subunit)
-		local cost = ministerCountry:GetBuildCostIC( subunit, 1, bBuildReserve ):Get()
-		if count > 0.0 and cost < TotalIC then
-			local orderlist = SubUnitList()
-			SubUnitList.Append( orderlist, subunit )
-			AvailIC = AvailIC - cost
-			local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, count, bBuildReserve, CNullTag(), CID() )
-			ai:Post( construct )
-			-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built (S) " .. tostring(subunit:GetKey()))
-		end
-	end
-
-	-- got AvailIC left not built something yet?
-	if AvailIC > 0 then
-		-- 50% building or inf
-		if 1==math.mod( CCurrentGameState.GetAIRand(), 2) then
-			--Utils.LUA_DEBUGOUT("1")
-			-- get provinces
-			local provinceCount = 0
-			provinces = {}
-			for provinceId in ministerCountry:GetOwnedProvinces() do
-				--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " province " .. tostring(provinceId) )
-				provinces[provinceCount] = provinceId
-				provinceCount = provinceCount+1
-			end
-			-- got provinces?
-			if provinceCount > 0 then
-				--Utils.LUA_DEBUGOUT("2")
-				-- def costs and buildings
-				local costalFort = CBuildingDataBase.GetBuilding( "coastal_fort" )
-				local costalCost = ministerCountry:GetBuildCost( costalFort ):Get()
-				local factory = CBuildingDataBase.GetBuilding( "industry" )
-				local factoryCost = ministerCountry:GetBuildCost( factory ):Get()
-				local navalBase = CBuildingDataBase.GetBuilding( "naval_base" )
-				local navalCost = ministerCountry:GetBuildCost( navalBase ):Get()
-				local antiAir = CBuildingDataBase.GetBuilding( "anti_air" )
-				local aaCost = ministerCountry:GetBuildCost( antiAir ):Get()
-				local airBase = CBuildingDataBase.GetBuilding( "air_base" )
-				local airBaseCost = ministerCountry:GetBuildCost( airBase ):Get()
-				local landFort = CBuildingDataBase.GetBuilding( "land_fort" )
-				local landCost = ministerCountry:GetBuildCost( landFort ):Get()
-				local radarStation = CBuildingDataBase.GetBuilding( "radar_station" )
-				local radarCost = ministerCountry:GetBuildCost( radarStation ):Get()
-				local infra = CBuildingDataBase.GetBuilding( "infra" )
-				local infraCost = ministerCountry:GetBuildCost( infra ):Get()
-
-				-- count
-				local counter = 0
-				--Utils.LUA_DEBUGOUT("3")
-				-- do it 100 times or until sth is build or no IC
-				while counter < 100 and AvailIC  > 0 do
-					-- count
-					counter = counter+1
-					local index = math.mod( CCurrentGameState.GetAIRand(), provinceCount)
-					local provinceId = provinces[index]
-					--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " Picked " .. tostring(xxx) .. " @ " .. tostring(index).. " of " .. tostring(provinceCount))
-					local province = CCurrentGameState.GetProvince( provinceId  )
-					-- try equally to build different improvements
-					local chance = math.mod( CCurrentGameState.GetAIRand(), 8)
-
-					-- build infra if possible
-					if 0==chance and ministerCountry:IsBuildingAllowed(infra, province) and province:GetInfrastructure():Get() < 1
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, infra, infraCost, provinceId)
-					end
-
-					if 1==chance and ministerCountry:IsBuildingAllowed(radarStation, province) and
-					( province:HasBuilding( antiAir ) or province:HasBuilding( costalFort ) or province:HasBuilding( navalBase ) or
-						province:HasBuilding( landFort ) or province:HasBuilding( airBase )) and not province:HasBuilding( radarStation )
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, radarStation, radarCost, provinceId)
-					end
-
-					-- build factory but not at the front and not in or before war
-					if 2==chance and ministerCountry:IsBuildingAllowed(factory, province)
-					and (not province:IsFrontProvince(false) ) and province:GetInfrastructure():Get() > 0.3
-					and ( not ( ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() ) )
-					-- not the USA...engouh IC already
-					and not ministerTag == CCountryDataBase.GetTag('USA')
-					and province:HasBuilding( factory )
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, factory, factoryCost, provinceId)
-					end
-
-					if 3==chance and ministerCountry:IsBuildingAllowed(landFort, province) and province:IsFrontProvince(false) and province:HasBuilding( landFort )
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, landFort, landCost, provinceId)
-					end
-
-					if 4==chance and ministerCountry:IsBuildingAllowed(costalFort, province) and (province:HasBuilding( costalFort ) or province:HasBuilding( navalBase ))
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, costalFort, costalCost, provinceId)
-					end
-
-					if 5==chance and ministerCountry:IsBuildingAllowed(navalBase, province) and province:HasBuilding( navalBase )
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, navalBase, navalCost, provinceId)
-					end
-
-					if 6==chance and ministerCountry:IsBuildingAllowed(airBase, province) and (not province:IsFrontProvince(false) ) and province:HasBuilding( airBase )
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, airBase, airBaseCost, provinceId)
-					end
-
-					if 7==chance and ministerCountry:IsBuildingAllowed(antiAir, province) and
-					( province:HasBuilding( antiAir ) or province:HasBuilding( costalFort ) or province:HasBuilding( navalBase ) or
-						province:HasBuilding( factory ) or province:HasBuilding( landFort ) or province:HasBuilding( airBase ) or province:HasBuilding( radarStation ) )
-					and AvailIC > 0 then
-						AvailIC = BuildImprovement(ai, AvailIC, ministerTag, antiAir, aaCost, provinceId)
-					end
-					--Utils.LUA_DEBUGOUT("-"..tostring(counter).."- "..tostring(AvailIC))
-				end
-				--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " IC " .. tostring(AvailIC) .. " counter " .. tostring(counter))
-			end
-		else
-			-- always fill out with more infantry if AvailIC and manpower is left
-			if ministerCountry:GetOfficerRatio():Get() > 0.75
-			 and AvailIC > 0 and  ministerCountry:GetManpower():Get() > TotalIC then
-			 --and 0 == math.mod( CCurrentGameState.GetAIRand(),20) then
-				local orderlist = SubUnitList()
-				local infantry = CSubUnitDataBase.GetSubUnit("infantry_brigade")
-				local militia = CSubUnitDataBase.GetSubUnit("militia_brigade")
-
-				if ministerCountry:GetTechnologyStatus():IsUnitAvailable(infantry) then
-					-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built inf div with... ")
-					local unitName = "infantry_brigade"
-					orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
+			-- ai list of requests, in prio order
+			local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
+			local requestQueue = ai:GetReqProdQueue()
+			if not requestQueue:IsEmpty() then
+				----------------------------------- Random for Tail or Head Data
+				local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 2)+1
+				local unit = 1
+				if ranNumber == 1 then
+					unit = requestQueue:GetTailData().pUnit
 				else
-					local unitName = "militia_brigade"
-					orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
-					--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built mil ")
+					unit = requestQueue:GetHeadData().pUnit
 				end
 
-				--Utils.LUA_DEBUGOUT( "build a division." )
-				local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bShouldBuildReserve, CNullTag(), CID() )
-				ai:Post( construct )
+				local bBuildReserve = bShouldBuildReserve
+				if not unit:IsRegiment() then
+					--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
+					bBuildReserve = false
+				end
+				-----------------------------------
+				local cost = ministerCountry:GetBuildCostIC( unit, 1, bBuildReserve ):Get()
+				-- only build sensible stuff
+				if cost < TotalIC then
+					local orderlist = SubUnitList()
+					local unitName = tostring(unit:GetKey())
+
+					if unit:IsRegiment() then
+						--Utils.LUA_DEBUGOUT( "Brigade unit")
+						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+					elseif unit:IsShip() then
+						--Utils.LUA_DEBUGOUT( "Naval unit")
+						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+					elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
+					or unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role"
+					or unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber"
+					or unitName == "tactical_bomber" or unitName == "transport_plane" then
+						--Utils.LUA_DEBUGOUT( "Air Unit")
+						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+					else
+						AvailIC = AvailIC - cost
+						SubUnitList.Append( orderlist, unit )
+					end
+
+					local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID() )
+					ai:Post( construct )
+				end
+				-----------------------------------
+				if ranNumber == 1 then
+					requestQueue:RemoveTail()
+				else
+					requestQueue:RemoveHead()
+				end
+				-----------------------------------
+
+			else
+
+				-- any requests by strategic ai
+				for subunit in CSubUnitDataBase.GetSubUnitList() do
+					local bBuildReserve = bShouldBuildReserve
+					if not subunit:IsRegiment() then
+						--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
+						bBuildReserve = false
+					end
+					local count = ministerCountry:GetStrategy():GetWantedSubUnits(subunit)
+					local cost = ministerCountry:GetBuildCostIC( subunit, 1, bBuildReserve ):Get()
+					if count > 0.0 and cost < TotalIC then
+						local orderlist = SubUnitList()
+						SubUnitList.Append( orderlist, subunit )
+						AvailIC = AvailIC - cost
+						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, count, bBuildReserve, CNullTag(), CID() )
+						ai:Post( construct )
+						-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built (S) " .. tostring(subunit:GetKey()))
+					end
+				end
+
+				-- got AvailIC left not built something yet?
+				if AvailIC > 0 then
+					-- always fill out with more infantry if AvailIC and manpower is left
+					if ministerCountry:GetOfficerRatio():Get() > 0.75
+						and ministerCountry:GetManpower():Get() > TotalIC
+					then
+						local orderlist = SubUnitList()
+						local infantry = CSubUnitDataBase.GetSubUnit("infantry_brigade")
+						local militia = CSubUnitDataBase.GetSubUnit("militia_brigade")
+
+						if ministerCountry:GetTechnologyStatus():IsUnitAvailable(infantry) then
+							-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built inf div with... ")
+							local unitName = "infantry_brigade"
+							orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
+						else
+							local unitName = "militia_brigade"
+							orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
+							--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built mil ")
+						end
+
+						--Utils.LUA_DEBUGOUT( "build a division." )
+						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bShouldBuildReserve, CNullTag(), CID() )
+						ai:Post( construct )
+					end
+				end
+
 			end
+
+		else
+
+			if improvements == nil then
+				--Utils.LUA_DEBUGOUT("Initializing province improvements for " .. tostring(ministerTag))
+
+				-- Load country specific province improvements
+				improvements = LoadProvinceImprovements(ministerCountry)
+
+				-- Make sure the improvements table is complete
+				local requiredKeys = {
+					infra = {
+						priority = 0,
+						max_level = 0.8
+					},
+					industry = {
+						priority = 0
+					},
+					air_base = {
+						priority = 0
+					},
+					naval_base = {
+						priority = 0
+					},
+					anti_air = {
+						priority = 0
+					},
+					land_fort = {
+						priority = 0
+					},
+					coastal_fort = {
+						priority = 0
+					},
+					radar_station = {
+						priority = 0
+					}
+				}
+				for k,v in pairs(requiredKeys) do
+					if improvements[k] == nil then
+						improvements[k] = v
+					else
+						-- Cycle through subkeys
+						for subk,subv in pairs(v) do
+							if improvements[k][subk] == nil then
+								improvements[k][subk] = subv
+							end
+						end
+					end
+				end
+
+				-- Now create a list of provinces where each improvement can be built
+				local ids = { any = {} }
+				for k,v in pairs(improvements) do
+					ids[k] = {}
+					building[k] = CBuildingDataBase.GetBuilding(k)
+				end
+
+				for provinceId in ministerCountry:GetOwnedProvinces() do
+					local province = CCurrentGameState.GetProvince(provinceId)
+
+					local hasBuilding = false
+					for k,v in pairs(improvements) do
+						if k == 'infra' then
+							if province:GetMaxInfrastructure():Get() < v.max_level then
+								table.insert(ids[k], provinceId)
+							end
+						else
+							if province:HasBuilding(building[k]) then
+								table.insert(ids[k], provinceId)
+								hasBuilding = true
+							end
+						end
+					end
+					if hasBuilding then
+						table.insert(ids.any, provinceId)
+					end
+				end
+
+				-- Select provinces randomly out of possible provinces
+				for k,v in pairs(improvements) do
+					-- Select province source
+					local key = k
+					if k == 'anti_air' or k == 'radar_station' then
+						key = 'any'
+					end
+
+					local source = ids[key]
+					if improvements[k].ids ~= nil then
+						v.ids_not_random = true
+						source = improvements[k].ids
+					end
+
+					improvements[k].selected_ids = {}
+
+					-- Randomly select up to 10 provinces
+					for i = 1, math.min(10, table.getn(source)) do
+						local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
+						table.insert(improvements[k].selected_ids, source[index])
+					end
+				end
+
+				-- Now make sure we can even build a improvement in selected provinces
+				-- If not, the priority for this improvement is set to 0
+				local prioSum = 0
+				for k,v in pairs(improvements) do
+					if improvements[k].priority > 0 then
+						local improvementPossible = false
+						for i = 1, table.getn(v.selected_ids) do
+							local province = CCurrentGameState.GetProvince(v.selected_ids[i])
+							if ministerCountry:IsBuildingAllowed(building[k], province) then
+								improvementPossible = true
+							end
+							if improvementPossible then
+								break
+							end
+						end
+
+						if not improvementPossible then
+							improvements[k].priority = 0
+						end
+					end
+					prioSum = prioSum + improvements[k].priority
+				end
+
+				if prioSum > 0 then
+					-- Rebalance and create a dice
+					local lastSideCount = 0
+					dice = {}
+					for k,v in pairs(improvements) do
+						if improvements[k].priority > 0 then
+							improvements[k].priority = improvements[k].priority / prioSum
+
+							local sideCount = math.ceil(math.max(improvements[k].priority * 100, 1))
+							for i = lastSideCount, lastSideCount + sideCount - 1 do
+								dice[i] = k
+							end
+							lastSideCount = lastSideCount + sideCount
+						end
+					end
+				--else
+					--Utils.LUA_DEBUGOUT("No province improvements")
+				end
+			end
+
+			if dice ~= nil then
+				--Utils.LUA_DEBUGOUT("Trying to build province improvement...")
+
+				local counter = 0
+				local availICForThisRound = AvailIC
+				while (AvailIC == availICForThisRound) and (counter < 10) do
+					-- Now let's roll the dice
+					local diceIndex = math.mod(CCurrentGameState.GetAIRand(), table.getn(dice))
+					local k = dice[diceIndex]
+					local v = improvements[k]
+					local cost = ministerCountry:GetBuildCost(building[k]):Get()
+
+					--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " improvement " .. k .. " priority " .. tostring(v.priority) .. " AvailIC " .. tostring(AvailIC))
+
+					if provinceIndex[k] == nil then
+						provinceIndex[k] = 0
+					end
+					provinceIndex[k] = provinceIndex[k] + 1
+
+					local i = math.mod(provinceIndex[k], table.getn(v.selected_ids))
+					local province = CCurrentGameState.GetProvince(v.selected_ids[i])
+
+					if ministerCountry:IsBuildingAllowed(building[k], province) then
+						--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " is building improvement " .. k)
+
+						if k == 'infra' then
+							if province:GetMaxInfrastructure():Get() < v.max_level then
+								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+							end
+						elseif k == 'industry' then
+							if v.ids_not_random or
+								(
+									not province:IsFrontProvince(false)
+								and
+									province:GetInfrastructure():Get() > 0.3
+								)
+							then
+								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+							end
+						elseif k == 'land_fort' then
+							if v.ids_not_random or province:IsFrontProvince(false) then
+								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+							end
+						elseif k == 'coastal_fort' then
+							if v.ids_not_random or province:HasBuilding(building.naval_base) then
+								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+							end
+						elseif k == 'radar_station' then
+							if v.ids_not_random or (not province:HasBuilding(building[k])) then
+								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+							end
+						elseif k == 'air_base' then
+							if v.ids_not_random or (not province:IsFrontProvince(false)) then
+								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+							end
+						else -- anti_air and naval_base
+							AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
+						end
+					end
+
+					counter = counter + 1
+				end
+
+				--if counter == 0 then
+					--Utils.LUA_DEBUGOUT("No improvement built in this round.")
+				--end
+			end
+
+		end
+
+		if availICInThisIteration == AvailIC then
+			nothingBuiltCounter = nothingBuiltCounter + 1
 		end
 	end
-
-	--return math.max(AvailIC, 0)
-
 
 	-- Return remaining IC to use
 	if AvailIC > 0 then
