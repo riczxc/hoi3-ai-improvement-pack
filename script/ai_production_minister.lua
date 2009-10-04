@@ -29,12 +29,13 @@ function ProductionMinister_Tick(minister)
 	local requestQueue = ai:GetReqProdQueue()
 	while (not requestQueue:IsEmpty()) and AvailIC > 0.0 do
 		----------------------------------- Random for Tail or Head Data
-		local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 2)+1
 		local unit = 1
-		if ranNumber == 1 then
+		if 0==math.mod( CCurrentGameState.GetAIRand(), 2) then
 			unit = requestQueue:GetTailData().pUnit
+			requestQueue:RemoveTail()
 		else
 			unit = requestQueue:GetHeadData().pUnit
+			requestQueue:RemoveHead()
 		end
 
 		local bBuildReserve = bShouldBuildReserve
@@ -69,13 +70,6 @@ function ProductionMinister_Tick(minister)
 			local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID() )
 			ai:Post( construct )
 		end
-		-----------------------------------
-		if ranNumber == 1 then
-			requestQueue:RemoveTail()
-		else
-			requestQueue:RemoveHead()
-		end
-		-----------------------------------
 	end
 
 	-- any requests by strategic ai
