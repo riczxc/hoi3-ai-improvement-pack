@@ -17,12 +17,14 @@ function ForeignMinister_ManageTrade(ai, ministerTag)
 --~ 	end
 	-- skip first week, config chance, only valid countries
 	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then
-		ProposeTrades(ai, ministerTag)
-		if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
+		if math.mod( CCurrentGameState.GetAIRand(), 3) == 0 then
+			-- 1 out of 3
 			EvalutateExistingTrades(ai, ministerTag)
+		else
+			-- 2 out of 3
+			ProposeTrades(ai, ministerTag)
 		end
 	end
-
 end
 
 function EvalutateExistingTrades(ai, AliceTag)
