@@ -288,6 +288,10 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 		end
 	elseif nomTech == 'advanced_construction_engineering' then
 		score = score * (1 + (1 - GetAverageInfrastructure(ministerCountry)))
+	-- Air Doctrines are less important in peace time
+	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and minister:GetCountry():IsAtWar() == false then
+		--Utils.LUA_DEBUGOUT( "air doctrine in peace time" )
+		score = score - 2
 	end
 
 	--Utils.LUA_DEBUGOUT( 'SCORE de base: ' .. score )
