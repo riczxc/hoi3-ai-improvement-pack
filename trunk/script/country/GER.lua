@@ -52,17 +52,19 @@ function P.ProposeDeclareWar( minister )
 	and (not ministerCountry:GetRelation(holTag):HasWar())
 	and (not ministerCountry:GetRelation(belTag):HasWar())
 	then
-		if not ministerCountry:GetRelation(denTag):HasWar() then
+		if not ministerCountry:GetRelation(denTag):HasWar() and not P.IsFullyOccupying( ministerCountry, denTag ) then
 			strategy:PrepareWar( denTag, 100 )
 		end
 		
-		if not ministerCountry:GetRelation(norTag):HasWar() then
+		if not ministerCountry:GetRelation(norTag):HasWar() and not P.IsFullyOccupying( ministerCountry, norTag ) then
 			strategy:PrepareWar( norTag, 100 )
 		end
 	end
 	
 
 	if ministerCountry:GetRelation(norTag):HasWar() 
+	and not P.IsFullyOccupying( ministerCountry, sweTag )
+	and not P.IsFullyOccupying( ministerCountry, norTag )
 	and ( (not ministerCountry:GetRelation(sweTag):HasMilitaryAccess()) or
 	      ai:GetAmountTradedFrom( CGoodsPool._METAL_, sweTag, ministerCountry:GetCountryTag() ):Get() > 0.0 )
 	then
@@ -72,7 +74,7 @@ function P.ProposeDeclareWar( minister )
 	if ministerCountry:GetRelation(fraTag):HasWar() 
 	and ministerCountry:GetRelation(engTag):HasWar() 
 	and (not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) 
-	and (not ministerCountry:GetRelation(norTag):HasWar() or P.IsFullyOccupying( ministerCountry, norTag ) or norTag:GetCountry():IsGovernmentInExile() )
+	and (not ministerCountry:GetRelation(denTag):HasWar() or P.IsFullyOccupying( ministerCountry, denTag ) or denTag:GetCountry():IsGovernmentInExile() )
 	then
 		strategy:PrepareWar( holTag, 100 )
 		strategy:PrepareWar( belTag, 100 )
@@ -83,25 +85,16 @@ function P.ProposeDeclareWar( minister )
 	local itaTag = CCountryDataBase.GetTag('ITA')
 	local greTag = CCountryDataBase.GetTag('GRE')
 	local sovTag = CCountryDataBase.GetTag('SOV')
+	local gerTag = CCountryDataBase.GetTag('GER')
+	local vicTag = CCountryDataBase.GetTag('VIC')
 	if itaTag:GetCountry():GetFaction() == ministerCountry:GetFaction() 
 	and itaTag:GetCountry():GetRelation( greTag ):HasWar()
 	then
 		strategy:PrepareWar( yugTag, 100 )
 	end
 	
-	if year >= 1941 and month > 2 then
-		if (not fraTag:GetCountry():Exists() or fraTag:GetCountry():IsGovernmentInExile() ) then 
-			local AtWarWithNeighbor = false
-			for neighborTag in ministerCountry:GetNeighbours() do
-				if ministerCountry:GetRelation( neighborTag ):HasWar() then
-					AtWarWithNeighbor = true
-				end
-			end
-			
-			if not AtWarWithNeighbor then
-				strategy:PrepareWar( sovTag, 100 )
-			end
-		end
+	if year >= 1941 and month > 2 and CCurrentGameState.GetProvince( 2613 ):GetController() == gerTag and vicTag:GetCountry():Exists() then 
+		strategy:PrepareWar( sovTag, 100 )
 	end
 	
 end

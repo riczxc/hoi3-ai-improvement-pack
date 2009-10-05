@@ -12,13 +12,14 @@ function P.ProposeDeclareWar( minister )
 	local gerTag = CCountryDataBase.GetTag('GER')
 	local polTag = CCountryDataBase.GetTag('POL')
 	
-	if year >= 1942 and month >= 4
-	and (not polTag:GetCountry():Exists()) 
+	if year >= 1942 and month >= 3
+	and ( not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) 
+	and not ministerCountry:GetRelation(gerTag):HasWar()
 	then
 		strategy:PrepareWar( gerTag, 100 )
 	end
 	
-	if year >= 1940 and month >= 4
+	if year >= 1940 and month >= 3
 	and polTag:GetCountry():GetFaction() == gerTag:GetCountry():GetFaction()
 	then
 		strategy:PrepareWar( polTag, 100 )
