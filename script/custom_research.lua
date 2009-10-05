@@ -327,6 +327,8 @@ local tactical_bombers = {
 					'tac_pilot_training',
 					'tac_groundcrew_training',
 					'interdiction_tactics',
+					'logistical_strike_tactics',
+					'installation_strike_tactics',
 					'tactical_air_command',
 					'radar_guided_bomb',
 					'radar_guided_missile'
@@ -520,9 +522,7 @@ function ConstructPriorityList(minister)
 							germany3,
 							marine,
 							desert,
-							sheavy_tank,
-							naval_bombers,
-							strategic_bombers
+							sheavy_tank
 					}
 					
 		-- Conditional Techs
@@ -535,9 +535,9 @@ function ConstructPriorityList(minister)
 		then
 			--Utils.LUA_DEBUGOUT( "GER VICTORY IN EUROPE" )
 			-- Start to consider Naval and Atomic techs
-			templist = { light_cruiser, heavy_cruiser,  battleship, aircraft_carrier, atomic  }
+			templist = { light_cruiser, heavy_cruiser,  battleship, aircraft_carrier, atomic, naval_bombers  }
 			priority2 = InsertList(priority2, templist)
-			templist = { destroyer, battlecruiser }
+			templist = { destroyer, battlecruiser, strategic_bombers }
 			priority3 = InsertList(priority3, templist)
 			
 		end
@@ -554,9 +554,10 @@ function ConstructPriorityList(minister)
 							medium_tank,
 							anti_tank,
 							artillery,
-							tactical_bombers,
 							interceptors,
-							industry
+							tactical_bombers,
+							industry,
+							supply
 					}	
 		-- Level 2 techs
 		priority2 = {	
@@ -565,8 +566,7 @@ function ConstructPriorityList(minister)
 							heavy_tank,
 							anti_aircraft,
 							encryption,
-							ressources,
-							supply
+							ressources							
 					}			
 		-- Level 3 techs
 		priority3 = {	
@@ -591,9 +591,9 @@ function ConstructPriorityList(minister)
 		then
 			--Utils.LUA_DEBUGOUT( "SOV Start Naval and Atomic Projets" )
 			-- Start to consider Naval and Atomic techs
-			templist = { light_cruiser, submarine,  battleship, aircraft_carrier, atomic }
+			templist = { light_cruiser, heavy_cruiser, submarine, battleship, aircraft_carrier, atomic }
 			priority2 = InsertList(priority2, templist)
-			templist = { destroyer, heavy_cruiser }
+			templist = { destroyer, naval_bombers, strategic_bombers }
 			priority3 = InsertList(priority3, templist)
 			
 		end
@@ -836,7 +836,7 @@ function ConstructPriorityList(minister)
 							light_tank,
 							medium_tank,
 							anti_tank,
-							anti_aircraft,
+							tactical_bombers,
 							destroyer,
 							battleship,														
 							industry,
@@ -849,6 +849,7 @@ function ConstructPriorityList(minister)
 							arctic,
 							desert,
 							jungle,
+							anti_aircraft,
 							aircraft_carrier,
 							naval_bombers,
 							strategic_bombers
@@ -963,6 +964,7 @@ function ConstructPriorityList(minister)
 			ministerTag == 'BEL' or		--BELGIUM
 			ministerTag == 'BRA' or		--BRAZIL
 			ministerTag == 'ARG' or		--ARGENTINA
+			ministerTag == 'MEX' or		--MEXICO
 			ministerTag == 'POR' then	--PORTUGAL
 		--Utils.LUA_DEBUGOUT( "NAVAL/JUNGLE/ISLAND COUNTRY" )
 		-- Level 1 techs
@@ -1028,12 +1030,12 @@ function ConstructPriorityList(minister)
 		--Utils.LUA_DEBUGOUT( "MINOR COUNTRY" )
 		-- Level 1 techs
 		priority1 = {	
-							infantry,
-							militia
+							infantry							
 					}	
 		-- Level 2 techs
 		priority2 = {	
-							artillery
+							artillery,
+							militia
 					}	
 		-- Level 3 techs
 		priority3 = {	
@@ -1080,3 +1082,5 @@ function InsertList(list, listB)
 	end
 	return list
 end
+
+-- Darkzodiak
