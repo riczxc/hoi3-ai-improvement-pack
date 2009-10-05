@@ -13,13 +13,14 @@ function P.ProposeDeclareWar( minister )
 	local fraTag = CCountryDataBase.GetTag('FRA')
 	local greTag = CCountryDataBase.GetTag('GRE')
 	local vicTag = CCountryDataBase.GetTag('VIC')
+	local yugTag = CCountryDataBase.GetTag('YUG')
 	
 	if ministerCountry:GetFaction() == gerTag:GetCountry():GetFaction()
 	and ( not ministerCountry:GetRelation(greTag):HasWar() )
-	and ( fraTag:GetCountry():IsGovernmentInExile() or 
-	     (vicTag:GetCountry():Exists() and CCurrentGameState.GetProvince( 2613 ):GetOwner() == fraTag ) )
+	and vicTag:GetCountry():Exists()
 	then
 		strategy:PrepareWar( greTag, 100 )
+		strategy:PrepareWar( yugTag, 100 )
 	end
 end
 
