@@ -257,4 +257,25 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 	return score
 end
 
+function P.CustomAllianceRules( ai, actor, recipient, observer)
+	--Utils.LUA_DEBUGOUT("Enter CustomAllianceRules function")
+	local actorCountry = actor:GetCountry()
+	local recipientCountry = recipient:GetCountry()
+	local year = ai:GetCurrentDate():GetYear()
+	
+	--Utils.LUA_DEBUGOUT("Actor: " .. tostring(actor))
+	--Utils.LUA_DEBUGOUT("Recipient: " .. tostring(recipient))
+	
+	if recipientCountry:HasFaction() or actorCountry:HasFaction() then
+		--Utils.LUA_DEBUGOUT("NO ALLIANCE: Faction member")
+		return 0
+	elseif year < 1940 and (tostring(actor) == 'POL' or tostring(recipient) == 'POL') then
+		--Utils.LUA_DEBUGOUT("NO ALLIANCE: Poland before 1940")
+		return 0
+	end
+		
+	--Utils.LUA_DEBUGOUT("No objection to alliance")
+	return 1
+end
+
 return Custom_AI
