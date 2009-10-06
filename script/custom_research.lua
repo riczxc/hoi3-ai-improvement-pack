@@ -313,6 +313,7 @@ local submarine = {
 -------------------------------------------------------------------
 ----------------------------AIR
 local tactical_bombers = {
+					'multi_role_fighter_development',					
 					'twin_engine_aircraft_design',
 					'basic_medium_fueltank',
 					'basic_twin_engine_airframe',
@@ -350,7 +351,6 @@ local naval_bombers = {
 					'naval_air_targeting'
 				}
 local strategic_bombers = {
-					'multi_role_fighter_development',
 					'basic_strategic_bomber',
 					'large_fueltank',
 					'four_engine_airframe',
@@ -508,7 +508,6 @@ function ConstructPriorityList(minister)
 							airborne,
 							engineer,
 							arctic,
-							security,
 							heavy_tank,
 							anti_tank,
 							anti_aircraft,
@@ -573,7 +572,6 @@ function ConstructPriorityList(minister)
 							soviet3,
 							cavalry,
 							marine,
-							security,
 							sheavy_tank,
 							rocket_artillery,
 							medecine,
@@ -760,7 +758,6 @@ function ConstructPriorityList(minister)
 		-- Level 3 techs
 		priority3 = {	
 							arctic,
-							security,
 							light_tank,
 							anti_tank,
 							anti_aircraft,
@@ -781,11 +778,9 @@ function ConstructPriorityList(minister)
 							marine,
 							jungle,
 							artillery,
-							artillery,
 							light_cruiser,
 							aircraft_carrier,
 							tactical_bombers,
-							naval_bombers,
 							interceptors,
 							ressources,
 							supply
@@ -796,7 +791,7 @@ function ConstructPriorityList(minister)
 							mountain,
 							engineer,
 							arctic,
-							security,
+							naval_bombers,
 							battleship,
 							heavy_cruiser,
 							industry,
@@ -897,7 +892,6 @@ function ConstructPriorityList(minister)
 					}	
 		-- Level 3 techs				
 		priority3 = {	
-							security,
 							battleship,
 							industry,
 							supply,
