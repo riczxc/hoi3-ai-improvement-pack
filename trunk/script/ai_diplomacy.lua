@@ -388,19 +388,34 @@ end
 
 function DiploScore_Alliance(ai, actor, recipient, observer, action)
 	if observer == actor then 
-       		local recipientCountry = recipient:GetCountry()
+       	local recipientCountry = recipient:GetCountry()
 		local actorCountry = actor:GetCountry()
 		local strategy = actorCountry:GetStrategy()
+		
+		-- If Custom Triggers are used
+		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
+			--Utils.LUA_DEBUGOUT("Use Custom Triggers Alliance")
+			if not Utils.CallScoredCustomAI('CustomAllianceRules', ai, actor, recipient, observer) then
+				return 0
+			end
+		end
 		
 		if recipientCountry:IsFactionLeader() then -- as a faction leader we dont want alliances, we want faction members
 			return 0
 		end
-
 		
 		return strategy:GetFriendliness(recipient)
 	else 
 		local rel = ai:GetRelation(recipient, actor)
 		local relation = 200 + rel:GetValue():GetTruncated()
+		
+		-- If Custom Triggers are used
+		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
+			--Utils.LUA_DEBUGOUT("Use Custom Triggers Alliance")
+			if not Utils.CallScoredCustomAI('CustomAllianceRules', ai, actor, recipient, observer) then
+				return 0
+			end
+		end
 		
 		if relation < 100 then
 			return 0
