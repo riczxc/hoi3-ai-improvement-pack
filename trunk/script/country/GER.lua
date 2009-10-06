@@ -30,6 +30,7 @@ function P.IsFullyOccupying( ministerCountry, targetTag )
 end
 
 function P.ProposeDeclareWar( minister )
+	--Utils.LUA_DEBUGOUT("ENTER PROPOSE DECLARE WAR GERMANY")
 	local ai = minister:GetOwnerAI()
 	local ministerCountry = minister:GetCountry()
 	local strategy = ministerCountry:GetStrategy()
@@ -45,47 +46,61 @@ function P.ProposeDeclareWar( minister )
 	local engTag = CCountryDataBase.GetTag('ENG')
 	local sweTag = CCountryDataBase.GetTag('SWE')
 	local luxTag = CCountryDataBase.GetTag('LUX')
+	local gerTag = CCountryDataBase.GetTag('GER')
 	
-	if ministerCountry:GetRelation(fraTag):HasWar() 
+	if ministerCountry:GetRelation(fraTag):HasWar() -- If we are at war with Allies
 	and ministerCountry:GetRelation(engTag):HasWar() 
-	and ((not polTag:GetCountry():Exists()) or polTag:GetCountry():IsGovernmentInExile() ) 
-	and (not ministerCountry:GetRelation(holTag):HasWar())
-	and (not ministerCountry:GetRelation(belTag):HasWar())
+	and not ministerCountry:GetRelation(belTag):HasWar() -- In Peace with Belgium
+	and not ministerCountry:GetRelation(holTag):HasWar() -- In Peace with Netherlands
+	and ((not polTag:GetCountry():Exists()) or polTag:GetCountry():IsGovernmentInExile() ) -- If Poland is no more a problem
+	-- If west front is calm
+	and CCurrentGameState.GetProvince( 2948 ):GetController() == gerTag		--Baden
+	and CCurrentGameState.GetProvince( 2553 ):GetController() == gerTag		--Saarbrucken
+	and CCurrentGameState.GetProvince( 1570 ):GetController() == gerTag		--Wilhelmshaven
 	then
-		if not ministerCountry:GetRelation(denTag):HasWar() and not P.IsFullyOccupying( ministerCountry, denTag ) then
+		--Utils.LUA_DEBUGOUT("GO for Fall Weseburung")
+		if not ministerCountry:GetRelation(denTag):HasWar() and not P.IsFullyOccupying( ministerCountry, denTag ) and denTag:GetCountry():Exists() then
 			strategy:PrepareWar( denTag, 100 )
-		end
-		
-		if not ministerCountry:GetRelation(norTag):HasWar() and not P.IsFullyOccupying( ministerCountry, norTag ) then
+		end		
+		if not ministerCountry:GetRelation(norTag):HasWar() and not P.IsFullyOccupying( ministerCountry, norTag ) and norTag:GetCountry():Exists() then
 			strategy:PrepareWar( norTag, 100 )
 		end
 	end
-	
-
+		
+	--TODO: Find a way to invade Norway without declaring war on Sweden. For now it's the best solution for a successful AI
 	if ministerCountry:GetRelation(norTag):HasWar() 
 	and not P.IsFullyOccupying( ministerCountry, sweTag )
 	and not P.IsFullyOccupying( ministerCountry, norTag )
-	and ( (not ministerCountry:GetRelation(sweTag):HasMilitaryAccess()) or
-	      ai:GetAmountTradedFrom( CGoodsPool._METAL_, sweTag, ministerCountry:GetCountryTag() ):Get() > 0.0 )
+	and not ministerCountry:GetRelation(sweTag):HasMilitaryAccess()
 	then
 		strategy:PrepareWar( sweTag, 100 )
 	end
 	
-	if ministerCountry:GetRelation(fraTag):HasWar() 
-	and ministerCountry:GetRelation(engTag):HasWar() 
-	and (not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) 
-	and (not ministerCountry:GetRelation(denTag):HasWar() or P.IsFullyOccupying( ministerCountry, denTag ) or denTag:GetCountry():IsGovernmentInExile() )
+	if ministerCountry:GetRelation(fraTag):HasWar() -- If we are at war with Allies 
+	and ministerCountry:GetRelation(engTag):HasWar()
+	and (not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) -- If Poland is no more a problem 
+	and (P.IsFullyOccupying( ministerCountry, denTag ) or denTag:GetCountry():IsGovernmentInExile() ) -- If Denmark is no more a problem
+	and (not ministerCountry:GetRelation(norTag):HasWar() or P.IsFullyOccupying( ministerCountry, norTag ) 
+		or norTag:GetCountry():IsGovernmentInExile() ) -- If Norway is no more a problem 
+	and (not ministerCountry:GetRelation(sweTag):HasWar() or P.IsFullyOccupying( ministerCountry, sweTag ) 
+		or sweTag:GetCountry():IsGovernmentInExile() ) -- If Sweden is no more a problem 
 	then
-		strategy:PrepareWar( holTag, 100 )
-		strategy:PrepareWar( belTag, 100 )
-		strategy:PrepareWar( luxTag, 100 )
+		--Utils.LUA_DEBUGOUT("GO for Fall Gelb")
+		if not ministerCountry:GetRelation(holTag):HasWar() and not P.IsFullyOccupying( ministerCountry, holTag ) and holTag:GetCountry():Exists() then
+			strategy:PrepareWar( holTag, 100 )
+		end
+		if not ministerCountry:GetRelation(belTag):HasWar() and not P.IsFullyOccupying( ministerCountry, belTag ) and belTag:GetCountry():Exists() then
+			strategy:PrepareWar( belTag, 100 )
+		end
+		if not ministerCountry:GetRelation(luxTag):HasWar() and not P.IsFullyOccupying( ministerCountry, luxTag ) and luxTag:GetCountry():Exists() then
+			strategy:PrepareWar( luxTag, 100 )
+		end
 	end
 	
 	local yugTag = CCountryDataBase.GetTag('YUG')
 	local itaTag = CCountryDataBase.GetTag('ITA')
 	local greTag = CCountryDataBase.GetTag('GRE')
 	local sovTag = CCountryDataBase.GetTag('SOV')
-	local gerTag = CCountryDataBase.GetTag('GER')
 	local vicTag = CCountryDataBase.GetTag('VIC')
 	if itaTag:GetCountry():GetFaction() == ministerCountry:GetFaction() 
 	and itaTag:GetCountry():GetRelation( greTag ):HasWar()
@@ -94,6 +109,7 @@ function P.ProposeDeclareWar( minister )
 	end
 	
 	if year >= 1941 and month > 2 and CCurrentGameState.GetProvince( 2613 ):GetController() == gerTag and vicTag:GetCountry():Exists() then 
+		--Utils.LUA_DEBUGOUT("GO for Barbarossa")
 		strategy:PrepareWar( sovTag, 100 )
 	end
 	
