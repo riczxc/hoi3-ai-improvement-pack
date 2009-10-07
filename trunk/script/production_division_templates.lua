@@ -48,9 +48,9 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['GER'] = {}
 				gProdRatio['GER']['infantry_brigade'] = { 	-- Infantry
 													{ 10, infantry, infantry, infantry };
-													{ 25, infantry, infantry, infantry, artillery };
+													{ 30, infantry, infantry, infantry, artillery };
 													{ 20, infantry, infantry, infantry, anti_tank };
-													{ 15, infantry, infantry, infantry, anti_air };
+													{ 10, infantry, infantry, infantry, anti_air };
 													{ 15, infantry, infantry, infantry, rocket_artillery };
 													{ 10, infantry, infantry, heavy_armor };
 													{ 5, infantry, infantry, sh_armor }
@@ -196,9 +196,9 @@ function LoadProductionRatio(minister, ministerCountry)
 			if not gProdRatio['USA'] then
 				gProdRatio['USA'] = {}
 				gProdRatio['USA']['infantry_brigade'] = { 	-- Infantry
-													{ 20, infantry, infantry, infantry };
+													{ 25, infantry, infantry, infantry };
 													{ 30, infantry, infantry, infantry, artillery };
-													{ 20, infantry, infantry, infantry, anti_tank };
+													{ 15, infantry, infantry, infantry, anti_tank };
 													{ 10, infantry, infantry, infantry, anti_air };
 													{ 5, infantry, infantry, heavy_armor };
 													{ 5, infantry, infantry, sh_armor };
@@ -232,10 +232,11 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, light_armor, light_armor, motorized, engineer }
 												}
 				gProdRatio['USA']['motorized_brigade'] = {	-- Motorized
-													{ 5, motorized, motorized, armored_car };
-													{ 30, motorized, motorized, engineer };
-													{ 30, motorized, motorized, sp_artillery };
-													{ 35, motorized, motorized, tank_destroyer }
+													{ 10, motorized, motorized };
+													{ 20, motorized, motorized, armored_car };
+													{ 10, motorized, motorized, engineer };
+													{ 35, motorized, motorized, sp_artillery };
+													{ 25, motorized, motorized, tank_destroyer }
 												}
 				gProdRatio['USA']['mechanized_brigade'] = {	-- mechanized
 													{ 45, mechanized, mechanized, motorized };
@@ -274,9 +275,9 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['ENG'] = {}
 				gProdRatio['ENG']['infantry_brigade'] = { 	-- Infantry
 													{ 35, infantry, infantry, infantry };
-													{ 25, infantry, infantry, artillery };
+													{ 30, infantry, infantry, artillery };
 													{ 10, infantry, infantry, anti_tank };
-													{ 20, infantry, infantry, anti_air };
+													{ 15, infantry, infantry, anti_air };
 													{ 10, infantry, infantry, infantry, engineer }
 												}
 				gProdRatio['ENG']['marine_brigade'] = {		-- Marine
@@ -293,8 +294,8 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 100, cavalry, cavalry }
 												}
 				gProdRatio['ENG']['mountain_brigade'] = {		-- Mountain
-													{ 40, mountain, mountain, mountain };
-													{ 40, mountain, mountain, artillery };
+													{ 50, mountain, mountain, mountain };
+													{ 30, mountain, mountain, artillery };
 													{ 10, mountain, mountain, anti_air };
 													{ 10, mountain, mountain, engineer }
 												}
@@ -347,10 +348,10 @@ function LoadProductionRatio(minister, ministerCountry)
 			if not gProdRatio['FRA'] then
 				gProdRatio['FRA'] = {}
 				gProdRatio['FRA']['infantry_brigade'] = { 	-- Infantry
-													{ 30, infantry, infantry, infantry };
-													{ 30, infantry, infantry, artillery };
-													{ 25, infantry, infantry, anti_tank };
-													{ 15, infantry, infantry, anti_air }
+													{ 35, infantry, infantry, infantry };
+													{ 35, infantry, infantry, artillery };
+													{ 20, infantry, infantry, anti_tank };
+													{ 10, infantry, infantry, anti_air }
 												}
 				gProdRatio['FRA']['marine_brigade'] = {		-- Marine
 													{ 50, marine, marine, marine };
@@ -414,9 +415,9 @@ function LoadProductionRatio(minister, ministerCountry)
 			if not gProdRatio['ITA'] then
 				gProdRatio['ITA'] = {}
 				gProdRatio['ITA']['infantry_brigade'] = { 	-- Infantry
-													{ 45, infantry, infantry, infantry };
+													{ 50, infantry, infantry, infantry };
 													{ 25, infantry, infantry, artillery };
-													{ 10, infantry, infantry, anti_tank };
+													{ 5, infantry, infantry, anti_tank };
 													{ 10, infantry, infantry, anti_air };
 													{ 10, infantry, infantry, armored_car }
 												}
@@ -486,13 +487,12 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['JAP']['infantry_brigade'] = { 	-- Infantry
 													{ 40, infantry, infantry, infantry };
 													{ 40, infantry, infantry, artillery };
-													{ 5, infantry, infantry, anti_tank };
 													{ 10, infantry, infantry, anti_air };
-													{ 5, infantry, infantry, engineer }
+													{ 10, infantry, infantry, engineer }
 												}
 				gProdRatio['JAP']['marine_brigade'] = {		-- Marine
-													{ 50, marine, marine, marine };
-													{ 30, marine, marine, artillery };
+													{ 40, marine, marine, marine };
+													{ 40, marine, marine, artillery };
 													{ 20, marine, marine, engineer }
 												}
 				gProdRatio['JAP']['militia_brigade'] = {		-- Militia
@@ -569,14 +569,14 @@ function LoadProductionRatio(minister, ministerCountry)
 												{ 100, militia, militia, militia }
 											}
 			gProdRatio[ministerTag]['garrison_brigade'] = {		-- Garrison
-												{ 100, garrison, garrison }
+												{ 100, garrison, garrison, garrison }
 											}
 			gProdRatio[ministerTag]['cavalry_brigade'] = {		-- Cavalry
 												{ 100, cavalry, cavalry, cavalry }
 											}
 			gProdRatio[ministerTag]['mountain_brigade'] = {		-- Mountain
-												{ 50, mountain, mountain, mountain };
-												{ 50, mountain, mountain, artillery }
+												{ 60, mountain, mountain, mountain };
+												{ 40, mountain, mountain, artillery }
 											}
 			gProdRatio[ministerTag]['paratrooper_brigade'] = {	-- Paratrooper
 												{ 100, paratrooper, paratrooper, paratrooper }
