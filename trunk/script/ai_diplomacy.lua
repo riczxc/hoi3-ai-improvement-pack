@@ -3,8 +3,8 @@
 -- 
 -----------------------------------------------------------
 
-
 require('utils')
+require('helper_functions')
 
 function CalculateAlignmentFactor(ai, country1, country2)
 	local dist = ai:GetCountryAlignmentDistance( country1, country2 ):Get()
@@ -608,95 +608,78 @@ function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, actio
 	end
 end
 
-function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
-	if observer == actor then
+function DiploScore_LicenceTechnology(ai, LicenceBuyer, LicenceGiver, observer, action)
+	if observer == LicenceBuyer then
 		return 0 
 	else
-		--Utils.LUA_DEBUGOUT("LICENS ------------------------------")
+		--Utils.LUA_DEBUGOUT("-> LicenceTechnology " .. tostring(LicenceBuyer) .. " buying from " ..  tostring(LicenceGiver))
 		if not action:GetSubunit() then
+			--Utils.LUA_DEBUGOUT("LICENS -> not action:GetSubunit()")
 			return 0
 		end
 	
 		local score = 0
-		local actorCountry = actor:GetCountry()
-		local recipientCountry = recipient:GetCountry()
-		local rel = ai:GetRelation(recipient, actor)
+		local LicenceBuyerCountry = LicenceBuyer:GetCountry()
+		local LicenceGiverCountry = LicenceGiver:GetCountry()
+		local rel = ai:GetRelation(LicenceGiver, LicenceBuyer)
 		
-		if rel:GetValue():GetTruncated() < 0 then
+		if rel:HasWar() then			
+			--Utils.LUA_DEBUGOUT("LICENS -> rel:HasWar() "..tostring(rel:HasWar()))
 			return 0
 		end
-		
-		if rel:HasWar() then
-			return 0
-		end
-		--Utils.LUA_DEBUGOUT("1 LICENS " .. tostring(actor) .. " -> " ..  tostring(recipient) .. " = " .. score)
+		--Utils.LUA_DEBUGOUT("1 LICENS " .. tostring(LicenceBuyer) .. " -> " ..  tostring(LicenceGiver) .. " = " .. score)
 		-- we can give tech to
 		-- - people in faction
 		-- - people in alliance
 		-- - people fighting our enemies
 		-- - people close in triangle (not far away! scale price here too)
-		local allied = false
-		if ( recipientCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction() ) then
-			score = score + 70
-			allied = true
+		if ( LicenceGiverCountry:HasFaction() and LicenceGiverCountry:GetFaction() == LicenceBuyerCountry:GetFaction() ) then
+			score = 70
 		elseif rel:HasAlliance() then
-			score = score + 60
-			allied = true
+			score = 60
+		else
+			if rel:GetValue():GetTruncated() < 0 then
+				--Utils.LUA_DEBUGOUT("LICENS -> rel:GetValue():GetTruncated() < 0 "..tostring(rel:GetValue():GetTruncated()))
+				return 0
+			end
+			-- relationship - threat
+			score = rel:GetValue():GetTruncated()/5 - rel:GetThreat():Get() * CalculateAlignmentFactor(ai, LicenceBuyerCountry, LicenceGiverCountry)
 		end
-		--Utils.LUA_DEBUGOUT("2 LICENS " .. tostring(actor) .. " -> " ..  tostring(recipient) .. " = " .. score)
-		local fightingFriend = false
-		local fightingEnemy = false
-		if actorCountry:IsAtWar() then
-			for enemy in actorCountry:GetCurrentAtWarWith() do
-				if recipientCountry:IsEnemy(enemy) then
-					--Utils.LUA_DEBUGOUT("mutual enemy: " .. tostring(enemy) .. " for " ..  tostring(actor) .. " and " . .tostring(recipient))
-					fightingEnemy = true
-					--Utils.LUA_DEBUGOUT("mutual enemy")
-				elseif recipientCountry:IsFriend(enemy, true)
-				and ai:GetRelation(enemy, actor):GetValue():GetTruncated() > 20
+		
+		--Utils.LUA_DEBUGOUT("2 LICENS " .. tostring(LicenceBuyer) .. " -> " ..  tostring(LicenceGiver) .. " = " .. score)
+		local MutualEnemy = false
+		if LicenceBuyerCountry:IsAtWar() then
+			for EnemyOfBuyer in LicenceBuyerCountry:GetCurrentAtWarWith() do
+				if LicenceGiverCountry:IsEnemy(EnemyOfBuyer) then
+					--Utils.LUA_DEBUGOUT("mutual enemy: " .. tostring(EnemyOfBuyer) .. " for " ..  tostring(LicenceBuyer) .. " and " .. tostring(LicenceGiver))
+					MutualEnemy = true
+					--Utils.LUA_DEBUGOUT("mutual EnemyOfBuyer")
+				elseif LicenceGiverCountry:IsFriend(EnemyOfBuyer, true)
+				and ai:GetRelation(EnemyOfBuyer, LicenceBuyer):GetValue():GetTruncated() > 20
 				then
-					fightingFriend = true
+					-- Giver is friend of EnemyOfBuyer
+					return 0
 				end
 			end
 		end
 		
-		if fightingFriend then
-			return 0
-		end
-		--Utils.LUA_DEBUGOUT("3 LICENS " .. tostring(actor) .. " -> " ..  tostring(recipient) .. " = " .. score)
-		if fightingEnemy then
-			if not allied then
-				score = 20 -- need some base
-			end
+		--Utils.LUA_DEBUGOUT("3 LICENS " .. tostring(LicenceBuyer) .. " -> " ..  tostring(LicenceGiver) .. " = " .. score)
+		if MutualEnemy then
 			score = score + 30
-			--Utils.LUA_DEBUGOUT("fightingenemy")
+			--Utils.LUA_DEBUGOUT("MutualEnemy")
 		else
-			--Utils.LUA_DEBUGOUT("factor: " .. CalculateAlignmentFactor(ai, actorCountry, recipientCountry) * 50)
-			score = score - CalculateAlignmentFactor(ai, actorCountry, recipientCountry) * 50
-			
+			--Utils.LUA_DEBUGOUT("CalculateAlignmentFactor: " .. CalculateAlignmentFactor(ai, LicenceBuyerCountry, LicenceGiverCountry) * 50)
+			score = score - CalculateAlignmentFactor(ai, LicenceBuyerCountry, LicenceGiverCountry) * 50			
 		end
-		--Utils.LUA_DEBUGOUT("4 LICENS " .. tostring(actor) .. " -> " ..  tostring(recipient) .. " = " .. score)
-		local threat = rel:GetThreat():Get()
-		score = score - threat * CalculateAlignmentFactor(ai, actorCountry, recipientCountry)
-		--Utils.LUA_DEBUGOUT("5 LICENS " .. tostring(actor) .. " -> " ..  tostring(recipient) .. " = " .. score)
 		-- consider the money
-		local offeredMoney = action:GetMoney():Get()
-		local moneyPile = math.max( recipientCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get(), 100.0)
-		if offeredMoney > moneyPile * 0.3 then
-			score = score + 30
-		elseif offeredMoney > moneyPile * 0.2 then
-			score = score + 20
-		elseif offeredMoney > moneyPile * 0.1 then
-			score = score + 10
-		elseif offeredMoney < moneyPile * 0.03 then
-			score = score - 30
-		else
-			score = score - 15
-		end
-		
-		--Utils.LUA_DEBUGOUT("6 LICENS " .. tostring(actor) .. " -> " ..  tostring(recipient) .. " = " .. score)
-		--Utils.LUA_DEBUGOUT("LICENS ------------------------------")
-		return score
+		local boost = 1
+		if IsPoor(LicenceGiverCountry) then
+			boost = 2
+		end		
+		score = score*math.min(2, (boost*action:GetMoney():Get())/(LicenceGiverCountry:GetTotalIC()+LicenceBuyerCountry:GetTotalIC()))
+	
+		--Utils.LUA_DEBUGOUT("<- LicenceTechnology " .. tostring(LicenceBuyer) .. " buying from " ..  tostring(LicenceGiver) .. " = " .. score)
+		return math.min(100, score)
 	end
 end
 
