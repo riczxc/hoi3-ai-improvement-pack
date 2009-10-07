@@ -213,6 +213,9 @@ end
 
 function ProposeTrades(ai, AliceTag)
 	local AliceCountry = AliceTag:GetCountry()
+	if AliceCountry:GetTransports() == 0 then
+		return
+	end
 
 	local best = {}
 	local bestSupply = {}
