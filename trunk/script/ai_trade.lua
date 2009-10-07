@@ -324,21 +324,6 @@ function ProposeTradeCalc(ai, goods, requested, BobSells, BuyerCountry, SellerCo
 	return 	best
 end
 
-
-function TradesOtherWay(AliceTag, BobTag, goods, Bob2Alice)
-	-- nothing traded
-	if 0==Bob2Alice then
-		return false
-	end
-
-	-- switch direction
-	if 0>Bob2Alice then
-		AliceTag = BobTag
-	end
-
-	return ExistsExport(AliceTag, goods)
-end
-
 function ExistsExport(AliceTag, goods)
 	if goods ~= CGoodsPool._MONEY_ and gEconomy["export"][goods] and gEconomy["export"][goods][tostring(AliceTag)] then
 		-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(AliceTag)]))
