@@ -15,13 +15,14 @@ function P.ProposeDeclareWar( minister )
 	local vicTag = CCountryDataBase.GetTag('VIC')
 	local yugTag = CCountryDataBase.GetTag('YUG')
 	
-	if ministerCountry:GetFaction() == gerTag:GetCountry():GetFaction()
-	and ( not ministerCountry:GetRelation(greTag):HasWar() )
-	and vicTag:GetCountry():Exists()
-	then
-		strategy:PrepareWar( greTag, 100 )
-		strategy:PrepareWar( yugTag, 100 )
-	end
+	if ministerCountry:GetFaction() == gerTag:GetCountry():GetFaction() and vicTag:GetCountry():Exists() then
+		if not ministerCountry:GetRelation(greTag):HasWar() and not greTag:GetCountry():IsSubject() then
+			strategy:PrepareWar( greTag, 100 )
+		end
+		if not ministerCountry:GetRelation(yugTag):HasWar() and not yugTag:GetCountry():IsSubject() then
+			strategy:PrepareWar( yugTag, 100 )
+		end		
+	end	
 end
 
 function P.ForeignMinister_EvaluateDecision( score, agent, decision, scope )
