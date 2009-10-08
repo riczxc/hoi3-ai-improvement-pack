@@ -137,8 +137,8 @@ end
 
 function Selling(country, goods)
 	if IsTradeControlledByHuman(country:GetCountryTag()) then
-		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." is human seller.")
-		return 50
+		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." is human seller.")		
+		return math.min(50, math.max(GetAverageBalance(country, goods), country:GetPool():Get( goods ):Get()/10))
 	end
 
 	-- cancel imports first
@@ -182,7 +182,7 @@ function Buying(country, goods)
 	end
 
 	-- buy supplies if we are rich and not overstocked
-	if  goods == CGoodsPool._SUPPLIES_ then
+	if goods == CGoodsPool._SUPPLIES_ then
 		if IsRich(country) and (not HasMaxStock(country, goods)) then
 			-- IC 1 to 50
 			return math.min(50, math.max(1, country:GetTotalIC()/4))
@@ -190,7 +190,13 @@ function Buying(country, goods)
 			return 0
 		end
 	end
-
+	
+	-- don't buy oil if we have positive fuel income and not preparing for war
+	if goods == CGoodsPool._CRUDE_OIL_ and GetAverageBalance(country, CGoodsPool._FUEL_) >= 0 and 
+		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar()) then
+		return 0
+	end
+	
 	if HasMaxStock(country, goods) then
 		return 0
 	end
