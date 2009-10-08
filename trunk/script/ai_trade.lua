@@ -219,10 +219,6 @@ end
 
 function ProposeTrades(ai, AliceTag)
 	local AliceCountry = AliceTag:GetCountry()
-	if AliceCountry:GetTransports() == 0 then
-		return
-	end
-
 	local best = {}
 	local bestSupply = {}
 	best["score"] = -10000
@@ -247,14 +243,14 @@ function ProposeTrades(ai, AliceTag)
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- BUYING --- "..tostring(GOODS_TO_STRING[goods]))
 				-- lets check every possible trading partner
 				for BobCountry in CCurrentGameState.GetCountries() do
-					-- 50:50 to spread trades across more countries
-					--if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
-						-- not same country, BobBalance>minTrade, BobStock>min
-						if	tostring(BobCountry:GetCountryTag()) ~= tostring(AliceTag) then
+					local BobTag = BobCountry:GetCountryTag()
+					-- not same country, BobBalance>minTrade, BobStock>min
+					if	tostring(BobTag) ~= tostring(AliceTag) and IsValidCountry(BobCountry) then
+						if not (AliceCountry:NeedConvoyToTradeWith( BobTag ) and AliceCountry:GetTransports() == 0) then							
 							local BobSells = Selling(BobCountry, goods)
 							if BobSells >= AliceMinTradeSize then
 	--~ 							if tostring(AliceCountry:GetCountryTag())=='JAP' and math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
-								--Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobCountry:GetCountryTag() )
+								--Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobTag )
 								--		.." proposing "..tostring( math.min(AliceBuys, BobSells, 50)).." of "..tostring(GOODS_TO_STRING[goods]))
 	--~ 							end
 								-- lets try and buy from Bob (min amount between buyer and seller demand and not more than 50)
@@ -264,8 +260,10 @@ function ProposeTrades(ai, AliceTag)
 									bestSupply = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, bestSupply)
 								end
 							end
+						-- else
+							-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobTag ).." prevented because no transporters!")
 						end
-					--end
+					end
 				end
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- DONE BUYING --- "..tostring(GOODS_TO_STRING[goods]))
 			end -- otherwise not top stock but pos. balance so no action needed
