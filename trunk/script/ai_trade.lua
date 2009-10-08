@@ -191,9 +191,17 @@ function Buying(country, goods)
 		end
 	end
 	
-	-- don't buy oil if we have positive fuel income and not preparing for war
-	if goods == CGoodsPool._CRUDE_OIL_ and GetAverageBalance(country, CGoodsPool._FUEL_) >= 0 and 
-		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar()) then
+		-- don't buy oil if ...
+	if	goods == CGoodsPool._CRUDE_OIL_ and 
+		-- we have positive/0 fuel income
+		GetAverageBalance(country, CGoodsPool._FUEL_) >= 0 and
+		-- we have min fuel stock
+		HasMinStock(country, CGoodsPool._FUEL_) and
+		-- we do not import fuel
+		not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and 
+		-- we are not in or preparing for a war, or are rich enough to not care
+		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar() or IsRich(country))
+	then
 		return 0
 	end
 	
