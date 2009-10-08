@@ -137,8 +137,11 @@ end
 
 function Selling(country, goods)
 	if IsTradeControlledByHuman(country:GetCountryTag()) then
-		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." is human seller.")		
-		return math.min(50, math.max(GetAverageBalance(country, goods), country:GetPool():Get( goods ):Get()/10))
+		if HasMinStock(country, goods) then	
+			return math.min(50, math.max(GetAverageBalance(country, goods), country:GetPool():Get( goods ):Get()/10))
+		else
+			return 0
+		end
 	end
 
 	-- cancel imports first
