@@ -59,10 +59,10 @@ function P.ProposeDeclareWar( minister )
 	and CCurrentGameState.GetProvince( 1570 ):GetController() == gerTag		--Wilhelmshaven
 	then
 		--Utils.LUA_DEBUGOUT("GO for Fall Weseburung")
-		if not ministerCountry:GetRelation(denTag):HasWar() and not P.IsFullyOccupying( ministerCountry, denTag ) and denTag:GetCountry():Exists() then
+		if not ministerCountry:GetRelation(denTag):HasWar() and not denTag:GetCountry():IsSubject() then
 			strategy:PrepareWar( denTag, 100 )
 		end		
-		if not ministerCountry:GetRelation(norTag):HasWar() and not P.IsFullyOccupying( ministerCountry, norTag ) and norTag:GetCountry():Exists() then
+		if not ministerCountry:GetRelation(norTag):HasWar() and not norTag:GetCountry():IsSubject() then
 			strategy:PrepareWar( norTag, 100 )
 		end
 	end
@@ -86,29 +86,22 @@ function P.ProposeDeclareWar( minister )
 		or sweTag:GetCountry():IsGovernmentInExile() ) -- If Sweden is no more a problem 
 	then
 		--Utils.LUA_DEBUGOUT("GO for Fall Gelb")
-		if not ministerCountry:GetRelation(holTag):HasWar() and not P.IsFullyOccupying( ministerCountry, holTag ) and holTag:GetCountry():Exists() then
+		if not ministerCountry:GetRelation(holTag):HasWar() and not holTag:GetCountry():IsSubject() then
 			strategy:PrepareWar( holTag, 100 )
 		end
-		if not ministerCountry:GetRelation(belTag):HasWar() and not P.IsFullyOccupying( ministerCountry, belTag ) and belTag:GetCountry():Exists() then
+		if not ministerCountry:GetRelation(belTag):HasWar() and not belTag:GetCountry():IsSubject() then
 			strategy:PrepareWar( belTag, 100 )
 		end
-		if not ministerCountry:GetRelation(luxTag):HasWar() and not P.IsFullyOccupying( ministerCountry, luxTag ) and luxTag:GetCountry():Exists() then
+		if not ministerCountry:GetRelation(luxTag):HasWar() and not luxTag:GetCountry():IsSubject() then
 			strategy:PrepareWar( luxTag, 100 )
 		end
 	end
 	
-	local yugTag = CCountryDataBase.GetTag('YUG')
-	local itaTag = CCountryDataBase.GetTag('ITA')
-	local greTag = CCountryDataBase.GetTag('GRE')
 	local sovTag = CCountryDataBase.GetTag('SOV')
 	local vicTag = CCountryDataBase.GetTag('VIC')
-	if itaTag:GetCountry():GetFaction() == ministerCountry:GetFaction() 
-	and itaTag:GetCountry():GetRelation( greTag ):HasWar()
-	then
-		strategy:PrepareWar( yugTag, 100 )
-	end
 	
-	if year >= 1941 and month > 2 and CCurrentGameState.GetProvince( 2613 ):GetController() == gerTag and vicTag:GetCountry():Exists() then 
+	if year >= 1941 and month > 2 and CCurrentGameState.GetProvince( 2613 ):GetController() == gerTag and vicTag:GetCountry():Exists()
+		and not ministerCountry:GetRelation(sovTag):HasWar() and not sovTag:GetCountry():IsSubject() then 
 		--Utils.LUA_DEBUGOUT("GO for Barbarossa")
 		strategy:PrepareWar( sovTag, 100 )
 	end
@@ -132,15 +125,16 @@ function P.PickBestMission(ai, minister, countryTag, bestMission, bestScore )
 end
 
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
+-- If Germany didn't take Paris, it must avoid Italy to be influenced by allies faction
 
 	-- when to work on italy.
-	if tostring(recipient) == 'ITA' 
-	then
-		if CCurrentGameState.GetProvince( 2613 ):GetController() == actor then -- paris must be ours
-			return	150
-		end
-		return 0
-	end
+--	if tostring(recipient) == 'ITA' 
+--	then
+--		if CCurrentGameState.GetProvince( 2613 ):GetController() == actor then -- paris must be ours
+--			return	150
+--		end
+--		return 0
+--	end
 
 
 	return score
