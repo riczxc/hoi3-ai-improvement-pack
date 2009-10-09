@@ -16,7 +16,7 @@ function ForeignMinister_ManageTrade(ai, ministerTag)
 --~ 		Utils.LUA_DEBUGOUT(" - - - - - - - - ")
 --~ 	end
 	-- skip first week, config chance, only valid countries
-	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then
+	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then		
 		if math.mod( CCurrentGameState.GetAIRand(), 3) == 0 then
 			-- 1 out of 3
 			EvalutateExistingTrades(ai, ministerTag)
@@ -73,7 +73,9 @@ function EvalutateExistingTrades(ai, AliceTag)
 									-- we (alice) buy supplies and have no money
 									elseif AliceImport > 0 and ((not IsRich(AliceCountry)) or HasMaxStock(AliceCountry, goods)) then
 										CancelTrade(ai, route, AliceTag, BobTag)
-										return
+										if not IsPoor(AliceCountry) then
+											return
+										end
 									end
 								elseif
 									-- we buy a good but have lots
