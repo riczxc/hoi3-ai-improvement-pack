@@ -71,10 +71,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 											CancelTrade(ai, route, AliceTag, BobTag)
 											return
 									-- we (alice) buy supplies and have no money
-									elseif AliceImport > 0 and (IsPoor(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
-										-- if 'USA' == tostring(AliceTag) then
- 											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (2) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
-										-- end
+									elseif AliceImport > 0 and ((not IsRich(AliceCountry)) or HasMaxStock(AliceCountry, goods)) then
 										CancelTrade(ai, route, AliceTag, BobTag)
 										return
 									end
@@ -92,8 +89,8 @@ function EvalutateExistingTrades(ai, AliceTag)
 								elseif
 									-- we cancel imports below balance if stock is above min
 									(AliceImport > 0 and AliceImport < GetAverageBalance(AliceCountry, goods) and HasMinStock(AliceCountry, goods)) or
-									-- we cancel exports below neg. balance if stock is above min
-									(AliceExport > 0 and AliceExport < -1*GetAverageBalance(AliceCountry, goods) and HasMinStock(AliceCountry, goods))
+									-- we cancel exports below neg. balance 
+									(AliceExport > 0 and AliceExport < -1*GetAverageBalance(AliceCountry, goods))
 								then
 									-- if 'USA' == tostring(AliceTag) then
  											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (4) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
@@ -229,13 +226,7 @@ function MinTradeSize(country)
 end
 
 function ProposeTrades(ai, AliceTag)
-	local AliceCountry = AliceTag:GetCountry()
-	local best = {}
-	local bestSupply = {}
-	best["score"] = -10000
-	best["action"] = nil
-	bestSupply["score"] = -10000
-	bestSupply["action"] = nil
+	local AliceCountry = AliceTag:GetCountry()	
 	local AliceBuys = 0
 	local BobDemand = 0
 	local AliceMinTradeSize = MinTradeSize(AliceCountry)
@@ -245,6 +236,9 @@ function ProposeTrades(ai, AliceTag)
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	for goods = 0, MAX_GOODS do
 		if goods ~= CGoodsPool._MONEY_ then
+			local best = {}
+			best["score"] = -10000
+			best["action"] = nil
 			--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." "..tostring(GOODS_TO_STRING[goods]))
 			local AliceStock = AliceCountry:GetPool():Get( goods ):Get()
 			-- buy
@@ -260,42 +254,17 @@ function ProposeTrades(ai, AliceTag)
 						if not (AliceCountry:NeedConvoyToTradeWith( BobTag ) and AliceCountry:GetTransports() == 0) then							
 							local BobSells = Selling(BobCountry, goods)
 							if BobSells >= AliceMinTradeSize then
-	--~ 							if tostring(AliceCountry:GetCountryTag())=='JAP' and math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
-								--Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobTag )
-								--		.." proposing "..tostring( math.min(AliceBuys, BobSells, 50)).." of "..tostring(GOODS_TO_STRING[goods]))
-	--~ 							end
-								-- lets try and buy from Bob (min amount between buyer and seller demand and not more than 50)
-								if goods ~= CGoodsPool._SUPPLIES_ then
-									best = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, best )
-								else
-									bestSupply = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, bestSupply)
-								end
+								best = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, best )
 							end
-						-- else
-							-- Utils.LUA_DEBUGOUT(tostring( AliceTag ).."2"..tostring( BobTag ).." prevented because no transporters!")
 						end
 					end
 				end
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- DONE BUYING --- "..tostring(GOODS_TO_STRING[goods]))
 			end -- otherwise not top stock but pos. balance so no action needed
+			if  best["action"] then
+				ai:PostAction( best["action"] )
+			end
 		end
-	end
-
-	-- do supplies before anything else
-	if  bestSupply["action"] then
---~ 		if 'USA' == tostring(ministerTag) then
---~ 			Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying supplies, score: "..tostring(bestSupply["score"]))
---~ 		end
-		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying supplies, score: "..tostring(bestSupply["score"]))
---~ 		TradeSpamSet(bestSupply["goods"], bestSupply["buyer"], bestSupply["seller"])
-		ai:PostAction( bestSupply["action"] )
-	elseif  best["action"] then
---~ 		if 'USA' == tostring(ministerTag) then
---~ 			Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying something, score: "..tostring(best["score"]))
---~ 		end
-		--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." buying something, score: "..tostring(best["score"]))
---~ 		TradeSpamSet(best["goods"], best["buyer"], best["seller"])
-		ai:PostAction( best["action"] )
 	end
 end
 
@@ -369,10 +338,11 @@ function DiploScore_OfferTrade(ai, Alice, Bob, observer, action)
 		--Utils.LUA_DEBUGOUT("DiploScore_OfferTrade"..tostring(Alice).." is observer so return 100")
 		return 100 -- handled from foreign minister
 	else -- evaluate offer of trade from Alice
-		local score = 0
+		local score = 666
 		local AliceCountry = Alice:GetCountry()
 		local BobCountry = Bob:GetCountry()
 		local route = action:GetRoute()
+		local LandRoute = false
 
 		-- DOES NOT WORK BUG!
 --~ 		if ai:AlreadyTradingResourceOtherWay( action:GetRoute() ) then
@@ -382,13 +352,17 @@ function DiploScore_OfferTrade(ai, Alice, Bob, observer, action)
 
 		-- we need transports to trade
 		if AliceCountry:NeedConvoyToTradeWith( Bob ) then
-			if route:GetConvoyResponsible() == Bob and BobCountry:GetTransports() == 0 then
-				--Utils.LUA_DEBUGOUT(" No convoys available! "..tostring( Bob ))
-				return 0
+			if route:GetConvoyResponsible() == Bob then
+				if BobCountry:GetTransports() == 0 then
+					--Utils.LUA_DEBUGOUT(" No convoys available! "..tostring( Bob ))
+					return 0
+				end
 			elseif AliceCountry:GetTransports() == 0 then
 				--Utils.LUA_DEBUGOUT(" No convoys available! "..tostring( Alice ))
 				return 0
 			end
+		else
+			LandRoute = true
 		end
 		--Utils.LUA_DEBUGOUT(tostring(Alice).."2"..tostring(Bob).." -> DiploScore_OfferTrade ")
 		local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
@@ -418,40 +392,33 @@ function DiploScore_OfferTrade(ai, Alice, Bob, observer, action)
 					return 0
 				end
 
-				local thisScore = ScoreTradeOfGood(goods, Alice2Bob, AliceCountry, Bob2Alice, BobCountry)
---~ 				Utils.LUA_DEBUGOUT(tostring(Alice).."2"..tostring(Bob).." -> Bob2Alice "..tostring(Bob2Alice).." ".. tostring( GOODS_TO_STRING[goods]))
---~ 				Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).."<->"..tostring(BobCountry:GetCountryTag())..tostring( GOODS_TO_STRING[goods]).." Score: "..tostring(thisScore)
---~ 				.." Alice2Bob:"..tostring(Alice2Bob).." Bob2Alice:"..tostring(Bob2Alice))
-				-- scored good?
-				if thisScore ~= 0 then
-					-- first score always counts
-					if score == 0 then
-						score = thisScore
-					else
-						-- take worst score
-						score = math.min(score, thisScore)
-					end
+				if Bob2Alice>0 or Alice2Bob>0 then
+					score = math.min(score, ScoreTradeOfGood(goods, Alice2Bob, AliceCountry, Bob2Alice, BobCountry))
+					--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).."<->"..tostring(BobCountry:GetCountryTag())
+					--	..tostring( GOODS_TO_STRING[goods]).." Score: "..tostring(score))
 				end
---~ 				if Alice2Bob ~=0 or Bob2Alice ~=0 then
---~ 					Utils.LUA_DEBUGOUT(" Score ".. tostring( GOODS_TO_STRING[goods]) .. ": " ..tostring( score )
---~ 					.." Alice2Bob: "..tostring(Alice2Bob).." Bob2Alice: "..tostring(Bob2Alice))
---~ 				end
-			end
---~ 			end
+--~ 				Utils.LUA_DEBUGOUT(tostring(Alice).."2"..tostring(Bob).." -> Bob2Alice "..tostring(Bob2Alice).." ".. tostring( GOODS_TO_STRING[goods]))
 
+--~ 				.." Alice2Bob:"..tostring(Alice2Bob).." Bob2Alice:"..tostring(Bob2Alice))
+			end
+		end
+		if score == 666 then
+			score = 0 -- no good scored
+		elseif LandRoute then
+			score = score*1.1 -- land route is better
 		end
 
 	--Utils.LUA_DEBUGOUT(" Final Score: " ..tostring( score ))
 	--Utils.LUA_DEBUGOUT("---------------")
 
---~ 		Utils.LUA_DEBUGOUT("score before strategy " .. score)
+ 		--Utils.LUA_DEBUGOUT("score before strategy " .. score)
 		if score ~= 0 then
 			--Utils.LUA_DEBUGOUT(tostring(Alice).."2"..tostring(Bob).." StrategicScore: " ..tostring( StrategicScore(ai, Alice, Bob) ))
 			--Utils.LUA_DEBUGOUT(tostring(Alice).."2"..tostring(Bob).." StrategicScore: " ..tostring( StrategicScore(ai, Bob, Alice) ))
 			-- +/- 20%
 			score = score + score*StrategicScore(ai, Alice, Bob)/100
 		end
-
+		--Utils.LUA_DEBUGOUT("score after strategy " .. score)
 		-- 0 to 100
 		return math.max(0, math.min(100, Utils.CallScoredCountryAI(Alice, 'DiploScore_OfferTrade', score, ai, Alice, Alice, observer)))
 	end
@@ -517,37 +484,34 @@ function ScoreTradeOfGood(goods, Alice2Bob, AliceCountry, Bob2Alice, BobCountry)
 	return 0
 end
 
--- returns 0 to 80 points
+-- returns 0 to 100 points
 function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
  	--Utils.LUA_DEBUGOUT(tostring(SellerCountry:GetCountryTag()).."2"..tostring(BuyerCountry:GetCountryTag()).." -> ScoreTradeOfGoodCalc ")
 	local SellerDemand = Selling(SellerCountry, goods)
 	local BuyerDemand = Buying(BuyerCountry, goods)
 	local SellerStock = SellerCountry:GetPool():Get( goods ):Get()
 	local BuyerStock = BuyerCountry:GetPool():Get( goods ):Get()
+	if IsTradeControlledByHuman(BuyerCountry:GetCountryTag()) then
+		BuyerDemand = Amount
+	end
+	
 	-- if tostring(SellerCountry:GetCountryTag())=='JAP' or tostring(BuyerCountry:GetCountryTag())=='JAP' then
-		-- Utils.LUA_DEBUGOUT(tostring(SellerCountry:GetCountryTag()).."2"..tostring(BuyerCountry:GetCountryTag()).." "
+		--Utils.LUA_DEBUGOUT(tostring(SellerCountry:GetCountryTag()).."2"..tostring(BuyerCountry:GetCountryTag()).." "
 		-- ..tostring( GOODS_TO_STRING[goods]).." "..tostring(SellerDemand).." <2> "..tostring(BuyerDemand).." Amount:"..tostring(Amount)	)
 	-- end
-
+	
 	-- asking too much?
 	if Amount > SellerDemand or Amount > BuyerDemand then
 		return 0
 	end
 
 	if SellerDemand > 0 and  BuyerDemand > 0 then
-		-- buyer satisfaction 2 to 0
-		local buyerScore = 1.8*(math.min(50, Amount)/math.min(50, BuyerDemand)) + 0.2*(1-math.min(1, BuyerStock/90000))
-		-- seller satisfaction 2 to 0
-		local sellerScore = 1.8*(math.min(50, SellerDemand)/math.min(50, Amount)) + 0.2*(math.min(1, SellerStock/90000))
-		-- 84 to 0, how well does the trade satisfy the buyer and seller 50:50
-		if  goods == CGoodsPool._SUPPLIES_ then
-			-- boost supplies
-			return math.min(84, 31.5 *  (buyerScore + sellerScore))
-		else
-			return math.min(84, 21 *  (buyerScore + sellerScore))
-		end
+		-- buyer satisfaction 1 to 0
+		local buyerScore = math.min(50, Amount)/math.min(50, BuyerDemand) --+ 0.5 * (1-math.min(1, BuyerStock/90000))
+		-- seller satisfaction 1 to 0
+		local sellerScore = math.min(50, Amount)/math.min(50, SellerDemand) --+ 0.5 * math.min(1, SellerStock/90000)
+		return 50 * (buyerScore + sellerScore)
 	end
-
 	return 0
 end
 
