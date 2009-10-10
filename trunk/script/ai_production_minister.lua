@@ -71,13 +71,13 @@ function ProductionMinister_Tick(minister)
 						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
 					elseif unit:IsShip() then
 						--Utils.LUA_DEBUGOUT( "Naval unit")
-						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, AvailIC, unitName)
 					elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
 					or unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role"
 					or unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber"
 					or unitName == "tactical_bomber" or unitName == "transport_plane" then
 						--Utils.LUA_DEBUGOUT( "Air Unit")
-						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, AvailIC, unitName)
 					else
 						AvailIC = AvailIC - cost
 						SubUnitList.Append( orderlist, unit )
@@ -553,11 +553,9 @@ end
 
 function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
 	--Utils.LUA_DEBUGOUT( "ENTER Build division function")
-	local prod_ratio = {}
-
 	--Utils.LUA_DEBUGOUT( "Start Load production function")
 	-- Load country's division templates
-	prod_ratio = LoadProductionRatio(minister, ministerCountry)
+	local prod_ratio = LoadProductionRatio(minister, ministerCountry)
 
 	local i = 1
 	local j = 1
