@@ -261,7 +261,7 @@ function ProductionMinister_Tick(minister)
 					if k == 'infra' then
 						-- Infra is very cheap to build in comparison to the rest. (1/5)
 						-- Build more infra in one round so ICs are equally spent.
-						multiplier = 4
+						multiplier = math.min(5, math.ceil(TotalIC/10))
 					end
 
 					--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " improvement " .. k .. " priority " .. tostring(v.priority) .. " AvailIC " .. tostring(AvailIC))
