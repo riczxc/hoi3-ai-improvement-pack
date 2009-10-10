@@ -36,7 +36,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." eval trade ")
 	for Bob in CCurrentGameState.GetCountries() do
 		local BobTag = Bob:GetCountryTag()
-		if BobTag ~= AliceTag and BobTag:IsReal() and BobTag:IsValid() and BobTag:GetCountry():Exists() then
+		if BobTag ~= AliceTag and IsValidCountry(Bob) then
 			for route in AliceCountry:GetRelation( BobTag ):GetTradeRoutes() do
 				if route:IsValid() then
 					-- cancel inactive routes
@@ -230,7 +230,6 @@ end
 function ProposeTrades(ai, AliceTag)
 	local AliceCountry = AliceTag:GetCountry()	
 	local AliceBuys = 0
-	local BobDemand = 0
 	local AliceMinTradeSize = MinTradeSize(AliceCountry)
 	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." ProposeTrades")
 
@@ -262,10 +261,10 @@ function ProposeTrades(ai, AliceTag)
 					end
 				end
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- DONE BUYING --- "..tostring(GOODS_TO_STRING[goods]))
+				if  best["action"] then
+					ai:PostAction( best["action"] )
+				end
 			end -- otherwise not top stock but pos. balance so no action needed
-			if  best["action"] then
-				ai:PostAction( best["action"] )
-			end
 		end
 	end
 end
