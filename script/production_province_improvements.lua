@@ -46,7 +46,7 @@ function GetICRatioForProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
 
 		ratioPeace = 0.3 -- Needs to build some naval bases and infra for china supply (TODO: add provinces like for SOV)
-		ratioPreparingWar = 0.3
+		ratioPreparingWar = 0.2
 		ratioWar = 0.1
 
 	------------------------------------------FRANCE---------------------------------------------------
@@ -246,8 +246,27 @@ function LoadProvinceImprovements(country)
 	------------------------------------------JAPAN---------------------------------------------------
 	elseif countryTag == 'JAP' then
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
-
-
+		prod_improvements = {
+			infra = {
+				priority = 0.5,
+				max_level = 0.8
+				},
+			industry = {
+				priority = 0.05
+			},
+			air_base = {
+				priority = 0.05
+			},
+			naval_base = {
+				priority = 0.3
+			},
+			coastal_fort = {
+				priority = 0.05
+			},
+			radar_station = {
+				priority = 0.05
+			}
+		}
 	------------------------------------------FRANCE---------------------------------------------------
 	elseif countryTag == 'FRA' then
 		--Utils.LUA_DEBUGOUT( "FRANCE" )
