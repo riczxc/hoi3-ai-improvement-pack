@@ -598,48 +598,6 @@ function BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, A
 	return orderlist, AvailIC
 end
 
-function InfantryDivision(ministerCountry, bBuildReserve, orderlist, AvailIC)
-	local infantry = CSubUnitDataBase.GetSubUnit("infantry_brigade")
-
-	SubUnitList.Append( orderlist, infantry )
-	SubUnitList.Append( orderlist, infantry )
-
-	orderlist, AvailIC = ChanceSupportBrigade(ministerCountry, bBuildReserve, orderlist, AvailIC)
-
-	AvailIC = AvailIC - 2*ministerCountry:GetBuildCostIC( infantry, 1, bBuildReserve ):Get()
-	return orderlist, AvailIC
-end
-
-function ChanceSupportBrigade(ministerCountry, bBuildReserve, orderlist, AvailIC)
-	local infantry = CSubUnitDataBase.GetSubUnit("infantry_brigade")
-	local artillery = CSubUnitDataBase.GetSubUnit("artillery_brigade")
-	local anti_tank = CSubUnitDataBase.GetSubUnit("anti_tank_brigade")
-	local anti_air = CSubUnitDataBase.GetSubUnit("anti_air_brigade")
-
-	--local rem = math.random(3)
-	local rem = math.mod( CCurrentGameState.GetAIRand(), 5)
-	-- 40% chance to make artillery, anti tank or 20% for AA
-	if rem<2 and ministerCountry:GetTechnologyStatus():IsUnitAvailable(artillery) then
-		SubUnitList.Append( orderlist, artillery )
-		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( artillery, 1, bBuildReserve ):Get()
-		-- Utils.LUA_DEBUGOUT( tostring(artillery:GetKey()) )
-	elseif rem<4  and ministerCountry:GetTechnologyStatus():IsUnitAvailable(anti_tank) then
-		SubUnitList.Append( orderlist, anti_tank )
-		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( anti_tank, 1, bBuildReserve ):Get()
-		-- Utils.LUA_DEBUGOUT( tostring(anti_tank:GetKey()) )
-	elseif 4==rem  and ministerCountry:GetTechnologyStatus():IsUnitAvailable(anti_air) then
-		SubUnitList.Append( orderlist, anti_air )
-		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( anti_air, 1, bBuildReserve ):Get()
-		-- Utils.LUA_DEBUGOUT( tostring(anti_air:GetKey()) )
-	else
-		SubUnitList.Append( orderlist, infantry )
-		AvailIC = AvailIC - ministerCountry:GetBuildCostIC( infantry, 1, bBuildReserve ):Get()
-		-- Utils.LUA_DEBUGOUT( tostring(infantry:GetKey()) )
-	end
-	return orderlist, AvailIC
-end
-
-
 function ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 	if ministerCountry:GetNumOfPorts() > 0 then
 		-- 10%
