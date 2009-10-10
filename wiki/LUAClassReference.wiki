@@ -543,19 +543,31 @@ Shoul be number 5.
 =Command classes=
 !!! Some methods are guessed !!!
 ==CCommand==
+
 ==CConstructConvoyCommand==
+
 ==CToggleMobilizationCommand(??? ministerTag, bool ???)==
+
 ==CLiberateCountryCommand(CCountryTag countryTag, ??? ministerTag)==
+
 ==CChangeLawCommand==
+
 ==CStartResearchCommand==
+
 ==CConstructBuildingCommand==
+
 ==CConstructUnitCommand==
+
 ==SubUnitList==
 ||static void||Append(SubUnitList unitList, ??? unit)||
 ||int||GetSize()||
+
 ==CCancelUnitConstructionCommand==
+
 ==CConstructSingleUnitCommand==
+
 ==CChangeLeadershipCommand==
+
 ==CChangeInvestmentCommand==
 
 =Util classes=
