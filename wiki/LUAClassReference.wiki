@@ -406,7 +406,6 @@ Shoul be number 5.
 ==CSpyPresence==
 ||int ||MAX_SPY_LEVEL||
 ||int ||MAX_SPY_PRIORITY||
-||???||SPYMISSION_MAX||
 ||int ||GetPriority()||
 ||Enum`<SpyMission>` ||GetMission()||
 ||???||GetLastMissionChangeDate||
