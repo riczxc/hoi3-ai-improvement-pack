@@ -692,7 +692,12 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 		end
 
 		local freeTransports = (minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports())/defines.economy.CONVOY_CONSTRUCTION_SIZE
-		local neededTransports = math.max(ministerCountry:GetTotalNeededTransports()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE, ministerCountry:GetTotalIC()/10)
+		local neededTransports = ministerCountry:GetTotalNeededTransports()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE
+		if 0==ministerCountry:GetTransports() then -- no free ones, ramp up building
+			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/10)
+		else -- got some free ones build less rapid and smaller buffer
+			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/20)
+		end
 
 		local cost = ministerCountry:GetConvoyBuildCost():Get()
 		local transportCommand = CConstructConvoyCommand( ministerTag, false, 1 )
