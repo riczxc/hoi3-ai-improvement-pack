@@ -12,15 +12,20 @@ function P.ProposeDeclareWar( minister )
 	local gerTag = CCountryDataBase.GetTag('GER')
 	local polTag = CCountryDataBase.GetTag('POL')
 	
-	if year >= 1942 and month >= 3
-	and ( not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) 
-	and not ministerCountry:GetRelation(gerTag):HasWar()
+	if year >= 1942 and month >= 2
+	and ( not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) --Poland are history
+	and not ministerCountry:GetRelation(gerTag):HasWar()				--Not already at war with GER
+	and not gerTag:GetCountry():IsSubject()								--GER isn't a subject nation							
+	and CCurrentGameState.GetProvince( 1861 ):GetController() == gerTag	--GER controls Berlin
 	then
 		strategy:PrepareWar( gerTag, 100 )
 	end
 	
 	if year >= 1940 and month >= 3
-	and polTag:GetCountry():GetFaction() == gerTag:GetCountry():GetFaction()
+	and polTag:GetCountry():GetFaction() == gerTag:GetCountry():GetFaction()	-- Poland is in axis
+	and not ministerCountry:GetRelation(polTag):HasWar()				--Not already at war with POL
+	and not polTag:GetCountry():IsSubject()								--POL isn't a subject nation							
+	and CCurrentGameState.GetProvince( 1928 ):GetController() == polTag	--POL controls Warsaw
 	then
 		strategy:PrepareWar( polTag, 100 )
 	end
