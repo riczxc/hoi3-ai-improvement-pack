@@ -515,31 +515,19 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, light_armor, light_armor, armored_car };
 													{ 90, light_armor, light_armor, motorized }
 												}
-				gProdRatio['JAP']['motorized_brigade'] = {	-- Motorized
-													{ 70, motorized, motorized };
-													{ 10, motorized, motorized, engineer };
-													{ 20, motorized, motorized, sp_artillery }
-												}
-				gProdRatio['JAP']['mechanized_brigade'] = {	-- mechanized
-													{ 70, mechanized, mechanized, motorized };
-													{ 20, mechanized, mechanized, sp_artillery };
-													{ 10, mechanized, mechanized, engineer }
-												}
+				gProdRatio['JAP']['motorized_brigade'] = gProdRatio['JAP']['infantry_brigade']
+				gProdRatio['JAP']['mechanized_brigade'] = gProdRatio['JAP']['marine_brigade']
 			end
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['JAP']['armor_brigade'] = {		-- Armor with mechanized
-													{ 60, armor, armor, mechanized };
-													{ 25, armor, mechanized, sp_artillery };
-													{ 5, armor, mechanized, tank_destroyer };
-													{ 10, armor, mechanized, engineer }
+													{ 60, marine, marine, engineer };
+													{ 40, armor, mechanized, engineer }
 												}
 				gProdRatio['JAP']['mechanized']  = true
 			else
 				gProdRatio['JAP']['armor_brigade'] = {		-- Armor with motorized
-													{ 60, armor, armor, motorized };
-													{ 25, armor, motorized, sp_artillery };
-													{ 5, armor, motorized, tank_destroyer };
-													{ 10, armor, motorized, engineer }
+													{ 60, marine, marine, engineer };
+													{ 40, armor, motorized, engineer }
 												}
 				gProdRatio['JAP']['mechanized']  = false
 			end
