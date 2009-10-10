@@ -113,6 +113,35 @@ function LoadRestrictions(minister, ministerCountry)
 			prod_restrictions["naval_bomber"] = { 100, naval_bomber }					
 			prod_restrictions["strategic_bomber"] = { 100, strategic_bomber} 		
 		end
+	------------------------------------------JAPAN---------------------------------------------------
+	elseif ministerTag == 'JAP' then
+		--Utils.LUA_DEBUGOUT( "JAPAN" )
+		local mix = { 5, interceptor, 5, multi_role, 5, naval_bomber, 5, tactical_bomber, 5, cas, -- 25% Air
+		14, cag, 7, carrier, 7, battleship, 8, heavy_cruiser, 12, light_cruiser, 12, destroyer, 15, submarine  -- 75& naval
+		}
+		prod_restrictions["transport_ship"] = { 100, transport_ship }
+		prod_restrictions["nuclear_submarine"] = { 100, nuclear_submarine }
+		
+		prod_restrictions["super_heavy_battleship"] = mix		
+		prod_restrictions["battlecruiser"] = mix
+		prod_restrictions["battleship"] = mix
+		prod_restrictions["carrier"] = mix
+		prod_restrictions["destroyer"] = mix
+		prod_restrictions["escort_carrier"] = mix
+		prod_restrictions["heavy_cruiser"] = mix
+		prod_restrictions["light_cruiser"] = mix
+		prod_restrictions["submarine"] = mix
+		prod_restrictions["cag"] = mix
+		prod_restrictions["cas"] = mix
+		prod_restrictions["flying_bomb"] = mix
+		prod_restrictions["flying_rocket"] = mix
+		prod_restrictions["interceptor"] = mix
+		prod_restrictions["multi_role"] = mix
+		prod_restrictions["naval_bomber"] = mix
+		prod_restrictions["rocket_interceptor"] = mix
+		prod_restrictions["strategic_bomber"] = mix
+		prod_restrictions["tactical_bomber"] = mix
+		prod_restrictions["transport_plane"] = mix
 	------------------------------------------UNITED KINGDOM---------------------------------------------------
 	elseif ministerTag == 'ENG' then
 		--Utils.LUA_DEBUGOUT( "UNITED KINGDOM" )
