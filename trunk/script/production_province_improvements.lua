@@ -16,10 +16,10 @@ function GetICRatioForProvinceImprovements(country)
 		if year <= 1939 then
 			ratioPeace = 0.5 -- Needs to build up lot's of infra (~240 provinces and ~2-4 infra per province)
 		else
-			ratioPeace = 0.3
+			ratioPeace = 0.4
 		end
-		ratioPreparingWar = 0.2
-		ratioWar = 0.1
+		ratioPreparingWar = 0.3
+		ratioWar = 0.2
 
 	------------------------------------------GERMANY---------------------------------------------------
 	elseif countryTag == 'GER' then
