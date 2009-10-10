@@ -44,6 +44,7 @@ function ProductionMinister_Tick(minister)
 			-- ai list of requests, in prio order
 			local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
 			local requestQueue = ai:GetReqProdQueue()
+			local nothingBuiltByTacticalAI = true
 			if not requestQueue:IsEmpty() then
 				----------------------------------- Random for Tail or Head Data
 				local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 2)+1
@@ -83,8 +84,11 @@ function ProductionMinister_Tick(minister)
 						SubUnitList.Append( orderlist, unit )
 					end
 
-					local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID() )
-					ai:Post( construct )
+					if orderlist:GetSize() > 0 then
+						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID() )
+						ai:Post( construct )
+						nothingBuiltByTacticalAI = false
+					end
 				end
 				-----------------------------------
 				if ranNumber == 1 then
@@ -94,7 +98,9 @@ function ProductionMinister_Tick(minister)
 				end
 				-----------------------------------
 
-			else
+			end
+
+			if nothingBuiltByTacticalAI then
 
 				-- any requests by strategic ai
 				for subunit in CSubUnitDataBase.GetSubUnitList() do
@@ -278,27 +284,27 @@ function ProductionMinister_Tick(minister)
 						--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " is building improvement " .. ImprovementType)
 						if ministerCountry:IsBuildingAllowed(building[ImprovementType], province) and
 							(
-							
+
 							(	ImprovementType == 'infra' and
 								(	SelectedImprovementType.ids_not_random or province:GetMaxInfrastructure():Get() < SelectedImprovementType.max_level ) ) or
-							
+
 							(	ImprovementType == 'industry' and
 								(	SelectedImprovementType.ids_not_random or
 									(	not province:IsFrontProvince(false)	and
 										province:GetInfrastructure():Get() > 0.3	) ) ) or
-							
+
 							(	ImprovementType == 'land_fort' and
 								(	SelectedImprovementType.ids_not_random or province:IsFrontProvince(false) ) ) or
-							
+
 							(	ImprovementType == 'coastal_fort' and
 								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building.naval_base) ) ) or
-								
+
 							(	ImprovementType == 'radar_station' and
 								(	SelectedImprovementType.ids_not_random or province:IsFrontProvince(false) or province:HasBuilding(building.coastal_fort) or
-									province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or									
+									province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or
 									province:HasBuilding(building.industry) or province:HasBuilding(building.naval_base) or
 									province:HasBuilding(building.anti_air) ) ) or
-							
+
 							(	ImprovementType == 'air_base' and
 								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building[ImprovementType]) ) ) or
 
@@ -306,10 +312,10 @@ function ProductionMinister_Tick(minister)
 								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or
 									province:HasBuilding(building.coastal_fort) or province:HasBuilding(building.land_fort) or
 									province:HasBuilding(building.industry) or province:HasBuilding(building.naval_base) ) ) or
-							
+
 							(	ImprovementType == 'naval_base' and
 								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building.naval_base) ) )
-							
+
 							)
 						then
 							AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[ImprovementType], cost, SelectedImprovementType.selected_ids[i])
