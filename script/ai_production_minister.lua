@@ -275,43 +275,44 @@ function ProductionMinister_Tick(minister)
 
 						local i = math.mod(provinceIndex[k], table.getn(v.selected_ids))
 						local province = CCurrentGameState.GetProvince(v.selected_ids[i])
+						--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " is building improvement " .. k)
+						if ministerCountry:IsBuildingAllowed(building[k], province) and
+							(
+							
+							(	k == 'infra' and
+								(	province:GetMaxInfrastructure():Get() < v.max_level ) ) or
+							
+							(	k == 'industry' and
+								(	v.ids_not_random or
+									(	not province:IsFrontProvince(false)	and
+										province:GetInfrastructure():Get() > 0.3	) ) ) or
+							
+							(	k == 'land_fort' and
+								(	v.ids_not_random or province:IsFrontProvince(false) ) ) or
+							
+							(	k == 'coastal_fort' and
+								(	v.ids_not_random or province:HasBuilding(building.naval_base) ) ) or
+								
+							(	k == 'radar_station' and
+								(	v.ids_not_random or province:IsFrontProvince(false) or province:HasBuilding(building.coastal_fort) or
+									province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or									
+									province:HasBuilding(building.industry) or province:HasBuilding(building.naval_base) or
+									province:HasBuilding(building.anti_air) ) ) or
+							
+							(	k == 'air_base' and
+								(	v.ids_not_random or province:HasBuilding(building[k]) ) ) or
 
-						if ministerCountry:IsBuildingAllowed(building[k], province) then
-							--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " is building improvement " .. k)
-
-							if k == 'infra' then
-								if province:GetMaxInfrastructure():Get() < v.max_level then
-									AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-								end
-							elseif k == 'industry' then
-								if v.ids_not_random or
-									(
-										not province:IsFrontProvince(false)
-									and
-										province:GetInfrastructure():Get() > 0.3
-									)
-								then
-									AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-								end
-							elseif k == 'land_fort' then
-								if v.ids_not_random or province:IsFrontProvince(false) then
-									AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-								end
-							elseif k == 'coastal_fort' then
-								if v.ids_not_random or province:HasBuilding(building.naval_base) then
-									AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-								end
-							elseif k == 'radar_station' then
-								if v.ids_not_random or (not province:HasBuilding(building[k])) then
-									AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-								end
-							elseif k == 'air_base' then
-								if v.ids_not_random or (not province:IsFrontProvince(false)) then
-									AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-								end
-							else -- anti_air and naval_base
-								AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
-							end
+							(	k == 'anti_air' and
+								(	v.ids_not_random or province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or
+									province:HasBuilding(building.coastal_fort) or province:HasBuilding(building.land_fort) or
+									province:HasBuilding(building.industry) or province:HasBuilding(building.naval_base) ) ) or
+							
+							(	k == 'naval_base' and
+								(	v.ids_not_random or province:HasBuilding(building.naval_base) ) )
+							
+							)
+						then
+							AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[k], cost, v.selected_ids[i])
 						end
 					end
 
