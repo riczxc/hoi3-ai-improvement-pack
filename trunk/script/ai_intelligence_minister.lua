@@ -25,8 +25,14 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
 	elseif ministerCountry:GetNationalUnity():Get() < 60 then
 		newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
-	else
+	elseif ministerCountry:GetNeutrality():Get() >= 75 then
 		newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
+	else
+		if math.mod(CCurrentGameState.GetAIRand(), 2) == 0 then
+			newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
+		else
+			newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
+		end
 	end
 
 	if newMission ~= currentMission then
