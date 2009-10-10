@@ -6,14 +6,14 @@ require('ai_diplomacy')
 require('helper_functions')
 
 function IntelligenceMinister_Tick(minister)
-	--if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
+	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
 		local ministerTag = minister:GetCountryTag()
 		local ministerCountry = minister:GetCountry()
 		local ai = minister:GetOwnerAI()
 
 		ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
-	--end
+	end
 end
 
 function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
