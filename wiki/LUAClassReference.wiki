@@ -179,8 +179,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||bool ||IsInactive()||
 ||CFixedPoint ||GetTradedFromOf(int goods)||
 ||CFixedPoint ||GetTradedToOf(int goods)||
-||??? ||GetFrom||
-||??? ||GetTo||
+||CCountryTag||GetFrom()||
+||CCountryTag||GetTo()||
 ||CCountryTag ||GetConvoyResponsible()||
 ||??? ||GetLastInactive||
 
