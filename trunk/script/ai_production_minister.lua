@@ -151,47 +151,6 @@ function ProductionMinister_Tick(minister)
 				-- Load country specific province improvements
 				improvements = LoadProvinceImprovements(ministerCountry)
 
-				-- Make sure the improvements table is complete
-				local requiredKeys = {
-					infra = {
-						priority = 0,
-						max_level = 0.8
-					},
-					industry = {
-						priority = 0
-					},
-					air_base = {
-						priority = 0
-					},
-					naval_base = {
-						priority = 0
-					},
-					anti_air = {
-						priority = 0
-					},
-					land_fort = {
-						priority = 0
-					},
-					coastal_fort = {
-						priority = 0
-					},
-					radar_station = {
-						priority = 0
-					}
-				}
-				for k,v in pairs(requiredKeys) do
-					if improvements[k] == nil then
-						improvements[k] = v
-					else
-						-- Cycle through subkeys
-						for subk,subv in pairs(v) do
-							if improvements[k][subk] == nil then
-								improvements[k][subk] = subv
-							end
-						end
-					end
-				end
-
 				-- Now create a list of provinces where each improvement can be built
 				local ids = { any = {} }
 				for k,v in pairs(improvements) do
