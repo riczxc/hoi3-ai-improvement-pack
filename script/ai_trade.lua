@@ -16,7 +16,7 @@ function ForeignMinister_ManageTrade(ai, ministerTag)
 --~ 		Utils.LUA_DEBUGOUT(" - - - - - - - - ")
 --~ 	end
 	-- skip first week, config chance, only valid countries
-	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then		
+	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then
 		if math.mod( CCurrentGameState.GetAIRand(), 3) == 0 then
 			-- 1 out of 3
 			EvalutateExistingTrades(ai, ministerTag)
@@ -32,76 +32,76 @@ function EvalutateExistingTrades(ai, AliceTag)
 		-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." is HUMAN o_O")
 		-- return
 	-- end
+	local tradeRoutes = {}
+	local key = tostring(AliceTag)
+	if gEconomy["trade_routes"] and gEconomy["trade_routes"][key] then
+		tradeRoutes = gEconomy["trade_routes"][key]
+	end
+
 	local AliceCountry = AliceTag:GetCountry()
+	local MAX_GOODS = CGoodsPool._GC_NUMOF_ - 1
+
 	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." eval trade ")
-	for Bob in CCurrentGameState.GetCountries() do
-		local BobTag = Bob:GetCountryTag()
-		if BobTag ~= AliceTag and IsValidCountry(Bob) then
-			for route in AliceCountry:GetRelation( BobTag ):GetTradeRoutes() do
-				if route:IsValid() then
-					-- cancel inactive routes
-					if route:IsInactive() and ai:HasTradeGoneStale(route) then
-						CancelTrade(ai, route, AliceTag, BobTag)
-					else -- now check all goods transported on this route
-						local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
-						for goods = 0, MAX_GOODS do
-							local Bob2Alice = route:GetTradedToOf(goods):Get()
-							-- Trade exists?
-							if goods ~= CGoodsPool._MONEY_ and 0~=Bob2Alice then
-								-- direction?
-								if tostring(route:GetConvoyResponsible()) == tostring(BobTag) then
-									Bob2Alice = -1*Bob2Alice
-								end
+	for i = 1, table.getn(gEconomy["trade_routes"][key]) do
+		local route = gEconomy["trade_routes"][key][i]
+		local BobTag = route:GetFrom()
+		if tostring(BobTag) == tostring(AliceTag) then
+			BobTag = route:GetTo()
+		end
 
-								local AliceExport = math.max(0, -1*Bob2Alice)
-								local AliceImport = math.max(0, Bob2Alice)
+		-- cancel inactive routes
+		if route:IsInactive() and ai:HasTradeGoneStale(route) then
+			CancelTrade(ai, route, AliceTag, BobTag)
+		else -- now check all goods transported on this route
+			for goods = 0, MAX_GOODS do
+				local Bob2Alice = route:GetTradedToOf(goods):Get()
+				-- Trade exists?
+				if goods ~= CGoodsPool._MONEY_ and 0 ~= Bob2Alice then
+					-- direction?
+					if tostring(route:GetConvoyResponsible()) == tostring(BobTag) then
+						Bob2Alice = -1 * Bob2Alice
+					end
 
---~ 								if  Bob2Alice > 0 then
---~ 									Utils.LUA_DEBUGOUT(tostring(BobTag).." -> "..tostring(AliceTag).." "..tostring(GOODS_TO_STRING[goods]))
---~ 								else
---~ 									Utils.LUA_DEBUGOUT(tostring(AliceTag).." -> "..tostring(BobTag).." "..tostring(GOODS_TO_STRING[goods]))
---~ 								end
+					local AliceExport = math.max(0, -1 * Bob2Alice)
+					local AliceImport = math.max(0, Bob2Alice)
 
-								if goods == CGoodsPool._SUPPLIES_ then
-									-- if we (alice) sell supplies and make money..cancel
-									if  AliceExport > 0 and IsRich(AliceCountry) then
-										-- if 'USA' == tostring(AliceTag) then
- 											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (1) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
-										-- end
-											CancelTrade(ai, route, AliceTag, BobTag)
-											return
-									-- we (alice) buy supplies and have no money
-									elseif AliceImport > 0 and ((not IsRich(AliceCountry)) or HasMaxStock(AliceCountry, goods)) then
-										CancelTrade(ai, route, AliceTag, BobTag)
-										if not IsPoor(AliceCountry) then
-											return
-										end
-									end
-								elseif
-									-- we buy a good but have lots
-									(AliceImport > 0 and HasMaxStock(AliceCountry, goods)) or
-									-- we sell a good, have less than we'd like
-									(AliceExport > 0 and (not HasMinStock(AliceCountry, goods)))
-								then
-									-- if 'USA' == tostring(AliceTag) then
- 											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (3) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
-									-- end
-									CancelTrade(ai, route, AliceTag, BobTag)
-									return
-								elseif
-									-- we cancel imports below balance if stock is above min
-									(AliceImport > 0 and AliceImport < GetAverageBalance(AliceCountry, goods) and HasMinStock(AliceCountry, goods)) or
-									-- we cancel exports below neg. balance 
-									(AliceExport > 0 and AliceExport < -1*GetAverageBalance(AliceCountry, goods))
-								then
-									-- if 'USA' == tostring(AliceTag) then
- 											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (4) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
-									-- end
-									CancelTrade(ai, route, AliceTag, BobTag)
-									return
-								end
+					if goods == CGoodsPool._SUPPLIES_ then
+						-- if we (alice) sell supplies and make money..cancel
+						if  AliceExport > 0 and IsRich(AliceCountry) then
+							-- if 'USA' == tostring(AliceTag) then
+								 --Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (1) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
+							-- end
+								CancelTrade(ai, route, AliceTag, BobTag)
+								return
+						-- we (alice) buy supplies and have no money
+						elseif AliceImport > 0 and ((not IsRich(AliceCountry)) or HasMaxStock(AliceCountry, goods)) then
+							CancelTrade(ai, route, AliceTag, BobTag)
+							if not IsPoor(AliceCountry) then
+								return
 							end
 						end
+					elseif
+						-- we buy a good but have lots
+						(AliceImport > 0 and HasMaxStock(AliceCountry, goods)) or
+						-- we sell a good, have less than we'd like
+						(AliceExport > 0 and (not HasMinStock(AliceCountry, goods)))
+					then
+						-- if 'USA' == tostring(AliceTag) then
+								-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (3) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
+						-- end
+						CancelTrade(ai, route, AliceTag, BobTag)
+						return
+					elseif
+						-- we cancel imports below balance if stock is above min
+						(AliceImport > 0 and AliceImport < GetAverageBalance(AliceCountry, goods) and HasMinStock(AliceCountry, goods)) or
+						-- we cancel exports below neg. balance
+						(AliceExport > 0 and AliceExport < -1*GetAverageBalance(AliceCountry, goods))
+					then
+						-- if 'USA' == tostring(AliceTag) then
+								 --Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (4) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..tostring(AliceImport).." HasMinStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(AliceCountry, goods)).." HasMaxStock("..tostring(AliceTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(AliceCountry, goods)).." HasMinStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMinStock(BobCountry, goods)).." HasMaxStock("..tostring(BobTag)..", "..tostring(GOODS_TO_STRING[goods])..": "..tostring(HasMaxStock(BobCountry, goods)))
+						-- end
+						CancelTrade(ai, route, AliceTag, BobTag)
+						return
 					end
 				end
 			end
@@ -136,7 +136,7 @@ end
 
 function Selling(country, goods)
 	if IsTradeControlledByHuman(country:GetCountryTag()) then
-		if HasMinStock(country, goods) then	
+		if HasMinStock(country, goods) then
 			return math.min(50, math.max(GetAverageBalance(country, goods), country:GetPool():Get( goods ):Get()/10))
 		else
 			return 0
@@ -192,21 +192,21 @@ function Buying(country, goods)
 			return 0
 		end
 	end
-	
+
 		-- don't buy oil if ...
-	if	goods == CGoodsPool._CRUDE_OIL_ and 
+	if	goods == CGoodsPool._CRUDE_OIL_ and
 		-- we have positive/0 fuel income
 		GetAverageBalance(country, CGoodsPool._FUEL_) >= 0 and
 		-- we have min fuel stock
 		HasMinStock(country, CGoodsPool._FUEL_) and
 		-- we do not import fuel
-		not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and 
+		not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and
 		-- we are not in or preparing for a war, or are rich enough to not care
 		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar() or IsRich(country))
 	then
 		return 0
 	end
-	
+
 	if HasMaxStock(country, goods) then
 		return 0
 	end
@@ -228,7 +228,7 @@ function MinTradeSize(country)
 end
 
 function ProposeTrades(ai, AliceTag)
-	local AliceCountry = AliceTag:GetCountry()	
+	local AliceCountry = AliceTag:GetCountry()
 	local AliceBuys = 0
 	local AliceMinTradeSize = MinTradeSize(AliceCountry)
 	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." ProposeTrades")
@@ -252,7 +252,7 @@ function ProposeTrades(ai, AliceTag)
 					local BobTag = BobCountry:GetCountryTag()
 					-- not same country, BobBalance>minTrade, BobStock>min
 					if	tostring(BobTag) ~= tostring(AliceTag) and IsValidCountry(BobCountry) then
-						if not (AliceCountry:NeedConvoyToTradeWith( BobTag ) and AliceCountry:GetTransports() == 0) then							
+						if not (AliceCountry:NeedConvoyToTradeWith( BobTag ) and AliceCountry:GetTransports() == 0) then
 							local BobSells = Selling(BobCountry, goods)
 							if BobSells >= AliceMinTradeSize then
 								best = ProposeTradeCalc(ai, goods, math.min(AliceBuys, BobSells, 50), BobSells, AliceCountry, BobCountry, best )
@@ -495,12 +495,12 @@ function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
 	if IsTradeControlledByHuman(BuyerCountry:GetCountryTag()) then
 		BuyerDemand = Amount
 	end
-	
+
 	-- if tostring(SellerCountry:GetCountryTag())=='JAP' or tostring(BuyerCountry:GetCountryTag())=='JAP' then
 		--Utils.LUA_DEBUGOUT(tostring(SellerCountry:GetCountryTag()).."2"..tostring(BuyerCountry:GetCountryTag()).." "
 		-- ..tostring( GOODS_TO_STRING[goods]).." "..tostring(SellerDemand).." <2> "..tostring(BuyerDemand).." Amount:"..tostring(Amount)	)
 	-- end
-	
+
 	-- asking too much?
 	if Amount > SellerDemand or Amount > BuyerDemand then
 		return 0

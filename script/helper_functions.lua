@@ -154,10 +154,13 @@ function BufferingTrades()
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	gEconomy["import"] = {}
 	gEconomy["export"] = {}
+	gEconomy["trade_routes"] = {}
 	local Iters = 0
 	local Counter = 0
 	for AliceCountry in CCurrentGameState.GetCountries() do
 		local AliceTag = AliceCountry:GetCountryTag()
+		gEconomy["trade_routes"][tostring(AliceTag)] = {}
+
 		for BobCountry in CCurrentGameState.GetCountries() do
 			if Counter >= Iters then
 				break
@@ -166,6 +169,8 @@ function BufferingTrades()
 			--if tostring(BobTag) ~= tostring(AliceTag) then
 				for route in AliceCountry:GetRelation( BobTag ):GetTradeRoutes() do
 					if route:IsValid() then
+						table.insert(gEconomy["trade_routes"][tostring(AliceTag)], route)
+
 						for goods = 0, MAX_GOODS do
 							if goods ~= CGoodsPool._MONEY_ then
 								local switch = false
