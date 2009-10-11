@@ -88,11 +88,11 @@ function HandleMobilization( minister )
 			else
 				countrySpecific( minister )
 			end
-		end		
+		end
 	end
 end
 
-function HandleLaws(minister)	
+function HandleLaws(minister)
 	local ministerTag = minister:GetCountryTag()
 
 	local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleLaws' )
@@ -129,11 +129,11 @@ function HandleLaws(minister)
 				-- If we're short increase recruiting time to save manpowerFactor
 				local manpowerFactor = ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()
 				local index = GetLawIndexByName('specialist_training')
-				if manpowerFactor > 3 then
+				if manpowerFactor > 4 then
 					index = GetLawIndexByName('minimal_training')
-				elseif manpowerFactor > 2 then
+				elseif manpowerFactor > 3 then
 					index = GetLawIndexByName('basic_training')
-				elseif manpowerFactor > 1 then
+				elseif manpowerFactor > 2 then
 					index = GetLawIndexByName('advanced_training')
 				end
 				newLaw = CLawDataBase.GetLaw(index)
