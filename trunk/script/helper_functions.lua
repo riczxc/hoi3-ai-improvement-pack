@@ -513,3 +513,25 @@ end
 -------------------------------------------------------------------------------
 -- END Tech specific functions
 -------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+-- START Diplomacy specific functions
+-------------------------------------------------------------------------------
+
+function getWarRunningTime(tag1, tag2)
+	local tag1Country = tag1:GetCountry()
+	for diploStatus in tag1Country:GetDiplomacy() do
+		local target = diploStatus:GetTarget()
+		if target:IsValid() and diploStatus:HasWar() then
+			local war = diploStatus:GetWar()
+			if war:IsPartOfWar(tag2) then
+				--If at war with tag2, return running time in months
+				return war:GetCurrentRunningTimeInMonths()
+			end
+		end
+	end	
+	return 0
+end
+-------------------------------------------------------------------------------
+-- END Diplomacy specific functions
+-------------------------------------------------------------------------------
