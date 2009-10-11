@@ -14,7 +14,8 @@ end
 function GetAverageInfrastructure(country)
 	if IsValidCountry(country) then
 		local key = tostring(country:GetCountryTag())
-		if gCommon["average_infra"][key] then
+		-- re-calculate occasionally
+		if gCommon["average_infra"][key] and 0~= math.mod( CCurrentGameState.GetAIRand(), 25) then
 			return gCommon["average_infra"][key]
 		end
 
@@ -162,59 +163,57 @@ function BufferingTrades()
 		gEconomy["trade_routes"][tostring(AliceTag)] = {}
 
 		for BobCountry in CCurrentGameState.GetCountries() do
-			if Counter >= Iters then
-				break
-			end
 			local BobTag = BobCountry:GetCountryTag()
 			--if tostring(BobTag) ~= tostring(AliceTag) then
 				for route in AliceCountry:GetRelation( BobTag ):GetTradeRoutes() do
 					if route:IsValid() then
 						table.insert(gEconomy["trade_routes"][tostring(AliceTag)], route)
+						if Counter < Iters then
+							for goods = 0, MAX_GOODS do
+								if goods ~= CGoodsPool._MONEY_ then
+									local switch = false
+									local Bob2Alice = route:GetTradedToOf(goods):Get()
+									--local Alice2Bob = route:GetTradedFromOf(goods):Get()
+									if  0~=Bob2Alice then
+										-- direction?
+										if tostring(route:GetConvoyResponsible()) == tostring(BobTag) and Bob2Alice>0 then
+											--Utils.LUA_DEBUGOUT("Switch (1)")
+											--Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
+											AliceTag, BobTag = BobTag, AliceTag
+											switch = true
+										end
+										-- if tostring(route:GetConvoyResponsible()) == tostring(AliceTag) and Alice2Bob>0 then
+											-- Utils.LUA_DEBUGOUT("Switch (2)")
+											-- Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
+										-- end
+										-- ok Bob sends to ALice
+										if Bob2Alice>0 then
+											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (1) "..tostring(Alice2Bob).." "..tostring( GOODS_TO_STRING[goods]))
+										-- else
+											--Utils.LUA_DEBUGOUT(tostring(BobTag).." 2 "..tostring(AliceTag).." (2) "..tostring(Bob2Alice).." "..tostring( GOODS_TO_STRING[goods]))
+										end
 
-						for goods = 0, MAX_GOODS do
-							if goods ~= CGoodsPool._MONEY_ then
-								local switch = false
-								local Bob2Alice = route:GetTradedToOf(goods):Get()
-								--local Alice2Bob = route:GetTradedFromOf(goods):Get()
-								if  0~=Bob2Alice then
-									-- direction?
-									if tostring(route:GetConvoyResponsible()) == tostring(BobTag) and Bob2Alice>0 then
-										--Utils.LUA_DEBUGOUT("Switch (1)")
-										--Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
-										AliceTag, BobTag = BobTag, AliceTag
-										switch = true
-									end
-									-- if tostring(route:GetConvoyResponsible()) == tostring(AliceTag) and Alice2Bob>0 then
-										-- Utils.LUA_DEBUGOUT("Switch (2)")
-										-- Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
-									-- end
-									-- ok Bob sends to ALice
-									if Bob2Alice>0 then
-										-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (1) "..tostring(Alice2Bob).." "..tostring( GOODS_TO_STRING[goods]))
-									-- else
-										--Utils.LUA_DEBUGOUT(tostring(BobTag).." 2 "..tostring(AliceTag).." (2) "..tostring(Bob2Alice).." "..tostring( GOODS_TO_STRING[goods]))
-									end
-
-									-- if Bob2Alice > 0 then
-										-- AliceTag, BobTag = BobTag, AliceTag
-									-- end
-									if nil == gEconomy["export"][goods] then
-										gEconomy["import"][goods] = {}
-										gEconomy["export"][goods] = {}
-									end
-									if nil == gEconomy["export"][goods][tostring(BobTag)] then
-										gEconomy["export"][goods][tostring(BobTag)] = {}
-									end
-									if nil == gEconomy["import"][goods][tostring(AliceTag)] then
-										gEconomy["import"][goods][tostring(AliceTag)] = {}
-									end
-									gEconomy["export"][goods][tostring(BobTag)][tostring(AliceTag)]= Bob2Alice
-									gEconomy["import"][goods][tostring(AliceTag)][tostring(BobTag)] = Bob2Alice
-									-- reverse switch
-									if switch then
-										--Utils.LUA_DEBUGOUT("Switch (2)")
-										--Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
-										AliceTag, BobTag = BobTag, AliceTag
+										-- if Bob2Alice > 0 then
+											-- AliceTag, BobTag = BobTag, AliceTag
+										-- end
+										if nil == gEconomy["export"][goods] then
+											gEconomy["import"][goods] = {}
+											gEconomy["export"][goods] = {}
+										end
+										if nil == gEconomy["export"][goods][tostring(BobTag)] then
+											gEconomy["export"][goods][tostring(BobTag)] = {}
+										end
+										if nil == gEconomy["import"][goods][tostring(AliceTag)] then
+											gEconomy["import"][goods][tostring(AliceTag)] = {}
+										end
+										gEconomy["export"][goods][tostring(BobTag)][tostring(AliceTag)]= Bob2Alice
+										gEconomy["import"][goods][tostring(AliceTag)][tostring(BobTag)] = Bob2Alice
+										-- reverse switch
+										if switch then
+											--Utils.LUA_DEBUGOUT("Switch (2)")
+											--Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
+											AliceTag, BobTag = BobTag, AliceTag
+										end
 									end
 								end
 							end
