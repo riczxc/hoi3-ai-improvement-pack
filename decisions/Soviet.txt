@@ -106,7 +106,8 @@ diplomatic_decisions = {
 			national_unity = 25
 			dissent = 5
 
-			minister_of_security = 4041
+			minister_of_security = 4040 # Was invalid ID 4041 in vanilla 1.2
+			minister_of_intelligence = 4046 # No intelligence minister set in vanilla 1.2
 			chief_of_staff = 4051
 			chief_of_navy = 4061
 			chief_of_air = 4065
