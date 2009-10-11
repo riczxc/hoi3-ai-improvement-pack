@@ -225,14 +225,13 @@ end
 
 
 function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnorm )
-
 	local nomTech = tostring(tech:GetKey())
 	local techStatus = ministerCountry:GetTechnologyStatus()
 
-	local score = 0
-	local majeure = 14
-	local importante = 12
-	local normale = 9
+	local score = 1
+	local majorTechScore = 14
+	local mediumTechScore = 12
+	local minorTechScore = 9
 	local find = 0
 
 	--Utils.LUA_DEBUGOUT( nomTech )
@@ -243,7 +242,7 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	while listmaj[i] and find == 0 do
 		if listmaj[i] == nomTech then
 			--Utils.LUA_DEBUGOUT( "I find it!")
-			score = majeure
+			score = majorTechScore
 			find = 1
 		end
 		i = i + 1
@@ -253,7 +252,7 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	while listimp[i] and find == 0 do
 		if listimp[i] == nomTech then
 			--Utils.LUA_DEBUGOUT( "I find it!")
-			score = importante
+			score = mediumTechScore
 			find = 1
 		end
 		i = i + 1
@@ -263,7 +262,7 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	while listnorm[i] and find == 0 do
 		if listnorm[i] == nomTech then
 			--Utils.LUA_DEBUGOUT( "I find it!")
-			score = normale
+			score = minorTechScore
 			find = 1
 		end
 		i = i + 1
@@ -279,7 +278,7 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 		end
 	-- All Countries need Operational Level Organisation doctrine
 	elseif nomTech == 'operational_level_organisation' then
-		score = majeure
+		score = majorTechScore
 	-- Industrial boost when tech is low and average infrastructure is low
 	-- (need lvl 3 to unlock advanced_construction_engineering to build infrastructure)
 	elseif nomTech == 'industral_production' or nomTech == 'industral_efficiency' then
@@ -298,15 +297,11 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	--------------------------------------------------------------
 	-- Give Penalty or Bonus for years concern
 	local techLvl = techStatus:GetLevel(tech)
-	local nYear = techStatus:GetYear(tech, techLvl + 1 );
-
-	nYear = nYear - CCurrentGameState.GetCurrentDate():GetYear();
+	local nYear = techStatus:GetYear(tech, techLvl + 1 ) - CCurrentGameState.GetCurrentDate():GetYear()
 	if nYear > 2 then
-		score = score - 10
-	elseif nYear < -3 then
-		score = score + 3
+		score = 0.01*score -- very expensive, only do it if really nothing else is there to do
 	else
-		score = score - nYear
+		score = score - nYear*score*0.1
 	end
 	--Utils.LUA_DEBUGOUT( 'SCORE après années: ' .. score )
 	--------------------------------------------------------------
@@ -317,14 +312,10 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 		score = score + 1
 	end
 	--------------------------------------------------------------
-	-- Small random factor
-	score = score + math.mod( CCurrentGameState.GetAIRand(), 3)
-
-	if score < 0 then
-		score = 0
-	end
+	-- Small random factor (+/-10)
+	score = score*(0.9 + math.mod( CCurrentGameState.GetAIRand(), 21)/10)
 	--------------------------------------------------------------
 
 	--Utils.LUA_DEBUGOUT( 'SCORE après hasard: ' .. score )
-	return Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), "CalculScore", score, ministerCountry, tech, listmaj, listimp, listnorm)
+	return math.max(0, Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), "CalculScore", score, ministerCountry, tech, listmaj, listimp, listnorm))
 end
