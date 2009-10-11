@@ -503,29 +503,42 @@ Shoul be number 5.
 
 =Action classes=
 !!! Some methods are guessed !!!||
+
 ==CDebtAction==
+
 ==CLicenceTechnologyAction==
 ||???||GetSerial||
 ||???||GetParalell||
 ||???||GetMoney||
 ||???||SEND||
 ||???||TAKE||
+
 ==CSendExpeditionaryForceAction==
 ||???||GetUnit||
 ||???||GetClaimType||
+
 ==CPeaceAction==
+
 ==CNapAction==
+
 ==CCallAllyAction==
 ||???||GetVersus||
 ||???||SetVersus||
 ==CFactionAction==
+
 ==CEmbargoAction==
+
 ==COfferMilitaryAccessAction==
+
 ==CAllianceAction==
+
 ==CMilitaryAccessAction(CCountryTag ministerTag, CCountryTag countryTag)==
 ??? extends CDiplomaticAction
+
 ==CGuaranteeAction==
+
 ==CDeclareWarAction==
+
 ==CTradeAction==
 ||CTradeRoute ||GetRoute()||
 ||CFixedPoint ||GetTrading(int goods, ??? ministerTag)||
@@ -533,15 +546,19 @@ Shoul be number 5.
 ||void ||SetRoute(CTradeRoute route)||
 ||bool ||IsConvoyPossible()||
 ||???||PROPOSE||
+
 ==CDiplomaticAction==
 ||???||GetType||
 ||bool ||IsSelectable()||
 ||float ||GetAIAcceptance()||
+
 ==CChangeSpyMission(CCountryTag owner, CCountryTag other, Enum`<SpyMission>` mission)==
+
 ==CChangeSpyPriority(CCountryTag owner, CCountryTag other, int priority)==
 
 =Command classes=
 !!! Some methods are guessed !!!
+
 ==CCommand==
 
 ==CConstructConvoyCommand==
@@ -572,67 +589,92 @@ Shoul be number 5.
 
 =Util classes=
 !!! Some methods are guessed !!!||
+
 ==CDate==
 ||int ||GetDayOfMonth()||
 ||int ||GetMonthOfYear()||
 ||int ||GetYear()||
 ||???||AddDays||
+
 ==CString==
 ||??? ||GetCharPtr()||
 ||String ||GetString()||
+
 ==CFixedPoint(float val)==
 ||float ||Get()||
 ||float ||GetTruncated()||
 ||float ||GetRounded()||
+
 ==CArrayFix(int size)==
 ||CFixedPoint ||GetAt(int index)||
 ||void ||SetAt(int index, CFixedPoint value)||
+
 ==CArrayFloat==
 
 =Unknown classes=
 !!! Methods are guessed !!!
+
 ==CID==
+
 ==CNullTag==
+
 ==CContinent==
+
 ==CUnit==
 ||IsMoving||
 ||GetChildren||
+
 ==CCountryList==
+
 ==CCountryTagList==
+
 ==CRule==
 ||_RULE_LIMITED_WAR_||
 ||_RULE_NONE_||
 ||_RULE_FREE_RESOURCE_GIFTS_||
 ||_RULE_ALLIANCE_GUARANTEE_||
+
 ==CGovernment==
+
 ==CIdeologyData==
 ||CalculateTotalSum||
+
 ==CTheatre==
+
 ==CConvoy==
 ||GetDesiredTransports||
 ||GetDesiredEscorts||
 ||GetEfficiency||
 ||IsForTradeRoute||
+
 ==CNullTechnology==
+
 ==CTechnologyCategory==
+
 ==CStrategicWarfare==
 {{{||GetBombingImpact||
 ||GetAlliesImpact||
 ||GetConvoyImpact}}}||
+
 ==CUnitList==
 ||GetTotalStrength||
+
 ==CSimpleRandom==
 ||Seed||
 ||GetInteger||
 ||GetFixedPoint||
 ||GetNumber||
+
 ==CDecision==
 ||IsPotential||
 ||IsAllowed||
+
 ==CEventScope==
 ||_nProvince||
 ||_Country||
+
 ==CInfluenceAllianceLeader==
+
 ==CInfluenceNation==
 
 =Unknown methods=
