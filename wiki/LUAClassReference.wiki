@@ -244,12 +244,13 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int ||GetFolderIndex(String folderName)||
 
 ==CTechnology==
-||bool ||IsValid()||
-||bool ||IsOneLevelOnly()||
-||??? ||CanUpgrade||
-||CTechnologyFolder ||GetFolder()||
-||??? ||GetDifficulty||
-||??? ||GetEnableUnit()||
+||String||GetKey()||
+||bool||IsValid()||
+||bool||IsOneLevelOnly()||
+||???||CanUpgrade||
+||CTechnologyFolder||GetFolder()||
+||???||GetDifficulty||
+||???||GetEnableUnit()||
 ||List`<CResearchBonus>`||GetResearchBonus()||
 
 ==CTechnologyFolder==
