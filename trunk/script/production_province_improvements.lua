@@ -1,3 +1,5 @@
+require('helper_functions')
+
 function GetICRatioForProvinceImprovements(country)
 	local countryTag = tostring(country:GetCountryTag())
 	local strategy = country:GetStrategy()
@@ -78,13 +80,7 @@ function LoadProvinceImprovements(country)
 	local countryTag = tostring(country:GetCountryTag())
 	local year = CCurrentGameState.GetCurrentDate():GetYear()
 
-	local averageInfraLevel = 0.8
-	if countryTag == 'SOV' then
-		averageInfraLevel = 0.5
-	elseif countryTag == 'GER' then
-		averageInfraLevel = 0.97
-	end
-
+	local averageInfraLevel = GetAverageInfrastructure(country)
 	local ports = country:GetNumOfPorts()
 	local airfields = country:GetNumOfAirfields()
 	local portsAndAirfields = ports + airfields
@@ -279,7 +275,7 @@ function LoadProvinceImprovements(country)
 
 	----------------------------------------------------------------------------------------------------
 	end
-	
+
 	-- Make sure the improvements table is complete
 	local requiredKeys = {
 		infra = {
@@ -308,7 +304,7 @@ function LoadProvinceImprovements(country)
 			priority = 0
 		}
 	}
-	
+
 	for k,v in pairs(requiredKeys) do
 		if prod_improvements[k] == nil then
 			prod_improvements[k] = v
@@ -320,6 +316,17 @@ function LoadProvinceImprovements(country)
 				end
 			end
 		end
+	end
+
+	-- If infra isn't available build industry instead
+	-- Note:	There's no need to also check for industry because if it's not available
+	-- 			it's priority will be set to 0 and all the other improvements
+	--			will be rebalanced.
+	local techStatus = country:GetTechnologyStatus()
+	local infraTech = GetTechByName('advanced_construction_engineering')
+	if techStatus:GetLevel(infraTech) == 0 then
+		prod_improvements.industry.priority = prod_improvements.industry.priority + prod_improvements.infra.priority
+		prod_improvements.infra.priority = 0
 	end
 
 	--Utils.LUA_DEBUGOUT( "EXIT LoadProvinceImprovements function" )
