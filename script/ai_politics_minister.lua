@@ -115,17 +115,22 @@ function HandleLaws(minister)
 					end
 				end
 			elseif tostring(group:GetKey()) == 'education_investment_law' then
-				-- Make decision based on money production
-				local cgOverProductionRatio = GetCGOverProductionRatio(ministerCountry)
-				local index = GetLawIndexByName('big_education_investment')
-				-- More than 30% of total IC in overproduction
-				if cgOverProductionRatio > 0.3 then
-					index = GetLawIndexByName('average_education_investment')
-				-- More than 10%
-				elseif cgOverProductionRatio > 0.1 then
-					index = GetLawIndexByName('medium_large_education_investment')
+				-- Don't change anything as long as there's dissent
+				if ministerCountry:GetDissent():Get() > 0.01 then
+					newLaw = currentLaw
+				else
+					-- Make decision based on money production
+					local cgOverProductionRatio = GetCGOverProductionRatio(ministerCountry)
+					local index = GetLawIndexByName('big_education_investment')
+					-- More than 30% of total IC in overproduction
+					if cgOverProductionRatio > 0.3 then
+						index = GetLawIndexByName('average_education_investment')
+					-- More than 10%
+					elseif cgOverProductionRatio > 0.1 then
+						index = GetLawIndexByName('medium_large_education_investment')
+					end
+					newLaw = CLawDataBase.GetLaw(index)
 				end
-				newLaw = CLawDataBase.GetLaw(index)
 			elseif tostring(group:GetKey()) == 'training_laws' then
 				-- Make decision based on manpower
 				-- If we've alot reduce recruiting time to spam infantry
