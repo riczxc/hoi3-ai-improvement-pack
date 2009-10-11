@@ -4,6 +4,8 @@
 -----------------------------
 -- Modified for AI Improvement Pack
 
+require('helper_functions')
+
 local P = {}
 Custom_AI = P
 
@@ -62,23 +64,13 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 				return 100 -- Germany is at war with USA or SOV		
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				for diploStatus in actorCountry:GetDiplomacy() do
-					local target = diploStatus:GetTarget()
-					if target:IsValid() and diploStatus:HasWar() then
-						local war = diploStatus:GetWar()
-						if war:IsPartOfWar(engTag) then
-							--If at war with UK, get the current running time in months
-							local warMonths = war:GetCurrentRunningTimeInMonths()
-							--Utils.LUA_DEBUGOUT("For Axis minors invitation: " .. warMonths)
-							if warMonths >= 12 then
-								return 100	-- After 12 months of WW2
-							else
-								return 0	-- War is too young
-							end 
-						end
-					end
-				end		
-				return 0
+				local warMonths = getWarRunningTime(actor, engTag)
+				--Utils.LUA_DEBUGOUT(warMonths)
+				if warMonths >= 12 then
+					return 100
+				else
+					return 0
+				end
 			else
 				--Utils.LUA_DEBUGOUT("Condition is false -> return 100")
 				return 0
@@ -199,23 +191,13 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --USA will accept if London has been conquered
 			elseif actorCountry:GetRelation(gerTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				for diploStatus in actorCountry:GetDiplomacy() do
-					local target = diploStatus:GetTarget()
-					if target:IsValid() and diploStatus:HasWar() then
-						local war = diploStatus:GetWar()
-						if war:IsPartOfWar(gerTag) then
-							--If at war with UK, get the current running time in months
-							local warMonths = war:GetCurrentRunningTimeInMonths()
-							--Utils.LUA_DEBUGOUT("For USA: " .. warMonths)
-							if warMonths >= 30 then
-								return 100	-- After 30 months of WW2, return 100
-							else
-								return 0	-- War is too young, return 0
-							end 
-						end
-					end
-				end		
-				return 0
+				local warMonths = getWarRunningTime(actor, engTag)
+				--Utils.LUA_DEBUGOUT(warMonths)
+				if warMonths >= 12 then
+					return 100
+				else
+					return 0
+				end
 			else
 				return 0 -- Conditions not met
 			end
@@ -263,23 +245,13 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --Japan will accept if it is at war with ENG or USA
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				for diploStatus in actorCountry:GetDiplomacy() do
-					local target = diploStatus:GetTarget()
-					if target:IsValid() and diploStatus:HasWar() then
-						local war = diploStatus:GetWar()
-						if war:IsPartOfWar(engTag) then
-							--If at war with UK, get the current running time in months
-							local warMonths = war:GetCurrentRunningTimeInMonths()
-							--Utils.LUA_DEBUGOUT("For JAP: " .. warMonths)
-							if warMonths >= 30 then
-								return 100	-- After 30 months of WW2
-							else
-								return 0	-- War is too young
-							end 
-						end
-					end
-				end		
-				return 0
+				local warMonths = getWarRunningTime(actor, engTag)
+				--Utils.LUA_DEBUGOUT(warMonths)
+				if warMonths >= 12 then
+					return 100
+				else
+					return 0
+				end
 			else
 				return 0 --don't accept in others cases
 			end
@@ -309,23 +281,13 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --If GER at war with USA or SOV, return 100			
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				for diploStatus in actorCountry:GetDiplomacy() do
-					local target = diploStatus:GetTarget()
-					if target:IsValid() and diploStatus:HasWar() then
-						local war = diploStatus:GetWar()
-						if war:IsPartOfWar(engTag) then
-							--If at war with UK, get the current running time in months
-							local warMonths = war:GetCurrentRunningTimeInMonths()
-							--Utils.LUA_DEBUGOUT("For Axis minors: " .. warMonths)
-							if warMonths >= 12 then
-								return 100	-- After 12 months of WW2, return 100
-							else
-								return 0	-- War is too young, return 0
-							end 
-						end
-					end
-				end		
-				return 0
+				local warMonths = getWarRunningTime(actor, engTag)
+				--Utils.LUA_DEBUGOUT(warMonths)
+				if warMonths >= 12 then
+					return 100
+				else
+					return 0
+				end
 			else
 				--Utils.LUA_DEBUGOUT("Condition is false -> return 100")
 				return 0
