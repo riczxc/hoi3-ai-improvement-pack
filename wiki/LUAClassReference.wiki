@@ -408,7 +408,7 @@ Shoul be number 5.
 ||int ||MAX_SPY_PRIORITY||
 ||int ||GetPriority()||
 ||Enum`<SpyMission>` ||GetMission()||
-||???||GetLastMissionChangeDate||
+||CDate||GetLastMissionChangeDate()||
 ||???||MissionAllowed||
 
 =AI classes=
