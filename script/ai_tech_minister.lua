@@ -269,13 +269,13 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 		i = i + 1
 	end
 	--------------------------------------------------------------
-	-- Cavalry boost when this tech is low (need lvl 3 to unlock motorised infantry)
+	-- Cavalry not important lvl 3+
 	if nomTech == 'cavalry_smallarms' or nomTech == 'cavalry_support'
 		or nomTech == 'cavalry_guns' or nomTech == 'cavalry_at' then
 		--Utils.LUA_DEBUGOUT( "Cavalry tech!!!" )
-		if techStatus:GetLevel(tech) < 3 then
-			score = majeure
-			--Utils.LUA_DEBUGOUT( "Need a little boost" )
+		if techStatus:GetLevel(tech) >= 3 then
+			score = 0
+			--Utils.LUA_DEBUGOUT( "Enough cavalry tech" )
 		end
 	-- All Countries need Operational Level Organisation doctrine
 	elseif nomTech == 'operational_level_organisation' then
