@@ -36,14 +36,14 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			-- Default mission type is counterespionage
 			newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
 
-			-- Consider switching to a mission other than counterespionage with a chance of 60%
-			if math.mod(CCurrentGameState.GetAIRand(), 100) < 60 then
+			-- Consider switching to a mission other than counterespionage with a chance of 70%
+			if math.mod(CCurrentGameState.GetAIRand(), 100) < 70 then
 				if ministerCountry:GetNationalUnity():Get() < 60 then
 					newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
 				else
 					local economicLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('economic_law'))
 					local economicLawIndex = ministerCountry:GetLaw(economicLawGroup):GetIndex()
-					local targetedEconomicLawIndex = GetLawGroupIndexByName('war_economy')
+					local targetedEconomicLawIndex = GetLawIndexByName('war_economy')
 
 					if economicLawIndex < targetedEconomicLawIndex then
 						newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
