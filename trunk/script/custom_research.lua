@@ -66,7 +66,11 @@ local light_tank = {
 					'armored_car_armour',
 					'armored_car_gun',
 					'mortorised_infantry',
-					'mechanised_infantry'
+					'mechanised_infantry',
+					'cavalry_smallarms',
+					'cavalry_support',
+					'cavalry_guns',
+					'cavalry_at'
 				}
 local medium_tank = {
 					'tank_brigade',
@@ -570,7 +574,6 @@ function ConstructPriorityList(minister)
 		-- Level 3 techs
 		priority3 = {	
 							soviet3,
-							cavalry,
 							marine,
 							sheavy_tank,
 							rocket_artillery,
