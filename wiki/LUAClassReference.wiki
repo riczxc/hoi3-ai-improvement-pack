@@ -652,9 +652,9 @@ Shoul be number 5.
 ==CTechnologyCategory==
 
 ==CStrategicWarfare==
-{{{||GetBombingImpact||
+||GetBombingImpact||
 ||GetAlliesImpact||
-||GetConvoyImpact}}}||
+||GetConvoyImpact||
 
 ==CUnitList==
 ||GetTotalStrength||
