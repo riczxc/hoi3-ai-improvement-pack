@@ -455,6 +455,7 @@ end
 
 gPolitics = {}
 gPolitics["law_tables"] = {}
+gPolitics["law_group_tables"] = {}
 gPoliticsInitialized = false
 
 function HFInit_Politics()
@@ -466,6 +467,10 @@ function HFInit_Politics()
 		gPolitics["law_tables"][tostring(law:GetKey())] = law:GetIndex()
 	end
 
+	for group in CLawDataBase.GetGroups() do
+		gPolitics["law_group_tables"][tostring(group:GetKey())] = group:GetIndex()
+	end
+
 	gPoliticsInitialized = true
 end
 
@@ -475,6 +480,15 @@ function GetLawIndexByName(name)
 		return gPolitics["law_tables"][name]
 	else
 		return 0 -- Index for no law
+	end
+end
+
+function GetLawGroupIndexByName(name)
+	HFInit_Politics() -- Make sure gPolitics["law_group_tables"] is set up properly
+	if gPolitics["law_group_tables"][name] then
+		return gPolitics["law_group_tables"][name]
+	else
+		return 0 -- Index for no law group
 	end
 end
 
