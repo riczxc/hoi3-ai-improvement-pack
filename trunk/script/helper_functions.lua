@@ -15,7 +15,7 @@ function GetAverageInfrastructure(country)
 	if IsValidCountry(country) then
 		local key = tostring(country:GetCountryTag())
 		-- re-calculate occasionally
-		if gCommon["average_infra"][key] and 0~= math.mod( CCurrentGameState.GetAIRand(), 25) then
+		if gCommon["average_infra"][key] and 0 ~= math.mod(CCurrentGameState.GetAIRand(), 50) then
 			return gCommon["average_infra"][key]
 		end
 
@@ -494,4 +494,37 @@ end
 
 -------------------------------------------------------------------------------
 -- END Politics specific functions
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+-- START Tech specific functions
+-------------------------------------------------------------------------------
+
+gTech = {}
+gTech["tech_table"] = {}
+gTechInitialized = false
+
+function HFInit_Tech()
+	if gTechInitialized then
+		return
+	end
+
+	for tech in CTechnologyDataBase.GetTechnologies() do
+		gTech["tech_table"][tostring(tech:GetKey())] = tech
+	end
+
+	gTechInitialized = true
+end
+
+function GetTechByName(name)
+	HFInit_Tech() -- Make sure gTech["tech_table"] is set up properly
+	if gTech["tech_table"][name] then
+		return gTech["tech_table"][name]
+	else
+		return nil
+	end
+end
+
+-------------------------------------------------------------------------------
+-- END Tech specific functions
 -------------------------------------------------------------------------------
