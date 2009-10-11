@@ -418,7 +418,7 @@ Shoul be number 5.
 ||int ||GetNumberOfOwnedProvinces(CCountryTag countryTag)||
 ||???||MoveToNeighbor||
 ||???||MoveUnit||
-||CList_CSubUnitConstructionEntry GetReqProdQueue()||
+||CList_CSubUnitConstructionEntry||GetReqProdQueue()||
 ||???||GetReqProdQueueIter||
 ||???||RequestSubUnit||
 ||CFixedPoint ||GetNormalizedAlignmentDistance(CCountry country, CFaction faction)||
