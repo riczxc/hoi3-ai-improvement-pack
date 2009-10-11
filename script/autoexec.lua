@@ -14,7 +14,6 @@ require('ai_tech_minister')
 require('ai_politics_minister')
 require('ai_configuration')
 require('CustomTriggers')
-require('custom_research')
 
 
 -- load country specific AI modules.
