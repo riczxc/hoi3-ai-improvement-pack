@@ -43,10 +43,10 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 			end
 		elseif recipientName == 'JAP' then		-- JAPAN
 			--Utils.LUA_DEBUGOUT("Recipient is JAP...")
-			if year >= 1940 and CCurrentGameState.GetProvince( 2613 ):GetController() == actor then
+			if CCurrentGameState.GetProvince( 2613 ):GetController() == actor then
 				return 100 --Japan is invited if Paris has been conquered
-			elseif recipientCountry:GetRelation(usaTag):HasWar() or year >= 1942 then
-				return 100 --Invite Japan if they are at war with USA or after 1942
+			elseif recipientCountry:GetRelation(usaTag):HasWar() then
+				return 100 --Invite Japan if they are at war with USA
 			else
 				return 0
 			end
@@ -61,7 +61,7 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 			elseif actorCountry:GetRelation(sovTag):HasWar() then
 				return 100 -- Germany is at war with USA or SOV		
 			elseif actorCountry:GetRelation(engTag):HasWar() then
-				--Utils.LUA_DEBUGOUT("GER is at war with ENG, test since how many months")
+				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
 				for diploStatus in actorCountry:GetDiplomacy() do
 					local target = diploStatus:GetTarget()
 					if target:IsValid() and diploStatus:HasWar() then
@@ -69,7 +69,7 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 						if war:IsPartOfWar(engTag) then
 							--If at war with UK, get the current running time in months
 							local warMonths = war:GetCurrentRunningTimeInMonths()
-							--Utils.LUA_DEBUGOUT(warMonths)
+							--Utils.LUA_DEBUGOUT("For Axis minors invitation: " .. warMonths)
 							if warMonths >= 12 then
 								return 100	-- After 12 months of WW2
 							else
@@ -110,8 +110,8 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 		end
 		if recipientName == 'USA' then	-- USA
 			--Utils.LUA_DEBUGOUT("Recipient is USA")
-			if recipientCountry:GetRelation(japTag):HasWar() or year >= 1942 then
-				return 100 --USA will be invited if they are at war with Japan or after 1942
+			if recipientCountry:GetRelation(japTag):HasWar() or CCurrentGameState.GetProvince( 2613 ):GetController() == gerTag then
+				return 100 --USA will be invited if they are at war with Japan or after 1941
 			end
 		else
 			--Utils.LUA_DEBUGOUT("Recipient is not USA -> return score")
@@ -170,6 +170,18 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			--Utils.LUA_DEBUGOUT("Recipient is not at war -> return 0")
 			return 0 --Switzerland, Sweden and Tibet will only join a faction to protect themselves if they are at war
 		end
+	elseif recipientName == 'FIN' then		--FIN
+		--Utils.LUA_DEBUGOUT("Recipient is FIN")
+		if recipientCountry:IsAtWar() and not recipientCountry:GetRelation(sovTag):HasWar() then
+			--Utils.LUA_DEBUGOUT("Recipient is at war")
+			return 100
+		elseif actorCountry:GetRelation(sovTag):HasWar() and CCurrentGameState.GetProvince( 698 ):GetController() ~= recipient then
+			--Utils.LUA_DEBUGOUT("Faction at war with SOV")
+			return 100 -- faction is at war with SOV and FIN lost Winter War
+		else
+			--Utils.LUA_DEBUGOUT("No conditions met")
+			return 0
+		end
 	end
 
 	if actorName == 'ENG' or actorName == 'USA' then	-- ALLIES
@@ -179,25 +191,42 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			return 100 --each country at war with GER will accept invitation
 		end
 
-		if recipientName == 'USA' then			-- USA
+		if recipientName == 'USA' then			--USA
 			--Utils.LUA_DEBUGOUT("Recipient is USA...")
 			if recipientCountry:GetRelation(japTag):HasWar() or recipientCountry:GetRelation(sovTag):HasWar() then
 				return 100 --USA will accept if at war with Japan or Soviet Union
-			elseif year >= 1942 then
-				return 100 --USA will accept after 1942
 			elseif CCurrentGameState.GetProvince( 1964 ):GetController() ~= actor then
 				return 100 --USA will accept if London has been conquered
+			elseif actorCountry:GetRelation(gerTag):HasWar() then
+				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
+				for diploStatus in actorCountry:GetDiplomacy() do
+					local target = diploStatus:GetTarget()
+					if target:IsValid() and diploStatus:HasWar() then
+						local war = diploStatus:GetWar()
+						if war:IsPartOfWar(gerTag) then
+							--If at war with UK, get the current running time in months
+							local warMonths = war:GetCurrentRunningTimeInMonths()
+							--Utils.LUA_DEBUGOUT("For USA: " .. warMonths)
+							if warMonths >= 30 then
+								return 100	-- After 30 months of WW2, return 100
+							else
+								return 0	-- War is too young, return 0
+							end 
+						end
+					end
+				end		
+				return 0
 			else
 				return 0 -- Conditions not met
 			end
-		elseif recipientName == 'CAN'			-- COMMONWEALTH
+		elseif recipientName == 'CAN'			--COMMONWEALTH
 			or recipientName == 'AST'
 			or recipientName == 'NZL'
 			or recipientName == 'SAF'
 			then
 				--Utils.LUA_DEBUGOUT("Recipient is Commomwealth Country")
 				return 100 --Commonwealth countries will always accept invitation by ENG
-		elseif recipientName == 'GRE' then		-- GREECE
+		elseif recipientName == 'GRE' then		--GREECE
 			--Utils.LUA_DEBUGOUT("Recipient is GRE...")
 			if recipientCountry:GetRelation(itaTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("Recipient is at war with ITA -> return 100")
@@ -214,6 +243,8 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			else
 				return 0 
 			end
+		elseif recipientName == 'VIC' then		--VIC
+			return 0
 		elseif usaCountry:HasFaction() then
 		    return 100  --every country will accept if USA is member of a faction
 		else
@@ -230,8 +261,25 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --Japan will accept if Moscow and Stalingrad has been conquered by Germany
 			elseif recipientCountry:GetRelation(engTag):HasWar() or recipientCountry:GetRelation(usaTag):HasWar() then
 				return 100 --Japan will accept if it is at war with ENG or USA
-			elseif year >= 1942 then
-				return 100	-- Japan will accept after 1942
+			elseif actorCountry:GetRelation(engTag):HasWar() then
+				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
+				for diploStatus in actorCountry:GetDiplomacy() do
+					local target = diploStatus:GetTarget()
+					if target:IsValid() and diploStatus:HasWar() then
+						local war = diploStatus:GetWar()
+						if war:IsPartOfWar(engTag) then
+							--If at war with UK, get the current running time in months
+							local warMonths = war:GetCurrentRunningTimeInMonths()
+							--Utils.LUA_DEBUGOUT("For JAP: " .. warMonths)
+							if warMonths >= 30 then
+								return 100	-- After 30 months of WW2
+							else
+								return 0	-- War is too young
+							end 
+						end
+					end
+				end		
+				return 0
 			else
 				return 0 --don't accept in others cases
 			end
@@ -260,7 +308,7 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			elseif actorCountry:GetRelation(sovTag):HasWar() or actorCountry:GetRelation(usaTag):HasWar() then
 				return 100 --If GER at war with USA or SOV, return 100			
 			elseif actorCountry:GetRelation(engTag):HasWar() then
-				--Utils.LUA_DEBUGOUT("GER is at war with ENG, test since how many months")
+				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
 				for diploStatus in actorCountry:GetDiplomacy() do
 					local target = diploStatus:GetTarget()
 					if target:IsValid() and diploStatus:HasWar() then
@@ -268,7 +316,7 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 						if war:IsPartOfWar(engTag) then
 							--If at war with UK, get the current running time in months
 							local warMonths = war:GetCurrentRunningTimeInMonths()
-							--Utils.LUA_DEBUGOUT(warMonths)
+							--Utils.LUA_DEBUGOUT("For Axis minors: " .. warMonths)
 							if warMonths >= 12 then
 								return 100	-- After 12 months of WW2, return 100
 							else
