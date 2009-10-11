@@ -63,6 +63,15 @@ gEconomy["export"] = {}
 gEconomy["stock"] = {}
 gEconomy["AI"] = {}
 gEconomy["manual"] = {}
+gEconomy["goods_cost"] = {
+	[0] = 	defines.goods_cost.SUPPLIES,
+			defines.goods_cost.FUEL,
+			defines.goods_cost.MONEY,
+			defines.goods_cost.CRUDE_OIL,
+			defines.goods_cost.METAL,
+			defines.goods_cost.ENERGY,
+			defines.goods_cost.RARE_MATERIALS
+}
 gDayCount = -1
 G_MEASURED_TIME_PERIOD = 8 -- For how many days are we accounting for
 G_AVERAGING_TIME_PERIOD = 7 -- How many days are averaged (must be < G_MEASURED_TIME_PERIOD)
@@ -366,34 +375,6 @@ function GetNeededAmountOfGoods(ministerCountry, goods)
 	return amount
 end
 
--- Returns the needed amount of goods. Amount is positive if
--- the given country wants these goods and amount is negative if
--- it wants to get rid of these goods.
--- This function will also take the countries money production
--- into account for all the expensive goods like oil, fuel and supplies.
-function GetNeededTradeAmountOfGoods(ministerCountry, goods)
-	local amount = GetNeededAmountOfGoods(ministerCountry, goods)
-
-	if (goods == CGoodsPool._CRUDE_OIL_) or (goods == CGoodsPool._FUEL_) or (goods == CGoodsPool._SUPPLIES_) then
-		local desire = GetTradeDesireInGoods(ministerCountry, goods)
-		--amount = math.abs(amount) * desire
-		if desire > 0 then
-			-- Only buy so much goods we can pay for
-			local dailyMoney = GetAverageBalance(ministerCountry, CGoodsPool._MONEY_)
-			local cost = defines.goods_cost.CRUDE_OIL
-			if goods == CGoodsPool._FUEL_ then
-				cost = defines.goods_cost.FUEL
-			elseif goods == CGoodsPool._SUPPLIES_ then
-				cost = defines.goods_cost.SUPPLIES
-			end
-			amount = math.max(dailyMoney / cost, 0.5) -- dailyMoney could be < 0
-			amount = amount * (1 + desire)
-		end
-	end
-
-	return amount
-end
-
 -- Returns value between 0 (bad) and 1 (good).
 function GetTradingScore(ministerCountry, goods, amount)
 	local targetAmount = GetNeededTradeAmountOfGoods(ministerCountry, goods)
@@ -443,6 +424,10 @@ function IsPoor(AliceCountry)
 		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." NOT IsPoor ")
 		return false
 	end
+end
+
+function GetGoodsCost(goods)
+	return gEconomy["goods_cost"][goods]
 end
 
 -------------------------------------------------------------------------------
