@@ -19,16 +19,38 @@ end
 function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 	local domesticSpyPresence = ministerCountry:GetSpyPresence( ministerTag )
 	local currentMission = domesticSpyPresence:GetMission()
-	local newMission = SpyMission.SPYMISSION_NONE
+	local newMission = currentMission
 
 	if ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() or ministerCountry:IsGovernmentInExile() then
+		-- Immediately switch to counterespionage
 		newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
-	elseif ministerCountry:GetNationalUnity():Get() < 60 then
-		newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
-	elseif ministerCountry:GetNeutrality():Get() >= 75 then
-		newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
 	else
-		newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
+		-- Only consider switching to a new mission if current one lasted at least a month
+		local currentMonth = CCurrentGameState.GetCurrentDate():GetMonthOfYear()
+		local missionMonth = domesticSpyPresence:GetLastMissionChangeDate()	:GetMonthOfYear()
+		if currentMonth < missionMonth then
+			currentMonth = currentMonth + 12
+		end
+
+		if currentMonth - 1 > missionMonth then
+			-- Default mission type is counterespionage
+			newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
+
+			-- Consider switching to a mission other than counterespionage with a chance of 60%
+			if math.mod(CCurrentGameState.GetAIRand(), 100) < 60 then
+				if ministerCountry:GetNationalUnity():Get() < 60 then
+					newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
+				else
+					local economicLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('economic_law'))
+					local economicLawIndex = ministerCountry:GetLaw(economicLawGroup):GetIndex()
+					local targetedEconomicLawIndex = GetLawGroupIndexByName('war_economy')
+
+					if economicLawIndex < targetedEconomicLawIndex then
+						newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
+					end
+				end
+			end
+		end
 	end
 
 	if newMission ~= currentMission then
