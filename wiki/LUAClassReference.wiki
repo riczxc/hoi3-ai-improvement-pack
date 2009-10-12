@@ -109,7 +109,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||CCountryTag ||GetHighestThreat()||
 ||CFixedPoint ||GetSupplyBalanceAverage()||
 ||bool||IsSubject||
-||bool||IsPuppet||
+||bool||isPuppet()||
 ||bool ||IsNeighbourToFactionHostile(CFaction faction)||
 ||CFixedPoint ||GetBuildCostIC(??? pUnit, int ???, bool buildReserve)||
 
