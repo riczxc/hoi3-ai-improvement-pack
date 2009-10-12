@@ -5,18 +5,18 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 
 function ForeignMinister_ManageTrade(ai, ministerTag)
 	HFInit_ManageTrade(ai, ministerTag)
---~ 	if 'GER' == tostring(ministerTag) then
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_SUPPLIES_): " .. tostring(GetAverageBalance('GER', CGoodsPool._SUPPLIES_)))
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_FUEL_): " .. tostring(GetAverageBalance('GER', CGoodsPool._FUEL_)))
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_MONEY_): " .. tostring(GetAverageBalance('GER', CGoodsPool._MONEY_)))
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_CRUDE_OIL_): " .. tostring(GetAverageBalance('GER', CGoodsPool._CRUDE_OIL_)))
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_METAL_): " .. tostring(GetAverageBalance('GER', CGoodsPool._METAL_)))
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_ENERGY_): " .. tostring(GetAverageBalance('GER', CGoodsPool._ENERGY_)))
---~ 		Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_RARE_MATERIALS_): " .. tostring(GetAverageBalance('GER', CGoodsPool._RARE_MATERIALS_)))
---~ 		Utils.LUA_DEBUGOUT(" - - - - - - - - ")
---~ 	end
-	-- skip first week, config chance, only valid countries	
-	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then		
+ 	--if 'FRA' == tostring(ministerTag) then
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_SUPPLIES_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._SUPPLIES_)))
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_FUEL_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._FUEL_)))
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_MONEY_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._MONEY_)))
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_CRUDE_OIL_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._CRUDE_OIL_)))
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_METAL_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._METAL_)))
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_ENERGY_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._ENERGY_)))
+ 		--Utils.LUA_DEBUGOUT(tostring(ministerTag).." GetAverageBalance(_RARE_MATERIALS_): " .. tostring(GetAverageBalance(ministerTag:GetCountry(), CGoodsPool._RARE_MATERIALS_)))
+ 		--Utils.LUA_DEBUGOUT(" - - - - - - - - ")
+ 	--end
+	-- skip first week, config chance, only valid countries
+	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then
 		if math.mod( CCurrentGameState.GetAIRand(), 3) == 0 then
 			-- 1 out of 3
 			EvalutateExistingTrades(ai, ministerTag)
@@ -58,13 +58,13 @@ function EvalutateExistingTrades(ai, AliceTag)
 				-- Trade exists?
 				if goods ~= CGoodsPool._MONEY_ and 0 ~= Bob2Alice then
 					-- direction?
-					if route:GetConvoyResponsible() == BobTag then						
+					if route:GetConvoyResponsible() == BobTag then
 						Bob2Alice = -1 * Bob2Alice
 					end
 					local AliceExport = math.max(0, -1 * Bob2Alice)
 					local AliceImport = math.max(0, Bob2Alice)
-					
-					-- if ('GER' == tostring(AliceTag) and 'JAP' == tostring(BobTag)) or 
+
+					-- if ('GER' == tostring(AliceTag) and 'JAP' == tostring(BobTag)) or
 						-- ('JAP' == tostring(AliceTag) and 'GER' == tostring(BobTag))
 					-- then
 						-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (4) Cancel ".." AliceExport: "..tostring(AliceExport).." AliceImport: "..
@@ -94,7 +94,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 						(AliceImport > 0 and HasMaxStock(AliceCountry, goods)) or
 						-- we sell a good, have less than we'd like
 						(AliceExport > 0 and (not HasMinStock(AliceCountry, goods)))
-					then						
+					then
 						CancelTrade(ai, route, AliceTag, BobTag)
 						return
 					elseif
@@ -197,8 +197,8 @@ function Buying(country, goods)
 		end
 	end
 
-		-- don't buy oil if ...
-	if	goods == CGoodsPool._CRUDE_OIL_ and
+	-- don't buy oil if ...
+	if goods == CGoodsPool._CRUDE_OIL_ and
 		-- we have positive/0 fuel income
 		GetAverageBalance(country, CGoodsPool._FUEL_) >= 0 and
 		-- we have min fuel stock
@@ -215,15 +215,27 @@ function Buying(country, goods)
 		return 0
 	end
 
-	if HasMinStock(country, goods) then
-		-- 0 or -1*loss
-		return math.max(0, -1.1*GetAverageBalance(country, goods))
-	else
-		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." emergency buying: "..tostring(math.max(MinStock(country)/10, -1*GetAverageBalance(country, goods), 1.1*MinTradeSize(country)))
---			.." "..tostring(GOODS_TO_STRING[goods]))
-		-- max of either 10% of min stock or -1*loss or 110% of min trade size
-		return math.max(MinStock(country)/10, -1*GetAverageBalance(country, goods), 1.1*MinTradeSize(country))
+	local amount = math.max(0, -1.1*GetAverageBalance(country, goods))
+	if not HasMinStock(country, goods) then
+		amount = math.max(MinStock(country) / 10, -1 * GetAverageBalance(country, goods), 1.1 * MinTradeSize(country))
 	end
+
+	-- If we're not at war only buy so much oil or fuel we can pay for
+	-- or need to establish a positive fuel balance.
+	-- Buying too much could kill our economy.
+	if amount > 0 and
+		(goods == CGoodsPool._CRUDE_OIL_ or goods == CGoodsPool._FUEL_) and
+		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar())
+	then
+		-- Only buy so much goods we can pay for
+		local dailyMoney = math.max(GetAverageBalance(country, CGoodsPool._MONEY_), 0) -- dailyMoney could be < 0
+		local cost = GetGoodsCost(goods)
+		amount = math.min(dailyMoney / cost, amount) -- Don't buy more than we really need
+		amount = math.max(-GetAverageBalance(country, CGoodsPool._FUEL_) * 0.5, amount) -- Buy at least 50% of needed fuel
+		amount = math.max(MinTradeSize(country), amount * 1.2) -- Buy 20% more and at least min trade size
+	end
+
+	return amount
 end
 
 function MinTradeSize(country)
@@ -238,9 +250,16 @@ function ProposeTrades(ai, AliceTag)
 	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." ProposeTrades")
 
 	-- see what we are low on and find someone who is hoarding it
+
+	-- Buy either fuel or oil
+	local fuelOrOil = CGoodsPool._FUEL_
+	if math.mod(CCurrentGameState.GetAIRand(), 2) == 0 then
+		fuelOrOil = CGoodsPool._CRUDE_OIL_
+	end
+
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	for goods = 0, MAX_GOODS do
-		if goods ~= CGoodsPool._MONEY_ then
+		if goods ~= CGoodsPool._MONEY_ and goods ~= fuelOrOil then
 			local best = {}
 			best["score"] = -10000
 			best["action"] = nil
