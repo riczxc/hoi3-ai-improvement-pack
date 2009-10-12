@@ -261,7 +261,10 @@ function ProposeTrades(ai, AliceTag)
 	local AliceCountry = AliceTag:GetCountry()
 	local AliceBuys = 0
 	local AliceMinTradeSize = MinTradeSize(AliceCountry)
-	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." ProposeTrades")
+
+	if AliceCountry:isPuppet() then
+		return -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
+	end
 
 	-- see what we are low on and find someone who is hoarding it
 
@@ -289,7 +292,7 @@ function ProposeTrades(ai, AliceTag)
 					local BobTag = BobCountry:GetCountryTag()
 					-- not same country, BobBalance>minTrade, BobStock>min
 					if	tostring(BobTag) ~= tostring(AliceTag) and IsValidCountry(BobCountry) and
-						not AliceCountry:isPuppet() -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
+						not BobCountry:isPuppet() -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
 					then
 						if not (AliceCountry:NeedConvoyToTradeWith( BobTag ) and AliceCountry:GetTransports() == 0) then
 							local BobSells = Selling(BobCountry, goods)
