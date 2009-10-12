@@ -147,18 +147,12 @@ end
 
 
 function P.PickBestMission(ai, minister, countryTag, bestMission, bestScore )
-
 	if tostring(countryTag) == 'AUS' then
 	--and (not minister:GetCountry():IsFriend(countryTag, false)) then 
 		bestScore = 100
 		bestMission = SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY
 	end
-
-	if bestScore > 50 then
-		return bestMission
-	else
-		return nil
-	end	
+	return bestMission
 end
 
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
