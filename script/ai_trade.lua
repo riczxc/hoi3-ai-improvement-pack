@@ -39,7 +39,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 	end
 
 	local AliceCountry = AliceTag:GetCountry()
-	if AliceCountry:IsPuppet() then
+	if AliceCountry:isPuppet() then
 		return -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
 	end
 
@@ -54,7 +54,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 		end
 
 		local BobCountry = BobTag:GetCountry()
-		if not BobCountry:IsPuppet() then -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
+		if not BobCountry:isPuppet() then -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
 			-- cancel inactive routes
 			if route:IsInactive() and ai:HasTradeGoneStale(route) then
 				CancelTrade(ai, route, AliceTag, BobTag)
@@ -148,7 +148,7 @@ end
 function Selling(country, goods)
 	if IsTradeControlledByHuman(country:GetCountryTag()) then
 		if HasMinStock(country, goods) then
-			return math.min(50, math.max(GetAverageBalance(country, goods), country:GetPool():Get( goods ):Get()/10))
+			return math.min(50, math.max(GetAverageBalance(country, goods), 0))
 		else
 			return 0
 		end
@@ -289,7 +289,7 @@ function ProposeTrades(ai, AliceTag)
 					local BobTag = BobCountry:GetCountryTag()
 					-- not same country, BobBalance>minTrade, BobStock>min
 					if	tostring(BobTag) ~= tostring(AliceTag) and IsValidCountry(BobCountry) and
-						not BobCountry:IsPuppet() -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
+						not AliceCountry:isPuppet() -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
 					then
 						if not (AliceCountry:NeedConvoyToTradeWith( BobTag ) and AliceCountry:GetTransports() == 0) then
 							local BobSells = Selling(BobCountry, goods)
