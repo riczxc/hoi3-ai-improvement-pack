@@ -43,7 +43,25 @@ function EvalutateExistingTrades(ai, AliceTag)
 		return -- Trading with puppet nations seriously bugged in 1.2. Wait for 1.3
 	end
 
-	local MAX_GOODS = CGoodsPool._GC_NUMOF_ - 1
+	local evaluationOrder = {
+		CGoodsPool._FUEL_,
+		CGoodsPool._CRUDE_OIL_,
+		CGoodsPool._SUPPLIES_,
+		CGoodsPool._RARE_MATERIALS_,
+		CGoodsPool._METAL_,
+		CGoodsPool._ENERGY_
+	}
+
+	if AliceCountry:IsAtWar() or AliceCountry:GetStrategy():IsPreparingWar() then
+		evaluationOrder = {
+		 	CGoodsPool._SUPPLIES_,
+			CGoodsPool._CRUDE_OIL_,
+			CGoodsPool._FUEL_,
+			CGoodsPool._RARE_MATERIALS_,
+			CGoodsPool._METAL_,
+			CGoodsPool._ENERGY_
+		}
+	end
 
 	--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." eval trade ")
 	for i = 1, table.getn(gEconomy["trade_routes"][AliceKey]) do
@@ -59,10 +77,10 @@ function EvalutateExistingTrades(ai, AliceTag)
 			if route:IsInactive() and ai:HasTradeGoneStale(route) then
 				CancelTrade(ai, route, AliceTag, BobTag)
 			else -- now check all goods transported on this route
-				for goods = 0, MAX_GOODS do
+				for _,goods in ipairs(evaluationOrder) do
 					local Bob2Alice = route:GetTradedToOf(goods):Get()
 					-- Trade exists?
-					if goods ~= CGoodsPool._MONEY_ and 0 ~= Bob2Alice then
+					if 0 ~= Bob2Alice then
 						-- direction?
 						if route:GetConvoyResponsible() == BobTag then
 							Bob2Alice = -1 * Bob2Alice
@@ -86,14 +104,18 @@ function EvalutateExistingTrades(ai, AliceTag)
 						if goods == CGoodsPool._SUPPLIES_ then
 							-- if we (alice) sell supplies and make money..cancel
 							if  AliceExport > 0 and IsRich(AliceCountry) then
-									CancelTrade(ai, route, AliceTag, BobTag)
-									return
-							-- we (alice) buy supplies and have no money
-							elseif AliceImport > 0 and ((not IsRich(AliceCountry)) or HasMaxStock(AliceCountry, goods)) then
 								CancelTrade(ai, route, AliceTag, BobTag)
-								if not IsPoor(AliceCountry) then
-									return
-								end
+								return
+							-- we (alice) buy supplies and have no money
+							elseif AliceImport > 0 and (IsPoor(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
+								CancelTrade(ai, route, AliceTag, BobTag)
+								return
+							end
+						elseif goods == CGoodsPool._CRUDE_OIL_ or goods == CGoodsPool._FUEL_ then
+							-- we buy oil or fuel
+							if AliceImport > 0 and (IsPoor(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
+								CancelTrade(ai, route, AliceTag, BobTag)
+								return
 							end
 						elseif
 							-- we buy a good but have lots
