@@ -152,6 +152,13 @@ function Selling(country, goods)
 		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." ExistsImport "..tostring(GOODS_TO_STRING[goods]))
 		return 0
 	end
+
+	if goods == CGoodsPool._FUEL_ then
+		if ExistsImport(country:GetCountryTag(), CGoodsPool._CRUDE_OIL_) then
+			return 0
+		end
+	end
+
 	-- sell if are poor
 	if  goods == CGoodsPool._SUPPLIES_ then
 		if IsPoor(country) then
