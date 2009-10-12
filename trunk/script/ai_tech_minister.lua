@@ -291,6 +291,11 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and minister:GetCountry():IsAtWar() == false then
 		--Utils.LUA_DEBUGOUT( "air doctrine in peace time" )
 		score = score - 2
+	elseif nomTech == 'agriculture' then
+		-- Only research if low on manpower
+		if ministerCountry:GetTotalIC() > 0 and (ministerCountry:GetManpower() / ministerCountry:GetTotalIC()) > 2 then
+			score = minorTechScore
+		end
 	end
 
 	--Utils.LUA_DEBUGOUT( 'SCORE de base: ' .. score )
