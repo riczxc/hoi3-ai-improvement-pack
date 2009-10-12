@@ -58,7 +58,9 @@ function TechMinister_Tick(minister)
 	--Utils.LUA_DEBUGOUT("TechMinister_Tick")
 	local ministerCountry = minister:GetCountry()
 	BalanceLeadershipSliders( minister:GetOwnerAI(), ministerCountry )
+
 	local i = ministerCountry:GetAllowedResearchSlots() - ministerCountry:GetNumberOfCurrentResearch()
+
 	if i > 0 then
 
 		local techList = ProposeResearch(minister)
@@ -293,7 +295,7 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 		score = score - 2
 	elseif nomTech == 'agriculture' then
 		-- Only research if low on manpower
-		if ministerCountry:GetTotalIC() > 0 and (ministerCountry:GetManpower() / ministerCountry:GetTotalIC()) > 2 then
+		if ministerCountry:GetTotalIC() > 0 and (ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()) > 2 then
 			score = minorTechScore
 		end
 	end
