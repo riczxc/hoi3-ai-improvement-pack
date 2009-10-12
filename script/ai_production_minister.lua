@@ -31,11 +31,11 @@ function ProductionMinister_Tick(minister)
 	end
 
 	local ratioProvince = GetICRatioForProvinceImprovements(ministerCountry) * 100
-	local improvements = nil
-	local building = {}
+	local provinceIdPool = nil
 	local dice = nil
 	local provinceIndex = {}
 	local nothingBuiltCounter = 0
+
 	while (AvailIC > 0) and (nothingBuiltCounter < 10) do
 		local availICInThisIteration = AvailIC
 
@@ -151,183 +151,58 @@ function ProductionMinister_Tick(minister)
 
 		else
 
-			if improvements == nil then
-				--Utils.LUA_DEBUGOUT("Initializing province improvements for " .. tostring(ministerTag))
-
+			if provinceIdPool == nil then
 				-- Load country specific province improvements
-				improvements = LoadProvinceImprovements(ministerCountry)
+				local improvements = LoadProvinceImprovements(ministerCountry)
 
-				-- Now create a list of provinces where each improvement can be built
-				local ids = { any = {} }
-				for k,v in pairs(improvements) do
-					ids[k] = {}
-					building[k] = CBuildingDataBase.GetBuilding(k)
-				end
-
-				for provinceId in ministerCountry:GetOwnedProvinces() do
-					local province = CCurrentGameState.GetProvince(provinceId)
-
-					local hasBuilding = false
-					for k,v in pairs(improvements) do
-						if k == 'infra' then
-							if province:GetMaxInfrastructure():Get() < v.max_level then
-								table.insert(ids[k], provinceId)
-							end
-						else
-							if province:HasBuilding(building[k]) then
-								table.insert(ids[k], provinceId)
-								hasBuilding = true
-							end
-						end
-					end
-					if hasBuilding then
-						table.insert(ids.any, provinceId)
-					end
-				end
-
-				-- Select provinces randomly out of possible provinces
-				for k,v in pairs(improvements) do
-					-- Select province source
-					local key = k
-					if k == 'anti_air' or k == 'radar_station' then
-						key = 'any'
-					end
-
-					local source = ids[key]
-					if improvements[k].ids ~= nil then
-						v.ids_not_random = true
-						source = improvements[k].ids
-					end
-
-					improvements[k].selected_ids = {}
-
-					-- Randomly select up to 50 provinces
-					for i = 1, math.min(50, table.getn(source)) do
-						local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
-						table.insert(improvements[k].selected_ids, source[index])
-					end
-				end
-
-				-- Now make sure we can even build a improvement in selected provinces
-				-- If not, the priority for this improvement is set to 0
-				local prioSum = 0
-				for k,v in pairs(improvements) do
-					if improvements[k].priority > 0 then
-						local improvementPossible = false
-						for i = 1, table.getn(v.selected_ids) do
-							local province = CCurrentGameState.GetProvince(v.selected_ids[i])
-							if ministerCountry:IsBuildingAllowed(building[k], province) then
-								improvementPossible = true
-							end
-							if improvementPossible then
-								break
-							end
-						end
-
-						if not improvementPossible then
-							improvements[k].priority = 0
-						end
-					end
-					prioSum = prioSum + improvements[k].priority
-				end
-
-				if prioSum > 0 then
-					-- Rebalance and create a dice
-					local lastSideCount = 0
-					dice = {}
-					for k,v in pairs(improvements) do
-						if improvements[k].priority > 0 then
-							improvements[k].priority = improvements[k].priority / prioSum
-
-							local sideCount = math.ceil(math.max(improvements[k].priority * 100, 1))
-							for i = lastSideCount, lastSideCount + sideCount - 1 do
-								dice[i] = k
-							end
-							lastSideCount = lastSideCount + sideCount
-						end
-					end
-				--else
-					--Utils.LUA_DEBUGOUT("No province improvements")
-				end
+				-- Create a list of provinces where each improvement type can be built
+				-- and create a dice we use later to decide what improvement type to build.
+				provinceIdPool, dice = CreateProvinceIdPoolAndDice(ministerCountry, improvements)
 			end
 
-			if dice ~= nil then
-				--Utils.LUA_DEBUGOUT("Trying to build province improvement...")
+			if table.getn(dice) > 0 then
+				-- If this is the first round we know two things:
+				--	- We can build at least one improvement, otherwise the dice would be empty.
+				--	- All provinces in the province pool are valid locations for an improvement.
+				-- If this is not the first round, we have to make sure, that we're not
+				-- building in provinces we've already touched.
 
-				local counter = 0
-				local availICForThisRound = AvailIC
-				while (AvailIC == availICForThisRound) and (counter < 10) do
-					-- Now let's roll the dice
-					local diceIndex = math.mod(CCurrentGameState.GetAIRand(), table.getn(dice))
-					local ImprovementType = dice[diceIndex]
-					local SelectedImprovementType = improvements[ImprovementType]
-					local cost = ministerCountry:GetBuildCost(building[ImprovementType]):Get()
-					local multiplier = 1
+				-- Let's roll the dice to decide which improvement to build
+				local diceIndex = math.mod(CCurrentGameState.GetAIRand(), table.getn(dice))
+				local improvementType = dice[diceIndex]
+				local building = CBuildingDataBase.GetBuilding(improvementType)
 
-					if ImprovementType == 'infra' then
-						-- Infra is very cheap to build in comparison to the rest. (1/5)
-						-- Build more infra in one round so ICs are equally spent.
-						multiplier = math.min(5, math.ceil(TotalIC/10))
-					end
-
-					--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " improvement " .. ImprovementType .. " priority " .. tostring(SelectedImprovementType.priority) .. " AvailIC " .. tostring(AvailIC))
-
-					if provinceIndex[ImprovementType] == nil then
-						provinceIndex[ImprovementType] = 0
-					end
-
-					for j = 1, multiplier do
-						provinceIndex[ImprovementType] = provinceIndex[ImprovementType] + 1
-
-						local i = math.mod(provinceIndex[ImprovementType], table.getn(SelectedImprovementType.selected_ids))
-						local province = CCurrentGameState.GetProvince(SelectedImprovementType.selected_ids[i])
-						--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " is building improvement " .. ImprovementType)
-						if ministerCountry:IsBuildingAllowed(building[ImprovementType], province) and
-							(
-
-							(	ImprovementType == 'infra' and
-								(	SelectedImprovementType.ids_not_random or province:GetMaxInfrastructure():Get() < SelectedImprovementType.max_level ) ) or
-
-							(	ImprovementType == 'industry' and
-								(	SelectedImprovementType.ids_not_random or
-									(	not province:IsFrontProvince(false)	and
-										province:GetInfrastructure():Get() > 0.3	) ) ) or
-
-							(	ImprovementType == 'land_fort' and
-								(	SelectedImprovementType.ids_not_random or province:IsFrontProvince(false) ) ) or
-
-							(	ImprovementType == 'coastal_fort' and
-								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building.naval_base) ) ) or
-
-							(	ImprovementType == 'radar_station' and
-								(	SelectedImprovementType.ids_not_random or province:IsFrontProvince(false) or province:HasBuilding(building.coastal_fort) or
-									province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or
-									province:HasBuilding(building.industry) or province:HasBuilding(building.naval_base) or
-									province:HasBuilding(building.anti_air) ) ) or
-
-							(	ImprovementType == 'air_base' and
-								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building[ImprovementType]) ) ) or
-
-							(	ImprovementType == 'anti_air' and
-								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building.air_base) or province:HasBuilding(building.radar_station) or
-									province:HasBuilding(building.coastal_fort) or province:HasBuilding(building.land_fort) or
-									province:HasBuilding(building.industry) or province:HasBuilding(building.naval_base) ) ) or
-
-							(	ImprovementType == 'naval_base' and
-								(	SelectedImprovementType.ids_not_random or province:HasBuilding(building.naval_base) ) )
-
-							)
-						then
-							AvailIC = BuildImprovement(ai, AvailIC, ministerTag, building[ImprovementType], cost, SelectedImprovementType.selected_ids[i])
-						end
-					end
-
-					counter = counter + 1
+				local multiplier = 1
+				if improvementType == 'infra' then
+					-- Infra is very cheap to build in comparison to the rest. (1/5)
+					-- Build more infra in one round so ICs are equally spent.
+					multiplier = math.min(5, math.ceil(TotalIC / 10))
 				end
 
-				--if counter == 0 then
-					--Utils.LUA_DEBUGOUT("No improvement built in this round.")
-				--end
+				if provinceIndex[improvementType] == nil then
+					provinceIndex[improvementType] = 0
+				end
+
+				for j = 1, multiplier do
+					provinceIndex[improvementType] = provinceIndex[improvementType] + 1
+
+					if provinceIndex[improvementType] <= table.getn(provinceIdPool[improvementType]) then
+						local provinceId = provinceIdPool[improvementType][provinceIndex[improvementType]]
+						local constructCommand = CConstructBuildingCommand(ministerTag, building, provinceId, 1)
+						if constructCommand:IsValid() then
+							ai:Post(constructCommand)
+							AvailIC = AvailIC - ministerCountry:GetBuildCost(building):Get()
+						end
+					end
+				end
+			else
+				-- Dice is empty. Since the creation of the province pool is random
+				-- we could reinitialize the pool and hope to find some provinces
+				-- where we actually could build something, but because this operation
+				-- is very expensive we leave it be with those province improvements
+				-- and build some units.
+				-- Shouldn't happen too often...
+				ratioProvince = 0
 			end
 
 		end
@@ -355,6 +230,155 @@ function ProductionMinister_Tick(minister)
 		end
 		ai:Post( CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes ) )
 	end
+end
+
+function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
+	-- Create a list of provinces where each improvement can be built
+	local ids = {}
+	local building = {}
+	for k,v in pairs(improvements) do
+		ids[k] = {}
+		building[k] = CBuildingDataBase.GetBuilding(k)
+	end
+
+	-- Since the decision for a location of a few improvements depends on other
+	-- improvements, make sure we cycle them in the right order.
+	local capitalContinent = ministerCountry:GetActingCapitalLocation():GetContinent()
+
+	local provinceFilter = {
+		{
+			'infra',
+			function (province, provinceHasBuilding)
+				return 	province:GetMaxInfrastructure():Get() > 0.3
+			end
+		},
+		{
+			'industry',
+			function (province, provinceHasBuilding)
+				return not province:IsFrontProvince(false) and
+							province:GetInfrastructure():Get() > 0.3 and
+							capitalContinent == province:GetContinent()
+			end
+		},
+		{
+			'air_base',
+			function (province, provinceHasBuilding)
+				return 	provinceHasBuilding['air_base']
+			end
+		},
+		{
+			'naval_base',
+			function (province, provinceHasBuilding)
+				return 	provinceHasBuilding['naval_base']
+			end
+		},
+		{
+			'radar_station',
+			function (province, provinceHasBuilding)
+				return 	provinceHasBuilding['radar_station'] or
+							provinceHasBuilding['air_base'] or
+							provinceHasBuilding['naval_base'] or
+							province:IsFrontProvince(false)
+			end
+		},
+		{
+			'land_fort',
+			function (province, provinceHasBuilding)
+				return 	provinceHasBuilding['land_fort'] or
+							province:IsFrontProvince(false)
+			end
+		},
+		{
+			'coastal_fort',
+			function (province, provinceHasBuilding)
+				return 	provinceHasBuilding['coastal_fort'] or
+							provinceHasBuilding['naval_base']
+			end
+		},
+		{
+			'anti_air',
+			function (province, provinceHasBuilding)
+				return 	provinceHasBuilding['anti_air'] or
+							provinceHasBuilding['industry'] or
+							provinceHasBuilding['air_base'] or
+							provinceHasBuilding['naval_base'] or
+							provinceHasBuilding['radar_station'] or
+							provinceHasBuilding['land_fort'] or
+							provinceHasBuilding['coastal_fort']
+			end
+		}
+	}
+
+	for provinceId in ministerCountry:GetOwnedProvinces() do
+		local province = CCurrentGameState.GetProvince(provinceId)
+
+		local provinceHasBuilding = {}
+		for index,tuple in ipairs(provinceFilter) do
+			local k = tuple[1]
+			local filter = tuple[2]
+
+			if province:HasBuilding(building[k]) then
+				provinceHasBuilding[k] = true
+			end
+
+			if filter(province, provinceHasBuilding) then
+				table.insert(ids[k], provinceId)
+			end
+
+		end
+	end
+
+	-- Create a province pool for each improvement type
+	local prioSum = 0
+	local provinceIdPool = {}
+
+	for k,v in pairs(improvements) do
+		provinceIdPool[k] = {}
+
+		if v.priority > 0 then
+			-- Select province source
+			local source = ids[k]
+			if v.ids then
+				source = v.ids
+			end
+
+			-- Randomly select up to 50 provinces
+			for i = 1, math.min(50, table.getn(source)) do
+				local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
+				local province = CCurrentGameState.GetProvince(source[index])
+
+				if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
+					table.insert(provinceIdPool[k], source[index])
+				end
+			end
+
+			if table.getn(provinceIdPool[k]) == 0 then
+				v.priority = 0
+			end
+
+			prioSum = prioSum + v.priority
+		end
+	end
+
+	-- Rebalance and create a dice
+	local dice = {}
+
+	if prioSum > 0 then
+		local lastSideCount = 0
+		for k,v in pairs(improvements) do
+			if improvements[k].priority > 0 then
+				improvements[k].priority = improvements[k].priority / prioSum
+
+				local sideCount = math.ceil(math.max(improvements[k].priority * 100, 1))
+				for i = lastSideCount, lastSideCount + sideCount - 1 do
+					dice[i] = k
+				end
+				lastSideCount = lastSideCount + sideCount
+			end
+		end
+	end
+
+	return provinceIdPool, dice
 end
 
 -- local PRIO_SETTINGS = {
