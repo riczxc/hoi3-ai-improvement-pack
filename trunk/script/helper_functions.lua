@@ -403,7 +403,9 @@ function IsRich(AliceCountry)
 		MoneyStockFactor > 5 and
 		-- current cg setting less than 110% need or dissent (so high cg allowed if dissent)
 		(AliceCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()*1.1 > AliceCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() or
-			AliceCountry:GetDissent():Get() > 0.01)
+			AliceCountry:GetDissent():Get() > 0.01) and
+		-- we've positive money balance
+		GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) > 0
 	then
 		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
 		return true
@@ -529,7 +531,7 @@ function getWarRunningTime(tag1, tag2)
 				return war:GetCurrentRunningTimeInMonths()
 			end
 		end
-	end	
+	end
 	return 0
 end
 -------------------------------------------------------------------------------
