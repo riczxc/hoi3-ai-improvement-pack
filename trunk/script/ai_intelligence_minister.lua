@@ -66,7 +66,7 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 
 end
 
-function PickBestMission(country, minister, ministerTag, ministerCountry, ai)	
+function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 	local countryTag = country:GetCountryTag()
 	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." PickBestMission for "..tostring(countryTag) )
 	local dislike = 0
@@ -76,7 +76,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." in same faction -> SPYMISSION_NONE" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_NONE, 100)
 	end
-	
+
 	-- enemy controller?
 	if ministerCountry:IsGovernmentInExile() then
 		local capitalController = ministerCountry:GetCapitalLocation():GetController()
@@ -85,7 +85,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 			return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY, 100)
 		end
 	end
-	
+
 	-- at war?
 	if ministerCountry:GetStrategy():IsPreparingWarWith( countryTag ) or
 	   ministerCountry:GetRelation(countryTag):HasWar()
@@ -97,14 +97,14 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." at war -> SPYMISSION_MILITARY" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_MILITARY, 100)
 	end
-	
+
 	local rel = ministerCountry:GetRelation( countryTag )
 	local strategy = ministerCountry:GetStrategy()
-	
+
 	if rel:GetValue():Get() < 0  then
 		dislike = -1*rel:GetValue():Get()/4
 	end
-	
+
 	dislike = dislike + rel:GetThreat():Get() * CalculateAlignmentFactor( ai, ministerCountry, country )
 	dislike = dislike - strategy:GetFriendliness(countryTag) / 4
 	dislike = dislike + strategy:GetAntagonism(countryTag) / 4
@@ -156,7 +156,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		end
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, bestMission, bestScore )
 	end
-	
+
 	if country:HasFaction() and ministerCountry:HasFaction() and ministerCountry:GetFaction() ~= country:GetFaction() then
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." in different factions -> SPYMISSION_INCREASE_THREAT" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_INCREASE_THREAT, 50 )
@@ -164,7 +164,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 	if not country:HasFaction() and ministerCountry:HasFaction() then
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." mission for "..tostring(countryTag).." is SPYMISSION_BOOST_OUR_PARTY" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_BOOST_OUR_PARTY, 50 )
-	end	
+	end
 	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." NO mission for "..tostring(countryTag).." -> SPYMISSION_NONE" )
 	return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_NONE, 0 )
 end
@@ -203,6 +203,10 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 
 				if ministerCountry:GetRelation(tag):HasWar() then
 					nPrio = nPrio + 2
+				end
+
+				if ministerCountry:GetFaction():IsValid() and ministerCountry:GetFaction() == country:GetFaction() then
+					nPrio = 0
 				end
 
 				nPrio = math.min( nPrio, CSpyPresence.MAX_SPY_PRIORITY )
