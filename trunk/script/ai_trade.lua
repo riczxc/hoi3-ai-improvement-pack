@@ -548,11 +548,11 @@ function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
 		return 0
 	end
 
-	if SellerDemand > 0 and  BuyerDemand > 0 then
+	if SellerDemand > 0 and BuyerDemand > 0 then
 		-- buyer satisfaction 1 to 0
 		local buyerScore = math.min(50, Amount)/math.min(50, BuyerDemand) --+ 0.5 * (1-math.min(1, BuyerStock/90000))
 		-- seller satisfaction 1 to 0
-		local sellerScore = math.min(50, Amount)/math.min(50, SellerDemand) --+ 0.5 * math.min(1, SellerStock/90000)
+		local sellerScore = math.min(MinTradeSize(SellerCountry), Amount) / MinTradeSize(SellerCountry) --+ 0.5 * math.min(1, SellerStock/90000)
 		return 50 * (buyerScore + sellerScore)
 	end
 	return 0
