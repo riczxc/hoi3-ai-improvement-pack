@@ -91,8 +91,7 @@ function LoadProvinceImprovements(country)
 	-- DEFAULT IMPROVEMENTS
 	local prod_improvements = {
 		infra = {
-			priority = (1 - averageInfraLevel),
-			max_level = 0.8
+			priority = (1 - averageInfraLevel)
 		},
 		industry = {
 			priority = averageInfraLevel * 0.2
@@ -150,7 +149,6 @@ function LoadProvinceImprovements(country)
 		prod_improvements = {
 			infra = {
 				priority = 0.6,
-				max_level = 0.8,
 				ids = {
 					998, 1002, 919, 960, 961, 958, 1041, 1042, 1004, 1005,
 					1006, 967, 968, 928, 969, 929, 1010, 971, 931, 1051,
@@ -244,9 +242,8 @@ function LoadProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
 		prod_improvements = {
 			infra = {
-				priority = 0.5,
-				max_level = 0.8
-				},
+				priority = 0.5
+			},
 			industry = {
 				priority = 0.05
 			},
@@ -277,31 +274,46 @@ function LoadProvinceImprovements(country)
 	end
 
 	-- Make sure the improvements table is complete
+	local defaultBuildCallback = function (province)
+		return true
+	end
+
+	-- Build callback will be called for each province where building
+	-- of an improvement is allowed.
 	local requiredKeys = {
 		infra = {
 			priority = 0,
-			max_level = 0.8
+			buildCallback = function (province)
+				return province:GetMaxInfrastructure():Get() < 0.8
+			end
 		},
 		industry = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		},
 		air_base = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		},
 		naval_base = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		},
 		anti_air = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		},
 		land_fort = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		},
 		coastal_fort = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		},
 		radar_station = {
-			priority = 0
+			priority = 0,
+			buildCallback = defaultBuildCallback
 		}
 	}
 
