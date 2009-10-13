@@ -466,16 +466,17 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		ReinforcementNeed = math.min(ReinforcementNeed, AvailIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
 		AvailIC = AvailIC - ReinforcementNeed
+		if AvailIC > 0 then
+			-- distribute same percentage of IC needed to upgrade and production
+			local equalizer = AvailIC / math.max(ProductionNeed + UpgradeNeed, AvailIC)
+			ProductionNeed = equalizer * ProductionNeed
+			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
+			AvailIC = AvailIC - ProductionNeed
 
-		-- distribute same percentage of IC needed to upgrade and production
-		local equalizer = math.min(1, AvailIC / math.max(ProductionNeed + UpgradeNeed, 1))
-		ProductionNeed = equalizer * ProductionNeed
-		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-		AvailIC = AvailIC - ProductionNeed
-
-		UpgradeNeed = equalizer * UpgradeNeed
-		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-		AvailIC = AvailIC - UpgradeNeed
+			UpgradeNeed = equalizer * UpgradeNeed
+			changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
+			AvailIC = AvailIC - UpgradeNeed
+		end
 	end
 
 	if AvailIC > 0.01 then
