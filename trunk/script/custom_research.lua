@@ -245,7 +245,8 @@ local light_cruiser = {
 					'smallwarship_radar',
 					'fleet_auxiliary_carrier_doctrine',
 					'light_cruiser_escort_role',
-					'light_cruiser_crew_training'
+					'light_cruiser_crew_training',
+					'basing'
 				}
 local heavy_cruiser = {
 					'heavycruiser_technology',
@@ -601,7 +602,7 @@ function ConstructPriorityList(minister)
 				
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------UNITED STATES
-	elseif ministerTag == 'USA' or ic_total >= 300 then		--More than 300 total IC, use this template
+	elseif ministerTag == 'USA' or ic_total >= 275 then		--More than 275 total IC, use this template
 		--Utils.LUA_DEBUGOUT( "UNITED STATES" )
 		-- Level 1 techs
 		priority1 = {	
@@ -805,15 +806,14 @@ function ConstructPriorityList(minister)
 							mountain,							
 							desert,
 							arctic,
-							light_tank,
 							anti_aircraft,
 							destroyer,
 							medecine
 					}
 	-----------------------------------------------------------------------------------------
-	------------------------------------------------MINOR WITH 150+ IC
-	elseif 	ic_total >= 150 then	
-		--Utils.LUA_DEBUGOUT( "MINOR 150+ IC" )
+	------------------------------------------------MINOR WITH 140+ IC
+	elseif 	ic_total >= 140 then	
+		--Utils.LUA_DEBUGOUT( "MINOR 140+ IC" )
 		-- Level 1 techs
 		priority1 = {	
 							england1,
@@ -850,8 +850,7 @@ function ConstructPriorityList(minister)
 							jungle,
 							anti_aircraft,
 							aircraft_carrier,
-							naval_bombers,
-							strategic_bombers
+							naval_bombers
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------CHINE
@@ -902,9 +901,9 @@ function ConstructPriorityList(minister)
 							tactical_bombers
 					}	
 	-----------------------------------------------------------------------------------------
-	------------------------------------------------MINOR WITH 80+ IC
-	elseif 	ic_total >= 80 then	
-		--Utils.LUA_DEBUGOUT( "MINOR 80+ IC" )
+	------------------------------------------------MINOR WITH 70+ IC
+	elseif 	ic_total >= 70 then	
+		--Utils.LUA_DEBUGOUT( "MINOR 70+ IC" )
 		-- Level 1 techs
 		priority1 = {	
 							italy1,
