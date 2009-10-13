@@ -463,12 +463,12 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		AvailIC = AvailIC - ReinforcementNeed
 
 		-- distribute same percentage of IC needed to upgrade and production
-		local equalizer = math.min(1, AvailIC/(ProductionNeed+UpgradeNeed))
+		local equalizer = math.min(1, AvailIC / math.max(ProductionNeed + UpgradeNeed, 1))
 		ProductionNeed = equalizer * ProductionNeed
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
 		AvailIC = AvailIC - ProductionNeed
 
-		UpgradeNeed = equalizer*UpgradeNeed
+		UpgradeNeed = equalizer * UpgradeNeed
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
 		AvailIC = AvailIC - UpgradeNeed
 	end
@@ -605,9 +605,9 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 		local freeTransports = (minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports())/defines.economy.CONVOY_CONSTRUCTION_SIZE
 		local neededTransports = ministerCountry:GetTotalNeededTransports()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE
 		if 0==ministerCountry:GetTransports() then -- no free ones, ramp up building
-			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/10)
+			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/10, 2)
 		else -- got some free ones build less rapid and smaller buffer
-			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/20)
+			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/20, 1)
 		end
 
 		local cost = ministerCountry:GetConvoyBuildCost():Get()
