@@ -26,8 +26,13 @@ function ProductionMinister_Tick(minister)
 	-- we need convoys at all?
 	AvailIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
 
+	-- Don't build anything on day one. AI needs some time to know what it wants to build.
+	if gDayCount <= 0 then
+		return
+	end
+
 	if AvailIC <= 0 then
-		return 0
+		return
 	end
 
 	local ratioProvince = GetICRatioForProvinceImprovements(ministerCountry) * 100
