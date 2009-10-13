@@ -111,12 +111,17 @@ function EvalutateExistingTrades(ai, AliceTag)
 								CancelTrade(ai, route, AliceTag, BobTag)
 								return
 							end
-						elseif goods == CGoodsPool._CRUDE_OIL_ or goods == CGoodsPool._FUEL_ then
+						elseif
 							-- we buy oil or fuel
-							if AliceImport > 0 and (IsPoor(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
-								CancelTrade(ai, route, AliceTag, BobTag)
-								return
-							end
+							AliceImport > 0 and (goods == CGoodsPool._CRUDE_OIL_ or goods == CGoodsPool._FUEL_) and (
+								-- and have max stock
+								HasMaxStock(AliceCountry, goods) or
+								-- or we're poor and have positive fuel balance
+								(IsPoor(AliceCountry) and GetAverageBalance(AliceCountry, CGoodsPool._FUEL_) > 0)
+							)
+						then
+							CancelTrade(ai, route, AliceTag, BobTag)
+							return
 						elseif
 							-- we buy a good but have lots
 							(AliceImport > 0 and HasMaxStock(AliceCountry, goods)) or
