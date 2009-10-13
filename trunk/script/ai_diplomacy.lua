@@ -395,7 +395,7 @@ function DiploScore_Alliance(ai, actor, recipient, observer, action)
 		-- If Custom Triggers are used
 		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
 			--Utils.LUA_DEBUGOUT("Use Custom Triggers Alliance")
-			if not Utils.CallScoredCustomAI('CustomAllianceRules', ai, actor, recipient, observer) then
+			if Utils.CallScoredCustomAI('CustomAllianceRules', ai, actor, recipient, observer) == 0 then
 				return 0
 			end
 		end
@@ -412,7 +412,7 @@ function DiploScore_Alliance(ai, actor, recipient, observer, action)
 		-- If Custom Triggers are used
 		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
 			--Utils.LUA_DEBUGOUT("Use Custom Triggers Alliance")
-			if not Utils.CallScoredCustomAI('CustomAllianceRules', ai, actor, recipient, observer) then
+			if Utils.CallScoredCustomAI('CustomAllianceRules', ai, actor, recipient, observer) == 0 then
 				return 0
 			end
 		end

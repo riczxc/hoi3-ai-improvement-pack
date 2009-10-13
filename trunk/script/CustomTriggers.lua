@@ -31,8 +31,10 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 			return 0 -- we got better plans for you...
 		elseif recipientName == 'ITA' then		-- ITALY
 			--Utils.LUA_DEBUGOUT("Recipient is ITA...")
-			if CCurrentGameState.GetProvince( 1928 ):GetController() == actor then
-				return 100	-- Warsaw is controlled by Germany
+			if CCurrentGameState.GetProvince( 1928 ):GetController() == actor or CCurrentGameState.GetProvince( 2613 ):GetController() == actor then
+				return 100	-- Warsaw or Paris is controlled by Germany
+			elseif actorCountry:GetRelation(sovTag):HasWar() then
+				return 100 -- Germany is at war with SOV
 			else
 				return 0
 			end
@@ -61,7 +63,7 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 			if CCurrentGameState.GetProvince( 2613 ):GetController() == actor and CCurrentGameState.GetProvince( 1928 ):GetController() == actor then
 				return 100	-- Paris is controlled by Germany
 			elseif actorCountry:GetRelation(sovTag):HasWar() then
-				return 100 -- Germany is at war with USA or SOV		
+				return 100 -- Germany is at war with SOV		
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
 				local warMonths = getWarRunningTime(actor, engTag)
@@ -206,7 +208,7 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			or recipientName == 'NZL'
 			or recipientName == 'SAF'
 			then
-				--Utils.LUA_DEBUGOUT("Recipient is Commomwealth Country")
+				--Utils.LUA_DEBUGOUT("Recipient is Commonwealth Country")
 				return 100 --Commonwealth countries will always accept invitation by ENG
 		elseif recipientName == 'GRE' then		--GREECE
 			--Utils.LUA_DEBUGOUT("Recipient is GRE...")
@@ -257,8 +259,10 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			end
 		elseif recipientName == 'ITA' then		-- ITALY
 			--Utils.LUA_DEBUGOUT("Recipient is ITA...")
-			if CCurrentGameState.GetProvince( 1928 ):GetController() == actor then
-				return 100 -- Germany controls Warsaw
+			if CCurrentGameState.GetProvince( 1928 ):GetController() == actor or CCurrentGameState.GetProvince( 2613 ):GetController() == actor then
+				return 100 -- Germany controls Warsaw or Paris
+			elseif actorCountry:GetRelation(sovTag):HasWar() then
+				return 100 -- Germany is at war with SOV
 			else
 				return 0
 			end
@@ -274,6 +278,13 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 			if recipientCountry:GetRelation(japTag):HasWar() and not actorCountry:GetRelation(japTag):HasWar() then
 				return 0	-- China is at war with Japan and Germany is not
 			end
+		elseif recipientName == 'CAN'			--COMMONWEALTH
+			or recipientName == 'AST'
+			or recipientName == 'NZL'
+			or recipientName == 'SAF'
+		then
+				--Utils.LUA_DEBUGOUT("Recipient is Commonwealth Country")
+				return 0 --Commonwealth never accept invitation from Axis
 		else
 			if CCurrentGameState.GetProvince( 2613 ):GetController() == actor then
 				return 100 -- If Paris is controlled by Germany
