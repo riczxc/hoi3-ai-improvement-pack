@@ -404,8 +404,8 @@ function IsRich(AliceCountry)
 		-- current cg setting less than 110% need or dissent (so high cg allowed if dissent)
 		(AliceCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()*1.1 > AliceCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() or
 			AliceCountry:GetDissent():Get() > 0.01) and
-		-- we've positive money balance
-		GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) > 0
+		-- we can maintain our expenses for at least 100 days
+		GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) > -AliceCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/100
 	then
 		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
 		return true
