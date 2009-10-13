@@ -512,8 +512,8 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 100, paratrooper, paratrooper, paratrooper }
 												}
 				gProdRatio['JAP']['light_armor_brigade'] = {	-- Light Armor
-													{ 30, light_armor, light_armor, motorized };
-													{ 70, infantry, infantry, infantry }
+													{ 20, light_armor, light_armor, motorized };
+													{ 80, infantry, infantry, infantry }
 												}
 				gProdRatio['JAP']['motorized_brigade'] = gProdRatio['JAP']['infantry_brigade']
 				gProdRatio['JAP']['mechanized_brigade'] = gProdRatio['JAP']['marine_brigade']
