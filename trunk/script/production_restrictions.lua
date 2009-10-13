@@ -116,7 +116,7 @@ function LoadRestrictions(minister, ministerCountry)
 	------------------------------------------JAPAN---------------------------------------------------
 	elseif ministerTag == 'JAP' then
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
-		local mix = { 5, interceptor, 5, multi_role, 5, naval_bomber, 5, tactical_bomber, 5, cas, -- 25% Air
+		local mix = { 7, interceptor, 5, multi_role, 6, naval_bomber, 7, tactical_bomber, -- 25% Air
 		14, cag, 7, carrier, 7, battleship, 8, heavy_cruiser, 12, light_cruiser, 12, destroyer, 15, submarine  -- 75& naval
 		}
 		prod_restrictions["transport_ship"] = { 100, transport_ship }
