@@ -783,7 +783,6 @@ function ConstructPriorityList(minister)
 							artillery,
 							light_cruiser,
 							aircraft_carrier,
-							tactical_bombers,
 							interceptors,
 							ressources,
 							supply
@@ -791,19 +790,21 @@ function ConstructPriorityList(minister)
 		-- Level 2 techs
 		priority2 = {	
 							japan2,
-							mountain,
 							engineer,
-							arctic,
+							tactical_bombers,							
 							naval_bombers,
 							battleship,
 							heavy_cruiser,
+							submarine,
 							industry,
 							encryption,
 							radar
 					}
 		-- Level 3 techs
 		priority3 = {	
+							mountain,							
 							desert,
+							arctic,
 							light_tank,
 							anti_aircraft,
 							destroyer,
