@@ -107,7 +107,7 @@ function EvalutateExistingTrades(ai, AliceTag)
 								CancelTrade(ai, route, AliceTag, BobTag)
 								return
 							-- we (alice) buy supplies and have no money
-							elseif AliceImport > 0 and (IsPoor(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
+							elseif AliceImport > 0 and (not IsRich(AliceCountry) or HasMaxStock(AliceCountry, goods)) then
 								CancelTrade(ai, route, AliceTag, BobTag)
 								return
 							end
