@@ -240,36 +240,37 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 
 ==CTechnologyDataBase==
 ||List`<CTechnologyCategory>`||GetCategories()||
-||List`<CTechnology>` ||GetTechnologies()||
-||int ||GetFolderIndex(String folderName)||
+||List`<CTechnology>`||GetTechnologies()||
+||int||GetFolderIndex(String folderName)||
 
 ==CTechnologyCategory==
 ||String||GetKey()||
+||int||GetIndex()||
 
 ==CTechnology==
 ||String||GetKey()||
 ||bool||IsValid()||
 ||bool||IsOneLevelOnly()||
 ||???||CanUpgrade||
-||CTechnologyFolder||GetFolder()||
+||[#CTechnologyFolder CTechnologyFolder]||GetFolder()||
 ||???||GetDifficulty||
 ||???||GetEnableUnit()||
 ||List`<CResearchBonus>`||GetResearchBonus()||
 
 ==CTechnologyFolder==
-||String ||GetKey()||
-||int ||GetIndex()||
+||String||GetKey()||
+||int||GetIndex()||
 
 ==CResearchBonus==
-||CFixedPoint ||_vWeight||
+||CFixedPoint||_vWeight||
 ||CTechnologyCategory||_pCategory||
 
 ==CTechnologyStatus==
 ||??? ||GetEffectiveYear||
 ||int ||GetLevel(CTechnology tech)||
-||CFixedPoint ||GetCost(CTechnology tech, int level)||
-||bool ||IsUnitAvailable(??? unit)||
-||int ||GetYear(CTechnology, level)||
+||CFixedPoint||GetCost(CTechnology tech, int level)||
+||bool||IsUnitAvailable(CSubUnitDefinition unit)||
+||int||GetYear(CTechnology, level)||
 
 ==CBuildingDataBase==
 ||CBuilding ||GetBuildingFromIndex(int index)||
