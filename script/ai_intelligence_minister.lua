@@ -71,13 +71,13 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." PickBestMission for "..tostring(countryTag) )
 	local dislike = 0
 
-	-- same faction?
+	-- We are in the same faction. Nothing to be done.
 	if country:HasFaction() and ministerCountry:HasFaction() and ministerCountry:GetFaction() == country:GetFaction()  then
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." in same faction -> SPYMISSION_NONE" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_NONE, 100)
 	end
 
-	-- enemy controller?
+	-- We are in exile and the country is a enemy controller? Lower their unity to hurt them and maybe force a revolt.
 	if ministerCountry:IsGovernmentInExile() then
 		local capitalController = ministerCountry:GetCapitalLocation():GetController()
 		if not ministerCountry:IsFriend( capitalController, false ) and country==capitalController then
@@ -86,15 +86,17 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		end
 	end
 
-	-- at war?
+	-- We are at war with each other?
 	if ministerCountry:GetStrategy():IsPreparingWarWith( countryTag ) or
 	   ministerCountry:GetRelation(countryTag):HasWar()
 	then
+		-- If they are weak try and push them over the edge.
 		if country:GetSurrenderLevel():Get() > 0.5 then
 			--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." at war -> SPYMISSION_LOWER_NATIONAL_UNITY" )
 			return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY, 100)
-		end
+		end		
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." at war -> SPYMISSION_MILITARY" )
+		-- Support our military!
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_MILITARY, 100)
 	end
 
@@ -102,19 +104,20 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 	local strategy = ministerCountry:GetStrategy()
 
 	if rel:GetValue():Get() < 0  then
+		-- 0 to 50
 		dislike = -1*rel:GetValue():Get()/4
 	end
 
 	dislike = dislike + rel:GetThreat():Get() * CalculateAlignmentFactor( ai, ministerCountry, country )
 	dislike = dislike - strategy:GetFriendliness(countryTag) / 4
 	dislike = dislike + strategy:GetAntagonism(countryTag) / 4
-
+	-- We don't like them?
 	if dislike > 50 then
-		local bestMission = SpyMission.SPYMISSION_NONE
-		local bestScore = 0
+		local bestMission = nil
+		local bestScore = 40
 		local score = 0
 
-		score = country:GetGlobalModifier():GetValue(CModifier._MODIFIER_PARTISAN_EFFICENCY_):Get() + 30
+		score = country:GetGlobalModifier():GetValue(CModifier._MODIFIER_PARTISAN_EFFICENCY_):Get()+30
 		if score > bestScore then
 			bestMission = SpyMission.SPYMISSION_SUPPORT_RESISTANCE
 			bestScore = score
@@ -147,7 +150,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 			end
 		end
 		-- didn't find anything good
-		if bestScore < 50 then
+		if nil == bestMission then
 			if math.mod( CCurrentGameState.GetAIRand(), 2) == 0 then
 				bestMission = SpyMission.SPYMISSION_DISRUPT_PRODUCTION
 			else
@@ -156,16 +159,19 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		end
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, bestMission, bestScore )
 	end
-
+	
+	-- we are in different factions...increase their threat to weaken their faction's attraction and make it easier for them to be attacked
 	if country:HasFaction() and ministerCountry:HasFaction() and ministerCountry:GetFaction() ~= country:GetFaction() then
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." in different factions -> SPYMISSION_INCREASE_THREAT" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_INCREASE_THREAT, 50 )
 	end
+	-- We are in a faction but they are not. Boost our party to help them aligning with us.
 	if not country:HasFaction() and ministerCountry:HasFaction() then
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." mission for "..tostring(countryTag).." is SPYMISSION_BOOST_OUR_PARTY" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_BOOST_OUR_PARTY, 50 )
 	end
 	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." NO mission for "..tostring(countryTag).." -> SPYMISSION_NONE" )
+	-- nothing to be done
 	return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_NONE, 0 )
 end
 
@@ -188,7 +194,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 			local nPrio = 0
 			local mission = SpyMission.SPYMISSION_NONE
 
-			if IsValidCountry(country) then
+			if IsValidCountry(country) and not (ministerCountry:GetFaction():IsValid() and ministerCountry:GetFaction() == country:GetFaction()) then
 				if ministerCountry:IsMajor() and country:IsMajor() then
 					nPrio = nPrio + 1
 				end
@@ -197,16 +203,12 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 					nPrio = nPrio + 1
 				end
 
-				if ministerCountry:GetFaction():IsValid() and not (ministerCountry:GetFaction() == country:GetFaction()) and country:GetFaction():IsValid() then
+				if ministerCountry:GetFaction():IsValid() and country:GetFaction():IsValid() and ministerCountry:GetFaction() ~= country:GetFaction() then
 					nPrio = nPrio + 1
 				end
 
 				if ministerCountry:GetRelation(tag):HasWar() then
 					nPrio = nPrio + 2
-				end
-
-				if ministerCountry:GetFaction():IsValid() and ministerCountry:GetFaction() == country:GetFaction() then
-					nPrio = 0
 				end
 
 				nPrio = math.min( nPrio, CSpyPresence.MAX_SPY_PRIORITY )
@@ -221,7 +223,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 				ai:Post(command)
 			end
 
-			if mission ~= nil and mission ~= SpyPresence:GetMission() then
+			if mission ~= SpyPresence:GetMission() then
 				local missionCommand = CChangeSpyMission( ministerTag, tag, mission )
 				ai:Post(missionCommand)
 			end
