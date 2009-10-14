@@ -140,6 +140,7 @@ country_event = {
 		ENG = { country_event = 11103 }
 		remove_country_modifier = "lendlease_give_uk"
 		set_country_flag = nolendleaseforuk
+		clr_country_flag = lend_lease_at_least_once_uk
 	}
 }
 country_event = {
@@ -170,6 +171,7 @@ country_event = {
 		ENG = { country_event = 11103 }
 		remove_country_modifier = "lendlease_give_uk"
 		set_country_flag = nolendleaseforuk
+		clr_country_flag = lend_lease_at_least_once_uk
 	}
 }
 # End ENG
@@ -269,6 +271,7 @@ country_event = {
 		SOV = { country_event = 13103 }
 		remove_country_modifier = "lendlease_give_sov"
 		set_country_flag = nolendleaseforsov
+		clr_country_flag = lend_lease_at_least_once_sov
 	}
 }
 country_event = {
@@ -299,6 +302,7 @@ country_event = {
 		SOV = { country_event = 13103 }
 		remove_country_modifier = "lendlease_give_sov"
 		set_country_flag = nolendleaseforsov
+		clr_country_flag = lend_lease_at_least_once_sov
 	}
 }
 # End SOV
