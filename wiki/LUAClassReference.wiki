@@ -409,10 +409,10 @@ Shoul be number 5.
 ||int||SPYMISSION_MAX||
 
 ==CSpyPresence==
-||int ||MAX_SPY_LEVEL||
-||int ||MAX_SPY_PRIORITY||
-||int ||GetPriority()||
-||Enum`<`SpyMission`>` ||GetMission()||
+||int||MAX_SPY_LEVEL||
+||int||MAX_SPY_PRIORITY||
+||int||GetPriority()||
+||int||GetMission()||
 ||[#CDate CDate]||GetLastMissionChangeDate()||
 ||???||MissionAllowed||
 
@@ -462,7 +462,8 @@ Shoul be number 5.
 ||???||GetWarTarget||
 ||???||GetWarTargets||
 
-==CAIIntel([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)==
+==CAIIntel==
+constructed with CAIIntel([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)
 ||float ||GetFactor()||
 ||???||GetTheirFactor||
 ||???||GetUncertaintyFactor||
@@ -470,28 +471,32 @@ Shoul be number 5.
 ||float ||CalculateTheirPercievedMilitaryStrengh()||
 ||float ||CalculateOurMilitaryStrength()||
 
-
 =Minister classes=
 ==CAIAgent==
 ||[#CCountryTag CCountryTag]||GetCountryTag()||
 ||[#CCountry CCountry]||GetCountry()||
 ||[#CAI CAI]||GetOwnerAI()||
 
-==CAIPoliticsMinister : CAIAgent==
+==CAIPoliticsMinister==
+implements [#CAIAgent CAIAgent]
 ||bool ||IsCapitalSafeToLiberate([#CCountryTag CCountryTag] countryTag)||
 
-==CAITechMinister : CAIAgent==
+==CAITechMinister==
+implements [#CAIAgent CAIAgent]
 ||[#CArrayFix CArrayFix]||GetFolderModifers()||
 ||bool ||CanResearch([#CTechnology CTechnology] tech)||
 
-==CAIEspionageMinister : CAIAgent==
+==CAIEspionageMinister==
+implements [#CAIAgent CAIAgent]
 
-==CAIProductionMinister : CAIAgent==
+==CAIProductionMinister==
+implements [#CAIAgent CAIAgent]
 ||int ||CountTransportsUnderConstruction()||
 ||int ||CountEscortsUnderConstruction()||
 ||int ||CountTotalDesiredEscorts()||
 
-==CAIForeignMinister : CAIAgent==
+==CAIForeignMinister==
+implements [#CAIAgent CAIAgent]
 ||???||Propose||
 ||???||ProposeWar||
 ||void ||ExecuteDiploDecisions()||
@@ -537,8 +542,8 @@ Shoul be number 5.
 
 ==CAllianceAction==
 
-==CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, CCountryTag countryTag)==
-??? extends CDiplomaticAction
+==CMilitaryAccessAction==
+constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [#CCountryTag CCountryTag] countryTag)
 
 ==CGuaranteeAction==
 
@@ -557,9 +562,11 @@ Shoul be number 5.
 ||bool ||IsSelectable()||
 ||float ||GetAIAcceptance()||
 
-==CChangeSpyMission([#CCountryTag CCountryTag] owner, CCountryTag other, Enum`<`SpyMission`>` mission)==
+==CChangeSpyMission==
+constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] other, int spyMission)
 
-==CChangeSpyPriority([#CCountryTag CCountryTag] owner, CCountryTag other, int priority)==
+==CChangeSpyPriority==
+constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] other, int priority)
 
 =Command classes=
 !!! Some methods are guessed !!!
@@ -570,7 +577,8 @@ Shoul be number 5.
 
 ==CToggleMobilizationCommand(??? ministerTag, bool ???)==
 
-==CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, ??? ministerTag)==
+==CLiberateCountryCommand==
+constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, [#CCountryTag CCountryTag] countryTagToLiberate)
 
 ==CChangeLawCommand==
 
@@ -605,12 +613,14 @@ Shoul be number 5.
 ||??? ||GetCharPtr()||
 ||String ||GetString()||
 
-==CFixedPoint(float val)==
+==CFixedPoint==
+constructed with CFixedPoint(float val)
 ||float ||Get()||
 ||float ||GetTruncated()||
 ||float ||GetRounded()||
 
-==CArrayFix(int size)==
+==CArrayFix==
+constructed with CArrayFix(int size)
 ||[#CFixedPoint CFixedPoint]||GetAt(int index)||
 ||void ||SetAt(int index, CFixedPoint value)||
 
