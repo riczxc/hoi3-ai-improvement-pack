@@ -77,7 +77,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||bool ||IsGovernmentInExile()||
 ||CFixedPoint ||GetSurrenderLevel()||
 ||CModifier||GetGlobalModifier()||
-||float ||GetAbility(??? bonus._pCategory)||
+||float ||GetAbility(CTechnologyCategory category)||
 ||CTechnologyStatus ||GetTechnologyStatus()||
 ||int ||GetAllowedResearchSlots()||
 ||int ||GetNumberOfCurrentResearch()||
@@ -239,9 +239,12 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||CSubUnitDefinition||pUnit||
 
 ==CTechnologyDataBase==
-||??? ||GetCategories||
+||List`<CTechnologyCategory>`||GetCategories()||
 ||List`<CTechnology>` ||GetTechnologies()||
 ||int ||GetFolderIndex(String folderName)||
+
+==CTechnologyCategory==
+||String||GetKey()||
 
 ==CTechnology==
 ||String||GetKey()||
@@ -259,7 +262,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 
 ==CResearchBonus==
 ||CFixedPoint ||_vWeight||
-||??? ||_pCategory||
+||CTechnologyCategory||_pCategory||
 
 ==CTechnologyStatus==
 ||??? ||GetEffectiveYear||
@@ -649,8 +652,6 @@ Shoul be number 5.
 ||IsForTradeRoute||
 
 ==CNullTechnology==
-
-==CTechnologyCategory==
 
 ==CStrategicWarfare==
 ||GetBombingImpact||
