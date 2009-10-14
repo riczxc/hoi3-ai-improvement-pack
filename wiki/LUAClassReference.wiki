@@ -8,7 +8,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ==CCurrentGameState==
 ||[#CProvince CProvince]||GetProvince(int provineId)||
 ||int ||GetAIRand()||Return value is between 0 and int.MAX_VALUE||
-||List`<[#CCountry CCountry]>` ||GetCountries()||
+||List`<`[#CCountry CCountry]`>` ||GetCountries()||
 ||???||GetInstance||
 ||[#CCountryTag CCountryTag]||GetPlayer()||
 ||[#CDate CDate]||GetCurrentDate()||
@@ -25,7 +25,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFaction CFaction]||GetFaction()||
 ||bool ||Exists()||
 ||[#CAIStrategy CAIStrategy]||GetStrategy()||
-||List`<int>`||GetOwnedProvinces()||
+||List`<`int`>`||GetOwnedProvinces()||
 ||???||GetAlignmentCord||
 ||[#CAlignment CAlignment]||GetAlignment()||
 ||[#CFixedPoint CFixedPoint]||GetDissent()||
@@ -36,17 +36,17 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetOfficerRatio()||
 ||[#CFixedPoint CFixedPoint]||GetDiplomaticInfluence()||
 ||bool ||IsNeighbour(CCountryTag otherCountryTag)||
-||List`<[#CCountryTag CCountryTag]>` ||GetNeighbours()||
+||List`<`[#CCountryTag CCountryTag]`>` ||GetNeighbours()||
 ||[#CProvince CProvince]||GetActingCapitalLocation()||
 ||[#CProvince CProvince]||GetCapitalLocation()||
-||List`<[#CCountryTag CCountryTag]>` ||GetCurrentAtWarWith()||
+||List`<`[#CCountryTag CCountryTag]`>` ||GetCurrentAtWarWith()||
 ||bool ||IsAtWar()||
 ||bool ||IsFriend(CCountryTag otherCountryTag, bool ???)||
 ||bool ||IsEnemy(CCountryTag otherCountryTag)||
 ||[#CFixedPoint CFixedPoint]||GetManpower()||
 ||[#CFixedPoint CFixedPoint]||GetDiplomaticDistance(CCountryTag countryTag)||
 ||int ||GetNumOfAllies()||
-||List`<[#CCountryTag CCountryTag]>` ||GetAllies()||
+||List`<`[#CCountryTag CCountryTag]`>` ||GetAllies()||
 ||int ||GetCapital()||
 ||???||GetRules||
 ||int ||GetNumberOfControlledProvinces()||
@@ -68,8 +68,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetUsedIC()||
 ||[#CFixedPoint CFixedPoint]||GetICPart(int distributionSetting)||
 ||???||GetStrategicWarfare||
-||List`<[#CProvince CProvince]>` ||GetNavalBases()||
-||List`<[#CProvince CProvince]>` ||GetAirBases()||
+||List`<`[#CProvince CProvince]`>` ||GetNavalBases()||
+||List`<`[#CProvince CProvince]`>` ||GetAirBases()||
 ||[#CSpyPresence CSpyPresence]||GetSpyPresence(CCountryTag countryTag)||
 ||[#CIdeology CIdeology]||GetRulingIdeology()||
 ||??? ||AccessIdeologyPopularity() --return value should have GetValue(CIdeology ideology)||
@@ -85,7 +85,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||???||GetLawFromIndex||
 ||bool ||IsMobilized()||
 ||bool ||MayLiberateCountries()||
-||List`<[#CCountryTag CCountryTag]>` ||GetPossibleLiberations()||
+||List`<`[#CCountryTag CCountryTag]`>` ||GetPossibleLiberations()||
 ||bool ||CanCreatePuppet()||
 ||???||GetPossiblePuppets||
 ||[#CFixedPoint CFixedPoint]||GetTotalLeadership()||
@@ -103,7 +103,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int ||GetNumOfAirfields()||
 ||[#CDiplomacyStatus CDiplomacyStatus]||GetDiplomacy()||
 ||[#CCountryTag CCountryTag]||GetOverlord()||
-||List`<[#CCountryTag CCountryTag]>` ||GetVassals()||
+||List`<`[#CCountryTag CCountryTag]`>` ||GetVassals()||
 ||int ||GetMaxIC()||
 ||[#CFixedPoint CFixedPoint]||GetNeutrality()||
 ||[#CCountryTag CCountryTag]||GetHighestThreat()||
@@ -115,7 +115,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 
 ==CProvince==
 ||int ||GetProvinceID()||
-||List`<???>`||GetUnits()||
+||List`<`???`>`||GetUnits()||
 ||[#CContinent CContinent]||GetContinent()||
 ||[#CFixedPoint CFixedPoint]||GetInfrastructure()||
 ||[#CFixedPoint CFixedPoint]||GetMaxInfrastructure()||
@@ -170,7 +170,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetThreat()||
 ||[#CCountryTag CCountryTag]||GetTarget()||
 ||[#CWar CWar]||GetWar()||
-||List`<[#CTradeRoute CTradeRoute]>` ||GetTradeRoutes()||
+||List`<`[#CTradeRoute CTradeRoute]`>` ||GetTradeRoutes()||
 ||[#CFixedPoint CFixedPoint]||GetValue()||
 ||void ||SetValue(CFixedPoint relation)||
 
@@ -189,8 +189,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CLawGroup CLawGroup]||GetLawGroup||
 ||int ||GetNumberOfLawGroups()||
 ||int ||GetNumberOfLaws()||
-||List`<[#CLawGroup CLawGroup]>` ||GetGroups()||
-||List`<[#CLaw CLaw]>` ||GetLawList()||
+||List`<`[#CLawGroup CLawGroup]`>` ||GetGroups()||
+||List`<`[#CLaw CLaw]`>` ||GetLawList()||
 
 ==CLawGroup==
 ||int ||GetIndex()||
@@ -203,7 +203,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CLawGroup CLawGroup]||GetGroup()||
 
 ==CSubUnitDataBase==
-||List`<[#CSubUnitDefinition CSubUnitDefinition]>`||GetSubUnitList()||
+||List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`||GetSubUnitList()||
 ||[#CSubUnitDefinition CSubUnitDefinition]||GetSubUnit(string subUnitName)||
 
 ==CSubUnitDefinition==
@@ -239,8 +239,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CSubUnitDefinition CSubUnitDefinition]||pUnit||
 
 ==CTechnologyDataBase==
-||List`<[#CTechnologyCategory CTechnologyCategory]>`||GetCategories()||
-||List`<[#CTechnology CTechnology]>`||GetTechnologies()||
+||List`<`[#CTechnologyCategory CTechnologyCategory]`>`||GetCategories()||
+||List`<`[#CTechnology CTechnology]`>`||GetTechnologies()||
 ||int||GetFolderIndex(String folderName)||
 
 ==CTechnologyCategory==
@@ -255,7 +255,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CTechnologyFolder CTechnologyFolder]||GetFolder()||
 ||???||GetDifficulty||
 ||???||GetEnableUnit()||
-||List`<[#CResearchBonus CResearchBonus]>`||GetResearchBonus()||
+||List`<`[#CResearchBonus CResearchBonus]`>`||GetResearchBonus()||
 
 ==CTechnologyFolder==
 ||String||GetKey()||
@@ -412,7 +412,7 @@ Shoul be number 5.
 ||int ||MAX_SPY_LEVEL||
 ||int ||MAX_SPY_PRIORITY||
 ||int ||GetPriority()||
-||Enum`<SpyMission>` ||GetMission()||
+||Enum`<`SpyMission`>` ||GetMission()||
 ||[#CDate CDate]||GetLastMissionChangeDate()||
 ||???||MissionAllowed||
 
@@ -557,7 +557,7 @@ Shoul be number 5.
 ||bool ||IsSelectable()||
 ||float ||GetAIAcceptance()||
 
-==CChangeSpyMission(CCountryTag owner, CCountryTag other, Enum`<SpyMission>` mission)==
+==CChangeSpyMission(CCountryTag owner, CCountryTag other, Enum`<`SpyMission`>` mission)==
 
 ==CChangeSpyPriority(CCountryTag owner, CCountryTag other, int priority)==
 
@@ -681,5 +681,5 @@ Shoul be number 5.
 ==CInfluenceNation==
 
 =Unknown methods=
-||Clone||
+||[#Clone Clone]||
 ||GetFactions||
