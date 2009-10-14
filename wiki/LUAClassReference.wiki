@@ -64,7 +64,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int||GetAvailableIC()||
 ||[#CGoodsPool CGoodsPool]||GetPool()||
 ||[#CFixedPoint CFixedPoint]||GetBuildCost([#CBuilding CBuilding] building)||
-||bool ||IsBuildingAllowed(([#CBuilding CBuilding] building, CProvince province)||
+||bool ||IsBuildingAllowed([#CBuilding CBuilding] building, CProvince province)||
 ||[#CFixedPoint CFixedPoint]||GetUsedIC()||
 ||[#CFixedPoint CFixedPoint]||GetICPart(int distributionSetting)||
 ||???||GetStrategicWarfare||
