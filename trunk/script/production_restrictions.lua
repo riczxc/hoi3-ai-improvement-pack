@@ -82,7 +82,7 @@ function LoadRestrictions(minister, ministerCountry)
 	
 		prod_restrictions["naval_bomber"] = { 0, naval_bomber }					-- No need Naval Bomber until victory against SOV
 		prod_restrictions["strategic_bomber"] = { 0, strategic_bomber} 			-- No need Strat. Bomber until victory against SOV
-		prod_restrictions["tactical_bomber"] = { 50, tactical_bomber, 50, cas } -- Builds some CAS when GER needs Tac. Bombers
+		prod_restrictions["tactical_bomber"] = { 50, cas, 50, tactical_bomber } -- Builds some CAS when GER needs Tac. Bombers
 		
 		-- If Germany conquer Soviet Union
 		if  tostring(CCurrentGameState.GetProvince( 2613 ):GetController()) == 'GER'	--Controls Paris
@@ -116,8 +116,8 @@ function LoadRestrictions(minister, ministerCountry)
 	------------------------------------------JAPAN---------------------------------------------------
 	elseif ministerTag == 'JAP' then
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
-		local mix = { 7, interceptor, 5, multi_role, 6, naval_bomber, 7, tactical_bomber, -- 25% Air
-		14, cag, 7, carrier, 6, battleship, 2, super_heavy_battleship, 8, heavy_cruiser, 12, light_cruiser, 12, destroyer, 14, submarine  -- 75& naval
+		local mix = { 5, multi_role, 7, interceptor, 6, naval_bomber, 7, tactical_bomber, -- 25% Air
+		14, cag, 7, carrier, 2, super_heavy_battleship, 6, battleship, 8, heavy_cruiser, 12, light_cruiser, 12, destroyer, 14, submarine  -- 75& naval
 		}
 		prod_restrictions["transport_ship"] = { 100, transport_ship }
 		prod_restrictions["nuclear_submarine"] = { 100, nuclear_submarine }
