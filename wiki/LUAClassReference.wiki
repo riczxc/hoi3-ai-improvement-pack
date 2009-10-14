@@ -462,7 +462,7 @@ Shoul be number 5.
 ||???||GetWarTarget||
 ||???||GetWarTargets||
 
-==CAIIntel(CCountryTag countryTagA, CCountryTag countryTagB)==
+==CAIIntel==
 ||float ||GetFactor()||
 ||???||GetTheirFactor||
 ||???||GetUncertaintyFactor||
@@ -477,21 +477,26 @@ Shoul be number 5.
 ||[#CCountry CCountry]||GetCountry()||
 ||[#CAI CAI]||GetOwnerAI()||
 
-==CAIPoliticsMinister : CAIAgent==
+==CAIPoliticsMinister==
+implements[#CAIAgent CAIAgent]
 ||bool ||IsCapitalSafeToLiberate(CCountryTag countryTag)||
 
-==CAITechMinister : CAIAgent==
+==CAITechMinister==
+implements[#CAIAgent CAIAgent]
 ||[#CArrayFix CArrayFix]||GetFolderModifers()||
 ||bool ||CanResearch(CTechnology tech)||
 
-==CAIEspionageMinister : CAIAgent==
+==CAIEspionageMinister==
+implements [#CAIAgent CAIAgent]
 
-==CAIProductionMinister : CAIAgent==
+==CAIProductionMinister==
+implements [#CAIAgent CAIAgent]
 ||int ||CountTransportsUnderConstruction()||
 ||int ||CountEscortsUnderConstruction()||
 ||int ||CountTotalDesiredEscorts()||
 
-==CAIForeignMinister : CAIAgent==
+==CAIForeignMinister==
+implements [#CAIAgent CAIAgent]
 ||???||Propose||
 ||???||ProposeWar||
 ||void ||ExecuteDiploDecisions()||
@@ -537,7 +542,7 @@ Shoul be number 5.
 
 ==CAllianceAction==
 
-==CMilitaryAccessAction(CCountryTag ministerTag, CCountryTag countryTag)==
+==CMilitaryAccessAction==
 ??? extends CDiplomaticAction
 
 ==CGuaranteeAction==
@@ -557,9 +562,9 @@ Shoul be number 5.
 ||bool ||IsSelectable()||
 ||float ||GetAIAcceptance()||
 
-==CChangeSpyMission(CCountryTag owner, CCountryTag other, Enum`<`SpyMission`>` mission)==
+==CChangeSpyMission==
 
-==CChangeSpyPriority(CCountryTag owner, CCountryTag other, int priority)==
+==CChangeSpyPriority==
 
 =Command classes=
 !!! Some methods are guessed !!!
@@ -568,9 +573,9 @@ Shoul be number 5.
 
 ==CConstructConvoyCommand==
 
-==CToggleMobilizationCommand(??? ministerTag, bool ???)==
+==CToggleMobilizationCommand==
 
-==CLiberateCountryCommand(CCountryTag countryTag, ??? ministerTag)==
+==CLiberateCountryCommand==
 
 ==CChangeLawCommand==
 
@@ -605,12 +610,12 @@ Shoul be number 5.
 ||??? ||GetCharPtr()||
 ||String ||GetString()||
 
-==CFixedPoint(float val)==
+==CFixedPoint==
 ||float ||Get()||
 ||float ||GetTruncated()||
 ||float ||GetRounded()||
 
-==CArrayFix(int size)==
+==CArrayFix==
 ||[#CFixedPoint CFixedPoint]||GetAt(int index)||
 ||void ||SetAt(int index, CFixedPoint value)||
 
@@ -681,5 +686,5 @@ Shoul be number 5.
 ==CInfluenceNation==
 
 =Unknown methods=
-||[#Clone Clone]||
+||Clone||
 ||GetFactions||
