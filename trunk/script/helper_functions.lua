@@ -355,6 +355,34 @@ function GetTradeDesireInGoods(ministerCountry, goods)
 	return score
 end
 
+function MinStock(country, goods)
+	-- min for a 100 IC country in peace:
+	-- 200 oil, rare
+	-- 1k supply, fuel
+	-- 500 energy and metal
+	-- min for a 100 IC country in war:
+	-- 400 oil, rare
+	-- 2k supply, fuel
+	-- 1k energy and metal
+	local factor = 2 -- oil, rare
+	if goods == CGoodsPool._SUPPLIES_ or goods == CGoodsPool._FUEL_ then
+		factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE --10
+	elseif goods == CGoodsPool._METAL_ or goods == CGoodsPool._ENERGY_ then
+		factor = 5
+	end
+	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
+		return factor*2*country:GetTotalIC()
+	end	
+	return factor*country:GetTotalIC()
+end
+
+function MaxStock(country, goods)
+	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
+		return math.min(90000, 1000*country:GetTotalIC())
+	end
+	return math.min(90000, 500*country:GetTotalIC())
+end
+
 -- Returns the needed amount of goods. Amount is positive if
 -- the given country wants these goods and amount is negative if
 -- it wants to get rid of these goods.

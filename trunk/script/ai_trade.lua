@@ -156,20 +156,12 @@ function CancelTrade(ai, route, AliceTag, BobTag)
 	end
 end
 
-function MinStock(country)
-	return country:GetTotalIC()
-end
-
-function MaxStock(country)
-	return 90000
-end
-
 function HasMinStock(country, goods)
-	return country:GetPool():Get( goods ):Get() > MinStock(country)
+	return country:GetPool():Get( goods ):Get() > MinStock(country, goods)
 end
 
 function HasMaxStock(country, goods)
-	return country:GetPool():Get( goods ):Get() > MaxStock(country)
+	return country:GetPool():Get( goods ):Get() > MaxStock(country, goods)
 end
 
 function Selling(country, goods)
@@ -223,60 +215,43 @@ function Buying(country, goods)
 		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." is human buyer.")
 		return 50
 	end
-	-- cancel exports first
-	if ExistsExport(country:GetCountryTag(), goods) then
-		return 0
-	end
 
 	-- buy supplies if we are rich and not overstocked
 	if goods == CGoodsPool._SUPPLIES_ then
-		if IsRich(country) and (not HasMaxStock(country, goods)) then
+		if IsRich(country) and not HasMaxStock(country, goods) then
 			-- IC 1 to 50
 			return math.min(50, math.max(1, country:GetTotalIC()/4))
 		else
 			return 0
 		end
 	end
-
-	-- don't buy oil if ...
-	if goods == CGoodsPool._CRUDE_OIL_ and
-		-- we have positive/0 fuel income
-		GetAverageBalance(country, CGoodsPool._FUEL_) >= 0 and
-		-- we have min fuel stock
-		HasMinStock(country, CGoodsPool._FUEL_) and
-		-- we do not import fuel
-		not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and
-		-- we are not in or preparing for a war, or are rich enough to not care
-		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar() or IsRich(country))
+	
+	local balance = GetAverageBalance(country, goods)
+	
+		-- cancel exports first
+	if	ExistsExport(country:GetCountryTag(), goods) or
+		-- don't buy max stocked goods
+		HasMaxStock(country, goods) or
+		-- goods in positive balance
+		balance >= 0 --or
+		-- trade balance loss smaller than min trade and min stock
+		--(-balance<MinTradeSize(country) and HasMinStock(country, goods))
 	then
 		return 0
 	end
 
-	if HasMaxStock(country, goods) then
-		return 0
-	end
-
-	local amount = math.max(0, -1.1*GetAverageBalance(country, goods))
-	if not HasMinStock(country, goods) then
-		amount = math.max(MinStock(country) / 10, -1 * GetAverageBalance(country, goods), 1.1 * MinTradeSize(country))
-	end
-
-	-- If we're not at war only buy so much oil or fuel we can pay for
-	-- or need to establish a positive fuel balance.
-	-- Buying too much could kill our economy.
-	if amount > 0 and
-		(goods == CGoodsPool._CRUDE_OIL_ or goods == CGoodsPool._FUEL_) and
+	-- buy as much oil as we need fuel (if fuel import or war buy oil)
+	if	goods == CGoodsPool._CRUDE_OIL_ and not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and
 		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar())
 	then
-		-- Only buy so much goods we can pay for
-		local dailyMoney = math.max(GetAverageBalance(country, CGoodsPool._MONEY_), 0) -- dailyMoney could be < 0
-		local cost = GetGoodsCost(goods)
-		amount = math.min(dailyMoney / cost, amount) -- Don't buy more than we really need
-		amount = math.max(-GetAverageBalance(country, CGoodsPool._FUEL_) * 0.5, amount) -- Buy at least 50% of needed fuel
-		amount = math.max(MinTradeSize(country), amount * 1.2) -- Buy 20% more and at least min trade size
+		return Buying(country, CGoodsPool._FUEL_)
 	end
 
-	return amount
+	if HasMinStock(country, goods) then
+		return math.max(-1.05*balance, MinTradeSize(country))
+	else 
+		return math.max(-1.25*balance, math.min(50, country:GetTotalIC()/10), MinTradeSize(country))
+	end	
 end
 
 function MinTradeSize(country)
