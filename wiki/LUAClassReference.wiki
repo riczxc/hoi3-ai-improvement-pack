@@ -35,24 +35,24 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetDailyIncome(int goods)||
 ||[#CFixedPoint CFixedPoint]||GetOfficerRatio()||
 ||[#CFixedPoint CFixedPoint]||GetDiplomaticInfluence()||
-||bool ||IsNeighbour(CCountryTag otherCountryTag)||
+||bool ||IsNeighbour[#CCountryTag CCountryTag] otherCountryTag)||
 ||List`<`[#CCountryTag CCountryTag]`>` ||GetNeighbours()||
 ||[#CProvince CProvince]||GetActingCapitalLocation()||
 ||[#CProvince CProvince]||GetCapitalLocation()||
 ||List`<`[#CCountryTag CCountryTag]`>` ||GetCurrentAtWarWith()||
 ||bool ||IsAtWar()||
-||bool ||IsFriend(CCountryTag otherCountryTag, bool ???)||
-||bool ||IsEnemy(CCountryTag otherCountryTag)||
+||bool ||IsFriend[#CCountryTag CCountryTag] otherCountryTag, bool ???)||
+||bool ||IsEnemy[#CCountryTag CCountryTag] otherCountryTag)||
 ||[#CFixedPoint CFixedPoint]||GetManpower()||
-||[#CFixedPoint CFixedPoint]||GetDiplomaticDistance(CCountryTag countryTag)||
+||[#CFixedPoint CFixedPoint]||GetDiplomaticDistance[#CCountryTag CCountryTag] countryTag)||
 ||int ||GetNumOfAllies()||
 ||List`<`[#CCountryTag CCountryTag]`>` ||GetAllies()||
 ||int ||GetCapital()||
 ||???||GetRules||
 ||int ||GetNumberOfControlledProvinces()||
 ||int ||GetNumberOfOwnedProvinces()||
-||bool ||HasDiplomatEnroute(CCountryTag countryTag)||
-||[#CDiplomacyStatus CDiplomacyStatus]||GetRelation(CCountryTag countryTag)||
+||bool ||HasDiplomatEnroute[#CCountryTag CCountryTag] countryTag)||
+||[#CDiplomacyStatus CDiplomacyStatus]||GetRelation[#CCountryTag CCountryTag] countryTag)||
 ||bool ||HasFaction()||
 ||bool ||IsFactionLeader()||
 ||???||GetGovernment||
@@ -63,25 +63,25 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int||GetTotalIC()||
 ||int||GetAvailableIC()||
 ||[#CGoodsPool CGoodsPool]||GetPool()||
-||[#CFixedPoint CFixedPoint]||GetBuildCost(CBuilding building)||
-||bool ||IsBuildingAllowed((CBuilding building, CProvince province)||
+||[#CFixedPoint CFixedPoint]||GetBuildCost[#CBuilding CBuilding] building)||
+||bool ||IsBuildingAllowed([#CBuilding CBuilding] building, CProvince province)||
 ||[#CFixedPoint CFixedPoint]||GetUsedIC()||
 ||[#CFixedPoint CFixedPoint]||GetICPart(int distributionSetting)||
 ||???||GetStrategicWarfare||
 ||List`<`[#CProvince CProvince]`>` ||GetNavalBases()||
 ||List`<`[#CProvince CProvince]`>` ||GetAirBases()||
-||[#CSpyPresence CSpyPresence]||GetSpyPresence(CCountryTag countryTag)||
+||[#CSpyPresence CSpyPresence]||GetSpyPresence[#CCountryTag CCountryTag] countryTag)||
 ||[#CIdeology CIdeology]||GetRulingIdeology()||
-||??? ||AccessIdeologyPopularity() --return value should have GetValue(CIdeology ideology)||
-||??? ||AccessIdeologyOrganization() --return value should have GetValue(CIdeology ideology)||
+||??? ||AccessIdeologyPopularity() --return value should have GetValue[#CIdeology CIdeology] ideology)||
+||??? ||AccessIdeologyOrganization() --return value should have GetValue[#CIdeology CIdeology] ideology)||
 ||bool ||IsGovernmentInExile()||
 ||[#CFixedPoint CFixedPoint]||GetSurrenderLevel()||
 ||[#CModifier CModifier]||GetGlobalModifier()||
-||float ||GetAbility(CTechnologyCategory category)||
+||float ||GetAbility[#CTechnologyCategory CTechnologyCategory] category)||
 ||[#CTechnologyStatus CTechnologyStatus]||GetTechnologyStatus()||
 ||int ||GetAllowedResearchSlots()||
 ||int ||GetNumberOfCurrentResearch()||
-||[#CLaw CLaw]||GetLaw(CLawGroup lawGroup)||
+||[#CLaw CLaw]||GetLaw[#CLawGroup CLawGroup] lawGroup)||
 ||???||GetLawFromIndex||
 ||bool ||IsMobilized()||
 ||bool ||MayLiberateCountries()||
@@ -93,12 +93,12 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||???||GetConvoyBuildTime||
 ||[#CFixedPoint CFixedPoint]||GetEscortBuildCost()||
 ||???||GetEscortBuildTime||
-||bool ||NeedConvoyToTradeWith(CCountryTag countryTag)||
+||bool ||NeedConvoyToTradeWith[#CCountryTag CCountryTag] countryTag)||
 ||int ||GetTransports()||
 ||int ||GetTotalNeededTransports()||
 ||int ||GetConvoys()||
 ||int ||GetEscorts()||
-||[#CFixedPoint CFixedPoint]||GetMaxNeutralityForWarWith(CCountryTag countryTag)||
+||[#CFixedPoint CFixedPoint]||GetMaxNeutralityForWarWith[#CCountryTag CCountryTag] countryTag)||
 ||int ||GetNumOfPorts()||
 ||int ||GetNumOfAirfields()||
 ||[#CDiplomacyStatus CDiplomacyStatus]||GetDiplomacy()||
@@ -110,7 +110,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetSupplyBalanceAverage()||
 ||bool||IsSubject||
 ||bool||isPuppet()||
-||bool ||IsNeighbourToFactionHostile(CFaction faction)||
+||bool ||IsNeighbourToFactionHostile[#CFaction CFaction] faction)||
 ||[#CFixedPoint CFixedPoint]||GetBuildCostIC(??? pUnit, int ???, bool buildReserve)||
 
 ==CProvince==
@@ -119,7 +119,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CContinent CContinent]||GetContinent()||
 ||[#CFixedPoint CFixedPoint]||GetInfrastructure()||
 ||[#CFixedPoint CFixedPoint]||GetMaxInfrastructure()||
-||bool ||HasBuilding(CBuilding building)||
+||bool ||HasBuilding[#CBuilding CBuilding] building)||
 ||bool ||IsFrontProvince(bool ???)||
 ||???||HasAdjacentEnemyOrCB||
 ||[#CCountryTag CCountryTag]||GetController()||
@@ -142,14 +142,14 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||???||GetPosition||
 
 ==CAlignment==
-||[#CFixedPoint CFixedPoint]||GetLastDrift(CIdeologyGroup ideologyGroup)||
+||[#CFixedPoint CFixedPoint]||GetLastDrift[#CIdeologyGroup CIdeologyGroup] ideologyGroup)||
 ||???||GetDistanceFrom||
 
 ==CWar==
 ||bool ||IsLimited()||
 ||???||GetAttackers||
 ||???||GetDefenders||
-||bool ||IsPartOfWar(CCountryTag countryTag)||
+||bool ||IsPartOfWar[#CCountryTag CCountryTag] countryTag)||
 ||int ||GetCurrentRunningTimeInMonths()||
 
 ==CDiplomacyStatus==
@@ -172,7 +172,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CWar CWar]||GetWar()||
 ||List`<`[#CTradeRoute CTradeRoute]`>` ||GetTradeRoutes()||
 ||[#CFixedPoint CFixedPoint]||GetValue()||
-||void ||SetValue(CFixedPoint relation)||
+||void ||SetValue[#CFixedPoint CFixedPoint] relation)||
 
 ==CTradeRoute==
 ||bool ||IsValid()||
@@ -267,10 +267,10 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 
 ==CTechnologyStatus==
 ||??? ||GetEffectiveYear||
-||int ||GetLevel(CTechnology tech)||
-||[#CFixedPoint CFixedPoint]||GetCost(CTechnology tech, int level)||
-||bool||IsUnitAvailable(CSubUnitDefinition unit)||
-||int||GetYear(CTechnology, level)||
+||int ||GetLevel[#CTechnology CTechnology] tech)||
+||[#CFixedPoint CFixedPoint]||GetCost[#CTechnology CTechnology] tech, int level)||
+||bool||IsUnitAvailable[#CSubUnitDefinition CSubUnitDefinition] unit)||
+||int||GetYear[#CTechnology CTechnology], level)||
 
 ==CBuildingDataBase==
 ||[#CBuilding CBuilding]||GetBuildingFromIndex(int index)||
@@ -419,21 +419,21 @@ Shoul be number 5.
 =AI classes=
 ==CAI==
 ||[#CDate CDate]||GetCurrentDate()||
-||[#CDiplomacyStatus CDiplomacyStatus]||GetRelation(CCountryTag countryTagA, CCountryTag countryTagB)||
-||int ||GetNumberOfOwnedProvinces(CCountryTag countryTag)||
+||[#CDiplomacyStatus CDiplomacyStatus]||GetRelation[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
+||int ||GetNumberOfOwnedProvinces[#CCountryTag CCountryTag] countryTag)||
 ||???||MoveToNeighbor||
 ||???||MoveUnit||
 ||CList_CSubUnitConstructionEntry||GetReqProdQueue()||
 ||???||GetReqProdQueueIter||
 ||???||RequestSubUnit||
-||[#CFixedPoint CFixedPoint]||GetNormalizedAlignmentDistance(CCountry country, CFaction faction)||
-||[#CFixedPoint CFixedPoint]||GetCountryAlignmentDistance(CCountry countryA, CCountry countryB)||
+||[#CFixedPoint CFixedPoint]||GetNormalizedAlignmentDistance[#CCountry CCountry] country, CFaction faction)||
+||[#CFixedPoint CFixedPoint]||GetCountryAlignmentDistance[#CCountry CCountry] countryA, CCountry countryB)||
 ||void||PrintConsole(string message)||
 ||void||Post(??? command)||
 ||???||PostAction||
-||bool ||CanDeclareWar(CCountryTag countryTagA, CCountryTag countryTagB)||
+||bool ||CanDeclareWar[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 ||???||GetAmountTradedFrom||
-||bool ||AlreadyTradingResourceOtherWay(CTradeRoute route)||
+||bool ||AlreadyTradingResourceOtherWay[#CTradeRoute CTradeRoute] route)||
 
 ==CAIStrategy==
 ||???||_AI_MILITARIST_||
@@ -441,28 +441,28 @@ Shoul be number 5.
 ||???||_AI_BALANCED_||
 ||???||_AI_DIPLOMAT_||
 ||???||_AI_INDUSTRIALIST_||
-||float ||GetFriendliness(CCountryTag countryTag)||
-||float ||GetAntagonism(CCountryTag countryTag)||
-||float ||GetProtectionism(CCountryTag countryTag)||
+||float ||GetFriendliness[#CCountryTag CCountryTag] countryTag)||
+||float ||GetAntagonism[#CCountryTag CCountryTag] countryTag)||
+||float ||GetProtectionism[#CCountryTag CCountryTag] countryTag)||
 ||???||GetPersonality||
 ||bool ||IsMilitarist()||
 ||bool ||IsDiplomat()||
 ||bool ||IsIndustrialist()||
 ||bool ||IsBalanced()||
-||float ||GetAccessScore(CCountryTag countryTag)||
+||float ||GetAccessScore[#CCountryTag CCountryTag] countryTag)||
 ||???||GetTheatres||
-||int ||GetWantedSubUnits(CSubUnitDefinition subunit)||
+||int ||GetWantedSubUnits[#CSubUnitDefinition CSubUnitDefinition] subunit)||
 ||???||AddSubUnit||
-||void ||PrepareWar(CCountryTag countryTag, int score?)||
+||void ||PrepareWar[#CCountryTag CCountryTag] countryTag, int score?)||
 ||???||PrepareWarDecision||
 ||???||[#CancelPrepareWar CancelPrepareWar]||
 ||bool ||IsPreparingWar()||
-||bool ||IsPreparingWarWith(CCountryTag countryTag)||
+||bool ||IsPreparingWarWith[#CCountryTag CCountryTag] countryTag)||
 ||???||GetWarScoreWith||
 ||???||GetWarTarget||
 ||???||GetWarTargets||
 
-==CAIIntel==
+==CAIIntel[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)==
 ||float ||GetFactor()||
 ||???||GetTheirFactor||
 ||???||GetUncertaintyFactor||
@@ -477,34 +477,29 @@ Shoul be number 5.
 ||[#CCountry CCountry]||GetCountry()||
 ||[#CAI CAI]||GetOwnerAI()||
 
-==CAIPoliticsMinister==
-implements[#CAIAgent CAIAgent]
-||bool ||IsCapitalSafeToLiberate(CCountryTag countryTag)||
+==CAIPoliticsMinister : CAIAgent==
+||bool ||IsCapitalSafeToLiberate[#CCountryTag CCountryTag] countryTag)||
 
-==CAITechMinister==
-implements[#CAIAgent CAIAgent]
+==CAITechMinister : CAIAgent==
 ||[#CArrayFix CArrayFix]||GetFolderModifers()||
-||bool ||CanResearch(CTechnology tech)||
+||bool ||CanResearch[#CTechnology CTechnology] tech)||
 
-==CAIEspionageMinister==
-implements [#CAIAgent CAIAgent]
+==CAIEspionageMinister : CAIAgent==
 
-==CAIProductionMinister==
-implements [#CAIAgent CAIAgent]
+==CAIProductionMinister : CAIAgent==
 ||int ||CountTransportsUnderConstruction()||
 ||int ||CountEscortsUnderConstruction()||
 ||int ||CountTotalDesiredEscorts()||
 
-==CAIForeignMinister==
-implements [#CAIAgent CAIAgent]
+==CAIForeignMinister : CAIAgent==
 ||???||Propose||
 ||???||ProposeWar||
 ||void ||ExecuteDiploDecisions()||
 ||???||PercOccupied||
 ||???||[#ClearWarProposal ClearWarProposal]||
 ||???||GetProposedWarTarget||
-||float ||GetSpamPenalty(CCountryTag countryTag)||
-||bool ||HasTradeGoneStale(CTradeRoute route)||
+||float ||GetSpamPenalty[#CCountryTag CCountryTag] countryTag)||
+||bool ||HasTradeGoneStale[#CTradeRoute CTradeRoute] route)||
 
 ==CAISubscriber==
 ||???||WantTicks||
@@ -542,7 +537,7 @@ implements [#CAIAgent CAIAgent]
 
 ==CAllianceAction==
 
-==CMilitaryAccessAction==
+==CMilitaryAccessAction[#CCountryTag CCountryTag] ministerTag, CCountryTag countryTag)==
 ??? extends CDiplomaticAction
 
 ==CGuaranteeAction==
@@ -552,8 +547,8 @@ implements [#CAIAgent CAIAgent]
 ==CTradeAction==
 ||[#CTradeRoute CTradeRoute]||GetRoute()||
 ||[#CFixedPoint CFixedPoint]||GetTrading(int goods, ??? ministerTag)||
-||void ||SetTrading(CFixedPoint amount, int goods)||
-||void ||SetRoute(CTradeRoute route)||
+||void ||SetTrading[#CFixedPoint CFixedPoint] amount, int goods)||
+||void ||SetRoute[#CTradeRoute CTradeRoute] route)||
 ||bool ||IsConvoyPossible()||
 ||???||PROPOSE||
 
@@ -562,9 +557,9 @@ implements [#CAIAgent CAIAgent]
 ||bool ||IsSelectable()||
 ||float ||GetAIAcceptance()||
 
-==CChangeSpyMission==
+==CChangeSpyMission[#CCountryTag CCountryTag] owner, CCountryTag other, Enum`<`SpyMission`>` mission)==
 
-==CChangeSpyPriority==
+==CChangeSpyPriority[#CCountryTag CCountryTag] owner, CCountryTag other, int priority)==
 
 =Command classes=
 !!! Some methods are guessed !!!
@@ -573,9 +568,9 @@ implements [#CAIAgent CAIAgent]
 
 ==CConstructConvoyCommand==
 
-==CToggleMobilizationCommand==
+==CToggleMobilizationCommand(??? ministerTag, bool ???)==
 
-==CLiberateCountryCommand==
+==CLiberateCountryCommand[#CCountryTag CCountryTag] countryTag, ??? ministerTag)==
 
 ==CChangeLawCommand==
 
@@ -610,12 +605,12 @@ implements [#CAIAgent CAIAgent]
 ||??? ||GetCharPtr()||
 ||String ||GetString()||
 
-==CFixedPoint==
+==CFixedPoint(float val)==
 ||float ||Get()||
 ||float ||GetTruncated()||
 ||float ||GetRounded()||
 
-==CArrayFix==
+==CArrayFix(int size)==
 ||[#CFixedPoint CFixedPoint]||GetAt(int index)||
 ||void ||SetAt(int index, CFixedPoint value)||
 
