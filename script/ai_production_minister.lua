@@ -406,7 +406,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/ministerCountry:GetTotalIC()
 
 	-- SUPPLY
-	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(45000, ai_configuration.MINIMUM_SUPPLY_STOCKPILE*ministerCountry:GetTotalIC())
+	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(45000, MinStock(ministerCountry, CGoodsPool._SUPPLIES_ ))
 	-- 100% supply prod. at 0 stock, 50% at 1/2 goal stock and 0% at goal stock
 	local SupplyNeed = MaxIC*(1-math.min(1, SupplyStockFactor ))
 
