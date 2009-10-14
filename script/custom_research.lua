@@ -1046,7 +1046,7 @@ function ConstructPriorityList(minister)
 	
 	-- Allow secret techs to major countries after 1942
 	if ic_total >= 120 and year >= 1941 then
-		--Utils.LUA_DEBUGOUT( "More than 120 IC and 1942: Secret tech projets" ) 
+		--Utils.LUA_DEBUGOUT( "More than 120 IC and 1942: Secret tech projets" )
 			templist = { secret }
 			priority3 = InsertList(priority3, templist)	
 	end

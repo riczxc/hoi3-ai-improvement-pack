@@ -340,6 +340,10 @@ function LoadProvinceImprovements(country)
 		prod_improvements.industry.priority = prod_improvements.industry.priority + prod_improvements.infra.priority
 		prod_improvements.infra.priority = 0
 	end
+	-- don't build industry in war time
+	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
+		prod_improvements.industry.priority = 0
+	end
 
 	--Utils.LUA_DEBUGOUT( "EXIT LoadProvinceImprovements function" )
 	--Utils.LUA_DEBUGOUT("\n")
