@@ -107,8 +107,9 @@ function HandleLaws(minister)
 
 			if tostring(group:GetKey()) == 'industrial_policy_laws' then
 				if not ministerCountry:IsAtWar() then
-					-- Aim for mixed_industry
-					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
+					-- bugged law -> mixed industry makes CG need explode...not worth it
+					-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('heavy_industry_emphasis'))
 					if not newLaw:ValidFor( ministerTag ) then
 						-- Aim for consumer_product_orientation
 						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
@@ -148,6 +149,7 @@ function HandleLaws(minister)
 			end
 
 			if newLaw == nil then
+				local three_year_draft_law = CLawDataBase.GetLaw(GetLawIndexByName('three_year_draft'))
 				local index = currentLaw:GetIndex() + 1
 				while index < CLawDataBase.GetNumberOfLaws() do
 					local tmpLaw = CLawDataBase.GetLaw( index )
@@ -157,7 +159,10 @@ function HandleLaws(minister)
 					if not tmpLaw:ValidFor( ministerTag ) then
 						break
 					end
-					newLaw = tmpLaw
+					-- three-year draft is bugged, makes production of units very expensive...not worth it
+					if	tmpLaw:GetIndex() ~= three_year_draft_law:GetIndex() then
+						newLaw = tmpLaw
+					end
 					index = index + 1
 				end
 			end
