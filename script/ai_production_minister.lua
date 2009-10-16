@@ -604,15 +604,8 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
 	--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. "->ConstructConvoys")
 
 	if ministerCountry:GetNumOfPorts() > 0 then
-		local atWar = ministerCountry:IsAtWar()
-		local preparingWar = ministerCountry:GetStrategy():IsPreparingWar()
-
 		local freeTransports = minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports()
-		local neededTransports = math.max(ministerCountry:GetTotalNeededTransports(), ministerCountry:GetTotalIC() / 2)
-
-		if atWar then
-			neededTransports = neededTransports * 1.5
-		end
+		local neededTransports = math.min(ministerCountry:GetTotalIC(), 50)
 
 		neededTransports = math.ceil((neededTransports - freeTransports) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 
@@ -627,13 +620,9 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
 		end
 
 		-- if at war, we could use protection
-		if atWar or preparingWar then
+		if ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() then
 			local freeEscorts = minister:CountEscortsUnderConstruction() + ministerCountry:GetEscorts()
-			local neededEscorts = math.max(minister:CountTotalDesiredEscorts(), ministerCountry:GetTotalIC() / 4)
-
-			if atWar then
-				neededEscorts = neededEscorts * 1.5
-			end
+			local neededEscorts = math.min(ministerCountry:GetTotalIC(), 30)
 
 			neededEscorts = math.ceil((neededEscorts - freeEscorts) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 
