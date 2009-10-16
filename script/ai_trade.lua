@@ -240,7 +240,7 @@ function Buying(country, goods)
 		return 0
 	end
 
-	-- buy as much oil as we need fuel (if fuel import or war buy oil)
+	-- buy as much oil as we need fuel unless fuel import or war then go on to eval oil like any good
 	if	goods == CGoodsPool._CRUDE_OIL_ and not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and
 		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar())
 	then

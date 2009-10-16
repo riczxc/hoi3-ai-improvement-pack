@@ -292,7 +292,7 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	-- Air Doctrines are less important in peace time
 	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and minister:GetCountry():IsAtWar() == false then
 		--Utils.LUA_DEBUGOUT( "air doctrine in peace time" )
-		score = score - 2
+		score = score*0.75
 	elseif nomTech == 'agriculture' then
 		-- Only research if low on manpower
 		if ministerCountry:GetTotalIC() > 0 and (ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()) > 2 then
@@ -306,17 +306,15 @@ function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnor
 	local techLvl = techStatus:GetLevel(tech)
 	local nYear = techStatus:GetYear(tech, techLvl + 1 ) - CCurrentGameState.GetCurrentDate():GetYear()
 	if nYear > 2 then
-		score = 0.01*score -- very expensive, only do it if really nothing else is there to do
+		score = score/majorTechScore -- very expensive, only do it if really nothing else is there to do
 	else
-		score = score - nYear*score*0.1
+		score = score - nYear*score*0.1 -- add 10% for every year the tech is in the past, sub 10% for every year in the future
 	end
 	--Utils.LUA_DEBUGOUT( 'SCORE après années: ' .. score )
 	--------------------------------------------------------------
 	-- If tech enable a new unit or if it's a one lvl tech, give a small bonus to score
-	if tech:IsOneLevelOnly() then
-		score = score + 1
-	elseif tech:GetEnableUnit() then
-		score = score + 1
+	if tech:IsOneLevelOnly() or tech:GetEnableUnit() then
+		score = score*1.1
 	end
 	--------------------------------------------------------------
 	-- Small random factor (+/-10)
