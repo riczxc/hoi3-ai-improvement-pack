@@ -4,6 +4,7 @@
 
 require('ai_diplomacy')
 require('ai_trade')
+require('helper_functions')
 
 function ForeignMinister_EvaluateDecision(agent, decision, scope)
 	-- default we approve any decision we can take, override in country specific ai if wanted
@@ -146,7 +147,7 @@ function ForeignMinister_HandlePeace( minister )
 	for country in CCurrentGameState.GetCountries() do
 		local countryTag = country:GetCountryTag()
 
-		if countryTag:IsValid() and country:Exists() and countryTag:IsReal() and
+		if IsValidCountry(country) and
 		   not (ministerCountry:HasDiplomatEnroute(countryTag)) and
 		   not (countryTag == ministerTag) then
 
@@ -219,9 +220,10 @@ function ForeignMinister_HandlePeace( minister )
 			end
 
 			-- invite/influence to faction
-			if ministerCountry:HasFaction() then
+			if ministerCountry:HasFaction() and ministerCountry:GetMaxIC() > ai_configuration.MINIMUM_IC_TO_INFLUENCE then
 
 				if not country:HasFaction() then
+					local theirRelationToUs = country:GetRelation(ministerTag)
 
 					local action = CFactionAction(ministerTag, countryTag)
 					action:SetValue(false)
@@ -237,11 +239,22 @@ function ForeignMinister_HandlePeace( minister )
 					end
 
 					local influenceAction = CInfluenceNation(ministerTag, countryTag)
-					if influenceAction:IsSelectable() then
-						if influence >  0 and ministerCountry:GetDiplomaticInfluence():Get()>10 then
-							local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
-							if score > 50 then
-								minister:Propose( influenceAction, score )
+
+					if theirRelationToUs:IsBeingInfluenced() then -- we're influencing them
+						-- stop influencing
+						influenceAction:SetValue(false)
+
+						local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
+						if score < 40 then
+							minister:Propose( influenceAction, 100 )
+						end
+					else
+						if influenceAction:IsSelectable() then
+							if influence > 0 and ministerCountry:GetDiplomaticInfluence():Get() > 10 then
+								local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
+								if score > 50 then
+									minister:Propose( influenceAction, score )
+								end
 							end
 						end
 					end
