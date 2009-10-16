@@ -18,7 +18,7 @@ function ProductionMinister_Tick(minister)
 	local ai = minister:GetOwnerAI()
 	local capitalProvId =  ministerCountry:GetActingCapitalLocation():GetProvinceID()
 	local TotalIC = ministerCountry:GetTotalIC()
-	local maxBuildCost = TotalIC - ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_SUPPLY_):Get() - ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_CONSUMER_):Get()
+	local maxBuildCost = TotalIC - ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get() - ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_CONSUMER_):GetNeeded():Get()
 
 	-- we need convoys at all?
 	availIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC)
