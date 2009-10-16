@@ -2,7 +2,6 @@
 -- production
 -----------------------------------------------------------
 
-require('ai_trade')
 require('helper_functions')
 require('production_division_templates')
 require('production_restrictions')
@@ -14,35 +13,33 @@ function ProductionMinister_Tick(minister)
 		return
 	end
 
-	local AvailIC = ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() - ministerCountry:GetUsedIC():Get()
+	local availIC = ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_PRODUCTION_):Get() - ministerCountry:GetUsedIC():Get()
 	local ministerTag = minister:GetCountryTag()
 	local ai = minister:GetOwnerAI()
 	local capitalProvId =  ministerCountry:GetActingCapitalLocation():GetProvinceID()
-	local StartIC = AvailIC
 	local TotalIC = ministerCountry:GetTotalIC()
-
-	--Utils.LUA_DEBUGOUT( tostring(minister:GetCountryTag()) )
+	local maxBuildCost = TotalIC - ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_SUPPLY_):Get() - ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_CONSUMER_):Get()
 
 	-- we need convoys at all?
-	AvailIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
+	availIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC)
 
 	-- Don't build anything on day one. AI needs some time to know what it wants to build.
 	if gDayCount <= 0 then
 		return
 	end
 
-	if AvailIC <= 0 then
+	if availIC <= 0 then
 		return
 	end
 
 	local ratioProvince = GetICRatioForProvinceImprovements(ministerCountry) * 100
 	local provinceIdPool = nil
-	local dice = nil
+	local dice = {}
 	local provinceIndex = {}
 	local nothingBuiltCounter = 0
 
-	while (AvailIC > 0) and (nothingBuiltCounter < 10) do
-		local availICInThisIteration = AvailIC
+	while (availIC > 0) and (nothingBuiltCounter < 10) do
+		local availICInThisIteration = availIC
 
 		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
 
@@ -68,24 +65,24 @@ function ProductionMinister_Tick(minister)
 				-----------------------------------
 				local cost = ministerCountry:GetBuildCostIC( unit, 1, bBuildReserve ):Get()
 				-- only build sensible stuff
-				if cost < TotalIC then
+				if cost < maxBuildCost then
 					local orderlist = SubUnitList()
 					local unitName = tostring(unit:GetKey())
 
 					if unit:IsRegiment() then
 						--Utils.LUA_DEBUGOUT( "Brigade unit")
-						orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unitName)
+						orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unitName)
 					elseif unit:IsShip() then
 						--Utils.LUA_DEBUGOUT( "Naval unit")
-						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, AvailIC, unitName)
+						orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
 					elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
 					or unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role"
 					or unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber"
 					or unitName == "tactical_bomber" or unitName == "transport_plane" then
 						--Utils.LUA_DEBUGOUT( "Air Unit")
-						orderlist, AvailIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, AvailIC, unitName)
+						orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
 					else
-						AvailIC = AvailIC - cost
+						availIC = availIC - cost
 						SubUnitList.Append( orderlist, unit )
 					end
 
@@ -116,19 +113,19 @@ function ProductionMinister_Tick(minister)
 					end
 					local count = ministerCountry:GetStrategy():GetWantedSubUnits(subunit)
 					local cost = ministerCountry:GetBuildCostIC( subunit, 1, bBuildReserve ):Get()
-					if count > 0.0 and cost < TotalIC then
+					if count > 0.0 and cost < maxBuildCost then
 						local orderlist = SubUnitList()
 						SubUnitList.Append( orderlist, subunit )
-						AvailIC = AvailIC - cost
+						availIC = availIC - cost
 						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, count, bBuildReserve, CNullTag(), CID() )
 						ai:Post( construct )
 						-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built (S) " .. tostring(subunit:GetKey()))
 					end
 				end
 
-				-- got AvailIC left not built something yet?
-				if AvailIC > 0 then
-					-- always fill out with more infantry if AvailIC and manpower is left
+				-- got availIC left not built something yet?
+				if availIC > 0 then
+					-- always fill out with more infantry if availIC and manpower is left
 					if ministerCountry:GetOfficerRatio():Get() > 0.75
 						and ministerCountry:GetManpower():Get() > TotalIC
 					then
@@ -139,16 +136,18 @@ function ProductionMinister_Tick(minister)
 						if ministerCountry:GetTechnologyStatus():IsUnitAvailable(infantry) then
 							-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built inf div with... ")
 							local unitName = "infantry_brigade"
-							orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
+							orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, availIC, unitName)
 						else
 							local unitName = "militia_brigade"
-							orderlist, AvailIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, AvailIC, unitName)
+							orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, availIC, unitName)
 							--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built mil ")
 						end
 
-						--Utils.LUA_DEBUGOUT( "build a division." )
-						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bShouldBuildReserve, CNullTag(), CID() )
-						ai:Post( construct )
+						if orderlist:GetSize() > 0 then
+							--Utils.LUA_DEBUGOUT( "build a division." )
+							local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bShouldBuildReserve, CNullTag(), CID() )
+							ai:Post( construct )
+						end
 					end
 				end
 
@@ -162,13 +161,14 @@ function ProductionMinister_Tick(minister)
 
 				-- Create a list of provinces where each improvement type can be built
 				-- and create a dice we use later to decide what improvement type to build.
-				provinceIdPool, dice = CreateProvinceIdPoolAndDice(ministerCountry, improvements)
+				provinceIdPool, dice = CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost)
 			end
 
 			if table.getn(dice) > 0 then
 				-- If this is the first round we know two things:
 				--	- We can build at least one improvement, otherwise the dice would be empty.
 				--	- All provinces in the province pool are valid locations for an improvement.
+				--  - Improvement cost is < maxBuildCost
 				-- If this is not the first round, we have to make sure, that we're not
 				-- building in provinces we've already touched.
 
@@ -176,10 +176,11 @@ function ProductionMinister_Tick(minister)
 				local diceIndex = math.mod(CCurrentGameState.GetAIRand(), table.getn(dice))
 				local improvementType = dice[diceIndex]
 				local building = CBuildingDataBase.GetBuilding(improvementType)
+				local buildCost = ministerCountry:GetBuildCost(building):Get()
 
 				local multiplier = 1
 				if improvementType == 'infra' then
-					-- Infra is very cheap to build in comparison to the rest. (1/5)
+					-- Infra is very cheap to build in comparison to industry. (1/5)
 					-- Build more infra in one round so ICs are equally spent.
 					multiplier = math.min(5, math.ceil(TotalIC / 10))
 				end
@@ -196,7 +197,7 @@ function ProductionMinister_Tick(minister)
 						local constructCommand = CConstructBuildingCommand(ministerTag, building, provinceId, 1)
 						if constructCommand:IsValid() then
 							ai:Post(constructCommand)
-							AvailIC = AvailIC - ministerCountry:GetBuildCost(building):Get()
+							availIC = availIC - buildCost
 						end
 					end
 				end
@@ -212,32 +213,32 @@ function ProductionMinister_Tick(minister)
 
 		end
 
-		if availICInThisIteration == AvailIC then
+		if availICInThisIteration == availIC then
 			nothingBuiltCounter = nothingBuiltCounter + 1
 		end
 	end
 
 	-- Return remaining IC to use
-	if AvailIC > 0 then
+	if availIC > 0 then
 		local changes = CArrayFix(5)
-		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() - AvailIC ) )
+		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() - availIC ) )
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint(ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_REINFORCEMENT_ ):Get() ) )
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_UPGRADE_ ):Get() ) )
 
 		-- if there is dissent move all possible left IC into money
 		if ministerCountry:GetDissent():Get() > 0.01 or ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get() > 99000 then
-			changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() + AvailIC) )
+			changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() + availIC) )
 			changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint(ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get() ) )
 		-- otherwise make supplies
 		else
 			changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get() ) )
-			changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint(ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get() + AvailIC ) )
+			changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint(ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get() + availIC ) )
 		end
-		ai:Post( CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes ) )
+		--ai:Post( CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes ) )
 	end
 end
 
-function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
+function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost)
 	-- Create a list of provinces where each improvement can be built
 	local ids = {}
 	local building = {}
@@ -341,19 +342,23 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
 		provinceIdPool[k] = {}
 
 		if v.priority > 0 then
-			-- Select province source
-			local source = ids[k]
-			if v.ids then
-				source = v.ids
-			end
+			local buildCost = ministerCountry:GetBuildCost(building[k]):Get()
 
-			-- Randomly select up to 50 provinces
-			for i = 1, math.min(50, table.getn(source)) do
-				local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
-				local province = CCurrentGameState.GetProvince(source[index])
+			if buildCost < maxBuildCost then
+				-- Select province source
+				local source = ids[k]
+				if v.ids then
+					source = v.ids
+				end
 
-				if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
-					table.insert(provinceIdPool[k], source[index])
+				-- Randomly select up to 50 provinces
+				for i = 1, math.min(50, table.getn(source)) do
+					local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
+					local province = CCurrentGameState.GetProvince(source[index])
+
+					if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
+						table.insert(provinceIdPool[k], source[index])
+					end
 				end
 			end
 
@@ -387,6 +392,10 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
 end
 
 function BalanceProductionSliders(ai, ministerCountry, prioSelection)
+	if not IsValidCountry(ministerCountry) then
+		return
+	end
+
 	--Utils.LUA_DEBUGOUT("BalanceProductionSliders - " .. tostring(ministerCountry:GetCountryTag()) )
 	-- if tostring(ministerCountry:GetCountryTag())=='GER' then
 		-- Utils.LUA_DEBUGOUT( " BalanceProductionSliders ")
@@ -396,7 +405,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 
 	local changes = CArrayFix(5)
 	local dissent = ministerCountry:GetDissent():Get()
-	local AvailIC = ministerCountry:GetTotalIC()
+	local availIC = ministerCountry:GetTotalIC()
 	local MaxIC = ministerCountry:GetTotalIC()
 
 	-- CONSUMER
@@ -425,92 +434,96 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
 	ConsumerNeed = ConsumerNeed + MaxIC * math.min(math.max(dissent/10, 1-MoneyStockFactor), 0.9)
 
-	-- not more than AvailIC
-	ConsumerNeed = math.min(AvailIC, ConsumerNeed)
+	-- not more than availIC
+	ConsumerNeed = math.min(availIC, ConsumerNeed)
 	changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ConsumerNeed ) )
 
-	AvailIC = AvailIC - ConsumerNeed
-	-- Supply (max AvailIC)
-	SupplyNeed = math.min(SupplyNeed, AvailIC )
+	availIC = availIC - ConsumerNeed
+	-- Supply (max availIC)
+	SupplyNeed = math.min(SupplyNeed, availIC )
 	changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( SupplyNeed ) )
-	AvailIC = AvailIC - SupplyNeed
+	availIC = availIC - SupplyNeed
 
 	-- prod
 	if 1==prioSelection then
-		ProductionNeed = math.min(ProductionNeed, AvailIC)
+		ProductionNeed = math.min(ProductionNeed, availIC)
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-		AvailIC = AvailIC - ProductionNeed
+		availIC = availIC - ProductionNeed
 
-		ReinforcementNeed = math.min(ReinforcementNeed, AvailIC )
+		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
-		AvailIC = AvailIC - ReinforcementNeed
+		availIC = availIC - ReinforcementNeed
 
-		UpgradeNeed = math.min(UpgradeNeed, AvailIC )
+		UpgradeNeed = math.min(UpgradeNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-		AvailIC = AvailIC - UpgradeNeed
+		availIC = availIC - UpgradeNeed
 	-- upgrades
 	elseif 2==prioSelection then
-		UpgradeNeed = math.min(UpgradeNeed, AvailIC )
+		UpgradeNeed = math.min(UpgradeNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-		AvailIC = AvailIC - UpgradeNeed
+		availIC = availIC - UpgradeNeed
 
-		ReinforcementNeed = math.min(ReinforcementNeed, AvailIC )
+		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
-		AvailIC = AvailIC - ReinforcementNeed
+		availIC = availIC - ReinforcementNeed
 
-		ProductionNeed = math.min(ProductionNeed, AvailIC)
+		ProductionNeed = math.min(ProductionNeed, availIC)
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-		AvailIC = AvailIC - ProductionNeed
+		availIC = availIC - ProductionNeed
 	else
-		-- Reinforcement (max AvailIC)
-		ReinforcementNeed = math.min(ReinforcementNeed, AvailIC )
+		-- Reinforcement (max availIC)
+		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
-		AvailIC = AvailIC - ReinforcementNeed
-		if AvailIC > 0 then
+		availIC = availIC - ReinforcementNeed
+		if availIC > 0 then
 			-- distribute same percentage of IC needed to upgrade and production
-			local equalizer = AvailIC / math.max(ProductionNeed + UpgradeNeed, AvailIC)
+			local equalizer = availIC / math.max(ProductionNeed + UpgradeNeed, availIC)
 			ProductionNeed = equalizer * ProductionNeed
 			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-			AvailIC = AvailIC - ProductionNeed
+			availIC = availIC - ProductionNeed
 
 			UpgradeNeed = equalizer * UpgradeNeed
 			changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-			AvailIC = AvailIC - UpgradeNeed
+			availIC = availIC - UpgradeNeed
+		else
+			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint(0) )
+			changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint(0) )
 		end
 	end
 
-	if AvailIC > 0.01 then
+	if availIC > 0.01 then
 		-- AI
-		if 0 == prioSelection and AvailIC > 0.02 then
+		if 0 == prioSelection and availIC > 0.02 then
 			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint(changes:GetAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() + 0.02 ) )
 		-- human player
-			AvailIC = AvailIC - 0.02
+			availIC = availIC - 0.02
 		end
 		--else
 			-- if there is dissent move all possible left IC into money
 			if dissent > 0.01 or ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get() > 99000 then
-				changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+AvailIC ) )
+				changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC ) )
 			-- otherwise make supplies
 			else
 				-- if AI put 1/3 into money to allow more trades globaly
 				-- if 0 == prioSelection and MoneyStockpile < 100*ministerCountry:GetTotalIC() then
-					-- changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+AvailIC/3 ) )
-					-- changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+2*AvailIC/3 ) )
+					-- changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC/3 ) )
+					-- changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+2*availIC/3 ) )
 				-- else
-					changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+AvailIC ) )
+					changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+availIC ) )
 				-- end
 			end
 		--end
 	end
 
-	ai:Post( CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes ) )
+	local command = CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes )
+	ai:Post(command)
 end
 
 
 -- for debugging
 --local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",	"_METAL_",	"_ENERGY_",	"_RARE_MATERIALS_" }
 
-function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
+function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unit_name)
 	--Utils.LUA_DEBUGOUT( "ENTER Build division function")
 	--Utils.LUA_DEBUGOUT( "Start Load production function")
 	-- Load country's division templates
@@ -547,17 +560,17 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 		while prod_ratio[unit_name][template_number][j] do
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[unit_name][template_number][j]) then
 				SubUnitList.Append( orderlist, prod_ratio[unit_name][template_number][j] )
-				AvailIC = AvailIC - ministerCountry:GetBuildCostIC( prod_ratio[unit_name][template_number][j], 1, bBuildReserve ):Get()
+				availIC = availIC - ministerCountry:GetBuildCostIC( prod_ratio[unit_name][template_number][j], 1, bBuildReserve ):Get()
 			end
 			j = j + 1
 		end
 	end
 
 	--Utils.LUA_DEBUGOUT( "EXIT Build division function")
-	return orderlist, AvailIC
+	return orderlist, availIC
 end
 
-function BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, AvailIC, unit_name)
+function BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, availIC, unit_name)
 	--Utils.LUA_DEBUGOUT( "ENTER BuildNavalAndAir function")
 	local prod_restrictions = {}
 
@@ -577,76 +590,66 @@ function BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, A
 				--Utils.LUA_DEBUGOUT( "Find")
 				find = 1
 				SubUnitList.Append( orderlist, prod_restrictions[unit_name][i+1] )
-				AvailIC = AvailIC - ministerCountry:GetBuildCostIC( prod_restrictions[unit_name][i+1], 1, bBuildReserve ):Get()
+				availIC = availIC - ministerCountry:GetBuildCostIC( prod_restrictions[unit_name][i+1], 1, bBuildReserve ):Get()
 			end
 		end
 		i = i + 2
 	end
 	--Utils.LUA_DEBUGOUT( "EXIT BuildNavalAndAir function")
 	--Utils.LUA_DEBUGOUT("\n")
-	return orderlist, AvailIC
+	return orderlist, availIC
 end
 
-function ConstructConvoys(ai, minister, ministerTag, ministerCountry, AvailIC )
+function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
+	--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. "->ConstructConvoys")
+
 	if ministerCountry:GetNumOfPorts() > 0 then
-		-- 10%
-		local buffer = 0.1
+		local atWar = ministerCountry:IsAtWar()
+		local preparingWar = ministerCountry:GetStrategy():IsPreparingWar()
 
-		if ministerCountry:GetStrategy():IsPreparingWar() then
-			-- add 10%
-			buffer = buffer+0.1
+		local freeTransports = minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports()
+		local neededTransports = math.max(ministerCountry:GetTotalNeededTransports(), ministerCountry:GetTotalIC() / 2)
+
+		if atWar then
+			neededTransports = neededTransports * 1.5
 		end
 
-		-- running out of transporters???
-		if 0==ministerCountry:GetTransports() then
-			-- add 10%
-			buffer = buffer+0.1
-		end
+		neededTransports = math.ceil((neededTransports - freeTransports) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 
-		if minister:GetCountry():IsAtWar() then
-			-- double it (20% or 40%)
-			buffer = buffer*2
-		end
+		if neededTransports > 0 then
+			local cost = ministerCountry:GetConvoyBuildCost():Get()
+			local transportCommand = CConstructConvoyCommand(ministerTag, false, 1)
 
-		local freeTransports = (minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports())/defines.economy.CONVOY_CONSTRUCTION_SIZE
-		local neededTransports = ministerCountry:GetTotalNeededTransports()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE
-		if 0==ministerCountry:GetTransports() then -- no free ones, ramp up building
-			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/10)
-		else -- got some free ones build less rapid and smaller buffer
-			neededTransports = math.max(neededTransports, ministerCountry:GetTotalIC()/20)
-		end
-
-		local cost = ministerCountry:GetConvoyBuildCost():Get()
-		local transportCommand = CConstructConvoyCommand( ministerTag, false, 1 )
-
-		while neededTransports > freeTransports do
-			AvailIC = AvailIC - cost
-			ai:Post( transportCommand )
-			freeTransports = freeTransports+1
+			for i = 1, neededTransports do
+				ai:Post(transportCommand)
+				availIC = availIC - cost
+			end
 		end
 
 		-- if at war, we could use protection
-		if minister:GetCountry():IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() then
-			-- 10% before war
-			local buffer = 0.1
-			if minister:GetCountry():IsAtWar() then
-				-- 20% for war
-				buffer = 0.2
-				-- 30% if we run out of escorts
-				if 0==ministerCountry:GetEscorts() then
-					buffer = 0.3
-				end
+		if atWar or preparingWar then
+			local freeEscorts = minister:CountEscortsUnderConstruction() + ministerCountry:GetEscorts()
+			local neededEscorts = math.max(minister:CountTotalDesiredEscorts(), ministerCountry:GetTotalIC() / 4)
+
+			if atWar then
+				neededEscorts = neededEscorts * 1.5
 			end
-			local freeEscorts = (minister:CountEscortsUnderConstruction() + ministerCountry:GetEscorts())/defines.economy.CONVOY_CONSTRUCTION_SIZE
-			local neededEscorts = math.max(minister:CountTotalDesiredEscorts()*buffer/defines.economy.CONVOY_CONSTRUCTION_SIZE, 1)
-			local cost = ministerCountry:GetEscortBuildCost():Get()
-			local escortCommand = CConstructConvoyCommand( ministerTag, true, 1 )
-			while neededEscorts > freeEscorts do
-					ai:Post( escortCommand )
-					AvailIC = AvailIC - cost
-					freeEscorts = freeEscorts + 1
+
+			neededEscorts = math.ceil((neededEscorts - freeEscorts) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
+
+			if neededEscorts > 0 then
+				local cost = ministerCountry:GetEscortBuildCost():Get()
+				local escortCommand = CConstructConvoyCommand(ministerTag, true, 1)
+
+				for i = 1, neededEscorts do
+					ai:Post(escortCommand)
+					availIC = availIC - cost
+				end
 			end
 		end
 	end
-	return math.max(AvailIC, 0)
+
+	--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. "<-ConstructConvoys")
+
+	return availIC
 end
