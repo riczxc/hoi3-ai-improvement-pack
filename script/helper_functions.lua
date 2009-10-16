@@ -442,15 +442,15 @@ end
 function MinStock(country, goods)
 	-- min for a 100 IC country in peace:
 	-- 200 oil, rare
-	-- 1k supply, fuel
+	-- 5k supply, fuel
 	-- 500 energy and metal
 	-- min for a 100 IC country in war:
 	-- 400 oil, rare
-	-- 2k supply, fuel
+	-- 10k supply, fuel
 	-- 1k energy and metal
 	local factor = 2 -- oil, rare
 	if goods == CGoodsPool._SUPPLIES_ or goods == CGoodsPool._FUEL_ then
-		factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE --10
+		factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE --50
 	elseif goods == CGoodsPool._METAL_ or goods == CGoodsPool._ENERGY_ then
 		factor = 5
 	end
