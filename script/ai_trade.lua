@@ -225,9 +225,9 @@ function Buying(country, goods)
 			return 0
 		end
 	end
-	
+
 	local balance = GetAverageBalance(country, goods)
-	
+
 		-- cancel exports first
 	if	ExistsExport(country:GetCountryTag(), goods) or
 		-- don't buy max stocked goods
@@ -249,9 +249,9 @@ function Buying(country, goods)
 
 	if HasMinStock(country, goods) then
 		return math.max(-1.05*balance, MinTradeSize(country))
-	else 
+	else
 		return math.max(-1.25*balance, math.min(50, country:GetTotalIC()/10), MinTradeSize(country))
-	end	
+	end
 end
 
 function MinTradeSize(country)
@@ -426,15 +426,17 @@ function DiploScore_OfferTrade(ai, Alice, Bob, observer, action)
 
 			if goods ~= CGoodsPool._MONEY_ then
 				-- to-do reverse check!!!
-				-- we try to sell to bob but bob already sells that good or we import it
-				if Alice2Bob>0 and (ExistsExport(Bob, goods) or ExistsImport(Alice, goods))	then
-					--Utils.LUA_DEBUGOUT(tostring(Bob).." export route exists (1)!")
-					return 0
-				end
-				-- we try to buy but already export the good or bob imports it
-				if Bob2Alice>0 and (ExistsExport(Alice, goods) or ExistsImport(Bob, goods))	then
-					--Utils.LUA_DEBUGOUT(tostring(Alice).." export route exists (2)!")
-					return 0
+				if not IsTradeControlledByHuman(Alice) then
+					-- we try to sell to bob but bob already sells that good or we import it
+					if Alice2Bob>0 and (ExistsExport(Bob, goods) or ExistsImport(Alice, goods))	then
+						--Utils.LUA_DEBUGOUT(tostring(Bob).." export route exists (1)!")
+						return 0
+					end
+					-- we try to buy but already export the good or bob imports it
+					if Bob2Alice>0 and (ExistsExport(Alice, goods) or ExistsImport(Bob, goods))	then
+						--Utils.LUA_DEBUGOUT(tostring(Alice).." export route exists (2)!")
+						return 0
+					end
 				end
 
 				if Bob2Alice>0 or Alice2Bob>0 then
@@ -534,8 +536,10 @@ function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
  	--Utils.LUA_DEBUGOUT(tostring(SellerCountry:GetCountryTag()).."2"..tostring(BuyerCountry:GetCountryTag()).." -> ScoreTradeOfGoodCalc ")
 	local SellerDemand = Selling(SellerCountry, goods)
 	local BuyerDemand = Buying(BuyerCountry, goods)
-	local SellerStock = SellerCountry:GetPool():Get( goods ):Get()
-	local BuyerStock = BuyerCountry:GetPool():Get( goods ):Get()
+
+	if IsTradeControlledByHuman(SellerCountry:GetCountryTag()) then
+		SellerDemand = Amount
+	end
 	if IsTradeControlledByHuman(BuyerCountry:GetCountryTag()) then
 		BuyerDemand = Amount
 	end
@@ -555,8 +559,9 @@ function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
 		local buyerScore = math.min(50, Amount)/math.min(50, BuyerDemand) --+ 0.5 * (1-math.min(1, BuyerStock/90000))
 		-- seller satisfaction 1 to 0
 		local sellerScore = math.min(MinTradeSize(SellerCountry), Amount) / MinTradeSize(SellerCountry) --+ 0.5 * math.min(1, SellerStock/90000)
-		return 50 * (buyerScore + sellerScore)
+		return 100 * math.min(buyerScore, sellerScore)
 	end
+
 	return 0
 end
 
