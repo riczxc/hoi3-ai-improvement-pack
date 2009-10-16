@@ -28,19 +28,16 @@ function ForeignMinister_Tick(minister)
 		ForeignMinister_HandlePeace(minister)
 	end
 
-	if minister:GetCountry():IsAtWar() then
-		ForeignMinister_HandleWar(minister)
+	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_WAR_DELAY) == 0 then
+		if minister:GetCountry():IsAtWar() then
+			ForeignMinister_HandleWar(minister)
+		end
 	end
 
 	--Utils.LUA_DEBUGOUT("ForeignMinister_Tick - " .. tostring(minister:GetCountryTag()) .. " - " .. os.clock() - t)
 end
 
 function ForeignMinister_HandleWar( minister )
-
-	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_WAR_DELAY) == 0 then
-		return
-	end
-
 	local ministerTag = minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
 	local ai = minister:GetOwnerAI()
