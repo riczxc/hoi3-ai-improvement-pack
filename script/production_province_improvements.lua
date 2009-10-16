@@ -61,6 +61,11 @@ function GetICRatioForProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "ITALY" )
 
 
+	------------------------------------------CHINA---------------------------------------------------
+	elseif countryTag == 'CHI' then
+		--Utils.LUA_DEBUGOUT( "CHINA" )
+
+
 	----------------------------------------------------------------------------------------------------
 	end
 
@@ -270,6 +275,28 @@ function LoadProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "ITALY" )
 
 
+	------------------------------------------CHINA---------------------------------------------------
+	elseif countryTag == 'CHI' then
+		--Utils.LUA_DEBUGOUT( "CHINA" )
+
+		if year < 1940 or country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
+			prod_improvements = {
+				infra = {
+					priority = 0.6
+				},
+				coastal_fort = {
+					priority = 0.4
+				}
+			}
+		end
+
+		prod_improvements.infra.ids = {
+			9444, 9445, 9478, 9446, 7523, 7511, 5620, 7512, 5681, 5671,
+			5649, 5637, 5597, 5572, 5598, 5573, 5542, -- from Meishan to Shanghai (West-East)
+			5246, 5278, 5306, 5338, 5387, 5420, 5471, 5494, 5517, 5540,
+			5541, 5622, 5652, 5675, 5695, 5711, 5728, -- from Qingdao to Fuzhou (Nort-South, Coastline)
+			5275, 5304, 5337, 5386 -- Connect Jinan
+		}
 	----------------------------------------------------------------------------------------------------
 	end
 
@@ -337,7 +364,9 @@ function LoadProvinceImprovements(country)
 	local techStatus = country:GetTechnologyStatus()
 	local infraTech = GetTechByName('advanced_construction_engineering')
 	if techStatus:GetLevel(infraTech) == 0 then
-		prod_improvements.industry.priority = prod_improvements.industry.priority + prod_improvements.infra.priority
+		if prod_improvements.industry.priority > 0 then
+			prod_improvements.industry.priority = prod_improvements.industry.priority + prod_improvements.infra.priority
+		end
 		prod_improvements.infra.priority = 0
 	end
 	-- don't build industry in war time
