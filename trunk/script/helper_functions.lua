@@ -58,31 +58,113 @@ end
 -- Variables will be updated by HFInit_ManageTrade.
 gEconomy = {}
 --~ gEconomy["deal"] = {}
-gEconomy["import"] = {}
-gEconomy["export"] = {}
-gEconomy["stock"] = {}
-gEconomy["AI"] = {}
-gEconomy["manual"] = {}
-gEconomy["goods_cost"] = {
-	[0] = 	defines.goods_cost.SUPPLIES,
-			defines.goods_cost.FUEL,
-			defines.goods_cost.MONEY,
-			defines.goods_cost.CRUDE_OIL,
-			defines.goods_cost.METAL,
-			defines.goods_cost.ENERGY,
-			defines.goods_cost.RARE_MATERIALS
-}
 gDayCount = -1
+gLastDate = {
+	day = 0,
+	month = 0,
+	year = 0
+}
 G_MEASURED_TIME_PERIOD = 8 -- For how many days are we accounting for
 G_AVERAGING_TIME_PERIOD = 7 -- How many days are averaged (must be < G_MEASURED_TIME_PERIOD)
 G_MAX_GC_OVER_PRODUCTION = 15 -- How much IC are allowed to put into GC in %
 TRADING_THRESHOLD = 0.4
+
+function HFInit_Economy()
+	gEconomy["import"] = {}
+	gEconomy["export"] = {}
+	gEconomy["stock"] = {}
+	gEconomy["AI"] = {}
+	gEconomy["manual"] = {}
+	gEconomy["goods_cost"] = {
+		[0] = 	defines.goods_cost.SUPPLIES,
+				defines.goods_cost.FUEL,
+				defines.goods_cost.MONEY,
+				defines.goods_cost.CRUDE_OIL,
+				defines.goods_cost.METAL,
+				defines.goods_cost.ENERGY,
+				defines.goods_cost.RARE_MATERIALS
+	}
+end
+
+HFInit_Economy()
 
 -- Must be called by ForeignMinister_ManageTrade
 function HFInit_ManageTrade(ai, ministerTag)
 	-- Update gEconomy["stock"] once a day for all countries
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	if tostring(ministerTag) == '---' then -- Always first country called a day
+		--Utils.LUA_DEBUGOUT("->HFInit_ManageTrade")
+
+		-- Global variables won't be deleted if we load a new game.
+		-- Check last saved date and if time difference is > 1 day we know we're in
+		-- a new game.
+		local currentDate = CCurrentGameState.GetCurrentDate()
+
+		--Utils.LUA_DEBUGOUT(tostring(gLastDate.day) .. "." .. tostring(gLastDate.month) .. "." .. tostring(gLastDate.year))
+		--Utils.LUA_DEBUGOUT(tostring(currentDate:GetDayOfMonth()) .. "." .. tostring(currentDate:GetMonthOfYear()) .. "." .. tostring(currentDate:GetYear()))
+
+		-- If a new game is loaded up the minister tick functions are called twice
+		-- on first day (at lease this behaviour is true in 1.2).
+		-- Use this behaviour instead of measuring time difference but leave time
+		-- measure here in case this behaviour changes in future patches.
+		local init = false
+		if 	gLastDate.year == currentDate:GetYear() and
+			gLastDate.month == currentDate:GetMonthOfYear() and
+			gLastDate.day == currentDate:GetDayOfMonth()
+		then
+			init = true
+		end
+
+		--[[
+		local init = true
+		if gLastDate.year ~= currentDate:GetYear() then
+			-- Different year
+			if	(currentDate:GetYear() - gLastDate.year) == 1 and
+				gLastDate.month == 11 and
+				currentDate:GetMonthOfYear() == 0 and
+				gLastDate.day == 30 and
+				currentDate:GetDayOfMonth() == 0
+			then
+				-- New year's eve -> ok
+				init = false
+			end
+		else
+			-- Same year
+			if gLastDate.month ~= currentDate:GetMonthOfYear() then
+				-- Different month
+				if	(currentDate:GetMonthOfYear() - gLastDate.month) == 1 and
+					currentDate:GetDayOfMonth() == 0 and
+					(
+						-- Month was february => Last day must be either 27 or 28 OR
+						-- Month was even => Last day must be 30 OR
+						-- Month was unevent => Last day must be 29
+						(not (gLastDate.month == 1) or (gLastDate.day == 27 or gLastDate.day == 28)) or
+						(not (math.mod(gLastDate.month, 2) == 0) or (gLastDate.day == 30)) or
+						(not (math.mod(gLastDate.month, 2) == 1) or (gLastDate.day == 29))
+					)
+				then
+					init = false
+				end
+			else
+				-- Same month
+				if (currentDate:GetDayOfMonth() - gLastDate.day) == 1 then
+					-- Last date was yesterday -> ok
+					init = false
+				end
+			end
+		end
+		]]
+
+		if init then
+			--Utils.LUA_DEBUGOUT("Initializing global variables")
+
+			gDayCount = -1
+			HFInit_Economy()
+		end
+		gLastDate.year = currentDate:GetYear()
+		gLastDate.month = currentDate:GetMonthOfYear()
+		gLastDate.day = currentDate:GetDayOfMonth()
+
 		gDayCount = gDayCount + 1
 		--Utils.LUA_DEBUGOUT("--> Day " .. tostring(gDayCount))
 		-- save today's trades
@@ -126,6 +208,8 @@ function HFInit_ManageTrade(ai, ministerTag)
 		end
 		-- reset for 'tomorrow'
 		gEconomy["AI"] = {}
+
+		--Utils.LUA_DEBUGOUT("<-HFInit_ManageTrade")
 	end
 
 	-- Add this country to the list of AI controlled countries
@@ -372,7 +456,7 @@ function MinStock(country, goods)
 	end
 	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
 		return factor*2*country:GetTotalIC()
-	end	
+	end
 	return factor*country:GetTotalIC()
 end
 
