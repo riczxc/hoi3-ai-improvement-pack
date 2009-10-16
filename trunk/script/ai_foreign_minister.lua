@@ -96,7 +96,7 @@ function ForeignMinister_HandleWar( minister )
 				-- factor in their allies that are part of war
 				for hostileAllyTag in target:GetCountry():GetAllies() do
 					if war:IsPartOfWar(hostileAllyTag) then
-						local allyIntel = CAIIntel(ministerTag, target)
+						local allyIntel = CAIIntel(ministerTag, hostileAllyTag)
 						local allyStrength = allyIntel:CalculateTheirPercievedMilitaryStrengh()
 						theirStrength = theirStrength + allyStrength
 					end
