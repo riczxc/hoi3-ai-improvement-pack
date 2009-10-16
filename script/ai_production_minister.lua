@@ -345,14 +345,23 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost
 			local buildCost = ministerCountry:GetBuildCost(building[k]):Get()
 
 			if buildCost < maxBuildCost then
-				-- Select province source
-				local source = ids[k]
-				if v.ids then
-					source = v.ids
+				-- Randomly select up to 50 provinces
+				-- Select user specified provinces first (higher priority)
+				local source = v.ids
+				if source then
+					for i = 1, math.min(50, table.getn(source)) do
+						local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
+						local province = CCurrentGameState.GetProvince(source[index])
+
+						if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
+							table.insert(provinceIdPool[k], source[index])
+						end
+					end
 				end
 
-				-- Randomly select up to 50 provinces
-				for i = 1, math.min(50, table.getn(source)) do
+				-- Now select all other provinces
+				source = ids[k]
+				for i = table.getn(provinceIdPool[k]) + 1, math.min(50, table.getn(source)) do
 					local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
 					local province = CCurrentGameState.GetProvince(source[index])
 
