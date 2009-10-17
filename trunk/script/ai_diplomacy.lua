@@ -11,41 +11,62 @@ function CalculateAlignmentFactor(ai, country1, country2)
 	return math.min(dist / 400.0, 1.0)
 end
 
+-- Returns score between -1 and 1.
+-- -1 means they hate each other.
+-- 0 means they are neutral.
+-- 1 means they like each other.
+function CalculateSympathy(countryTagA, countryTagB)
+	local countryA = countryTagA:GetCountry()
+	local countryB = countryTagB:GetCountry()
+
+	local diplomacyStatus = countryA:GetRelation(countryTagB)
+	local strategy = countryA:GetStrategy()
+
+	local relation = diplomacyStatus:GetValue():Get() / 400
+	local threat = diplomacyStatus:GetThreat():Get() / 200
+	local antagonism = strategy:GetAntagonism(countryTagB) / 400
+	local friendliness = strategy:GetFriendliness(countryTagB) / 400
+
+	local strategicFactor = math.abs(friendliness - antagonism)
+	return friendliness - antagonism + (1 - strategicFactor) * (relation - threat)
+end
+
 function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 	--Utils.LUA_DEBUGOUT( " DiploScore_InfluenceNation Mod ")
 	if observer == actor then
-		local recipientCountry = recipient:GetCountry()
 		local actorCountry = actor:GetCountry()
+		local recipientCountry = recipient:GetCountry()
+
 		local actorFaction = actorCountry:GetFaction()
+		local leader = actorFaction:GetFactionLeader()
+		local leaderCountry = leader:GetCountry()
+
 		local dist = ai:GetNormalizedAlignmentDistance(recipientCountry, actorFaction):Get()
+		local sympathy = CalculateSympathy(leader, recipient)
 
-		-- close to joining our faction?
-		if dist > 50 and dist < 450 then
-			local factor = (400 - (dist - 50)) / 8 -- factor between 0 and 50%
+		-- Close to joining our faction and faction leader likes them
+		if dist > 50 and dist < 550 and sympathy > 0 then
+			local factor = (500 - (dist - 50)) / 10 -- factor between 0 and 50%
 
-				--Utils.LUA_DEBUGOUT("Factor = " .. tostring(factor ) )
-			if recipientCountry:IsNeighbour(actor) then
-				factor = factor + 10
-			end
-
-			local importanceFactor = 0
 			local maxIC = recipientCountry:GetMaxIC()
-			local maxActorIC = actorCountry:GetMaxIC()
+			local maxLeaderIC = leaderCountry:GetMaxIC()
 
-			importanceFactor = importanceFactor + ( 50 * ( maxIC / maxActorIC ) )
+			local importanceFactor = maxIC / maxLeaderIC
 
 			-- factor neutrality
-			if importanceFactor > 0 then
-				local effectiveNeutrality = recipientCountry:GetNeutrality():Get() - recipientCountry:GetRelation( recipientCountry:GetHighestThreat() ):GetThreat():Get()
-				if effectiveNeutrality > 90 then
-					importanceFactor = importanceFactor - 50
-				elseif effectiveNeutrality > 80 then
-					importanceFactor = importanceFactor - 30
-				elseif effectiveNeutrality > 60 then
-					importanceFactor = importanceFactor - 10
-				end
+			local effectiveNeutrality = recipientCountry:GetNeutrality():Get() - recipientCountry:GetRelation(recipientCountry:GetHighestThreat()):GetThreat():Get()
+			effectiveNeutrality = effectiveNeutrality / 100
+			importanceFactor = importanceFactor + (1 - effectiveNeutrality)
+
+			-- is neighbour
+			if recipientCountry:IsNeighbour(actor) then
+				importanceFactor = importanceFactor + 0.1
 			end
-			factor = factor + importanceFactor
+
+			-- Our relations to them
+			importanceFactor = importanceFactor + CalculateSympathy(actor, recipient) * 0.2
+
+			factor = factor * (1 + importanceFactor)
 
 			--Utils.LUA_DEBUGOUT("Importance factor = " .. tostring(factor ) )
 			return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', factor, ai, actor, recipient, observer)
@@ -55,8 +76,7 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 				if faction:IsValid() and not (faction == actorFaction) then
 					dist = ai:GetNormalizedAlignmentDistance(recipientCountry, faction):Get()
 					--Utils.LUA_DEBUGOUT("Align dist: " .. tostring(actor) .. " -> " .. tostring(recipient) .. " = " .. dist )
-					if dist > 0.5 and dist < 250.5 then
-
+					if dist > 1 and dist < 451 then
 						-- check if its futile to try and move them
 						local affectable = false
 						local al = recipient:GetCountry():GetAlignment()
@@ -72,44 +92,35 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 						--Utils.LUA_DEBUGOUT("******************")
 
 
-						if driftDiff > 0 then
-							local factor = 1 / driftDiff
-							if factor > 0.2 then
-								affectable = true
-							end
+						if driftDiff > 0 and driftDiff < 5 then
+							affectable = true
 						end
 
 						local theirRelationToUs = recipientCountry:GetRelation(actor)
 
 						if affectable or theirRelationToUs:IsBeingInfluenced() then --affectable or influenced by us then
-							local factor = (250 - (dist - 0.5)) / 5
+							local factor = (250 - (dist - 1)) / 5
 
-							--Utils.LUA_DEBUGOUT( tostring(actor) .. " trying to counter  influence " .. tostring(recipient) .. " - affectable - factor: " ..	factor )
+							leader = faction:GetFactionLeader()
+							leaderCountry = leader:GetCountry()
 
-							if recipientCountry:IsNeighbour(actor) then
-								factor = factor + 10
-							end
-							-- calculate importance
-							local importanceFactor = 0
 							local maxIC = recipientCountry:GetMaxIC()
-							local maxActorIC = actorCountry:GetMaxIC()
+							local maxLeaderIC = leaderCountry:GetMaxIC()
 
-							importanceFactor = importanceFactor + ( 50 * ( maxIC / maxActorIC ) )
+							local importanceFactor = maxIC / maxLeaderIC
 
 							-- factor neutrality
-							if importanceFactor > 0 then
-								local effectiveNeutrality = recipientCountry:GetNeutrality():Get() - recipientCountry:GetRelation( recipientCountry:GetHighestThreat() ):GetThreat():Get()
-								if effectiveNeutrality > 90 then
-									importanceFactor = importanceFactor - 50
-								elseif effectiveNeutrality > 80 then
-									importanceFactor = importanceFactor - 30
-								elseif effectiveNeutrality > 60 then
-									importanceFactor = importanceFactor - 10
-								end
+							local effectiveNeutrality = recipientCountry:GetNeutrality():Get() - recipientCountry:GetRelation(recipientCountry:GetHighestThreat()):GetThreat():Get()
+							effectiveNeutrality = effectiveNeutrality / 100
+							importanceFactor = importanceFactor + (1 - effectiveNeutrality)
+
+							-- is neighbour
+							if recipientCountry:IsNeighbour(actor) then
+								importanceFactor = importanceFactor + 0.1
 							end
 
+							factor = factor * (1 + importanceFactor)
 
-							factor = factor + importanceFactor
 							return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', factor, ai, actor, recipient, observer)
 						end
 					end
@@ -119,17 +130,7 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 
 		-- neighbor?
 		if recipientCountry:IsNeighbour(actor) then
-			local score = 0
-			local rel = ai:GetRelation(recipient, actor)
-			local strategy = recipient:GetCountry():GetStrategy()
-			score = score + strategy:GetFriendliness(actor) / 4
-			score = score - strategy:GetAntagonism(actor) / 4
-			score = score - rel:GetThreat():Get() / 2
-
-			if score > 0 then
-				local relation = rel:GetValue():GetTruncated()
-				score = score + relation / 2
-			end
+			local score = CalculateSympathy(leader, recipient) * 100
 
 			if score > 65 then
 				score = 65 -- dont want to overshadow other juicy targets
@@ -150,7 +151,9 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 
 function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 	if observer == actor then -- are recipient worth inviting
+		local actorCountry = actor:GetCountry()
 		local recipientCountry = recipient:GetCountry()
+
 		if recipientCountry:IsAtWar() then
 			-- is our war target at war with the faction
 			for diploStatus in recipientCountry:GetDiplomacy() do
@@ -161,23 +164,25 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 					end
 				end
 			end
-			score = 100 --at war with someone is no problem
-
-			if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
-				score = Utils.CallScoredCustomAI('CustomFactionInviteRules', score, ai, actor, recipient, observer)
-			else
-				--score = CustomFactionJoinRules( score, ai, actor, recipient, observer)
-			end
-			return score
-		else
-			score = 100 --at war with someone is no problem
-			if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
-				score = Utils.CallScoredCustomAI('CustomFactionInviteRules', score, ai, actor, recipient, observer)
-			else
-				--score = CustomFactionJoinRules( score, ai, actor, recipient, observer)
-			end
-			return score
 		end
+
+		local score = CalculateSympathy(actor, recipient)
+
+		-- Does faction leader approve of this?
+		if not actorCountry:IsFactionLeader() then
+			local actorFaction = actorCountry:GetFaction()
+			local leader = actorFaction:GetFactionLeader()
+
+			score = 0.2 * score + 0.8 * CalculateSympathy(leader, recipient)
+		end
+
+		score = score * 100
+
+		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
+			return Utils.CallScoredCustomAI('CustomFactionInviteRules', score, ai, actor, recipient, observer)
+		end
+
+		return score
 	else -- do we, recipient want to accept invite to faction
 		--Utils.LUA_DEBUGOUT("-------------------------------------")
 		--Utils.LUA_DEBUGOUT("DiploScore_InviteToFaction (" .. tostring( actor )  .. "->" .. tostring( recipient ) .. ")")
@@ -187,28 +192,19 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 		--	return 0
 		--end
 
-		local dist = ai:GetNormalizedAlignmentDistance(recipient:GetCountry(), faction):Get() / 50
-		--Utils.LUA_DEBUGOUT("dist: " .. dist)
-		if dist < 1 then
-			local score = 100 * (1.0 - (dist/2.0)) -- closeness
+		local dist = ai:GetNormalizedAlignmentDistance(recipient:GetCountry(), faction):Get()
+		if dist < 50 then
+			local closeness = 1.0 - (dist / 50.0) -- closeness
 			local progress = faction:GetNormalizedProgress()
-			score = score + 100 * progress
-			--Utils.LUA_DEBUGOUT("score: " .. dist)
+			local sympathy = CalculateSympathy(recipient, actor)
 
-			local strategy = recipient:GetCountry():GetStrategy()
-			score = score + strategy:GetFriendliness(actor) / 4
-			score = score + strategy:GetThreat(actor) / 2
-			score = score - strategy:GetAntagonism(actor) / 4
-			--Utils.LUA_DEBUGOUT("score: " .. dist)
-			--Utils.LUA_DEBUGOUT("-------------------------------------")
-			--return CustomFactionAcceptRules( score, ai, actor, recipient, observer)
-			-- at war with someone is no problem
+			local score = 20 * closeness + 40 * progress + 40 * sympathy
+
 			if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
-				score = Utils.CallScoredCustomAI('CustomFactionAcceptRules', score, ai, actor, recipient, observer)
+				return Utils.CallScoredCustomAI('CustomFactionAcceptRules', score, ai, actor, recipient, observer)
 			else
-				score = Utils.CallScoredCountryAI(recipient, 'DiploScore_InviteToFaction', score, ai, actor, recipient, observer)
+				return Utils.CallScoredCountryAI(recipient, 'DiploScore_InviteToFaction', score, ai, actor, recipient, observer)
 			end
-			return score
 		else
 			return 0
 		end
@@ -375,11 +371,7 @@ function DiploScore_OfferMilitaryAccess(ai, actor, recipient, observer, action)
 end
 
 function DiploScore_Alliance(ai, actor, recipient, observer, action)
-	if observer == actor then
-       	local recipientCountry = recipient:GetCountry()
-		local actorCountry = actor:GetCountry()
-		local strategy = actorCountry:GetStrategy()
-
+	if observer == actor then -- We (actor) invite recipient
 		-- If Custom Triggers are used
 		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
 			--Utils.LUA_DEBUGOUT("Use Custom Triggers Alliance")
@@ -388,15 +380,21 @@ function DiploScore_Alliance(ai, actor, recipient, observer, action)
 			end
 		end
 
-		if recipientCountry:IsFactionLeader() then -- as a faction leader we dont want alliances, we want faction members
+       	local recipientCountry = recipient:GetCountry()
+		local actorCountry = actor:GetCountry()
+
+		 -- As a faction leader we dont want alliances, we want faction members
+		if recipientCountry:IsFactionLeader() then
 			return 0
 		end
 
-		return strategy:GetFriendliness(recipient)
-	else
-		local rel = ai:GetRelation(recipient, actor)
-		local relation = 200 + rel:GetValue():GetTruncated()
+		-- If we are in a faction don't make alliances
+		if recipientCountry:HasFaction() then
+			return 0
+		end
 
+		return CalculateSympathy(actor, recipient) * 100
+	else -- We (recipient) are invited by actor
 		-- If Custom Triggers are used
 		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
 			--Utils.LUA_DEBUGOUT("Use Custom Triggers Alliance")
@@ -405,17 +403,22 @@ function DiploScore_Alliance(ai, actor, recipient, observer, action)
 			end
 		end
 
-		if relation < 100 then
+		local score = CalculateSympathy(recipient, actor) * 100
+
+		if score < 0 then
 			return 0
 		end
 
 		local recipientCountry = recipient:GetCountry()
 		local actorCountry = actor:GetCountry()
 
-		local score = relation / 12.0
+		 -- As a faction leader we dont want alliances, we want faction members
+		if actorCountry:IsFactionLeader() then
+			return 0
+		end
 
-
-		if actorCountry:IsFactionLeader() then -- as a faction leader we dont want alliances, we want faction members
+		-- If we are in a faction don't make alliances
+		if actorCountry:HasFaction() then
 			return 0
 		end
 
@@ -441,19 +444,11 @@ function DiploScore_Alliance(ai, actor, recipient, observer, action)
 			end
 
 			if bMutualEnemies then
-				score = score + 20
+				score = score * 1.2
 			else
 				score = score / 2 -- better wait until they sorted their problems
 			end
 		end
-
-		score = score - recipientCountry:GetDiplomaticDistance(actor):GetTruncated() / 10
-
-		local strategy = recipientCountry:GetStrategy()
-		score = score + strategy:GetFriendliness(actor) / 2
-		score = score - strategy:GetAntagonism(actor) / 2
-		score = score - rel:GetThreat():Get() / 2
-
 
 		return Utils.CallScoredCountryAI(recipient, 'DiploScore_Alliance', score, ai, actor, recipient, observer, action)
 	end
