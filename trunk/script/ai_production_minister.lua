@@ -428,6 +428,10 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- 100% supply prod. at 0 stock, 50% at 1/2 goal stock and 0% at goal stock
 	local SupplyNeed = MaxIC*(1-math.min(1, SupplyStockFactor ))
 
+	if ministerCountry:isPuppet() then
+		SupplyNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get()
+	end
+
 	-- REINFORCEMENT
 	local ReinforcementNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_ ):GetNeeded():Get() --/ TotalIC
 
