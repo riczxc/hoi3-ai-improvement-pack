@@ -7,14 +7,14 @@ function P.ProposeDeclareWar( minister )
 	local ministerCountry = minister:GetCountry()
 	local year = ai:GetCurrentDate():GetYear()
 	local month = ai:GetCurrentDate():GetMonthOfYear()
-	
+
 	local axisFaction = CCurrentGameState.GetFaction('axis')
 	local axisLeaderTag = axisFaction:GetFactionLeader()
-	
+
 	local gerTag = CCountryDataBase.GetTag('GER')
 	local itaTag = CCountryDataBase.GetTag('ITA')
-	
-	
+
+
 	for country in CCurrentGameState.GetCountries() do
 		local countryTag = country:GetCountryTag()
 		if not country:GetFaction() == ministerCountry:GetFaction() then
@@ -27,39 +27,39 @@ function P.ProposeDeclareWar( minister )
 	end
 
 
-	
-	if year > 1939 
+
+	if year > 1939
 	and  ( not ministerCountry:GetRelation(axisLeaderTag):HasWar() )
 	then
 		ministerCountry:GetStrategy():PrepareWar( axisLeaderTag, 100 )
 		return
 	end
-	
-	
+
+
 	if ( not ministerCountry:GetRelation(gerTag):HasWar() )
 		and gerTag:GetCountry():GetFaction() == axisFaction
-		and gerTag:GetCountry():IsAtWar() 
+		and gerTag:GetCountry():IsAtWar()
 	then
 		ministerCountry:GetStrategy():PrepareWar( gerTag, 100 )
 	end
-	
+
 	if ( not ministerCountry:GetRelation(itaTag):HasWar() )
 		and itaTag:GetCountry():GetFaction() == axisFaction
-		and itaTag:GetCountry():IsAtWar() 
+		and itaTag:GetCountry():IsAtWar()
 	then
 		ministerCountry:GetStrategy():PrepareWar( itaTag, 100 )
 	end
-		
+
 end
 
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
-
+--[[
 	local ministerCountry = ai:GetCountry()
 	local modifier = 50
 	if score > 0 then
 		modifier = 75
 	end
-	
+
 	if CCountryDataBase.GetTag('CAN') == recipient then
 		--Utils.LUA_DEBUGOUT("CAN influence from ENG - " .. tostring(score + modifier) )
 		return score + modifier
@@ -78,7 +78,8 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	else
 		return score
 	end
-
+]]
+	return score
 end
 
 
