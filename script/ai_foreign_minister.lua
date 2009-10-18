@@ -230,8 +230,10 @@ function ForeignMinister_HandlePeace( minister )
 
 					if action:IsSelectable() then
 						local acceptanceChance = action:GetAIAcceptance()
+
 						if acceptanceChance > 40 then
 							local score = DiploScore_InviteToFaction( ai, ministerTag, countryTag, ministerTag )
+
 							if score > 50 then
 								minister:Propose( action, score )
 							end
@@ -245,15 +247,18 @@ function ForeignMinister_HandlePeace( minister )
 						influenceAction:SetValue(false)
 
 						local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
+
 						if score < 40 then
 							minister:Propose( influenceAction, 100 )
 						end
 					else
-						if influenceAction:IsSelectable() then
-							if influence > 0 and ministerCountry:GetDiplomaticInfluence():Get() > 10 then
-								local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
-								if score > 50 then
-									minister:Propose( influenceAction, score )
+						if not country:isPuppet() then
+							if influenceAction:IsSelectable() then
+								if influence > 0 and ministerCountry:GetDiplomaticInfluence():Get() > 10 then
+									local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
+									if score > 50 then
+										minister:Propose( influenceAction, score )
+									end
 								end
 							end
 						end
@@ -327,15 +332,15 @@ function ForeignMinister_HandlePeace( minister )
 		for faction in CCurrentGameState.GetFactions() do
 
 			if faction:IsValid() then
-
 				-- evaluate faction
-				local progress = faction:GetNormalizedProgress()
-				local score = progress:Get()
-				local dist = minister:GetOwnerAI():GetNormalizedAlignmentDistance(ministerCountry, faction):Get()
-				if dist < 1 then
-					score = score + 100 * (1.0 - dist/2.0) -- closeness
-				end
+				local leader = faction:GetFactionLeader()
+				local score = -1
 
+				-- Do they want us?
+				if DiploScore_InviteToFaction(ai, leader, ministerCountry, leader) > 50 then
+					-- Do we want to be part of them?
+					score = DiploScore_InviteToFaction(ai, leader, ministerCountry, ministerCountry)
+				end
 
 				score = Utils.CallScoredCountryAI(ministerTag, 'DiploScore_JoinFaction', score, minister, faction)
 
@@ -346,7 +351,7 @@ function ForeignMinister_HandlePeace( minister )
 			end
 		end
 
-		if bestFaction and bestScore > 50 then
+		if bestScore > 50 then
 			local action = CInfluenceAllianceLeader( ministerTag, bestFaction:GetFactionLeader() )
 			if action:IsSelectable() then
 				minister:Propose( action, bestScore )
