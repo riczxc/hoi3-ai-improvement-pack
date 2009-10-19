@@ -94,7 +94,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		if country:GetSurrenderLevel():Get() > 0.5 then
 			--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." at war -> SPYMISSION_LOWER_NATIONAL_UNITY" )
 			return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY, 100)
-		end		
+		end
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." at war -> SPYMISSION_MILITARY" )
 		-- Support our military!
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_MILITARY, 100)
@@ -159,7 +159,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		end
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, bestMission, bestScore )
 	end
-	
+
 	-- we are in different factions...increase their threat to weaken their faction's attraction and make it easier for them to be attacked
 	if country:HasFaction() and ministerCountry:HasFaction() and ministerCountry:GetFaction() ~= country:GetFaction() then
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." and "..tostring(countryTag).." in different factions -> SPYMISSION_INCREASE_THREAT" )
@@ -186,6 +186,8 @@ end
 
 function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ")
+	local strategy = ministerCountry:GetStrategy()
+
 	for country in CCurrentGameState.GetCountries() do
 		local tag = country:GetCountryTag()
 
@@ -199,15 +201,18 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 					nPrio = nPrio + 1
 				end
 
-				if ministerCountry:GetActingCapitalLocation():GetContinent() == country:GetActingCapitalLocation():GetContinent() then
+				if ministerCountry:IsNeighbour(tag) then
 					nPrio = nPrio + 1
+					if country:IsMajor() then
+						nPrio = nPrio + 1
+					end
 				end
 
 				if ministerCountry:GetFaction():IsValid() and country:GetFaction():IsValid() and ministerCountry:GetFaction() ~= country:GetFaction() then
 					nPrio = nPrio + 1
 				end
 
-				if ministerCountry:GetRelation(tag):HasWar() then
+				if ministerCountry:GetRelation(tag):HasWar() or strategy:IsPreparingWarWith(tag) then
 					nPrio = nPrio + 2
 				end
 
