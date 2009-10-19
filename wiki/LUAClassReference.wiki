@@ -103,7 +103,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int ||GetNumOfAirfields()||
 ||[#CDiplomacyStatus CDiplomacyStatus]||GetDiplomacy()||
 ||[#CCountryTag CCountryTag]||GetOverlord()||
-||List`<`[#CCountryTag CCountryTag]`>` ||GetVassals()||
+||List`<`[#CCountryTag CCountryTag]`>`||GetVassals()||
 ||int ||GetMaxIC()||
 ||[#CFixedPoint CFixedPoint]||GetNeutrality()||
 ||[#CCountryTag CCountryTag]||GetHighestThreat()||
@@ -130,10 +130,10 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||bool ||IsValid()||
 ||[#CFixedPoint CFixedPoint]||GetNormalizedProgress()||
 ||[#CIdeologyGroup CIdeologyGroup]||GetIdeologyGroup()||
-||???||GetFactionLeader||
+||[#CCountryTag CCountryTag]||GetFactionLeader()||
 ||???||GetProgress||
-||???||GetNumberOfMembers||
-||???||GetMembers||
+||int||GetNumberOfMembers()||
+||List`<`[#CCountryTag CCountryTag]`>`||GetMembers||
 
 ==CIdeology==
 ||[#CIdeologyGroup CIdeologyGroup]||GetGroup()||
