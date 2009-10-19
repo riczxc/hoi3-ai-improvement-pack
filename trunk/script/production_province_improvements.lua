@@ -301,8 +301,9 @@ function LoadProvinceImprovements(country)
 	end
 
 	-- Make sure the improvements table is complete
+	local homeContinent = country:GetCapitalLocation():GetContinent()
 	local defaultBuildCallback = function (province)
-		return true
+		return province:GetContinent() == homeContinent
 	end
 
 	-- Build callback will be called for each province where building
@@ -311,7 +312,7 @@ function LoadProvinceImprovements(country)
 		infra = {
 			priority = 0,
 			buildCallback = function (province)
-				return province:GetMaxInfrastructure():Get() < 0.8
+				return defaultBuildCallback(province) and province:GetMaxInfrastructure():Get() < 0.8
 			end
 		},
 		industry = {
