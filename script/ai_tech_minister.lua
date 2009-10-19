@@ -43,11 +43,32 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	if ministerCountry:IsGovernmentInExile() then
 		EspionageNeed = AvailLS
 	end
+	EspionageNeed = math.min(AvailLS, EspionageNeed)
 	AvailLS = AvailLS - EspionageNeed
 	changes:SetAt(CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint(EspionageNeed * 100))
 
 	-- remainder into research
-	changes:SetAt(CDistributionSetting._LEADERSHIP_RESEARCH_, CFixedPoint(AvailLS * 100))
+	local totalLS = ministerCountry:GetTotalLeadership():Get()
+	local researchLS = CFixedPoint(totalLS * AvailLS)
+	-- LS actually spent to research
+	researchLS = researchLS:GetRounded()
+	local ResearchNeed = researchLS / totalLS
+	ResearchNeed = math.min(AvailLS, ResearchNeed)
+	AvailLS = AvailLS - ResearchNeed
+	changes:SetAt(CDistributionSetting._LEADERSHIP_RESEARCH_, CFixedPoint(ResearchNeed * 100))
+
+	-- Remainder into rest
+	local totalNeed = OfficerNeed + DiploNeed + EspionageNeed
+	if totalNeed > 0 then
+		OfficerNeed = OfficerNeed + AvailLS * (OfficerNeed / totalNeed)
+		changes:SetAt(CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint(OfficerNeed * 100))
+
+		DiploNeed = DiploNeed + AvailLS * (DiploNeed / totalNeed)
+		changes:SetAt(CDistributionSetting._LEADERSHIP_DIPLOMACY_, CFixedPoint(DiploNeed * 100))
+
+		EspionageNeed = EspionageNeed + AvailLS * (EspionageNeed / totalNeed)
+		changes:SetAt(CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint(EspionageNeed * 100))
+	end
 
 	local command = CChangeLeadershipCommand(ministerCountry:GetCountryTag(), changes)
 	ai:Post(command)
