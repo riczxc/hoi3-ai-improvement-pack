@@ -1,3 +1,5 @@
+require('ai_configuration')
+
 local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",	"_METAL_",	"_ENERGY_",	"_RARE_MATERIALS_" }
 
 -------------------------------------------------------------------------------
