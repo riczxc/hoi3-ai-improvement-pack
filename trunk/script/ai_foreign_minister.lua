@@ -334,13 +334,9 @@ function ForeignMinister_HandlePeace( minister )
 			if faction:IsValid() then
 				-- evaluate faction
 				local leader = faction:GetFactionLeader()
-				local score = -1
-
-				-- Do they want us?
-				if DiploScore_InviteToFaction(ai, leader, ministerCountry, leader) > 50 then
-					-- Do we want to be part of them?
-					score = DiploScore_InviteToFaction(ai, leader, ministerCountry, ministerCountry)
-				end
+				local score = CalculateFactionSympathy(ai, ministerCountry, faction) * 100
+				local effectiveNeutrality = ministerCountry:GetNeutrality():Get() - ministerCountry:GetRelation(ministerCountry:GetHighestThreat()):GetThreat():Get()
+				score = score * (1 - effectiveNeutrality / 100)
 
 				score = Utils.CallScoredCountryAI(ministerTag, 'DiploScore_JoinFaction', score, minister, faction)
 
