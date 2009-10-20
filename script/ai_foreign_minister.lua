@@ -220,7 +220,10 @@ function ForeignMinister_HandlePeace( minister )
 			end
 
 			-- invite/influence to faction
-			if ministerCountry:HasFaction() and ministerCountry:GetMaxIC() > ai_configuration.MINIMUM_IC_TO_INFLUENCE then
+			if	ministerCountry:HasFaction() and
+				ministerCountry:GetMaxIC() > ai_configuration.MINIMUM_IC_TO_INFLUENCE and
+				not ministerCountry:isPuppet() -- Workaround because trading with puppets is disabled causing wrong economic score
+			then
 
 				if not country:HasFaction() then
 					local theirRelationToUs = country:GetRelation(ministerTag)
