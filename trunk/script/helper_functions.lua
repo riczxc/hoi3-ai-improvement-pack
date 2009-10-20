@@ -450,11 +450,11 @@ function MinStock(country, goods)
 	-- 400 oil, rare
 	-- 10k supply, fuel
 	-- 1k energy and metal
-	local factor = 2 -- oil, rare
+	local factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE/25 -- 2 -> oil, rare
 	if goods == CGoodsPool._SUPPLIES_ or goods == CGoodsPool._FUEL_ then
-		factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE --50
+		factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE -- 50
 	elseif goods == CGoodsPool._METAL_ or goods == CGoodsPool._ENERGY_ then
-		factor = 5
+		factor = ai_configuration.MINIMUM_SUPPLY_STOCKPILE/10 -- 5
 	end
 	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
 		return factor*2*country:GetTotalIC()
