@@ -455,7 +455,7 @@ Shoul be number 5.
 ||???||AddSubUnit||
 ||void ||PrepareWar([#CCountryTag CCountryTag] countryTag, int score?)||
 ||???||PrepareWarDecision||
-||???||[#CancelPrepareWar CancelPrepareWar]||
+||void||CancelPrepareWar([#CCountryTag CCountryTag] countryTag)||
 ||bool ||IsPreparingWar()||
 ||bool ||IsPreparingWarWith([#CCountryTag CCountryTag] countryTag)||
 ||???||GetWarScoreWith||
