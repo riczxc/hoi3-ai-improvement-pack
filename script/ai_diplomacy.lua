@@ -50,7 +50,7 @@ end
 -- 1 very important
 -- 0 not important
 function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
-	local factorIC = math.min(countryB:GetMaxIC() / countryA:GetMaxIC(), 1)
+	local factorIC = math.min(countryB:GetMaxIC() / countryA:GetMaxIC(), 0.4) -- not more than 40% of total score
 
 	-- If they don't have much IC see if we could use one of their resources.
 	local negativeBalanceTotal = 0
@@ -58,7 +58,7 @@ function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
 		if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ and goods ~= CGoodsPool._FUEL_ then
 			local balanceA = GetAverageBalance(countryA, goods)
 			if balanceA < 0 then
-				negativeBalanceTotal = negativeBalanceTotal + balanceA
+				negativeBalanceTotal = negativeBalanceTotal + math.floor(balanceA)
 			end
 		end
 	end
@@ -83,7 +83,7 @@ function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
 	return factorIC + (1 - factorIC) * math.min(factorResources, 1)
 end
 
-function StragicInfluenceScore(tagA, countryA, tagB, countryB)
+function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 	local strategy = countryA:GetStrategy()
 
 	if countryA:IsEnemy(tagB) or strategy:IsPreparingWarWith(tagB) then
@@ -172,23 +172,23 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 
 		-- Close to joining our faction
 		if dist > 40 and dist < 1000 then
-			--Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
+			Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
 
-			local strategic = StragicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
-			--Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
+			local strategic = StrategicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
+			Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
 
 			local diplomatic = DiplomaticInfluenceScore(actor, actorCountry, recipient, recipientCountry) * 0.3
 			-- Get faction leader's opinion in diplomatic matters
 			diplomatic = diplomatic + DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry) * 0.7
-			--Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
+			Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
 
 			local economic = EconomicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
-			--Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
+			Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
 
 			local randomness = (math.mod(CCurrentGameState.GetAIRand(), 100) / 100) * 0.1 - 0.05 -- +/-5%
 
 			local score = 100 * neutrality * (strategic + diplomatic + economic + randomness)
-			--Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
+			Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
 
 			return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', score, ai, actor, recipient, observer)
 		elseif ai_configuration.COUNTER_INFLUENCE == 1 and recipientCountry:GetMaxIC() > ai_configuration.MINIMUM_IC_TO_INFLUENCE then
@@ -215,22 +215,22 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 							leader = faction:GetFactionLeader()
 							leaderCountry = leader:GetCountry()
 
-							--Utils.LUA_DEBUGOUT(tostring(actor) .. " counter influencing " .. tostring(recipient))
+							Utils.LUA_DEBUGOUT(tostring(actor) .. " counter influencing " .. tostring(recipient))
 
 							-- See how important they are to their leader
-							local strategic = StragicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
-							--Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
+							local strategic = StrategicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
+							Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
 
 							local diplomatic = DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
-							--Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
+							Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
 
 							local economic = EconomicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
-							--Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
+							Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
 
 							local randomness = (math.mod(CCurrentGameState.GetAIRand(), 100) / 100) * 0.1 - 0.05 -- +/-5%
 
 							local score = 100 * closeness * neutrality * (strategic + diplomatic + economic + randomness)
-							--Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
+							Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
 
 							return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', score, ai, actor, recipient, observer)
 						end
@@ -271,7 +271,7 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 		end
 
 		-- Leader decides
-		local strategic = StragicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
+		local strategic = StrategicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
 		local diplomatic = DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
 		local economic = EconomicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
 
