@@ -34,6 +34,13 @@ function CalculateSympathy(countryTagA, countryTagB)
 		friendliness = 0
 	end
 
+	-- If we've terretorial claims on them make sure we don't like them
+	-- very much.
+	if HasClaims(countryTagA, countryTagB) then
+		antagonism = 0.6
+		friendliness = 0
+	end
+
 	--if tostring(countryTagA) == 'GER' then
 		--Utils.LUA_DEBUGOUT(tostring(countryTagA) .. " <-> " .. tostring(countryTagB))
 		--Utils.LUA_DEBUGOUT("\trelation:" .. tostring(relation))
@@ -122,12 +129,44 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 		end
 	end
 
-	-- Are we neighbours?
-	if countryA:IsNeighbour(tagB) then
+	-- Are we neighbours and don't have claims?
+	if countryA:IsNeighbour(tagB) and not HasClaims(tagA, tagB) then
 		score = score + 0.5
 	end
 
 	return math.min(score, 1)
+end
+
+-- Workaround function. As of 1.2 there's no way to check if a country
+-- has territorial claims on another.
+-- Returns true if A has claims on B.
+function HasClaims(tagA, tagB)
+	local a = tostring(tagA)
+	local b = tostring(tagB)
+
+	if a == 'BUL' then
+		return b == 'ROM' or b == 'GRE' or b == 'YUG'
+	elseif a == 'CZE' then
+		return b == 'GER'
+	elseif a == 'FIN' then
+		return b == 'SOV'
+	elseif a == 'GER' then
+		return b == 'LIT' or b == 'POL'
+	elseif a == 'HUN' then
+		return b == 'CZE' or b == 'ROM' or b == 'YUG'
+	elseif a == 'ITA' then
+		return b == 'YUG'
+	elseif a == 'JAP' then
+		return b == 'MAN'
+	elseif a == 'PAN' then
+		return b == 'USA'
+	elseif a == 'POL' then
+		return b == 'SOV'
+	elseif a == 'YEM' then
+		return b == 'ENG'
+	end
+
+	return false
 end
 
 function DiplomaticInfluenceScore(tagA, countryA, tagB, countryB)
@@ -177,23 +216,23 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 
 		-- Close to joining our faction
 		if dist > 40 and dist < 1000 then
-			Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
+			--Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
 
 			local strategic = StrategicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
-			Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
+			--Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
 
 			local diplomatic = DiplomaticInfluenceScore(actor, actorCountry, recipient, recipientCountry) * 0.3
 			-- Get faction leader's opinion in diplomatic matters
 			diplomatic = diplomatic + DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry) * 0.7
-			Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
+			--Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
 
 			local economic = EconomicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
-			Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
+			--Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
 
 			local randomness = (math.mod(CCurrentGameState.GetAIRand(), 100) / 100) * 0.1 - 0.05 -- +/-5%
 
 			local score = 100 * neutrality * (strategic + diplomatic + economic + randomness)
-			Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
+			--Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
 
 			return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', score, ai, actor, recipient, observer)
 		elseif ai_configuration.COUNTER_INFLUENCE == 1 and recipientCountry:GetMaxIC() > ai_configuration.MINIMUM_IC_TO_INFLUENCE then
@@ -220,22 +259,22 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 							leader = faction:GetFactionLeader()
 							leaderCountry = leader:GetCountry()
 
-							Utils.LUA_DEBUGOUT(tostring(actor) .. " counter influencing " .. tostring(recipient))
+							--Utils.LUA_DEBUGOUT(tostring(actor) .. " counter influencing " .. tostring(recipient))
 
 							-- See how important they are to their leader
 							local strategic = StrategicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
-							Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
+							--Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
 
 							local diplomatic = DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
-							Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
+							--Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
 
 							local economic = EconomicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
-							Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
+							--Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
 
 							local randomness = (math.mod(CCurrentGameState.GetAIRand(), 100) / 100) * 0.1 - 0.05 -- +/-5%
 
 							local score = 100 * closeness * neutrality * (strategic + diplomatic + economic + randomness)
-							Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
+							--Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
 
 							return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', score, ai, actor, recipient, observer)
 						end
@@ -296,7 +335,8 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 		for neighbour in recipientCountry:GetNeighbours() do
 			local neighbourCountry = neighbour:GetCountry()
 			if 	neighbourCountry:GetCapitalLocation():GetContinent() == recipientContinent then
-				local ratioIC = 0
+				local hostileIC = 0
+				local friendlyIC = 0
 
 				-- Neighbour is hostile to faction or in different faction and so maybe in future a threat
 				if	neighbourCountry:IsEnemy(leader) or
@@ -305,15 +345,17 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 						neighbourCountry:GetFaction() ~= actorFaction
 					)
 				then
-					ratioIC = 1 - math.min(neighbourCountry:GetMaxIC() / recipientCountry:GetMaxIC(), 2)
+					hostileIC = hostileIC + neighbourCountry:GetMaxIC()
 				-- Neighbour is in same faction and could be of help
 				elseif	neighbourCountry:GetFaction():IsValid() and
 						neighbourCountry:GetFaction() == actorFaction
 				then
-					ratioIC = math.min(neighbourCountry:GetMaxIC() / recipientCountry:GetMaxIC(), 2)
+					friendlyIC = friendlyIC + neighbourCountry:GetMaxIC()
 				end
 
-				score = score + 0.5 * ratioIC
+				if hostileIC > 0 then
+					score = score * (friendlyIC / hostileIC)
+				end
 			end
 		end
 
