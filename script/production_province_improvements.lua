@@ -68,6 +68,13 @@ function GetICRatioForProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "CHINA" )
 
 
+	------------------------------------------POLAND---------------------------------------------------
+	elseif countryTag == 'POL' then
+		--Utils.LUA_DEBUGOUT( "POLAND" )
+		ratioPeace = 0
+		ratioPreparingWar = 0
+		ratioWar = 0
+
 	----------------------------------------------------------------------------------------------------
 	end
 
