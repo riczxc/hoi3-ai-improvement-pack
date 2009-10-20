@@ -16,7 +16,9 @@ function ForeignMinister_ManageTrade(ai, ministerTag)
  		--Utils.LUA_DEBUGOUT(" - - - - - - - - ")
  	--end
 	-- skip first week, config chance, only valid countries
-	if gDayCount > 6 and math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and IsValidCountry(ministerTag:GetCountry()) then
+	if	gDayCount > 6 and
+		math.mod( CCurrentGameState.GetAIRand(), ai_configuration.TRADE_DELAY) == 0 and
+		IsValidCountry(ministerTag:GetCountry()) then
 		if math.mod( CCurrentGameState.GetAIRand(), 3) == 0 then
 			-- 1 out of 3
 			EvalutateExistingTrades(ai, ministerTag)
@@ -125,8 +127,14 @@ function EvalutateExistingTrades(ai, AliceTag)
 						elseif
 							-- we buy a good but have lots
 							(AliceImport > 0 and HasMaxStock(AliceCountry, goods)) or
-							-- we sell a good, have less than we'd like
-							(AliceExport > 0 and (not HasMinStock(AliceCountry, goods)))
+							-- we sell a good
+							(AliceExport > 0 and
+							(
+								-- and have less than we'd like
+								not HasMinStock(AliceCountry, goods)) or
+								-- or run out in one month
+								(Stock(AliceCountry, goods) + GetAverageBalance(AliceCountry, goods) * 30) < MinStock(AliceCountry, goods)
+							)
 						then
 							CancelTrade(ai, route, AliceTag, BobTag)
 							return
@@ -162,6 +170,10 @@ end
 
 function HasMaxStock(country, goods)
 	return country:GetPool():Get( goods ):Get() > MaxStock(country, goods)
+end
+
+function Stock(country, goods)
+	return country:GetPool():Get(goods):Get()
 end
 
 function Selling(country, goods)
@@ -232,8 +244,8 @@ function Buying(country, goods)
 	if	ExistsExport(country:GetCountryTag(), goods) or
 		-- don't buy max stocked goods
 		HasMaxStock(country, goods) or
-		-- goods in positive balance
-		balance >= 0 --or
+		-- goods in positive balance and stock not empty
+		(balance >= 0 and Stock(country, goods) > 10) --or
 		-- trade balance loss smaller than min trade and min stock
 		--(-balance<MinTradeSize(country) and HasMinStock(country, goods))
 	then
@@ -283,10 +295,14 @@ function ProposeTrades(ai, AliceTag)
 			best["score"] = -10000
 			best["action"] = nil
 			--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." "..tostring(GOODS_TO_STRING[goods]))
-			local AliceStock = AliceCountry:GetPool():Get( goods ):Get()
+
 			-- buy
 			AliceBuys = Buying(AliceCountry, goods)
 			-- we need it, we have no max stock, we are not exporting it
+			--if tostring(AliceTag) == 'FRA' then
+			--	Utils.LUA_DEBUGOUT("FRA buys " .. tostring(AliceBuys) .. " " .. GOODS_TO_STRING[goods])
+			--end
+
 			if AliceBuys >= AliceMinTradeSize then -- buying?
  				--Utils.LUA_DEBUGOUT(tostring( AliceTag ).." --- BUYING --- "..tostring(GOODS_TO_STRING[goods]))
 				-- lets check every possible trading partner
