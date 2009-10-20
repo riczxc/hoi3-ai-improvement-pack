@@ -469,6 +469,27 @@ function MaxStock(country, goods)
 	return math.min(90000, 500*country:GetTotalIC())
 end
 
+function Importing(countryTag, goods)
+	return _ImportingExporting("import", tostring(AliceTag), goods)
+end
+
+function Exporting(countryTag, goods)
+	return _ImportingExporting("export", tostring(AliceTag), goods)
+end
+
+function _ImportingExporting(key, countryKey, goods)
+	if not gEconomy[key] or not gEconomy[key][goods] or not gEconomy[key][goods][countryKey] then
+		return 0
+	end
+
+	local sum = 0
+	for k,v in pairs(gEconomy[key][goods][countryKey]) do
+		sum = sum + v
+	end
+
+	return sum
+end
+
 -- Returns the needed amount of goods. Amount is positive if
 -- the given country wants these goods and amount is negative if
 -- it wants to get rid of these goods.
