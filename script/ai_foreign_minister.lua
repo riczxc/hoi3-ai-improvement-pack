@@ -234,7 +234,7 @@ function ForeignMinister_HandlePeace( minister )
 					if action:IsSelectable() then
 						local acceptanceChance = action:GetAIAcceptance()
 
-						if acceptanceChance > 40 then
+						if acceptanceChance > 50 then
 							local score = DiploScore_InviteToFaction( ai, ministerTag, countryTag, ministerTag )
 
 							if score > 50 then
