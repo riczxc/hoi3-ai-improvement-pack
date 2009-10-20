@@ -54,7 +54,9 @@ function GetICRatioForProvinceImprovements(country)
 	------------------------------------------FRANCE---------------------------------------------------
 	elseif countryTag == 'FRA' then
 		--Utils.LUA_DEBUGOUT( "FRANCE" )
-
+		ratioPeace = 0
+		ratioPreparingWar = 0
+		ratioWar = 0
 
 	------------------------------------------ITALY---------------------------------------------------
 	elseif countryTag == 'ITA' then
@@ -210,13 +212,13 @@ function LoadProvinceImprovements(country)
 				priority = 0.1
 			},
 			air_base = {
-				priority = 0.3
+				priority = 0.2
 			},
 			naval_base = {
-				priority = 0.3
+				priority = 0.2
 			},
 			coastal_fort = {
-				priority = 0.2
+				priority = 0.4
 			},
 			radar_station = {
 				priority = 0.1
@@ -247,22 +249,22 @@ function LoadProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
 		prod_improvements = {
 			infra = {
-				priority = 0.5
+				priority = 0.2
 			},
 			industry = {
-				priority = 0.05
+				priority = 0.1
 			},
 			air_base = {
-				priority = 0.05
+				priority = 0.1
 			},
 			naval_base = {
-				priority = 0.3
+				priority = 0.2
 			},
 			coastal_fort = {
-				priority = 0.05
+				priority = 0.3
 			},
 			radar_station = {
-				priority = 0.05
+				priority = 0.1
 			}
 		}
 	------------------------------------------FRANCE---------------------------------------------------
