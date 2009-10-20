@@ -54,26 +54,30 @@ function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
 
 	-- If they don't have much IC see if we could use one of their resources.
 	local negativeBalanceTotal = 0
+	local balance = {}
 	for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
-		if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ and goods ~= CGoodsPool._FUEL_ then
-			local balanceA = GetAverageBalance(countryA, goods)
-			if balanceA < 0 then
-				negativeBalanceTotal = negativeBalanceTotal + math.floor(balanceA)
+		if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ then
+			balance[goods] = GetAverageBalance(countryA, goods) - Importing(tagA, goods)
+			if goods == CGoodsPool._CRUDE_OIL_ then
+				balance[goods] = balance[goods] + GetAverageBalance(countryA, CGoodsPool._FUEL_)  - Importing(tagA, CGoodsPool._FUEL_)
+			end
+
+			if balance[goods] < 0 then
+				negativeBalanceTotal = negativeBalanceTotal + math.floor(balance[goods])
 			end
 		end
 	end
 
 	local factorResources = 0
-	if negativeBalanceTotal < 0 then
+	if (math.abs(negativeBalanceTotal) / countryA:GetTotalIC()) > 0.1 then
 		for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
-			if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ and goods ~= CGoodsPool._FUEL_ then
-				local balanceA = GetAverageBalance(countryA, goods)
-				if balanceA < 0 then
-					local balanceB = GetAverageBalance(countryB, goods)
+			if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ then
+				if balance[goods] < 0 then
+					local balanceB = GetAverageBalance(countryB, goods) + Exporting(tagB, goods)
 					-- A little cheating here...
 					if balanceB > 0 and not ExistsImport(tagB, goods) then
-						local resourceImportance = balanceA / negativeBalanceTotal
-						factorResources = factorResources - math.max(balanceB / balanceA, -1) * resourceImportance
+						local resourceImportance = balance[goods] / negativeBalanceTotal
+						factorResources = factorResources - math.max(balanceB / balance[goods], -1) * resourceImportance
 					end
 				end
 			end
@@ -91,6 +95,7 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 	end
 
 	local score = 0
+
 	for neighbour in countryB:GetNeighbours() do
 		-- Neighbour of one of our potential enemies
 		local neighbourCountry = neighbour:GetCountry()
@@ -119,10 +124,10 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 
 	-- Are we neighbours?
 	if countryA:IsNeighbour(tagB) then
-		score = math.min(score + 0.5, 1)
+		score = score + 0.5
 	end
 
-	return score
+	return math.min(score, 1)
 end
 
 function DiplomaticInfluenceScore(tagA, countryA, tagB, countryB)
@@ -275,7 +280,7 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 		local diplomatic = DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
 		local economic = EconomicInfluenceScore(leader, leaderCountry, recipient, recipientCountry)
 
-		local score = 100 * (strategic + diplomatic + economic)
+		local score = 100 * (strategic + diplomatic + economic) + 50
 
 		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
 			return Utils.CallScoredCustomAI('CustomFactionInviteRules', score, ai, actor, recipient, observer)
@@ -290,10 +295,24 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 
 		for neighbour in recipientCountry:GetNeighbours() do
 			local neighbourCountry = neighbour:GetCountry()
-			if 	neighbourCountry:GetCapitalLocation():GetContinent() == recipientContinent and
-				neighbourCountry:IsEnemy(leader)
-			then
-				local ratioIC = 1 - math.min(neighbourCountry:GetMaxIC() / recipientCountry:GetMaxIC(), 2)
+			if 	neighbourCountry:GetCapitalLocation():GetContinent() == recipientContinent then
+				local ratioIC = 0
+
+				-- Neighbour is hostile to faction or in different faction and so maybe in future a threat
+				if	neighbourCountry:IsEnemy(leader) or
+					(
+						neighbourCountry:GetFaction():IsValid() and
+						neighbourCountry:GetFaction() ~= actorFaction
+					)
+				then
+					ratioIC = 1 - math.min(neighbourCountry:GetMaxIC() / recipientCountry:GetMaxIC(), 2)
+				-- Neighbour is in same faction and could be of help
+				elseif	neighbourCountry:GetFaction():IsValid() and
+						neighbourCountry:GetFaction() == actorFaction
+				then
+					ratioIC = math.min(neighbourCountry:GetMaxIC() / recipientCountry:GetMaxIC(), 2)
+				end
+
 				score = score + 0.5 * ratioIC
 			end
 		end
