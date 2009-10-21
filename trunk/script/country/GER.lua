@@ -153,9 +153,9 @@ function P.ProposeDeclareWar( minister )
 	end
 
 	local vicTag = CCountryDataBase.GetTag('VIC')
-	local vicTag = CCountryDataBase.GetTag('YUG')
-	local vicTag = CCountryDataBase.GetTag('GRE')
-	local vicTag = CCountryDataBase.GetTag('ITA')
+	local yugTag = CCountryDataBase.GetTag('YUG')
+	local greTag = CCountryDataBase.GetTag('GRE')
+	local itaTag = CCountryDataBase.GetTag('ITA')
 	local sovTag = CCountryDataBase.GetTag('SOV')
 
 	--YUGOSLAVIA CONQUEST
