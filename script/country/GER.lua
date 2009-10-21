@@ -86,12 +86,50 @@ function P.ProposeDeclareWar( minister )
 	-- FALL GELB
 	if ministerCountry:GetRelation(fraTag):HasWar() -- If we are at war with Allies
 	and ministerCountry:GetRelation(engTag):HasWar()
-	and (not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) -- If Poland is no more a problem
-	and (P.IsFullyOccupying( ministerCountry, denTag ) or denTag:GetCountry():IsGovernmentInExile() ) -- If Denmark is no more a problem
-	and (not ministerCountry:GetRelation(norTag):HasWar() or P.IsFullyOccupying( ministerCountry, norTag )
-		or norTag:GetCountry():IsGovernmentInExile() ) -- If Norway is no more a problem
-	and (not ministerCountry:GetRelation(sweTag):HasWar() or P.IsFullyOccupying( ministerCountry, sweTag )
-		or sweTag:GetCountry():IsGovernmentInExile() ) -- If Sweden is no more a problem
+	and (
+			not polTag:GetCountry():Exists()
+		or
+			polTag:GetCountry():IsGovernmentInExile()
+		) -- If Poland is no more a problem
+	and (
+			(
+				year > 1939
+			and
+				month > 5
+			)
+		or
+			(
+				(
+					not ministerCountry:GetRelation(denTag):HasWar()
+				or
+					P.IsFullyOccupying( ministerCountry, denTag )
+				or
+					denTag:GetCountry():IsGovernmentInExile()
+				or
+					not denTag:GetCountry():Exists()
+				) -- If Denmark is no more a problem
+			and
+				(
+					not ministerCountry:GetRelation(norTag):HasWar()
+				or
+					P.IsFullyOccupying( ministerCountry, norTag )
+				or
+					norTag:GetCountry():IsGovernmentInExile()
+				or
+					not norTag:GetCountry():Exists()
+				) -- If Norway is no more a problem
+			and
+				(
+					not ministerCountry:GetRelation(sweTag):HasWar()
+				or
+					P.IsFullyOccupying( ministerCountry, sweTag )
+				or
+					sweTag:GetCountry():IsGovernmentInExile()
+				or
+					not sweTag:GetCountry():Exists()
+				) -- If Sweden is no more a problem
+			)
+		)
 	then
 		--Utils.LUA_DEBUGOUT("GO for Fall Gelb")
 		if not ministerCountry:GetRelation(holTag):HasWar()						--Not already at war with HOL
