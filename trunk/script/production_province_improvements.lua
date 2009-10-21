@@ -47,10 +47,6 @@ function GetICRatioForProvinceImprovements(country)
 	elseif countryTag == 'JAP' then
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
 
-		ratioPeace = 0.3 -- Needs to build some naval bases and infra for china supply (TODO: add provinces like for SOV)
-		ratioPreparingWar = 0.2
-		ratioWar = 0.1
-
 	------------------------------------------FRANCE---------------------------------------------------
 	elseif countryTag == 'FRA' then
 		--Utils.LUA_DEBUGOUT( "FRANCE" )
