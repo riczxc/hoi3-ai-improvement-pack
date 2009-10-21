@@ -262,13 +262,13 @@ function Buying(country, goods)
 	if HasMinStock(country, goods) then
 		return math.max(-1.05*balance, MinTradeSize(country))
 	else
-		return math.max(-1.25*balance, math.min(50, country:GetTotalIC()/10), MinTradeSize(country))
+		return math.max(-balance, MinTradeSize(country)) * 1.25
 	end
 end
 
 function MinTradeSize(country)
 	-- 10% IC but no more than 5
-	return math.min(country:GetTotalIC()/10, 5)
+	return math.min(math.max(country:GetTotalIC()/10, country:GetMaxIC()/10), 5)
 end
 
 function ProposeTrades(ai, AliceTag)
@@ -575,7 +575,7 @@ function ScoreTradeOfGoodCalc(goods, Amount, SellerCountry, BuyerCountry)
 		local buyerScore = math.min(50, Amount)/math.min(50, BuyerDemand) --+ 0.5 * (1-math.min(1, BuyerStock/90000))
 		-- seller satisfaction 1 to 0
 		local sellerScore = math.min(MinTradeSize(SellerCountry), Amount) / MinTradeSize(SellerCountry) --+ 0.5 * math.min(1, SellerStock/90000)
-		return 100 * math.min(buyerScore, sellerScore)
+		return 100 * math.min(buyerScore, math.min(sellerScore + 0.5, 1))
 	end
 
 	return 0
