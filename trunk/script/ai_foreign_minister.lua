@@ -144,6 +144,64 @@ function ForeignMinister_HandlePeace( minister )
 	influence = influence * defines.economy.LEADERSHIP_TO_DIPLOMACY
 	influence = influence - amount
 
+	-- scripted wars
+	Utils.CallCountryAI( ministerTag, 'ProposeDeclareWar', minister )
+
+	-- are we interested in joining a faction?
+	local bestFaction = nil
+	if	not ministerCountry:HasFaction() and
+		not ministerCountry:isPuppet() and
+		(
+			ministerCountry:GetMaxIC() > ai_configuration.MINIMUM_IC_TO_INFLUENCE or
+			ministerCountry:IsAtWar()
+		)
+	then
+		local bestScore = -1
+		for faction in CCurrentGameState.GetFactions() do
+
+			if faction:IsValid() then
+				-- evaluate faction
+				--local score = CalculateFactionSympathy(ai, ministerCountry, faction) * 100
+				local score = DiploScore_InviteToFaction(ai, faction:GetFactionLeader(), ministerTag, ministerTag)
+				score = Utils.CallScoredCountryAI(ministerTag, 'DiploScore_JoinFaction', score, minister, faction)
+
+				if score > 50 and score > bestScore then
+					bestScore = score
+					bestFaction = faction
+				end
+			end
+		end
+
+		if bestScore > 50 then
+			local action = CInfluenceAllianceLeader( ministerTag, bestFaction:GetFactionLeader() )
+			if action:IsSelectable() then
+				minister:Propose( action, bestScore )
+			end
+		end
+	end
+
+	-- break any deals?
+	for alliedCountry in ministerCountry:GetAllies() do
+		local rel = ministerCountry:GetRelation( alliedCountry )
+		local relValue = rel:GetValue():GetTruncated()
+
+		local threat = rel:GetThreat():Get()
+		threat = threat * CalculateAlignmentFactor(ai, ministerCountry, alliedCountry:GetCountry())
+		local antagonism = strategy:GetAntagonism( alliedCountry ) / 4
+		local friendliness = strategy:GetFriendliness( alliedCountry ) / 4
+
+		local score = ((antagonism + threat) / 2.0) - friendliness
+		score = score - relValue / 2.0
+
+		if score >= 100 then
+			local action = CAllianceAction(ministerTag, alliedCountry)
+			action:SetValue(false) -- cancel
+			if action:IsSelectable() then
+				minister:Propose( action, score )
+			end
+		end
+	end
+
 	for country in CCurrentGameState.GetCountries() do
 		local countryTag = country:GetCountryTag()
 
@@ -164,16 +222,18 @@ function ForeignMinister_HandlePeace( minister )
 			-- non-scripted war declaration:
 			--ProposeDeclareWar( minister, ai, ministerCountry, countryTag )
 
-			-- alliance
-			if not relation:HasAlliance() and relation:GetValue():GetTruncated() > 0 then
-				local action = CAllianceAction(ministerTag, countryTag)
-				if action:IsSelectable() then
+			-- alliance only if we're not interested in joining a faction
+			if not bestFaction then
+				if not relation:HasAlliance() and relation:GetValue():GetTruncated() > 0 then
+					local action = CAllianceAction(ministerTag, countryTag)
+					if action:IsSelectable() then
 
-					local score = DiploScore_Alliance( ai, ministerTag, countryTag, ministerTag )
-					if score > 50 then
-						local acceptanceChance = action:GetAIAcceptance()
-						if acceptanceChance > 40 then
-							minister:Propose( action, score )
+						local score = DiploScore_Alliance( ai, ministerTag, countryTag, ministerTag )
+						if score > 50 then
+							local acceptanceChance = action:GetAIAcceptance()
+							if acceptanceChance > 40 then
+								minister:Propose( action, score )
+							end
 						end
 					end
 				end
@@ -324,60 +384,6 @@ function ForeignMinister_HandlePeace( minister )
 
 		end -- country:Exists()
 	end -- countries
-
-	-- scripted wars
-	Utils.CallCountryAI( ministerTag, 'ProposeDeclareWar', minister )
-
-	-- are we interested in joining a faction?
-	if not ministerCountry:HasFaction() then
-		local bestFaction = nil
-		local bestScore = -1
-		for faction in CCurrentGameState.GetFactions() do
-
-			if faction:IsValid() then
-				-- evaluate faction
-				local score = CalculateFactionSympathy(ai, ministerCountry, faction) * 100
-				local effectiveNeutrality = ministerCountry:GetNeutrality():Get() - ministerCountry:GetRelation(ministerCountry:GetHighestThreat()):GetThreat():Get()
-				score = score * (1.2 - effectiveNeutrality / 100)
-
-				score = Utils.CallScoredCountryAI(ministerTag, 'DiploScore_JoinFaction', score, minister, faction)
-
-				if bestScore < score then
-					bestScore = score
-					bestFaction = faction
-				end
-			end
-		end
-
-		if bestScore > 50 then
-			local action = CInfluenceAllianceLeader( ministerTag, bestFaction:GetFactionLeader() )
-			if action:IsSelectable() then
-				minister:Propose( action, bestScore )
-			end
-		end
-	end
-
-	-- break any deals?
-	for alliedCountry in ministerCountry:GetAllies() do
-		local rel = ministerCountry:GetRelation( alliedCountry )
-		local relValue = rel:GetValue():GetTruncated()
-
-		local threat = rel:GetThreat():Get()
-		threat = threat * CalculateAlignmentFactor(ai, ministerCountry, alliedCountry:GetCountry())
-		local antagonism = strategy:GetAntagonism( alliedCountry ) / 4
-		local friendliness = strategy:GetFriendliness( alliedCountry ) / 4
-
-		local score = ((antagonism + threat) / 2.0) - friendliness
-		score = score - relValue / 2.0
-
-		if score >= 100 then
-			local action = CAllianceAction(ministerTag, alliedCountry)
-			action:SetValue(false) -- cancel
-			if action:IsSelectable() then
-				minister:Propose( action, score )
-			end
-		end
-	end
 
 	--EvalutateExistingTrades(minister)
 
