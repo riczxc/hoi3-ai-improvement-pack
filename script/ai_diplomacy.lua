@@ -57,7 +57,8 @@ end
 -- 1 very important
 -- 0 not important
 function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
-	local factorIC = math.min(countryB:GetMaxIC() / countryA:GetMaxIC(), 0.4) -- not more than 40% of total score
+	local leaderCountry = countryA:GetFaction():GetFactionLeader():GetCountry()
+	local factorIC = math.min(countryB:GetMaxIC() / leaderCountry:GetMaxIC(), 1)
 
 	-- If they don't have much IC see if we could use one of their resources.
 	local negativeBalanceTotal = 0
@@ -103,13 +104,19 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 
 	local score = 0
 
+	-- A only neighbour to B if on same continent
+	local isANeighbourToB = IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
+
 	for neighbour in countryB:GetNeighbours() do
 		-- Neighbour of one of our potential enemies
 		local neighbourCountry = neighbour:GetCountry()
-		if neighbour ~= tagA then
+		if neighbour ~= tagA and IsNeighbourOnSameContinent(neighbour, neighbourCountry, tagB, countryB) then
 			local importanceFactor = 0
 
-			if neighbourCountry:HasFaction() then
+			if countryA:IsEnemy(neighbour) or strategy:IsPreparingWarWith(neighbour) then
+				-- Neighbour is an enemy of us
+				importanceFactor = 1
+			elseif neighbourCountry:HasFaction() then
 				local neighbourFaction = neighbourCountry:GetFaction()
 				if neighbourFaction:IsValid() and neighbourFaction ~= countryA:GetFaction() then
 					local factionLeader = neighbourFaction:GetFactionLeader()
@@ -118,9 +125,12 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 					-- Base score on how important that neighbour is to the faction
 					importanceFactor = neighbourCountry:GetMaxIC() / leaderCountry:GetMaxIC()
 				end
-			elseif countryA:IsEnemy(neighbour) or strategy:IsPreparingWarWith(neighbour) then
-				-- Neighbour is not in a faction but an enemy of us
-				importanceFactor = 1
+			end
+
+			if not isANeighbourToB and IsNeighbourOnSameContinent(neighbour, neighbourCountry, tagA, countryA) then
+				-- B is not a neighbour of A, but neighbour of B is also neighbour of A
+				-- Would open up a new front
+				importanceFactor = importanceFactor * 1.5
 			end
 
 			-- Base score on damage B could inflict on potential enemy
@@ -130,11 +140,40 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 	end
 
 	-- Are we neighbours and don't have claims?
-	if countryA:IsNeighbour(tagB) and not HasClaims(tagA, tagB) then
+	if isANeighbourToB and not HasClaims(tagA, tagB) then
 		score = score + 0.5
 	end
 
 	return math.min(score, 1)
+end
+
+function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
+	local continentA = countryA:GetCapitalLocation():GetContinent()
+	local continentB = countryB:GetCapitalLocation():GetContinent()
+	return countryA:IsNeighbour(tagB) and (continentA == continentB)
+end
+
+-- How threatening is B to A. Includes alignment and IC in calculation.
+-- Return value between 0 and 200
+function CalculateThreat(ai, tagA, countryA, tagB, countryB)
+	local threat = countryA:GetRelation(tagB):GetThreat():Get()
+	threat = threat * CalculateAlignmentFactor(ai, countryA, countryB)
+	threat = threat * math.min(math.max(countryB:GetTotalIC() / countryA:GetTotalIC(), 0.5), 1.5)
+	return threat
+end
+
+function GetHighestCalculatedThreat(ai, tag, country)
+	local threateningCountryTag = country:GetHighestThreat()
+	local highestThreat = CalculateThreat(ai, tag, country, threateningCountryTag, threateningCountryTag:GetCountry())
+	for neighbour in country:GetNeighbours() do
+		local neighboursThreat = CalculateThreat(ai, tag, country, neighbour, neighbour:GetCountry())
+
+		if neighboursThreat > highestThreat then
+			highestThreat = neighboursThreat
+			threateningCountryTag = neighbour
+		end
+	end
+	return highestThreat, threateningCountryTag
 end
 
 -- Workaround function. As of 1.2 there's no way to check if a country
@@ -189,7 +228,7 @@ function CalculateFactionSympathy(ai, country, faction)
 		end
 	end
 
-	local closeness = math.max((2000 - dist) / 2000, 0) -- closeness
+	local closeness = math.max((1000 - dist) / 1000, 0) -- closeness
 	local progress = faction:GetNormalizedProgress():Get()
 	local sympathy = CalculateSympathy(countryTag, leader)
 
@@ -197,7 +236,7 @@ function CalculateFactionSympathy(ai, country, faction)
 		sympathyMembers = sympathyMembers / (faction:GetNumberOfMembers() - 1)
 	end
 
-	return 0.5 * closeness + 0.5 * (0.25 * progress + 0.5 * sympathy + 0.25 * sympathyMembers)
+	return closeness + (1 - closeness) * (0.25 * progress + 0.5 * sympathy + 0.25 * sympathyMembers)
 end
 
 function DiploScore_InfluenceNation(ai, actor, recipient, observer)
@@ -211,11 +250,17 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 		local leaderCountry = leader:GetCountry()
 
 		local dist = ai:GetNormalizedAlignmentDistance(recipientCountry, actorFaction):Get()
-		local effectiveNeutrality = recipientCountry:GetNeutrality():Get() - recipientCountry:GetRelation(recipientCountry:GetHighestThreat()):GetThreat():Get()
+		local highestThreat, threateningCountryTag = GetHighestCalculatedThreat(ai, recipient, recipientCountry)
+		local effectiveNeutrality = math.max(recipientCountry:GetNeutrality():Get() - highestThreat, 0)
 		local neutrality = 1 - effectiveNeutrality / 100
 
-		-- Close to joining our faction
-		if dist > 40 and dist < 1000 then
+		--if tostring(actor) == 'GER' and tostring(recipient) == 'JAP' then
+		--	Utils.LUA_DEBUGOUT("DIST: " .. tostring(dist) .. " NEUT: " .. tostring(neutrality))
+		--end
+
+		-- Close to joining our faction and neutrality low enough
+		if dist > 30 and dist < 1000 and neutrality > 0.125  then
+			--Utils.LUA_DEBUGOUT("----------------------------------------------------------")
 			--Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
 
 			local strategic = StrategicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
@@ -241,7 +286,7 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 				if faction:IsValid() and not (faction == actorFaction) then
 					dist = ai:GetNormalizedAlignmentDistance(recipientCountry, faction):Get()
 
-					if dist > 1 and dist < 501 then
+					if dist > 1 and dist < 401 then
 						-- Check if its futile to try and move them
 						local al = recipient:GetCountry():GetAlignment()
 						local towardsActorDrift = al:GetLastDrift( actorFaction:GetIdeologyGroup() ):Get()
@@ -249,16 +294,17 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 						local driftDiff = factionDrift - towardsActorDrift
 
 						local affectable = recipientCountry:GetRelation(actor):IsBeingInfluenced()
-						if driftDiff > 0 and driftDiff < 5 then
+						if driftDiff > -1 and driftDiff < 5 then
 							affectable = true
 						end
 
 						if affectable then -- Affectable or influenced by us then
-							local closeness = (501 - dist) / 250
+							local closeness = (401 - dist) / 200
 
 							leader = faction:GetFactionLeader()
 							leaderCountry = leader:GetCountry()
 
+							--Utils.LUA_DEBUGOUT("----------------------------------------------------------")
 							--Utils.LUA_DEBUGOUT(tostring(actor) .. " counter influencing " .. tostring(recipient))
 
 							-- See how important they are to their leader
@@ -329,37 +375,59 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 	else -- do we, recipient want to accept invite to faction
 		local score = CalculateFactionSympathy(ai, recipientCountry, actorFaction)
 
-		-- See if joining them would be helpful or suicide
-		local recipientContinent = recipientCountry:GetCapitalLocation():GetContinent()
+		--Utils.LUA_DEBUGOUT("----------------------------------------------------------")
+		--Utils.LUA_DEBUGOUT("Probability of " .. tostring(recipient) .. " joining " .. tostring(leader))
+		--Utils.LUA_DEBUGOUT("\t" .. "Base score:\t\t\t\t" .. tostring(score * 100))
 
+		-- See if joining them would be helpful or suicide
+		local recipientIC = recipientCountry:GetMaxIC()
+		local enemyIC = 0
+		local hostileIC = 0
+		local friendlyIC = recipientIC
 		for neighbour in recipientCountry:GetNeighbours() do
 			local neighbourCountry = neighbour:GetCountry()
-			if 	neighbourCountry:GetCapitalLocation():GetContinent() == recipientContinent then
-				local hostileIC = 0
-				local friendlyIC = 0
+			if 	IsNeighbourOnSameContinent(recipient, recipientCountry, neighbour, neighbourCountry) then
 
-				-- Neighbour is hostile to faction or in different faction and so maybe in future a threat
-				if	neighbourCountry:IsEnemy(leader) or
-					(
-						neighbourCountry:GetFaction():IsValid() and
-						neighbourCountry:GetFaction() ~= actorFaction
-					)
-				then
-					hostileIC = hostileIC + neighbourCountry:GetMaxIC()
-				-- Neighbour is in same faction and could be of help
-				elseif	neighbourCountry:GetFaction():IsValid() and
-						neighbourCountry:GetFaction() == actorFaction
-				then
-					friendlyIC = friendlyIC + neighbourCountry:GetMaxIC()
-				end
+				-- Only factor neighbours we're at peace with
+				if not recipientCountry:IsEnemy(neighbour) then
 
-				if hostileIC > 0 then
-					score = score * (friendlyIC / hostileIC)
+					-- Neighbour is hostile to faction
+					if neighbourCountry:IsEnemy(leader) then
+						enemyIC = enemyIC + neighbourCountry:GetMaxIC()
+						--Utils.LUA_DEBUGOUT(tostring(leader) .. " is enemy to " .. tostring(neighbour))
+
+					-- Neighbour is in different faction and so maybe in future a threat
+					elseif	neighbourCountry:GetFaction():IsValid() and
+							neighbourCountry:GetFaction() ~= actorFaction
+					then
+						hostileIC = hostileIC + neighbourCountry:GetMaxIC()
+
+					-- Neighbour is in same faction and could be of help
+					elseif	neighbourCountry:GetFaction():IsValid() and
+							neighbourCountry:GetFaction() == actorFaction
+					then
+						friendlyIC = friendlyIC + neighbourCountry:GetMaxIC()
+					end
 				end
 			end
 		end
+		if enemyIC > 0 then
+			score = score * math.min(recipientIC / enemyIC, 1)
+			--Utils.LUA_DEBUGOUT("\t" .. "recipientIC / enemyIC:\t" .. tostring(math.min(recipientIC / enemyIC, 1)))
+		elseif hostileIC > 0 then
+			score = score * math.min(friendlyIC / hostileIC, 1)
+			--Utils.LUA_DEBUGOUT("\t" .. "friendlyIC / hostileIC:\t" .. tostring(math.min(friendlyIC / hostileIC, 1)))
+		end
 
-		score = score * 100
+		local highestThreat, threateningCountryTag = GetHighestCalculatedThreat(ai, recipient, recipientCountry)
+		--Utils.LUA_DEBUGOUT("\t" .. "Highest threat:\t\t\t" .. tostring(highestThreat))
+		--Utils.LUA_DEBUGOUT("\t" .. "caused by:\t\t\t\t" .. tostring(threateningCountryTag))
+		local effectiveNeutrality = math.max(recipientCountry:GetNeutrality():Get() - highestThreat, 0)
+		--Utils.LUA_DEBUGOUT("\t" .. "Neutrality:\t\t\t\t" .. tostring(recipientCountry:GetNeutrality():Get()))
+		--Utils.LUA_DEBUGOUT("\t" .. "Effective neutrality:\t" .. tostring(effectiveNeutrality))
+		score = 100 * score * (1 - effectiveNeutrality / 100)
+
+		--Utils.LUA_DEBUGOUT("Final score: " .. tostring(score))
 
 		if ai_configuration.USE_CUSTOM_TRIGGERS > 0 then
 			return Utils.CallScoredCustomAI('CustomFactionAcceptRules', score, ai, actor, recipient, observer)
@@ -541,13 +609,17 @@ function DiploScore_Alliance(ai, actor, recipient, observer, action)
        	local recipientCountry = recipient:GetCountry()
 		local actorCountry = actor:GetCountry()
 
-		 -- As a faction leader we dont want alliances, we want faction members
+		-- As a faction leader we dont want alliances, we want faction members
 		if recipientCountry:IsFactionLeader() then
 			return 0
 		end
 
 		-- If we are in a faction don't make alliances
 		if recipientCountry:HasFaction() then
+			return 0
+		end
+
+		if not IsNeighbourOnSameContinent(actor, actorCountry, recipient, recipientCountry) then
 			return 0
 		end
 
