@@ -96,14 +96,16 @@ function HandleLaws(minister)
 			local newLaw = nil
 
 			if tostring(group:GetKey()) == 'industrial_policy_laws' then
-				if not ministerCountry:IsAtWar() then
+				if ministerCountry:IsAtWar() then
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('heavy_industry_emphasis'))
+				else
 					-- bugged law -> mixed industry makes CG need explode...not worth it
 					-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
-					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('heavy_industry_emphasis'))
-					if not newLaw:ValidFor( ministerTag ) then
-						-- Aim for consumer_product_orientation
-						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
-					end
+					--if not newLaw:ValidFor( ministerTag ) then
+						--newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+					--end
+					-- Aim for consumer_product_orientation
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
 				end
 			elseif tostring(group:GetKey()) == 'education_investment_law' then
 				-- Don't change anything as long as there's dissent
