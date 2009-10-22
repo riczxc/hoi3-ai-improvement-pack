@@ -197,23 +197,33 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 			local mission = SpyMission.SPYMISSION_NONE
 
 			if IsValidCountry(country) and not (ministerCountry:GetFaction():IsValid() and ministerCountry:GetFaction() == country:GetFaction()) then
-				if ministerCountry:IsMajor() and country:IsMajor() then
+				if ministerCountry:IsAtWar() or strategy:IsPreparingWar() then
+					-- At war. Only concentrate on countries we're preparing war with.
+					if strategy:IsPreparingWarWith(tag) then
+						nPrio = 3
+					elseif ministerCountry:GetRelation(tag):HasWar() then
+						if (ministerCountry:IsMajor() and country:IsMajor()) or ministerCountry:IsNeighbour(tag) then
+							nPrio = 2
+						else
+							nPrio = 1
+						end
+					end
+				else
+					-- At peace.
+					if ministerCountry:IsMajor() and country:IsMajor() then
 					nPrio = nPrio + 1
-				end
+					end
 
-				if ministerCountry:IsNeighbour(tag) then
-					nPrio = nPrio + 1
-					if country:IsMajor() then
+					if ministerCountry:IsNeighbour(tag) then
+						nPrio = nPrio + 1
+						if country:IsMajor() then
+							nPrio = nPrio + 1
+						end
+					end
+
+					if ministerCountry:GetFaction():IsValid() and country:GetFaction():IsValid() and ministerCountry:GetFaction() ~= country:GetFaction() then
 						nPrio = nPrio + 1
 					end
-				end
-
-				if ministerCountry:GetFaction():IsValid() and country:GetFaction():IsValid() and ministerCountry:GetFaction() ~= country:GetFaction() then
-					nPrio = nPrio + 1
-				end
-
-				if ministerCountry:GetRelation(tag):HasWar() or strategy:IsPreparingWarWith(tag) then
-					nPrio = nPrio + 2
 				end
 
 				nPrio = math.min( nPrio, CSpyPresence.MAX_SPY_PRIORITY )
