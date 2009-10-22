@@ -39,10 +39,10 @@ function PoliticsMinister_Tick(minister)
 end
 
 function HandleMobilization( minister )
+	local ministerTag = minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
 	-- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
 	if not ministerCountry:IsMobilized() then
-		local ministerTag = minister:GetCountryTag()
 		local ai = minister:GetOwnerAI()
 		if ministerCountry:GetStrategy():IsPreparingWar() then
 			local neutrality = ministerCountry:GetNeutrality() * 0.9
@@ -62,19 +62,14 @@ function HandleMobilization( minister )
 
 			if countrySpecific == nil then
 				-- check if a neighbor is starting to look threatening
-				local ourTotalIC = ministerCountry:GetTotalIC()
-				local neutrality = ministerCountry:GetNeutrality():Get() * 0.9
+				local neutrality = ministerCountry:GetNeutrality():Get()
 				for neighbor in ministerCountry:GetNeighbours() do
 					local neighborCountry = neighbor:GetCountry()
-					local theirTotalIC = neighborCountry:GetTotalIC()
 
-					local threat = ministerCountry:GetRelation(neighbor):GetThreat():Get()
-					threat = threat * CalculateAlignmentFactor(ai, ministerCountry, neighborCountry)
-					threat = threat * math.min(math.max(theirTotalIC / ourTotalIC, 0.5), 1.5)
+					local threat = CalculateThreat(ai, ministerTag, ministerCountry, neighbour, neighborCountry)
+					local effectiveNeutrality = neutrality - threat
 
-					neutrality = neutrality - threat
-
-					if neutrality < 20 then
+					if effectiveNeutrality < 20 then
 						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbor) )
 						local command = CToggleMobilizationCommand(ministerTag, true)
 						ai:Post(command)
