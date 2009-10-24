@@ -49,7 +49,7 @@ function ProductionMinister_Tick(minister)
 			local nothingBuiltByTacticalAI = true
 			if not requestQueue:IsEmpty() then
 				----------------------------------- Random for Tail or Head Data
-				local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 2)+1
+				local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 4)+1
 				local unit = 1
 				if ranNumber == 1 then
 					unit = requestQueue:GetTailData().pUnit
