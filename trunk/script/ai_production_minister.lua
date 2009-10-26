@@ -445,7 +445,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- Distribute IC --
 
 	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
-	ConsumerNeed = ConsumerNeed + MaxIC * math.min(math.max(dissent/10, 1-MoneyStockFactor), 0.9)
+	ConsumerNeed = ConsumerNeed + math.max(0, MaxIC-ConsumerNeed) * math.min(math.max(dissent/10, 1-MoneyStockFactor), 0.9)
 
 	-- not more than availIC
 	ConsumerNeed = math.min(availIC, ConsumerNeed)
