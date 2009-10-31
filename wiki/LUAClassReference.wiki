@@ -484,6 +484,7 @@ implements [#CAIAgent CAIAgent]
 ==CAITechMinister==
 implements [#CAIAgent CAIAgent]
 ||[#CArrayFix CArrayFix]||GetFolderModifers()||
+||[#CArrayFix CArrayFix]||GetTechModifers()||
 ||bool ||CanResearch([#CTechnology CTechnology] tech)||
 
 ==CAIEspionageMinister==
