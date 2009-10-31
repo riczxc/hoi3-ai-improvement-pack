@@ -434,6 +434,7 @@ Shoul be number 5.
 ||bool ||CanDeclareWar([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 ||???||GetAmountTradedFrom||
 ||bool ||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||
+||bool ||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
 
 ==CAIStrategy==
 ||???||_AI_MILITARIST_||
