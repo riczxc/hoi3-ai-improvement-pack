@@ -83,14 +83,13 @@ function TechMinister_Tick(minister)
 	local i = ministerCountry:GetAllowedResearchSlots() - ministerCountry:GetNumberOfCurrentResearch()
 
 	if i > 0 then
-
 		local techList = ProposeResearch(minister)
-		i = math.min(i, table.getn(techList) )
+		local ai = minister:GetOwnerAI()
 
-		for j = 0, i do
-			local command = CStartResearchCommand(minister:GetCountryTag(), techList[ j+1 ][2])
-			minister:GetOwnerAI():Post(command)
-
+		i = math.min(i, table.getn(techList))
+		for j = 1, i do
+			local command = CStartResearchCommand(minister:GetCountryTag(), techList[j][2])
+			ai:Post(command)
 		end
 	end
 	--Utils.LUA_DEBUGOUT("TechMinister_TickEnd")
@@ -223,7 +222,7 @@ function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, l
 	elseif nomTech == 'advanced_construction_engineering' then
 		score = score * (1 + (1 - GetAverageInfrastructure(ministerCountry)))
 	-- Air Doctrines are less important in peace time
-	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and minister:GetCountry():IsAtWar() == false then
+	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and ministerCountry:IsAtWar() == false then
 		--Utils.LUA_DEBUGOUT( "air doctrine in peace time" )
 		score = score*0.75
 	elseif nomTech == 'agriculture' then
