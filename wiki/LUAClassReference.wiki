@@ -110,7 +110,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetSupplyBalanceAverage()||
 ||bool||IsSubject||
 ||bool||isPuppet()||
-||bool ||IsNeighbourToFactionHostile([#CFaction CFaction] faction)||
+||bool||IsNeighbourToFactionHostile([#CFaction CFaction] faction)||
+||bool||HasNeighborInFaction([#CFaction CFaction] faction)||
 ||[#CFixedPoint CFixedPoint]||GetBuildCostIC(??? pUnit, int ???, bool buildReserve)||
 ||[#CFixedPoint CFixedPoint]||CalcDesperation()||
 
