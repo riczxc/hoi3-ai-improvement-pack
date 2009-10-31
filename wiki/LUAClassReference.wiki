@@ -434,10 +434,11 @@ Shoul be number 5.
 ||void||PrintConsole(string message)||
 ||void||Post(??? command)||
 ||???||PostAction||
-||bool ||CanDeclareWar([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
+||bool||CanDeclareWar([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 ||???||GetAmountTradedFrom||
-||bool ||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||
-||bool ||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
+||bool||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||
+||bool||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
+||bool||CanTradeFreeResources([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 
 ==CAIStrategy==
 ||???||_AI_MILITARIST_||
