@@ -45,11 +45,11 @@ function HandleMobilization( minister )
 	if not ministerCountry:IsMobilized() then
 		local ai = minister:GetOwnerAI()
 		if ministerCountry:GetStrategy():IsPreparingWar() then
-			local neutrality = ministerCountry:GetNeutrality() * 0.9
+			local neutrality = ministerCountry:GetNeutrality():Get() * 0.9
 			for country in CCurrentGameState.GetCountries() do
 				local countryTag = country:GetCountryTag()
 				if IsValidCountry(country) and countryTag ~= ministerTag then
-					if ministerCountry:GetStrategy():IsPreparingWarWith(countryTag) and neutrality < ministerCountry:GetMaxNeutralityForWarWith(countryTag) then
+					if ministerCountry:GetStrategy():IsPreparingWarWith(countryTag) and neutrality < ministerCountry:GetMaxNeutralityForWarWith(countryTag):Get() then
 						--Utils.LUA_DEBUGOUT( "MOBILIZE BECAUSE OF PREP FOR WAR " .. tostring(ministerTag) )
 						local command = CToggleMobilizationCommand( ministerTag, true )
 						ai:Post( command )
@@ -61,16 +61,16 @@ function HandleMobilization( minister )
 			local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleMobilization' )
 
 			if countrySpecific == nil then
-				-- check if a neighbor is starting to look threatening
+				-- check if a neighbour is starting to look threatening
 				local neutrality = ministerCountry:GetNeutrality():Get()
-				for neighbor in ministerCountry:GetNeighbours() do
-					local neighborCountry = neighbor:GetCountry()
+				for neighbour in ministerCountry:GetNeighbours() do
+					local neighbourCountry = neighbour:GetCountry()
 
-					local threat = CalculateThreat(ai, ministerTag, ministerCountry, neighbour, neighborCountry)
+					local threat = CalculateThreat(ai, ministerTag, ministerCountry, neighbour, neighbourCountry)
 					local effectiveNeutrality = neutrality - threat
 
 					if effectiveNeutrality < 20 then
-						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbor) )
+						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbour) )
 						local command = CToggleMobilizationCommand(ministerTag, true)
 						ai:Post(command)
 					end
