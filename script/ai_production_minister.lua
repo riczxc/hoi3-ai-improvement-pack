@@ -615,7 +615,7 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
 
 	if ministerCountry:GetNumOfPorts() > 0 then
 		local freeTransports = minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports()
-		local neededTransports = math.min(ministerCountry:GetTotalIC(), 50)
+		local neededTransports = math.min(ministerCountry:GetTotalIC(), 20)
 
 		neededTransports = math.ceil((neededTransports - freeTransports) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 
@@ -632,7 +632,7 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
 		-- if at war, we could use protection
 		if ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() then
 			local freeEscorts = minister:CountEscortsUnderConstruction() + ministerCountry:GetEscorts()
-			local neededEscorts = math.min(ministerCountry:GetTotalIC(), 30)
+			local neededEscorts = math.min(ministerCountry:GetTotalIC(), 10)
 
 			neededEscorts = math.ceil((neededEscorts - freeEscorts) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 
