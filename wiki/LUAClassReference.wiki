@@ -115,6 +115,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||bool||HasNeighborInFaction([#CFaction CFaction] faction)||
 ||[#CFixedPoint CFixedPoint]||GetBuildCostIC(??? pUnit, int ???, bool buildReserve)||
 ||[#CFixedPoint CFixedPoint]||CalcDesperation()||
+||???||CalculateReinforcementMultiplier||
 
 ==CProvince==
 ||int ||GetProvinceID()||
@@ -439,6 +440,7 @@ Shoul be number 5.
 ||bool||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||
 ||bool||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
 ||bool||CanTradeFreeResources([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
+||bool||???IsInfluencing([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 
 ==CAIStrategy==
 ||???||_AI_MILITARIST_||
@@ -494,6 +496,7 @@ implements [#CAIAgent CAIAgent]
 
 ==CAIEspionageMinister==
 implements [#CAIAgent CAIAgent]
+||bool||IsAligningToFaction(???)||
 
 ==CAIProductionMinister==
 implements [#CAIAgent CAIAgent]
