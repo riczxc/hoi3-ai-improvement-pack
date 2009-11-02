@@ -8,7 +8,7 @@ function LoadProductionRatio(minister, ministerCountry)
 	if gProdRatio[ministerTag] and gProdRatio[ministerTag]['mechanized']  == true then
 		return gProdRatio[ministerTag]
 	end
-	
+
 	local infantry = CSubUnitDataBase.GetSubUnit("infantry_brigade")
 	local mountain = CSubUnitDataBase.GetSubUnit("bergsjaeger_brigade")
 	local marine = CSubUnitDataBase.GetSubUnit("marine_brigade")
@@ -68,7 +68,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['GER']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry }
 												}
-				gProdRatio['GER']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['GER']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 50, mountain, mountain, mountain };
 													{ 50, mountain, mountain, artillery }
 												}
@@ -143,7 +143,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['SOV']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry, cavalry }
 												}
-				gProdRatio['SOV']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['SOV']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 50, mountain, mountain, mountain };
 													{ 50, mountain, mountain, artillery }
 												}
@@ -218,7 +218,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['USA']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry }
 												}
-				gProdRatio['USA']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['USA']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 50, mountain, mountain, mountain };
 													{ 40, mountain, mountain, artillery };
 													{ 10, mountain, mountain, engineer }
@@ -293,7 +293,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['ENG']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry }
 												}
-				gProdRatio['ENG']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['ENG']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 50, mountain, mountain, mountain };
 													{ 30, mountain, mountain, artillery };
 													{ 10, mountain, mountain, anti_air };
@@ -366,7 +366,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['FRA']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry }
 												}
-				gProdRatio['FRA']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['FRA']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 60, mountain, mountain, mountain };
 													{ 40, mountain, mountain, artillery }
 												}
@@ -434,7 +434,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['ITA']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry }
 												}
-				gProdRatio['ITA']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['ITA']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 50, mountain, mountain, mountain };
 													{ 50, mountain, mountain, artillery }
 												}
@@ -504,7 +504,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['JAP']['cavalry_brigade'] = {		-- Cavalry
 													{ 100, cavalry, cavalry, cavalry }
 												}
-				gProdRatio['JAP']['mountain_brigade'] = {		-- Mountain
+				gProdRatio['JAP']['bergsjaeger_brigade'] = {		-- Mountain
 													{ 50, mountain, mountain, mountain };
 													{ 50, mountain, mountain, artillery }
 												}
@@ -562,7 +562,7 @@ function LoadProductionRatio(minister, ministerCountry)
 			gProdRatio[ministerTag]['cavalry_brigade'] = {		-- Cavalry
 												{ 100, cavalry, cavalry, cavalry }
 											}
-			gProdRatio[ministerTag]['mountain_brigade'] = {		-- Mountain
+			gProdRatio[ministerTag]['bergsjaeger_brigade'] = {		-- Mountain
 												{ 60, mountain, mountain, mountain };
 												{ 40, mountain, mountain, artillery }
 											}
