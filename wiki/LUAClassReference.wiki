@@ -117,6 +117,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CFixedPoint CFixedPoint]||GetBuildCostIC(??? pUnit, int ???, bool buildReserve)||
 ||[#CFixedPoint CFixedPoint]||CalcDesperation()||
 ||???||CalculateReinforcementMultiplier||
+||bool||HasExtraManpowerLeft()||
 
 ==CProvince==
 ||int ||GetProvinceID()||
