@@ -235,8 +235,9 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||bool ||IsEmpty()||
 ||CSubUnitConstructionEntry||GetHeadData()||
 ||CSubUnitConstructionEntry||GetTailData()||
-||void ||RemoveHead()||
-||void ||RemoveTail()||
+||void||RemoveHead()||
+||void||RemoveTail()||
+||void||Remove([#CSubUnitConstructionEntry CSubUnitConstructionEntry] request)||
 
 ==CSubUnitConstructionEntry==
 ||int||nPrio||
