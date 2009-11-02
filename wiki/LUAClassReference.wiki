@@ -504,6 +504,8 @@ implements [#CAIAgent CAIAgent]
 ||int ||CountTransportsUnderConstruction()||
 ||int ||CountEscortsUnderConstruction()||
 ||int ||CountTotalDesiredEscorts()||
+||void||PrioritizeBuildQueue()||
+||float or int||GetDesperation ()||
 
 ==CAIForeignMinister==
 implements [#CAIAgent CAIAgent]
