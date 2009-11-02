@@ -420,6 +420,9 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- CONSUMER
 	local ConsumerNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() --/ TotalIC
 
+	-- MONEY
+	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/ministerCountry:GetTotalIC()
+
 	-- SUPPLY
 	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(45000, MinStock(ministerCountry, CGoodsPool._SUPPLIES_ ))
 	-- 100% supply prod. at 0 stock, 50% at 1/2 goal stock and 0% at goal stock
@@ -442,7 +445,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	-- Distribute IC --
 
 	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
-	ConsumerNeed = ConsumerNeed + math.max(0, MaxIC-ConsumerNeed) * math.min(dissent/10, 0.9)
+	ConsumerNeed = ConsumerNeed + math.max(0, MaxIC-ConsumerNeed) * math.min(math.max(dissent/10, 1-MoneyStockFactor), 0.9)
 
 	-- not more than availIC
 	ConsumerNeed = math.min(availIC, ConsumerNeed)
@@ -615,7 +618,7 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
 
 	if ministerCountry:GetNumOfPorts() > 0 then
 		local freeTransports = minister:CountTransportsUnderConstruction() + ministerCountry:GetTransports()
-		local neededTransports = math.min(ministerCountry:GetTotalIC(), 20)
+		local neededTransports = math.min(ministerCountry:GetTotalIC(), 50)
 
 		neededTransports = math.ceil((neededTransports - freeTransports) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 
@@ -632,7 +635,7 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC )
 		-- if at war, we could use protection
 		if ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() then
 			local freeEscorts = minister:CountEscortsUnderConstruction() + ministerCountry:GetEscorts()
-			local neededEscorts = math.min(ministerCountry:GetTotalIC(), 10)
+			local neededEscorts = math.min(ministerCountry:GetTotalIC(), 30)
 
 			neededEscorts = math.ceil((neededEscorts - freeEscorts) / defines.economy.CONVOY_CONSTRUCTION_SIZE)
 

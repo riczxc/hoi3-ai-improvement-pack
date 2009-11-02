@@ -78,18 +78,19 @@ end
 function TechMinister_Tick(minister)
 	--Utils.LUA_DEBUGOUT("TechMinister_Tick")
 	local ministerCountry = minister:GetCountry()
-	BalanceLeadershipSliders(minister:GetOwnerAI(), ministerCountry)
+	BalanceLeadershipSliders( minister:GetOwnerAI(), ministerCountry )
 
 	local i = ministerCountry:GetAllowedResearchSlots() - ministerCountry:GetNumberOfCurrentResearch()
 
 	if i > 0 then
-		local techList = ProposeResearch(minister)
-		local ai = minister:GetOwnerAI()
 
-		i = math.min(i, table.getn(techList))
-		for j = 1, i do
-			local command = CStartResearchCommand(minister:GetCountryTag(), techList[j][2])
-			ai:Post(command)
+		local techList = ProposeResearch(minister)
+		i = math.min(i, table.getn(techList) )
+
+		for j = 0, i do
+			local command = CStartResearchCommand( minister:GetCountryTag(), techList[ j+1 ][2] )
+			minister:GetOwnerAI():Post( command )
+
 		end
 	end
 	--Utils.LUA_DEBUGOUT("TechMinister_TickEnd")
@@ -101,6 +102,8 @@ function EvaluateCurrentResearch(minister)
 end
 
 function ProposeResearch(minister)
+	local useCustomResearch = 1
+
 	local sortedTechs = {}
 	local ministerCountry = minister:GetCountry()
 	local ministerTag = minister:GetCountryTag()
@@ -111,8 +114,9 @@ function ProposeResearch(minister)
 
 	--Utils.LUA_DEBUGOUT( tostring(ministerTag) )
 	-- Construct lists of favourite tech for the country
-	listmaj, listimp, listnorm = ConstructPriorityList(minister)
-
+	if useCustomResearch > 0 then
+		listmaj, listimp, listnorm = ConstructPriorityList(minister)
+	end
 	-------------------------------DEBUG------------------------------------
 	--Utils.LUA_DEBUGOUT( "--------------LISTE TECH: 1--------------------" )
 --	local j = 1
@@ -137,12 +141,19 @@ function ProposeResearch(minister)
 	local score = 0
 
 	for tech in CTechnologyDataBase.GetTechnologies() do
-		if minister:CanResearch(tech) and tech:IsValid() then
-			score = CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, listnorm)
-			table.insert(sortedTechs, {score, tech})
+		if  minister:CanResearch( tech ) and tech:IsValid() then
+			if useCustomResearch > 0 then
+				--Utils.LUA_DEBUGOUT( "Using AIRI" )
+				score = CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnorm )
+			else
+				--Utils.LUA_DEBUGOUT( "Not using AIRI" )
+				score = CalculateTechScore( minister, ministerCountry, tech )
+				score = score + math.mod( CCurrentGameState.GetAIRand(), 2) -- lets add a small random factor for variety
+			end
+			table.insert( sortedTechs, {score, tech} )
 		end
 	end
-	table.sort(sortedTechs, function(x, y) return x[1] > y[1] end) -- highest score first
+	table.sort( sortedTechs, function(x, y) return x[1] > y[1] end ) -- highest score first
 
 --	Utils.LUA_DEBUGOUT(tostring(ministerTag) .. ".sortedTechs = {")
 --	for _, debugtech in ipairs(sortedTechs) do
@@ -158,7 +169,85 @@ function ProposeResearch(minister)
 	return sortedTechs
 end
 
-function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, listnorm)
+function CalculateTechScore( minister, ministerCountry, tech )
+	local techStatus = ministerCountry:GetTechnologyStatus()
+	local score = 0
+
+	--Utils.LUA_DEBUGOUT( "CalculateTechScore for " .. tostring(tech:GetKey()) .. "xxxx" )
+
+	-- factor in how good we are at research
+	local researchCount = 0
+	local researchFactor = 0
+	for bonus in tech:GetResearchBonus() do
+		local ability = ministerCountry:GetAbility( bonus._pCategory )
+		researchFactor = researchFactor + ability * bonus._vWeight:Get()
+		researchCount = researchCount + 1
+	end
+	if researchCount > 0 then
+		score = researchFactor / researchCount
+	else
+		score = researchFactor / 10.0
+	end
+
+	if score <= 0.001 then
+		score = 1.0
+	end
+
+	local techLvl = techStatus:GetLevel(tech)
+	local techCost = techStatus:GetCost( tech, techLvl + 1 ):Get() --  / 4.0
+
+	-- extra year penalty
+	local nYear = techStatus:GetYear(tech, techLvl + 1 );
+	nYear = nYear - CCurrentGameState.GetCurrentDate():GetYear();
+	if nYear > 2 then
+		return -1000 -- never research so far ahead
+	elseif nYear > 0 then
+		techCost = techCost * (1 + 0.1 * nYear)
+	end
+
+	local score = -techCost	/ score
+
+	-- note, score is negative here
+	if tech:IsOneLevelOnly() then
+		score = score * 0.75
+	elseif tech:GetEnableUnit() then
+		score = score * 0.75
+	end
+
+	local techFolder = tech:GetFolder()
+	local techFolderName = tech:GetFolder():GetKey()
+	local folderModifiers = minister:GetFolderModifers()
+
+	if techFolder == "land_doctrine_folder" then
+		local landModifier = folderModifiers:GetAt( CTechnologyDataBase.GetFolderIndex("infantry_folder") )
+		landModifier = math.max(landModifier, folderModifiers:GetAt( CTechnologyDataBase.GetFolderIndex("armour_folder") ))
+		score = score * 0.75 * (1.0 - landModifier)
+	elseif techFolder == "naval_doctrine_folder" then
+		local navalModifier = folderModifiers:GetAt( CTechnologyDataBase.GetFolderIndex("capitalship_folder") )
+		navalModifier = math.max(navalModifier, folderModifiers:GetAt( CTechnologyDataBase.GetFolderIndex("smallship_folder") ))
+		score = score * 0.75 * (1.0 - navalModifier)
+		if ministerCountry:GetNumOfPorts() > 2 then
+			score = score * 0.75
+		end
+	elseif techFolder == "air_doctrine_folder" then
+		local airModifier = folderModifiers:GetAt( CTechnologyDataBase.GetFolderIndex("fighter_folder") )
+		airModifier = math.max(airModifier, folderModifiers:GetAt( CTechnologyDataBase.GetFolderIndex("bomber_folder") ))
+		score = score * 0.75 * (1.0 - airModifier)
+		if ministerCountry:GetNumOfAirfields() > 2 then
+			score = score * 0.75
+		end
+	end
+
+	--if tostring(tech:GetKey()) == "militia_guns" then
+	--	Utils.LUA_DEBUGOUT( "militia_guns " .. tostring(tech:GetKey()) .. " - " .. folderModifiers:GetAt( techFolder:GetIndex() ))
+	--end
+
+	score = score * (1.0 - folderModifiers:GetAt( techFolder:GetIndex() ))
+	return Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), 'CalculateTechScore', score, ministerCountry, tech )
+end
+
+
+function CalculScore( minister, ministerCountry, tech, listmaj, listimp, listnorm )
 	local nomTech = tostring(tech:GetKey())
 	local techStatus = ministerCountry:GetTechnologyStatus()
 
@@ -222,7 +311,7 @@ function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, l
 	elseif nomTech == 'advanced_construction_engineering' then
 		score = score * (1 + (1 - GetAverageInfrastructure(ministerCountry)))
 	-- Air Doctrines are less important in peace time
-	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and ministerCountry:IsAtWar() == false then
+	elseif tostring(tech:GetFolder():GetKey()) == "air_doctrine_folder" and minister:GetCountry():IsAtWar() == false then
 		--Utils.LUA_DEBUGOUT( "air doctrine in peace time" )
 		score = score*0.75
 	elseif nomTech == 'agriculture' then
@@ -236,23 +325,23 @@ function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, l
 	--------------------------------------------------------------
 	-- Give Penalty or Bonus for years concern
 	local techLvl = techStatus:GetLevel(tech)
-	local nYear = techStatus:GetYear(tech, techLvl + 1) - CCurrentGameState.GetCurrentDate():GetYear()
+	local nYear = techStatus:GetYear(tech, techLvl + 1 ) - CCurrentGameState.GetCurrentDate():GetYear()
 	if nYear > 2 then
-		score = score / majorTechScore -- very expensive, only do it if really nothing else is there to do
+		score = score/majorTechScore -- very expensive, only do it if really nothing else is there to do
 	else
-		score = score - nYear * score * 0.1 -- add 10% for every year the tech is in the past, sub 10% for every year in the future
+		score = score - nYear*score*0.1 -- add 10% for every year the tech is in the past, sub 10% for every year in the future
 	end
 	--Utils.LUA_DEBUGOUT( 'SCORE après années: ' .. score )
 	--------------------------------------------------------------
 	-- If tech enable a new unit or if it's a one lvl tech, give a small bonus to score
 	if tech:IsOneLevelOnly() or tech:GetEnableUnit() then
-		score = score * 1.1
+		score = score*1.1
 	end
 	--------------------------------------------------------------
 	-- Small random factor (+/-10)
-	score = score * (0.9 + math.mod(CCurrentGameState.GetAIRand(), 21) /  10)
+	score = score*(0.9 + math.mod( CCurrentGameState.GetAIRand(), 21)/10)
 	--------------------------------------------------------------
 
 	--Utils.LUA_DEBUGOUT( 'SCORE après hasard: ' .. score )
-	return math.max(0, Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), "CalculateTechScore", score, ministerCountry, tech, listmaj, listimp, listnorm))
+	return math.max(0, Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), "CalculScore", score, ministerCountry, tech, listmaj, listimp, listnorm))
 end
