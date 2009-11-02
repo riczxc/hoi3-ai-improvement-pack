@@ -38,120 +38,105 @@ function ProductionMinister_Tick(minister)
 	local provinceIndex = {}
 	local nothingBuiltCounter = 0
 
+		local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
+	local requestCount = 0
+	local requestTable = {}
+	local requestQueue = ai:GetReqProdQueue()
+	while not requestQueue:IsEmpty() do
+		local unit = requestQueue:GetHeadData().pUnit
+
+		local unitName = tostring(unit:GetKey())
+
+		local bBuildReserve = bShouldBuildReserve
+		if not unit:IsRegiment() then
+			bBuildReserve = false
+		end
+
+		local cost = ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
+
+		-- Only build stuff we can afford
+		local unitAllowed = false
+		if cost < maxBuildCost then
+			if unit:IsRegiment() then
+				if ministerCountry:GetManpower():Get() > ministerCountry:GetMaxIC() / 2 then
+					unitAllowed = true
+				end
+			else
+				unitAllowed = true
+			end
+		end
+
+		if unitAllowed then
+			if not requestTable[unitName] then
+				requestTable[unitName] = 1
+			else
+				requestTable[unitName] = requestTable[unitName] + 1
+			end
+
+			requestCount = requestCount + 1
+		end
+
+		requestQueue:RemoveHead()
+	end
+
+	if requestCount == 0 then
+		-- Only build province improvements
+		ratioProvince = 100
+	end
+
 	while (availIC > 0) and (nothingBuiltCounter < 10) do
 		local availICInThisIteration = availIC
 
+		if ratioProvince == 0 and requestCount == 0 then
+			break
+		end
+
 		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
+			local unit = nil
 
-			-- ai list of requests, in prio order
-			local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
-			local requestQueue = ai:GetReqProdQueue()
-			local nothingBuiltByTacticalAI = true
-			if not requestQueue:IsEmpty() then
-				----------------------------------- Random for Tail or Head Data
-				local ranNumber = math.mod( CCurrentGameState.GetAIRand(), 4)+1
-				local unit = 1
-				if ranNumber == 1 then
-					unit = requestQueue:GetTailData().pUnit
-				else
-					unit = requestQueue:GetHeadData().pUnit
+			local rand = math.mod(CCurrentGameState.GetAIRand(), requestCount)
+			local x = 0
+			for unitName, unitCount in pairs(requestTable) do
+				x = x + unitCount
+				if rand <= x then
+					unit = CSubUnitDataBase.GetSubUnit(unitName)
+					break
 				end
-
-				local bBuildReserve = bShouldBuildReserve
-				if not unit:IsRegiment() then
-					--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
-					bBuildReserve = false
-				end
-				-----------------------------------
-				local cost = ministerCountry:GetBuildCostIC( unit, 1, bBuildReserve ):Get()
-				-- only build sensible stuff
-				if cost < maxBuildCost then
-					local orderlist = SubUnitList()
-					local unitName = tostring(unit:GetKey())
-
-					if unit:IsRegiment() then
-						--Utils.LUA_DEBUGOUT( "Brigade unit")
-						orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unitName)
-					elseif unit:IsShip() then
-						--Utils.LUA_DEBUGOUT( "Naval unit")
-						orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
-					elseif unitName == "cag" or unitName == "cas" or unitName == "flying_bomb"
-					or unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role"
-					or unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber"
-					or unitName == "tactical_bomber" or unitName == "transport_plane" then
-						--Utils.LUA_DEBUGOUT( "Air Unit")
-						orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
-					else
-						availIC = availIC - cost
-						SubUnitList.Append( orderlist, unit )
-					end
-
-					if orderlist:GetSize() > 0 then
-						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID() )
-						ai:Post( construct )
-						nothingBuiltByTacticalAI = false
-					end
-				end
-				-----------------------------------
-				if ranNumber == 1 then
-					requestQueue:RemoveTail()
-				else
-					requestQueue:RemoveHead()
-				end
-				-----------------------------------
-
 			end
 
-			if nothingBuiltByTacticalAI then
+			--Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " build queue - unit selection: " .. tostring(unit:GetKey()))
+			--for unitName, unitCount in pairs(requestTable) do
+				--Utils.LUA_DEBUGOUT(unitName .. ": " .. tostring(unitCount))
+			--end
 
-				-- any requests by strategic ai
-				for subunit in CSubUnitDataBase.GetSubUnitList() do
-					local bBuildReserve = bShouldBuildReserve
-					if not subunit:IsRegiment() then
-						--Utils.LUA_DEBUGOUT( 'NO RESERVE' )
-						bBuildReserve = false
-					end
-					local count = ministerCountry:GetStrategy():GetWantedSubUnits(subunit)
-					local cost = ministerCountry:GetBuildCostIC( subunit, 1, bBuildReserve ):Get()
-					if count > 0.0 and cost < maxBuildCost then
-						local orderlist = SubUnitList()
-						SubUnitList.Append( orderlist, subunit )
-						availIC = availIC - cost
-						local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, count, bBuildReserve, CNullTag(), CID() )
-						ai:Post( construct )
-						-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built (S) " .. tostring(subunit:GetKey()))
-					end
-				end
-
-				-- got availIC left not built something yet?
-				if availIC > 0 then
-					-- always fill out with more infantry if availIC and manpower is left
-					if ministerCountry:GetOfficerRatio():Get() > 0.75
-						and ministerCountry:GetManpower():Get() > TotalIC
-					then
-						local orderlist = SubUnitList()
-						local infantry = CSubUnitDataBase.GetSubUnit("infantry_brigade")
-						local militia = CSubUnitDataBase.GetSubUnit("militia_brigade")
-
-						if ministerCountry:GetTechnologyStatus():IsUnitAvailable(infantry) then
-							-- Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built inf div with... ")
-							local unitName = "infantry_brigade"
-							orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, availIC, unitName)
-						else
-							local unitName = "militia_brigade"
-							orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, availIC, unitName)
-							--Utils.LUA_DEBUGOUT( tostring(ministerTag) .. " built mil ")
-						end
-
-						if orderlist:GetSize() > 0 then
-							--Utils.LUA_DEBUGOUT( "build a division." )
-							local construct = CConstructUnitCommand( ministerTag, orderlist, capitalProvId, 1, bShouldBuildReserve, CNullTag(), CID() )
-							ai:Post( construct )
-						end
-					end
-				end
-
+			local bBuildReserve = bShouldBuildReserve
+			if not unit:IsRegiment() then
+				bBuildReserve = false
 			end
+
+			local orderlist = SubUnitList()
+			local unitName = tostring(unit:GetKey())
+
+			if unit:IsRegiment() then
+				--Utils.LUA_DEBUGOUT( "Brigade unit")
+				orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unitName)
+			elseif unit:IsShip() then
+				--Utils.LUA_DEBUGOUT( "Naval unit")
+				orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
+			elseif	unitName == "cag" or unitName == "cas" or unitName == "flying_bomb" or
+					unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role" or
+					unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber" or
+					unitName == "tactical_bomber" or unitName == "transport_plane"
+			then
+				--Utils.LUA_DEBUGOUT( "Air Unit")
+				orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
+			else
+				availIC = availIC - ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
+				SubUnitList.Append(orderlist, unit)
+			end
+
+			local construct = CConstructUnitCommand(ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID())
+			ai:Post(construct)
 
 		else
 
