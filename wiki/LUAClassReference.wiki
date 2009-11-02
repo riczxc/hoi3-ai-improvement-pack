@@ -665,6 +665,7 @@ constructed with CArrayFix(int size)
 ||[#CalculateTotalSum CalculateTotalSum]||
 
 ==CTheatre==
+||float||GetPriority()||
 
 ==CConvoy==
 ||GetDesiredTransports||
