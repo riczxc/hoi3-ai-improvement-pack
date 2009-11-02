@@ -62,14 +62,14 @@ function HandleMobilization( minister )
 
 			if countrySpecific == nil then
 				-- check if a neighbour is starting to look threatening
-				local neutrality = ministerCountry:GetNeutrality():Get()
 				for neighbour in ministerCountry:GetNeighbours() do
 					local neighbourCountry = neighbour:GetCountry()
 
+					local neutrality = neighbourCountry:GetNeutrality():Get() * 0.9
 					local threat = CalculateThreat(ai, ministerTag, ministerCountry, neighbour, neighbourCountry)
-					local effectiveNeutrality = neutrality - threat
 
-					if effectiveNeutrality < 20 then
+					-- If their threat to us is high enough and their neutrality low enough to declar war upon us
+					if threat > 20 and neutrality < neighbourCountry:GetMaxNeutralityForWarWith(ministerTag):Get() then
 						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbour) )
 						local command = CToggleMobilizationCommand(ministerTag, true)
 						ai:Post(command)
