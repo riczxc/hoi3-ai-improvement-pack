@@ -12,6 +12,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||???||GetInstance||
 ||[#CCountryTag CCountryTag]||GetPlayer()||
 ||[#CDate CDate]||GetCurrentDate()||
+||[#CFaction CFaction]||GetFaction(String faction)||
 
 ==CCountryDataBase==
 ||[#CCountryTag CCountryTag]||GetTag(String countryCode)||
