@@ -6,8 +6,8 @@ function GetICRatioForProvinceImprovements(country)
 	local year = CCurrentGameState.GetCurrentDate():GetYear()
 
 	-- DEFAULT RATIO
-	local ratioPeace = 0.2
-	local ratioPreparingWar = 0.1
+	local ratioPeace = 0.15
+	local ratioPreparingWar = 0.075
 	local ratioWar = 0.05
 
 	-- SPECIFIC RATIO
@@ -16,19 +16,19 @@ function GetICRatioForProvinceImprovements(country)
 		--Utils.LUA_DEBUGOUT( "SOVIET UNION" )
 
 		if year <= 1939 then
-			ratioPeace = 0.5 -- Needs to build up lot's of infra (~240 provinces and ~2-4 infra per province)
+			ratioPeace = 0.4 -- Needs to build up lot's of infra (~240 provinces and ~2-4 infra per province)
 		else
-			ratioPeace = 0.4
+			ratioPeace = 0.3
 		end
-		ratioPreparingWar = 0.3
-		ratioWar = 0.2
+		ratioPreparingWar = 0.2
+		ratioWar = 0.1
 
 	------------------------------------------GERMANY---------------------------------------------------
 	elseif countryTag == 'GER' then
 		--Utils.LUA_DEBUGOUT( "GERMANY" )
 
-		ratioPeace = 0.15 -- Has best infra of the world
-		ratioPreparingWar = 0.1
+		ratioPeace = 0.05 -- Has best infra of the world
+		ratioPreparingWar = 0.05
 		ratioWar = 0.05
 
 	------------------------------------------UNITED KINGDOM---------------------------------------------------
@@ -38,10 +38,6 @@ function GetICRatioForProvinceImprovements(country)
 	------------------------------------------USA---------------------------------------------------
 	elseif countryTag == 'USA' then
 		--Utils.LUA_DEBUGOUT( "USA" )
-
-		ratioPeace = 0.15 -- Build some naval bases in pacific
-		ratioPreparingWar = 0.1
-		ratioWar = 0.05
 
 	------------------------------------------JAPAN---------------------------------------------------
 	elseif countryTag == 'JAP' then
