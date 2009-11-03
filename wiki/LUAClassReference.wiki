@@ -107,6 +107,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||List`<`[#CCountryTag CCountryTag]`>`||GetVassals()||
 ||int ||GetMaxIC()||
 ||[#CFixedPoint CFixedPoint]||GetNeutrality()||
+||[#CFixedPoint CFixedPoint]||GetEffectiveNeutrality()||
 ||[#CCountryTag CCountryTag]||GetHighestThreat()||
 ||[#CFixedPoint CFixedPoint]||GetSupplyBalanceAverage()||
 ||[#CFixedPoint CFixedPoint]||GetMoneyBalanceAverage()||
