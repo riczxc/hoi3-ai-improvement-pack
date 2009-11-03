@@ -128,14 +128,41 @@ function HandleLaws(minister)
 				-- Make decision based on manpower
 				-- If we've alot reduce recruiting time to spam infantry
 				-- If we're short increase recruiting time to save manpowerFactor
-				local manpowerFactor = ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()
+				local manpowerFactor = math.min(2,ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC())
 				local index = GetLawIndexByName('specialist_training')
-				if manpowerFactor > 4 then
-					index = GetLawIndexByName('minimal_training')
-				elseif manpowerFactor > 3 then
-					index = GetLawIndexByName('basic_training')
-				elseif manpowerFactor > 2 then
+				local OfficerRatio = ministerCountry:GetOfficerRatio():Get()
+				local factor = 1-(OfficerRatio*manpowerFactor)/4
+			-- mp\or	0.000	0.250	0.500	0.750	1.000	1.250	1.500	1.750	2.000
+			-- 0.000	1.000	1.000	1.000	1.000	1.000	1.000	1.000	1.000	1.000
+			-- 0.100	1.000	0.994	0.988	0.981	0.975	0.969	0.963	0.956	0.950
+			-- 0.200	1.000	0.988	0.975	0.963	0.950	0.938	0.925	0.913	0.900
+			-- 0.300	1.000	0.981	0.963	0.944	0.925	0.906	0.888	0.869	0.850
+			-- 0.400	1.000	0.975	0.950	0.925	0.900	0.875	0.850	0.825	0.800
+			-- 0.500	1.000	0.969	0.938	0.906	0.875	0.844	0.813	0.781	0.750
+			-- 0.600	1.000	0.963	0.925	0.888	0.850	0.813	0.775	0.738	0.700
+			-- 0.700	1.000	0.956	0.913	0.869	0.825	0.781	0.738	0.694	0.650
+			-- 0.800	1.000	0.950	0.900	0.850	0.800	0.750	0.700	0.650	0.600
+			-- 0.900	1.000	0.944	0.888	0.831	0.775	0.719	0.663	0.606	0.550
+			-- 1.000	1.000	0.938	0.875	0.813	0.750	0.688	0.625	0.563	0.500
+			-- 1.100	1.000	0.931	0.863	0.794	0.725	0.656	0.588	0.519	0.450
+			-- 1.200	1.000	0.925	0.850	0.775	0.700	0.625	0.550	0.475	0.400
+			-- 1.300	1.000	0.919	0.838	0.756	0.675	0.594	0.513	0.431	0.350
+			-- 1.400	1.000	0.913	0.825	0.738	0.650	0.563	0.475	0.388	0.300
+			-- 1.500	1.000	0.906	0.813	0.719	0.625	0.531	0.438	0.344	0.250
+			-- 1.600	1.000	0.900	0.800	0.700	0.600	0.500	0.400	0.300	0.200
+			-- 1.700	1.000	0.894	0.788	0.681	0.575	0.469	0.363	0.256	0.150
+			-- 1.800	1.000	0.888	0.775	0.663	0.550	0.438	0.325	0.213	0.100
+			-- 1.900	1.000	0.881	0.763	0.644	0.525	0.406	0.288	0.169	0.050
+			-- 2.000	1.000	0.875	0.750	0.625	0.500	0.375	0.250	0.125	0.000
+
+				if factor > 0.9 then 
+					index = GetLawIndexByName('specialist_training')
+				elseif factor > 0.7 then 
 					index = GetLawIndexByName('advanced_training')
+				elseif factor > 0.4 then 
+					index = GetLawIndexByName('basic_training')
+				else
+					index = GetLawIndexByName('minimal_training')
 				end
 				newLaw = CLawDataBase.GetLaw(index)
 			end
