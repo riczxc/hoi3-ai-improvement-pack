@@ -38,7 +38,7 @@ function ProductionMinister_Tick(minister)
 	local provinceIndex = {}
 	local nothingBuiltCounter = 0
 
-		local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
+	local bShouldBuildReserve = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
 	local requestCount = 0
 	local requestTable = {}
 	local requestQueue = ai:GetReqProdQueue()
@@ -201,6 +201,20 @@ function ProductionMinister_Tick(minister)
 		if availICInThisIteration == availIC then
 			nothingBuiltCounter = nothingBuiltCounter + 1
 		end
+	end
+	
+	-- force inf or mil production for small countries
+	if ((ratioProvince == 0 and requestCount == 0) or 10 == nothingBuiltCounter) and availIC > 0 then		
+		local orderlist = SubUnitList()
+		local unit = CSubUnitDataBase.GetSubUnit("infantry_brigade")
+		local unitName = "infantry_brigade"
+		if not ministerCountry:GetTechnologyStatus():IsUnitAvailable(unit) then
+			unitName = "militia_brigade"
+		end		
+		orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, availIC, unitName)
+		
+		local construct = CConstructUnitCommand(ministerTag, orderlist, capitalProvId, 1, bShouldBuildReserve, CNullTag(), CID())
+		ai:Post(construct)
 	end
 
 	-- Return remaining IC to use
@@ -490,27 +504,18 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	end
 
 	if availIC > 0.01 then
-		-- AI
+		-- AI, set production slider too high to allow building
 		if 0 == prioSelection and availIC > 0.02 then
 			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint(changes:GetAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() + 0.02 ) )
 		-- human player
 			availIC = availIC - 0.02
 		end
-		--else
-			-- if there is dissent move all possible left IC into money
-			if dissent > 0.01 or ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get() > 99000 then
-				changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC ) )
-			-- otherwise make supplies
-			else
-				-- if AI put 1/3 into money to allow more trades globaly
-				-- if 0 == prioSelection and MoneyStockpile < 100*ministerCountry:GetTotalIC() then
-					-- changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC/3 ) )
-					-- changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+2*availIC/3 ) )
-				-- else
-					changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+availIC ) )
-				-- end
-			end
-		--end
+		-- if there is dissent move all possible left IC into money
+		if dissent > 0.01 or ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get() > 99000 then
+			changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC ) )
+		else -- otherwise make supplies
+			changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+availIC ) )
+		end
 	end
 
 	local command = CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes )
@@ -522,7 +527,7 @@ end
 --local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",	"_METAL_",	"_ENERGY_",	"_RARE_MATERIALS_" }
 
 function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unit_name)
-	--Utils.LUA_DEBUGOUT( "ENTER Build division function")
+	--Utils.LUA_DEBUGOUT( "ENTER Build division function for "..unit_name)
 	--Utils.LUA_DEBUGOUT( "Start Load production function")
 	-- Load country's division templates
 	local prod_ratio = LoadProductionRatio(minister, ministerCountry)
@@ -536,13 +541,13 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	-- Determine which template AI will builds
 	while prod_ratio[unit_name][i] and template_number == 0 do
 		pourcent = pourcent - prod_ratio[unit_name][i][1]
-		--Utils.LUA_DEBUGOUT(prod_ratio[unit_name][i][1])
-		if rem >= pourcent then
-			--Utils.LUA_DEBUGOUT( "Find")
+		-- Utils.LUA_DEBUGOUT(prod_ratio[unit_name][i][1])
+		if rem >= pourcent then			
 			template_number = i
 			j = 2
 			-- Check every brigades in the template, if they are available
 			while prod_ratio[unit_name][template_number][j] do
+				--Utils.LUA_DEBUGOUT( "Unit " .. tostring(prod_ratio[unit_name][template_number][j]:GetKey()))
 				if ministerCountry:GetTechnologyStatus():IsUnitAvailable(prod_ratio[unit_name][template_number][j]) == false then
 					--Utils.LUA_DEBUGOUT( "Not available")
 					template_number = 1		-- If not, build the first template
@@ -552,6 +557,7 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 		end
 		i = i + 1
 	end
+	
 	if template_number ~= 0 then
 		j = 2
 		-- Start to build all brigades of the template
