@@ -444,6 +444,7 @@ Shoul be number 5.
 ||???||GetAmountTradedFrom||
 ||bool||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||
 ||bool||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
+||bool||IsTradeingAwayNeededResource([#CTradeRoute CTradeRoute] route)||
 ||bool||CanTradeFreeResources([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 ||bool||???IsInfluencing([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 
