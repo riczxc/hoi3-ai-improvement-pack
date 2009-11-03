@@ -965,3 +965,67 @@ function DiploScore_CallAlly(ai, actor, recipient, observer, action)
 		end
 	end
 end
+
+-- virtual neighbors for countries isolated by oceans
+function IsOceanNeighbor(tagA, tagB)
+	local a = tostring(tagA)
+	local b = tostring(tagB)
+
+	-- oceania
+	if a == 'NZL' then
+		return b == 'AST' or b == 'JAP' or b == 'PHI' or b == 'USA'
+	elseif a == 'AST' then
+		return b == 'NZL' or b == 'JAP' or b == 'PHI' or b == 'USA' or b == 'HOL'
+
+	-- east asia
+	elseif a == 'PHI' then
+		return b == 'USA' or b == 'JAP' or b == 'CHI' or b == 'CGX' or b == 'INO' or b == 'HOL' or b == 'AST' or b == 'NZL'
+	elseif a == 'CHI' then
+		return b == 'JAP' or b == 'PHI'
+	elseif a == 'CGX' then
+		return b == 'PHI'
+	elseif a == 'PRK' or a == 'KOR' then
+		return b == 'JAP'
+
+	-- north america and carribean
+	elseif a == 'USA' then
+		return b == 'PHI' or b == 'AST' or b == 'NZL' or b == 'JAP' or b == 'CUB' or b == 'DEN' or b == 'ICL' or b == 'ENG' or b == 'IRE' or b == 'POR'
+	elseif a == 'CUB' then
+		return b == 'USA' or b == 'MEX' or b == 'HAI'
+	elseif a == 'MEX' then
+		return b == 'CUB'
+	elseif a == 'HAI' then
+		return b == 'CUB'
+
+	-- north atlantic
+	elseif a == 'CAN' then
+		return b == 'ENG' or b == 'FRA' or b == 'DEN' or b == 'ICL' or b == 'IRE'
+	elseif a == 'ICL' then
+		return b == 'USA' or b == 'IRE' or b == 'ENG' or b == 'CAN' or b == 'DEN'
+	elseif a == 'POR' then
+		return b == 'USA'
+
+	-- UK and Ireland
+	elseif a == 'ENG' then
+		return b == 'USA' or b == 'CAN' or b == 'HOL' or b == 'BEL' or b == 'ICL' or b == 'NOR' or b == 'DEN'
+	elseif a == 'IRE' then
+		return b == 'FRA' or b == 'SPA' or b == 'SPR' or b == 'USA' or b == 'ICL' or b == 'CAN'
+	elseif a == 'NOR' then
+		return b == 'ENG' or b == 'DEN'
+	elseif a == 'DEN' then
+		return b == 'ENG' or b == 'NOR'
+	elseif a == 'BEL' then
+		return b == 'ENG'
+	elseif a == 'SPA' then
+		return b == 'IRE'
+	elseif a == 'SPR' then
+		return b == 'IRE'
+
+	-- Holland is special
+	elseif a == 'HOL' then
+		return b == 'JAP' or b == 'AST' or b == 'NZL' or b == 'PHI' or b == 'ENG'
+	end
+
+	return false
+end
+
