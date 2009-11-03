@@ -204,11 +204,12 @@ function ProductionMinister_Tick(minister)
 	end
 	
 	-- force inf or mil production for small countries
-	if ((ratioProvince == 0 and requestCount == 0) or 10 == nothingBuiltCounter) and availIC > 0 then		
+	local mp = ministerCountry:GetManpower():Get()
+	if ((ratioProvince == 0 and requestCount == 0) or 10 == nothingBuiltCounter) and availIC > 0 and mp > 6 then		
 		local orderlist = SubUnitList()
 		local unit = CSubUnitDataBase.GetSubUnit("infantry_brigade")
 		local unitName = "infantry_brigade"
-		if not ministerCountry:GetTechnologyStatus():IsUnitAvailable(unit) then
+		if not ministerCountry:GetTechnologyStatus():IsUnitAvailable(unit) or mp < 12 then
 			unitName = "militia_brigade"
 		end		
 		orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bShouldBuildReserve, orderlist, availIC, unitName)
