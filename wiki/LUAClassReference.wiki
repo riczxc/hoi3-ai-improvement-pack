@@ -446,7 +446,7 @@ Shoul be number 5.
 ||bool||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
 ||bool||IsTradeingAwayNeededResource([#CTradeRoute CTradeRoute] route)||
 ||bool||CanTradeFreeResources([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
-||bool||???IsInfluencing([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
+||bool||IsInfluencing([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
 
 ==CAIStrategy==
 ||???||_AI_MILITARIST_||
