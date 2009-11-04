@@ -83,7 +83,7 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 				newMission = 5
 
 			end
-		end	
+		end
 	end
 
 	-- priority based on IC + war status, with random modifier
@@ -193,7 +193,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_MILITARY, 100)
 	end
 
-	-- if we have claims on them then increase threat so we can declare war faster	
+	-- if we have claims on them then increase threat so we can declare war faster
 	if HasClaims(ministerTag, countryTag) then
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_INCREASE_THREAT, 100)
 	end
@@ -271,7 +271,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 
 				-- they are big?
 				if theirIC > 60 then
-				
+
 					-- if neighbors, watch their military so that we
 					-- can prepare better defense against aggression
 					if isneighbor == 1 then
@@ -286,8 +286,8 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 				elseif theirIC >= 20 then
 					rollPassive = 1
 				end
-				
-			
+
+
 			-- we are big?
 			elseif ourIC > 60 then
 				--Utils.LUA_DEBUGOUT("we are big")
@@ -295,12 +295,12 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 				-- they are big? roll active
 				if theirIC > 60 then
 					rollActive = 1
-				
+
 				-- they are medium? roll passive
 				elseif theirIC >= 20 then
 					rollPassive = 1
 				end
-			
+
 			-- we are medium?
 			else
 				--Utils.LUA_DEBUGOUT("we are medium")
@@ -308,7 +308,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 				-- they are big? roll passive
 				if theirIC > 60 then
 					rollPassive = 1
-				
+
 				-- they are medium? roll active
 				elseif theirIC >= 20 then
 					rollActive = 1
@@ -346,7 +346,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 				if diceRoll == 0 then
 					bestMission = SpyMission.SPYMISSION_BOOST_OUR_PARTY
 				elseif diceRoll == 1 then
-					bestMission = SpyMission.SPYMISSION_POLITCAL
+					bestMission = SpyMission.SPYMISSION_POLITICAL
 				elseif diceRoll == 2 then
 					bestMission = SpyMission.SPYMISSION_MILITARY
 				elseif diceRoll == 3 then
