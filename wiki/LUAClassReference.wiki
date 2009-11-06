@@ -433,16 +433,16 @@ Shoul be number 5.
 ||int ||GetNumberOfOwnedProvinces([#CCountryTag CCountryTag] countryTag)||
 ||???||MoveToNeighbor||
 ||???||MoveUnit||
-||CList_CSubUnitConstructionEntry||GetReqProdQueue()||
-||???||GetReqProdQueueIter||
+||[#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||GetReqProdQueue()||
+||List`<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>||GetReqProdQueueIter()||
 ||???||RequestSubUnit||
 ||[#CFixedPoint CFixedPoint]||GetNormalizedAlignmentDistance([#CCountry CCountry] country, CFaction faction)||
 ||[#CFixedPoint CFixedPoint]||GetCountryAlignmentDistance([#CCountry CCountry] countryA, CCountry countryB)||
 ||void||PrintConsole(string message)||
 ||void||Post(??? command)||
-||???||PostAction||
+||void||PostAction(CAction action)||
 ||bool||CanDeclareWar([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||
-||???||GetAmountTradedFrom||
+||[#CFixedPoint CFixedPoint]||GetAmountTradedFrom(int goods, [#CCountryTag CCountryTag] from, [#CCountryTag CCountryTag] to)||
 ||bool||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||
 ||bool||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||
 ||bool||IsTradeingAwayNeededResource([#CTradeRoute CTradeRoute] route)||
