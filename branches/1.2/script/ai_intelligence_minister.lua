@@ -7,6 +7,7 @@ require('helper_functions')
 
 function IntelligenceMinister_Tick(minister)
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
+		--Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
 		local ministerTag = minister:GetCountryTag()
 		local ministerCountry = minister:GetCountry()
 		local ai = minister:GetOwnerAI()
@@ -15,11 +16,12 @@ function IntelligenceMinister_Tick(minister)
 		--Utils.LUA_DEBUGOUT("manage spies abroad start")
 		ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		--Utils.LUA_DEBUGOUT("manage spies abroad end")
+		--Utils.LUA_DEBUGOUT("<-IntelligenceMinister_Tick")
 	end
 end
 
 function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
-	local domesticSpyPresence = ministerCountry:GetSpyPresence( ministerTag )
+	local domesticSpyPresence = ministerCountry:GetSpyPresence(ministerTag)
 	local currentMission = domesticSpyPresence:GetMission()
 	local newMission = currentMission
 	local changeMission = 0
@@ -61,7 +63,6 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			if ( unity < 60 ) or ( neutrality < 60 and unity < 70 ) then
 				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." raise national unity mission - month: "..tostring(currentMonth))
 				newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
-
 			-- otherwise lower neutrality for economic laws, except for micro powers
 			elseif totalIC >= 10 then
 				--Utils.LUA_DEBUGOUT("not micro power")
@@ -74,14 +75,13 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 					newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
 				end
 			end
-		end
 
-		-- minors might support ruling party instead
-		if totalIC < 20 then
-			if math.mod(CCurrentGameState.GetAIRand(), 3) == 0 then
-				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." minor exception support ruling party mission - month: "..tostring(currentMonth))
-				newMission = 5
-
+			-- minors might support ruling party instead
+			if totalIC < 20 then
+				if math.mod(CCurrentGameState.GetAIRand(), 3) == 0 then
+					--Utils.LUA_DEBUGOUT( tostring(ministerTag).." minor exception support ruling party mission - month: "..tostring(currentMonth))
+					newMission = 5
+				end
 			end
 		end
 	end
@@ -114,21 +114,16 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			newPriority = newPriority - 1
 		end
 
+		-- Max priority to lowering neutrality or increasing national unity
+		if newMission ~= SpyMission.SPYMISSION_COUNTER_ESPIONAGE then
+			newPriority = CSpyPresence.MAX_SPY_PRIORITY
+		end
+
 		-- cap
 		newPriority = math.min( newPriority, CSpyPresence.MAX_SPY_PRIORITY )
 
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." change home priority to "..newPriority.." - month: "..tostring(currentMonth))
 		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." change home mission to "..newMission.." - month: "..tostring(currentMonth))
-	end
-
-
-	-- clear out spies at least once a year
-	if changeMission == 1 then
-		if math.mod(CCurrentGameState.GetAIRand(), 12) == 0 then
-			newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
-			newPriority = CSpyPresence.MAX_SPY_PRIORITY
-			--Utils.LUA_DEBUGOUT( tostring(ministerTag).." clearing out spies once per year: "..tostring(currentMonth))
-		end
 	end
 
 	-- change mission
@@ -323,7 +318,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 			if rollActive == 1 then
 				--Utils.LUA_DEBUGOUT("roll active")
 				local diceRoll = math.mod( CCurrentGameState.GetAIRand(), 6)
-				--Utils.LUA_DEBUGOUT("roll is "..diceRoll)
+				--Utils.LUA_DEBUGOUT("roll is ".. tostring(diceRoll))
 				if diceRoll == 0 then
 					bestMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
 				elseif diceRoll == 1 then
@@ -342,7 +337,7 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 			elseif rollPassive == 1 then
 				--Utils.LUA_DEBUGOUT("roll passive")
 				local diceRoll = math.mod( CCurrentGameState.GetAIRand(), 8)
-				--Utils.LUA_DEBUGOUT("roll is "..diceRoll)
+				--Utils.LUA_DEBUGOUT("roll is ".. tostring(diceRoll))
 				if diceRoll == 0 then
 					bestMission = SpyMission.SPYMISSION_BOOST_OUR_PARTY
 				elseif diceRoll == 1 then
