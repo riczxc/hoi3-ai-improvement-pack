@@ -434,7 +434,7 @@ Shoul be number 5.
 ||???||MoveToNeighbor||
 ||???||MoveUnit||
 ||[#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||GetReqProdQueue()||
-||List`<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>||GetReqProdQueueIter()||
+||List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`||GetReqProdQueueIter()||
 ||???||RequestSubUnit||
 ||[#CFixedPoint CFixedPoint]||GetNormalizedAlignmentDistance([#CCountry CCountry] country, CFaction faction)||
 ||[#CFixedPoint CFixedPoint]||GetCountryAlignmentDistance([#CCountry CCountry] countryA, CCountry countryB)||
