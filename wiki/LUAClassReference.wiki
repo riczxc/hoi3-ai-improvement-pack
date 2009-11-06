@@ -133,6 +133,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CCountryTag CCountryTag]||GetController()||
 ||[#CCountryTag CCountryTag]||GetOwner()||
 ||???||GetIntelLevel||
+||int||GetNumberOfUnits()||
 
 ==CFaction==
 ||bool ||IsValid()||
