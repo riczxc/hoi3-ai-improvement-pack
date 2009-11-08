@@ -7,16 +7,16 @@ require('helper_functions')
 
 function IntelligenceMinister_Tick(minister)
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
-		--Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
+		Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
 		local ministerTag = minister:GetCountryTag()
 		local ministerCountry = minister:GetCountry()
 		local ai = minister:GetOwnerAI()
 
 		ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
-		--Utils.LUA_DEBUGOUT("manage spies abroad start")
+		Utils.LUA_DEBUGOUT("manage spies abroad start")
 		ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
-		--Utils.LUA_DEBUGOUT("manage spies abroad end")
-		--Utils.LUA_DEBUGOUT("<-IntelligenceMinister_Tick")
+		Utils.LUA_DEBUGOUT("manage spies abroad end")
+		Utils.LUA_DEBUGOUT("<-IntelligenceMinister_Tick")
 	end
 end
 
@@ -168,14 +168,14 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 	-- We are in exile and the country is a enemy controller? Lower their unity to hurt them and maybe force a revolt.
 	if ministerCountry:IsGovernmentInExile() then
 		local capitalController = ministerCountry:GetCapitalLocation():GetController()
-		if not ministerCountry:IsFriend( capitalController, false ) and country==capitalController then
+		if not ministerCountry:IsFriend(capitalController, false) and countryTag == capitalController then
 			--Utils.LUA_DEBUGOUT( tostring(ministerTag).." in exile and occupied by "..tostring(countryTag).." -> SPYMISSION_LOWER_NATIONAL_UNITY" )
 			return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY, 100)
 		end
 	end
 
 	-- We are at war with each other?
-	if strategy:IsPreparingWarWith( countryTag ) or rel:HasWar()
+	if strategy:IsPreparingWarWith(countryTag) or rel:HasWar()
 	then
 		-- If they are weak try and push them over the edge.
 		if country:GetSurrenderLevel():Get() > 0.5 then

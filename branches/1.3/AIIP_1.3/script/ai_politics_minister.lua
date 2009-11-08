@@ -19,8 +19,11 @@ function PoliticsMinister_Tick(minister)
 
 	--Utils.LUA_DEBUGOUT("->PoliticsMinister_Tick " .. tostring(minister:GetCountryTag()))
 
+	--Utils.LUA_DEBUGOUT("HandleLaws")
 	HandleLaws(minister)
+	--Utils.LUA_DEBUGOUT("HandleMobilization")
 	HandleMobilization(minister)
+	--Utils.LUA_DEBUGOUT("HandlePuppets")
 	HandlePuppets(minister)
 
 	-- liberate countries if we can

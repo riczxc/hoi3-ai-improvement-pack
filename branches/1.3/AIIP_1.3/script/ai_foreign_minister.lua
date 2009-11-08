@@ -26,11 +26,13 @@ function ForeignMinister_Tick(minister)
 	minister:ExecuteDiploDecisions()
 
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_PEACE_DELAY) == 0 then
+		--Utils.LUA_DEBUGOUT("ForeignMinister_HandlePeace")
 		ForeignMinister_HandlePeace(minister)
 	end
 
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_WAR_DELAY) == 0 then
 		if minister:GetCountry():IsAtWar() then
+			--Utils.LUA_DEBUGOUT("ForeignMinister_HandleWar")
 			ForeignMinister_HandleWar(minister)
 		end
 	end
