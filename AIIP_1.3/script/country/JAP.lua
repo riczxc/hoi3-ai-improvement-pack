@@ -17,6 +17,27 @@ function P.ProposeDeclareWar( minister )
 	local engTag = CCountryDataBase.GetTag('ENG')
 	local holTag = CCountryDataBase.GetTag('HOL')
 	local fraTag = CCountryDataBase.GetTag('FRA')
+	local phiTag = CCountryDataBase.GetTag('PHI')
+
+	if gerTag:GetCountry():GetRelation(sovTag):HasWar() then
+		-- check vladivostok area for sov troups
+		local vladivostokArea = { [0] = 4195, 4263, 4262, 4390, 4328, 4391, 4457, 4458 }
+		local troupCount = 0
+		local intelCoverage = 0
+		for tmpIndex, provID in pairs(vladivostokArea) do
+			local province = CCurrentGameState.GetProvince( provID )
+
+			if province:GetIntelLevel(ministerTag) >= 2 then -- >= INTEL_UNITS
+				intelCoverage = intelCoverage + 1
+			end
+
+			troupCount = troupCount + province:GetNumberOfUnits()
+		end
+
+		if troupCount < 1 and intelCoverage > 7 then
+			strategy:PrepareWar( sovTag, 100 )
+		end
+	end
 
 	--PEARL HARBOR
 	if year >= 1941 and month >= 10
