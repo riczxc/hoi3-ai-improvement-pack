@@ -377,28 +377,6 @@ function ProposeTradeCalc(ai, goods, requested, bobSells, buyerTag, buyerCountry
 	return best
 end
 
-function ExistsExport(aliceTag, goods)
-	if goods ~= CGoodsPool._MONEY_ and gEconomy["export"][goods] and gEconomy["export"][goods][tostring(aliceTag)] then
-		-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(aliceTag)]))
-		-- for bobTag, Export in pairs(gEconomy["export"][goods][tostring(aliceTag)]) do
-			-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." exports "..tostring(Export).." "..tostring(GOODS_TO_STRING[goods]).." to "..tostring(bobTag))
-		-- end
-		return true
-	end
-	return false
-end
-
-function ExistsImport(aliceTag, goods)
-	if goods ~= CGoodsPool._MONEY_ and gEconomy["import"][goods] and gEconomy["import"][goods][tostring(aliceTag)] then
-		--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring( aliceTag ).." imports "..tostring(GOODS_TO_STRING[goods]))
-		-- for bobTag, Import in pairs(gEconomy["export"][goods][tostring(aliceTag)]) do
-			-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." imports "..tostring(Import).." "..tostring(GOODS_TO_STRING[goods]).." from "..tostring(bobTag))
-		-- end
-		return true
-	end
-	return false
-end
-
 function DiploScore_OfferTrade(ai, alice, bob, observer, action)
 	-- if alice human and man trade return 100
 	-- if bob human and human trade return 100
