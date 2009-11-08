@@ -17,6 +17,9 @@ function PoliticsMinister_Tick(minister)
 		return
 	end
 
+	local ministerTag = minister:GetCountryTag()
+	local ai = minister:GetOwnerAI()
+
 	--Utils.LUA_DEBUGOUT("->PoliticsMinister_Tick " .. tostring(minister:GetCountryTag()))
 
 	--Utils.LUA_DEBUGOUT("HandleLaws")
@@ -30,10 +33,9 @@ function PoliticsMinister_Tick(minister)
 	if ministerCountry:MayLiberateCountries() then
 		for member in ministerCountry:GetPossibleLiberations() do
 			if minister:IsCapitalSafeToLiberate( member ) then
-				local ministerTag = minister:GetCountryTag()
 				--Utils.LUA_DEBUGOUT("CLiberateCountryCommand(" .. tostring(member) .. ", " .. tostring(ministerTag) ..")")
 				local command = CLiberateCountryCommand( member, ministerTag )
-				minister:GetOwnerAI():Post( command )
+				ai:Post( command )
 			end
 		end
 	end
@@ -82,6 +84,7 @@ function HandleMobilization( minister )
 							--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbour) )
 							local command = CToggleMobilizationCommand(ministerTag, true)
 							ai:Post(command)
+							return
 						end
 					end
 				end
