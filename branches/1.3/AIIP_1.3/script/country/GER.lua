@@ -164,7 +164,7 @@ function P.ProposeDeclareWar( minister )
 	and not ministerCountry:GetRelation(yugTag):HasWar()				--Not already at war with YUG
 	and not yugTag:GetCountry():IsSubject() 							--YUG isn't a subject nation
 	and CCurrentGameState.GetProvince( 3912 ):GetController() == yugTag	--YUG controls Belgrade
-	and vicTag:GetCountry():Exists()									--VIC exists
+	and vicTag:IsValid() and vicTag:IsReal() and vicTag:GetCountry():Exists() --VIC exists
 	then
 		strategy:PrepareWar( yugTag, 100 )
 	end
@@ -172,7 +172,7 @@ function P.ProposeDeclareWar( minister )
 	-- BARBAROSSA
 	if year >= 1941 and month > 2
 	and CCurrentGameState.GetProvince( 2613 ):GetController() == gerTag 	--Controls Paris
-	and vicTag:GetCountry():Exists()										--Vichy exists
+	and vicTag:IsValid() and vicTag:IsReal() and vicTag:GetCountry():Exists() --Vichy exists
 	and not ministerCountry:GetRelation(sovTag):HasWar() 					--Not already at war with SOV
 	and not sovTag:GetCountry():IsSubject()								--SOV isn't a subject nation
 	and CCurrentGameState.GetProvince( 1409 ):GetController() == sovTag 	--SOV controls Moskva

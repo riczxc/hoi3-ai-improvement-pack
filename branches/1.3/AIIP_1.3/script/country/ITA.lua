@@ -14,23 +14,23 @@ function P.ProposeDeclareWar( minister )
 	local greTag = CCountryDataBase.GetTag('GRE')
 	local vicTag = CCountryDataBase.GetTag('VIC')
 	local yugTag = CCountryDataBase.GetTag('YUG')
-	
+
 	-- ATTACK ON GREECE
 	if ministerCountry:GetFaction() == gerTag:GetCountry():GetFaction()	--Italy is in Axis
-	and vicTag:GetCountry():Exists() 									--VIC exists
+	and vicTag:IsValid() and vicTag:IsReal() and vicTag:GetCountry():Exists() --VIC exists
 	then
 		if not ministerCountry:GetRelation(greTag):HasWar() 				--Not already at war with GRE
 		and not greTag:GetCountry():IsSubject()								--GRE isn't a subject nation
-		and CCurrentGameState.GetProvince( 7414 ):GetController() == greTag	--GRE controls Athens	
+		and CCurrentGameState.GetProvince( 7414 ):GetController() == greTag	--GRE controls Athens
 		then
 			strategy:PrepareWar( greTag, 100 )
-		end	
+		end
 		if not ministerCountry:GetRelation(yugTag):HasWar() 				--Not already at war with GRE
 		and not yugTag:GetCountry():IsSubject()								--GRE isn't a subject nation
-		and CCurrentGameState.GetProvince( 3912 ):GetController() == yugTag	--GRE controls Athens	
+		and CCurrentGameState.GetProvince( 3912 ):GetController() == yugTag	--GRE controls Athens
 		then
 			strategy:PrepareWar( yugTag, 100 )
-		end		
+		end
 	end
 end
 
