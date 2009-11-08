@@ -21,7 +21,7 @@ function ProductionMinister_Tick(minister)
 	local ai = minister:GetOwnerAI()
 	local capitalProvId =  ministerCountry:GetActingCapitalLocation():GetProvinceID()
 	local TotalIC = ministerCountry:GetTotalIC()
-	local maxBuildCost = TotalIC - ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get() - ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_CONSUMER_):GetNeeded():Get()
+	local maxBuildCost = TotalIC / 2
 
 	-- we need convoys at all?
 	availIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC)
@@ -75,21 +75,22 @@ function ProductionMinister_Tick(minister)
 		-- Only build province improvements
 		ratioProvince = 100
 	end
-
+--Utils.LUA_DEBUGOUT("->ProductionMinister_Tick1")
 	while (availIC > 0) and (nothingBuiltCounter < 10) do
 		local availICInThisIteration = availIC
-
-		if requestQueue:IsEmpty() then
-			doBuildUnit = false
-		end
 
 		if ratioProvince == 0 and not doBuildUnit then
 			-- Seems we can't build anything
 			break
 		end
 
-		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
+		if requestQueue:IsEmpty() then
+			doBuildUnit = false
+			ratioProvince = 100
+		end
 
+		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
+--Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
 			local unit = requestQueue:GetHeadData().pUnit
 			local unitName = tostring(unit:GetKey())
 
@@ -120,9 +121,9 @@ function ProductionMinister_Tick(minister)
 			ai:Post(construct)
 
 			requestQueue:RemoveHead()
-
+--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Unit")
 		else
-
+--Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Province")
 			if provinceIdPool == nil then
 				-- Load country specific province improvements
 				local improvements = LoadProvinceImprovements(ministerCountry)
@@ -178,7 +179,7 @@ function ProductionMinister_Tick(minister)
 				-- Shouldn't happen too often...
 				ratioProvince = 0
 			end
-
+--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Province")
 		end
 
 		if availICInThisIteration == availIC then
