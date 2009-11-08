@@ -553,6 +553,28 @@ function GetTradingScore(ministerCountry, goods, amount)
 	end
 end
 
+function ExistsExport(aliceTag, goods)
+	if goods ~= CGoodsPool._MONEY_ and gEconomy["export"][goods] and gEconomy["export"][goods][tostring(aliceTag)] then
+		-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(aliceTag)]))
+		-- for bobTag, Export in pairs(gEconomy["export"][goods][tostring(aliceTag)]) do
+			-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." exports "..tostring(Export).." "..tostring(GOODS_TO_STRING[goods]).." to "..tostring(bobTag))
+		-- end
+		return true
+	end
+	return false
+end
+
+function ExistsImport(aliceTag, goods)
+	if goods ~= CGoodsPool._MONEY_ and gEconomy["import"][goods] and gEconomy["import"][goods][tostring(aliceTag)] then
+		--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring( aliceTag ).." imports "..tostring(GOODS_TO_STRING[goods]))
+		-- for bobTag, Import in pairs(gEconomy["export"][goods][tostring(aliceTag)]) do
+			-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." imports "..tostring(Import).." "..tostring(GOODS_TO_STRING[goods]).." from "..tostring(bobTag))
+		-- end
+		return true
+	end
+	return false
+end
+
 -- return true if country has money, makes money and doesn't overproduce CG to do so
 function IsRich(AliceCountry)
 	local MoneyStockFactor = AliceCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/AliceCountry:GetTotalIC()
@@ -567,8 +589,34 @@ function IsRich(AliceCountry)
 		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
 		return true
 	else
-		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." NOT IsRich ")
-		return false
+		-- If we're not importing anything other than supplies and have positive money balance
+		-- we can consider ourselves as being rich.
+		local importer = false
+		local needResources = false
+		for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
+			if goods ~= CGoodsPool._SUPPLIES_ then
+				if ExistsImport(AliceCountry:GetCountryTag(), goods) then
+					importer = true
+					break
+				end
+				if GetAverageBalance(AliceCountry, goods) < 0 then
+					needResources = true
+					break
+				end
+			end
+		end
+
+		if 	not needResources and
+			not importer and
+			not ExistsExport(aliceTag, CGoodsPool._SUPPLIES_) and
+			GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) > 0
+		then
+			--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
+			return true
+		else
+			--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." NOT IsRich ")
+			return false
+		end
 	end
 end
 
