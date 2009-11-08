@@ -7,16 +7,16 @@ require('helper_functions')
 
 function IntelligenceMinister_Tick(minister)
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
-		Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
+		--Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
 		local ministerTag = minister:GetCountryTag()
 		local ministerCountry = minister:GetCountry()
 		local ai = minister:GetOwnerAI()
 
 		ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
-		Utils.LUA_DEBUGOUT("manage spies abroad start")
+		--Utils.LUA_DEBUGOUT("manage spies abroad start")
 		ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
-		Utils.LUA_DEBUGOUT("manage spies abroad end")
-		Utils.LUA_DEBUGOUT("<-IntelligenceMinister_Tick")
+		--Utils.LUA_DEBUGOUT("manage spies abroad end")
+		--Utils.LUA_DEBUGOUT("<-IntelligenceMinister_Tick")
 	end
 end
 
@@ -63,8 +63,8 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			if ( unity < 60 ) or ( neutrality < 60 and unity < 70 ) then
 				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." raise national unity mission - month: "..tostring(currentMonth))
 				newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
-			-- otherwise lower neutrality for economic laws, except for micro powers
-			elseif totalIC >= 10 then
+			-- otherwise lower neutrality for economic laws, except for micro powers and neutral countries
+			elseif totalIC >= 10 and (ministerCountry:IsMajor() or neutrality < 90) then
 				--Utils.LUA_DEBUGOUT("not micro power")
 				local economicLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('economic_law'))
 				local economicLawIndex = ministerCountry:GetLaw(economicLawGroup):GetIndex()
