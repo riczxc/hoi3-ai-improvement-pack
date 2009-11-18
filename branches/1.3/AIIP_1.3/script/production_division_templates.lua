@@ -205,8 +205,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, infantry, infantry, infantry, engineer }
 												}
 				gProdRatio['USA']['marine_brigade'] = {		-- Marine
-													{ 40, marine, marine, marine };
-													{ 40, marine, marine, artillery };
+													{ 80, marine, marine, marine };
 													{ 20, marine, marine, engineer }
 												}
 				gProdRatio['USA']['militia_brigade'] = {		-- Militia
@@ -491,8 +490,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 5, infantry, infantry, engineer }
 												}
 				gProdRatio['JAP']['marine_brigade'] = {		-- Marine
-													{ 40, marine, marine, marine };
-													{ 40, marine, marine, artillery };
+													{ 80, marine, marine, marine };
 													{ 20, marine, marine, engineer }
 												}
 				gProdRatio['JAP']['militia_brigade'] = {		-- Militia
