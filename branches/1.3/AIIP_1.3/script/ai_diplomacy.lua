@@ -146,8 +146,7 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 	local score = 0
 
 	-- A only neighbour to B if on same continent
-	--local isANeighbourToB = IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
-	local isANeighbourToB = countryA:IsNeighbour(tagB)
+	local isANeighbourToB = IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 
 	for neighbour in countryB:GetNeighbours() do
 		-- Neighbour of one of our potential enemies
