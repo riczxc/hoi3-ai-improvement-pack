@@ -382,8 +382,8 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 					end
 				end
 			end
-		-- Not in our corner and effectiveNeutrality low enough and interested in joining
-		elseif dist > 0.5 and effectiveNeutrality < 0.8 and StrategicJoinScore(recipient, recipientCountry, actorFaction) > 0.5 then
+		-- Not in our corner but nearly enough and effectiveNeutrality low enough and interested in joining
+		elseif dist > 0.5 and dist < 10 and effectiveNeutrality < 0.8 and StrategicJoinScore(recipient, recipientCountry, actorFaction) > 0.5 then
 			--Utils.LUA_DEBUGOUT("----------------------------------------------------------")
 			--Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
 			--Utils.LUA_DEBUGOUT("\t" .. "effectiveNeutrality:" .. tostring(effectiveNeutrality))
