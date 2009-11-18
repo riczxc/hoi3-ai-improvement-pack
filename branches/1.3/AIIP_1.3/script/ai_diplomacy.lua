@@ -6,6 +6,7 @@
 require('ai_trade')
 require('helper_functions')
 require('utils')
+require('custom_triggers')
 
 function CalculateAlignmentFactor(ai, country1, country2)
 	local dist = ai:GetCountryAlignmentDistance( country1, country2 ):Get()
