@@ -95,6 +95,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, mechanized, mechanized, engineer }
 												}
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['GER']['armor_brigade'] = {		-- Armor with mechanized
 													{ 35, armor, armor, mechanized };
@@ -166,8 +167,10 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 15, mechanized, mechanized, tank_destroyer };
 													{ 15, mechanized, mechanized, sp_rct_artillery };
 													{ 5, mechanized, mechanized, engineer }
-												}
+
+							}
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['SOV']['armor_brigade'] = {		-- Armor with mechanized
 													{ 30, armor, armor, mechanized };
@@ -244,6 +247,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, mechanized, mechanized, engineer }
 												}
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['USA']['armor_brigade'] = {		-- Armor with mechanized
 													{ 40, armor, armor, mechanized };
@@ -318,6 +322,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, mechanized, mechanized, engineer }
 												}
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['ENG']['armor_brigade'] = {		-- Armor with mechanized
 													{ 40, armor, armor, mechanized };
@@ -387,6 +392,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 20, mechanized, mechanized, tank_destroyer }
 												}
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['FRA']['armor_brigade'] = {		-- Armor with mechanized
 													{ 50, armor, armor, mechanized };
@@ -457,6 +463,7 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 5, mechanized, mechanized, engineer }
 												}
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['ITA']['armor_brigade'] = {		-- Armor with mechanized
 													{ 60, armor, armor, mechanized };
@@ -516,6 +523,7 @@ function LoadProductionRatio(minister, ministerCountry)
 				gProdRatio['JAP']['motorized_brigade'] = gProdRatio['JAP']['infantry_brigade']
 				gProdRatio['JAP']['mechanized_brigade'] = gProdRatio['JAP']['marine_brigade']
 			end
+
 			if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 				gProdRatio['JAP']['armor_brigade'] = {		-- Armor with mechanized
 													{ 60, marine, marine, engineer };
@@ -531,71 +539,72 @@ function LoadProductionRatio(minister, ministerCountry)
 			end
 		end
 	------------------------------------------OTHERS---------------------------------------------------
-		--Utils.LUA_DEBUGOUT( "GENERIC" )
-		-- First number is the % of chance to build this template when AI wants to build this type of division
-		-- Be sure to have a total of 100%, no more no less
-		-- CAUTION: if a brigade is not available in the choosen template, the first template will be build
-		-- So, be sure that the first template of a type is the most basic template
-		-- Next, you define the brigades of a template
-		if not gProdRatio[ministerTag] then
-			gProdRatio[ministerTag] = {}
-			gProdRatio[ministerTag]['infantry_brigade'] = { 	-- Infantry
-												{ 50, infantry, infantry, infantry };
-												{ 30, infantry, infantry, artillery };
-												{ 5, infantry, infantry, anti_tank };
-												{ 5, infantry, infantry, anti_air };
-												{ 5, infantry, infantry, heavy_armor };
-												{ 5, infantry, infantry, armored_car }
-											}
-			gProdRatio[ministerTag]['marine_brigade'] = {		-- Marine
-												{ 80, marine, marine, marine };
-												{ 20, marine, marine, engineer }
-											}
-			gProdRatio[ministerTag]['militia_brigade'] = {		-- Militia
-												{ 100, militia, militia, militia }
-											}
-			gProdRatio[ministerTag]['garrison_brigade'] = {		-- Garrison
-												{ 100, garrison, garrison, garrison }
-											}
-			gProdRatio[ministerTag]['cavalry_brigade'] = {		-- Cavalry
-												{ 100, cavalry, cavalry, cavalry }
-											}
-			gProdRatio[ministerTag]['bergsjaeger_brigade'] = {		-- Mountain
-												{ 60, mountain, mountain, mountain };
-												{ 40, mountain, mountain, artillery }
-											}
-			gProdRatio[ministerTag]['paratrooper_brigade'] = {	-- Paratrooper
-												{ 100, paratrooper, paratrooper, paratrooper }
-											}
-			gProdRatio[ministerTag]['light_armor_brigade'] = {	-- Light Armor
-												{ 5, light_armor, light_armor, armored_car };
-												{ 95, light_armor, light_armor, motorized }
-											}
-			gProdRatio[ministerTag]['motorized_brigade'] = {	-- Motorized
-												{ 60, motorized, motorized };
-												{ 10, motorized, motorized, armored_car };
-												{ 30, motorized, motorized, sp_artillery }
-											}
-			gProdRatio[ministerTag]['mechanized_brigade'] = {	-- mechanized
-												{ 70, mechanized, mechanized, motorized };
-												{ 30, mechanized, mechanized, sp_artillery }
-											}
-		end
+	--Utils.LUA_DEBUGOUT( "GENERIC" )
+	-- First number is the % of chance to build this template when AI wants to build this type of division
+	-- Be sure to have a total of 100%, no more no less
+	-- CAUTION: if a brigade is not available in the choosen template, the first template will be build
+	-- So, be sure that the first template of a type is the most basic template
+	-- Next, you define the brigades of a template
+	if not gProdRatio[ministerTag] then
+		gProdRatio[ministerTag] = {}
+		gProdRatio[ministerTag]['infantry_brigade'] = { 	-- Infantry
+											{ 50, infantry, infantry, infantry };
+											{ 30, infantry, infantry, artillery };
+											{ 5, infantry, infantry, anti_tank };
+											{ 5, infantry, infantry, anti_air };
+											{ 5, infantry, infantry, heavy_armor };
+											{ 5, infantry, infantry, armored_car }
+										}
+		gProdRatio[ministerTag]['marine_brigade'] = {		-- Marine
+											{ 80, marine, marine, marine };
+											{ 20, marine, marine, engineer }
+										}
+		gProdRatio[ministerTag]['militia_brigade'] = {		-- Militia
+											{ 100, militia, militia, militia }
+										}
+		gProdRatio[ministerTag]['garrison_brigade'] = {		-- Garrison
+											{ 100, garrison, garrison, garrison }
+										}
+		gProdRatio[ministerTag]['cavalry_brigade'] = {		-- Cavalry
+											{ 100, cavalry, cavalry, cavalry }
+										}
+		gProdRatio[ministerTag]['bergsjaeger_brigade'] = {		-- Mountain
+											{ 60, mountain, mountain, mountain };
+											{ 40, mountain, mountain, artillery }
+										}
+		gProdRatio[ministerTag]['paratrooper_brigade'] = {	-- Paratrooper
+											{ 100, paratrooper, paratrooper, paratrooper }
+										}
+		gProdRatio[ministerTag]['light_armor_brigade'] = {	-- Light Armor
+											{ 5, light_armor, light_armor, armored_car };
+											{ 95, light_armor, light_armor, motorized }
+										}
+		gProdRatio[ministerTag]['motorized_brigade'] = {	-- Motorized
+											{ 60, motorized, motorized };
+											{ 10, motorized, motorized, armored_car };
+											{ 30, motorized, motorized, sp_artillery }
+										}
+		gProdRatio[ministerTag]['mechanized_brigade'] = {	-- mechanized
+											{ 70, mechanized, mechanized, motorized };
+											{ 30, mechanized, mechanized, sp_artillery }
+										}
+
 		if ministerCountry:GetTechnologyStatus():IsUnitAvailable(mechanized) then
 			gProdRatio[ministerTag]['armor_brigade'] = {		-- Armor with mechanized
 												{ 60, armor, armor, mechanized };
 												{ 30, armor, mechanized, sp_artillery };
 												{ 10, armor, mechanized, tank_destroyer }
 											}
-				gProdRatio[ministerTag]['mechanized']  = true
+			gProdRatio[ministerTag]['mechanized']  = true
 		else
 			gProdRatio[ministerTag]['armor_brigade'] = {		-- Armor with motorized
 												{ 60, armor, armor, motorized };
 												{ 30, armor, motorized, sp_artillery };
 												{ 10, armor, motorized, tank_destroyer }
 											}
-				gProdRatio[ministerTag]['mechanized']  = false
+			gProdRatio[ministerTag]['mechanized']  = false
 		end
+	end
 	-----------------------------------------
 
 	--Utils.LUA_DEBUGOUT( "EXIT LoadProductionRatio function" )
