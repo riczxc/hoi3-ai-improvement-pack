@@ -374,6 +374,11 @@ function GetAverageBalance(ministerCountry, goods)
 		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - No data yet!")
 		return 0 -- we have nothing to compare with
 	end
+	
+	-- Averaging doesn't work if max stockpile reached.
+	if Stock(ministerCountry, goods) >= 99990 then
+		return ministerCountry:GetDailyBalance(goods):Get()
+	end
 
 	today = math.mod(gDayCount, G_MEASURED_TIME_PERIOD)
 	yesterday = math.mod(gDayCount - 1, G_MEASURED_TIME_PERIOD)
