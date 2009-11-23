@@ -126,15 +126,18 @@ function HandleLaws(minister)
 					newLaw = currentLaw
 				else
 					-- Make decision based on money production
-					local cgOverProductionRatio = GetCGOverProductionRatio(ministerCountry)
-					local index = GetLawIndexByName('big_education_investment')
+					--local cgOverProductionRatio = GetCGOverProductionRatio(ministerCountry)
+					--local index = GetLawIndexByName('big_education_investment')
 					-- More than 30% of total IC in overproduction
-					if cgOverProductionRatio > 0.3 then
-						index = GetLawIndexByName('average_education_investment')
+					--if cgOverProductionRatio > 0.3 then
+						--index = GetLawIndexByName('average_education_investment')
 					-- More than 10%
-					elseif cgOverProductionRatio > 0.1 then
-						index = GetLawIndexByName('medium_large_education_investment')
-					end
+					--elseif cgOverProductionRatio > 0.1 then
+						--index = GetLawIndexByName('medium_large_education_investment')
+					--end
+					
+					-- We need a new way to determine investment laws since there's no more overproduction 1.3
+					local index = GetLawIndexByName('big_education_investment')
 					newLaw = CLawDataBase.GetLaw(index)
 				end
 			elseif tostring(group:GetKey()) == 'training_laws' then

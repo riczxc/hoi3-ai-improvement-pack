@@ -170,18 +170,6 @@ function CancelTrade(ai, route, aliceTag, bobTag)
 	end
 end
 
-function HasMinStock(country, goods)
-	return country:GetPool():Get( goods ):Get() > MinStock(country, goods)
-end
-
-function HasMaxStock(country, goods)
-	return country:GetPool():Get( goods ):Get() > MaxStock(country, goods)
-end
-
-function Stock(country, goods)
-	return country:GetPool():Get(goods):Get()
-end
-
 function Selling(country, goods)
 	if IsTradeControlledByHuman(country:GetCountryTag()) then
 		if HasMinStock(country, goods) then
