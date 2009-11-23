@@ -51,16 +51,16 @@ function ForeignMinister_HandleWar( minister )
 		for countryTag in ministerCountry:GetCurrentAtWarWith() do
 
 			-- mutual neighbors would be nice to move through
-			if neigborCountry:IsNeighbour( countryTag ) then
+			if neigborCountry:IsNeighbour(countryTag) then
 				local relation = ai:GetRelation(ministerTag, neighborTag)
 
 				if not relation:HasMilitaryAccess() then
-					local action = CMilitaryAccessAction(ministerTag, countryTag)
+					local action = CMilitaryAccessAction(ministerTag, neighborTag)
 
 					if action:IsSelectable() then
 
 						local acceptanceChance = action:GetAIAcceptance()
-						local score = DiploScore_DemandMilitaryAccess( ai, ministerTag, countryTag, ministerTag )
+						local score = DiploScore_DemandMilitaryAccess( ai, ministerTag, neighborTag, ministerTag )
 
 						if score > 50 and acceptanceChance > 40 then
 							minister:Propose( action, score )
