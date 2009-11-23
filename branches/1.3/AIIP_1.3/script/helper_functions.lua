@@ -388,81 +388,6 @@ function GetAverageBalance(ministerCountry, goods)
 	return sum / period
 end
 
--- Returns how much percent of ic is put into money production.
--- Value is between 0.0 and 1.0
-function GetCGOverProductionRatio(ministerCountry)
-	local totalIC = ministerCountry:GetTotalIC()
-	local cgNeeded = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()
-	local cgActual = ministerCountry:GetICPart( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()
-	return math.max((cgActual - cgNeeded) / totalIC, 0)
-end
-
--- Penalty is 100% if ic put into cg reaches G_MAX_GC_OVER_PRODUCTION.
-function GetCGOverProductionPenalty(ministerCountry)
-	local icToCG = GetCGOverProductionRatio(ministerCountry)
-	return icToCG * G_MAX_GC_OVER_PRODUCTION
-end
-
--- Returns targeted stockpile for given goods.
-function GetTargetStock(ministerCountry, goods)
-	local pool = ministerCountry:GetPool()
-	local totalIC = ministerCountry:GetTotalIC()
-	local days = 100
-
-	local targetStock = totalIC * days
-	if goods == CGoodsPool._METAL_ then
-		targetStock = targetStock / 2
-	elseif goods == CGoodsPool._RARE_MATERIALS_ then
-		targetStock = targetStock / 4
-	elseif goods == CGoodsPool._FUEL_ then
-		targetStock = targetStock * 2
-	elseif goods == CGoodsPool._MONEY_ then
-		targetStock = totalIC * 2
-	end
-
-	return targetStock
-end
-
--- Returns a score between 1 and -1, the former for goods we're lacking
--- and the latter for goods we have stockpiled.
-function GetDesireInGoods(ministerCountry, goods)
-	local pool = ministerCountry:GetPool()
-	local totalIC = ministerCountry:GetTotalIC()
-	local stock = pool:Get(goods):Get()
-	local balance = GetAverageBalance(ministerCountry, goods)
-	local targetStock = GetTargetStock(ministerCountry, goods)
-
-	if goods == CGoodsPool._FUEL_ then
-		-- Also take oil into account
-		stock = stock + pool:Get(CGoodsPool._CRUDE_OIL_):Get()
-		balance = balance + GetAverageBalance(ministerCountry, CGoodsPool._CRUDE_OIL_)
-	end
-
-	factorStock = math.min((stock / targetStock) - 1, 1.0) * -1.0
-	factorBalance = math.min(math.max(balance / totalIC, -1.0), 1.0) * -1.0
-
-	return math.min(math.max(factorStock + factorBalance, -1.0), 1.0)
-end
-
--- Returns a score between 1 and -1, the former for goods we want to buy
--- and the latter for goods we want to sell.
-function GetTradeDesireInGoods(ministerCountry, goods)
-	local score = GetDesireInGoods(ministerCountry, goods)
-
-	-- The more we're overproducing the more we want to get rid of those expensive goods.
-	if (goods == CGoodsPool._FUEL_) or (goods == CGoodsPool._CRUDE_OIL_) then
-		local penalty = GetCGOverProductionPenalty(ministerCountry)
-		score = math.max(score * (1 - penalty), -1)
-	elseif (goods == CGoodsPool._SUPPLIES_) then
-		-- We're interested in supplies if we have a lot of money.
-		local desireInMoney = math.min(GetDesireInGoods(ministerCountry, CGoodsPool._MONEY_), 0.0) * -1
-		local blendFactor = desireInMoney
-		score = (1 - blendFactor) * score + blendFactor * desireInMoney
-	end
-
-	return score
-end
-
 function MinStock(country, goods)
 	-- min for a 100 IC country in peace:
 	-- 200 oil, rare
@@ -491,6 +416,18 @@ function MaxStock(country, goods)
 	return math.min(90000, 500*country:GetTotalIC())
 end
 
+function HasMinStock(country, goods)
+	return country:GetPool():Get( goods ):Get() > MinStock(country, goods)
+end
+
+function HasMaxStock(country, goods)
+	return country:GetPool():Get( goods ):Get() > MaxStock(country, goods)
+end
+
+function Stock(country, goods)
+	return country:GetPool():Get(goods):Get()
+end
+
 function Importing(countryTag, goods)
 	return _ImportingExporting("import", tostring(AliceTag), goods)
 end
@@ -510,47 +447,6 @@ function _ImportingExporting(key, countryKey, goods)
 	end
 
 	return sum
-end
-
--- Returns the needed amount of goods. Amount is positive if
--- the given country wants these goods and amount is negative if
--- it wants to get rid of these goods.
-function GetNeededAmountOfGoods(ministerCountry, goods)
-	local pool = ministerCountry:GetPool()
-	local stock = pool:Get(goods):Get()
-	local targetStock = GetTargetStock(ministerCountry, goods)
-	local balance = GetAverageBalance(ministerCountry, goods)
-
-	local period = 365 -- we want to reach targeted stockpile in one year
-	if goods == CGoodsPool._MONEY_ then
-		period = 14 -- in case of money in two weeks
-	end
-
-	local amount = (targetStock - stock) / period
-	amount = amount - balance
-
-	return amount
-end
-
--- Returns value between 0 (bad) and 1 (good).
-function GetTradingScore(ministerCountry, goods, amount)
-	local targetAmount = GetNeededTradeAmountOfGoods(ministerCountry, goods)
-	if targetAmount == 0 then
-		return 0
-	end
-
-	if math.abs(targetAmount - amount) > math.abs(targetAmount) then
-		return 0
-	end
-
-	local x = math.abs(amount / targetAmount)
-	--local score = 1.0 - math.abs(math.min(math.max((targetAmount - amount) / targetAmount, -1.0), 1.0))
-	--return math.min(math.max(2 * math.pow(x, 0.5) - math.pow(x, 8), 0), 1)
-	if x <= 1 then
-		return math.pow(x, 1 / 7)
-	else
-		return 1 / math.pow(x, 4)
-	end
 end
 
 function ExistsExport(aliceTag, goods)
@@ -725,7 +621,7 @@ end
 -- START Diplomacy specific functions
 -------------------------------------------------------------------------------
 
-function getWarRunningTime(tag1, tag2)
+function GetWarRunningTime(tag1, tag2)
 	local tag1Country = tag1:GetCountry()
 	for diploStatus in tag1Country:GetDiplomacy() do
 		local target = diploStatus:GetTarget()

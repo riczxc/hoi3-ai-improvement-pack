@@ -66,7 +66,7 @@ function P.CustomFactionInviteRules( score, ai, actor, recipient, observer)
 				return 100 -- Germany is at war with SOV		
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				local warMonths = getWarRunningTime(actor, engTag)
+				local warMonths = GetWarRunningTime(actor, engTag)
 				--Utils.LUA_DEBUGOUT(warMonths)
 				if warMonths >= 12 then
 					return 100
@@ -193,7 +193,7 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --USA will accept if London has been conquered
 			elseif actorCountry:GetRelation(gerTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				local warMonths = getWarRunningTime(actor, engTag)
+				local warMonths = GetWarRunningTime(actor, engTag)
 				--Utils.LUA_DEBUGOUT(warMonths)
 				if warMonths >= 12 then
 					return 100
@@ -247,7 +247,7 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --Japan will accept if it is at war with ENG or USA
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				local warMonths = getWarRunningTime(actor, engTag)
+				local warMonths = GetWarRunningTime(actor, engTag)
 				--Utils.LUA_DEBUGOUT(warMonths)
 				if warMonths >= 12 then
 					return 100
@@ -292,7 +292,7 @@ function P.CustomFactionAcceptRules( score, ai, actor, recipient, observer)
 				return 100 --If GER at war with USA or SOV, return 100			
 			elseif actorCountry:GetRelation(engTag):HasWar() then
 				--Utils.LUA_DEBUGOUT("GER is at war with ENG")
-				local warMonths = getWarRunningTime(actor, engTag)
+				local warMonths = GetWarRunningTime(actor, engTag)
 				--Utils.LUA_DEBUGOUT(warMonths)
 				if warMonths >= 12 then
 					return 100
