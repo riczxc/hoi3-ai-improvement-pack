@@ -1,4 +1,5 @@
 name = "AIIP 1.3"
+extend = "common"
 extend = "decisions"
 extend = "events"
 extend = "script"
