@@ -40,9 +40,9 @@ function P.ProposeDeclareWar( minister )
 	end
 
 	--PEARL HARBOR
-	if year >= 1941 and month >= 10
-	and (not usaTag:GetCountry():GetRelation(sovTag):HasWar())	--USA not at war with SOV
-	and (not usaTag:GetCountry():GetFaction() == axisFaction)	--USA not in axis
+	if (year >= 1941 and month >= 10) or year >= 1942
+	and not usaTag:GetCountry():GetRelation(sovTag):HasWar()	--USA not at war with SOV
+	and not (usaTag:GetCountry():GetFaction() == axisFaction)	--USA not in axis
 	and not ministerCountry:GetRelation(usaTag):HasWar() 		--Not already at war with USA
 	and not usaTag:GetCountry():IsSubject() 					--USA isn't a subject nation
 	then
