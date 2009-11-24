@@ -1,4 +1,4 @@
-name = "AIIP 1.3"
+name = "AIIP 1.3.1"
 extend = "common"
 extend = "decisions"
 extend = "events"
