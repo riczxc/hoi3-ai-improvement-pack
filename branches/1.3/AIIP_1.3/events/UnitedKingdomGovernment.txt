@@ -13,6 +13,7 @@ country_event = {
 			government = social_democracy
 			government = social_liberalism
 			government = social_conservatism
+			government = constitutional_monarchy
 		}
 		not = { has_country_flag = george_v_stays }
 	}
@@ -48,6 +49,8 @@ country_event = {
 			government = social_democracy
 			government = social_liberalism
 			government = social_conservatism
+			government = constitutional_monarchy
+
 		}
 		not = { has_country_flag = edward_viii_stays }
 	}
@@ -85,6 +88,8 @@ country_event = {
 			government = social_democracy
 			government = social_liberalism
 			government = social_conservatism
+			government = constitutional_monarchy
+
 		}
 		year = 1937
 		head_of_government = 1002
@@ -128,6 +133,8 @@ country_event = {
 			government = social_democracy
 			government = social_liberalism
 			government = social_conservatism
+			government = constitutional_monarchy
+
 		}
 		war_with = GER
 		head_of_government = 1004
@@ -174,6 +181,8 @@ country_event = {
 			government = social_democracy
 			government = social_liberalism
 			government = social_conservatism
+			government = constitutional_monarchy
+
 		}
 		war_with = GER
 		or = {
