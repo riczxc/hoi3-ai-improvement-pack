@@ -26,7 +26,7 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	local targetedLawIndex = GetLawIndexByName('two_year_draft')
 	-- As long as we don't have appropriate conscription laws don't aim too high.
 	if lawIndex < targetedLawIndex then
-		OfficerGoal = -0.15 * (targetedLawIndex - lawIndex) + OfficerGoal
+		OfficerGoal = math.max(1.0, -0.15 * (targetedLawIndex - lawIndex) + OfficerGoal)
 	end
 	-- Officer ratio. aims at 200% for maximum org. in war
 	if ministerCountry:IsAtWar() then
