@@ -321,7 +321,9 @@ end
 function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 
 	-- POL or AUS in a faction breaks event chain for WW2
-	if tostring(recipient) == 'POL' or tostring(recipient) == 'AUS' then
+	if (	tostring(recipient) == 'POL' and actor:GetCountry():GetFaction():IsValid() and 
+			( actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('axis') or actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('comintern') ) )
+		or tostring(recipient) == 'AUS' then
 		--Utils.LUA_DEBUGOUT("blocked influence by "..tostring(actor).." toward "..tostring(recipient))
 		return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', 0, ai, actor, recipient, observer)
 	end
@@ -429,7 +431,9 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 
 	-- POL or AUS in a faction breaks event chain for WW2
-	if tostring(recipient) == 'POL' or tostring(recipient) == 'AUS' then
+	if (	tostring(recipient) == 'POL' and actor:GetCountry():GetFaction():IsValid() and 
+			( actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('axis') or actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('comintern') ) )
+		or tostring(recipient) == 'AUS' then
 		--Utils.LUA_DEBUGOUT("blocked influence by "..tostring(actor).." toward "..tostring(recipient))
 		return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', 0, ai, actor, recipient, observer)
 	end
