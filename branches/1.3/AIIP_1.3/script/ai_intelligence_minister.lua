@@ -365,9 +365,14 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_INCREASE_THREAT, 50 )
 	end
 
-	-- We are in a faction but they are not. Boost our party to help them aligning with us.
-	if not country:HasFaction() and ministerCountry:HasFaction() then
-		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." mission for "..tostring(countryTag).." is SPYMISSION_BOOST_OUR_PARTY" )
+	-- We are in a faction but they are not and have a different ideology. Boost our party to help them aligning with us.
+	local ourIdeologyGroup = ministerCountry:GetRulingIdeology():GetGroup()
+	local theirIdeologyGroup = country:GetRulingIdeology():GetGroup()
+	if	not country:HasFaction()
+		and ministerCountry:HasFaction()
+		and (ourIdeologyGroup ~= theirIdeologyGroup)
+	then
+		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." mission for "..tostring(countryTag).." is SPYMISSION_BOOST_OUR_PARTY (ideology alignment)" )
 		return PickBestMissionCallback( ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_BOOST_OUR_PARTY, 50 )
 	end
 
