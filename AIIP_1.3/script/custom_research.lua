@@ -460,12 +460,15 @@ local supply = {
 				}	
 local encryption = {
 					'electronic_mechanical_egineering',
-					'census_tabulation_machine',
-					'mechnical_computing_machine',
-					'electronic_computing_machine',
 					'decryption_machine',
 					'encryption_machine'
 				}	
+
+					-- took these out because research efficiency is bugged in 1.3
+					-- en/decrypt is still there for scenarios where the requirements are already researched
+					--'census_tabulation_machine',
+					--'mechnical_computing_machine',
+					--'electronic_computing_machine',
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 function ConstructPriorityList(minister)
