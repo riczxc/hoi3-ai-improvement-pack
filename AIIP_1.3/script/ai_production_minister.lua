@@ -50,6 +50,15 @@ function ProductionMinister_Tick(minister)
 	local bBuildReserveAtPeace = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
 	local requestQueue = ai:GetReqProdQueue()
 	local doBuildUnit = false
+	local gotManPower = true
+	
+	-- If we run low on manpower in or before war then stop building manpower costly units
+	if ministerCountry:GetManpower():Get() < TotalIC/2 and (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar()) then
+		-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
+		-- Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
+		-- Utils.LUA_DEBUGOUT("ministerCountry:GetManpower():Get() < TotalIC/2: " .. tostring(ministerCountry:GetManpower():Get()).." < "..tostring(TotalIC/2) )
+		gotManPower = false
+	end
 
 	--Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
 	--Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
@@ -89,7 +98,7 @@ function ProductionMinister_Tick(minister)
 			ratioProvince = 100
 		end
 
-		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
+		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince and gotManPower then
 --Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
 			local unit = requestQueue:GetHeadData().pUnit
 			local unitName = tostring(unit:GetKey())
@@ -187,16 +196,10 @@ function ProductionMinister_Tick(minister)
 		end
 	end
 
-	-- force inf or mil production for small countries
-	local mp = ministerCountry:GetManpower():Get()
-	if	availIC > 0 and ministerCountry:HasExtraManpowerLeft() and
-		(
-			(
-				ratioProvince == 0 and
-				not doBuildUnit
-			) or
-			10 == nothingBuiltCounter
-		)
+	-- force inf or mil production for small countries	
+	if	availIC > 0 and ministerCountry:HasExtraManpowerLeft() and gotManPower and
+		((	ratioProvince == 0 and not doBuildUnit) or
+			10 == nothingBuiltCounter	)
 	then
 		local orderlist = SubUnitList()
 		local unit = CSubUnitDataBase.GetSubUnit("infantry_brigade")
