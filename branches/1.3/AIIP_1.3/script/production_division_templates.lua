@@ -278,7 +278,8 @@ function LoadProductionRatio(minister, ministerCountry)
 													{ 10, infantry, infantry, infantry, engineer }
 												}
 				gProdRatio['ENG']['marine_brigade'] = {		-- Marine
-													{ 100, marine, marine, marine }												}
+													{ 100, marine, marine, marine }	
+											}
 				gProdRatio['ENG']['militia_brigade'] = {		-- Militia
 													{ 100, militia, militia, militia }
 												}
