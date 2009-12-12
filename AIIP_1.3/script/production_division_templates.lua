@@ -561,7 +561,7 @@ function LoadProductionRatio(minister, ministerCountry)
 											{ 95, light_armor, light_armor, motorized }
 										}
 		gProdRatio[ministerTag]['motorized_brigade'] = {	-- Motorized
-											{ 60, motorized, motorized, };
+											{ 60, motorized, motorized };
 											{ 10, motorized, motorized, armored_car };
 											{ 30, motorized, motorized, sp_artillery }
 										}
