@@ -277,14 +277,10 @@ function HasClaims(tagA, tagB)
 		return b == 'CZE' or b == 'ROM' or b == 'YUG'
 	elseif a == 'ITA' then
 		return b == 'YUG'
-	elseif a == 'JAP' then
-		return b == 'MAN'
 	elseif a == 'PAN' then
 		return b == 'USA'
 	elseif a == 'POL' then
 		return b == 'SOV'
-	elseif a == 'YEM' then
-		return b == 'ENG'
 	end
 
 	return false
