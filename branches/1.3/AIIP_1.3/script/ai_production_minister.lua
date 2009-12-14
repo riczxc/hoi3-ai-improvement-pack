@@ -241,7 +241,7 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost
 			function (province, provinceHasBuilding)
 				return not province:IsFrontProvince(false)
 					and province:GetInfrastructure():Get() > 0.3
-					and province:GetOWner():GetCountry() == ministerCountry
+					and province:GetOwner():GetCountry() == ministerCountry
 					and capitalContinent == province:GetContinent()
 			end
 		},
