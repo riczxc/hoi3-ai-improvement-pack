@@ -185,24 +185,26 @@ function Selling(country, goods)
 		return 0
 	end
 
+	-- don't sell fuel if importing oil
 	if goods == CGoodsPool._FUEL_ then
 		if ExistsImport(country:GetCountryTag(), CGoodsPool._CRUDE_OIL_) then
 			return 0
 		end
 	end
 
-	-- sell if are poor
+	-- sell if max stock
+	if HasMaxStock(country, goods) then
+		return 50
+	end
+
+	-- sell supplies if are poor
 	if  goods == CGoodsPool._SUPPLIES_ then
 		if IsPoor(country) then
-			-- IC (1-50)
+			-- IC/4 (1-50)
 			return math.min(50, math.max(1, country:GetTotalIC()/4))
 		else
 			return 0
 		end
-	end
-
-	if HasMaxStock(country, goods) then
-		return 50
 	end
 
 	if HasMinStock(country, goods) then
