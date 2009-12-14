@@ -239,9 +239,10 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost
 		{
 			'industry',
 			function (province, provinceHasBuilding)
-				return not province:IsFrontProvince(false) and
-							province:GetInfrastructure():Get() > 0.3 and
-							capitalContinent == province:GetContinent()
+				return not province:IsFrontProvince(false)
+					and province:GetInfrastructure():Get() > 0.3
+					and province:GetOWner():GetCountry() == ministerCountry
+					and capitalContinent == province:GetContinent()
 			end
 		},
 		{
@@ -396,10 +397,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	local MaxIC = ministerCountry:GetTotalIC()
 
 	-- CONSUMER
-	local ConsumerNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() --/ TotalIC
-
-	-- MONEY
-	local MoneyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/ministerCountry:GetTotalIC()
+	local ConsumerNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()
 
 	-- SUPPLY
 	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(45000, MinStock(ministerCountry, CGoodsPool._SUPPLIES_ ))
@@ -411,18 +409,19 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	end
 
 	-- REINFORCEMENT
-	local ReinforcementNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_ ):GetNeeded():Get() --/ TotalIC
+	local ReinforcementNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_ ):GetNeeded():Get()
 
 	-- PRODUCTION
-	local ProductionNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):GetNeeded():Get() --/ TotalIC
+	local ProductionNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):GetNeeded():Get()
 
 	-- UPGRADE
-	local UpgradeNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_UPGRADE_ ):GetNeeded():Get() --/ TotalIC
+	local UpgradeNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_UPGRADE_ ):GetNeeded():Get()
 	-- Utils.LUA_DEBUGOUT("UpgradeNeed " .. UpgradeNeed )
 
-	-- Distribute IC --
 
-	-- consumer need (to prevent new dissent) + boost for dissent or low money stock but never more than 90% of IC
+	-------------------------- Distribute IC --------------------------
+
+	-- consumer need (to prevent new dissent) + boost for dissent but never more than 90% of IC
 	ConsumerNeed = ConsumerNeed + math.max(0, MaxIC-ConsumerNeed) * math.min(dissent/10, 0.9)
 
 	-- not more than availIC
@@ -430,6 +429,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ConsumerNeed ) )
 
 	availIC = availIC - ConsumerNeed
+
 	-- Supply (max availIC)
 	SupplyNeed = math.min(SupplyNeed, availIC )
 	changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( SupplyNeed ) )
@@ -448,6 +448,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		UpgradeNeed = math.min(UpgradeNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
 		availIC = availIC - UpgradeNeed
+
 	-- upgrades
 	elseif 2==prioSelection then
 		UpgradeNeed = math.min(UpgradeNeed, availIC )
@@ -461,11 +462,13 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		ProductionNeed = math.min(ProductionNeed, availIC)
 		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
 		availIC = availIC - ProductionNeed
+
+	-- reinforcement
 	else
-		-- Reinforcement (max availIC)
 		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
 		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
 		availIC = availIC - ReinforcementNeed
+
 		if availIC > 0 then
 			-- distribute same percentage of IC needed to upgrade and production
 			local equalizer = availIC / math.max(ProductionNeed + UpgradeNeed, availIC)
@@ -482,28 +485,23 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		end
 	end
 
+	-- leftover IC
 	if availIC > 0.01 then
+
 		-- AI
 		if 0 == prioSelection and availIC > 0.02 then
 			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint(changes:GetAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() + 0.02 ) )
-		-- human player
 			availIC = availIC - 0.02
 		end
-		--else
-			-- if there is dissent move all possible left IC into money
-			if dissent > 0.01 or ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get() > 99000 then
-				changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC ) )
-			-- otherwise make supplies
-			else
-				-- if AI put 1/3 into money to allow more trades globaly
-				-- if 0 == prioSelection and MoneyStockpile < 100*ministerCountry:GetTotalIC() then
-					-- changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC/3 ) )
-					-- changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+2*availIC/3 ) )
-				-- else
-					changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+availIC ) )
-				-- end
-			end
-		--end
+
+		-- if there is dissent move all possible IC left into money
+		if dissent > 0.01 then
+			changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC ) )
+
+		-- otherwise make supplies
+		else
+			changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+availIC ) )
+		end
 	end
 
 	local command = CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes )
