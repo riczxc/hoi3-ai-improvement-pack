@@ -109,38 +109,49 @@ function HandleLaws(minister)
 			local newLaw = nil
 
 			if tostring(group:GetKey()) == 'industrial_policy_laws' then
+
+				-- at war, try for heavy industry but settle for mixed if country is small
 				if ministerCountry:IsAtWar() then
 					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('heavy_industry_emphasis'))
+					if ministerCountry:GetTotalIC() < 30 or not newLaw:ValidFor( ministerTag ) then
+						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
+					end
+
+				-- at peace, try for mixed industry but settle for CPO if CG need is high or country is small
 				else
-					-- bugged law -> mixed industry makes CG need explode...not worth it
-					-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
-					--if not newLaw:ValidFor( ministerTag ) then
-						--newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
-					--end
-					-- Aim for consumer_product_orientation
-					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
+					local CGRatio = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() / ministerCountry:GetTotalIC()
+
+					if ministerCountry:GetTotalIC() < 30 or not newLaw:ValidFor( ministerTag ) then
+						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+
+					-- CPO saves 16% of total IC compared to mixed industry, but has 5% worse industrial efficiency
+					-- not much benefit from switching to CPO for large countries unless CG need is substantial
+					elseif CGRatio > 0.10 then
+						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+					end
+
+					-- better method would probably be something like:
+					-- if production IC * 0.14 <= min(CGNeed,0.16*TotalIC) then switch to CPO
+					-- .14 approx = 1-(0.95^2) which is how much IC you save on production with +5% efficiency
+					-- but haven't tested for sure
 				end
+
 			elseif tostring(group:GetKey()) == 'education_investment_law' then
-				-- Don't change anything as long as there's dissent
-				if ministerCountry:GetDissent():Get() > 0.01 then
-					newLaw = currentLaw
-				else
-					-- Make decision based on money production
-					--local cgOverProductionRatio = GetCGOverProductionRatio(ministerCountry)
-					--local index = GetLawIndexByName('big_education_investment')
-					-- More than 30% of total IC in overproduction
-					--if cgOverProductionRatio > 0.3 then
-						--index = GetLawIndexByName('average_education_investment')
-					-- More than 10%
-					--elseif cgOverProductionRatio > 0.1 then
-						--index = GetLawIndexByName('medium_large_education_investment')
-					--end
-					
-					-- We need a new way to determine investment laws since there's no more overproduction 1.3
-					local index = GetLawIndexByName('big_education_investment')
-					newLaw = CLawDataBase.GetLaw(index)
+
+				-- Base on total leadership
+				-- big investment is useless for countries with < 4 leadership but minimal investment always sucks
+				local newLaw = CLawDataBase.GetLaw(GetLawIndexByName('big_education_investment'))
+
+				local leadership = ministerCountry:GetTotalLeadership():Get()
+				if leadership < 4 then
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('medium_large_education_investment'))
+				elseif leadership < 3 then
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('averge_education_investment'))
 				end
+
 			elseif tostring(group:GetKey()) == 'training_laws' then
+
 					-- Make decision based on manpower
 					-- If we've alot reduce recruiting time to spam infantry
 					-- If we're short increase recruiting time to save manpowerFactor
