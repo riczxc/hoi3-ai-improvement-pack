@@ -30,21 +30,14 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 	--Utils.LUA_DEBUGOUT("manage spies at home for: "..tostring(ministerTag))
 	local currentMonth = CCurrentGameState.GetCurrentDate():GetMonthOfYear()
 
-	-- Immediately switch to counterespionage if war/preparing war/GiE
-	if ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar() or ministerCountry:IsGovernmentInExile() then
-		newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
-		--Utils.LUA_DEBUGOUT("switch to counter espionage")
+	-- only consider switching to a new mission if current one lasted at least a month
+	local missionMonth = domesticSpyPresence:GetLastMissionChangeDate():GetMonthOfYear()
+	if currentMonth < missionMonth then
+		currentMonth = currentMonth + 12
+	end
 
-	-- otherwise only consider switching to a new mission if current one lasted at least a month
-	else
-		local missionMonth = domesticSpyPresence:GetLastMissionChangeDate():GetMonthOfYear()
-		if currentMonth < missionMonth then
-			currentMonth = currentMonth + 12
-		end
-
-		if currentMonth > missionMonth then
-			changeMission = 1
-		end
+	if currentMonth > missionMonth then
+		changeMission = 1
 	end
 
 	-- consider new mission if month has changed
