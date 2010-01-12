@@ -216,6 +216,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CSubUnitDefinition CSubUnitDefinition]||GetSubUnit(string subUnitName)||
 
 ==CSubUnitDefinition==
+||String||GetName()||
+||???||GetKey()||
 ||bool||IsShip()||
 ||bool||IsRegiment()||
 ||bool||IsCag()||
@@ -226,8 +228,11 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||bool||CanParadrop()||
 ||bool||IsBomber()||
 ||bool||IsCarrier()||
+||bool||IsValid()||
+||int||GetIndex()||
 ||bool||IsSecondRank()||
 ||float||GetCompletionSize()||
+||float||GetBuildCostIC()||
 ||float||GetBuildCostMP()||
 ||int||GetBuildTime()||
 ||int||GetDefaultStrength()||
