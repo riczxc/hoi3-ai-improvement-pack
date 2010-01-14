@@ -336,9 +336,8 @@ function ForeignMinister_HandlePeace( minister )
 
 			-- see if we can help out
 			if not country:GetRelation(ministerTag):AllowDebts() then
-
-				local action = CDebtAction(ministerTag, countryTag)
 				if ministerCountry:GetTotalIC() < country:GetTotalIC() then
+					local action = CDebtAction(ministerTag, countryTag)
 					if action:IsSelectable() then
 						local score = DiploScore_Debt( ai, ministerTag, countryTag, ministerTag )
 						if score > 50 then
