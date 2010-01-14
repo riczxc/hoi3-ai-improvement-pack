@@ -925,6 +925,16 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 		if rel:HasWar() then
 			return 0
 		end
+		
+		local strategy = recipient:GetStrategy()
+		if 	strategy:GetThreat(actor):Get() > 0 or 
+			strategy:GetAntagonism(actor):Get() > 0 or 
+			strategy:IsPreparingWarWith(actor)
+		then
+			-- Do not give technology to countries we feel threaten from or 
+			-- we don't like or we're preparing a war against.
+			return 0
+		end
 	
 		local actorCountry = actor:GetCountry()
 		local recipientCountry = recipient:GetCountry()
@@ -1010,40 +1020,44 @@ function DiploScore_Debt(ai, actor, recipient, observer)
 	--Utils.LUA_DEBUGOUT("->DiploScore_Debt " .. tostring(actor) .. " <-> " .. tostring(recipient))
 	local actorCountry = actor:GetCountry()
 	local recipientCountry = recipient:GetCountry()
-
+	local rel = actorCountry:GetRelation(recipient)
+	
 	local score = 0
 	if observer == actor then
 		if recipientCountry:IsAtWar()
-		and ( recipientCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction() )
+		and (
+			(recipientCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction())
+			or
+			rel:HasAlliance()
+		)
 		then
-			if actorCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get() < 10
-			and actorCountry:GetDailyBalance(CGoodsPool._MONEY_):Get() < 0
-			then
+			if IsPoor(actorCountry) then
+				--Utils.LUA_DEBUGOUT(tostring(actor) .. " is poor.")
 				score = 100
 			else
+				--Utils.LUA_DEBUGOUT(tostring(actor) .. " is not poor.")
 				score = 0
 			end
-		else
-			score = 0
 		end
-	else
-		if recipientCountry:IsAtWar()
-		and ( recipientCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction() )
+	else	
+		if actorCountry:IsAtWar()
+		and (
+			(actorCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction())
+			or
+			rel:HasAlliance()
+		)
 		then
-			local recipientMoney = recipientCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()
-			local actorMoney = actorCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()
-			if (recipientMoney * 5 > actorMoney)
-			and (recipientMoney > 200) then
+			if IsRich(recipientCountry) then
+				--Utils.LUA_DEBUGOUT(tostring(recipient) .. " is rich.")
 				score = 100
 			else
+				--Utils.LUA_DEBUGOUT(tostring(recipient) .. " is not rich.")
 				score = 0
 			end
-		else
-			score = 0
 		end
 	end
 
-	--Utils.LUA_DEBUGOUT("<-DiploScore_Debt")
+	--Utils.LUA_DEBUGOUT("<-DiploScore_Debt: " ..  tostring(score))
 	return score
 end
 
