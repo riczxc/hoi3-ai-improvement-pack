@@ -1,0 +1,5 @@
+name = "AIIP 1.3.2"
+extend = "common"
+extend = "decisions"
+extend = "events"
+extend = "script"
