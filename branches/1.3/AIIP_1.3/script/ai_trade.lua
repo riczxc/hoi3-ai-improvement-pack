@@ -381,11 +381,12 @@ function DiploScore_OfferTrade(ai, alice, bob, observer, action)
 		local route = action:GetRoute()
 		local isLandRoute = false
 
-		-- DOES NOT WORK BUG!
---~ 		if ai:AlreadyTradingResourceOtherWay( action:GetRoute() ) then
---~ 			Utils.LUA_DEBUGOUT(" Already Importing! ")
---~ 			return 0
---~ 		end
+		--BUGGED: if ai:AlreadyTradingResourceOtherWay(action:GetRoute()) 
+		if ai:AlreadyTradingDisabledResource(action:GetRoute())
+		then
+			--Utils.LUA_DEBUGOUT("+x+x++x+x+xalready trading that+x+x++x+x+x")
+			return 0
+		end
 
 		-- we need transports to trade
 		if aliceCountry:NeedConvoyToTradeWith( bob ) then
@@ -434,7 +435,7 @@ function DiploScore_OfferTrade(ai, alice, bob, observer, action)
 				if bob2Alice>0 or alice2Bob>0 then
 					score = math.min(score, ScoreTradeOfGood(goods, alice2Bob, aliceCountry, bob2Alice, bobCountry))
 					--Utils.LUA_DEBUGOUT(tostring(aliceCountry:GetCountryTag()).."<->"..tostring(bobCountry:GetCountryTag())
-					--	..tostring( GOODS_TO_STRING[goods]).." Score: "..tostring(score))
+						--..tostring( GOODS_TO_STRING[goods]).." Score: "..tostring(score))
 				end
 --~ 				Utils.LUA_DEBUGOUT(tostring(alice).."2"..tostring(bob).." -> bob2Alice "..tostring(bob2Alice).." ".. tostring( GOODS_TO_STRING[goods]))
 
@@ -459,7 +460,7 @@ function DiploScore_OfferTrade(ai, alice, bob, observer, action)
 		end
 		--Utils.LUA_DEBUGOUT("score after strategy " .. score)
 		-- 0 to 100
-		return math.max(0, math.min(100, Utils.CallScoredCountryAI(alice, 'DiploScore_OfferTrade', score, ai, alice, alice, observer)))
+		return math.max(0, math.min(100, Utils.CallScoredCountryAI(alice, 'DiploScore_OfferTrade', score, ai, alice, bob, observer)))
 	end
 end
 
@@ -540,20 +541,34 @@ function ScoreTradeOfGoodCalc(goods, amount, sellerCountry, buyerCountry)
 		--Utils.LUA_DEBUGOUT(tostring(sellerCountry:GetCountryTag()).."2"..tostring(buyerCountry:GetCountryTag()).." "
 		-- ..tostring( GOODS_TO_STRING[goods]).." "..tostring(sellerDemand).." <2> "..tostring(buyerDemand).." amount:"..tostring(amount)	)
 	-- end
+	
+	if 	IsInBetween(amount, MinTradeSize(sellerCountry), sellerDemand) and
+		IsInBetween(amount, MinTradeSize(buyerCountry), buyerDemand)
+	then
+		return 100
+	else
+		-- asking too much?
+		if amount > sellerDemand or amount > buyerDemand then
+			return 0
+		end
 
-	-- asking too much?
-	if amount > sellerDemand or amount > buyerDemand then
-		return 0
+		if sellerDemand > 0 and buyerDemand > 0 then
+			-- buyer satisfaction 1 to 0
+			local buyerScore = math.min(50, amount) / math.min(50, buyerDemand) --+ 0.5 * (1-math.min(1, BuyerStock/90000))
+			-- seller satisfaction 1 to 0
+			local sellerScore = math.min(MinTradeSize(sellerCountry), amount) / MinTradeSize(sellerCountry) --+ 0.5 * math.min(1, SellerStock/90000)
+			return 100 * math.min(buyerScore, math.min(sellerScore + 0.5, 1))
+		end
 	end
-
-	if sellerDemand > 0 and buyerDemand > 0 then
-		-- buyer satisfaction 1 to 0
-		local buyerScore = math.min(50, amount) / math.min(50, buyerDemand) --+ 0.5 * (1-math.min(1, BuyerStock/90000))
-		-- seller satisfaction 1 to 0
-		local sellerScore = math.min(MinTradeSize(sellerCountry), amount) / MinTradeSize(sellerCountry) --+ 0.5 * math.min(1, SellerStock/90000)
-		return 100 * math.min(buyerScore, math.min(sellerScore + 0.5, 1))
-	end
-
+	
 	return 0
+end
+
+function IsInBetween(value, left, right)
+	if value >= left and value <= right then
+		return true
+	else
+		return false
+	end
 end
 
