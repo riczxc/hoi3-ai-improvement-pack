@@ -3,6 +3,50 @@ require('ai_configuration')
 local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",	"_METAL_",	"_ENERGY_",	"_RARE_MATERIALS_" }
 
 -------------------------------------------------------------------------------
+-- DEBUG Functions
+-------------------------------------------------------------------------------
+function PrintCountryTable(ai, minIC)
+	for country1 in CCurrentGameState.GetCountries() do
+		countryTag1 = country1:GetCountryTag()
+		
+		if IsValidCountry(country1) and country1:GetMaxIC() > minIC then
+			Utils.LUA_DEBUGOUT("-------------------- " .. tostring(countryTag1) .. " --------------------")
+			local neutrality = country1:GetNeutrality():Get()
+			local effectiveNeutrality = country1:GetEffectiveNeutrality():Get()
+			
+			for country2 in CCurrentGameState.GetCountries() do
+				countryTag2 = country2:GetCountryTag()
+				
+				if IsValidCountry(country2) and not (countryTag1 == countryTag2) and country2:GetMaxIC() > minIC then
+					Utils.LUA_DEBUGOUT("\t---------- " .. tostring(countryTag2) .. " ----------")
+
+					local diplomacyStatus = country1:GetRelation(countryTag2)
+					local strategy = country1:GetStrategy()
+
+					Utils.LUA_DEBUGOUT("\tCCountry")
+					Utils.LUA_DEBUGOUT("\t\tGetDiplomaticDistance = " .. country1:GetDiplomaticDistance(countryTag2):Get())
+					
+					Utils.LUA_DEBUGOUT("\tCDiplomacyStatus")
+					Utils.LUA_DEBUGOUT("\t\tGetValue = " .. diplomacyStatus:GetValue():Get())
+					Utils.LUA_DEBUGOUT("\t\tGetThreat = " .. diplomacyStatus:GetThreat():Get())
+					
+					Utils.LUA_DEBUGOUT("\tCAIStrategy")
+					Utils.LUA_DEBUGOUT("\t\tGetAntagonism = " .. strategy:GetAntagonism(countryTag2))
+					Utils.LUA_DEBUGOUT("\t\tGetFriendliness = " .. strategy:GetFriendliness(countryTag2))
+					Utils.LUA_DEBUGOUT("\t\tGetProtectionism = " .. strategy:GetProtectionism(countryTag2))
+					Utils.LUA_DEBUGOUT("\t\tGetThreat = " .. strategy:GetThreat(countryTag2))						
+					
+					Utils.LUA_DEBUGOUT("\tCAI")
+					Utils.LUA_DEBUGOUT("\t\tGetCountryAlignmentDistance = " .. ai:GetCountryAlignmentDistance(country1, country2):Get())
+				end
+			end
+			
+			Utils.LUA_DEBUGOUT("\n")
+		end
+	end
+end
+
+-------------------------------------------------------------------------------
 -- START Common helper functions
 -------------------------------------------------------------------------------
 
@@ -118,6 +162,7 @@ function HFInit_ManageTrade(ai, ministerTag)
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	if tostring(ministerTag) == '---' then -- Always first country called a day
 		--Utils.LUA_DEBUGOUT("->HFInit_ManageTrade")
+		--PrintCountryTable(ai, 40)
 
 		-- Global variables won't be deleted if we load a new game.
 		-- Check last saved date and if time difference is > 1 day we know we're in
