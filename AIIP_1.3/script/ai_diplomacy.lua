@@ -925,19 +925,19 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 		if rel:HasWar() then
 			return 0
 		end
+	
+		local actorCountry = actor:GetCountry()
+		local recipientCountry = recipient:GetCountry()
 		
-		local strategy = recipient:GetStrategy()
-		if 	strategy:GetThreat(actor):Get() > 0 or 
-			strategy:GetAntagonism(actor):Get() > 0 or 
+		local strategy = recipientCountry:GetStrategy()
+		if 	strategy:GetThreat(actor) > 0 or 
+			strategy:GetAntagonism(actor) > 0 or 
 			strategy:IsPreparingWarWith(actor)
 		then
 			-- Do not give technology to countries we feel threaten from or 
 			-- we don't like or we're preparing a war against.
 			return 0
 		end
-	
-		local actorCountry = actor:GetCountry()
-		local recipientCountry = recipient:GetCountry()
 		
 		-- we give discount to
 		-- - people in faction
@@ -991,9 +991,9 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 		-- now calculate the price we want for this subunit
 		local subunit = action:GetSubunit()
 
-		local price = 1.0
+		local price = 0.15
 		
-		price = price * recipientCountry:GetBuildCostIC(subunit, 1, false):Get() * recipientCountry:GetBuildTime(subunit, 1) * defines.economy.IC_TO_MONEY
+		price = price * recipientCountry:GetBuildCostIC(subunit, 1, false):Get() * recipientCountry:GetBuildTime(subunit, 1)
 		
 		local quantityDiscount = 1.0
 		quantityDiscount = quantityDiscount * action:GetSerial() * action:GetParalell()
