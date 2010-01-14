@@ -194,7 +194,7 @@ function Selling(country, goods)
 
 	-- sell if max stock
 	if HasMaxStock(country, goods) then
-		return 50
+		return math.min(50, math.max(1, country:GetTotalIC()/4))
 	end
 
 	-- sell supplies if are poor
