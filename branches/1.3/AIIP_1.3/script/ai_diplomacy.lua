@@ -908,85 +908,101 @@ function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, actio
 	end
 end
 
-function DiploScore_LicenceTechnology(ai, LicenceBuyer, LicenceGiver, observer, action)
-	--Utils.LUA_DEBUGOUT("->DiploScore_LicenceTechnology " .. tostring(actor) .. " <-> " .. tostring(recipient))
-	if observer == LicenceBuyer then
-		--Utils.LUA_DEBUGOUT("<-DiploScore_LicenceTechnology")
-		return 0
+
+-- actor tries to buy a licence from recipient.
+function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
+	if observer == actor then
+		return 0 
 	else
-		--Utils.LUA_DEBUGOUT("-> LicenceTechnology " .. tostring(LicenceBuyer) .. " buying from " ..  tostring(LicenceGiver))
 		if not action:GetSubunit() then
-			--Utils.LUA_DEBUGOUT("LICENS -> not action:GetSubunit()")
-			--Utils.LUA_DEBUGOUT("<-DiploScore_LicenceTechnology")
 			return 0
 		end
-
-		local score = 0
-		local LicenceBuyerCountry = LicenceBuyer:GetCountry()
-		local LicenceGiverCountry = LicenceGiver:GetCountry()
-		local rel = ai:GetRelation(LicenceGiver, LicenceBuyer)
-
+		
+		local rel = ai:GetRelation(recipient, actor)
+		if rel:GetValue():GetTruncated() < 0 then
+			return 0
+		end
 		if rel:HasWar() then
-			--Utils.LUA_DEBUGOUT("LICENS -> rel:HasWar() "..tostring(rel:HasWar()))
-			--Utils.LUA_DEBUGOUT("<-DiploScore_LicenceTechnology")
 			return 0
 		end
-		--Utils.LUA_DEBUGOUT("1 LICENS " .. tostring(LicenceBuyer) .. " -> " ..  tostring(LicenceGiver) .. " = " .. score)
-		-- we can give tech to
+	
+		local actorCountry = actor:GetCountry()
+		local recipientCountry = recipient:GetCountry()
+		
+		-- we give discount to
 		-- - people in faction
 		-- - people in alliance
 		-- - people fighting our enemies
 		-- - people close in triangle (not far away! scale price here too)
-		if ( LicenceGiverCountry:HasFaction() and LicenceGiverCountry:GetFaction() == LicenceBuyerCountry:GetFaction() ) then
-			score = 70
+		local discount = 1.0
+		if (recipientCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction()) then
+			-- we give 50% discount
+			discount = 0.5
 		elseif rel:HasAlliance() then
-			score = 60
+			-- we give 40% discount
+			discount = 0.6
 		else
-			if rel:GetValue():GetTruncated() < 0 then
-				--Utils.LUA_DEBUGOUT("LICENS -> rel:GetValue():GetTruncated() < 0 "..tostring(rel:GetValue():GetTruncated()))
-				--Utils.LUA_DEBUGOUT("<-DiploScore_LicenceTechnology")
-				return 0
-			end
-			-- relationship - threat
-			score = rel:GetValue():GetTruncated()/5 - rel:GetThreat():Get() * CalculateAlignmentFactor(ai, LicenceBuyerCountry, LicenceGiverCountry)
-		end
-
-		--Utils.LUA_DEBUGOUT("2 LICENS " .. tostring(LicenceBuyer) .. " -> " ..  tostring(LicenceGiver) .. " = " .. score)
-		local MutualEnemy = false
-		if LicenceBuyerCountry:IsAtWar() then
-			for EnemyOfBuyer in LicenceBuyerCountry:GetCurrentAtWarWith() do
-				if LicenceGiverCountry:IsEnemy(EnemyOfBuyer) then
-					--Utils.LUA_DEBUGOUT("mutual enemy: " .. tostring(EnemyOfBuyer) .. " for " ..  tostring(LicenceBuyer) .. " and " .. tostring(LicenceGiver))
-					MutualEnemy = true
-					--Utils.LUA_DEBUGOUT("mutual EnemyOfBuyer")
-				elseif LicenceGiverCountry:IsFriend(EnemyOfBuyer, true)
-				and ai:GetRelation(EnemyOfBuyer, LicenceBuyer):GetValue():GetTruncated() > 20
-				then
-					-- Giver is friend of EnemyOfBuyer
-					--Utils.LUA_DEBUGOUT("<-DiploScore_LicenceTechnology")
-					return 0
+			if actorCountry:IsAtWar() then
+				for enemy in actorCountry:GetCurrentAtWarWith() do
+					if recipientCountry:IsEnemy(enemy) then
+						-- we give 30% discount
+						discount = 0.7
+						break
+					elseif recipientCountry:IsFriend(enemy, true)
+					and ai:GetRelation(enemy, recipient):GetValue():GetTruncated() > 0
+					then
+						-- actor is fighting a friend of us -> no deal.
+						return 0
+					end
 				end
 			end
 		end
-
-		--Utils.LUA_DEBUGOUT("3 LICENS " .. tostring(LicenceBuyer) .. " -> " ..  tostring(LicenceGiver) .. " = " .. score)
-		if MutualEnemy then
-			score = score + 30
-			--Utils.LUA_DEBUGOUT("MutualEnemy")
-		else
-			--Utils.LUA_DEBUGOUT("CalculateAlignmentFactor: " .. CalculateAlignmentFactor(ai, LicenceBuyerCountry, LicenceGiverCountry) * 50)
-			score = score - CalculateAlignmentFactor(ai, LicenceBuyerCountry, LicenceGiverCountry) * 50
+		
+		if discount == 1.0 then
+			-- if they are in the other corner for example base price will double
+			local alignment = CalculateAlignmentFactor(ai, actorCountry, recipientCountry)
+			if alignment < 0.5 then
+				-- give at max discount of 25%
+				discount = discount + (alignment - 0.5) * 0.5
+			else
+				-- increase price
+				discount = discount + (alignment - 0.5) * 2
+			end
+			
+			-- a high threat is also not good for the price
+			local threat = rel:GetThreat():Get() * alignment / 50
+			discount = discount + threat
 		end
-		-- consider the money
-		local boost = 1
-		if IsPoor(LicenceGiverCountry) then
-			boost = 2
-		end
-		score = score*math.min(2, (boost*action:GetMoney():Get())/(LicenceGiverCountry:GetTotalIC()+LicenceBuyerCountry:GetTotalIC()))
+		
+		-- good relations give further discount (at max 15%)
+		local relations = rel:GetValue():Get() / 200
+		discount = discount - relations * 0.15
+		
+		-- now calculate the price we want for this subunit
+		local subunit = action:GetSubunit()
 
-		--Utils.LUA_DEBUGOUT("<- LicenceTechnology " .. tostring(LicenceBuyer) .. " buying from " ..  tostring(LicenceGiver) .. " = " .. score)
-		--Utils.LUA_DEBUGOUT("<-DiploScore_LicenceTechnology")
-		return math.min(100, score)
+		local price = 1.0
+		
+		price = price * recipientCountry:GetBuildCostIC(subunit, 1, false):Get() * recipientCountry:GetBuildTime(subunit, 1) * defines.economy.IC_TO_MONEY
+		
+		local quantityDiscount = 1.0
+		quantityDiscount = quantityDiscount * action:GetSerial() * action:GetParalell()
+		quantityDiscount = 1 / math.pow(quantityDiscount, 0.05)
+		
+		--Utils.LUA_DEBUGOUT("Base price: " .. tostring(price))
+		--Utils.LUA_DEBUGOUT("Discount: " .. tostring(discount))
+		--Utils.LUA_DEBUGOUT("Quantity discount: " .. tostring(quantityDiscount))
+		
+		price = price * discount * quantityDiscount
+		--Utils.LUA_DEBUGOUT("Final price: " .. tostring(price))
+		
+		local offeredMoney = action:GetMoney():Get()	
+		local score = (offeredMoney / price) * 100
+		
+		--Utils.LUA_DEBUGOUT("Offered money: " .. tostring(offeredMoney))
+		--Utils.LUA_DEBUGOUT("Final score: " .. tostring(score))
+		
+		return score
 	end
 end
 
