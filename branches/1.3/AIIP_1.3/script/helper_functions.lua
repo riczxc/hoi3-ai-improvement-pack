@@ -554,7 +554,7 @@ function IsRich(AliceCountry)
 
 		if 	not needResources and
 			not importer and
-			not ExistsExport(aliceTag, CGoodsPool._SUPPLIES_) and
+			not ExistsExport(AliceCountry:GetCountryTag(), CGoodsPool._SUPPLIES_) and
 			GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) > 0
 		then
 			--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
