@@ -228,18 +228,36 @@ function LoadProvinceImprovements(country)
 	elseif countryTag == 'USA' then
 		--Utils.LUA_DEBUGOUT( "USA" )
 
+		local usaContinent = country:GetCapitalLocation():GetContinent()
+		local islandBuildCallback = function (province)
+			return province:GetContinent() ~= usaContinent
+		end
+		
 		prod_improvements = {
+			-- build industry at home
+			industry = {
+				priority = 0.1
+			},
+			-- build rest only on islands
+			infra = {
+				priority = 0.1,
+				buildCallback = islandBuildCallback
+			},
 			air_base = {
-				priority = 0.3
+				priority = 0.25,
+				buildCallback = islandBuildCallback
 			},
 			naval_base = {
-				priority = 0.5
+				priority = 0.35,
+				buildCallback = islandBuildCallback
 			},
 			coastal_fort = {
-				priority = 0.1
+				priority = 0.1,
+				buildCallback = islandBuildCallback
 			},
 			radar_station = {
-				priority = 0.1
+				priority = 0.1,
+				buildCallback = islandBuildCallback
 			}
 		}
 
