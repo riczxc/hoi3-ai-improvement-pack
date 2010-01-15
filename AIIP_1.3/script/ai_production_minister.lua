@@ -50,18 +50,19 @@ function ProductionMinister_Tick(minister)
 	local bBuildReserveAtPeace = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
 	local requestQueue = ai:GetReqProdQueue()
 	local doBuildUnit = false
-	local gotManPower = true
+	local gotManPower = ministerCountry:HasExtraManpowerLeft()
 	
-	-- If we run low on manpower in or before war then stop building manpower costly units
-	if ministerCountry:GetManpower():Get() < TotalIC/2 and (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar()) then
-		-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
-		-- Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
-		-- Utils.LUA_DEBUGOUT("ministerCountry:GetManpower():Get() < TotalIC/2: " .. tostring(ministerCountry:GetManpower():Get()).." < "..tostring(TotalIC/2) )
+	-- If we run low on manpower stop building manpower costly units
+	if	ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2
+	then
+		-- --Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
+		-- --Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
+		-- --Utils.LUA_DEBUGOUT("ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2: " .. tostring(ministerCountry:GetManpower():Get()).." < "..tostring(ministerCountry:GetMaxIC() / 2) )
 		gotManPower = false
 	end
 
 	--Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
-	--Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
+	--Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
 	--Utils.LUA_DEBUGOUT("maxBuildCost: " .. tostring(maxBuildCost))
 	--Utils.LUA_DEBUGOUT("Ratio province: " .. tostring(ratioProvince) .. "%")
 	--Utils.LUA_DEBUGOUT("Units filterted out:")
@@ -72,7 +73,8 @@ function ProductionMinister_Tick(minister)
 		local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
 		local cost = ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
 
-		if cost < maxBuildCost and (not unit:IsRegiment() or ministerCountry:HasExtraManpowerLeft()) then
+		if cost < maxBuildCost and (not unit:IsRegiment() or gotManPower)
+		then
 			doBuildUnit = true
 		else
 			--Utils.LUA_DEBUGOUT(tostring(unit:GetKey()))
@@ -83,8 +85,9 @@ function ProductionMinister_Tick(minister)
 	if not doBuildUnit then
 		-- Only build province improvements
 		ratioProvince = 100
+		--Utils.LUA_DEBUGOUT("No unit to build. Changing ratio province to 100%.")
 	end
---Utils.LUA_DEBUGOUT("->ProductionMinister_Tick1")
+
 	while (availIC > 0) and (nothingBuiltCounter < 10) do
 		local availICInThisIteration = availIC
 
@@ -98,7 +101,7 @@ function ProductionMinister_Tick(minister)
 			ratioProvince = 100
 		end
 
-		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince and gotManPower then
+		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
 --Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
 			local unit = requestQueue:GetHeadData().pUnit
 			local unitName = tostring(unit:GetKey())
@@ -197,7 +200,7 @@ function ProductionMinister_Tick(minister)
 	end
 
 	-- force inf or mil production for small countries	
-	if	availIC > 0 and ministerCountry:HasExtraManpowerLeft() and gotManPower and
+	if	availIC > 0 and gotManPower and
 		((	ratioProvince == 0 and not doBuildUnit) or
 			10 == nothingBuiltCounter	)
 	then
@@ -385,7 +388,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 
 	--Utils.LUA_DEBUGOUT("BalanceProductionSliders - " .. tostring(ministerCountry:GetCountryTag()) )
 	-- if tostring(ministerCountry:GetCountryTag())=='GER' then
-		-- Utils.LUA_DEBUGOUT( " BalanceProductionSliders ")
+		-- --Utils.LUA_DEBUGOUT( " BalanceProductionSliders ")
 	-- end
 	--local ministerCountry = minister:GetCountry()
 	--local TotalIC = ministerCountry:GetTotalIC()
@@ -415,7 +418,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 
 	-- UPGRADE
 	local UpgradeNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_UPGRADE_ ):GetNeeded():Get()
-	-- Utils.LUA_DEBUGOUT("UpgradeNeed " .. UpgradeNeed )
+	-- --Utils.LUA_DEBUGOUT("UpgradeNeed " .. UpgradeNeed )
 
 
 	-------------------------- Distribute IC --------------------------
