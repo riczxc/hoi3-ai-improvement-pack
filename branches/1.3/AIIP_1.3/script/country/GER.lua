@@ -210,6 +210,17 @@ function P.PickBestMission(ai, minister, countryTag, bestMission, bestScore )
 	--and (not minister:GetCountry():IsFriend(countryTag, false)) then
 		bestScore = 100
 		bestMission = SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY
+	elseif tostring(countryTag) == 'FRA' then
+		local fraTag = CCountryDataBase.GetTag('FRA')
+		
+		if minister:GetCountry():GetRelation(fraTag):HasWar()
+			local vicTag = CCountryDataBase.GetTag('VIC')
+			
+			if not (vicTag:IsValid() and vicTag:IsReal() and vicTag:GetCountry():Exists()) then
+				bestScore = 100
+				bestMission = SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY
+			end
+		end
 	end
 	return bestMission
 end
