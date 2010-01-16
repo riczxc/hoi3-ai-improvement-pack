@@ -18,11 +18,14 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||[#CCountryTag CCountryTag]||GetTag(String countryCode)||
 
 ==CCountryTag==
+||int||GetIndex()||
+||[#CCountry CCountry]||GetCountry()||
+||[#CCountryTag CCountryTag]||GetTag()||
 ||bool ||IsReal()||
 ||bool ||IsValid()||
-||[#CCountry CCountry]||GetCountry()||
 
 ==CCountry==
+||[#CCountryTag CCountryTag]||GetCountryTag()||
 ||[#CFaction CFaction]||GetFaction()||
 ||bool ||Exists()||
 ||[#CAIStrategy CAIStrategy]||GetStrategy()||
@@ -460,6 +463,7 @@ Shoul be number 5.
 ||???||_AI_BALANCED_||
 ||???||_AI_DIPLOMAT_||
 ||???||_AI_INDUSTRIALIST_||
+||[#CCountryTag CCountryTag]||GetCountryTag()||
 ||float ||GetFriendliness([#CCountryTag CCountryTag] countryTag)||
 ||float ||GetAntagonism([#CCountryTag CCountryTag] countryTag)||
 ||float ||GetProtectionism([#CCountryTag CCountryTag] countryTag)||
