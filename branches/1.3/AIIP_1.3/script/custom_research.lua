@@ -506,7 +506,6 @@ function ConstructPriorityList(minister)
 							interceptors,
 							industry,
 							encryption,
-							ressources,
 							supply
 					}		
 		-- Level 2 techs
@@ -572,8 +571,7 @@ function ConstructPriorityList(minister)
 							mountain,
 							heavy_tank,
 							anti_aircraft,
-							encryption,
-							ressources							
+							encryption
 					}			
 		-- Level 3 techs
 		priority3 = {	
@@ -648,8 +646,7 @@ function ConstructPriorityList(minister)
 							heavy_tank,
 							sheavy_tank,
 							anti_aircraft,
-							submarine,
-							ressources
+							submarine
 					}	
 	-----------------------------------------------------------------------------------------					
 	------------------------------------------------UNITED KINGDOM
@@ -691,7 +688,6 @@ function ConstructPriorityList(minister)
 		priority3 = {	
 							england3,
 							arctic,
-							ressources,
 							aircraft_carrier
 					}	
 	-----------------------------------------------------------------------------------------
@@ -732,7 +728,6 @@ function ConstructPriorityList(minister)
 							marine,
 							anti_aircraft,
 							naval_bombers,
-							ressources,
 							aircraft_carrier
 					}			
 	-----------------------------------------------------------------------------------------
@@ -748,8 +743,7 @@ function ConstructPriorityList(minister)
 							anti_tank,
 							artillery,
 							light_cruiser,
-							heavy_cruiser,
-							ressources
+							heavy_cruiser
 					}
 		-- Level 2 techs
 		priority2 = {	
@@ -788,7 +782,6 @@ function ConstructPriorityList(minister)
 							light_cruiser,
 							aircraft_carrier,
 							interceptors,
-							ressources,
 							supply
 					}
 		-- Level 2 techs
@@ -826,7 +819,6 @@ function ConstructPriorityList(minister)
 							heavy_cruiser,							
 							interceptors,
 							encryption,
-							ressources,
 							supply						
 					}	
 		-- Level 2 techs
@@ -869,7 +861,6 @@ function ConstructPriorityList(minister)
 							militia,
 							jungle,
 							artillery,
-							ressources,
 							supply
 					}	
 		-- Level 3 techs				
@@ -893,8 +884,7 @@ function ConstructPriorityList(minister)
 							italy1,
 							mountain,
 							light_cruiser,
-							heavy_cruiser,
-							ressources
+							heavy_cruiser
 					}	
 		-- Level 3 techs				
 		priority3 = {	
@@ -911,8 +901,7 @@ function ConstructPriorityList(minister)
 		priority1 = {	
 							italy1,
 							infantry,
-							artillery,																																	
-							ressources											
+							artillery
 					}	
 		-- Level 2 techs
 		priority2 = {	
@@ -954,7 +943,6 @@ function ConstructPriorityList(minister)
 					}
 		-- Level 3 techs			
 		priority3 = {	
-							ressources
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------NAVAL/JUNGLE/ISLAND COUNTRIES
@@ -979,7 +967,6 @@ function ConstructPriorityList(minister)
 					}	
 		-- Level 3 techs
 		priority3 = {	
-							ressources
 					}													
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINORS IN THE MOUNTAINS
@@ -997,7 +984,6 @@ function ConstructPriorityList(minister)
 		-- Level 3 techs
 		priority3 = {	
 							artillery,
-							ressources,
 							arctic
 					}	
 	-----------------------------------------------------------------------------------------
@@ -1022,7 +1008,6 @@ function ConstructPriorityList(minister)
 					}	
 		-- Level 3 techs
 		priority3 = {	
-							ressources
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------GENERIC MINORS
