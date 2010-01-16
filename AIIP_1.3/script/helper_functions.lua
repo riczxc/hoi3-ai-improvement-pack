@@ -438,6 +438,16 @@ function GetAverageBalance(ministerCountry, goods)
 	return sum / period
 end
 
+-- Returns daily balance of a faction.
+function GetFactionBalance(faction, goods)
+	local sum = 0
+	for countryTag in faction:GetMembers() do
+		local country = countryTag:GetCountry()
+		sum = sum + country:GetDailyBalance(goods)
+	end
+	return sum
+end
+
 function MinStock(country, goods)
 	-- min for a 100 IC country in peace:
 	-- 200 oil, rare

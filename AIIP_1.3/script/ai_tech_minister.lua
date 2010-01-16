@@ -154,31 +154,78 @@ function ProposeResearch(minister)
 	end
 	table.sort(sortedTechs, function(x, y) return x[1] > y[1] end) -- highest score first
 
---	Utils.LUA_DEBUGOUT(tostring(ministerTag) .. ".sortedTechs = {")
---	for _, debugtech in ipairs(sortedTechs) do
---		if debugtech == nil then
---			Utils.LUA_DEBUGOUT("nil in list")
---		else
---			Utils.LUA_DEBUGOUT( "(" .. tostring(debugtech[1]) .. ", (" .. tostring(debugtech[2]:GetKey()) .. ")" )
---		end
+	-------------------------------DEBUG------------------------------------
+	-- if ministerCountry:GetMaxIC() > 60 then
+		-- local techFolder = {}
+		
+		-- local techModifiers = minister:GetTechModifers()
+		-- local folderModifiers = minister:GetFolderModifers()
+		
+		-- Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " tech folder modifiers:")
+		-- for tech in CTechnologyDataBase.GetTechnologies() do
+			-- if minister:CanResearch(tech) and tech:IsValid() then
+				-- local folder = tech:GetFolder()
+				-- local folderIndex = folder:GetIndex()
+				-- if not techFolder[folderIndex] then
+					-- techFolder[folderIndex] = { 
+						-- name = tostring(folder:GetKey()),
+						-- modifier = folderModifiers:GetAt(folderIndex),
+						-- folder = tech:GetFolder(),
+						-- techs = {} 
+					-- }
+				-- end
 
---	end
---	Utils.LUA_DEBUGOUT("}\n")
+				-- table.insert(techFolder[folderIndex].techs, tech)
+			-- end
+		-- end
+		
+		-- local folderSum = 0
+		-- for _,folderEntry in pairs(techFolder) do
+			-- local s = ""
+			-- for i = 0, math.ceil(folderEntry.modifier * 100) do
+				-- s = s .. "#"
+			-- end
+			
+			-- Utils.LUA_DEBUGOUT(s .. " (" .. folderEntry.name .. ")")
+			
+			-- local sum = 0
+			-- for _,tech in pairs(folderEntry.techs) do
+				-- sum = sum + techModifiers:GetAt(tech:GetIndex())
+			-- end
+			
+			-- folderSum = folderSum + folderEntry.modifier
+		-- end
+		-- Utils.LUA_DEBUGOUT("Sum folder modifiers: " .. folderSum)
+		-- Utils.LUA_DEBUGOUT("\n")
+
+		-- Utils.LUA_DEBUGOUT(tostring(ministerTag) .. ".sortedTechs = {")
+		-- local i = 0
+		-- for _, debugtech in ipairs(sortedTechs) do
+			-- Utils.LUA_DEBUGOUT( "(" .. tostring(debugtech[1]) .. ", (" .. tostring(debugtech[2]:GetKey()) .. ")" )
+			-- i = i + 1
+			-- if i > 10 then
+				-- break
+			-- end
+		-- end
+		-- Utils.LUA_DEBUGOUT("}\n")
+	-- end
+	-------------------------------------------------------------------
 
 	return sortedTechs
 end
 
 function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, listnorm)
+	local ministerTag = ministerCountry:GetCountryTag()
 	local nomTech = tostring(tech:GetKey())
 	local techStatus = ministerCountry:GetTechnologyStatus()
 
 	local score = 1
-	local majorTechScore = 14
-	local mediumTechScore = 12
-	local minorTechScore = 9
+	local majorTechScore = 4
+	local mediumTechScore = 3
+	local minorTechScore = 2
 	local find = 0
 
-	--Utils.LUA_DEBUGOUT( nomTech )
+	--Utils.LUA_DEBUGOUT(nomTech)
 
 	--------------------------------------------------------------
 	-- lvl 1 tech check
@@ -240,6 +287,64 @@ function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, l
 		if ministerCountry:GetTotalIC() > 0 and (ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()) > 2 then
 			score = minorTechScore
 		end
+	elseif nomTech == 'coal_processing_technologies' then
+		if ExistsImport(ministerTag, CGoodsPool._ENERGY_) or GetAverageBalance(ministerCountry, CGoodsPool._ENERGY_) < 0 then
+			score = majorTechScore
+		else
+			-- Does our faction need this resource?
+			if ministerCountry:HasFaction() then
+				if GetFactionBalance(ministerCountry:GetFaction(), CGoodsPool._ENERGY_) < 0 then
+					score = majorTechScore
+				end
+			end
+		end
+	elseif nomTech == 'steel_production' then
+		if ExistsImport(ministerTag, CGoodsPool._METAL_) or GetAverageBalance(ministerCountry, CGoodsPool._METAL_) < 0 then
+			score = majorTechScore
+		else
+			-- Does our faction need this resource?
+			if ministerCountry:HasFaction() then
+				if GetFactionBalance(ministerCountry:GetFaction(), CGoodsPool._METAL_) < 0 then
+					score = majorTechScore
+				end
+			end
+		end
+	elseif nomTech == 'raremetal_refinning_techniques' then
+		if ExistsImport(ministerTag, CGoodsPool._RARE_MATERIALS_) or GetAverageBalance(ministerCountry, CGoodsPool._RARE_MATERIALS_) < 0 then
+			score = majorTechScore
+		else
+			-- Does our faction need this resource?
+			if ministerCountry:HasFaction() then
+				if GetFactionBalance(ministerCountry:GetFaction(), CGoodsPool._RARE_MATERIALS_) < 0 then
+					score = majorTechScore
+				end
+			end
+		end
+	elseif nomTech == 'oil_to_coal_conversion' then
+		-- Amount of oil a country converts is fixed, but the amount of energy used for the
+		-- conversion can be adjusted with this tech. So we have to look at our energy
+		-- household in order to decide if we want to research this tech.
+		if ExistsImport(ministerTag, CGoodsPool._ENERGY_) or GetAverageBalance(ministerCountry, CGoodsPool._ENERGY_) < 0 then
+			score = majorTechScore
+		else
+			-- Does our faction need this resource?
+			if ministerCountry:HasFaction() then
+				if GetFactionBalance(ministerCountry:GetFaction(), CGoodsPool._ENERGY_) < 0 then
+					score = majorTechScore
+				end
+			end
+		end
+	elseif nomTech == 'oil_refinning' then
+		if ExistsImport(ministerTag, CGoodsPool._FUEL_) or GetAverageBalance(ministerCountry, CGoodsPool._FUEL_) < 0 then
+			score = majorTechScore
+		else
+			-- Does our faction need this resource?
+			if ministerCountry:HasFaction() then
+				if GetFactionBalance(ministerCountry:GetFaction(), CGoodsPool._FUEL_) < 0 then
+					score = majorTechScore
+				end
+			end
+		end
 	end
 
 	--Utils.LUA_DEBUGOUT( 'SCORE de base: ' .. score )
@@ -247,22 +352,33 @@ function CalculateTechScore(minister, ministerCountry, tech, listmaj, listimp, l
 	-- Give Penalty or Bonus for years concern
 	local techLvl = techStatus:GetLevel(tech)
 	local nYear = techStatus:GetYear(tech, techLvl + 1) - CCurrentGameState.GetCurrentDate():GetYear()
-	if nYear > 2 then
-		score = score / majorTechScore -- very expensive, only do it if really nothing else is there to do
-	else
-		score = score - nYear * score * 0.1 -- add 10% for every year the tech is in the past, sub 10% for every year in the future
-	end
+	score = score - math.max(nYear * 1.5, -1) -- a major tech 2 years in the future will get worser than a minor tech.
 	--Utils.LUA_DEBUGOUT( 'SCORE après années: ' .. score )
 	--------------------------------------------------------------
-	-- If tech enable a new unit or if it's a one lvl tech, give a small bonus to score
-	if tech:IsOneLevelOnly() or tech:GetEnableUnit() then
-		score = score * 1.1
+	-- Give bonus based on our ability (-50% - +40%)
+	local researchBonus = 0
+	for bonus in tech:GetResearchBonus() do
+		local ability = ministerCountry:GetAbility(bonus._pCategory)
+		if ability < 5 then
+			researchBonus = researchBonus - (5 - ability) * 0.1 * bonus._vWeight:Get()
+		elseif ability < 20 then
+			researchBonus = researchBonus + math.sqrt(ability - 5) * 0.1 * bonus._vWeight:Get()
+		else
+			researchBonus = researchBonus + 0.4 * bonus._vWeight:Get()
+		end
 	end
 	--------------------------------------------------------------
-	-- Small random factor (+/-10)
-	score = score * (0.9 + math.mod(CCurrentGameState.GetAIRand(), 21) /  10)
+	-- If tech enable a new unit or if it's a one lvl tech, give a small bonus to score
+	local oneLvlBonus = 0
+	if tech:IsOneLevelOnly() or tech:GetEnableUnit() then
+		oneLvlBonus = 0.1
+	end
 	--------------------------------------------------------------
-
+	-- Small random factor (+/-5)
+	local randomBonus = (math.mod(CCurrentGameState.GetAIRand(), 11) - 5) /  100
+	--------------------------------------------------------------
+	score = score * (1 + researchBonus + oneLvlBonus + randomBonus)
+	--------------------------------------------------------------
 	--Utils.LUA_DEBUGOUT( 'SCORE après hasard: ' .. score )
-	return math.max(0, Utils.CallScoredCountryAI(ministerCountry:GetCountryTag(), "CalculateTechScore", score, ministerCountry, tech, listmaj, listimp, listnorm))
+	return math.max(0, Utils.CallScoredCountryAI(ministerTag, "CalculateTechScore", score, ministerCountry, tech, listmaj, listimp, listnorm))
 end
