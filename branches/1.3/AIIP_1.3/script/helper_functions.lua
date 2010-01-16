@@ -580,6 +580,7 @@ end
 function IsPoor(AliceCountry)
 	local MoneyStockFactor = AliceCountry:GetPool():Get( CGoodsPool._MONEY_ ):Get()/AliceCountry:GetTotalIC()
 	if	MoneyStockFactor < 2
+	and GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) < 0
 	then
 		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsPoor ")
 		return true
