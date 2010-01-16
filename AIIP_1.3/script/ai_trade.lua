@@ -228,7 +228,7 @@ function Buying(country, goods)
 	if goods == CGoodsPool._SUPPLIES_ then
 		if IsRich(country) and not HasMaxStock(country, goods) then
 			-- IC 1 to 50
-			return math.min(50, math.max(1, country:GetTotalIC()/4))
+			return math.min(50, math.max(1, country:GetMaxIC()/4))
 		else
 			return 0
 		end
