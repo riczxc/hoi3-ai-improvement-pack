@@ -550,7 +550,7 @@ function IsRich(AliceCountry)
 		local importer = false
 		local needResources = false
 		for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
-			if goods ~= CGoodsPool._SUPPLIES_ then
+			if goods ~= CGoodsPool._SUPPLIES_ and goods ~= CGoodsPool._FUEL_ then
 				if ExistsImport(AliceCountry:GetCountryTag(), goods) then
 					importer = true
 					break
