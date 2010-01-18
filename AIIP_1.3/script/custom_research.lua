@@ -1,3 +1,5 @@
+require('helper_functions')
+
 -- List of all techs
 -------------------------------------------------------------------
 ----------------------------INFANTRY
@@ -8,14 +10,16 @@ local infantry = {
 					'infantry_guns',
 					'infantry_at',
 					'night_goggles',
-					'infantry_warfare'
+					'infantry_warfare',
+					'operational_level_organisation'
 				}
 local militia = {
 					'militia_smallarms',
 					'militia_support',
 					'militia_guns',
 					'militia_at',
-					'peoples_army'
+					'peoples_army',
+					'operational_level_organisation'
 				}
 local cavalry = {
 					'cavalry_smallarms',
@@ -469,32 +473,242 @@ local encryption = {
 					--'census_tabulation_machine',
 					--'mechnical_computing_machine',
 					--'electronic_computing_machine',
+local theoryTable = {
+	naval_engineering_research = {
+		'air_launched_torpedo',
+		'destroyer_technology',
+		'destroyer_armament',
+		'destroyer_antiaircraft',
+		'destroyer_engine',
+		'destroyer_armour',					
+		'lightcruiser_technology',
+		'lightcruiser_armament',
+		'lightcruiser_antiaircraft',
+		'lightcruiser_engine',
+		'lightcruiser_armour',
+		'heavycruiser_technology',
+		'heavycruiser_armament',
+		'heavycruiser_antiaircraft',
+		'heavycruiser_engine',
+		'heavycruiser_armour',
+		'battlecruiser_technology',
+		'battleship_technology',
+		'capitalship_armament',
+		'battlecruiser_antiaircraft',
+		'battlecruiser_engine',
+		'battlecruiser_armour',
+		'battleship_antiaircraft',
+		'battleship_engine',
+		'battleship_armour',
+		'super_heavy_battleship_technology',
+		'escort_carrier_technology',
+		'carrier_technology',
+		'carrier_antiaircraft',
+		'carrier_engine',
+		'carrier_armour',
+		'carrier_hanger'
+	},
+	submarine_engineering_research = {
+		'submarine_technology',
+		'submarine_antiaircraft',
+		'submarine_engine',
+		'submarine_hull',
+		'submarine_torpedoes',
+		'electric_powered_torpedo',					
+		'air_launched_torpedo'
+	},
+	aeronautic_engineering_research = {
+		'single_engine_aircraft_design',
+		'twin_engine_aircraft_design',
+		'basic_aeroengine',
+		'basic_small_fueltank',
+		'basic_single_engine_airframe',
+		'basic_aircraft_machinegun',					
+		'basic_medium_fueltank',
+		'basic_twin_engine_airframe',
+		'basic_bomb',
+		'multi_role_fighter_development',
+		'cas_development',
+		'nav_development',
+		'basic_four_engine_airframe',
+		'basic_strategic_bomber',
+		'aeroengine',
+		'small_fueltank',
+		'single_engine_airframe',
+		'single_engine_aircraft_armament',
+		'medium_fueltank',
+		'twin_engine_airframe',
+		'air_launched_torpedo',
+		'small_bomb',
+		'twin_engine_aircraft_armament',
+		'medium_bomb',
+		'large_fueltank',
+		'four_engine_airframe',
+		'strategic_bomber_armament',
+		'large_bomb',
+		'advanced_aircraft_design',
+		'drop_tanks'
+	},
+	rocket_science_research = {
+		'rocket_tests',
+		'rocket_engine',
+		'rocket_art',
+		'rocket_art_ammo',
+		'rocket_carriage_sights',
+		'strategic_rocket_development',
+		'flyingbomb_development',
+		'flyingrocket_development',
+		'strategicrocket_engine',
+		'strategicrocket_warhead',
+		'strategicrocket_structure',
+		'radar_guided_missile',
+		'sam'
+	},
+	chemical_engineering_research = {
+		'oil_to_coal_conversion',
+		'oil_refinning',
+		'steel_production',
+		'raremetal_refinning_techniques',
+		'coal_processing_technologies'		
+	},
+	nuclear_physics_research = {
+		'da_bomb',
+		'atomic_research',
+		'nuclear_research',
+		'isotope_seperation',
+		'civil_nuclear_research'
+	},
+	jetengine_research = {
+		'jet_engine',
+		'theorical_jet_engine'
+	},
+	mechanicalengineering_research = {
+		'agriculture',
+		'industral_production',
+		'industral_efficiency',
+		'construction_engineering',
+		'advanced_construction_engineering',
+		'supply_production',
+		'electronic_mechanical_egineering',
+		'decryption_machine',
+		'encryption_machine',
+		'radio_technology',
+		'radio_detection_equipment',
+		'radio',
+		'census_tabulation_machine',
+		'mechnical_computing_machine',
+		'electronic_computing_machine'
+	},
+	automotive_research = {
+		'lighttank_brigade',
+		'lighttank_gun',
+		'lighttank_engine',
+		'lighttank_armour',
+		'lighttank_reliability',
+		'tank_brigade',
+		'tank_gun',
+		'tank_engine',
+		'tank_armour',
+		'tank_reliability',
+		'heavy_tank_brigade',
+		'heavy_tank_gun',
+		'heavy_tank_engine',
+		'heavy_tank_armour',
+		'heavy_tank_reliability',
+		'armored_car_armour',
+		'armored_car_gun',
+		'SP_brigade',
+		'super_heavy_tank_brigade',
+		'super_heavy_tank_gun',
+		'super_heavy_tank_engine',
+		'super_heavy_tank_armour',
+		'super_heavy_tank_reliability'
+	},
+	electornicegineering_research = {
+		'small_airsearch_radar',
+		'medium_airsearch_radar',
+		'large_airsearch_radar',
+		'small_navagation_radar',
+		'medium_navagation_radar',
+		'large_navagation_radar',
+		'smallwarship_radar',
+		'smallwarship_asw',
+		'largewarship_radar',
+		'submarine_sonar',
+		'submarine_airwarningequipment',
+		'electronic_mechanical_egineering',
+		'radio_technology',
+		'radio_detection_equipment',
+		'radio',
+		'radar',
+		'electronic_computing_machine',
+		'decryption_machine',
+		'encryption_machine'
+	},
+	artillery_research = {
+		'art_barrell_ammo',
+		'art_carriage_sights',
+		'at_barrell_sights',
+		'at_ammo_muzzel',
+		'aa_barrell_ammo',
+		'aa_carriage_sights',
+		'heavy_aa_guns'
+	},
+	mobile_research = {
+		'mechanised_infantry',
+		'cavalry_smallarms',
+		'cavalry_support',
+		'cavalry_guns',
+		'cavalry_at',
+		'mortorised_infantry'
+	},
+	militia_research = {
+		'militia_smallarms',
+		'militia_support',
+		'militia_guns',
+		'militia_at'
+	},
+	infantry_research = {
+		'basic_aircraft_machinegun',
+		'twin_engine_aircraft_armament',
+		'strategic_bomber_armament',
+		'infantry_activation',
+		'smallarms_technology',
+		'infantry_support',
+		'infantry_guns',
+		'infantry_at',
+		'mountain_infantry',
+		'marine_infantry',
+		'paratrooper_infantry',
+		'night_goggles',
+		'engineer_brigade_activation',
+		'engineer_bridging_equipment',
+		'engineer_assault_equipment',
+		'imporved_police_brigade'
+	}
+}
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-function ConstructPriorityList(minister)
+function ConstructTechScoreTable(minister)
 	
 	--Utils.LUA_DEBUGOUT( "START Function ConstructPriorityList" )
-	local ministerTag = tostring(minister:GetCountryTag())
+	local ministerTag = minister:GetCountryTag()
+	local tag = tostring(ministerTag)
 	local ministerCountry = minister:GetCountry()
 	local ic_total = ministerCountry:GetTotalIC()
 	local year = CCurrentGameState.GetCurrentDate():GetYear()
 	
-	local list1 = {}
-	local list2 = {}
-	local list3 = {}
-	local priority1 = {}
-	local priority2 = {}
-	local priority3 = {}
+	local priority = {}
 	local templist = {}
 	
 	
 	-- Define here the priorities of each country
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------GERMANY
-	if ministerTag == 'GER' then
+	if tag == 'GER' then
 		--Utils.LUA_DEBUGOUT( "GERMANY" )		
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							germany1,
 							infantry,
 							light_tank,
@@ -509,7 +723,7 @@ function ConstructPriorityList(minister)
 							supply
 					}		
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							germany2,
 							mountain,
 							airborne,
@@ -521,10 +735,15 @@ function ConstructPriorityList(minister)
 							rocket_artillery,
 							medecine,
 							radar,
-							rocket_secret
+							rocket_secret,
+							destroyer,
+							light_cruiser, 
+							heavy_cruiser,
+							battlecruiser,
+							battleship
 					}					
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							germany3,
 							marine,
 							desert,
@@ -541,18 +760,18 @@ function ConstructPriorityList(minister)
 		then
 			--Utils.LUA_DEBUGOUT( "GER VICTORY IN EUROPE" )
 			-- Start to consider Naval and Atomic techs
-			templist = { light_cruiser, heavy_cruiser,  battleship, aircraft_carrier, atomic, naval_bombers  }
-			priority2 = InsertList(priority2, templist)
-			templist = { destroyer, battlecruiser, strategic_bombers }
-			priority3 = InsertList(priority3, templist)
+			templist = { aircraft_carrier, atomic, naval_bombers  }
+			priority[2] = InsertList(priority[2], templist)
+			templist = { strategic_bombers }
+			priority[3] = InsertList(priority[3], templist)
 			
 		end
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------SOVIET
-	elseif ministerTag == 'SOV' then
+	elseif tag == 'SOV' then
 		--Utils.LUA_DEBUGOUT( "SOVIET UNION" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							soviet1,
 							infantry,
 							arctic,
@@ -566,7 +785,7 @@ function ConstructPriorityList(minister)
 							supply
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							soviet2,
 							mountain,
 							heavy_tank,
@@ -574,7 +793,7 @@ function ConstructPriorityList(minister)
 							encryption
 					}			
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							soviet3,
 							marine,
 							sheavy_tank,
@@ -595,18 +814,18 @@ function ConstructPriorityList(minister)
 			--Utils.LUA_DEBUGOUT( "SOV Start Naval and Atomic Projets" )
 			-- Start to consider Naval and Atomic techs
 			templist = { light_cruiser, heavy_cruiser, submarine, battleship, aircraft_carrier, atomic }
-			priority2 = InsertList(priority2, templist)
+			priority[2] = InsertList(priority[2], templist)
 			templist = { destroyer, naval_bombers, strategic_bombers }
-			priority3 = InsertList(priority3, templist)
+			priority[3] = InsertList(priority[3], templist)
 			
 		end
 				
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------UNITED STATES
-	elseif ministerTag == 'USA' or ic_total >= 275 then		--More than 275 total IC, use this template
+	elseif tag == 'USA' or ic_total >= 275 then		--More than 275 total IC, use this template
 		--Utils.LUA_DEBUGOUT( "UNITED STATES" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							usa1,
 							infantry,
 							airborne,
@@ -627,7 +846,7 @@ function ConstructPriorityList(minister)
 							supply
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							usa2,
 							mountain,
 							arctic,
@@ -641,7 +860,7 @@ function ConstructPriorityList(minister)
 							atomic
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							usa3,
 							heavy_tank,
 							sheavy_tank,
@@ -650,10 +869,10 @@ function ConstructPriorityList(minister)
 					}	
 	-----------------------------------------------------------------------------------------					
 	------------------------------------------------UNITED KINGDOM
-	elseif ministerTag == 'ENG' then
+	elseif tag == 'ENG' then
 		--Utils.LUA_DEBUGOUT( "UNITED KINGDOM" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							england1,
 							infantry,
 							desert,
@@ -668,7 +887,7 @@ function ConstructPriorityList(minister)
 							radar
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							england2,
 							airborne,
 							marine,
@@ -685,17 +904,17 @@ function ConstructPriorityList(minister)
 							medecine
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							england3,
 							arctic,
 							aircraft_carrier
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------FRANCE
-	elseif ministerTag == 'FRA' then
+	elseif tag == 'FRA' then
 		--Utils.LUA_DEBUGOUT( "FRANCE" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							france1,
 							infantry,
 							desert,
@@ -710,7 +929,7 @@ function ConstructPriorityList(minister)
 							encryption	
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							france2,
 							engineer,
 							jungle,
@@ -722,7 +941,7 @@ function ConstructPriorityList(minister)
 							radar
 					}			
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							france3,
 							arctic,
 							marine,
@@ -732,10 +951,10 @@ function ConstructPriorityList(minister)
 					}			
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------ITALY
-	elseif ministerTag == 'ITA' then
+	elseif tag == 'ITA' then
 		--Utils.LUA_DEBUGOUT( "ITALY" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							italy1,
 							infantry,
 							desert,
@@ -746,7 +965,7 @@ function ConstructPriorityList(minister)
 							heavy_cruiser
 					}
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							italy2,
 							marine,
 							engineer,
@@ -757,7 +976,7 @@ function ConstructPriorityList(minister)
 							industry
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							arctic,
 							light_tank,
 							anti_tank,
@@ -770,10 +989,10 @@ function ConstructPriorityList(minister)
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------JAPAN
-	elseif ministerTag == 'JAP' then
+	elseif tag == 'JAP' then
 		--Utils.LUA_DEBUGOUT( "JAPAN" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							japan1,
 							infantry,
 							marine,
@@ -785,7 +1004,7 @@ function ConstructPriorityList(minister)
 							supply
 					}
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							japan2,
 							engineer,
 							tactical_bombers,							
@@ -798,7 +1017,7 @@ function ConstructPriorityList(minister)
 							radar
 					}
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							mountain,							
 							desert,
 							arctic,
@@ -811,7 +1030,7 @@ function ConstructPriorityList(minister)
 	elseif 	ic_total >= 140 then	
 		--Utils.LUA_DEBUGOUT( "MINOR 140+ IC" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							england1,
 							infantry,
 							artillery,							
@@ -822,7 +1041,7 @@ function ConstructPriorityList(minister)
 							supply						
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							england2,
 							marine,
 							mountain,
@@ -838,7 +1057,7 @@ function ConstructPriorityList(minister)
 							radar
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							england3,
 							arctic,
 							desert,
@@ -849,62 +1068,64 @@ function ConstructPriorityList(minister)
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------CHINE
-	elseif ministerTag == 'CHI' then
+	elseif tag == 'CHI' then
 		--Utils.LUA_DEBUGOUT( "CHINA" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							china1,
 							infantry
 					}
 		-- Level 2 techs				
-		priority2 = {	
+		priority[2] = {	
 							militia,
 							jungle,
 							artillery,
 							supply
 					}	
 		-- Level 3 techs				
-		priority3 = {	
+		priority[3] = {	
 							tactical_bombers,
-							desert
+							desert,
+							industry
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------SPAIN
-	elseif 	ministerTag == 'SPA' or
-			ministerTag == 'SPR' then
+	elseif 	tag == 'SPA' or
+			tag == 'SPR' then
 		--Utils.LUA_DEBUGOUT( "SPAIN" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							italy1,
 							infantry,
 							artillery
 					}
 		-- Level 2 techs				
-		priority2 = {	
-							italy1,
+		priority[2] = {	
+							italy2,
 							mountain,
 							light_cruiser,
 							heavy_cruiser
 					}	
 		-- Level 3 techs				
-		priority3 = {	
+		priority[3] = {	
 							battleship,
 							industry,
 							supply,
-							tactical_bombers
+							tactical_bombers,
+							industry
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINOR WITH 70+ IC
 	elseif 	ic_total >= 70 then	
 		--Utils.LUA_DEBUGOUT( "MINOR 70+ IC" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							italy1,
 							infantry,
 							artillery
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							italy2,
 							mountain,
 							engineer,						
@@ -914,119 +1135,125 @@ function ConstructPriorityList(minister)
 							supply	
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							arctic,
 							desert,
 							jungle,
 							anti_tank,
 							anti_aircraft,
 							interceptors,
-							tactical_bombers
+							tactical_bombers,
+							industry
 					}
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------NORTHERN COUNTRIES
-	elseif 	ministerTag == 'FIN' or		--FINLAND
-			ministerTag == 'SWE' or		--SWEDEN
-			ministerTag == 'NOR' or		--NORWAY
-			ministerTag == 'DEN' or		--DENMARK
-			ministerTag == 'CAN' then	--CANADA
+	elseif 	tag == 'FIN' or		--FINLAND
+			tag == 'SWE' or		--SWEDEN
+			tag == 'NOR' or		--NORWAY
+			tag == 'DEN' or		--DENMARK
+			tag == 'CAN' then	--CANADA
 		--Utils.LUA_DEBUGOUT( "NORTHERN COUNTRY" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							arctic,
 							infantry
 					}		
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							artillery,
 							destroyer
 					}
 		-- Level 3 techs			
-		priority3 = {	
+		priority[3] = {	
+							industry
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------NAVAL/JUNGLE/ISLAND COUNTRIES
-	elseif 	ministerTag == 'AST' or		--AUSTRALIA
-			ministerTag == 'NZL' or		--NEW ZEALAND
-			ministerTag == 'HOL' or		--NETHERLANDS
-			ministerTag == 'BEL' or		--BELGIUM
-			ministerTag == 'BRA' or		--BRAZIL
-			ministerTag == 'ARG' or		--ARGENTINA
-			ministerTag == 'MEX' or		--MEXICO
-			ministerTag == 'POR' then	--PORTUGAL
+	elseif 	tag == 'AST' or		--AUSTRALIA
+			tag == 'NZL' or		--NEW ZEALAND
+			tag == 'HOL' or		--NETHERLANDS
+			tag == 'BEL' or		--BELGIUM
+			tag == 'BRA' or		--BRAZIL
+			tag == 'ARG' or		--ARGENTINA
+			tag == 'MEX' or		--MEXICO
+			tag == 'POR' then	--PORTUGAL
 		--Utils.LUA_DEBUGOUT( "NAVAL/JUNGLE/ISLAND COUNTRY" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							infantry
 					}
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							artillery,
 							jungle,
 							light_cruiser
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
+							industry
 					}													
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINORS IN THE MOUNTAINS
-	elseif 	ministerTag == 'AUS' or		--AUSTRIA
-			ministerTag == 'SCH' then	--SWITZERLAND
+	elseif 	tag == 'AUS' or		--AUSTRIA
+			tag == 'SCH' then	--SWITZERLAND
 		--Utils.LUA_DEBUGOUT( "COUNTRY IN THE MOUNTAINS" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							infantry
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							mountain
 					}							
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							artillery,
-							arctic
+							arctic,
+							industry
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINORS WITH NO MILITIA
-	elseif 	ministerTag == 'HUN' or		--HUNGARY
-			ministerTag == 'ROM' or		--ROMANIA
-			ministerTag == 'CZE' or		--CZECH
-			ministerTag == 'GRE' or		--GREECE
-			ministerTag == 'BUL' or		--BULGARIA
-			ministerTag == 'SAF' or		--SOUTH AFRICA
-			ministerTag == 'TUR' or		--TURKEY
-			ministerTag == 'POL' or		--POLAND
-			ministerTag == 'YUG' then	--YUGOSLAVIA
+	elseif 	tag == 'HUN' or		--HUNGARY
+			tag == 'ROM' or		--ROMANIA
+			tag == 'CZE' or		--CZECH
+			tag == 'GRE' or		--GREECE
+			tag == 'BUL' or		--BULGARIA
+			tag == 'SAF' or		--SOUTH AFRICA
+			tag == 'TUR' or		--TURKEY
+			tag == 'POL' or		--POLAND
+			tag == 'YUG' then	--YUGOSLAVIA
 		--Utils.LUA_DEBUGOUT( "MINOR WITH NO MILITIA" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							infantry
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							artillery
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
+							industry
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------GENERIC MINORS
 	else
 		--Utils.LUA_DEBUGOUT( "MINOR COUNTRY" )
 		-- Level 1 techs
-		priority1 = {	
+		priority[1] = {	
 							infantry							
 					}	
 		-- Level 2 techs
-		priority2 = {	
+		priority[2] = {	
 							artillery,
 							militia
 					}	
 		-- Level 3 techs
-		priority3 = {	
+		priority[3] = {	
 							arctic,
 							desert,
-							jungle
+							jungle,
+							industry
 					}										
 	end	
 	-----------------------------------------------------------------------------------------
@@ -1035,37 +1262,110 @@ function ConstructPriorityList(minister)
 	-- Allow secret techs to major countries after 1942
 	if ic_total >= 120 and year >= 1941 then
 		--Utils.LUA_DEBUGOUT( "More than 120 IC and 1942: Secret tech projets" )
-			templist = { secret }
-			priority3 = InsertList(priority3, templist)	
+		table.insert(priority[3], secret)
 	end
 	
 	-----------------------------------------------------------------------------------------
-	--Utils.LUA_DEBUGOUT( "Start Construct" )
-	
 	-- Construct the final table
-	
-	for i,tech_list in ipairs(priority1) do
-			list1 = InsertList(list1, tech_list)
-	end
-	for j,tech_list in ipairs(priority2) do
-			list2 = InsertList(list2, tech_list)
-	end
-	for k,tech_list in ipairs(priority3) do
-			list3 = InsertList(list3, tech_list)
+	-- Utils.LUA_DEBUGOUT( "Start Construct" )
+	local techScoreTable = { }
+	for i = table.getn(priority), 1, -1 do
+		for _,tech_list in ipairs(priority[i]) do
+			local score = 2 + table.getn(priority) - i
+			for _,tech in ipairs(tech_list) do
+				techScoreTable[tech] = score
+			end
+		end
 	end	
+	-----------------------------------------------------------------------------------------
+	-- Add resource techs
+	local resourceTechs = {
+		coal_processing_technologies = CGoodsPool._ENERGY_,
+		steel_production = CGoodsPool._METAL_,
+		raremetal_refinning_techniques = CGoodsPool._RARE_MATERIALS_,
+		oil_to_coal_conversion = CGoodsPool._ENERGY_,
+		oil_refinning = CGoodsPool._FUEL_
+	}
 	
-	--Utils.LUA_DEBUGOUT( "EXIT function" )
-	return list1, list2, list3
-end
-
-function InsertList(list, listB)
-	local i = 1
-	while listB[i] do
-		table.insert(list, listB[i])
-		--Utils.LUA_DEBUGOUT( listB[i] )
-		i = i + 1
+	for tech,resource in pairs(resourceTechs) do
+		if 	ExistsImport(ministerTag, resource) or (
+				GetAverageBalance(ministerCountry, resource) < 0 and
+				not ExistsExport(ministerTag, resource)
+			)
+		then
+			techScoreTable[tech] = table.getn(priority)-- medium
+		else
+			-- Does our faction need this resource?
+			local faction = ministerCountry:GetFaction()
+			if 	faction == CCurrentGameState.GetFaction('axis')
+			or	faction == CCurrentGameState.GetFaction('allies')
+			or	faction == CCurrentGameState.GetFaction('comintern')
+			then
+				if GetFactionBalance(faction, resource) < 0 then
+					techScoreTable[tech] = table.getn(priority)-- medium
+				end
+			end
+		end
 	end
-	return list
+	
+	if	ExistsExport(ministerTag, CGoodsPool._SUPPLIES_) or  
+		(ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_SUPPLY_):Get() / ic_total) > 0.05 -- 5% of IC into supplies
+	then
+		techScoreTable['supply_production'] = table.getn(priority) -- medium
+	else
+		techScoreTable['supply_production'] = 2 -- minor
+	end
+	-----------------------------------------------------------------------------------------
+	
+	-- Utils.LUA_DEBUGOUT( "EXIT function" )
+	return techScoreTable
 end
 
+function GetTechsForTheoryTech(theoryTechName)
+	if theoryTable[theoryTechName] then
+		return theoryTable[theoryTechName]
+	else
+		return {}
+	end
+end
+
+function GetCategoryNameForTheoryTech(theoryTechName)
+	if theoryTechName == 'naval_engineering_research' then
+		return 'naval_engineering'
+	elseif theoryTechName == 'submarine_engineering_research' then
+		return 'submarine_engineering'
+	elseif theoryTechName == 'aeronautic_engineering_research' then
+		return 'aeronautic_engineering'
+	elseif theoryTechName == 'rocket_science_research' then
+		return 'rocket_science'
+	elseif theoryTechName == 'chemical_engineering_research' then
+		return 'chemical_engineering'
+	elseif theoryTechName == 'nuclear_physics_research' then
+		return 'nuclear_physics'
+	elseif theoryTechName == 'jetengine_research' then
+		return 'jetengine_theory'
+	elseif theoryTechName == 'mechanicalengineering_research' then
+		return 'mechanicalengineering_theory'
+	elseif theoryTechName == 'automotive_research' then
+		return 'automotive_theory'
+	elseif theoryTechName == 'electornicegineering_research' then
+		return 'electornicegineering_theory'
+	elseif theoryTechName == 'artillery_research' then
+		return 'artillery_theory'
+	elseif theoryTechName == 'mobile_research' then
+		return 'mobile_theory'
+	elseif theoryTechName == 'militia_research' then
+		return 'militia_theory'
+	elseif theoryTechName == 'infantry_research' then
+		return 'infantry_theory'
+	else
+		return nil
+	end
+end
+
+function InsertList(list1, list2)
+	for _,v in ipairs(list2) do
+		table.insert(list1, v)
+	end
+end
 -- Darkzodiak
