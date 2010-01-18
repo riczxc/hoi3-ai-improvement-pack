@@ -129,6 +129,8 @@ function ForeignMinister_HandleWar( minister )
 					end
 				end
 			end
+			
+			Utils.CallCountryAI(ministerTag, 'CheckWar', minister, target, war)
 		end
 	end
 end
@@ -298,25 +300,24 @@ function ForeignMinister_HandlePeace( minister )
 					local influenceAction = CInfluenceNation(ministerTag, countryTag)
 
 					if theirRelationToUs:IsBeingInfluenced() then -- we're influencing them
-						-- stop influencing
-						influenceAction:SetValue(false)
-
 						local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
 
 						if score < 40 then
+							-- stop influencing
+							influenceAction:SetValue(false)
 							minister:Propose(influenceAction, 100)
 						end
 					else
-						if not country:isPuppet() then
+						if numberOfInfluences == nil then
+							numberOfInfluences = ministerCountry:CalculateNumberOfActiveInfluences()
+						end
+						
+						-- Do not influence more than one country at a time
+						if not country:isPuppet() and numberOfInfluences < 2 then
 							if influenceAction:IsSelectable() then
-								if numberOfInfluences == nil then
-									numberOfInfluences = ministerCountry:CalculateNumberOfActiveInfluences()
-								end
-
-								if influence > 0 and ministerCountry:GetDiplomaticInfluence():Get() > 10 and numberOfInfluences < 3 then
+								if influence > 0 and ministerCountry:GetDiplomaticInfluence():Get() > 10 then
 									local score = DiploScore_InfluenceNation( ai, ministerTag, countryTag, ministerTag )
 									if score > 50 then
-										--minister:Propose( influenceAction, score )
 										ai:PostAction( influenceAction )
 										numberOfInfluences = numberOfInfluences + 1
 									end
