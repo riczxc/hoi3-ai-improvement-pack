@@ -19,23 +19,38 @@ function P.ProposeDeclareWar( minister )
 	local fraTag = CCountryDataBase.GetTag('FRA')
 	local phiTag = CCountryDataBase.GetTag('PHI')
 
-	if gerTag:GetCountry():GetRelation(sovTag):HasWar() then
-		-- check vladivostok area for sov troups
-		local vladivostokArea = { [0] = 4195, 4263, 4262, 4390, 4328, 4391, 4457, 4458 }
-		local troupCount = 0
-		local intelCoverage = 0
-		for tmpIndex, provID in pairs(vladivostokArea) do
-			local province = CCurrentGameState.GetProvince( provID )
+	if gerTag:GetCountry():GetRelation(sovTag):HasWar()
+	and not ministerCountry:GetRelation(sovTag):HasWar()
+	then
+		local chiTag = CCountryDataBase.GetTag('CHI')
+		
+		-- Wait till they've sorted out our problem with China...
+		if 	not (chiTag:IsValid() and chiTag:IsReal() and chiTag:GetCountry():Exists())
+		or	(
+			chiTag:GetCountry():IsSubject() and chiTag:GetCountry():GetOverlord() == ministerTag
+		)
+		or 	(
+			chiTag:GetCountry():GetRelation(ministerTag):HasWar() and
+			chiTag:GetCountry():GetSurrenderLevel():Get() > 0.5
+		)
+		then
+			-- check vladivostok area for sov troups
+			local vladivostokArea = { [0] = 4195, 4263, 4262, 4390, 4328, 4391, 4457, 4458 }
+			local troupCount = 0
+			local intelCoverage = 0
+			for tmpIndex, provID in pairs(vladivostokArea) do
+				local province = CCurrentGameState.GetProvince( provID )
 
-			if province:GetIntelLevel(ministerTag) >= 2 then -- >= INTEL_UNITS
-				intelCoverage = intelCoverage + 1
+				if province:GetIntelLevel(ministerTag) >= 2 then -- >= INTEL_UNITS
+					intelCoverage = intelCoverage + 1
+				end
+
+				troupCount = troupCount + province:GetNumberOfUnits()
 			end
 
-			troupCount = troupCount + province:GetNumberOfUnits()
-		end
-
-		if troupCount < 1 and intelCoverage > 7 then
-			strategy:PrepareWar( sovTag, 100 )
+			if troupCount < 1 and intelCoverage > 7 then
+				strategy:PrepareWar( sovTag, 100 )
+			end
 		end
 	end
 
@@ -75,6 +90,5 @@ function P.ProposeDeclareWar( minister )
 	end
 
 end
-
 
 return AI_JAP
