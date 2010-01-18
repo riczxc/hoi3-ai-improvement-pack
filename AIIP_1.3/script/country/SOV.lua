@@ -11,6 +11,7 @@ function P.ProposeDeclareWar( minister )
 	
 	local gerTag = CCountryDataBase.GetTag('GER')
 	local polTag = CCountryDataBase.GetTag('POL')
+	local fraTag = CCountryDataBase.GetTag('FRA')
 	
 	if year >= 1942 and month >= 2
 	and ( not polTag:GetCountry():Exists() or polTag:GetCountry():IsGovernmentInExile() ) --Poland are history
@@ -18,6 +19,18 @@ function P.ProposeDeclareWar( minister )
 	and not gerTag:GetCountry():IsSubject()								--GER isn't a subject nation							
 	and CCurrentGameState.GetProvince( 1861 ):GetController() == gerTag	--GER controls Berlin
 	then
+		strategy:PrepareWar( gerTag, 100 )
+	end
+	
+	if year >= 1941 and month >= 2
+	and fraTag:GetCountry():Exists()									--FRA is still here
+	and CCurrentGameState.GetProvince( 2613 ):GetController() == fraTag --FRA controls Paris
+	and gerTag:GetCountry():GetRelation(fraTag):HasWar()				--GER is fighting FRA
+	and not ministerCountry:GetRelation(gerTag):HasWar()				--Not already at war with GER
+	and not gerTag:GetCountry():IsSubject()								--GER isn't a subject nation
+	and CCurrentGameState.GetProvince( 1861 ):GetController() == gerTag	--GER controls Berlin
+	then
+		-- Doesn't seem to run so well for GER. Attack GER.
 		strategy:PrepareWar( gerTag, 100 )
 	end
 	
