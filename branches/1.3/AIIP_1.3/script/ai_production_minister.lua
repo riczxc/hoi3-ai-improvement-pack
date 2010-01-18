@@ -55,17 +55,17 @@ function ProductionMinister_Tick(minister)
 	-- If we run low on manpower stop building manpower costly units
 	if	ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2
 	then
-		-- --Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
-		-- --Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
-		-- --Utils.LUA_DEBUGOUT("ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2: " .. tostring(ministerCountry:GetManpower():Get()).." < "..tostring(ministerCountry:GetMaxIC() / 2) )
+		-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
+		-- Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
+		-- Utils.LUA_DEBUGOUT("ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2: " .. tostring(ministerCountry:GetManpower():Get()).." < "..tostring(ministerCountry:GetMaxIC() / 2) )
 		gotManPower = false
 	end
 
-	--Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
-	--Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
-	--Utils.LUA_DEBUGOUT("maxBuildCost: " .. tostring(maxBuildCost))
-	--Utils.LUA_DEBUGOUT("Ratio province: " .. tostring(ratioProvince) .. "%")
-	--Utils.LUA_DEBUGOUT("Units filterted out:")
+	-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
+	-- Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
+	-- Utils.LUA_DEBUGOUT("maxBuildCost: " .. tostring(maxBuildCost))
+	-- Utils.LUA_DEBUGOUT("Ratio province: " .. tostring(ratioProvince) .. "%")
+	-- Utils.LUA_DEBUGOUT("Units filterted out:")
 
 	-- Filter request queue
 	for request in ai:GetReqProdQueueIter() do
@@ -77,7 +77,7 @@ function ProductionMinister_Tick(minister)
 		then
 			doBuildUnit = true
 		else
-			--Utils.LUA_DEBUGOUT(tostring(unit:GetKey()))
+			-- Utils.LUA_DEBUGOUT(tostring(unit:GetKey()))
 			requestQueue:Remove(request)
 		end
 	end
@@ -85,7 +85,7 @@ function ProductionMinister_Tick(minister)
 	if not doBuildUnit then
 		-- Only build province improvements
 		ratioProvince = 100
-		--Utils.LUA_DEBUGOUT("No unit to build. Changing ratio province to 100%.")
+		-- Utils.LUA_DEBUGOUT("No unit to build. Changing ratio province to 100%.")
 	end
 
 	while (availIC > 0) and (nothingBuiltCounter < 10) do
