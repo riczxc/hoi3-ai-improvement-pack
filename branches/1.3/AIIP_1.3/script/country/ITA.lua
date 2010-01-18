@@ -3,6 +3,8 @@ local P = {}
 AI_ITA = P
 
 function P.ProposeDeclareWar( minister )
+	-- Utils.LUA_DEBUGOUT("ENTER PROPOSE DECLARE WAR ITALY")
+	
 	local ai = minister:GetOwnerAI()
 	local ministerCountry = minister:GetCountry()
 	local strategy = ministerCountry:GetStrategy()
@@ -10,7 +12,6 @@ function P.ProposeDeclareWar( minister )
 	local month = ai:GetCurrentDate():GetMonthOfYear()
 
 	local gerTag = CCountryDataBase.GetTag('GER')
-	local fraTag = CCountryDataBase.GetTag('FRA')
 	local greTag = CCountryDataBase.GetTag('GRE')
 	local vicTag = CCountryDataBase.GetTag('VIC')
 	local yugTag = CCountryDataBase.GetTag('YUG')
@@ -23,15 +24,19 @@ function P.ProposeDeclareWar( minister )
 		and not greTag:GetCountry():IsSubject()								--GRE isn't a subject nation
 		and CCurrentGameState.GetProvince( 7414 ):GetController() == greTag	--GRE controls Athens
 		then
+			-- Utils.LUA_DEBUGOUT("Go for Greece")
 			strategy:PrepareWar( greTag, 100 )
 		end
 		if not ministerCountry:GetRelation(yugTag):HasWar() 				--Not already at war with GRE
 		and not yugTag:GetCountry():IsSubject()								--GRE isn't a subject nation
 		and CCurrentGameState.GetProvince( 3912 ):GetController() == yugTag	--GRE controls Athens
 		then
+			-- Utils.LUA_DEBUGOUT("Go for Yugoslavia")
 			strategy:PrepareWar( yugTag, 100 )
 		end
 	end
+	
+	-- Utils.LUA_DEBUGOUT("EXIT PROPOSE DECLARE WAR ITALY")
 end
 
 function P.ForeignMinister_EvaluateDecision( score, agent, decision, scope )
