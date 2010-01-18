@@ -868,15 +868,16 @@ function DiploScore_PeaceAction(ai, actor, recipient, observer, action)
 end
 
 function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, action)
-	--Utils.LUA_DEBUGOUT("->DiploScore_SendExpeditionaryForce " .. tostring(actor) .. " <-> " .. tostring(recipient))
+	-- Utils.LUA_DEBUGOUT("->DiploScore_SendExpeditionaryForce " .. tostring(actor) .. " <-> " .. tostring(recipient))
 	if observer == actor then
-		--Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce")
+		-- Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce: 0")
 		return 0
 	else
 		-- do we want to accept?
+		local score = 0
 		local recipientCountry = recipient:GetCountry()
+		
 		if recipientCountry:GetDailyBalance( CGoodsPool._SUPPLIES_ ):Get() > 1.0 then
-			local  score = 0
 			-- maybe we have enough stockpiles
 			local supplyStockpile = recipientCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()
 			local weeksSupplyUse = recipientCountry:GetDailyExpense( CGoodsPool._SUPPLIES_ ):Get() * 7
@@ -891,11 +892,7 @@ function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, actio
 			else
 				score = 0 -- no war, no need for troops
 			end
-
-			--Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce")
-			return score
 		else
-			local score = 0
 			-- maybe we have enough stockpiles
 			local supplyStockpile = recipientCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()
 			local weeksSupplyUse = recipientCountry:GetDailyExpense( CGoodsPool._SUPPLIES_ ):Get() * 7
@@ -910,11 +907,10 @@ function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, actio
 			else
 				score = 0 -- no war, no need for troops
 			end
-
 		end
 
-		--Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce")
-		return 0
+		-- Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce: " .. tostring(score))
+		return score
 	end
 end
 
@@ -1027,7 +1023,7 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 end
 
 function DiploScore_Debt(ai, actor, recipient, observer)
-	--Utils.LUA_DEBUGOUT("->DiploScore_Debt " .. tostring(actor) .. " <-> " .. tostring(recipient))
+	-- Utils.LUA_DEBUGOUT("->DiploScore_Debt " .. tostring(actor) .. " <-> " .. tostring(recipient))
 	local actorCountry = actor:GetCountry()
 	local recipientCountry = recipient:GetCountry()
 	local rel = actorCountry:GetRelation(recipient)
@@ -1042,10 +1038,10 @@ function DiploScore_Debt(ai, actor, recipient, observer)
 		)
 		then
 			if IsPoor(actorCountry) then
-				--Utils.LUA_DEBUGOUT(tostring(actor) .. " is poor.")
+				-- Utils.LUA_DEBUGOUT(tostring(actor) .. " is poor.")
 				score = 100
 			else
-				--Utils.LUA_DEBUGOUT(tostring(actor) .. " is not poor.")
+				-- Utils.LUA_DEBUGOUT(tostring(actor) .. " is not poor.")
 				score = 0
 			end
 		end
@@ -1058,16 +1054,16 @@ function DiploScore_Debt(ai, actor, recipient, observer)
 		)
 		then
 			if IsRich(recipientCountry) then
-				--Utils.LUA_DEBUGOUT(tostring(recipient) .. " is rich.")
+				-- Utils.LUA_DEBUGOUT(tostring(recipient) .. " is rich.")
 				score = 100
 			else
-				--Utils.LUA_DEBUGOUT(tostring(recipient) .. " is not rich.")
+				-- Utils.LUA_DEBUGOUT(tostring(recipient) .. " is not rich.")
 				score = 0
 			end
 		end
 	end
 
-	--Utils.LUA_DEBUGOUT("<-DiploScore_Debt: " ..  tostring(score))
+	-- Utils.LUA_DEBUGOUT("<-DiploScore_Debt: " ..  tostring(score))
 	return score
 end
 
