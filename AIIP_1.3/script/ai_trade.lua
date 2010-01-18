@@ -192,19 +192,24 @@ function Selling(country, goods)
 		end
 	end
 
-	-- sell if max stock
-	if HasMaxStock(country, goods) then
-		return math.min(50, math.max(1, country:GetTotalIC()/4))
-	end
-
-	-- sell supplies if are poor
-	if  goods == CGoodsPool._SUPPLIES_ then
+	if goods == CGoodsPool._SUPPLIES_ then
+		-- sell supplies if are poor
 		if IsPoor(country) then
 			-- IC/4 (1-50)
 			return math.min(50, math.max(1, country:GetTotalIC()/4))
+		-- sell if have max stock and don't need IC in supplies
+		elseif 	HasMaxStock(country, goods) and
+				GetAverageBalance(country, goods) > 0
+		then
+			return math.min(50, math.max(1, country:GetTotalIC()/8))
 		else
 			return 0
 		end
+	end
+	
+	-- sell if max stock
+	if HasMaxStock(country, goods) then
+		return math.min(50, math.max(1, country:GetTotalIC()/4))
 	end
 
 	if HasMinStock(country, goods) then
@@ -224,11 +229,14 @@ function Buying(country, goods)
 		return 50
 	end
 
-	-- buy supplies if we are rich and not overstocked
+	-- buy supplies if we are rich and there's a need for supplies
 	if goods == CGoodsPool._SUPPLIES_ then
-		if IsRich(country) and not HasMaxStock(country, goods) then
-			-- IC 1 to 50
-			return math.min(50, math.max(1, country:GetMaxIC()/4))
+		if 	IsRich(country) and 
+			country:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get() > 0.1
+		then
+			local money = GetAverageBalance(country, CGoodsPool._MONEY_)
+			local amount = money / GetGoodsCost(CGoodsPool._SUPPLIES_)
+			return math.min(50, math.max(1, amount))
 		else
 			return 0
 		end
@@ -255,11 +263,37 @@ function Buying(country, goods)
 		return Buying(country, CGoodsPool._FUEL_)
 	end
 
-	if HasMinStock(country, goods) then
-		return math.max(-1.05*balance, MinTradeSize(country))
+	-- Get our economy back on track
+	local baseIC = country:GetMaxIC()
+	local totalIC = country:GetTotalIC()
+	local targetIC = baseIC * (1 + country:GetGlobalModifier():GetValue(CModifier._MODIFIER_GLOBAL_IC_):Get())
+	local icDiff = targetIC - totalIC
+	
+	local amount = math.max(-1 * balance, 0)
+	if goods == CGoodsPool._ENERGY_ then
+		amount = math.max(amount, icDiff * 2)
+	elseif goods == CGoodsPool._METAL_ then
+		amount = math.max(amount, icDiff)
+	elseif goods == CGoodsPool._RARE_MATERIALS_ then
+		amount = math.max(amount, icDiff / 2)
 	else
-		return math.max(-balance, MinTradeSize(country)) * 1.25
+		-- Don't buy if economy is still not working
+		if icDiff > 1 then
+			return 0
+		else
+			local money = GetAverageBalance(country, CGoodsPool._MONEY_)
+			if HasMinStock(country, goods) then
+				-- Don't buy more than we can afford
+				amount = math.min(amount, math.max(money / GetGoodsCost(goods), 0))
+			end
+		end
 	end
+	
+	if amount > 0 and amount < MinTradeSize(country) then
+		amount = MinTradeSize(country)
+	end
+	
+	return amount * 1.25
 end
 
 function MinTradeSize(country)
@@ -284,10 +318,10 @@ function ProposeTrades(ai, aliceTag)
 	local aliceMinTradeSize = MinTradeSize(aliceCountry)
 	for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
 		if goods ~= CGoodsPool._MONEY_ and goods ~= fuelOrOil then
-			local best = {}
-			best["score"] = -10000
-			best["action"] = nil
 			--Utils.LUA_DEBUGOUT(tostring( aliceTag ).." "..tostring(GOODS_TO_STRING[goods]))
+			
+			local bestScore = -10000
+			local bestAction = nil
 
 			-- buy
 			local aliceBuys = Buying(aliceCountry, goods)
@@ -297,10 +331,12 @@ function ProposeTrades(ai, aliceTag)
 			--end
 
 			if aliceBuys >= aliceMinTradeSize then -- buying?
- 				--Utils.LUA_DEBUGOUT(tostring( aliceTag ).." --- BUYING --- "..tostring(GOODS_TO_STRING[goods]))
+ 				-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." --- BUYING --- " .. aliceBuys .. " " .. tostring(GOODS_TO_STRING[goods]))
 				-- lets check every possible trading partner
 				for bobCountry in CCurrentGameState.GetCountries() do
 					local bobTag = bobCountry:GetCountryTag()
+					
+					local relation = aliceCountry:GetRelation(bobTag)
 
 					if	bobTag ~= aliceTag and
 						IsValidCountry(bobCountry) and
@@ -309,62 +345,41 @@ function ProposeTrades(ai, aliceTag)
 							bobCountry:GetOverlord() == aliceTag
 						) and
 						not aliceCountry:HasDiplomatEnroute(bobTag) and
-						not (aliceCountry:NeedConvoyToTradeWith(bobTag) and aliceCountry:GetTransports() == 0)
+						not (aliceCountry:NeedConvoyToTradeWith(bobTag) and aliceCountry:GetTransports() == 0) and
+						(
+							-- There's no reason to buy anything if we can't afford it, except if we are allowed to make debts.
+							not IsPoor(aliceCountry) or
+							relation:AllowDebts()
+						)
 					then
 						local bobSells = Selling(bobCountry, goods)
 						if bobSells >= aliceMinTradeSize then
-							best = ProposeTradeCalc(
-								ai,
-								goods,
-								math.min(aliceBuys, bobSells, 50),
-								bobSells,
-								aliceTag,
-								aliceCountry,
-								bobTag,
-								bobCountry,
-								best
-							)
+							-- Utils.LUA_DEBUGOUT(tostring( bobTag ).." --- SELLING --- " .. bobSells .. " " .. tostring(GOODS_TO_STRING[goods]))
+							local tradeAction = CTradeAction(aliceTag, bobTag)
+							
+							if tradeAction:IsValid() and tradeAction:IsSelectable() and tradeAction:IsConvoyPossible() then
+								tradeAction:SetTrading(CFixedPoint(math.min(aliceBuys, bobSells, 50)), goods)
+								
+								local score = relation:GetValue():Get() + 200
+								local chance = tradeAction:GetAIAcceptance() - ai:GetSpamPenalty(bobTag)
+								
+								score = score * chance * (0.9 + math.mod(CCurrentGameState.GetAIRand(), 21) / 100)
+								
+								if chance > 50 and score > bestScore then
+									bestAction = tradeAction
+									bestScore = score
+								end
+							end
 						end
 					end
 				end
  				--Utils.LUA_DEBUGOUT(tostring( aliceTag ).." --- DONE BUYING --- "..tostring(GOODS_TO_STRING[goods]))
-				if best["action"] then
-					ai:PostAction(best["action"])
+				if bestAction then
+					ai:PostAction(bestAction)
 				end
 			end -- otherwise not top stock but pos. balance so no action needed
 		end
 	end
-end
-
-function ProposeTradeCalc(ai, goods, requested, bobSells, buyerTag, buyerCountry, sellerTag, sellerCountry, best )
-	local tradeAction = CTradeAction(buyerTag, sellerTag)
-	-- test the trade offer
-	if tradeAction:IsValid() and tradeAction:IsSelectable() and tradeAction:IsConvoyPossible() then
-		tradeAction:SetTrading(CFixedPoint(requested), goods)
-
-		local rel = buyerCountry:GetRelation(sellerTag)
-		--  1 to 0
-		local score = requested / math.min(50, 1.1 * bobSells)
-		-- 100 to 0
-		local chance = tradeAction:GetAIAcceptance() - ai:GetSpamPenalty(sellerTag)
-		score = score * chance * (0.9 + math.mod(CCurrentGameState.GetAIRand(), 21) / 10)
-		-- save score if 50% chance and better than previous score
-		if	chance > 50 and
-			score > best["score"] --(not ai:AlreadyTradingResourceOtherWay( tradeAction:GetRoute()))
-		then
-			best["score"] = score
-			best["action"] = tradeAction
-			best["seller"] = sellerCountry
-			best["buyer"] = buyerCountry
-			best["goods"] = goods
-			--if 'USA' == tostring(sellerTag) or 'USA' == tostring(buyerTag) then
-				--Utils.LUA_DEBUGOUT(tostring( sellerTag ).."2"..tostring( buyerTag )
-					--.." proposing "..tostring(requested).." of "..tostring(GOODS_TO_STRING[goods]).." scoring: "..tostring(score))
-			--end
-		end
-	end
-
-	return best
 end
 
 function DiploScore_OfferTrade(ai, alice, bob, observer, action)
