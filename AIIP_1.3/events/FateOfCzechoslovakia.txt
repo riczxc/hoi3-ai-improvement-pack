@@ -68,7 +68,7 @@ country_event = {
 
 	option = {
 		name = "EVTOPTA1202"			# Ok
-		manpower = 300
+		manpower = 100
 	}
 }
 

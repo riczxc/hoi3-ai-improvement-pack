@@ -62,7 +62,7 @@ country_event = {
 	option = {
 		name = "EVTOPTA1102"			# Good
 		inherit = AUS
-		manpower = 500
+		manpower = 150
 	}
 }
 
