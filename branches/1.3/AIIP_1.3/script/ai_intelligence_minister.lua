@@ -49,23 +49,30 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		-- Consider switching to a mission other than counterespionage with a chance of 70%
 		if math.mod(CCurrentGameState.GetAIRand(), 100) < 70 then
 			--Utils.LUA_DEBUGOUT("hit 70% to change")
-
-			-- raise national unity if less than 60 or if neutrality is less than 60 and NU > 70 (for draft laws)
 			local unity = ministerCountry:GetNationalUnity():Get()
 			local neutrality = ministerCountry:GetNeutrality():Get()
-			if ( unity < 60 ) or ( neutrality < 60 and unity < 70 ) then
-				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." raise national unity mission - month: "..tostring(currentMonth))
-				newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
-			-- otherwise lower neutrality for economic laws, except for micro powers and neutral countries
-			elseif totalIC >= 10 and (ministerCountry:IsMajor() or neutrality < 90) then
-				--Utils.LUA_DEBUGOUT("not micro power")
-				local economicLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('economic_law'))
-				local economicLawIndex = ministerCountry:GetLaw(economicLawGroup):GetIndex()
-				local targetedEconomicLawIndex = GetLawIndexByName('war_economy')
+			
+			if not ministerCountry:IsAtWar() then
+				-- raise national unity if less than 60 or if neutrality is less than 60 and NU > 70 (for draft laws)
+				if (unity < 60) or (neutrality < 60 and unity < 70) then
+					--Utils.LUA_DEBUGOUT( tostring(ministerTag).." raise national unity mission - month: "..tostring(currentMonth))
+					newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
+				-- otherwise lower neutrality for economic laws, except for micro powers and neutral countries
+				elseif totalIC >= 10 and (ministerCountry:IsMajor() or neutrality < 90) then
+					--Utils.LUA_DEBUGOUT("not micro power")
+					local economicLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('economic_law'))
+					local economicLawIndex = ministerCountry:GetLaw(economicLawGroup):GetIndex()
+					local targetedEconomicLawIndex = GetLawIndexByName('war_economy')
 
-				if economicLawIndex < targetedEconomicLawIndex then
-					--Utils.LUA_DEBUGOUT( tostring(ministerTag).." lower neutrality mission - month: "..tostring(currentMonth))
-					newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
+					if economicLawIndex < targetedEconomicLawIndex then
+						--Utils.LUA_DEBUGOUT( tostring(ministerTag).." lower neutrality mission - month: "..tostring(currentMonth))
+						newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
+					end
+				end
+			else
+				-- Do not aim higher or countries will never give up (no vhichy event etc.)
+				if (unity < 50) then
+					newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
 				end
 			end
 
