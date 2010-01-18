@@ -76,9 +76,9 @@ function LoadRestrictions(minister, ministerCountry)
 		--Utils.LUA_DEBUGOUT( "GERMANY" )
 		
 		-- More submarine for GER
-		prod_restrictions["destroyer"] = { 50, destroyer, 50, submarine }
-		prod_restrictions["heavy_cruiser"] = { 50, heavy_cruiser, 50, submarine }
-		prod_restrictions["light_cruiser"] = { 50, light_cruiser, 50, submarine }
+		-- prod_restrictions["destroyer"] = { 50, destroyer, 50, submarine }
+		-- prod_restrictions["heavy_cruiser"] = { 50, heavy_cruiser, 50, submarine }
+		-- prod_restrictions["light_cruiser"] = { 50, light_cruiser, 50, submarine }
 	
 		prod_restrictions["naval_bomber"] = { 0, naval_bomber }					-- No need Naval Bomber until victory against SOV
 		prod_restrictions["strategic_bomber"] = { 0, strategic_bomber} 			-- No need Strat. Bomber until victory against SOV
