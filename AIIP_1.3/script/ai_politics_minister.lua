@@ -118,23 +118,36 @@ function HandleLaws(minister)
 					end
 
 				-- at peace, try for mixed industry but settle for CPO if CG need is high or country is small
+				-- CPO saves 16% of total IC compared to mixed industry, but has 5% worse industrial efficiency
+				-- not much benefit from switching to CPO for large countries unless CG need is substantial
+				-- better method would probably be something like:
+				-- if production IC * 0.14 <= min(CGNeed,0.16*TotalIC) then switch to CPO
+				-- .14 approx = 1-(0.95^2) which is how much IC you save on production with +5% efficiency
+				-- but haven't tested for sure
+				
+				-- by azeno:
+				-- I don't agree to this:
+				-- We save 1-(0.95^2) = 9.75% IC*days in production with MI but lose 16% of our total IC in comparison to CPO.
+				-- Again in IC*days this is a factor of at least 16% since total IC is always greater than production IC. 
+				-- So in total in terms of IC*days we lose at least 16% - 9.75% = 6.25%.
+				-- CPO is bugged in my opinion. Adding the -20% dissent gain to the CG ratio is just wrong.
+				-- I mentioned this in the forums a couple of times, but with no success. I think I'll post it again in bug forums
+				-- and see what other people think of this topic. But for now I'll let the AI go with CPO, because that's
+				-- what a human player would do.
+				-- See: http://forum.paradoxplaza.com/forum/showthread.php?t=456380
 				else
-					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
-					local CGRatio = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() / ministerCountry:GetTotalIC()
+					-- Commented out, see above
+					-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('mixed_industry'))
 
-					if ministerCountry:GetTotalIC() < 30 or not newLaw:ValidFor( ministerTag ) then
-						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+					-- local CGRatio = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get() / ministerCountry:GetTotalIC()
 
-					-- CPO saves 16% of total IC compared to mixed industry, but has 5% worse industrial efficiency
-					-- not much benefit from switching to CPO for large countries unless CG need is substantial
-					elseif CGRatio > 0.10 then
-						newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
-					end
-
-					-- better method would probably be something like:
-					-- if production IC * 0.14 <= min(CGNeed,0.16*TotalIC) then switch to CPO
-					-- .14 approx = 1-(0.95^2) which is how much IC you save on production with +5% efficiency
-					-- but haven't tested for sure
+					-- if ministerCountry:GetTotalIC() < 30 or not newLaw:ValidFor( ministerTag ) then
+						-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+					-- elseif CGRatio > 0.10 then
+						-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
+					-- end
+					
+					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
 				end
 
 			elseif tostring(group:GetKey()) == 'education_investment_law' then
