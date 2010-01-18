@@ -126,10 +126,35 @@ function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
 end
 
 function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
+	local blackList = {}
 	if countryA:GetFaction() == CCurrentGameState.GetFaction('axis') then
 		-- Axis members want to conquer
-		if (countryB:GetMaxIC() < 15) then
-			return -1
+		if (countryB:GetMaxIC() < 20) then
+			return -10
+		end
+		
+		blackList = {
+			CCountryDataBase.GetTag('POL'),
+			CCountryDataBase.GetTag('AUS'),
+			CCountryDataBase.GetTag('NOR'),
+			CCountryDataBase.GetTag('SWE'),
+			CCountryDataBase.GetTag('DEN'),
+			CCountryDataBase.GetTag('YUG'),
+			CCountryDataBase.GetTag('HOL'),
+			CCountryDataBase.GetTag('BEL'),
+			CCountryDataBase.GetTag('LUX')
+		}
+	elseif countryA:GetFaction() == CCurrentGameState.GetFaction('comintern') then
+		blackList = {
+			CCountryDataBase.GetTag('POL'),
+			CCountryDataBase.GetTag('AUS'),
+			CCountryDataBase.GetTag('FIN')
+		}
+	end
+	
+	for _,ignoreTag in ipairs(blackList) do
+		if tagB == ignoreTag then
+			return -10
 		end
 	end
 
@@ -184,6 +209,9 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 	if isANeighbourToB and not HasClaims(tagA, tagB) then
 		score = score + 0.5
 	end
+	
+	-- local distanceScore = math.max((countryA:GetDiplomaticDistance(tagB):GetTruncated() / 12000) - 0.25, 0)
+	-- score = score * (1 - distanceScore)
 
 	return math.min(score, 1)
 end
@@ -315,15 +343,6 @@ function CalculateFactionSympathy(ai, country, faction)
 end
 
 function DiploScore_InfluenceNation(ai, actor, recipient, observer)
-
-	-- POL or AUS in a faction breaks event chain for WW2
-	if (	tostring(recipient) == 'POL' and actor:GetCountry():GetFaction():IsValid() and 
-			( actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('axis') or actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('comintern') ) )
-		or tostring(recipient) == 'AUS' then
-		--Utils.LUA_DEBUGOUT("blocked influence by "..tostring(actor).." toward "..tostring(recipient))
-		return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', 0, ai, actor, recipient, observer)
-	end
-
 	--Utils.LUA_DEBUGOUT("->DiploScore_InfluenceNation " .. tostring(actor) .. " <-> " .. tostring(recipient))
 	if observer == actor then
 		local actorCountry = actor:GetCountry()
@@ -335,7 +354,7 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 
 		local neutrality = recipientCountry:GetNeutrality():Get()
 		-- Don't influence neutral countries
-		if neutrality >= 90 then
+		if neutrality >= 75 then
 			--Utils.LUA_DEBUGOUT("<-DiploScore_InfluenceNation")
 			return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', 0, ai, actor, recipient, observer)
 		end
@@ -388,25 +407,25 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 			end
 		-- Not in our corner but nearly enough and effectiveNeutrality low enough and interested in joining
 		elseif dist > 0.5 and dist < 10 and effectiveNeutrality < 0.8 and StrategicJoinScore(recipient, recipientCountry, actorFaction) > 0.5 then
-			--Utils.LUA_DEBUGOUT("----------------------------------------------------------")
-			--Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
-			--Utils.LUA_DEBUGOUT("\t" .. "effectiveNeutrality:" .. tostring(effectiveNeutrality))
+			-- Utils.LUA_DEBUGOUT("----------------------------------------------------------")
+			-- Utils.LUA_DEBUGOUT(tostring(actor) .. " influencing " .. tostring(recipient))
+			-- Utils.LUA_DEBUGOUT("\t" .. "effectiveNeutrality:" .. tostring(effectiveNeutrality))
 
 			local strategic = StrategicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
-			--Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
+			-- Utils.LUA_DEBUGOUT("\t" .. "strategic:" .. tostring(strategic))
 
 			--local diplomatic = DiplomaticInfluenceScore(actor, actorCountry, recipient, recipientCountry) * 0.3
 			-- Get faction leader's opinion in diplomatic matters
 			diplomatic = diplomatic * 0.3 + DiplomaticInfluenceScore(leader, leaderCountry, recipient, recipientCountry) * 0.7
-			--Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
+			-- Utils.LUA_DEBUGOUT("\t" .. "diplomatic:" .. tostring(diplomatic))
 
 			local economic = EconomicInfluenceScore(actor, actorCountry, recipient, recipientCountry)
-			--Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
+			-- Utils.LUA_DEBUGOUT("\t" .. "economic:" .. tostring(economic))
 
 			local randomness = (math.mod(CCurrentGameState.GetAIRand(), 100) / 100) * 0.1 - 0.05 -- +/-5%
 
 			score = 100 * (1 - effectiveNeutrality) * (strategic + diplomatic + economic + randomness)
-			--Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
+			-- Utils.LUA_DEBUGOUT("\t" .. "score:" .. tostring(score))
 
 			--Utils.LUA_DEBUGOUT("<-DiploScore_InfluenceNation")
 			return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', score, ai, actor, recipient, observer)
@@ -425,15 +444,6 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 
 
 function DiploScore_InviteToFaction(ai, actor, recipient, observer)
-
-	-- POL or AUS in a faction breaks event chain for WW2
-	if (	tostring(recipient) == 'POL' and actor:GetCountry():GetFaction():IsValid() and 
-			( actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('axis') or actor:GetCountry():GetFaction() == CCurrentGameState.GetFaction('comintern') ) )
-		or tostring(recipient) == 'AUS' then
-		--Utils.LUA_DEBUGOUT("blocked influence by "..tostring(actor).." toward "..tostring(recipient))
-		return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', 0, ai, actor, recipient, observer)
-	end
-
 	--Utils.LUA_DEBUGOUT("->DiploScore_InviteToFaction " .. tostring(actor) .. " <-> " .. tostring(recipient))
 	local actorCountry = actor:GetCountry()
 	local recipientCountry = recipient:GetCountry()
@@ -625,7 +635,7 @@ function DiploScore_DemandMilitaryAccess(ai, actor, recipient, observer)
         then
 			-- if we are not in faction and they are at war
             if actorCountry:IsAtWar()
-            and not (recipient:GetCountry():HasFaction())
+            and not (recipient:GetCountry():HasFaction() and recipient:GetCountry():GetFaction():IsValid())
             then
                 score = 50
             end
