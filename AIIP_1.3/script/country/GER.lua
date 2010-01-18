@@ -240,7 +240,8 @@ function P.CheckWar(minister, target, war)
 		local allies = {
 			CCountryDataBase.GetTag('HUN'),
 			CCountryDataBase.GetTag('ROM'),
-			CCountryDataBase.GetTag('BUL')
+			CCountryDataBase.GetTag('BUL'),
+			CCountryDataBase.GetTag('FIN')
 		}
 		
 		for _,ally in ipairs(allies) do
