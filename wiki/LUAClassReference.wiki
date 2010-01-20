@@ -693,9 +693,9 @@ constructed with CArrayFix(int size)
 ==CNullTechnology==
 
 ==CStrategicWarfare==
-||GetBombingImpact||
-||GetAlliesImpact||
-||GetConvoyImpact||
+||[#CFixedPoint CFixedPoint]||GetBombingImpact()||
+||[#CFixedPoint CFixedPoint]||GetAlliesImpact()||
+||[#CFixedPoint CFixedPoint]||GetConvoyImpact()||
 
 ==CUnitList==
 ||GetTotalStrength||
