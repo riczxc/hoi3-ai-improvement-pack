@@ -111,7 +111,21 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 
 	local continentA = countryA:GetCapitalLocation():GetContinent()
 	local continentB = countryB:GetCapitalLocation():GetContinent()
-	return countryA:IsNeighbour(tagB) and (continentA == continentB)
+
+	-- Special soviet case, check for both Europe and Asia
+	-- TODO: maybe extend this to Turkey (spy on BUL, GRE...)
+	if a == 'SOV' or b == 'SOV' then
+		--I found no mean to get continent from string...
+		local continentAsia = CCurrentGameState.GetProvince(4390):GetContinent() --Vladivostok
+
+		if a == 'SOV' and ((continentA == continentB) or (continentAsia == continentB)) then
+			return countryA:IsNeighbour(tagB)
+		elseif b == 'SOV' and ((continentA == continentB) or (continentAsia == continentA)) then
+			return countryA:IsNeighbour(tagB)
+		end
+		return false
+	end
+	return (continentA == continentB) and countryA:IsNeighbour(tagB)
 end
 
 -------------------------------------------------------------------------------
