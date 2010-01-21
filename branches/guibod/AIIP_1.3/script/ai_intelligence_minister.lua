@@ -51,7 +51,7 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			--Utils.LUA_DEBUGOUT("hit 70% to change")
 			local unity = ministerCountry:GetNationalUnity():Get()
 			local neutrality = ministerCountry:GetNeutrality():Get()
-			
+
 			if not ministerCountry:IsAtWar() then
 				-- raise national unity if less than 60 or if neutrality is less than 60 and NU > 70 (for draft laws)
 				if (unity < 60) or (neutrality < 60 and unity < 70) then
@@ -411,7 +411,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 	for country in CCurrentGameState.GetCountries() do
  		local tag = country:GetCountryTag()
 		if IsNeighbourOnSameContinent(ministerTag, ministerCountry, tag, country)
-			or IsOceanNeighbor(ministerTag, tag) then
+			or IsOceanNeighbour(ministerTag, tag) then
 			neighbourCount = neighbourCount + 1
 		end
  	end
@@ -427,35 +427,39 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		if tag ~= ministerTag then
 			--open scaled priority
 			local oPrio = 0
-			local mission = SpyMission.SPYMISSION_NONE
 			local oPrioFactor = 1
 
+			-- no spies for non valid
+			if not IsValidCountry(country) then
+				--Utils.LUA_DEBUGOUT(tostring(ministerTag).." ManageSpiesAbroad "..tostring(tag).." skipping non-valid "..tostring(tag))
+				oPrio = 0
+
 			-- no spies for master
-			if overlordTag ~= nil and tag == overlordTag then
-				--Utils.LUA_DEBUGOUT("skipping master "..tostring(tag))
+			elseif overlordTag ~= nil and tag == overlordTag then
+				--Utils.LUA_DEBUGOUT(tostring(ministerTag).." ManageSpiesAbroad "..tostring(tag).." skipping master "..tostring(tag))
 				oPrio = 0
 
 			-- don't waste spies if they're near defeat (also stops invincible spy bug)
 			elseif country:GetSurrenderLevel():Get() > 0.8 then
-				--Utils.LUA_DEBUGOUT( tostring(tag).." is at surrender level "..country:GetSurrenderLevel():Get())
+				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad "..tostring(tag).." is at surrender level "..country:GetSurrenderLevel():Get())
 				oPrio = 0
 
 			-- Don't mind GIE
 			elseif country:IsGovernmentInExile() then
-				--Utils.LUA_DEBUGOUT( tostring(tag).." is GIE." )
+				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad "..tostring(tag).." is GIE." )
 				oPrio = 0
 
-			-- valid countries
+			-- valid countries, not part of current minister faction
 			elseif IsValidCountry(country) and not (ministerCountry:GetFaction():IsValid() and ministerCountry:GetFaction() == country:GetFaction()) then
-				--Utils.LUA_DEBUGOUT("evaluating spymission for: ".. tostring(tag))
+				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ".."evaluating spypriority for: ".. tostring(tag))
 
 				-- majors need to be cautiuos
 				if ministerCountry:IsMajor() and country:IsMajor() then
 					oPrio = oPrio + 100
 				end
 
-				-- less priority for puppets and allies
-				if country:isPuppet() or ministerCountry:GetRelation(tag):HasAlliance() then
+				-- less priority for puppets and allies, if current country is faction member.
+				if ministerCountry:GetFaction():IsValid() and (country:isPuppet() or ministerCountry:GetRelation(tag):HasAlliance()) then
 					oPrio = oPrio - 100
 				end
 
@@ -475,7 +479,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 				-- same continent to prevent guangxi spies in england for example
 				-- exception for countries isolated by oceans
 				if IsNeighbourOnSameContinent(ministerTag, ministerCountry, tag, country)
-				or IsOceanNeighbor(ministerTag, tag) then
+				or IsOceanNeighbour(ministerTag, tag) then
 					-- oPrio can move 300 max
 					oPrioFactor = 0.5
 					if country:IsMajor() then
@@ -538,12 +542,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 				end
 			end
 
-			-- pick mission
-			if oPrio > 0 then
-				mission = PickBestMission(country, minister, ministerTag, ministerCountry, ai)
-			end
-
-			prioTable[tag] = {oPrio,mission}
+			prioTable[country] = oPrio
 			-- Do NEVER allow negative or zero max priority
 			maxPrio = math.max( oPrio, maxPrio )
 		end
@@ -554,26 +553,40 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		maxPrio = maxPrio * 1.5
 	end
 
-	for tag,v in pairs(prioTable) do
-		local oPrio	 = v[1]
-		local mission = v[2]
+	for country,oPrio in pairs(prioTable) do
+		local tag = country:GetCountryTag()
 		local nPrio	 = 0
+		local ratio	 = oPrio/maxPrio
 		local SpyPresence = ministerCountry:GetSpyPresence(tag)
+		local mission = SpyMission.SPYMISSION_NONE --default mission is NONE.
 
 		-- Compute Normalized priority
 		if oPrio > 0 then
-			if oPrio/maxPrio >= 0.8 then
+			if ratio >= 0.8 then
 				nPrio = 3
-			elseif oPrio/maxPrio >= 0.5 then
+			elseif ratio >= 0.5 then
 				nPrio = 2
-			elseif oPrio/maxPrio >= 0.1 then
+			elseif ratio >= 0.1 then
 				nPrio = 1
 			end
 		end
 
+		-- How do we plan to use our spies ?
+		if nPrio > 0 then
+			mission = PickBestMission(country, minister, ministerTag, ministerCountry, ai)
+
+			if mission == SpyMission.SPYMISSION_NONE then
+				--a mission was pick but there is nothing to do ! Why the hell send spies there ?
+				--we lower normalized priority.
+				nPrio = nPrio - 1
+			end
+		end
+
+
 		local day = CCurrentGameState.GetCurrentDate():GetDayOfMonth()+1
 		local month = CCurrentGameState.GetCurrentDate():GetMonthOfYear()+1
 		local year = CCurrentGameState.GetCurrentDate():GetYear()
+
 		--Utils.LUA_DEBUGOUT( day..";"..month..";"..year..";"..tostring(ministerTag)..";"..tostring(tag)..";"..tostring(nPrio)..";"..tostring(mission)..";"..tostring(oPrio))
 
 		-- change priority
