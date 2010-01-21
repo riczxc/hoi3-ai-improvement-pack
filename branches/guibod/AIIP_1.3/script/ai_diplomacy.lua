@@ -132,7 +132,7 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 		if (countryB:GetMaxIC() < 20) then
 			return -10
 		end
-		
+
 		blackList = {
 			CCountryDataBase.GetTag('POL'),
 			CCountryDataBase.GetTag('AUS'),
@@ -151,7 +151,7 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 			CCountryDataBase.GetTag('FIN')
 		}
 	end
-	
+
 	for _,ignoreTag in ipairs(blackList) do
 		if tagB == ignoreTag then
 			return -10
@@ -209,7 +209,7 @@ function StrategicInfluenceScore(tagA, countryA, tagB, countryB)
 	if isANeighbourToB and not HasClaims(tagA, tagB) then
 		score = score + 0.5
 	end
-	
+
 	-- local distanceScore = math.max((countryA:GetDiplomaticDistance(tagB):GetTruncated() / 12000) - 0.25, 0)
 	-- score = score * (1 - distanceScore)
 
@@ -876,7 +876,7 @@ function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, actio
 		-- do we want to accept?
 		local score = 0
 		local recipientCountry = recipient:GetCountry()
-		
+
 		if 	recipientCountry:GetDailyBalance(CGoodsPool._SUPPLIES_):Get() > 1.0 and
 			HasExtraManpowerLeft(recipientCountry)
 		then
@@ -905,12 +905,12 @@ end
 -- actor tries to buy a licence from recipient.
 function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 	if observer == actor then
-		return 0 
+		return 0
 	else
 		if not action:GetSubunit() then
 			return 0
 		end
-		
+
 		local rel = ai:GetRelation(recipient, actor)
 		if rel:GetValue():GetTruncated() < 0 then
 			return 0
@@ -918,20 +918,20 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 		if rel:HasWar() then
 			return 0
 		end
-	
+
 		local actorCountry = actor:GetCountry()
 		local recipientCountry = recipient:GetCountry()
-		
+
 		local strategy = recipientCountry:GetStrategy()
-		if 	strategy:GetThreat(actor) > 0 or 
-			strategy:GetAntagonism(actor) > 0 or 
+		if 	strategy:GetThreat(actor) > 0 or
+			strategy:GetAntagonism(actor) > 0 or
 			strategy:IsPreparingWarWith(actor)
 		then
-			-- Do not give technology to countries we feel threaten from or 
+			-- Do not give technology to countries we feel threaten from or
 			-- we don't like or we're preparing a war against.
 			return 0
 		end
-		
+
 		-- we give discount to
 		-- - people in faction
 		-- - people in alliance
@@ -960,7 +960,7 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 				end
 			end
 		end
-		
+
 		if discount == 1.0 then
 			-- if they are in the other corner for example base price will double
 			local alignment = CalculateAlignmentFactor(ai, actorCountry, recipientCountry)
@@ -971,40 +971,40 @@ function DiploScore_LicenceTechnology(ai, actor, recipient, observer, action)
 				-- increase price
 				discount = discount + (alignment - 0.5) * 2
 			end
-			
+
 			-- a high threat is also not good for the price
 			local threat = rel:GetThreat():Get() * alignment / 50
 			discount = discount + threat
 		end
-		
+
 		-- good relations give further discount (at max 15%)
 		local relations = rel:GetValue():Get() / 200
 		discount = discount - relations * 0.15
-		
+
 		-- now calculate the price we want for this subunit
 		local subunit = action:GetSubunit()
 
 		local price = 0.15
-		
+
 		price = price * recipientCountry:GetBuildCostIC(subunit, 1, false):Get() * recipientCountry:GetBuildTime(subunit, 1)
-		
+
 		local quantityDiscount = 1.0
 		quantityDiscount = quantityDiscount * action:GetSerial() * action:GetParalell()
 		quantityDiscount = 1 / math.pow(quantityDiscount, 0.05)
-		
+
 		--Utils.LUA_DEBUGOUT("Base price: " .. tostring(price))
 		--Utils.LUA_DEBUGOUT("Discount: " .. tostring(discount))
 		--Utils.LUA_DEBUGOUT("Quantity discount: " .. tostring(quantityDiscount))
-		
+
 		price = price * discount * quantityDiscount
 		--Utils.LUA_DEBUGOUT("Final price: " .. tostring(price))
-		
-		local offeredMoney = action:GetMoney():Get()	
+
+		local offeredMoney = action:GetMoney():Get()
 		local score = (offeredMoney / price) * 100
-		
+
 		--Utils.LUA_DEBUGOUT("Offered money: " .. tostring(offeredMoney))
 		--Utils.LUA_DEBUGOUT("Final score: " .. tostring(score))
-		
+
 		return score
 	end
 end
@@ -1014,7 +1014,7 @@ function DiploScore_Debt(ai, actor, recipient, observer)
 	local actorCountry = actor:GetCountry()
 	local recipientCountry = recipient:GetCountry()
 	local rel = actorCountry:GetRelation(recipient)
-	
+
 	local score = 0
 	if observer == actor then
 		if recipientCountry:IsAtWar()
@@ -1032,7 +1032,7 @@ function DiploScore_Debt(ai, actor, recipient, observer)
 				score = 0
 			end
 		end
-	else	
+	else
 		if actorCountry:IsAtWar()
 		and (
 			(actorCountry:HasFaction() and recipientCountry:GetFaction() == actorCountry:GetFaction())
@@ -1120,67 +1120,3 @@ function DiploScore_CallAlly(ai, actor, recipient, observer, action)
 	--Utils.LUA_DEBUGOUT("<-DiploScore_CallAlly")
 	return score
 end
-
--- virtual neighbors for countries isolated by oceans
-function IsOceanNeighbor(tagA, tagB)
-	local a = tostring(tagA)
-	local b = tostring(tagB)
-
-	-- oceania
-	if a == 'NZL' then
-		return b == 'AST' or b == 'JAP' or b == 'PHI' or b == 'USA'
-	elseif a == 'AST' then
-		return b == 'NZL' or b == 'JAP' or b == 'PHI' or b == 'USA' or b == 'HOL'
-
-	-- east asia
-	elseif a == 'PHI' then
-		return b == 'USA' or b == 'JAP' or b == 'CHI' or b == 'CGX' or b == 'INO' or b == 'HOL' or b == 'AST' or b == 'NZL'
-	elseif a == 'CHI' then
-		return b == 'JAP' or b == 'PHI'
-	elseif a == 'CGX' then
-		return b == 'PHI'
-	elseif a == 'PRK' or a == 'KOR' then
-		return b == 'JAP'
-
-	-- north america and carribean
-	elseif a == 'USA' then
-		return b == 'PHI' or b == 'AST' or b == 'NZL' or b == 'JAP' or b == 'CUB' or b == 'DEN' or b == 'ICL' or b == 'ENG' or b == 'IRE' or b == 'POR'
-	elseif a == 'CUB' then
-		return b == 'USA' or b == 'MEX' or b == 'HAI'
-	elseif a == 'MEX' then
-		return b == 'CUB'
-	elseif a == 'HAI' then
-		return b == 'CUB'
-
-	-- north atlantic
-	elseif a == 'CAN' then
-		return b == 'ENG' or b == 'FRA' or b == 'DEN' or b == 'ICL' or b == 'IRE'
-	elseif a == 'ICL' then
-		return b == 'USA' or b == 'IRE' or b == 'ENG' or b == 'CAN' or b == 'DEN'
-	elseif a == 'POR' then
-		return b == 'USA'
-
-	-- UK and Ireland
-	elseif a == 'ENG' then
-		return b == 'USA' or b == 'CAN' or b == 'HOL' or b == 'BEL' or b == 'ICL' or b == 'NOR' or b == 'DEN'
-	elseif a == 'IRE' then
-		return b == 'FRA' or b == 'SPA' or b == 'SPR' or b == 'USA' or b == 'ICL' or b == 'CAN'
-	elseif a == 'NOR' then
-		return b == 'ENG' or b == 'DEN'
-	elseif a == 'DEN' then
-		return b == 'ENG' or b == 'NOR'
-	elseif a == 'BEL' then
-		return b == 'ENG'
-	elseif a == 'SPA' then
-		return b == 'IRE'
-	elseif a == 'SPR' then
-		return b == 'IRE'
-
-	-- Holland is special
-	elseif a == 'HOL' then
-		return b == 'JAP' or b == 'AST' or b == 'NZL' or b == 'PHI' or b == 'ENG'
-	end
-
-	return false
-end
-
