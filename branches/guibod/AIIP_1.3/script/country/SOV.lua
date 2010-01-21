@@ -59,5 +59,38 @@ function P.ForeignMinister_EvaluateDecision( score, agent, decision, scope )
 	return score
 end
 
+function P.PickBestMission(ai, minister, countryTag, selectedSpyMission, score)
+	-- As long as GER is at peace, don't increase threat of Allies.
+	-- This would hurt ourselfs, because the increased threat of UK and France would
+	-- push countries more to the Axis side than to our side.
 
+	local gerTag = CCountryDataBase.GetTag('GER')
+
+	if 	selectedSpyMission == SpyMission.SPYMISSION_INCREASE_THREAT and
+		not gerTag:GetCountry():IsAtWar()
+	then
+		local country = countryTag:GetCountry()
+		local faction = country:GetFaction()
+		local alliesFaction = CCurrentGameState.GetFaction('allies')
+
+		if faction == alliesFaction then
+			local diceRoll = math.mod(CCurrentGameState.GetAIRand(), 6)
+			if diceRoll == 0 then
+				selectedSpyMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
+			elseif diceRoll == 1 then
+				selectedSpyMission = SpyMission.SPYMISSION_DISRUPT_RESEARCH
+			elseif diceRoll == 2 then
+				selectedSpyMission = SpyMission.SPYMISSION_DISRUPT_PRODUCTION
+			elseif diceRoll == 3 then
+				selectedSpyMission = SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY
+			elseif diceRoll == 4 then
+				selectedSpyMission = SpyMission.SPYMISSION_MILITARY
+			elseif diceRoll == 5 then
+				selectedSpyMission = SpyMission.SPYMISSION_TECH
+			end
+		end
+	end
+
+	return selectedSpyMission
+end
 return AI_SOV
