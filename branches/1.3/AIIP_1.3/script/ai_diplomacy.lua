@@ -877,28 +877,15 @@ function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, actio
 		local score = 0
 		local recipientCountry = recipient:GetCountry()
 		
-		if recipientCountry:GetDailyBalance( CGoodsPool._SUPPLIES_ ):Get() > 1.0 then
+		if 	recipientCountry:GetDailyBalance(CGoodsPool._SUPPLIES_):Get() > 1.0 and
+			HasExtraManpowerLeft(recipientCountry)
+		then
 			-- maybe we have enough stockpiles
-			local supplyStockpile = recipientCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()
-			local weeksSupplyUse = recipientCountry:GetDailyExpense( CGoodsPool._SUPPLIES_ ):Get() * 7
+			local supplyStockpile = recipientCountry:GetPool():Get(CGoodsPool._SUPPLIES_):Get()
+			local weeksSupplyUse = recipientCountry:GetDailyExpense(CGoodsPool._SUPPLIES_):Get() * 7
 			if supplyStockpile > weeksSupplyUse * 20.0 then
 				score = score + 70
 			elseif supplyStockpile > weeksSupplyUse * 10.0 then
-				score = score + 40
-			end
-
-			if recipientCountry:IsAtWar() then
-				score = score + 20
-			else
-				score = 0 -- no war, no need for troops
-			end
-		else
-			-- maybe we have enough stockpiles
-			local supplyStockpile = recipientCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()
-			local weeksSupplyUse = recipientCountry:GetDailyExpense( CGoodsPool._SUPPLIES_ ):Get() * 7
-			if supplyStockpile > weeksSupplyUse * 24.0 then
-				score = score + 70
-			elseif supplyStockpile > weeksSupplyUse * 12.0 then
 				score = score + 40
 			end
 
