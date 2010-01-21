@@ -152,7 +152,7 @@ country_event = {
 		or = {
 			not = { exists = ENG }
 			ENG = { government_in_exile = yes }
-			ENG = { is_puppet = yes }
+			ENG = { is_subject = yes }
 		}
 		has_country_flag = lend_lease_at_least_once_uk
 	}
@@ -283,7 +283,7 @@ country_event = {
 		or = {
 			not = { exists = SOV }
 			SOV = { government_in_exile = yes }
-			SOV = { is_puppet = yes }
+			SOV = { is_subject = yes }
 		}
 		has_country_flag = lend_lease_at_least_once_sov
 	}
