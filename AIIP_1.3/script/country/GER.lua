@@ -289,12 +289,27 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 		local gerTag = CCountryDataBase.GetTag('GER')
 		local fraTag = CCountryDataBase.GetTag('FRA')
 		local vicTag = CCountryDataBase.GetTag('VIC')
+		local denTag = CCountryDataBase.GetTag('DEN')
+		local norTag = CCountryDataBase.GetTag('NOR')
 
 		-- Prepare for Barbarossa
 		if (vicTag:IsValid() and vicTag:IsReal() and vicTag:GetCountry():Exists()) 	--VIC exists
 		or (
 			gerTag:GetCountry():GetRelation(fraTag):HasWar() and					--GER is fighting FRA
-			fraTag:GetCountry():GetSurrenderLevel():Get() > 0.5 					--GER is winning
+			fraTag:GetCountry():GetSurrenderLevel():Get() > 0.3 					--GER is winning
+		)
+		or (
+			(
+				P.IsFullyOccupying( ministerCountry, denTag ) or
+				denTag:GetCountry():IsGovernmentInExile() or
+				not denTag:GetCountry():Exists()
+				-- DEN is gone
+			) and (
+				P.IsFullyOccupying( ministerCountry, norTag ) or
+				norTag:GetCountry():IsGovernmentInExile() or
+				not norTag:GetCountry():Exists()
+				-- NOR is gone
+			)
 		)
 		then
 			return 100
