@@ -92,32 +92,43 @@ function Zmod(z, d)
 	return math.mod((math.mod(z, d) + d), d);
 end
 
+-- A function which shows compareable behaviour to php's in_array.
+function in_table ( e, t )
+ 	for _,v in pairs(t) do
+		if (v==e) then return true end
+	end
+	return false
+end
+
 -- Is country A capital on the same land mass as country B capital ?
 -- This function is convenient to detect colonies (invasions?).
 -- useful no to spy colonial powers as Guanxi (for instance)
 function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
+	Utils.LUA_DEBUGOUT( tostring(ministerTag).." IsNeighbourOnSameContinent ")
+
 	local a = tostring(tagA)
 	local b = tostring(tagB)
+
+	--Utils.LOG:debug("Is "..a.." on same continent as "..b.." ?")
 
 	-- Bypass stupid question
 	if a == b then
 		return false
 	end
 
-	-- special case : HAITI
-	if (a == 'HAI' and b == 'DOM') or (a == 'DOM' and b == 'HAI') then
-		return true
+	-- Island countries
+	-- eg : No ENG mainland share border with other country
+	if in_table( a, gGeography["island_countries"] ) or in_table( b, gGeography["island_countries"] ) then
+		return false
 	end
 
-	-- Island countries
-	local islandCountries = { 'ENG','AST','NZL','PHI','JAP','ICL','CUB','IRE' }
-
-	for i,v in ipairs(islandCountries) do
-		if tostring(v) == a or tostring(v) == b then
+	-- Test if countries are part of a same island cluster
+	-- eg : HAITI
+	for _,v in ipairs(gGeography["island_clusters"]) do
+		if in_table( a, v ) and in_table( b, v ) then
 			return false
 		end
 	end
-
 
 	local continentA = countryA:GetCapitalLocation():GetContinent()
 	local continentB = countryB:GetCapitalLocation():GetContinent()
@@ -148,8 +159,10 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 		return false
 	end
 
+	Utils.LUA_DEBUGOUT( tostring(ministerTag).." /IsNeighbourOnSameContinent ")
 	return (continentA == continentB) and countryA:IsNeighbour(tagB)
 end
+
 
 
 -- virtual neighbours for countries isolated by oceans
@@ -164,96 +177,25 @@ end
 --
 -- This function won't follow invasions and land possession. It may be unaccurate in ahistorical/world domination games.
 function IsOceanNeighbour(tagA, tagB)
+	Utils.LUA_DEBUGOUT( tostring(ministerTag).." IsOceanNeighbour ")
+
 	local a = tostring(tagA)
 	local b = tostring(tagB)
+
+	--Utils.LOG:debug("Is "..b.." on ocean neighbour from "..b.." point of view ?")
 
 	-- Bypass stupid question
 	if a == b then
 		return false
 	end
 
-	local t = {}
-
-	-- table "t" defines how a country feels a set of province as offshore neighbourhood, the reverse is NOT mandatory.
-	-- this code has a weakness, what if SOV reaches Calais ? SOV don't know it is an ENG neighbour by then.
-
-	-- oceania
-	t['NZL'] = { 'AST','JAP','PHI','USA' }
-	t['AST'] = { 'AST','JAP','PHI','USA','HOL' }
-
-	-- east asia
-	t['JAP'] = { 'USA','AST','SOV','PRK','KOR','CHI','SIA' } --japan don't bother china cliques, added SIA for increased influence
-	t['PHI'] = { 'USA','JAP','HOL','CHI','CGX','INO','IDC','SIA' } --removed too far NZL and AST
-	t['INO'] = { 'JAP','HOL','IDC','SIA','PHI' }
-
-	t['CHI'] = { 'JAP','PHI' }
-	t['CGX'] = { 'PHI' }
-	t['PRK'] = { 'JAP' }
-	t['KOR'] = { 'JAP' }
-	t['CSX'] = { 'JAP' }
-	t['SOV'] = { 'JAP' } --if khouril islands share no more border
-	t['IDC'] = { 'JAP','IDC','SIA' }
-
-	-- north america
-	t['USA'] = { 'ENG','PHI','AST','NZL','CUB','ICL' } --POR and IRE are too far, DEN is bound through colonies, caribean countries are too small
-	t['CAN'] = { 'ENG','FRA','ICL' } --CAN has a greater emphasis on atlantic ocean
-	t['ICL'] = { 'USA','IRE','ENG','CAN','DEN' } --DEN for historical purpose
-
-	--carribean
-	t['CUB'] = { 'USA','MEX','HAI','DOM','NIC','HON' } --added big central america countries (Nicaragua, Honduras)
-	t['HON'] = { 'CUB' }
-	t['NIC'] = { 'CUB' }
-	t['MEX'] = { 'CUB' }
-	t['HAI'] = { 'USA','CUB','VEN' }
-	t['DOM'] = { 'USA','CUB','VEN' }
-	t['VEN'] = { 'HAI','DOM' }
-
-	-- european
-	t['POR'] = { 'BRA' } -- BRA for historical purpose
-
-	-- Baltic
-	t['SWE'] = { 'GER','SOV','POL' } -- don't bother baltic states, there are bigger players around
-	t['LIT'] = { 'SWE' }
-	t['LAT'] = { 'SWE' }
-	t['EST'] = { 'SWE','FIN' } --finns are near
-	t['FIN'] = { 'EST' } --estonian are near
-
-	-- Mediterean
-	t['ITA'] = { 'ALB', 'GRE' }
-	t['GRE'] = { 'ITA' }
-	t['ALB'] = { 'ITA' }
-
-	-- Black Sea
-	t['ROM'] = { 'TUR' }
-	t['BUL'] = { 'TUR' }
-	t['TUR'] = { 'ROM','BUL','GRE' } --if istanbul is lost
-
-	-- UK and Ireland
-	t['ENG'] = { 'USA','CAN','HOL','BEL','FRA'} --no scandinavian country they are too far away, added france if channel island occupied
-	t['IRE'] = { 'USA','FRA','ICL' } --removed canada
-	t['NOR'] = { 'ENG','DEN' }
-	t['DEN'] = { 'ENG','NOR' }
-	t['BEL'] = { 'ENG' }
-	t['HOL'] = { 'JAP','AST','NZL','ENG'}
-
-	-- Middle East (through Red Sea and persian gulf)
-	t['SAU'] = { 'ETH', 'PER' }
-	t['YEM'] = { 'ETH', 'OMN' }
-	t['OMN'] = { 'YEM', 'PER' }
-	t['PER'] = { 'OMN', 'SAU' }
-
-	-- isolated countries (not real islands)
-	t['LIB'] = { 'USA' }
-	t['SIA'] = { 'JAP','PHI', 'CGX' }
-	t['ETH'] = { 'SAU','YEM' }
-
-	if t[a] ~= nil then
-		for i,v in ipairs(t[a]) do
-			if tostring(v) == b then
-				return CCountryDataBase.GetTag(b):IsValid()
-			end
+	if gGeography["ocean_neighbour"][a] ~= nil then
+		if in_table(b,gGeography["ocean_neighbour"][a]) then
+			return CCountryDataBase.GetTag(b):IsValid()
 		end
 	end
+
+	Utils.LUA_DEBUGOUT( tostring(ministerTag).." /IsOceanNeighbour ")
 
 	return false
 end
@@ -288,8 +230,8 @@ function HFInit_Economy()
 	gEconomy["AI"] = {}
 	gEconomy["manual"] = {}
 	gEconomy["goods_cost"] = {
-		[0] = 	defines.goods_cost.SUPPLIES,
-				defines.goods_cost.FUEL,
+ 		[0] = 	defines.goods_cost.SUPPLIES,
+ 				defines.goods_cost.FUEL,
 				defines.goods_cost.MONEY,
 				defines.goods_cost.CRUDE_OIL,
 				defines.goods_cost.METAL,

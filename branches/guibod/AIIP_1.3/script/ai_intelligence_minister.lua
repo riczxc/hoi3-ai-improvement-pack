@@ -2,7 +2,6 @@
 -- espionage & intelligence
 -----------------------------------------------------------
 
-require('ai_diplomacy')
 require('helper_functions')
 
 function IntelligenceMinister_Tick(minister)
@@ -393,7 +392,7 @@ end
 
 
 function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
-	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ")
+	Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ")
 	local strategy = ministerCountry:GetStrategy()
 	-- store open scale results in a dictionary
 	local prioTable = {}
@@ -587,7 +586,9 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		local month = CCurrentGameState.GetCurrentDate():GetMonthOfYear()+1
 		local year = CCurrentGameState.GetCurrentDate():GetYear()
 
+		--if tostring(ministerTag) == 'SAU' and oPrio ~= 0 then
 		--Utils.LUA_DEBUGOUT( day..";"..month..";"..year..";"..tostring(ministerTag)..";"..tostring(tag)..";"..tostring(nPrio)..";"..tostring(mission)..";"..tostring(oPrio))
+		--end
 
 		-- change priority
 		if nPrio ~= SpyPresence:GetPriority() then
@@ -601,7 +602,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 			ai:Post(missionCommand)
 		end
 	end
-	--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ended")
+	Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ended")
 end
 
 

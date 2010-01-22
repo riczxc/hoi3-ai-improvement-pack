@@ -2,16 +2,17 @@
 -- Utils
 -- general utility functions
 ---------------------------------
-local P = {}
+local logger = require('log4lua.logger')
+
+local P = {LOG = logger.getLogger('ROOT')}
 Utils = P
 
-function P.LUA_DEBUGOUT(s)
-	-- Uncomment to see debug logging
-	local f = io.open("lua_output.txt", "a")
-	f:write("LUA_DEBUG '" .. s .. "' \n")
-	f:close()
-end
 
+-- Deprecated
+-- since we use log4lua
+function P.LUA_DEBUGOUT(s)
+	P.LOG:debug(s,'')
+end
 
 -----------------------------------------------------------------------------
 -- calls specified function in country specific AI module if it exists
