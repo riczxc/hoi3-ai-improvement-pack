@@ -104,7 +104,8 @@ end
 -- This function is convenient to detect colonies (invasions?).
 -- useful no to spy colonial powers as Guanxi (for instance)
 function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
-	Utils.LUA_DEBUGOUT( tostring(ministerTag).." IsNeighbourOnSameContinent ")
+	Utils.setLogCat("ROOT")
+	Utils.debug( tostring(ministerTag).." IsNeighbourOnSameContinent")
 
 	local a = tostring(tagA)
 	local b = tostring(tagB)
@@ -159,7 +160,7 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 		return false
 	end
 
-	Utils.LUA_DEBUGOUT( tostring(ministerTag).." /IsNeighbourOnSameContinent ")
+	Utils.debug( tostring(ministerTag).." /IsNeighbourOnSameContinent")
 	return (continentA == continentB) and countryA:IsNeighbour(tagB)
 end
 
@@ -177,7 +178,8 @@ end
 --
 -- This function won't follow invasions and land possession. It may be unaccurate in ahistorical/world domination games.
 function IsOceanNeighbour(tagA, tagB)
-	Utils.LUA_DEBUGOUT( tostring(ministerTag).." IsOceanNeighbour ")
+	Utils.setLogCat("DEVEL")
+	Utils.debug( tostring(ministerTag).." IsOceanNeighbour")
 
 	local a = tostring(tagA)
 	local b = tostring(tagB)
@@ -195,7 +197,7 @@ function IsOceanNeighbour(tagA, tagB)
 		end
 	end
 
-	Utils.LUA_DEBUGOUT( tostring(ministerTag).." /IsOceanNeighbour ")
+	Utils.debug( tostring(ministerTag).." /IsOceanNeighbour")
 
 	return false
 end

@@ -95,10 +95,10 @@ _module.LOG_LEVELS = {
 }
 
 -- Default pattern used for all appenders.
-_module.DEFAULT_PATTERN = "[%DATE] [%LEVEL] at %FILE:%LINE(%METHOD): %MESSAGE\n"
+_module.DEFAULT_PATTERN = "[%DATE] [%LEVEL] at %FILE:%LINE(%METHOD): %MESSAGE\r\n"
 
 -- Name of the environment variable that holds the path to the default config file.
-local ENV_LOGGING_CONFIG_FILE = "LOG4LUA_CONFIG_FILE"
+-- local ENV_LOGGING_CONFIG_FILE = "LOG4LUA_CONFIG_FILE"
 
 -- Map containing all configured loggers (key is category).
 local _loggers = nil
@@ -117,7 +117,7 @@ local function initConfig()
 
 		--Tweaked the orignal code, removed usage of environment variable, lowered level.
 		_loggers = {}
-		_loggers["ROOT"] = Logger.new(file.new("AIIP-%s.log", "%Y-%m-%d"), "ROOT", _module.DEBUG)
+        _loggers["ROOT"] = Logger.new(console.new(), "ROOT", _module.INFO)
     end
 end
 
@@ -149,6 +149,23 @@ function _module.getLogger(category)
     end
     assert(log, "Logger cannot be empty. Check your configuration!")
     return log
+end
+
+-- home brewed factory
+function _module.configureLoggers(conf)
+	_loggers = {}
+	for loggerCategory, loggerDef in pairs(conf) do
+		local appenders = {}
+		loggerDef["datepattern"] = loggerDef["datepattern"] or "%Y-%m-%d"
+
+		for i,f in ipairs(loggerDef["files"]) do
+			appenders[i] = file.new(f, loggerDef["datepattern"], loggerDef["pattern"])
+		end
+
+		--useful in scyte only (no console in foi3)
+		appenders[#appenders+1] = console.new()
+		_loggers[loggerCategory] = Logger.new(appenders, loggerCategory, loggerDef["level"])
+	end
 end
 
 --- Load a configuration file.
@@ -263,7 +280,7 @@ function Logger:formatMessage(pattern, level, message, exception)
     result = string.gsub(result, "%%DATE", tostring(os.date()))
     result = string.gsub(result, "%%LEVEL", level)
     result = string.gsub(result, "%%MESSAGE", message)
-    -- tweak for AIIP
+    -- tweak for AIIP (log4lua is bugged)
 	if exception ~= nil then
 		result = string.gsub(result, "%%ERROR", exception)
 	end
@@ -279,13 +296,15 @@ function Logger:_formatStackTrace(pattern)
     local stackTrace = debug.traceback()
     local source = "<unknown>"
     for line in string.gmatch(stackTrace, "\n%s*(.-)%s*\n") do
-        if (not string.match(line, "logger\.lua")) then
+        if (not (string.match(line, "logger\.lua"))
+			--AIIP added utils.lua in list not to refer to wrapper
+			--and string.match(line, "utils\.lua"))
+			) then
             source = line
             break
         end
     end
-    local _, _, sourcePath, sourceLine, sourceMethod = string.find(source, "(.-):(%d-): in (.*)")
-    local _, _, sourceFile = string.find(sourcePath, ".*/(.*)")
+    local _, _, sourceFile, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
     result = string.gsub(result, "%%PATH", sourcePath or "n/a")
     result = string.gsub(result, "%%FILE", sourceFile or "n/a")
     result = string.gsub(result, "%%LINE", sourceLine or "n/a")
