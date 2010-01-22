@@ -86,6 +86,7 @@ function LoadProvinceImprovements(country)
 	local countryTag = tostring(country:GetCountryTag())
 	local year = CCurrentGameState.GetCurrentDate():GetYear()
 
+	local baseIC = country:GetMaxIC()
 	local averageInfraLevel = GetAverageInfrastructure(country)
 	local ports = country:GetNumOfPorts()
 	local airfields = country:GetNumOfAirfields()
@@ -95,6 +96,11 @@ function LoadProvinceImprovements(country)
 	end
 
 	-- DEFAULT IMPROVEMENTS
+	local homeContinent = country:GetCapitalLocation():GetContinent()
+	local defaultBuildCallback = function (province)
+		return province:GetContinent() == homeContinent
+	end
+	
 	local prod_improvements = {
 		infra = {
 			priority = (1 - averageInfraLevel)
@@ -316,14 +322,17 @@ function LoadProvinceImprovements(country)
 			5541, 5622, 5652, 5675, 5695, 5711, 5728, -- from Qingdao to Fuzhou (Nort-South, Coastline)
 			5275, 5304, 5337, 5386 -- Connect Jinan
 		}
+	------------------------------------------MINORS---------------------------------------------------
+	elseif baseIC <= 20 then
+		local minorInfraBuildCallback = function (province)
+			return defaultBuildCallback(province) and province:GetMaxInfrastructure():Get() < 1.0
+		end
+		
+		prod_improvements.infra.buildCallback = minorInfraBuildCallback
 	----------------------------------------------------------------------------------------------------
 	end
 
 	-- Make sure the improvements table is complete
-	local homeContinent = country:GetCapitalLocation():GetContinent()
-	local defaultBuildCallback = function (province)
-		return province:GetContinent() == homeContinent
-	end
 
 	-- Build callback will be called for each province where building
 	-- of an improvement is allowed.
@@ -389,8 +398,8 @@ function LoadProvinceImprovements(country)
 		end
 		prod_improvements.infra.priority = 0
 	end
-	-- don't build industry in war time
-	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() then
+	-- don't build industry in war time or if not rich in resources
+	if country:IsAtWar() or country:GetStrategy():IsPreparingWar() or not IsResourceRich(country) then
 		prod_improvements.industry.priority = 0
 	end
 
