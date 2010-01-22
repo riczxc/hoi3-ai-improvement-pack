@@ -70,11 +70,7 @@ local light_tank = {
 					'armored_car_armour',
 					'armored_car_gun',
 					'mortorised_infantry',
-					'mechanised_infantry',
-					'cavalry_smallarms',
-					'cavalry_support',
-					'cavalry_guns',
-					'cavalry_at'
+					'mechanised_infantry'
 				}
 local medium_tank = {
 					'tank_brigade',
@@ -99,19 +95,23 @@ local sheavy_tank = {
 					'super_heavy_tank_reliability'
 				}
 local anti_tank = {
+					'infantry_activation',
 					'at_barrell_sights',
 					'at_ammo_muzzel'
 				}
 local anti_aircraft = {
+					'infantry_activation',
 					'aa_barrell_ammo',
 					'aa_carriage_sights',
 					'heavy_aa_guns'
 				}
 local artillery = {
+					'infantry_activation',
 					'art_barrell_ammo',
 					'art_carriage_sights'
 				}
 local rocket_artillery = {
+					'infantry_activation',
 					'rocket_art',
 					'rocket_art_ammo',
 					'rocket_carriage_sights'
@@ -442,14 +442,17 @@ local medecine = {
 					'first_aid'
 				}					
 local industry = {
-					'agriculture',
 					'industral_production',
 					'industral_efficiency',
 					'construction_engineering',
-					'advanced_construction_engineering',
-					'education',
-					'civil_defence'
+					'advanced_construction_engineering'
 				}	
+local manpower = {
+					'agriculture'
+}
+local leadership = {
+					'education'
+}
 local ressources = {
 					'oil_to_coal_conversion',
 					'oil_refinning',
@@ -460,7 +463,8 @@ local ressources = {
 local supply = {
 					'supply_production',
 					'supply_transportation',
-					'supply_organisation'
+					'supply_organisation',
+					'civil_defence'
 				}	
 local encryption = {
 					'electronic_mechanical_egineering',
@@ -473,6 +477,245 @@ local encryption = {
 					--'census_tabulation_machine',
 					--'mechnical_computing_machine',
 					--'electronic_computing_machine',
+
+-- Define technologies here which depend on another tech group.
+-- So if AI wants to research a tech in group A which depends
+-- on group B it knows it has to to research group B to specified
+-- level before it can research group A.
+local dependencies = {
+	-- Infantry
+	infantry_activation = {
+		militia_smallarms = 1,
+		militia_support = 1,
+		militia_guns = 1,
+		militia_at = 1
+	},
+	mountain_infantry = {
+		smallarms_technology = 1,
+		infantry_support = 1,
+		infantry_guns = 1,
+		infantry_at = 1
+	},
+	paratrooper_infantry = {
+		smallarms_technology = 3,
+		infantry_support = 3,
+		infantry_guns = 3,
+		infantry_at = 3
+	},
+	night_goggles = {
+		radio_technology = 1
+	},
+	engineer_brigade_activation = {
+		industral_production = 1
+	},
+	mortorised_infantry = {
+		cavalry_smallarms = 3,
+		cavalry_support = 3,
+		cavalry_guns = 3,
+		cavalry_at = 3
+	},
+	desert_warfare_equipment = {
+		smallarms_technology = 2,
+		infantry_support = 2,
+		infantry_guns = 2,
+		infantry_at = 2
+	},
+	jungle_warfare_equipment = {
+		smallarms_technology = 2,
+		infantry_support = 2,
+		infantry_guns = 2,
+		infantry_at = 2
+	},
+	mountain_warfare_equipment = {
+		smallarms_technology = 2,
+		infantry_support = 2,
+		infantry_guns = 2,
+		infantry_at = 2
+	},
+	artic_warfare_equipment = {
+		smallarms_technology = 2,
+		infantry_support = 2,
+		infantry_guns = 2,
+		infantry_at = 2
+	},
+	amphibious_warfare_equipment = {
+		marine_infantry = 1
+	},
+	
+	-- Armour
+	tank_brigade = {
+		lighttank_gun = 2,
+		lighttank_engine = 2,
+		lighttank_armour = 2,
+		lighttank_reliability = 2
+	},
+	heavy_tank_brigade = {
+		tank_gun = 2,
+		tank_engine = 2,
+		tank_armour = 2,
+		tank_reliability = 2
+	},
+	armored_car_armour = {
+		lighttank_brigade = 1
+	},
+	armored_car_gun = {
+		lighttank_brigade = 1
+	},
+	SP_brigade = {
+		lighttank_gun = 3,
+		lighttank_engine = 3,
+		lighttank_armour = 3,
+		lighttank_reliability = 3
+	},
+	mechanised_infantry = {
+		mortorised_infantry = 1,
+		tank_brigade = 1,
+		smallarms_technology = 3,
+		infantry_support = 3,
+		infantry_guns = 3,
+		infantry_at = 3
+	},
+	super_heavy_tank_brigade = {
+		heavy_tank_gun = 2,
+		heavy_tank_engine = 2,
+		heavy_tank_armour = 2,
+		heavy_tank_reliability = 2
+	},
+	
+	-- Artillery
+	rocket_art = {
+		art_carriage_sights = 2
+	},
+	
+	-- Naval
+	smallwarship_radar = {
+		radar = 3
+	},
+	smallwarship_asw = {
+		radar = 3
+	},
+	super_heavy_battleship_technology = {
+		battleship_technology  = 1,
+		capitalship_armament = 2,
+		battleship_antiaircraft = 2,
+		battleship_engine = 2,
+		battleship_armour = 2
+	},
+	cag_development = {
+		single_engine_aircraft_design = 1
+	},
+	largewarship_radar = {
+		radar = 3
+	},
+	
+	-- Air
+	advanced_aircraft_design = {
+		radar = 1
+	},
+	small_airsearch_radar = {
+		radar = 2
+	},
+	medium_airsearch_radar = {
+		radar = 2
+	},
+	large_airsearch_radar = {
+		radar = 2
+	},
+	jet_engine = {
+		aeroengine = 1,
+		theorical_jet_engine = 1
+	},
+	
+	-- Industry
+	radio_technology = {
+		electronic_mechanical_egineering = 1
+	},
+	census_tabulation_machine = {
+		electronic_mechanical_egineering = 1
+	},
+	mechnical_computing_machine = {
+		census_tabulation_machine = 1
+	},
+	electronic_computing_machine = {
+		mechnical_computing_machine = 2
+	},
+	encryption_machine = {
+		mechnical_computing_machine = 1,
+		electronic_computing_machine = 1
+	},
+	decryption_machine = {
+		mechnical_computing_machine = 1,
+		electronic_computing_machine = 1
+	},
+	advanced_construction_engineering = {
+		industral_production = 3,
+		industral_efficiency = 3
+	},
+	radio_technology = {
+		electronic_mechanical_egineering = 1
+	},
+	
+	-- Secret
+	strategic_rocket_development = {
+		rocket_engine = 1
+	},
+	flyingbomb_development = {
+		strategic_rocket_development = 1
+	},
+	flyingrocket_development = {
+		flyingbomb_development = 1
+	},
+	strategicrocket_engine = {
+		flyingrocket_development = 1
+	},
+	strategicrocket_warhead = {
+		flyingrocket_development = 1
+	},
+	strategicrocket_structure = {
+		flyingrocket_development = 1
+	},
+	da_bomb = {
+		civil_nuclear_research = 4
+	},
+	radar_guided_missile = {
+		rocket_engine = 1,
+		cas_development = 1,
+		radar = 3,
+		aeroengine = 2,
+		single_engine_airframe = 2
+	},
+	radar_guided_bomb = {
+		medium_bomb = 3,
+		radar = 3,
+		aeroengine = 2,
+		twin_engine_airframe = 2
+	},
+	electric_powered_torpedo = {
+		submarine_torpedoes = 4,
+		submarine_engine = 4
+	},
+	helecopters = {
+		single_engine_airframe = 4,
+		aeroengine = 4
+	},
+	medical_evacuation = {
+		helecopters = 1
+	},
+	pilot_rescue = {
+		helecopters = 1
+	},
+	sam = {
+		strategicrocket_engine = 1,
+		radar = 3,
+		strategicrocket_structure = 1
+	},
+	aam = {
+		strategicrocket_engine = 1,
+		radar = 3,
+		strategicrocket_structure = 1
+	}
+}
+
 local theoryTable = {
 	naval_engineering_research = {
 		'air_launched_torpedo',
@@ -695,7 +938,8 @@ function ConstructTechScoreTable(minister)
 	local ministerTag = minister:GetCountryTag()
 	local tag = tostring(ministerTag)
 	local ministerCountry = minister:GetCountry()
-	local ic_total = ministerCountry:GetTotalIC()
+	local totalIC = ministerCountry:GetTotalIC()
+	local baseIC = ministerCountry:GetMaxIC()
 	local year = CCurrentGameState.GetCurrentDate():GetYear()
 	
 	local priority = {}
@@ -822,7 +1066,7 @@ function ConstructTechScoreTable(minister)
 				
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------UNITED STATES
-	elseif tag == 'USA' or ic_total >= 275 then		--More than 275 total IC, use this template
+	elseif tag == 'USA' or totalIC >= 275 then		--More than 275 total IC, use this template
 		--Utils.LUA_DEBUGOUT( "UNITED STATES" )
 		-- Level 1 techs
 		priority[1] = {	
@@ -1027,7 +1271,7 @@ function ConstructTechScoreTable(minister)
 					}
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINOR WITH 140+ IC
-	elseif 	ic_total >= 140 then	
+	elseif 	totalIC >= 140 then	
 		--Utils.LUA_DEBUGOUT( "MINOR 140+ IC" )
 		-- Level 1 techs
 		priority[1] = {	
@@ -1085,8 +1329,7 @@ function ConstructTechScoreTable(minister)
 		-- Level 3 techs				
 		priority[3] = {	
 							tactical_bombers,
-							desert,
-							industry
+							desert
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------SPAIN
@@ -1111,12 +1354,11 @@ function ConstructTechScoreTable(minister)
 							battleship,
 							industry,
 							supply,
-							tactical_bombers,
-							industry
+							tactical_bombers
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINOR WITH 70+ IC
-	elseif 	ic_total >= 70 then	
+	elseif 	totalIC >= 70 then	
 		--Utils.LUA_DEBUGOUT( "MINOR 70+ IC" )
 		-- Level 1 techs
 		priority[1] = {	
@@ -1142,8 +1384,7 @@ function ConstructTechScoreTable(minister)
 							anti_tank,
 							anti_aircraft,
 							interceptors,
-							tactical_bombers,
-							industry
+							tactical_bombers
 					}
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------NORTHERN COUNTRIES
@@ -1164,8 +1405,7 @@ function ConstructTechScoreTable(minister)
 							destroyer
 					}
 		-- Level 3 techs			
-		priority[3] = {	
-							industry
+		priority[3] = {
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------NAVAL/JUNGLE/ISLAND COUNTRIES
@@ -1189,8 +1429,7 @@ function ConstructTechScoreTable(minister)
 							light_cruiser
 					}	
 		-- Level 3 techs
-		priority[3] = {	
-							industry
+		priority[3] = {
 					}													
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINORS IN THE MOUNTAINS
@@ -1208,8 +1447,7 @@ function ConstructTechScoreTable(minister)
 		-- Level 3 techs
 		priority[3] = {	
 							artillery,
-							arctic,
-							industry
+							arctic
 					}	
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------MINORS WITH NO MILITIA
@@ -1233,7 +1471,6 @@ function ConstructTechScoreTable(minister)
 					}	
 		-- Level 3 techs
 		priority[3] = {	
-							industry
 					}							
 	-----------------------------------------------------------------------------------------
 	------------------------------------------------GENERIC MINORS
@@ -1252,15 +1489,14 @@ function ConstructTechScoreTable(minister)
 		priority[3] = {	
 							arctic,
 							desert,
-							jungle,
-							industry
+							jungle
 					}										
 	end	
 	-----------------------------------------------------------------------------------------
 	--Common conditional techs
 	
 	-- Allow secret techs to major countries after 1942
-	if ic_total >= 120 and year >= 1941 then
+	if totalIC >= 120 and year >= 1941 then
 		--Utils.LUA_DEBUGOUT( "More than 120 IC and 1942: Secret tech projets" )
 		table.insert(priority[3], secret)
 	end
@@ -1277,6 +1513,8 @@ function ConstructTechScoreTable(minister)
 			end
 		end
 	end	
+	local maxPrio = 1 + table.getn(priority)
+	-- Utils.LUA_DEBUGOUT("maxPrio: " .. maxPrio)
 	-----------------------------------------------------------------------------------------
 	-- Add resource techs
 	local resourceTechs = {
@@ -1288,35 +1526,97 @@ function ConstructTechScoreTable(minister)
 	}
 	
 	for tech,resource in pairs(resourceTechs) do
-		if 	ExistsImport(ministerTag, resource) or (
-				GetAverageBalance(ministerCountry, resource) < 0 and
-				not ExistsExport(ministerTag, resource)
-			)
-		then
-			techScoreTable[tech] = table.getn(priority)-- medium
-		else
-			-- Does our faction need this resource?
-			local faction = ministerCountry:GetFaction()
-			if 	faction == CCurrentGameState.GetFaction('axis')
-			or	faction == CCurrentGameState.GetFaction('allies')
-			or	faction == CCurrentGameState.GetFaction('comintern')
+		if not techScoreTable[tech] then
+			if 	ExistsImport(ministerTag, resource) or (
+					GetAverageBalance(ministerCountry, resource) < 0 and
+					not ExistsExport(ministerTag, resource)
+				)
 			then
-				if GetFactionBalance(faction, resource) < 0 then
-					techScoreTable[tech] = table.getn(priority)-- medium
+				techScoreTable[tech] = maxPrio - 1 -- medium
+			else
+				-- Does our faction need this resource?
+				local faction = ministerCountry:GetFaction()
+				if 	faction == CCurrentGameState.GetFaction('axis')
+				or	faction == CCurrentGameState.GetFaction('allies')
+				or	faction == CCurrentGameState.GetFaction('comintern')
+				then
+					if GetFactionBalance(faction, resource) < 0 then
+						techScoreTable[tech] = maxPrio - 1 -- medium
+					end
 				end
 			end
 		end
 	end
 	
-	if	ExistsExport(ministerTag, CGoodsPool._SUPPLIES_) or  
-		(ministerCountry:GetICPart(CDistributionSetting._PRODUCTION_SUPPLY_):Get() / ic_total) > 0.05 -- 5% of IC into supplies
-	then
-		techScoreTable['supply_production'] = table.getn(priority) -- medium
-	else
-		techScoreTable['supply_production'] = 2 -- minor
+	if not techScoreTable['supply_production'] then
+		if	ExistsExport(ministerTag, CGoodsPool._SUPPLIES_) or  
+			(ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get() / baseIC) > 0.20 -- 20% of IC into supplies
+		then
+			techScoreTable['supply_production'] = maxPrio - 1 -- medium
+		else
+			techScoreTable['supply_production'] = 2 -- minor
+		end
 	end
+	-- Utils.LUA_DEBUGOUT("Resources finished")
 	-----------------------------------------------------------------------------------------
-	
+	-- Add industry techs
+	if not techScoreTable['construction_engineering'] then
+		-- If we have enough resources, make it at least possible to build up our IC.
+		if IsResourceRich(ministerCountry) then
+			techScoreTable['construction_engineering'] = maxPrio
+		end
+	end
+	if not techScoreTable['advanced_construction_engineering'] then
+		-- If we have enough manpower base decision on average infrastructure. If not then
+		-- go for it. Building infra is better than sitting on supplies...
+		if HasExtraManpowerLeft(ministerCountry) then
+			techScoreTable['advanced_construction_engineering'] = math.min(maxPrio * (1.5 - GetAverageInfrastructure(ministerCountry)), maxPrio * 1.1) -- at max 10% more than max
+		else
+			techScoreTable['advanced_construction_engineering'] = maxPrio * 1.1 -- 10% more than max
+		end
+	end
+	-- Utils.LUA_DEBUGOUT("Industry finished")
+	-----------------------------------------------------------------------------------------
+	-- Add manpower tech
+	if not techScoreTable['agriculture'] then
+		techScoreTable['agriculture'] = math.min(maxPrio * (2 - ministerCountry:GetManpower():Get() / (2 * baseIC)), maxPrio * 1.2) -- 20% more than max
+	end
+	-- Utils.LUA_DEBUGOUT("Manpower finished")
+	-----------------------------------------------------------------------------------------
+	-- Add leadership tech
+	if not techScoreTable['education'] then
+		techScoreTable['education'] = maxPrio -- Always good
+	end
+	-- Utils.LUA_DEBUGOUT("Leadership finished")
+	-----------------------------------------------------------------------------------------
+	-- Add repair tech
+	if not techScoreTable['civil_defence'] then
+		if ministerCountry:IsAtWar() then
+			techScoreTable['civil_defence'] = maxPrio - 1
+		end
+	end
+	-- Utils.LUA_DEBUGOUT("Repair finished")
+	-----------------------------------------------------------------------------------------
+	-- Add dependend techs
+	local techStatus = ministerCountry:GetTechnologyStatus()
+	local dependendTechs = {}
+	for tech,score in pairs(techScoreTable) do
+		if dependencies[tech] then
+			for dep,lvl in pairs(dependencies[tech]) do
+				if not techScoreTable[dep] or techScoreTable[dep] < score then
+					local depTech = GetTechByName(dep)
+					if techStatus:GetLevel(depTech) < lvl then
+						dependendTechs[dep] = score + 0.5
+					end
+				end
+			end
+		end
+	end
+	for tech,score in pairs(dependendTechs) do
+		techScoreTable[tech] = score
+	end
+	-- Utils.LUA_DEBUGOUT("Dependencies finished")
+	-----------------------------------------------------------------------------------------
 	-- Utils.LUA_DEBUGOUT( "EXIT function" )
 	return techScoreTable
 end

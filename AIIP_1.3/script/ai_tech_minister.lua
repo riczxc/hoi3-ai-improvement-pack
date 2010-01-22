@@ -172,7 +172,7 @@ function ProposeResearch(minister)
 
 	-------------------------------DEBUG------------------------------------
 	-- if ministerCountry:GetMaxIC() > 60 then
-	-- if tostring(ministerTag) == 'GER' then
+	-- if tostring(ministerTag) == 'SCH' then
 		-- local techFolder = {}
 		
 		-- local techModifiers = minister:GetTechModifers()
@@ -259,31 +259,9 @@ function CalculateTechScore(minister, ministerCountry, tech, techScoreTable, res
 		score = techScoreTable[techName]
 	end
 	--------------------------------------------------------------
-	-- Cavalry not important lvl 3+
-	if techName == 'cavalry_smallarms' or techName == 'cavalry_support'
-		or techName == 'cavalry_guns' or techName == 'cavalry_at' then
-		--Utils.LUA_DEBUGOUT( "Cavalry tech!!!" )
-		if techStatus:GetLevel(tech) >= 3 then
-			score = 0
-			--Utils.LUA_DEBUGOUT( "Enough cavalry tech" )
-		end
-	-- Industrial boost when tech is low and average infrastructure is low
-	-- (need lvl 3 to unlock advanced_construction_engineering to build infrastructure)
-	elseif techName == 'industral_production' or techName == 'industral_efficiency' then
-		if techStatus:GetLevel(tech) < 3 then
-			score = score * (1 + (1 - GetAverageInfrastructure(ministerCountry)))
-		end
-	elseif techName == 'advanced_construction_engineering' then
-		score = score * (1 + (1 - GetAverageInfrastructure(ministerCountry)))
-	-- Air Doctrines are less important in peace time
-	elseif techFolderName == "air_doctrine_folder" and not ministerCountry:IsAtWar() then
+	if techFolderName == "air_doctrine_folder" and not ministerCountry:IsAtWar() then
 		--Utils.LUA_DEBUGOUT( "air doctrine in peace time" )
 		score = score * 0.75
-	elseif techName == 'agriculture' then
-		-- Only research if low on manpower
-		if ministerCountry:GetTotalIC() > 0 and (ministerCountry:GetManpower():Get() / ministerCountry:GetTotalIC()) > 2 then
-			score = 2
-		end
 	elseif techFolderName == 'theory_folder' then
 		local techs = GetTechsForTheoryTech(techName)
 		
