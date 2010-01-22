@@ -114,6 +114,11 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 	return countryA:IsNeighbour(tagB) and (continentA == continentB)
 end
 
+function HasExtraManpowerLeft(country)
+	local result = country:GetManpower():Get() > (2 * country:GetMaxIC())
+	return (result and country:HasExtraManpowerLeft())
+end
+
 -------------------------------------------------------------------------------
 -- END Common helper functions
 -------------------------------------------------------------------------------
@@ -588,6 +593,16 @@ function IsPoor(AliceCountry)
 		--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." NOT IsPoor ")
 		return false
 	end
+end
+
+function IsResourceRich(country)
+	-- Utils.LUA_DEBUGOUT("IsResourceRich started")
+	local countryTag = country:GetCountryTag()
+	local result = ExistsImport(countryTag, CGoodsPool._ENERGY_) or (country:GetDailyBalance(CGoodsPool._ENERGY_):Get() <= 0)
+	result = result or ExistsImport(countryTag, CGoodsPool._METAL_) or (country:GetDailyBalance(CGoodsPool._METAL_):Get() <= 0)
+	result = result or ExistsImport(countryTag, CGoodsPool._RARE_MATERIALS_) or (country:GetDailyBalance(CGoodsPool._RARE_MATERIALS_):Get() <= 0)
+	-- Utils.LUA_DEBUGOUT("IsResourceRich finished")
+	return (not result)
 end
 
 function GetGoodsCost(goods)
