@@ -95,7 +95,7 @@ _module.LOG_LEVELS = {
 }
 
 -- Default pattern used for all appenders.
-_module.DEFAULT_PATTERN = "[%DATE] [%LEVEL] at %FILE:%LINE(%METHOD): %MESSAGE\r\n"
+_module.DEFAULT_PATTERN = "[%DATE] [%LEVEL] at %FILE:%LINE(%METHOD): %MESSAGE\n"
 
 -- Name of the environment variable that holds the path to the default config file.
 -- local ENV_LOGGING_CONFIG_FILE = "LOG4LUA_CONFIG_FILE"
@@ -298,13 +298,14 @@ function Logger:_formatStackTrace(pattern)
     for line in string.gmatch(stackTrace, "\n%s*(.-)%s*\n") do
         if (not (string.match(line, "logger\.lua"))
 			--AIIP added utils.lua in list not to refer to wrapper
-			--and string.match(line, "utils\.lua"))
+			and not(string.match(line, "utils\.lua"))
 			) then
             source = line
             break
         end
     end
-    local _, _, sourceFile, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
+    local _, _, sourcePath, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
+    local _, _, sourceFile = string.find(sourcePath, ".*\\(.*)")
     result = string.gsub(result, "%%PATH", sourcePath or "n/a")
     result = string.gsub(result, "%%FILE", sourceFile or "n/a")
     result = string.gsub(result, "%%LINE", sourceLine or "n/a")
