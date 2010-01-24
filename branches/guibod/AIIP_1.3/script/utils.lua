@@ -56,36 +56,11 @@ if true then
 
 	Log4Lua.configureLoggers(logConf)
 
-	function P.log(level, message, ministerCountryOrTag, category)
-		return P.wrap(P.wlog, level, message, ministerCountryOrTag, category)
-	end
-
-	-- Wrappr function that file both a simple file and the log manager
-	--
-	-- Usefull to trap an error before to PI fallback to a standard code
-	function P.wrap(f, ...)
-		local retOK, ret = pcall(f, ...)
-		if retOK == false then
-			--Write the error to a file
-			local f = io.open("error.txt", "w")
-			f:write( ret .. "' \n")
-			f:write( debug.traceback() .. "' \n")
-			f:close()
-
-			--attempt to call log
-			pcall(Log4Lua.getLogger("ROOT").fatal, ret )
-
-			--Throw the error as it should and let PI manage our error
-			error(ret)
-		end
-		return ret
-	end
-
 	-- Main log method.
 	-- category is not mandatory. it may fallback too ROOT or use static context
 	-- ministerCountryOrTag is a non mandatory information may be filtered
 	--                      accepting either CCountryTag, CCountry or string
-	function P.wlog(level, message, ministerCountryOrTag, category)
+	function P.log(level, message, ministerCountryOrTag, category)
 
 		if category ~= nil then
 			P._lastLogCategory = category
@@ -174,6 +149,27 @@ end
 -- since we use log4lua
 function P.LUA_DEBUGOUT(s)
 	P.debug(s)
+end
+
+-- Wrappr function that file both a simple file and the log manager
+--
+-- Usefull to trap an error before to PI fallback to a standard code
+function P.wrap(f, ...)
+	local retOK, ret = pcall(f, ...)
+	if retOK == false then
+		--Write the error to a file
+		local f = io.open(os.date("%Y%m%d%H%M%S").."-fatal.log", "w")
+		f:write( ret .. "' \n")
+		f:write( debug.traceback() .. "' \n")
+		f:close()
+
+		--attempt to call log
+		pcall(Log4Lua.getLogger("ROOT").fatal, ret )
+
+		--Throw the error as it should and let PI manage our error
+		error(ret)
+	end
+	return ret
 end
 
 -----------------------------------------------------------------------------

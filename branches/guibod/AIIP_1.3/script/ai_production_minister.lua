@@ -7,7 +7,12 @@ require('production_division_templates')
 require('production_restrictions')
 require('production_province_improvements')
 
+--Use our wrapper method in order to trap and log our errors
 function ProductionMinister_Tick(minister)
+	return Utils.wrap(ProductionMinister_Tick_Impl,minister)
+end
+
+function ProductionMinister_Tick_Impl(minister)
 	--Utils.LUA_DEBUGOUT("->ProductionMinister_Tick " .. tostring(minister:GetCountryTag()))
 
 	local ministerCountry = minister:GetCountry()
@@ -51,7 +56,7 @@ function ProductionMinister_Tick(minister)
 	local requestQueue = ai:GetReqProdQueue()
 	local doBuildUnit = false
 	local gotManPower = ministerCountry:HasExtraManpowerLeft()
-	
+
 	-- If we run low on manpower stop building manpower costly units
 	if	ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2
 	then
@@ -199,7 +204,7 @@ function ProductionMinister_Tick(minister)
 		end
 	end
 
-	-- force inf or mil production for small countries	
+	-- force inf or mil production for small countries
 	if	availIC > 0 and gotManPower and
 		((	ratioProvince == 0 and not doBuildUnit) or
 			10 == nothingBuiltCounter	)

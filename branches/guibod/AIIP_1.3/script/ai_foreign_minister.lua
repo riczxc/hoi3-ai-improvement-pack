@@ -6,6 +6,11 @@ require('ai_diplomacy')
 require('ai_trade')
 require('helper_functions')
 
+--Use our wrapper method in order to trap and log our errors
+function ForeignMinister_Tick(minister)
+	return Utils.wrap(ForeignMinister_Tick_Impl,minister)
+end
+
 function ForeignMinister_EvaluateDecision(agent, decision, scope)
 	-- default we approve any decision we can take, override in country specific ai if wanted
 	-- also some random to spread out the decisions
@@ -19,7 +24,7 @@ function ForeignMinister_EvaluateDecision(agent, decision, scope)
 	return score
 end
 
-function ForeignMinister_Tick(minister)
+function ForeignMinister_Tick_Impl(minister)
 	--Utils.LUA_DEBUGOUT("->ForeignMinister_Tick " .. tostring(minister:GetCountryTag()))
 
 	-- run any decisions available
@@ -129,7 +134,7 @@ function ForeignMinister_HandleWar( minister )
 					end
 				end
 			end
-			
+
 			Utils.CallCountryAI(ministerTag, 'CheckWar', minister, target, war)
 		end
 	end
@@ -311,7 +316,7 @@ function ForeignMinister_HandlePeace( minister )
 						if numberOfInfluences == nil then
 							numberOfInfluences = ministerCountry:CalculateNumberOfActiveInfluences()
 						end
-						
+
 						-- Do not influence more than one country at a time
 						if not country:isPuppet() and numberOfInfluences < 2 then
 							if influenceAction:IsSelectable() then

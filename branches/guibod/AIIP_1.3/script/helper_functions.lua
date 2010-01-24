@@ -175,7 +175,7 @@ end
 --
 -- This function won't follow invasions and land possession. It may be unaccurate in ahistorical/world domination games.
 function IsOceanNeighbour(tagA, tagB)
-	Utils.debug( "IsOceanNeighbour", tagA, "DEVEL")
+	--Utils.debug( "IsOceanNeighbour", tagA, "DEVEL")
 
 	local a = tostring(tagA)
 	local b = tostring(tagB)
@@ -191,7 +191,7 @@ function IsOceanNeighbour(tagA, tagB)
 		end
 	end
 
-	Utils.debug("/IsOceanNeighbour")
+	--Utils.debug("/IsOceanNeighbour")
 
 	return false
 end

@@ -2,7 +2,12 @@ require('utils')
 require('ai_diplomacy')
 require('helper_functions')
 
+--Use our wrapper method in order to trap and log our errors
 function PoliticsMinister_Tick(minister)
+	return Utils.wrap(PoliticsMinister_Tick_Impl,minister)
+end
+
+function PoliticsMinister_Tick_Impl(minister)
 	local ministerCountry = minister:GetCountry()
 	if not IsValidCountry(ministerCountry) then
 		return
@@ -124,11 +129,11 @@ function HandleLaws(minister)
 				-- if production IC * 0.14 <= min(CGNeed,0.16*TotalIC) then switch to CPO
 				-- .14 approx = 1-(0.95^2) which is how much IC you save on production with +5% efficiency
 				-- but haven't tested for sure
-				
+
 				-- by azeno:
 				-- I don't agree to this:
 				-- We save 1-(0.95^2) = 9.75% IC*days in production with MI but lose 16% of our total IC in comparison to CPO.
-				-- Again in IC*days this is a factor of at least 16% since total IC is always greater than production IC. 
+				-- Again in IC*days this is a factor of at least 16% since total IC is always greater than production IC.
 				-- So in total in terms of IC*days we lose at least 16% - 9.75% = 6.25%.
 				-- CPO is bugged in my opinion. Adding the -20% dissent gain to the CG ratio is just wrong.
 				-- I mentioned this in the forums a couple of times, but with no success. I think I'll post it again in bug forums
@@ -146,7 +151,7 @@ function HandleLaws(minister)
 					-- elseif CGRatio > 0.10 then
 						-- newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
 					-- end
-					
+
 					newLaw = CLawDataBase.GetLaw(GetLawIndexByName('consumer_product_orientation'))
 				end
 

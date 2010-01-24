@@ -5,6 +5,11 @@
 require('custom_research')
 require('helper_functions')
 
+--Use our wrapper method in order to trap and log our errors
+function TechMinister_Tick(minister)
+	return Utils.wrap(TechMinister_Tick_Impl,minister)
+end
+
 function BalanceLeadershipSliders(ai, ministerCountry)
 	local PRIO_SETTINGS = {
 		[0] = CDistributionSetting._LEADERSHIP_DIPLOMACY_,
@@ -85,7 +90,7 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 end
 
 
-function TechMinister_Tick(minister)
+function TechMinister_Tick_Impl(minister)
 	-- Utils.LUA_DEBUGOUT("->TechMinister_Tick " .. tostring(minister:GetCountryTag()))
 	local ministerCountry = minister:GetCountry()
 	BalanceLeadershipSliders(minister:GetOwnerAI(), ministerCountry)
@@ -145,7 +150,7 @@ function ProposeResearch(minister)
 	-- Count number of theory techs we're researching
 	local researchCountTheory = 0
 	for tech in CTechnologyDataBase.GetTechnologies() do
-		if 	tech:IsValid() and 
+		if 	tech:IsValid() and
 			tostring(tech:GetFolder():GetKey()) == 'theory_folder' and
 			not minister:CanResearch(tech)
 		then
@@ -155,13 +160,13 @@ function ProposeResearch(minister)
 				isSupplyTech = true
 				break
 			end
-			
+
 			if not isSupplyTech then
 				researchCountTheory = researchCountTheory + 1
 			end
 		end
 	end
-	
+
 	for tech in CTechnologyDataBase.GetTechnologies() do
 		if tech:IsValid() and minister:CanResearch(tech) then
 			score = CalculateTechScore(minister, ministerCountry, tech, techScoreTable, researchCountTheory)
@@ -174,42 +179,42 @@ function ProposeResearch(minister)
 	-- if ministerCountry:GetMaxIC() > 60 then
 	-- if tostring(ministerTag) == 'GER' then
 		-- local techFolder = {}
-		
+
 		-- local techModifiers = minister:GetTechModifers()
 		-- local folderModifiers = minister:GetFolderModifers()
-		
+
 		-- Utils.LUA_DEBUGOUT(tostring(ministerTag) .. " tech folder modifiers:")
 		-- for tech in CTechnologyDataBase.GetTechnologies() do
 			-- if minister:CanResearch(tech) and tech:IsValid() then
 				-- local folder = tech:GetFolder()
 				-- local folderIndex = folder:GetIndex()
 				-- if not techFolder[folderIndex] then
-					-- techFolder[folderIndex] = { 
+					-- techFolder[folderIndex] = {
 						-- name = tostring(folder:GetKey()),
 						-- modifier = folderModifiers:GetAt(folderIndex),
 						-- folder = tech:GetFolder(),
-						-- techs = {} 
+						-- techs = {}
 					-- }
 				-- end
 
 				-- table.insert(techFolder[folderIndex].techs, tech)
 			-- end
 		-- end
-		
+
 		-- local folderSum = 0
 		-- for _,folderEntry in pairs(techFolder) do
 			-- local s = ""
 			-- for i = 0, math.ceil(folderEntry.modifier * 100) do
 				-- s = s .. "#"
 			-- end
-			
+
 			-- Utils.LUA_DEBUGOUT(s .. " (" .. folderEntry.name .. ")")
-			
+
 			-- local sum = 0
 			-- for _,tech in pairs(folderEntry.techs) do
 				-- sum = sum + techModifiers:GetAt(tech:GetIndex())
 			-- end
-			
+
 			-- folderSum = folderSum + folderEntry.modifier
 		-- end
 		-- Utils.LUA_DEBUGOUT("Sum folder modifiers: " .. folderSum)
@@ -286,10 +291,10 @@ function CalculateTechScore(minister, ministerCountry, tech, techScoreTable, res
 		end
 	elseif techFolderName == 'theory_folder' then
 		local techs = GetTechsForTheoryTech(techName)
-		
+
 		if #techs > 0 then
 			score = 0
-			
+
 			-- Do not spend more than 10% of our reseach capacity to theory techs.
 			-- Do only use theory techs if more than 5 research slots are available.
 			local slots = ministerCountry:GetAllowedResearchSlots()
@@ -302,13 +307,13 @@ function CalculateTechScore(minister, ministerCountry, tech, techScoreTable, res
 						local techLvl = techStatus:GetLevel(t)
 						local nYear = math.max(techStatus:GetYear(t, techLvl + 1) - CCurrentGameState.GetCurrentDate():GetYear(), 0)
 						score = score + techScoreTable[tName] - nYear * 1.5
-						
+
 						count = count + 1
 					end
 				end
 				if count > 0 then
 					score = score / count
-					
+
 					local categoryName = GetCategoryNameForTheoryTech(techName)
 					for cat in CTechnologyDataBase.GetCategories() do
 						local catName = tostring(cat:GetKey())

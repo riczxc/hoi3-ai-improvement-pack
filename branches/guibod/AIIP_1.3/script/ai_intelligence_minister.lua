@@ -4,7 +4,12 @@
 
 require('helper_functions')
 
+--Use our wrapper method in order to trap and log our errors
 function IntelligenceMinister_Tick(minister)
+	return Utils.wrap(IntelligenceMinister_Tick_Impl,minister)
+end
+
+function IntelligenceMinister_Tick_Impl(minister)
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
 		--Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
 		local ministerTag = minister:GetCountryTag()
