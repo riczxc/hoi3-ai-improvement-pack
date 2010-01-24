@@ -18,26 +18,34 @@ Utils = P
 --
 -- Log system remembers last used category, you can omit it for the second occurence in log
 -- > Utils.info("Non-Agression pact signed with ITA.", "GER", "DIPLO")
--- > Utils.info("Rejected trade from POR", "GER")
+-- > Utils.info("Rejected trade from POR")
 -- Or explicitely reset it
--- > Utils.setLogCat("DIPLO")
--- > Utils.info("Non-Agression pact signed with ITA.", "GER")
--- > Utils.info("Rejected trade from POR", "GER")
+-- > Utils.setLogContext("GER", "DIPLO")
+-- > Utils.info("Non-Agression pact signed with ITA.")
+-- > Utils.info("Rejected trade from POR")
 --
--- * Utils.debug(message [, category])
--- * Utils.info (message [, category])
--- * Utils.warn (message [, category])
--- * Utils.error(message [, category])
--- * Utils.fatal(message [, category])
+-- * Utils.debug(message [, ministerCountryOrTag][, category])
+-- * Utils.info (message [, ministerCountryOrTag][, category])
+-- * Utils.warn (message [, ministerCountryOrTag][, category])
+-- * Utils.error(message [, ministerCountryOrTag][, category])
+-- * Utils.fatal(message [, ministerCountryOrTag][, category])
 -----------------------------------------------------------------------------
 -- provide an easy way to disable logging (release)
 if true then
 	local Log4Lua = require('log4lua.logger')
 
+	-- a static filter for logging
+	--
+	-- local filterTag = {"GER","USA"}
+	-- Will only display Germany and USA minister logs. This feature affect all categories !
+	-- Add nil to the table to enable log entry attached to no particular country
+
+	local filterTag = {"GER","FRA"}
+
 	-- @see http://www.hscale.org/display/LUA/Log4LUA
 	local logConf = {
 	--	CATEG = { level = Log4Lua.CONST,	files = { ... } [, pattern = "log4lua format pattern"][, datepattern = "log rotation date pattern"] },
-		ROOT  = { level = Log4Lua.INFO,	files = { "AIIP-%s.log" }},
+		ROOT  = { level = Log4Lua.INFO,		files = { "AIIP-%s.log" }},
 		DIPLO = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "DIPLO-%s.log" }},
 		INTEL = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "INTEL-%s.log" }},
 		POLIT = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "POLIT-%s.log" }},
@@ -48,47 +56,113 @@ if true then
 
 	Log4Lua.configureLoggers(logConf)
 
-	-- Main log method.
-	-- category is not mandatory. it may fallback too ROOT or use static context
-	-- ministerCountryOrTag is a non mandatory information to be filtered
-	--                      accepting either CCountryTag, CCountry or string
-	function P.log(level, message, category)
-		if category ~= nil then
-			P.setLogCat(category)
-		else
-			P._lastLogCat = category
-		end
-		Log4Lua.getLogger(category):log(level, message)
+	function P.log(level, message, ministerCountryOrTag, category)
+		return P.wrap(P.wlog, level, message, ministerCountryOrTag, category)
 	end
 
-	function P.setLogCat(category)
-		P._lastLogCat = category
+	-- Wrappr function that file both a simple file and the log manager
+	--
+	-- Usefull to trap an error before to PI fallback to a standard code
+	function P.wrap(f, ...)
+		local retOK, ret = pcall(f, ...)
+		if retOK == false then
+			--Write the error to a file
+			local f = io.open("error.txt", "w")
+			f:write( ret .. "' \n")
+			f:write( debug.traceback() .. "' \n")
+			f:close()
+
+			--attempt to call log
+			pcall(Log4Lua.getLogger("ROOT").fatal, ret )
+
+			--Throw the error as it should and let PI manage our error
+			error(ret)
+		end
+		return ret
+	end
+
+	-- Main log method.
+	-- category is not mandatory. it may fallback too ROOT or use static context
+	-- ministerCountryOrTag is a non mandatory information may be filtered
+	--                      accepting either CCountryTag, CCountry or string
+	function P.wlog(level, message, ministerCountryOrTag, category)
+
+		if category ~= nil then
+			P._lastLogCategory = category
+		else
+			category = P._lastLogCategory
+		end
+
+		if ministerCountryOrTag ~= nil then
+			P._lastLogCountry = ministerCountryOrTag
+		else
+			ministerCountryOrTag = P._lastLogCountry
+		end
+
+		--Test ministerCountryOrTag around a bit to determine either
+		countryString = nil
+		if type(ministerCountryOrTag) == "string" then
+			--Use string as is
+			countryString = ministerCountryOrTag
+		elseif type(ministerCountryOrTag) == "userdata" and type(ministerCountryOrTag.GetCountryTag) == "function" then
+			--Most likely CCountry
+			countryString = tostring(ministerCountryOrTag.GetCountryTag())
+		elseif type(ministerCountryOrTag) == "userdata" and type(ministerCountryOrTag.GetTag) == "function" then
+			--Most likely CCountryTag
+			countryString = tostring(ministerCountryOrTag)
+		else
+			--No country set a 3 blank character string
+			countryString = "   "
+		end
+
+		-- Country filter routine
+		if type(filterTag) == "table" and #filterTag > 0 then
+			local in_array = false
+
+
+			for _,v in pairs(filterTag) do
+				if (v==countryString) then in_array = true end
+			end
+
+			if not in_array then
+				--string was filtered out
+				return
+			end
+		end
+
+
+		Log4Lua.getLogger(category):log(level, countryString.." "..message)
+	end
+
+	function P.setLogContext(ministerCountryOrTag, category)
+		P._lastLogCategory = category
+		P._lastLogCountry = ministerCountryOrTag
 	end
 
 	-- Convinience shortcut methods
-	function P.debug(message, category)
-		P.log(Log4Lua.DEBUG, message, category)
+	function P.debug(message, ministerCountryOrTag, category)
+		P.log(Log4Lua.DEBUG, message, ministerCountryOrTag, category)
 	end
 
-	function P.info(message, category)
-		P.log(Log4Lua.INFO, message, category)
+	function P.info(message, ministerCountryOrTag, category)
+		P.log(Log4Lua.INFO, message, ministerCountryOrTag, category)
 	end
 
-	function P.warn(message, category)
-		P.log(Log4Lua.WARN, message, category)
+	function P.warn(message, ministerCountryOrTag, category)
+		P.log(Log4Lua.WARN, message, ministerCountryOrTag, category)
 	end
 
-	function P.error(message, category)
-		P.log(Log4Lua.ERROR, message, category)
+	function P.error(message, ministerCountryOrTag, category)
+		P.log(Log4Lua.ERROR, message, ministerCountryOrTag, category)
 	end
 
-	function P.fatal(message, category)
-		P.log(Log4Lua.FATAL, message, category)
+	function P.fatal(message, ministerCountryOrTag, category)
+		P.log(Log4Lua.FATAL, message, ministerCountryOrTag, category)
 	end
 else
 	--If logging disabled, then create stub functions
 	function P.log() end
-	function P.setLogCat() end
+	function P.setLogContext() end
 	function P.debug() end
 	function P.info() end
 	function P.warn() end

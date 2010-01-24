@@ -104,13 +104,10 @@ end
 -- This function is convenient to detect colonies (invasions?).
 -- useful no to spy colonial powers as Guanxi (for instance)
 function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
-	Utils.setLogCat("ROOT")
-	Utils.debug( tostring(ministerTag).." IsNeighbourOnSameContinent")
+	--Utils.debug("IsNeighbourOnSameContinent",tagA,"ROOT")
 
 	local a = tostring(tagA)
 	local b = tostring(tagB)
-
-	--Utils.LOG:debug("Is "..a.." on same continent as "..b.." ?")
 
 	-- Bypass stupid question
 	if a == b then
@@ -160,7 +157,7 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 		return false
 	end
 
-	Utils.debug( tostring(ministerTag).." /IsNeighbourOnSameContinent")
+	--Utils.debug("/IsNeighbourOnSameContinent")
 	return (continentA == continentB) and countryA:IsNeighbour(tagB)
 end
 
@@ -178,13 +175,10 @@ end
 --
 -- This function won't follow invasions and land possession. It may be unaccurate in ahistorical/world domination games.
 function IsOceanNeighbour(tagA, tagB)
-	Utils.setLogCat("DEVEL")
-	Utils.debug( tostring(ministerTag).." IsOceanNeighbour")
+	Utils.debug( "IsOceanNeighbour", tagA, "DEVEL")
 
 	local a = tostring(tagA)
 	local b = tostring(tagB)
-
-	--Utils.LOG:debug("Is "..b.." on ocean neighbour from "..b.." point of view ?")
 
 	-- Bypass stupid question
 	if a == b then
@@ -197,7 +191,7 @@ function IsOceanNeighbour(tagA, tagB)
 		end
 	end
 
-	Utils.debug( tostring(ministerTag).." /IsOceanNeighbour")
+	Utils.debug("/IsOceanNeighbour")
 
 	return false
 end
