@@ -8,15 +8,15 @@ local GOODS_TO_STRING = { [0] = "_SUPPLIES_","_FUEL_",	"_MONEY_",	"_CRUDE_OIL_",
 function PrintCountryTable(ai, minIC)
 	for country1 in CCurrentGameState.GetCountries() do
 		countryTag1 = country1:GetCountryTag()
-		
+
 		if IsValidCountry(country1) and country1:GetMaxIC() > minIC then
 			Utils.LUA_DEBUGOUT("-------------------- " .. tostring(countryTag1) .. " --------------------")
 			local neutrality = country1:GetNeutrality():Get()
 			local effectiveNeutrality = country1:GetEffectiveNeutrality():Get()
-			
+
 			for country2 in CCurrentGameState.GetCountries() do
 				countryTag2 = country2:GetCountryTag()
-				
+
 				if IsValidCountry(country2) and not (countryTag1 == countryTag2) and country2:GetMaxIC() > minIC then
 					Utils.LUA_DEBUGOUT("\t---------- " .. tostring(countryTag2) .. " ----------")
 
@@ -25,22 +25,22 @@ function PrintCountryTable(ai, minIC)
 
 					Utils.LUA_DEBUGOUT("\tCCountry")
 					Utils.LUA_DEBUGOUT("\t\tGetDiplomaticDistance = " .. country1:GetDiplomaticDistance(countryTag2):Get())
-					
+
 					Utils.LUA_DEBUGOUT("\tCDiplomacyStatus")
 					Utils.LUA_DEBUGOUT("\t\tGetValue = " .. diplomacyStatus:GetValue():Get())
 					Utils.LUA_DEBUGOUT("\t\tGetThreat = " .. diplomacyStatus:GetThreat():Get())
-					
+
 					Utils.LUA_DEBUGOUT("\tCAIStrategy")
 					Utils.LUA_DEBUGOUT("\t\tGetAntagonism = " .. strategy:GetAntagonism(countryTag2))
 					Utils.LUA_DEBUGOUT("\t\tGetFriendliness = " .. strategy:GetFriendliness(countryTag2))
 					Utils.LUA_DEBUGOUT("\t\tGetProtectionism = " .. strategy:GetProtectionism(countryTag2))
-					Utils.LUA_DEBUGOUT("\t\tGetThreat = " .. strategy:GetThreat(countryTag2))						
-					
+					Utils.LUA_DEBUGOUT("\t\tGetThreat = " .. strategy:GetThreat(countryTag2))
+
 					Utils.LUA_DEBUGOUT("\tCAI")
 					Utils.LUA_DEBUGOUT("\t\tGetCountryAlignmentDistance = " .. ai:GetCountryAlignmentDistance(country1, country2):Get())
 				end
 			end
-			
+
 			Utils.LUA_DEBUGOUT("\n")
 		end
 	end
@@ -92,26 +92,108 @@ function Zmod(z, d)
 	return math.mod((math.mod(z, d) + d), d);
 end
 
+-- A function which shows compareable behaviour to php's in_array.
+function in_table ( e, t )
+ 	for _,v in pairs(t) do
+		if (v==e) then return true end
+	end
+	return false
+end
+
+-- Is country A capital on the same land mass as country B capital ?
+-- This function is convenient to detect colonies (invasions?).
+-- useful no to spy colonial powers as Guanxi (for instance)
 function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
+	--Utils.debug("IsNeighbourOnSameContinent",tagA,"ROOT")
+
 	local a = tostring(tagA)
 	local b = tostring(tagB)
 
+	-- Bypass stupid question
+	if a == b then
+		return false
+	end
+
 	-- Island countries
-	if a == 'ENG' or b == 'ENG' then
+	-- eg : No ENG mainland share border with other country
+	if in_table( a, gGeography["island_countries"] ) or in_table( b, gGeography["island_countries"] ) then
 		return false
-	elseif a == 'AST' or b == 'AST' then
-		return false
-	elseif a == 'JAP' or b == 'JAP' then
-		return false
-	elseif a == 'NZL' or b == 'NZL' then
-		return false
-	elseif a == 'PHI' or b == 'PHI' then
-		return false
+	end
+
+	-- Test if countries are part of a same island cluster
+	-- eg : HAITI
+	for _,v in ipairs(gGeography["island_clusters"]) do
+		if in_table( a, v ) and in_table( b, v ) then
+			return false
+		end
 	end
 
 	local continentA = countryA:GetCapitalLocation():GetContinent()
 	local continentB = countryB:GetCapitalLocation():GetContinent()
-	return countryA:IsNeighbour(tagB) and (continentA == continentB)
+
+	-- European capital, asiatic lands
+	if a == 'SOV' or b == 'SOV' then
+		--I found no mean to get continent from string...
+		local continentAsia = CCurrentGameState.GetProvince(4390):GetContinent() --Vladivostok
+
+		if a == 'SOV' and ((continentA == continentB) or (continentAsia == continentB)) then
+			return countryA:IsNeighbour(tagB)
+		elseif b == 'SOV' and ((continentA == continentB) or (continentAsia == continentA)) then
+			return countryA:IsNeighbour(tagB)
+		end
+		return false
+	end
+
+	-- Asian capital, european lands
+	if a == 'TUR' or b == 'TUR' then
+		--I found no mean to get continent from string...
+		local continentEurope = CCurrentGameState.GetProvince(4503):GetContinent() --Istanbul
+
+		if a == 'TUR' and ((continentA == continentB) or (continentEurope == continentB)) then
+			return countryA:IsNeighbour(tagB)
+		elseif b == 'TUR' and ((continentA == continentB) or (continentEurope == continentA)) then
+			return countryA:IsNeighbour(tagB)
+		end
+		return false
+	end
+
+	--Utils.debug("/IsNeighbourOnSameContinent")
+	return (continentA == continentB) and countryA:IsNeighbour(tagB)
+end
+
+
+
+-- virtual neighbours for countries isolated by oceans
+-- Rule of thumb :
+--  * Distance must be short (except for pacific area and strategic relationship)
+--  	* The more the distance, the more it must concern major
+--  * Colonies are not considered as part of mainland (ENG is not neighbour to CUB through bermudas or jamaica)
+--  * Some colonies such as Batavia may be considered as mainland (HOL survive only through its colonies past '40)
+--  * Islands country must provide an extended list.
+--  * Third world countries surrounded by colonial empire (ETH, LIB, SIA) may be considered as island.
+--  * Former colonial master may keep a unilateral connection for historical purpose
+--
+-- This function won't follow invasions and land possession. It may be unaccurate in ahistorical/world domination games.
+function IsOceanNeighbour(tagA, tagB)
+	--Utils.debug( "IsOceanNeighbour", tagA, "DEVEL")
+
+	local a = tostring(tagA)
+	local b = tostring(tagB)
+
+	-- Bypass stupid question
+	if a == b then
+		return false
+	end
+
+	if gGeography["ocean_neighbour"][a] ~= nil then
+		if in_table(b,gGeography["ocean_neighbour"][a]) then
+			return CCountryDataBase.GetTag(b):IsValid()
+		end
+	end
+
+	--Utils.debug("/IsOceanNeighbour")
+
+	return false
 end
 
 function HasExtraManpowerLeft(country)
@@ -149,8 +231,8 @@ function HFInit_Economy()
 	gEconomy["AI"] = {}
 	gEconomy["manual"] = {}
 	gEconomy["goods_cost"] = {
-		[0] = 	defines.goods_cost.SUPPLIES,
-				defines.goods_cost.FUEL,
+ 		[0] = 	defines.goods_cost.SUPPLIES,
+ 				defines.goods_cost.FUEL,
 				defines.goods_cost.MONEY,
 				defines.goods_cost.CRUDE_OIL,
 				defines.goods_cost.METAL,
@@ -424,7 +506,7 @@ function GetAverageBalance(ministerCountry, goods)
 		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - No data yet!")
 		return 0 -- we have nothing to compare with
 	end
-	
+
 	-- Averaging doesn't work if max stockpile reached.
 	if Stock(ministerCountry, goods) >= 99990 then
 		return ministerCountry:GetDailyBalance(goods):Get()
