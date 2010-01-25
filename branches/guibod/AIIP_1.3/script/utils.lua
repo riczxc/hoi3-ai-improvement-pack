@@ -24,6 +24,8 @@ Utils = P
 -- > Utils.info("Non-Agression pact signed with ITA.")
 -- > Utils.info("Rejected trade from POR")
 --
+-- AIIP minister tick functions define the current Log Context
+--
 -- * Utils.debug(message [, ministerCountryOrTag][, category])
 -- * Utils.info (message [, ministerCountryOrTag][, category])
 -- * Utils.warn (message [, ministerCountryOrTag][, category])
@@ -40,16 +42,16 @@ if true then
 	-- Will only display Germany and USA minister logs. This feature affect all categories !
 	-- Add nil to the table to enable log entry attached to no particular country
 
-	local filterTag = {"GER","FRA"}
+	local filterTag = {}
 
 	-- @see http://www.hscale.org/display/LUA/Log4LUA
 	local logConf = {
 	--	CATEG = { level = Log4Lua.CONST,	files = { ... } [, pattern = "log4lua format pattern"][, datepattern = "log rotation date pattern"] },
-		ROOT  = { level = Log4Lua.INFO,		files = { "AIIP-%s.log" }},
-		DIPLO = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "DIPLO-%s.log" }},
-		INTEL = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "INTEL-%s.log" }},
-		POLIT = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "POLIT-%s.log" }},
-		PROD  = { level = Log4Lua.INFO, 	files = { "AIIP-%s.log", "PROD-%s.log" }},
+		ROOT  = { level = Log4Lua.WARN,		files = { "AIIP-%s.log" }},
+		DIPLO = { level = Log4Lua.WARN, 	files = { "AIIP-%s.log", "DIPLO-%s.log" }},
+		INTEL = { level = Log4Lua.WARN, 	files = { "AIIP-%s.log", "INTEL-%s.log" }},
+		POLIT = { level = Log4Lua.WARN, 	files = { "AIIP-%s.log", "POLIT-%s.log" }},
+		PROD  = { level = Log4Lua.WARN, 	files = { "AIIP-%s.log", "PROD-%s.log" }},
 		-- Suggested DEVEL log category for a particular function you are working on
 		DEVEL = { level = Log4Lua.DEBUG, 	files = { "DEVEL-%s.log" }}
 	}
@@ -80,8 +82,8 @@ if true then
 			--Use string as is
 			countryString = ministerCountryOrTag
 		elseif type(ministerCountryOrTag) == "userdata" and type(ministerCountryOrTag.GetCountryTag) == "function" then
-			--Most likely CCountry
-			countryString = tostring(ministerCountryOrTag.GetCountryTag())
+			--Most likely CCountry or any CAIAgent class
+			countryString = tostring(ministerCountryOrTag:GetCountryTag())
 		elseif type(ministerCountryOrTag) == "userdata" and type(ministerCountryOrTag.GetTag) == "function" then
 			--Most likely CCountryTag
 			countryString = tostring(ministerCountryOrTag)

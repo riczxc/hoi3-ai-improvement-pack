@@ -7,6 +7,8 @@ require('helper_functions')
 
 --Use our wrapper method in order to trap and log our errors
 function TechMinister_Tick(minister)
+	Utils.setLogContext(minister,"TECH")
+	Utils.info('TechMinister_Tick')
 	return Utils.wrap(TechMinister_Tick_Impl,minister)
 end
 
