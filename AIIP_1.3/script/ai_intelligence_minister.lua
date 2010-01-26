@@ -506,7 +506,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 							oPrio = oPrio + 100
 						end
 
-						if ministerCountry:IsNeighbour(tag) or IsOceanNeighbor(ministerTag, tag) then
+						if ministerCountry:IsNeighbour(tag) or IsOceanNeighbour(ministerTag, tag) then
 							--Share frontline
 							oPrio = oPrio + 100
 						else
