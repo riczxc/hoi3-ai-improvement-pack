@@ -270,11 +270,7 @@ function Logger:formatMessage(pattern, level, message, exception)
         or string.match(result, "%%STACKTRACE")
     ) then
         -- Take no risk - format the stacktrace using pcall to prevent ugly errors.
-        local success, newResult = pcall(Logger._formatStackTrace, self, result)
-        if (success) then
-            result = newResult
-        end
-    else
+        local success, result = pcall(Logger._formatStackTrace, self, result)
     end
 
     result = string.gsub(result, "%%DATE", tostring(os.date()))
@@ -295,9 +291,9 @@ function Logger:_formatStackTrace(pattern)
     -- Handle stack trace and method.
     local stackTrace = debug.traceback()
     local source = "<unknown>"
-    for line in string.gmatch(stackTrace, "\n%s*(.-)%s*\n") do
-        if (not (string.match(line, "logger\.lua"))
-			--AIIP added utils.lua in list not to refer to wrapper
+    for line in string.gmatch(stackTrace, "[^\n]-\.lua:%d+: in [^\n]+") do
+        if (not (string.match(line, ".-log4lua.-\.lua:%d+:"))
+			-- AIIP added utils.lua in list not to refer to wrapper
 			and not(string.match(line, "utils\.lua"))
 			) then
             source = line
@@ -305,7 +301,7 @@ function Logger:_formatStackTrace(pattern)
         end
     end
     local _, _, sourcePath, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
-    local _, _, sourceFile = string.find(sourcePath, ".*\\(.*)")
+    local _, _, sourceFile = string.find(sourcePath or "n/a", ".*\\(.*)")
     result = string.gsub(result, "%%PATH", sourcePath or "n/a")
     result = string.gsub(result, "%%FILE", sourceFile or "n/a")
     result = string.gsub(result, "%%LINE", sourceLine or "n/a")
