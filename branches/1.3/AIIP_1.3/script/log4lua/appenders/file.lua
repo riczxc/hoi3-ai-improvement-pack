@@ -59,6 +59,7 @@ function _module.new(fileName, datePattern, pattern)
             end
             if (file ~= nil) then
                 file:write(logger:formatMessage(pattern, level, message, exception))
+				file:flush()
             end
         end
 end
