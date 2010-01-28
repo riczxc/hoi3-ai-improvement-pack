@@ -93,22 +93,14 @@ if true then
 		end
 
 		-- Country filter routine
-		if type(filterTag) == "table" and #filterTag > 0 then
-			local in_array = false
-
-
-			for _,v in pairs(filterTag) do
-				if (v==countryString) then in_array = true end
-			end
-
-			if not in_array then
+		if #filterTag > 0 then
+			if not filterTag[countryString] then
 				--string was filtered out
 				return
 			end
 		end
 
-
-		Log4Lua.getLogger(category):log(level, countryString.." "..message)
+		Log4Lua.getLogger(category):log(level, countryString .. " " .. message)
 	end
 
 	function P.setLogContext(ministerCountryOrTag, category)
