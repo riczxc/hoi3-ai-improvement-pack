@@ -9,9 +9,9 @@ require('production_province_improvements')
 
 --Use our wrapper method in order to trap and log our errors
 function ProductionMinister_Tick(minister)
-	Utils.setLogContext(minister,"PROD")
-	Utils.info('ProductionMinister_Tick')
-	return Utils.wrap(ProductionMinister_Tick_Impl,minister)
+	dtools.setLogContext(minister,"PROD")
+	dtools.info('ProductionMinister_Tick')
+	return dtools.wrap(ProductionMinister_Tick_Impl,minister)
 end
 
 function ProductionMinister_Tick_Impl(minister)

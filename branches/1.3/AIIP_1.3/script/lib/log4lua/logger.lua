@@ -95,10 +95,10 @@ _module.LOG_LEVELS = {
 }
 
 -- Default pattern used for all appenders.
-_module.DEFAULT_PATTERN = "[%DATE] [%LEVEL] at %FILE:%LINE(%METHOD): %MESSAGE\n"
+_module.DEFAULT_PATTERN = "[%DATE]\t[%LEVEL]\t%MESSAGE at %FILE:%LINE(%METHOD)\n"
 
 -- Name of the environment variable that holds the path to the default config file.
--- local ENV_LOGGING_CONFIG_FILE = "LOG4LUA_CONFIG_FILE"
+local ENV_LOGGING_CONFIG_FILE = "LOG4LUA_CONFIG_FILE"
 
 -- Map containing all configured loggers (key is category).
 local _loggers = nil
@@ -106,18 +106,14 @@ local _loggers = nil
 -- Load default configuration found in environment variable.
 local function initConfig()
     if (_loggers == nil) then
---~         local configFile = os.getenv(ENV_LOGGING_CONFIG_FILE)
---~         if (configFile ~= nil) then
---~             _module.loadConfig(configFile)
---~         else
---~             -- We need at least a root logger.
---~             _loggers = {}
---~             _loggers["ROOT"] = Logger.new(console.new(), "ROOT", _module.INFO)
---~         end
-
-		--Tweaked the orignal code, removed usage of environment variable, lowered level.
-		_loggers = {}
-        _loggers["ROOT"] = Logger.new(console.new(), "ROOT", _module.INFO)
+        local configFile = os.getenv(ENV_LOGGING_CONFIG_FILE)
+        if (configFile ~= nil) then
+            _module.loadConfig(configFile)
+        else
+            -- We need at least a root logger.
+            _loggers = {}
+            _loggers["ROOT"] = Logger.new(console.new(), "ROOT", _module.INFO)
+        end
     end
 end
 
@@ -151,33 +147,18 @@ function _module.getLogger(category)
     return log
 end
 
--- home brewed factory
-function _module.configureLoggers(conf)
-	_loggers = {}
-	for loggerCategory, loggerDef in pairs(conf) do
-		local appenders = {}
-		loggerDef["datepattern"] = loggerDef["datepattern"] or "%Y-%m-%d"
-
-		for i,f in ipairs(loggerDef["files"]) do
-			appenders[i] = file.new(f, loggerDef["datepattern"], loggerDef["pattern"])
-		end
-
-		--useful in scyte only (no console in foi3)
-		appenders[#appenders+1] = console.new()
-		_loggers[loggerCategory] = Logger.new(appenders, loggerCategory, loggerDef["level"])
-	end
-end
-
 --- Load a configuration file.
 -- @param fileName path to a configuration file written in lua. The lua code must return a map (table) with loggers configured for each category.
 function _module.loadConfig(fileName)
     local result, errorMsg = loadfile(fileName)
+
     if (result) then
-        local loadedLoggers = result()
+		local loadedLoggers = result()
         assert(loadedLoggers ~= nil and loadedLoggers["ROOT"] ~= nil, "At least a log category 'ROOT' must be specified.")
         _loggers = loadedLoggers
     else
-        -- Default configuration if no config file has been specified or it could not be loaded.
+		-- Default configuration if no config file has been specified or it could not be loaded.
+		_loggers = {}
         _loggers["ROOT"] = Logger.new(console.new(), "ROOT", _module.INFO)
         _module.getLogger("ROOT"):info("No logging configuration found in file '" .. fileName .. "' (Error: " .. tostring(errorMsg) .. "). Using default (INFO to console).")
     end
@@ -213,10 +194,10 @@ end
 
 --- Log the given message at the given level.
 function Logger:log(level, message, exception)
-    assert(_module.LOG_LEVELS[level] ~= nil, "Unknown log level '" .. level .. "'")
+	assert(_module.LOG_LEVELS[level] ~= nil, "Unknown log level '" .. level .. "'")
     if (_module.LOG_LEVELS[level] >= _module.LOG_LEVELS[self._level] and level ~= _module.OFF) then
         for _, appender in ipairs(self._appenders) do
-            appender(self, level, message, exception)
+			appender(self, level, message, exception)
         end
     end
 end
@@ -254,7 +235,7 @@ function Logger:fatal(message, exception)
     self:log(_module.FATAL, message, exception)
 end
 
-function Logger:formatMessage(pattern, level, message, exception)
+function Logger:formatMessage(pattern, level, message, exception, country)
     local result = pattern or _module.DEFAULT_PATTERN
     if (type(message) == "table") then
         message = utils.convertTableToString(message, 5)
@@ -290,6 +271,7 @@ function Logger:_formatStackTrace(pattern)
 
     -- Handle stack trace and method.
     local stackTrace = debug.traceback()
+
     local source = "<unknown>"
     for line in string.gmatch(stackTrace, "[^\n]-\.lua:%d+: in [^\n]+") do
         if (not (string.match(line, ".-log4lua.-\.lua:%d+:"))
@@ -300,8 +282,12 @@ function Logger:_formatStackTrace(pattern)
             break
         end
     end
-    local _, _, sourcePath, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
-    local _, _, sourceFile = string.find(sourcePath or "n/a", ".*\\(.*)")
+
+	if source ~= "<unknown>" then
+		local _, _, sourcePath, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
+		local _, _, sourceFile = string.find(sourcePath, ".*\\(.*)")
+	end
+
     result = string.gsub(result, "%%PATH", sourcePath or "n/a")
     result = string.gsub(result, "%%FILE", sourceFile or "n/a")
     result = string.gsub(result, "%%LINE", sourceLine or "n/a")

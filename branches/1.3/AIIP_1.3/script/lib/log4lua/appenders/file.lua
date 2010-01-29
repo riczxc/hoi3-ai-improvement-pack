@@ -25,7 +25,7 @@
 --     local fileAppender = require("log4lua.appenders.file")<br/>
 --     fileAppender.create("myFile-%s.log", "%Y-%m-%d")<br />
 -- </code>
--- 
+--
 -- @author $Author: peter.romianowski $
 -- @release $Date: 2008-09-06 03:57:01 +0200 (Sa, 06 Sep 2008) $ $Rev: 68 $
 
@@ -59,6 +59,8 @@ function _module.new(fileName, datePattern, pattern)
             end
             if (file ~= nil) then
                 file:write(logger:formatMessage(pattern, level, message, exception))
+
+				-- Sync the file to avoid buffer overlap
 				file:flush()
             end
         end

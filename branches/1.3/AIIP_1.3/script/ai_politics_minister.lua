@@ -4,9 +4,9 @@ require('helper_functions')
 
 --Use our wrapper method in order to trap and log our errors
 function PoliticsMinister_Tick(minister)
-	Utils.setLogContext(minister,"POLIT")
-	Utils.info('PoliticsMinister_Tick')
-	return Utils.wrap(PoliticsMinister_Tick_Impl,minister)
+	dtools.setLogContext(minister,"POLIT")
+	dtools.info('PoliticsMinister_Tick')
+	return dtools.wrap(PoliticsMinister_Tick_Impl,minister)
 end
 
 function PoliticsMinister_Tick_Impl(minister)

@@ -6,9 +6,9 @@ require('helper_functions')
 
 --Use our wrapper method in order to trap and log our errors
 function IntelligenceMinister_Tick(minister)
-	Utils.setLogContext(minister,"INTEL")
-	Utils.info('IntelligenceMinister_Tick')
-	return Utils.wrap(IntelligenceMinister_Tick_Impl,minister)
+	dtools.setLogContext(minister,"INTEL")
+	dtools.info('IntelligenceMinister_Tick')
+	return dtools.wrap(IntelligenceMinister_Tick_Impl,minister)
 end
 
 function IntelligenceMinister_Tick_Impl(minister)
@@ -593,10 +593,6 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		local month = CCurrentGameState.GetCurrentDate():GetMonthOfYear()+1
 		local year = CCurrentGameState.GetCurrentDate():GetYear()
 
-		--if tostring(ministerTag) == 'SAU' and oPrio ~= 0 then
-		--Utils.LUA_DEBUGOUT( day..";"..month..";"..year..";"..tostring(ministerTag)..";"..tostring(tag)..";"..tostring(nPrio)..";"..tostring(mission)..";"..tostring(oPrio))
-		--end
-
 		-- change priority
 		if nPrio ~= SpyPresence:GetPriority() then
 			local command = CChangeSpyPriority( ministerTag, tag, nPrio )
@@ -608,7 +604,11 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 			local missionCommand = CChangeSpyMission( ministerTag, tag, mission )
 			ai:Post(missionCommand)
 		end
+
+		dtools = require('dtools')
+		dtools.harvest('spypriority', { A = ministerTag, B = tag, nprio = nPrio, mission = mission, oPrio = oPrio } )
 	end
+
 	Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ended")
 end
 
