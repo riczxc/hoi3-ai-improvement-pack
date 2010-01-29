@@ -8,10 +8,10 @@ require('helper_functions')
 
 --Use our wrapper method in order to trap and log our errors
 function ForeignMinister_Tick(minister)
-	Utils.setLogContext(minister,"DIPLO")
-	Utils.info('ForeignMinister_Tick')
+	dtools.setLogContext(minister,"DIPLO")
+	dtools.info('ForeignMinister_Tick')
 
-	return Utils.wrap(ForeignMinister_Tick_Impl,minister)
+	return dtools.wrap(ForeignMinister_Tick_Impl,minister)
 end
 
 function ForeignMinister_EvaluateDecision(agent, decision, scope)
