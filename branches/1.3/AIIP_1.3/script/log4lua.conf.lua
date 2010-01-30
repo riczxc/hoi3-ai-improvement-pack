@@ -90,7 +90,7 @@ config["DEVEL"] = logger.new(
 						console.new(),
 						file.new("logs/AIIP-DEVEL-%s.log", "%Y-%m-%d")
 					},
-					"PROD",
+					"DEVEL",
 					logger.DEBUG
 				)
 
