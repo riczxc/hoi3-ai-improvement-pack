@@ -33,7 +33,7 @@ config["ROOT"] = logger.new(
 config["INTEL"] = logger.new(
 					{
 						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
-						file.new("logs/INTEL-%s.log", "%Y-%m-%d")
+						file.new("logs/AIIP-INTEL-%s.log", "%Y-%m-%d")
 					},
 					"INTEL",
 					logger.INFO
@@ -42,7 +42,7 @@ config["INTEL"] = logger.new(
 config["POLIT"] = logger.new(
 					{
 						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
-						file.new("logs/POLIT-%s.log", "%Y-%m-%d")
+						file.new("logs/AIIP-POLIT-%s.log", "%Y-%m-%d")
 					},
 					"POLIT",
 					logger.INFO
@@ -51,9 +51,27 @@ config["POLIT"] = logger.new(
 config["PROD"] = logger.new(
 					{
 						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
-						file.new("logs/PROD-%s.log", "%Y-%m-%d")
+						file.new("logs/AIIP-PROD-%s.log", "%Y-%m-%d")
 					},
 					"PROD",
+					logger.INFO
+				)
+				
+config["DIPLO"] = logger.new(
+					{
+						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
+						file.new("logs/AIIP-DIPLO-%s.log", "%Y-%m-%d")
+					},
+					"DIPLO",
+					logger.INFO
+				)
+				
+config["TECH"] = logger.new(
+					{
+						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
+						file.new("logs/AIIP-TECH-%s.log", "%Y-%m-%d")
+					},
+					"TECH",
 					logger.INFO
 				)
 
@@ -61,7 +79,7 @@ config["PROD"] = logger.new(
 config["SQL"] = logger.new(
 					{
 						console.new(),
-						file.new("logs/SQL-%s.log", "%Y-%m-%d")
+						file.new("logs/AIIP-SQL-%s.log", "%Y-%m-%d")
 					},
 					"SQL",
 					logger.INFO
@@ -70,7 +88,7 @@ config["SQL"] = logger.new(
 config["DEVEL"] = logger.new(
 					{
 						console.new(),
-						file.new("logs/DEVEL-%s.log", "%Y-%m-%d")
+						file.new("logs/AIIP-DEVEL-%s.log", "%Y-%m-%d")
 					},
 					"PROD",
 					logger.DEBUG
