@@ -46,9 +46,9 @@ function _module.wrap(f, ...)
 	local retOK, ret = pcall(f, ...)
 	if retOK == false then
 		--Write the error to a file
-		local f = io.open(os.date("logs/%Y%m%d%H%M%S-fatal.log"), "w")
+		local f = io.open(os.date("logs/%Y%m%d-fatal.log"), "a")
 		f:write( ret .. "' \n")
-		f:write( debug.traceback() .. "' \n")
+		f:write( debug.traceback() .. "' \n\n")
 		f:close()
 
 		--attempt to call log
