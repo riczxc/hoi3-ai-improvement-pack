@@ -251,9 +251,9 @@ function Logger:formatMessage(pattern, level, message, exception, country)
         or string.match(result, "%%STACKTRACE")
     ) then
         -- Take no risk - format the stacktrace using pcall to prevent ugly errors.
-        local success, result = pcall(Logger._formatStackTrace, self, result)
+        _, result = pcall(Logger._formatStackTrace, self, result)
     end
-
+	
     result = string.gsub(result, "%%DATE", tostring(os.date()))
     result = string.gsub(result, "%%LEVEL", level)
     result = string.gsub(result, "%%MESSAGE", message)
@@ -272,27 +272,24 @@ function Logger:_formatStackTrace(pattern)
     -- Handle stack trace and method.
     local stackTrace = debug.traceback()
 
-    local source = "<unknown>"
     for line in string.gmatch(stackTrace, "[^\n]-\.lua:%d+: in [^\n]+") do
-        if (not (string.match(line, ".-log4lua.-\.lua:%d+:"))
+        if 	not string.match(line, ".-log4lua.-\.lua:%d+:") and
 			-- AIIP added utils.lua in list not to refer to wrapper
-			and not(string.match(line, "utils\.lua"))
-			) then
-            source = line
+			not string.match(line, "utils\.lua") and
+			not string.match(line, ".-dtools.-\.lua:%d+:")
+		then
+            local _, _, sourcePath, sourceLine, sourceMethod = string.find(line, "(.-):(%d+): in (.*)")
+			local _, _, sourceFile = string.find(sourcePath or "n/a", ".*\\(.*)")
+
+			result = string.gsub(result, "%%PATH", sourcePath or "n/a")
+			result = string.gsub(result, "%%FILE", sourceFile or "n/a")
+			result = string.gsub(result, "%%LINE", sourceLine or "n/a")
+			result = string.gsub(result, "%%METHOD", sourceMethod or "n/a")
+			result = string.gsub(result, "%%STACKTRACE", stackTrace)
             break
         end
     end
 
-	if source ~= "<unknown>" then
-		local _, _, sourcePath, sourceLine, sourceMethod = string.find(source, "(.-):(%d+): in (.*)")
-		local _, _, sourceFile = string.find(sourcePath, ".*\\(.*)")
-	end
-
-    result = string.gsub(result, "%%PATH", sourcePath or "n/a")
-    result = string.gsub(result, "%%FILE", sourceFile or "n/a")
-    result = string.gsub(result, "%%LINE", sourceLine or "n/a")
-    result = string.gsub(result, "%%METHOD", sourceMethod or "n/a")
-    result = string.gsub(result, "%%STACKTRACE", stackTrace)
     return result
 end
 
