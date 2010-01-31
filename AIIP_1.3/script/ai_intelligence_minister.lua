@@ -531,7 +531,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 						-- Something fishy is about to happen around there (using threat as weight)
 						-- oPrio +(0-75)
 						oPrioFactor = 0.25
-						if ministerCountry:IsEnemy(country) then
+						if ministerCountry:IsEnemy(tag) then
 							-- Mobilizing enemies are to be monitored
 							oPrioFactor = 0.75
 						end
