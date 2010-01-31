@@ -57,15 +57,7 @@ function ProductionMinister_Tick_Impl(minister)
 	local bBuildReserveAtPeace = not (ministerCountry:IsAtWar() or ministerCountry:GetStrategy():IsPreparingWar())
 	local requestQueue = ai:GetReqProdQueue()
 	local doBuildUnit = false
-	local gotManPower = ministerCountry:HasExtraManpowerLeft()
-	-- If we run low on manpower stop building manpower costly units
-	if	ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2
-	then
-		-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
-		-- Utils.LUA_DEBUGOUT("HasExtraManpowerLeft: " .. tostring(ministerCountry:HasExtraManpowerLeft()))
-		-- Utils.LUA_DEBUGOUT("ministerCountry:GetManpower():Get() < ministerCountry:GetMaxIC() / 2: " .. tostring(ministerCountry:GetManpower():Get()).." < "..tostring(ministerCountry:GetMaxIC() / 2) )
-		gotManPower = false
-	end
+	local gotManPower = HasExtraManpowerLeft(ministerCountry)
 
 	-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
 	-- Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
