@@ -868,37 +868,9 @@ function DiploScore_PeaceAction(ai, actor, recipient, observer, action)
 end
 
 function DiploScore_SendExpeditionaryForce(ai, actor, recipient, observer, action)
-	-- Utils.LUA_DEBUGOUT("->DiploScore_SendExpeditionaryForce " .. tostring(actor) .. " <-> " .. tostring(recipient))
-	if observer == actor then
-		-- Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce: 0")
-		return 0
-	else
-		-- do we want to accept?
-		local score = 0
-		local recipientCountry = recipient:GetCountry()
-
-		if 	recipientCountry:GetDailyBalance(CGoodsPool._SUPPLIES_):Get() > 1.0 and
-			HasExtraManpowerLeft(recipientCountry)
-		then
-			-- maybe we have enough stockpiles
-			local supplyStockpile = recipientCountry:GetPool():Get(CGoodsPool._SUPPLIES_):Get()
-			local weeksSupplyUse = recipientCountry:GetDailyExpense(CGoodsPool._SUPPLIES_):Get() * 7
-			if supplyStockpile > weeksSupplyUse * 20.0 then
-				score = score + 70
-			elseif supplyStockpile > weeksSupplyUse * 10.0 then
-				score = score + 40
-			end
-
-			if recipientCountry:IsAtWar() then
-				score = score + 20
-			else
-				score = 0 -- no war, no need for troops
-			end
-		end
-
-		-- Utils.LUA_DEBUGOUT("<-DiploScore_SendExpeditionaryForce: " .. tostring(score))
-		return score
-	end
+	-- Exp forces are bugged. Do same thing like in vanilla 1.3 for now, retun 0.
+	-- TODO: Revise this in 1.4
+	return 0
 end
 
 
