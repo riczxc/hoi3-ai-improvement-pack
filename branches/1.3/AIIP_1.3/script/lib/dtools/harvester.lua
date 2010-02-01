@@ -18,23 +18,33 @@ local log = require("log4lua.logger")
 local dtools = require("dtools")
 
 function _module.getDb()
-	if _module.db == nil then
+	if _module._db == nil then
 		require("luasql.sqlite3")
-
 		local env = assert (luasql.sqlite3())
 		_module._db = assert (env:connect"AIIP.sqlite")
+		_module._db:setautocommit(false)
 	end
 
 	return _module._db
 end
 
-function _module.harvest(name, data)
-	if _module._tables[name] == nil then
-		-- create a new Harvester object, that will create table if needed
-		_module._tables[name] = Harvester.new(name, data)
+function _module.harvest(name, data, commit)
+	assert(name ~= nil, "Table name can't be nil.")
+	if commit ~= false then commit = true end
+
+	if data ~= nil then
+		if _module._tables[name] == nil then
+			-- create a new Harvester object, that will create table if needed
+			_module._tables[name] = Harvester.new(name, data)
+		end
+
+		_module._tables[name]:insertData(data)
 	end
 
-	_module._tables[name]:insertData(data)
+	if(commit == true) then
+		dtools.debug('commit')
+		_module.getDb():commit()
+	end
 end
 
 
