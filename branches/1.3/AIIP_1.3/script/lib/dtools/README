@@ -85,6 +85,7 @@ Log4Lua features:
   it might have a performance impact since the debug string has to build up etc.
 
 HOI3 Extended features :
+* Support for ingame date datation
 * Integrated Minister/Country contextualization
 * One log file per minister
 
