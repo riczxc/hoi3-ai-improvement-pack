@@ -1,5 +1,5 @@
 -- Enable dtools extension
-dtools = require('devtools')
+require('devtools')
 
 ---------------------------------
 -- Utils

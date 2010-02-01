@@ -1,0 +1,291 @@
+Devtools package for Hearts of Iron III
+
+Devtools is a toolset for HOI3 modders. It provide some enhancement and 
+basic features to help modders scripting LUA. Devtools is written in 
+pure LUA and released under the MIT License. 
+Devtools is a component of AIIP mod.
+
+A- LICENSE
+
+Devtools uses log4lua (GPLv2), sqlite (public domain) and luasql (MIT 
+license). Devtools is an opensource software and is released under the 
+term of MIT license : 
+
+	Permission is hereby granted, free of charge, to any person
+	obtaining a copy of this software and associated documentation
+	files (the "Software"), to deal in the Software without
+	restriction, including without limitation the rights to use,
+	copy, modify, merge, publish, distribute, sublicense, and/or
+	sell copies of the Software, and to permit persons to whom the
+	Software is furnished to do so, subject to the following
+	conditions:
+
+	The above copyright notice and this permission notice shall be
+	included in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+	OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+	HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+	WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+	OR OTHER DEALINGS IN THE SOFTWARE.
+
+ 
+B- MAIN FEATURES
+  * True logging framework with Utils.LUA_DEBUGOUT substitution
+  * Function wrapper to catch and log lua runtime failure
+  * Data harvester from HOI3 to SQL, for data mining
+
+C- DEVTOOLS ACTIVATION
+
+Devtools is a LUA package which relies on the require/package.path 
+mechanism, as well as its components (log4lua and luasql). HOI3 engine 
+does not provide a complete package.path LUA variable, there is no path 
+to an absolute path directory in the mod directory. Hence, there is no 
+way for the LUA package to work properly. 
+
+To correct that, it is possible to run a lua script that updates current 
+package.path and package.cpath to insert <moddir>/script/lib/?/init.lua 
+and <moddir>/script/lib/?.lua. This script will also read log4lua 
+configuration from <moddir>/script/log4lua.conf.lua file. Finally a 
+global variable "dtools" is set corresponding to dtools module. 
+
+ Usage:
+ > require('devtools')
+ 
+D- LOG FUNCTIONALITIES
+
+Devtools provide an implementation of log4lua logging framework, which 
+is extended to HOI3 context. It provides an easy way to trace lua script 
+execution from a single configuration file without the need to comment 
+out all Utils.DEBUGOUT() calls. Log functionalities can be completely 
+deactivated by replacing "if true then" test around the log facility 
+functions in script/lib/dtools/init.lua. 
+
+All logs are written in logs/ directory.
+
+D1- Features 
+
+Log4Lua features:
+* External configuration: Configure your logging system via a config 
+  file.
+* Logger categories: Configure different categories for different 
+  logging tasks.
+* Detailed information available: source file, line, function or the 
+  whole stack trace
+* Different appenders: console, file and smtp (email)
+* Multiple appenders per category: Log to a file and get the worst 
+  errors by email
+* Level threshold for smtp appender: Don't get every log message by 
+  mail only the ones above a defined level.
+* Log file rotations for file appender: Based on a date pattern
+* Test if a certain log level is enabled: Even if DEBUG is turned off 
+  it might have a performance impact since the debug string has to build up etc.
+
+HOI3 Extended features :
+* Integrated Minister/Country contextualization
+* One log file per minister
+
+D2- Configuration
+
+Devtools is shipped with an initial log4lua configuration. Configuration 
+file is in fact a lua script that returns a table of log4lua.logger 
+instances. Each instance is composed of one or more appenders. Log4Lua 
+provides 3 appenders : file, console and smtp (mail). 
+
+* Console is irrelevant for HOI3 usage since HOI3 engine offer no STDOUT 
+  redirection. 
+* Smtp provides support for sending Email, which is not really useful 
+* File appender is writing log message to a file. 
+
+Initial Log4lua configuration declares 8 loggers : 
+* ROOT category is mandatory as it is the fallback log file 
+* SQL category is reserved for SQLite traces 
+* DEVEL category is great for devel usage
+* Other categories are dedicated to ministers 
+
+Please read log4lua configuration to learn how to use it. 
+http://www.hscale.org/display/LUA/Log4LUA 
+
+D3- Basic usage
+
+ > -- Using dtools global variable
+ > dtools.info('This is an information message')
+ > --[02/01/10 14:17:04]	[INFO]	[   ] This is an information message at n/a:5(main chunk)
+ > dtools.fatal('This is fatal message)
+ > --[02/01/10 14:17:04]	[FATAL]	[   ] This is fatal message at n/a:6(main chunk)
+ > dtools.debug('This is debug message)
+ > -- Outputs nothing, debug message are ignored from default configuration
+
+ > -- or through local reference to module
+ > local foo = require('dtools')
+ > foo.info('Information message')
+ > --[02/01/10 14:17:04]	[INFO]	[   ] Information message at n/a:5(main chunk)
+
+
+D4- HOI3 features
+
+Most log message are contextualized by both the current minister type 
+and the current country that run the AI script. 
+
+ > --use another log category (see log4lua.conf.lua for categories)
+ > dtools.warn('warning for diplomacy', nil, 'DIPLO')
+
+ > -- tag a message as related to a country
+ > dtools.info('information message', 'GER')
+ > -- some HOI3 objects are properly casted to string
+ > dtools.info('another information message', CCurrentGameState.GetPlayer()) 
+
+ > -- Set log context for a while
+ > dtools.setLogContext('AST','DIPLO')
+ > dtools.info('this message is Australian & diplomatic')
+ > dtools.warn('this another one is also Australian & diplomatic')
+ > dtools.info('this another one is German & intel','GER','INTEL')
+ > --SetLogContext is persistant
+ > dtools.warn('yet again this one is Australian') 
+
+D5- Utils.DEBUGOUT substitution
+
+If 'devtools.lua' is required after Utils.LUA_DEBUGOUT definition, 
+then all LUA_DEBUGOUT calls are redirected as dtools.debug('message') 
+call.
+ 
+D6- Implementation tips
+
+The main purpose of setLogContext() is to provide a log context for 
+all function without the need to define it each time you want to log 
+something.
+
+A good usage would be to add the following at the begining of each 
+minister tick functions :
+
+ > function ForeignMinister_Tick(minister)
+ >   dtools.setLogContext(minister,"DIPLO")
+ >   <...>
+
+
+E- ERROR TRAPING FUNCTIONALITIES
+
+Coding lua script in HOI3 is rather tricky. If a LUA runtime error is 
+triggered, HOI3 fallback silently to vanilla scripts. A common 
+workaround was to spam the code with tons of LUA_DEBUGOUT calls, to 
+catch wether or not the function ended properly. Fact is that any LUA 
+error is catched by HOI3 engine without a chance for our mod script to 
+recover by themselves. Hopefuly, LUA provide a neat function called 
+pcall(). The pcall function calls its first argument in protected mode, 
+so that it catches any errors while the function is running. 
+
+Devtools introduce an extended pcall-like function for both error 
+trapping and logging.
+ 
+ > -- If myfunction(myparam) raises an error, write to a fatal file,
+ > -- and then tries to log fatal message through log framework
+ > dtools.wrap(myfunction, myparam)
+
+A good usage would be to substitute minister tick function with a 
+wrapped code :
+ 
+ > -- ai_foreign_minister.lua
+ > -- Create a copy of actual minister tick function
+ > ForeignMinister_Tick_Impl = ForeignMinister_Tick
+ >
+ > -- Define a wrapper function
+ > function ForeignMinister_Tick(minister)
+ >   dtools.setLogContext(minister,"DIPLO")
+ >   dtools.wrap(ForeignMinister_Tick_Impl, minister)
+ > end
+ 
+F- DATA HARVESTING
+
+HOI3 engine ships no utilities for modders to store and analysis large 
+set of data. Devtools offer an easy to use harvesting function, that 
+feed a relational database through SqlLite. Implementation are countless, 
+from debugging to balancing your code. AIIP developpers found it useful
+to store intelligence minister computed spy priority for each countries. 
+
+F1- Basic usage :
+ 
+ > -- dtools.harvest(tablename, data_table, commit)
+ > -- dtools.harvest('my_table', { colA = var1, colB = var2, colC = var3 })
+ > dtools.harvest('my_table', { colA = 1, colB = 1.2, colC = "A" })
+ > dtools.harvest('my_table', { colA = 2, colB = 2.2, colC = "B" })
+
+Above example will create a SQL table matching this schema :
+ 
+ > CREATE TABLE my_table (
+ >    "colA" REAL,
+ >    "colB" REAL,
+ >    "colC" TEXT,
+ >    DATE_REAL TEXT, 
+ >    DATE_INGAME TEXT, 
+ >    GAME_SESSION TEXT
+ > )
+ 
+Tables are created with 3 columns that qualifies the data :
+ * DATE_REAL    : real world date time
+ * DATE_INGAME  : HOI3 engine current data (or 1/1/1901 outside of HOI3)
+ * GAME_SESSION : a string describing the actual game session as a 
+                  "<PLAYERCOUNTRY> <INGAMEDAYONE> <REALDATE>".
+ 
+F2- Note concerning types :
+
+Table schema is guessed from the first dataset used to create it. So 
+please be advised not to change a column content from number to string 
+from one call to another.
+
+ > -- Don't do this :
+ > -- Can't insert string into an integer
+ > dtools.harvest('bad_definition', { colA = 1 })
+ > dtools.harvest('bad_definition', { colA = "string" })
+
+In lua both integer and float are handled by number type. Hence, for 
+data harvester all lua numbers are considered as sqlite REAL.
+
+
+F3- Perfomance issues :
+
+A bad usage of harvester functionalities can lead to collapse game 
+performance. Sqlite is relying on operating filesystem. For instance, 
+10000 insertions can take up to 20 minutes, while 10000 insertions in a 
+single transaction take only 1 second. 
+
+Here is a straight, but not optimized usage :
+
+  > -- Bad usage (20 minutes)
+  > for var=1,10000,1 do
+  >   dtools.harvest(
+  >     'test_notrans', 
+  >     { 
+  >       integer=math.random(0,1000), 
+  >       real=math.random()*1000, 
+  >       text= string.char(math.random(50,100),math.random(50,100),math.random(50,100))
+  >     }
+  >   )
+  > end
+
+Best usage, in a single transaction :
+  > -- Best usage (1 second)
+  > for var=1,10000,1 do
+  >   -- harvest accepts a third parameter that commit or not the last dataset.
+  >   dtools.harvest(
+  >     'test_withtrans', 
+  >     { 
+  >       integer=math.random(0,1000), 
+  >       real=math.random()*1000, 
+  >       text= string.char(math.random(50,100),math.random(50,100),math.random(50,100)) 
+  >     },
+  >     false --DO NOT COMMIT
+  >   )
+  > end
+  > -- commit the transaction
+  > dtools.harvest('test_withtrans', nil, true)
+
+F4- Use data
+
+Sqlite database is a single file called AIIP.sqlite in HOI3 root 
+directory. There are many GUI or command line client for Sqlite, the 
+choice is yours. 
+
+ > select * from test_notrans;
