@@ -79,13 +79,12 @@ if true then
 	-- Basic usage :
 	-- > Utils.info("Non-Agression pact signed with ITA.", "GER", "DIPLO")
 	--
-	-- Log system remembers last used category, you can omit it for the second occurence in log
-	-- > Utils.info("Non-Agression pact signed with ITA.", "GER", "DIPLO")
-	-- > Utils.info("Rejected trade from POR")
-	-- Or explicitely reset it
+	-- Log system is able to remember log context
 	-- > Utils.setLogContext("GER", "DIPLO")
 	-- > Utils.info("Non-Agression pact signed with ITA.")
 	-- > Utils.info("Rejected trade from POR")
+	-- > Utils.setLogContext(nil, nil)
+	-- > Utils.info("No context for this one")
 	--
 	-- AIIP minister tick functions define the current Log Context
 	--
@@ -215,10 +214,10 @@ end
 -- End of log functions
 
 -- Harvest functions (sqlite)
-if false then
-	function _module.harvest(t, data)
+if true then
+	function _module.harvest(t, data, commit)
 		local Harvester = require("dtools.harvester")
-		Harvester.harvest(t, data)
+		Harvester.harvest(t, data, commit)
 	end
 end
 
