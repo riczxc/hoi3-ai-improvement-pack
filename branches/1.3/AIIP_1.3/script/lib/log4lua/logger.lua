@@ -253,9 +253,16 @@ function Logger:formatMessage(pattern, level, message, exception, country)
         -- Take no risk - format the stacktrace using pcall to prevent ugly errors.
         _, result = pcall(Logger._formatStackTrace, self, result)
     end
-	
-	local currentDate = CCurrentGameState.GetCurrentDate()
-    result = string.gsub(result, "%%DATE", tostring(currentDate:GetYear()) .. "-" .. tostring(currentDate:GetMonthOfYear()) .. "-" .. tostring(currentDate:GetDayOfMonth()))
+
+	-- Test CCurrentGameState existance, this script may run from pure LUA without HOI3 bindings
+	local currentDate
+	if CCurrentGameState ~= nil then
+		currentDate = CCurrentGameState.GetCurrentDate()
+		currentDate = tostring(currentDate:GetYear()) .. "-" .. tostring(currentDate:GetMonthOfYear()) .. "-" .. tostring(currentDate:GetDayOfMonth())
+	else
+		currentDate = tostring(os.date())
+	end
+    result = string.gsub(result, "%%DATE", currentDate)
     result = string.gsub(result, "%%LEVEL", level)
     result = string.gsub(result, "%%MESSAGE", message)
 	result = string.gsub(result, "%%COUNTRY", country)
