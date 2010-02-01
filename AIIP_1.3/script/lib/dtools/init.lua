@@ -24,10 +24,10 @@
 module("dtools", package.seeall)
 
 -- Class definition
-local Devtools = {}
-Devtools.__index = Devtools
+local devtools = {}
+devtools.__index = devtools
 
-local _module = Devtools
+local _module = devtools
 
 -- initial set of stub methods (if devtools are disabled)
 function _module.log() end
