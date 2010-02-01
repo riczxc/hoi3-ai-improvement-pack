@@ -605,10 +605,10 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 			ai:Post(missionCommand)
 		end
 
-		dtools = require('dtools')
-		dtools.harvest('spypriority', { A = ministerTag, B = tag, nprio = nPrio, mission = mission, oPrio = oPrio } )
+		-- dtools = require('dtools')
+		-- dtools.harvest('spypriority', { A = ministerTag, B = tag, nprio = nPrio, mission = mission, oPrio = oPrio }, false )
 	end
-
+	-- dtools.harvest('spypriority', nil, true)
 	Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ended")
 end
 

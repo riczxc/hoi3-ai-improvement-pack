@@ -260,7 +260,7 @@ function Logger:formatMessage(pattern, level, message, exception, country)
 	local inGameDate = ""
 	if CCurrentGameState ~= nil then
 		inGameDate = CCurrentGameState.GetCurrentDate()
-		inGameDate = tostring(currentDate:GetYear()) .. "-" .. tostring(currentDate:GetMonthOfYear()) .. "-" .. tostring(currentDate:GetDayOfMonth())
+		inGameDate = tostring(inGameDate:GetYear()) .. "-" .. tostring(inGameDate:GetMonthOfYear()+1) .. "-" .. tostring(inGameDate:GetDayOfMonth()+1)
 	end
 
     result = string.gsub(result, "%%DATE", inGameDate)
