@@ -42,7 +42,7 @@ function _module.new(fileName, datePattern, pattern)
     local file = nil
     local currentDate = nil
     return
-        function(logger, level, message, exception)
+        function(logger, level, message, exception, country)
             local date = os.date(datePattern)
             if (date ~= currentDate or file == nil) then
                 currentDate = date
@@ -58,7 +58,7 @@ function _module.new(fileName, datePattern, pattern)
                 end
             end
             if (file ~= nil) then
-                file:write(logger:formatMessage(pattern, level, message, exception))
+                file:write(logger:formatMessage(pattern, level, message, exception, country))
 
 				-- Sync the file to avoid buffer overlap
 				file:flush()

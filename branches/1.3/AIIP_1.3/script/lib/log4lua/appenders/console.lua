@@ -28,8 +28,8 @@ local _module = {}
 -- @param pattern (optional) the message pattern.
 function _module.new(pattern)
     return
-    function(logger, level, message, excpetion)
-        io.stdout:write(logger:formatMessage(pattern, level, message, excpetion))
+    function(logger, level, message, excpetion, country)
+        io.stdout:write(logger:formatMessage(pattern, level, message, excpetion, country))
     end
 end
 
