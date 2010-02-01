@@ -10,6 +10,73 @@ function P.ProposeDeclareWar( minister )
 	local year = ai:GetCurrentDate():GetYear()
 	local month = ai:GetCurrentDate():GetMonthOfYear()
 	local axisFaction = CCurrentGameState.GetFaction('axis')
+	
+	local chiTag = CCountryDataBase.GetTag('CHI') -- Nationalist China
+	local cgxTag = CCountryDataBase.GetTag('CGX') -- Guangxi Clique
+	local chcTag = CCountryDataBase.GetTag('CHC') -- Communist China
+	local csxTag = CCountryDataBase.GetTag('CSX') -- Shanxi
+	local cxbTag = CCountryDataBase.GetTag('CXB') -- Xibei San Ma
+	local cynTag = CCountryDataBase.GetTag('CYN') -- Yunnan
+	
+	-- CHINA CONQUEST
+	-- Go for Shanxi first
+	if 	ministerTag:GetCountry():GetRelation(chiTag):HasWar() or (					-- At war with China
+			not ministerTag:GetCountry():GetRelation(csxTag):HasWar() and not (		-- or not at war with Shanxi
+				csxTag:GetCountry():IsSubject() and									-- and Shanxi not a puppet of us
+				csxTag:GetCountry():GetOverlord() == ministerTag
+			)
+		)
+	then
+		strategy:PrepareWar(csxTag, 100)
+		dtools.info("Preparing war against CSX.")
+	end
+	
+	-- After Shanxi go for Communist China
+	if 	not (csxTag:IsValid() and csxTag:IsReal() and csxTag:GetCountry():Exists())
+	or 	csxTag:GetCountry():IsGovernmentInExile()
+	or	(
+		csxTag:GetCountry():IsSubject() and csxTag:GetCountry():GetOverlord() == ministerTag
+	)
+	or 	(
+		csxTag:GetCountry():GetRelation(ministerTag):HasWar() and
+		csxTag:GetCountry():GetSurrenderLevel():Get() > 0.5
+	)
+	then
+		strategy:PrepareWar(chcTag, 100)
+		dtools.info("Preparing war against CHC.")
+	end
+	
+	-- After Communist China go for Nationalist China
+	if 	not (chcTag:IsValid() and chcTag:IsReal() and chcTag:GetCountry():Exists())
+	or 	chcTag:GetCountry():IsGovernmentInExile()
+	or	(
+		chcTag:GetCountry():IsSubject() and chcTag:GetCountry():GetOverlord() == ministerTag
+	)
+	or 	(
+		chcTag:GetCountry():GetRelation(ministerTag):HasWar() and
+		chcTag:GetCountry():GetSurrenderLevel():Get() > 0.5
+	)
+	then
+		strategy:PrepareWar(chiTag, 100)
+		dtools.info("Preparing war against CHI.")
+	end
+	
+	-- After Nationalist China go for the rest
+	if 	not (chiTag:IsValid() and chiTag:IsReal() and chiTag:GetCountry():Exists())
+	or 	chiTag:GetCountry():IsGovernmentInExile()
+	or	(
+		chiTag:GetCountry():IsSubject() and chiTag:GetCountry():GetOverlord() == ministerTag
+	)
+	or 	(
+		chiTag:GetCountry():GetRelation(ministerTag):HasWar() and
+		chiTag:GetCountry():GetSurrenderLevel():Get() > 0.5
+	)
+	then
+		strategy:PrepareWar(cgxTag, 100)
+		dtools.info("Preparing war against CGX, CXB and CYN.")
+		strategy:PrepareWar(cxbTag, 100)
+		strategy:PrepareWar(cynTag, 100)
+	end
 
 	local gerTag = CCountryDataBase.GetTag('GER')
 	local sovTag = CCountryDataBase.GetTag('SOV')
@@ -26,6 +93,7 @@ function P.ProposeDeclareWar( minister )
 		
 		-- Wait till they've sorted out our problem with China...
 		if 	not (chiTag:IsValid() and chiTag:IsReal() and chiTag:GetCountry():Exists())
+		or 	chiTag:GetCountry():IsGovernmentInExile()
 		or	(
 			chiTag:GetCountry():IsSubject() and chiTag:GetCountry():GetOverlord() == ministerTag
 		)
@@ -49,7 +117,8 @@ function P.ProposeDeclareWar( minister )
 			end
 
 			if troupCount < 1 and intelCoverage > 7 then
-				strategy:PrepareWar( sovTag, 100 )
+				strategy:PrepareWar(sovTag, 100)
+				dtools.info("Preparing war against SOV.")
 			end
 		end
 	end
@@ -62,7 +131,9 @@ function P.ProposeDeclareWar( minister )
 	and not usaTag:GetCountry():IsSubject() 					--USA isn't a subject nation
 	then
 		strategy:PrepareWar( usaTag, 100 )
+		dtools.info("Preparing war against USA.")
 		strategy:PrepareWar( phiTag, 100 )
+		dtools.info("Preparing war against PHI.")
 	end
 
 	--ASIA CONQUEST
@@ -74,18 +145,21 @@ function P.ProposeDeclareWar( minister )
 		and not engTag:GetCountry():IsSubject() 					--ENG isn't a subject nation
 		then
 			strategy:PrepareWar( engTag, 100 )
+			dtools.info("Preparing war against ENG.")
 		end
 		--Netherlands
 		if not ministerCountry:GetRelation(holTag):HasWar() 		--Not already at war with HOL
 		and not holTag:GetCountry():IsSubject() 					--HOL isn't a subject nation
 		then
 			strategy:PrepareWar( holTag, 100 )
+			dtools.info("Preparing war against HOL.")
 		end
 		--France
 		if not ministerCountry:GetRelation(fraTag):HasWar() 		--Not already at war with FRA
 		and not fraTag:GetCountry():IsSubject() 					--FRA isn't a subject nation
 		then
 			strategy:PrepareWar( fraTag, 100 )
+			dtools.info("Preparing war against FRA.")
 		end
 	end
 
