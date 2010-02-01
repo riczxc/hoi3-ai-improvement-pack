@@ -15,11 +15,8 @@ function ProductionMinister_Tick(minister)
 end
 
 function ProductionMinister_Tick_Impl(minister)
-	--Utils.LUA_DEBUGOUT("->ProductionMinister_Tick " .. tostring(minister:GetCountryTag()))
-
 	local ministerCountry = minister:GetCountry()
-	if not IsValidCountry(ministerCountry) then
-		--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
+	if not IsValidCountry(ministerCountry) or ministerCountry:IsGovernmentInExile() then
 		return
 	end
 
@@ -103,10 +100,7 @@ function ProductionMinister_Tick_Impl(minister)
 --Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
 			local unit = requestQueue:GetHeadData().pUnit
 			local unitName = tostring(unit:GetKey())
-
 			local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
-			local cost = ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
-
 			local orderlist = SubUnitList()
 
 			if unit:IsRegiment() then
@@ -140,14 +134,13 @@ function ProductionMinister_Tick_Impl(minister)
 
 				-- Create a list of provinces where each improvement type can be built
 				-- and create a dice we use later to decide what improvement type to build.
-				provinceIdPool, dice = CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost)
+				provinceIdPool, dice = CreateProvinceIdPoolAndDice(ministerCountry, improvements)
 			end
 
 			if table.getn(dice) > 0 then
 				-- If this is the first round we know two things:
 				--	- We can build at least one improvement, otherwise the dice would be empty.
 				--	- All provinces in the province pool are valid locations for an improvement.
-				--  - Improvement cost is < maxBuildCost
 				-- If this is not the first round, we have to make sure, that we're not
 				-- building in provinces we've already touched.
 
@@ -188,6 +181,7 @@ function ProductionMinister_Tick_Impl(minister)
 				-- and build some units.
 				-- Shouldn't happen too often...
 				ratioProvince = 0
+				dtools.warn("Dice pool is empty. Figure out why country can't build any province improvements.", ministerCountry, "DEVEL")
 			end
 --Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Province")
 		end
@@ -217,7 +211,7 @@ function ProductionMinister_Tick_Impl(minister)
 	--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
 end
 
-function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost)
+function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
 	-- Create a list of provinces where each improvement can be built
 	local ids = {}
 	local building = {}
@@ -270,7 +264,8 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost
 			'land_fort',
 			function (province, provinceHasBuilding)
 				return 	provinceHasBuilding['land_fort'] or
-							province:IsFrontProvince(false)
+							province:IsFrontProvince(false) or
+							province:GetNumberOfUnits() >= 1
 			end
 		},
 		{
@@ -321,32 +316,28 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements, maxBuildCost
 		provinceIdPool[k] = {}
 
 		if v.priority > 0 then
-			local buildCost = ministerCountry:GetBuildCost(building[k]):Get()
-
-			if buildCost < maxBuildCost then
-				-- Randomly select up to 50 provinces
-				-- Select user specified provinces first (higher priority)
-				local source = v.ids
-				if source then
-					for i = 1, math.min(50, table.getn(source)) do
-						local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
-						local province = CCurrentGameState.GetProvince(source[index])
-
-						if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
-							table.insert(provinceIdPool[k], source[index])
-						end
-					end
-				end
-
-				-- Now select all other provinces
-				source = ids[k]
-				for i = table.getn(provinceIdPool[k]) + 1, math.min(50, table.getn(source)) do
+			-- Randomly select up to 50 provinces
+			-- Select user specified provinces first (higher priority)
+			local source = v.ids
+			if source then
+				for i = 1, math.min(50, table.getn(source)) do
 					local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
 					local province = CCurrentGameState.GetProvince(source[index])
 
 					if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
 						table.insert(provinceIdPool[k], source[index])
 					end
+				end
+			end
+
+			-- Now select all other provinces
+			source = ids[k]
+			for i = table.getn(provinceIdPool[k]) + 1, math.min(50, table.getn(source)) do
+				local index = math.mod(CCurrentGameState.GetAIRand(), table.getn(source)) + 1
+				local province = CCurrentGameState.GetProvince(source[index])
+
+				if ministerCountry:IsBuildingAllowed(building[k], province) and v.buildCallback(province) then
+					table.insert(provinceIdPool[k], source[index])
 				end
 			end
 
