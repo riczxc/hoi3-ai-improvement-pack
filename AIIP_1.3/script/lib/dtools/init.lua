@@ -136,7 +136,6 @@ if true then
 			--No country set a 3 blank character string
 			countryString = "   "
 		end
-		countryString = "["..countryString.."] "
 
 		-- Country filter routine
 		if type(filterTag) == "table" and #filterTag > 0 then
@@ -154,7 +153,7 @@ if true then
 		end
 
 
-		_module.Log4Lua.getLogger(category):log(level, countryString..message)
+		_module.Log4Lua.getLogger(category):log(level, message, nil, countryString)
 	end
 
 	function _module.setLogContext(ministerCountryOrTag, category)

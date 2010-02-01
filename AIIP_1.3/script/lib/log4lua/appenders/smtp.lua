@@ -68,10 +68,10 @@ function _module.new(mail, levelThreshold, smtpHost, smtpPort, smtpUser, smtpPas
     local subjectPattern = mail.headers.subject
     local bodyPattern = mail.body
     return
-        function(logger, level, message, exception)
+        function(logger, level, message, exception, country)
             if (levelThreshold == nil or log.LOG_LEVELS[level] >= log.LOG_LEVELS[levelThreshold]) then
-                mail.headers.subject = logger:formatMessage(subjectPattern, level, message, exception)
-                mail.body = logger:formatMessage(bodyPattern, level, message, exception)
+                mail.headers.subject = logger:formatMessage(subjectPattern, level, message, exception, country)
+                mail.body = logger:formatMessage(bodyPattern, level, message, exception, country)
                 -- Replace plain \n by \r\n to comply to RFC 822
                 mail.body = string.gsub(mail.body, "(\r\n", "\n")
                 mail.body = string.gsub(mail.body, "(\n", "\r\n")

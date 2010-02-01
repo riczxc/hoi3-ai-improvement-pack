@@ -95,7 +95,7 @@ _module.LOG_LEVELS = {
 }
 
 -- Default pattern used for all appenders.
-_module.DEFAULT_PATTERN = "[%DATE]\t[%LEVEL]\t%MESSAGE at %FILE:%LINE(%METHOD)\n"
+_module.DEFAULT_PATTERN = "[%DATE] [%LEVEL] [%COUNTRY] %MESSAGE at %FILE:%LINE(%METHOD)\n"
 
 -- Name of the environment variable that holds the path to the default config file.
 local ENV_LOGGING_CONFIG_FILE = "LOG4LUA_CONFIG_FILE"
@@ -193,11 +193,11 @@ function Logger:setLevel(level)
 end
 
 --- Log the given message at the given level.
-function Logger:log(level, message, exception)
+function Logger:log(level, message, exception, country)
 	assert(_module.LOG_LEVELS[level] ~= nil, "Unknown log level '" .. level .. "'")
     if (_module.LOG_LEVELS[level] >= _module.LOG_LEVELS[self._level] and level ~= _module.OFF) then
         for _, appender in ipairs(self._appenders) do
-			appender(self, level, message, exception)
+			appender(self, level, message, exception, country)
         end
     end
 end
@@ -211,28 +211,28 @@ function Logger:isLevel(level)
 end
 
 --- Log message at DEBUG level.
-function Logger:debug(message, exception)
-    self:log(_module.DEBUG, message, exception)
+function Logger:debug(message, exception, country)
+    self:log(_module.DEBUG, message, exception, country)
 end
 
 --- Log message at INFO level.
-function Logger:info(message, exception)
-    self:log(_module.INFO, message, exception)
+function Logger:info(message, exception, country)
+    self:log(_module.INFO, message, exception, country)
 end
 
 --- Log message at WARN level.
-function Logger:warn(message, exception)
-    self:log(_module.WARN, message, exception)
+function Logger:warn(message, exception, country)
+    self:log(_module.WARN, message, exception, country)
 end
 
 --- Log message at ERROR level.
-function Logger:error(message, exception)
-    self:log(_module.ERROR, message, exception)
+function Logger:error(message, exception, country)
+    self:log(_module.ERROR, message, exception, country)
 end
 
 --- Log message at FATAL level.
-function Logger:fatal(message, exception)
-    self:log(_module.FATAL, message, exception)
+function Logger:fatal(message, exception, country)
+    self:log(_module.FATAL, message, exception, country)
 end
 
 function Logger:formatMessage(pattern, level, message, exception, country)
@@ -254,9 +254,11 @@ function Logger:formatMessage(pattern, level, message, exception, country)
         _, result = pcall(Logger._formatStackTrace, self, result)
     end
 	
-    result = string.gsub(result, "%%DATE", tostring(os.date()))
+	local currentDate = CCurrentGameState.GetCurrentDate()
+    result = string.gsub(result, "%%DATE", tostring(currentDate:GetYear()) .. "-" .. tostring(currentDate:GetMonthOfYear()) .. "-" .. tostring(currentDate:GetDayOfMonth()))
     result = string.gsub(result, "%%LEVEL", level)
     result = string.gsub(result, "%%MESSAGE", message)
+	result = string.gsub(result, "%%COUNTRY", country)
     -- tweak for AIIP (log4lua is bugged)
 	if exception ~= nil then
 		result = string.gsub(result, "%%ERROR", exception)
