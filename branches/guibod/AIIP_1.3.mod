@@ -1,5 +1,0 @@
-name = "AIIP 1.3.3"
-extend = "common"
-extend = "decisions"
-replace = "events"
-extend = "script"
