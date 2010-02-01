@@ -15,19 +15,18 @@ function GetICRatioForProvinceImprovements(country)
 	if countryTag == 'SOV' then
 		--Utils.LUA_DEBUGOUT( "SOVIET UNION" )
 
-		if year <= 1939 then
-			ratioPeace = 0.4 -- Needs to build up lot's of infra (~240 provinces and ~2-4 infra per province)
+		local techStatus = country:GetTechnologyStatus()
+		local infraTech = GetTechByName('advanced_construction_engineering')
+		if techStatus:GetLevel(infraTech) > 0 and year < 1940 then
+			ratioPeace = 0.3 -- Needs to build up lot's of infra (~240 provinces and ~2-4 infra per province)
 		else
-			ratioPeace = 0.3
+			ratioPeace = 0.2 -- Build IC
 		end
-		ratioPreparingWar = 0.2
-		ratioWar = 0.1
-
 	------------------------------------------GERMANY---------------------------------------------------
 	elseif countryTag == 'GER' then
 		--Utils.LUA_DEBUGOUT( "GERMANY" )
 
-		ratioPeace = 0.05 -- Has best infra of the world
+		ratioPeace = 0.05
 		ratioPreparingWar = 0.05
 		ratioWar = 0.05
 
@@ -46,9 +45,9 @@ function GetICRatioForProvinceImprovements(country)
 	------------------------------------------FRANCE---------------------------------------------------
 	elseif countryTag == 'FRA' then
 		--Utils.LUA_DEBUGOUT( "FRANCE" )
-		ratioPeace = 0
-		ratioPreparingWar = 0
-		ratioWar = 0
+		ratioPeace = 0.05
+		ratioPreparingWar = 0.05
+		ratioWar = 0.05
 
 	------------------------------------------ITALY---------------------------------------------------
 	elseif countryTag == 'ITA' then
@@ -63,9 +62,9 @@ function GetICRatioForProvinceImprovements(country)
 	------------------------------------------POLAND---------------------------------------------------
 	elseif countryTag == 'POL' then
 		--Utils.LUA_DEBUGOUT( "POLAND" )
-		ratioPeace = 0
-		ratioPreparingWar = 0
-		ratioWar = 0
+		ratioPeace = 0.05
+		ratioPreparingWar = 0.05
+		ratioWar = 0.05
 
 	----------------------------------------------------------------------------------------------------
 	end
