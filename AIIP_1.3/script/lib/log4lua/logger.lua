@@ -43,9 +43,11 @@
 -- <h3>Patterns</h3>
 -- Patterns may contain the following placeholders:
 -- <ul>
---     <li>%DATE</li>
+--     <li>%DATE - Ingame time</li>
+--     <li>%RDATE - Real time</li>
 --     <li>%LEVEL</li>
 --     <li>%MESSAGE</li>
+--     <li>%COUNTRY - Current in game country</li>
 --     <li>%FILE - the source filename w/o path</li>
 --     <li>%PATH - the source filename including the path</li>
 --     <li>%LINE - the position in the source file</li>
@@ -56,7 +58,7 @@
 -- <em>Important performance note:</em> Using one of <code>%FILE, %PATH, %LINE, %FUNCTION, %STACKTRACE</code> implies a quite huge performance
 -- hit because <code>debug.traceback()</code> has to be called for every message logged. Note that the default pattern uses these placeholders.
 --
--- Default pattern for all appenders is <code>[%DATE] [%LEVEL] at %FILE:%LINE(%METHOD): %MESSAGE\n</code>
+-- Default pattern for all appenders is <code>[%DATE] [%LEVEL] [%COUNTRY]: %MESSAGE at %FILE:%LINE(%METHOD)\n</code>
 --
 -- @author $Author: peter.romianowski $
 -- @release $Date: 2008-09-23 08:20:56 +0200 (Di, 23 Sep 2008) $ $Rev: 90 $
@@ -255,14 +257,14 @@ function Logger:formatMessage(pattern, level, message, exception, country)
     end
 
 	-- Test CCurrentGameState existance, this script may run from pure LUA without HOI3 bindings
-	local currentDate
+	local inGameDate = ""
 	if CCurrentGameState ~= nil then
-		currentDate = CCurrentGameState.GetCurrentDate()
-		currentDate = tostring(currentDate:GetYear()) .. "-" .. tostring(currentDate:GetMonthOfYear()) .. "-" .. tostring(currentDate:GetDayOfMonth())
-	else
-		currentDate = tostring(os.date())
+		inGameDate = CCurrentGameState.GetCurrentDate()
+		inGameDate = tostring(currentDate:GetYear()) .. "-" .. tostring(currentDate:GetMonthOfYear()) .. "-" .. tostring(currentDate:GetDayOfMonth())
 	end
-    result = string.gsub(result, "%%DATE", currentDate)
+
+    result = string.gsub(result, "%%DATE", inGameDate)
+	result = string.gsub(result, "%%RDATE", tostring(os.date()))
     result = string.gsub(result, "%%LEVEL", level)
     result = string.gsub(result, "%%MESSAGE", message)
 	result = string.gsub(result, "%%COUNTRY", country)
