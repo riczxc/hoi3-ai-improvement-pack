@@ -113,9 +113,16 @@ gGeography = {
 	}
 }
 
-
-
-
-
-
-
+-- Rough estimate of percentage of army which is in reserve state.
+-- Used to give an estimate on manpower in peace time.
+gReserve = {
+	JAP = 0,
+	CHI = 0,
+	CGX = 0,
+	CHC = 0,
+	CSX = 0,
+	CXB = 0,
+	CYN = 0,
+	ENG = 0.33,
+	ITA = 0.1
+}

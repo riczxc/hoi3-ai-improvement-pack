@@ -50,21 +50,28 @@ end
 -- START Common helper functions
 -------------------------------------------------------------------------------
 
-gCommon = {}
-gCommon["average_infra"] = {}
+gCommon = {
+	result_cache = {}
+}
+
+function HFInit_Common()
+	gCommon = {
+		result_cache = {}
+	}
+end
+
 function IsValidCountry(country)
 	local countryTag = country:GetCountryTag()
 	return countryTag:IsReal() and countryTag:IsValid() and country:Exists()
 end
 
 function GetAverageInfrastructure(country)
-	if IsValidCountry(country) then
-		local key = tostring(country:GetCountryTag())
-		-- re-calculate occasionally
-		if gCommon["average_infra"][key] and 0 ~= math.mod(CCurrentGameState.GetAIRand(), 50) then
-			return gCommon["average_infra"][key]
-		end
+	-- Recalculate two times a year
+	return CallTimesAYear(country:GetCountryTag(), 2, GetAverageInfrastructureImpl, country)
+end
 
+function GetAverageInfrastructureImpl(country)
+	if IsValidCountry(country) then
 		local provinceCount = 0
 		local infrastructure = 0
 		local result = 0
@@ -79,7 +86,6 @@ function GetAverageInfrastructure(country)
 			result = infrastructure / provinceCount
 		end
 
-		gCommon["average_infra"][key] = result
 		return result
 	else
 		return 1
@@ -197,8 +203,96 @@ function IsOceanNeighbour(tagA, tagB)
 end
 
 function HasExtraManpowerLeft(country)
-	local result = country:GetManpower():Get() > (2 * country:GetMaxIC())
+	local mp = EstimateMPToMobilize(country)
+	local result = country:GetManpower():Get() > (2 * country:GetMaxIC() + mp)
 	return (result and country:HasExtraManpowerLeft())
+end
+
+function EstimateMPToMobilize(country)
+	if not (country:IsAtWar() or country:IsMobilized()) then
+		return CallTimesAYear(country:GetCountryTag(), 12, EstimateMPToMobilizeImpl, country)
+	else
+		return 0
+	end
+end
+
+function EstimateMPToMobilizeImpl(country)
+	local mp = 0
+	
+	for unit in country:GetUnits() do
+		local children = false
+		for child in unit:GetChildren() do
+			children = true
+			break
+		end
+		
+		local unitName = string.lower(tostring(unit:GetName()))
+		-- Filter out air, see and HQ units.
+		if not (
+			children or
+			string.match(unitName, "fleet") or
+			string.match(unitName, "flott") or
+			string.match(unitName, "marin") or
+			string.match(unitName, "kaigun") or
+			string.match(unitName, "navy") or
+			string.match(unitName, "trans") or
+			string.match(unitName, "air") or
+			string.match(unitName, "hq")
+		) then
+			dtools.debug("Added: " .. tostring(unit:GetName()), country, "DEVEL")
+			mp = mp + 8
+		else
+			dtools.debug("Filtered: " .. tostring(unit:GetName()), country, "DEVEL")
+		end
+	end
+	
+	local reserveArmy = (gReserve[tostring(country:GetCountryTag())] or 1.0)
+	local reservePenalty = country:GetGlobalModifier():GetValue(CModifier._MODIFIER_RESERVES_PENALTY_SIZE_):Get()
+	local result = -mp * reservePenalty * reserveArmy
+	
+	dtools.debug(string.format("MP: %d, RP: %f, Reserve-Army: %f, Result: %f", mp, reservePenalty, reserveArmy, result), country, 'DEVEL')
+	
+	return result
+end
+
+-- Calls the function f times a year for country with tag countryTag and
+-- caches and returns the result.
+function CallTimesAYear(countryTag, times, f, ...)
+	local countryString = tostring(countryTag)
+	local functionName = tostring(f)
+	local currentDate = CCurrentGameState.GetCurrentDate()
+	-- This is not exact, but it doesn't need to be exact. Fast is better.
+	local today = currentDate:GetYear() * 365 + currentDate:GetMonthOfYear() * 30.5 + currentDate:GetDayOfMonth()
+	local resultCache = gCommon.result_cache
+	
+	if not resultCache[countryString] then
+		resultCache[countryString] = {}
+	end
+	
+	resultCache = resultCache[countryString]
+	if not resultCache[functionName] then
+		resultCache[functionName] = {
+			day = 0,
+			result = nil
+		}
+	end
+	
+	local timeSpan = today - resultCache[functionName].day
+	if timeSpan > 365 / times then
+		resultCache[functionName].result = f(...)
+		resultCache[functionName].day = today
+		dtools.debug(
+			string.format(
+				"Recalculated function %s with result %s.", 
+				functionName, 
+				tostring(resultCache[functionName].result)
+			),
+			countryString,
+			'DEVEL'
+		)
+	end
+	
+	return resultCache[functionName].result
 end
 
 -------------------------------------------------------------------------------
@@ -312,9 +406,8 @@ function HFInit_ManageTrade(ai, ministerTag)
 		]]
 
 		if init then
-			--Utils.LUA_DEBUGOUT("Initializing global variables")
-
 			gDayCount = -1
+			HFInit_Common()
 			HFInit_Economy()
 		end
 		gLastDate.year = currentDate:GetYear()
@@ -328,79 +421,43 @@ function HFInit_ManageTrade(ai, ministerTag)
 		-- reset 'today'
 		gEconomy["manual"] = {}
 
-		day = math.mod(gDayCount, G_MEASURED_TIME_PERIOD) -- Measuring a period of G_MEASURED_TIME_PERIOD days
+		local day = math.mod(gDayCount, G_MEASURED_TIME_PERIOD) -- Measuring a period of G_MEASURED_TIME_PERIOD days
 		for country in CCurrentGameState.GetCountries() do
-			countryTag = country:GetCountryTag()
+			local countryTag = country:GetCountryTag()
+			local strCountryTag = tostring(countryTag)
 
-			if countryTag:IsReal() and countryTag:IsValid()
-				and country:Exists()
-			then
-				strCountryTag = tostring(countryTag)
-				--Utils.LUA_DEBUGOUT(strCountryTag)
-
-				if gEconomy["stock"][strCountryTag] == nil then
+			if IsValidCountry(country) then
+				if not gEconomy["stock"][strCountryTag] then
 					gEconomy["stock"][strCountryTag] = {}
-					--Utils.LUA_DEBUGOUT("gEconomy["stock"] for " .. strCountryTag .. " not set!")
 				end
 
 				local pool = country:GetPool()
 
 				for goods = 0, MAX_GOODS do
-					if gEconomy["stock"][strCountryTag][goods] == nil then
+					if not gEconomy["stock"][strCountryTag][goods] then
 						gEconomy["stock"][strCountryTag][goods] = {}
 					end
 
 					gEconomy["stock"][strCountryTag][goods][day] = pool:Get(goods):Get()
-
-					--Utils.LUA_DEBUGOUT("	" .. GOODS_TO_STRING[goods] .. " - Income: " .. country:GetDailyIncome(goods):Get() .. " Expense: " .. country:GetDailyExpense(goods):Get() .. " Balance: " .. country:GetDailyBalance(goods):Get())
 				end
-				-- if country was not AI controlled 'yesterday'
-				if gEconomy["AI"][strCountryTag] == nil then
-					-- add country to list of manual (human) trading countries
-					gEconomy["manual"][strCountryTag] = strCountryTag
-					--Utils.LUA_DEBUGOUT("Trade of " .. strCountryTag .. " is controlled by human player.")
-				end
+			else
+				gEconomy["stock"][strCountryTag] = nil
+			end
+			-- if country was not AI controlled 'yesterday'
+			if not gEconomy["AI"][strCountryTag] then
+				-- add country to list of manual (human) trading countries
+				gEconomy["manual"][strCountryTag] = strCountryTag
 			end
 		end
 		-- reset for 'tomorrow'
 		gEconomy["AI"] = {}
-
-		--Utils.LUA_DEBUGOUT("<-HFInit_ManageTrade")
 	end
 
 	-- Add this country to the list of AI controlled countries
 	gEconomy["AI"][tostring(ministerTag)] = tostring(ministerTag)
 end
 
---~ function TradeSpam( goods, BuyerCountry, SellerCountry)
---~ 	if not gEconomy["deal"][goods] then
---~ 		gEconomy["deal"][goods] = {}
---~ 	end
---~ 	if not gEconomy["deal"][goods][BuyerCountry] then
---~ 		gEconomy["deal"][goods][BuyerCountry] = {}
---~ 	end
---~ 	if not gEconomy["deal"][goods][BuyerCountry][SellerCountry] then
---~ 		gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount-30
---~ 	end
---~ 	-- less than 30 days ago?
---~ 	if gEconomy["deal"][goods][BuyerCountry][SellerCountry] > gDayCount-30 then
---~ 		Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." tries to SPAM "..tostring(BuyerCountry:GetCountryTag()).." with "
---~ 			..tostring( GOODS_TO_STRING[goods]).." after only "
---~ 			..tostring(gDayCount-gEconomy["deal"][goods][BuyerCountry][SellerCountry]).." days!")
---~ 		return true
---~ 	else -- ok
---~ 		return false
---~ 	end
---~ end
-
---~ function TradeSpamSet(goods, BuyerCountry, SellerCountry)
---~ 	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring(SellerCountry:GetCountryTag()).." trying to sell to "..tostring(BuyerCountry:GetCountryTag()).." some "..tostring( GOODS_TO_STRING[goods]))
---~ 	gEconomy["deal"][goods][BuyerCountry][SellerCountry] = gDayCount
---~ 	--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": ".."---")
---~ end
-
 function BufferingTrades()
-	--Utils.LUA_DEBUGOUT("->BufferingTrades")
 	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
 	gEconomy["import"] = {}
 	gEconomy["export"] = {}
@@ -475,7 +532,6 @@ function BufferingTrades()
 		Iters = Iters + 1
 		Counter = 0
 	end
-	--Utils.LUA_DEBUGOUT("<-BufferingTrades")
 end
 
 -- Returns true if trade of given country is controlled by human.
@@ -494,14 +550,14 @@ end
 -- G_AVERAGING_TIME_PERIOD defines how much days are averaged.
 -- Note: This function needs some days to return good results.
 function GetAverageBalance(ministerCountry, goods)
-	key = tostring(ministerCountry:GetCountryTag())
-	if gEconomy["stock"][key] == nil then
+	local key = tostring(ministerCountry:GetCountryTag())
+	if not gEconomy["stock"][key] then
 		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - HFInit_ManageTrade wasn't called yet.")
 		-- HFInit_ManageTrade wasn't called yet.
 		return 0
 	end
 
-	period = math.min(gDayCount, G_AVERAGING_TIME_PERIOD)
+	local period = math.min(gDayCount, G_AVERAGING_TIME_PERIOD)
 	if period == 0 then
 		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - No data yet!")
 		return 0 -- we have nothing to compare with
