@@ -300,12 +300,12 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 		)
 		or (
 			(
-				P.IsFullyOccupying( ministerCountry, denTag ) or
+				P.IsFullyOccupying( gerTag:GetCountry(), denTag ) or
 				denTag:GetCountry():IsGovernmentInExile() or
 				not denTag:GetCountry():Exists()
 				-- DEN is gone
 			) and (
-				P.IsFullyOccupying( ministerCountry, norTag ) or
+				P.IsFullyOccupying( gerTag:GetCountry(), norTag ) or
 				norTag:GetCountry():IsGovernmentInExile() or
 				not norTag:GetCountry():Exists()
 				-- NOR is gone
