@@ -235,8 +235,7 @@ function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
 			'industry',
 			function (province, provinceHasBuilding)
 				return not province:IsFrontProvince(false) and
-							province:GetInfrastructure():Get() > 0.3 and
-							capitalContinent == province:GetContinent()
+							province:GetInfrastructure():Get() > 0.3
 			end
 		},
 		{
