@@ -287,30 +287,13 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 
 	if recipient == romTag or recipient == finTag then
 		local gerTag = CCountryDataBase.GetTag('GER')
-		local fraTag = CCountryDataBase.GetTag('FRA')
-		local vicTag = CCountryDataBase.GetTag('VIC')
-		local denTag = CCountryDataBase.GetTag('DEN')
-		local norTag = CCountryDataBase.GetTag('NOR')
+		local polTag = CCountryDataBase.GetTag('POL')
 
 		-- Prepare for Barbarossa
-		if (vicTag:IsValid() and vicTag:IsReal() and vicTag:GetCountry():Exists()) 	--VIC exists
-		or (
-			gerTag:GetCountry():GetRelation(fraTag):HasWar() and					--GER is fighting FRA
-			fraTag:GetCountry():GetSurrenderLevel():Get() > 0.3 					--GER is winning
-		)
-		or (
-			(
-				P.IsFullyOccupying( gerTag:GetCountry(), denTag ) or
-				denTag:GetCountry():IsGovernmentInExile() or
-				not denTag:GetCountry():Exists()
-				-- DEN is gone
-			) and (
-				P.IsFullyOccupying( gerTag:GetCountry(), norTag ) or
-				norTag:GetCountry():IsGovernmentInExile() or
-				not norTag:GetCountry():Exists()
-				-- NOR is gone
-			)
-		)
+		if 	not polTag:GetCountry():Exists() or
+			polTag:GetCountry():IsGovernmentInExile() or
+			P.IsFullyOccupying(gerTag:GetCountry(), polTag)
+			-- POL is gone
 		then
 			return 100
 		end
