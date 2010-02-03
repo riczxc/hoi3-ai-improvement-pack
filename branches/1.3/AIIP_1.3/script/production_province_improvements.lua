@@ -156,7 +156,8 @@ function LoadProvinceImprovements(country)
 	------------------------------------------SOVIET UNION---------------------------------------------------
 	elseif countryTag == 'SOV' then
 		--Utils.LUA_DEBUGOUT( "SOVIET UNION" )
-
+		local continentAsia = CCurrentGameState.GetProvince(4390):GetContinent() --Vladivostok
+		
 		prod_improvements = {
 			infra = {
 				priority = 0.6,
@@ -188,14 +189,20 @@ function LoadProvinceImprovements(country)
 					3849, 3991, 4059, -- from Stalingrad to Bat'um
 					2923, 2858, 2924, 2991, 3060, 3128, 3194, 3260, 3327, 3464, -- from Stalingrad to Astrahan'
 					3529, 3594, 3593, 3722, 7106, 7176, 7252, 7289, 7307 -- from Astrahan' to Baki
-				}
+				},
+				buildCallback = function(province)
+					return true -- We span over two continents...
+				end
 			},
 			industry = {
 				priority = 0.10,
 				ids = {
 					8174, 1510, 8191, 8175, 8210, 8234, 8286, 8261, 8262, 8288,
 					8342, 8316, 8343, 8369, 8421, 8452, 8490, 8528, 8560, 8529
-				}
+				},
+				buildCallback = function(province)
+					return province:GetContinent() == continentAsia -- Only buld IC in Asia
+				end
 			},
 			air_base = {
 				priority = 0.20
