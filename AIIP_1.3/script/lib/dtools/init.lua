@@ -34,10 +34,12 @@ module("dtools", package.seeall)
 -- Class definition
 local devtools = {}
 devtools.__index = devtools
+devtools.enabled = false
 
 local _module = devtools
 
 -- initial set of stub methods (if devtools are disabled)
+function _module.loadConfig() end
 function _module.log() end
 function _module.setLogContext() end
 function _module.debug() end
@@ -51,21 +53,25 @@ function _module.harvest() end
 --
 -- Usefull to trap an error before to PI fallback to a standard code
 function _module.wrap(f, ...)
-	local retOK, ret = pcall(f, ...)
-	if retOK == false then
-		--Write the error to a file
-		local f = io.open(os.date("logs/%Y%m%d-fatal.log"), "a")
-		f:write( ret .. "' \n")
-		f:write( debug.traceback() .. "' \n\n")
-		f:close()
+	if devtools.enabled then
+		local retOK, ret = pcall(f, ...)
+		if retOK == false then
+			--Write the error to a file
+			local f = io.open(os.date("logs/%Y%m%d-fatal.log"), "a")
+			f:write( ret .. "' \n")
+			f:write( debug.traceback() .. "' \n\n")
+			f:close()
 
-		--attempt to call log
-		pcall(_module.fatal, ret )
+			--attempt to call log
+			pcall(_module.fatal, ret )
 
-		--Throw the error as it should and let PI manage our error
-		error(ret)
+			--Throw the error as it should and let PI manage our error
+			error(ret)
+		end
+		return ret
+	else
+		return f(...)
 	end
-	return ret
 end
 
 -- devtools log functions can be easily disabled without commenting out all calls
@@ -73,7 +79,7 @@ end
 -- To disable all log functionalities, please replace "if true then" by "if false then"
 --
 -- if false then
-if true then
+if devtools.enabled then
 	_module.Log4Lua = require('log4lua.logger')
 
 	_module._lastLogCategory = nil
@@ -226,7 +232,7 @@ end
 -- To disable all harvest functionalities, please replace "if true then" by "if false then"
 --
 -- if false then
-if true then
+if false then
 	function _module.harvest(t, data, commit)
 		local Harvester = require("dtools.harvester")
 		Harvester.harvest(t, data, commit)
