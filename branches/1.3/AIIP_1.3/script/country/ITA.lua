@@ -27,9 +27,9 @@ function P.ProposeDeclareWar( minister )
 			-- Utils.LUA_DEBUGOUT("Go for Greece")
 			strategy:PrepareWar( greTag, 100 )
 		end
-		if not ministerCountry:GetRelation(yugTag):HasWar() 				--Not already at war with GRE
-		and not yugTag:GetCountry():IsSubject()								--GRE isn't a subject nation
-		and CCurrentGameState.GetProvince( 3912 ):GetController() == yugTag	--GRE controls Athens
+		if not ministerCountry:GetRelation(yugTag):HasWar() 				--Not already at war with YUG
+		and not yugTag:GetCountry():IsSubject()								--YUG isn't a subject nation
+		and CCurrentGameState.GetProvince( 3912 ):GetController() == yugTag	--YUG controls Athens
 		then
 			-- Utils.LUA_DEBUGOUT("Go for Yugoslavia")
 			strategy:PrepareWar( yugTag, 100 )
