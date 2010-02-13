@@ -25,7 +25,6 @@ function ProductionMinister_Tick_Impl(minister)
 	local ai = minister:GetOwnerAI()
 	local capitalProvId =  ministerCountry:GetActingCapitalLocation():GetProvinceID()
 	local TotalIC = ministerCountry:GetTotalIC()
-	local maxBuildCost = TotalIC / 2
 
 	-- we need convoys at all?
 	availIC = ConstructConvoys(ai, minister, ministerTag, ministerCountry, availIC)
@@ -58,7 +57,6 @@ function ProductionMinister_Tick_Impl(minister)
 
 	-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
 	-- Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
-	-- Utils.LUA_DEBUGOUT("maxBuildCost: " .. tostring(maxBuildCost))
 	-- Utils.LUA_DEBUGOUT("Ratio province: " .. tostring(ratioProvince) .. "%")
 	-- Utils.LUA_DEBUGOUT("Units filterted out:")
 
@@ -68,7 +66,7 @@ function ProductionMinister_Tick_Impl(minister)
 		local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
 		local cost = ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
 
-		if cost < maxBuildCost and (not unit:IsRegiment() or gotManPower)
+		if not unit:IsRegiment() or gotManPower
 		then
 			doBuildUnit = true
 		else
