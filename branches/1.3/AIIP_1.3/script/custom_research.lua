@@ -121,19 +121,27 @@ local rocket_artillery = {
 local germany1 = {
 					'mobile_warfare',
 					'spearhead_doctrine',
-					'blitzkrieg'
-				}
-local germany2 = {
+					'blitzkrieg',
 					'schwerpunkt',
 					'operational_level_command_structure',
-					'mechanized_offensive'
+					'elastic_defence'
 				}
-local germany3 = {
-					'elastic_defence',
+local germany2 = {
 					'tactical_command_structure',
 					'combined_arms_warfare',
+					'mechanized_offensive',
+					'superior_firepower',
+					'integrated_support_doctrine',
+					'delay_doctrine',
+					'large_front'
+				}
+local germany3 = {
 					'special_forces',
-					'assault_concentration'
+					'assault_concentration',
+					'central_planning',
+					'mass_assault',
+					'grand_battle_plan',
+					'human_wave'
 				}
 -------------------------------------------------------------------
 local soviet1 = {
@@ -979,12 +987,7 @@ function ConstructTechScoreTable(minister)
 							rocket_artillery,
 							medecine,
 							radar,
-							rocket_secret,
-							destroyer,
-							light_cruiser, 
-							heavy_cruiser,
-							battlecruiser,
-							battleship
+							rocket_secret
 					}					
 		-- Level 3 techs
 		priority[3] = {	
@@ -1004,9 +1007,9 @@ function ConstructTechScoreTable(minister)
 		then
 			--Utils.LUA_DEBUGOUT( "GER VICTORY IN EUROPE" )
 			-- Start to consider Naval and Atomic techs
-			templist = { aircraft_carrier, atomic, naval_bombers  }
+			templist = { light_cruiser, heavy_cruiser, battleship, aircraft_carrier, atomic, naval_bombers  }
 			priority[2] = InsertList(priority[2], templist)
-			templist = { strategic_bombers }
+			templist = { destroyer, battlecruiser, strategic_bombers }
 			priority[3] = InsertList(priority[3], templist)
 			
 		end
