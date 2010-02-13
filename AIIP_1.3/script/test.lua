@@ -1,7 +1,0 @@
-require('devtools')
---~ test = require('dtools.test')
-print(dtools)
---~ test.run()
-dtools.info('This is an information message')
-dtools.fatal('This is fatal message')
-dtools.debug('This is debug message')
