@@ -9,46 +9,43 @@ require('helper_functions')
 --Use our wrapper method in order to trap and log our errors
 function ForeignMinister_Tick(minister)
 	dtools.setLogContext(minister,"DIPLO")
-	dtools.info('ForeignMinister_Tick')
+	--dtools.info('ForeignMinister_Tick')
 
-	return dtools.wrap(ForeignMinister_Tick_Impl,minister)
+	return dtools.wrap(ForeignMinister_Tick_Impl, minister)
+end
+
+function ForeignMinister_Tick_Impl(minister)
+	-- run any decisions available
+	minister:ExecuteDiploDecisions()
+
+	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_PEACE_DELAY) == 0 then
+		ForeignMinister_HandlePeace(minister)
+	end
+
+	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_WAR_DELAY) == 0 then
+		if minister:GetCountry():IsAtWar() then
+			ForeignMinister_HandleWar(minister)
+		end
+	end
 end
 
 function ForeignMinister_EvaluateDecision(agent, decision, scope)
 	-- default we approve any decision we can take, override in country specific ai if wanted
 	-- also some random to spread out the decisions
-	local score = math.mod( CCurrentGameState.GetAIRand(), 100)
+	local score = math.mod(CCurrentGameState.GetAIRand(), 100)
 
 	score = Utils.CallScoredCountryAI(agent:GetCountryTag(), 'ForeignMinister_EvaluateDecision', score, agent, decision, scope)
 
 	if score < 25 then
 		score = 0
 	end
+	
 	return score
 end
 
-function ForeignMinister_Tick_Impl(minister)
-	--Utils.LUA_DEBUGOUT("->ForeignMinister_Tick " .. tostring(minister:GetCountryTag()))
-
-	-- run any decisions available
-	minister:ExecuteDiploDecisions()
-
-	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_PEACE_DELAY) == 0 then
-		--Utils.LUA_DEBUGOUT("ForeignMinister_HandlePeace")
-		ForeignMinister_HandlePeace(minister)
-	end
-
-	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.DIP_WAR_DELAY) == 0 then
-		if minister:GetCountry():IsAtWar() then
-			--Utils.LUA_DEBUGOUT("ForeignMinister_HandleWar")
-			ForeignMinister_HandleWar(minister)
-		end
-	end
-
-	--Utils.LUA_DEBUGOUT("<-ForeignMinister_Tick")
-end
-
 function ForeignMinister_HandleWar( minister )
+	-- dtools.info("ForeignMinister_HandleWar")
+
 	local ministerTag = minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
 	local ai = minister:GetOwnerAI()
@@ -144,7 +141,8 @@ function ForeignMinister_HandleWar( minister )
 end
 
 function ForeignMinister_HandlePeace( minister )
-
+	-- dtools.info("ForeignMinister_HandlePeace")
+	
 	local ministerCountry = minister:GetCountry()
 	local ministerTag = ministerCountry:GetCountryTag()
 	local ai = minister:GetOwnerAI()
