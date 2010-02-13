@@ -276,6 +276,14 @@ function P.PickBestMission(ai, minister, countryTag, bestMission, bestScore )
 				bestMission = SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY
 			end
 		end
+	elseif tostring(countryTag) == 'FIN' then
+		local country = countryTag:GetCountry()
+		
+		if 	not country:IsSubject() and
+			not (country:GetFaction() == minister:GetCountry():GetFaction())
+		then
+			bestMission = SpyMission.SPYMISSION_BOOST_OUR_PARTY
+		end
 	end
 	return bestMission
 end
@@ -283,12 +291,10 @@ end
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local romTag = CCountryDataBase.GetTag('ROM')
 	local finTag = CCountryDataBase.GetTag('FIN')
-	local japTag = CCountryDataBase.GetTag('JAP')
+	local polTag = CCountryDataBase.GetTag('POL')
+	local gerTag = CCountryDataBase.GetTag('GER')
 
-	if recipient == romTag or recipient == finTag then
-		local gerTag = CCountryDataBase.GetTag('GER')
-		local polTag = CCountryDataBase.GetTag('POL')
-
+	if recipient == finTag then
 		-- Prepare for Barbarossa
 		if 	not polTag:GetCountry():Exists() or
 			polTag:GetCountry():IsGovernmentInExile() or
@@ -297,23 +303,20 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 		then
 			return 100
 		end
-	-- elseif recipient == japTag then
-		-- local chiTag = CCountryDataBase.GetTag('CHI')
-		
-		-- Wait till they've sorted out their problem with China...
-		-- if 	not (chiTag:IsValid() and chiTag:IsReal() and chiTag:GetCountry():Exists())
-		-- or	(
-			-- chiTag:GetCountry():IsSubject() and chiTag:GetCountry():GetOverlord() == japTag
-		-- )
-		-- or 	(
-			-- chiTag:GetCountry():GetRelation(japTag):HasWar() and
-			-- chiTag:GetCountry():GetSurrenderLevel():Get() > 0.5
-		-- )
-		-- then
-			-- return 100
-		-- else
-			-- return 0
-		-- end
+	elseif recipient == romTag then
+		-- Get them after HUN but before BUL (more important)
+		local hunTag = CCountryDataBase.GetTag('HUN')
+		if hunTag:GetCountry():GetFaction() == gerTag:GetCountry():GetFaction() then
+			return 100
+		end
+		-- If HUN is not in Axis for some reason...
+		if 	not polTag:GetCountry():Exists() or
+			polTag:GetCountry():IsGovernmentInExile() or
+			P.IsFullyOccupying(gerTag:GetCountry(), polTag)
+			-- POL is gone
+		then
+			return 100
+		end
 	end
 
 	return score
