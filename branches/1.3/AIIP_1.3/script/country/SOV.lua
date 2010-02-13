@@ -63,6 +63,23 @@ function P.ForeignMinister_EvaluateDecision( score, agent, decision, scope )
 	return score
 end
 
+function P.ManageSpyMissionAtHome(newMission, ai, minister, ministerCountry)
+	if not ministerCountry:IsAtWar() then
+		local year = ai:GetCurrentDate():GetYear()
+		local conscriptionLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('conscription_law'))
+		local conscriptionLawIndex = ministerCountry:GetLaw(conscriptionLawGroup):GetIndex()
+		local targetedConscriptionLawIndex = GetLawIndexByName('three_year_draft')
+		
+		if conscriptionLawIndex < targetedConscriptionLawIndex then
+			if year <= 1937 or newMission ~= SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY then
+				newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
+			end
+		end
+	end
+	
+	return newMission
+end
+
 function P.PickBestMission(ai, minister, countryTag, selectedSpyMission, score)
 	-- As long as GER is at peace, don't increase threat of Allies.
 	-- This would hurt ourselfs, because the increased threat of UK and France would
