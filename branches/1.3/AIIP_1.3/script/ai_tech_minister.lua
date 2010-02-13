@@ -275,11 +275,11 @@ function CalculateTechScore(minister, ministerCountry, tech, techScoreTable, res
 		if #techs > 0 then
 			score = 0
 
-			-- Do not spend more than 10% of our reseach capacity to theory techs.
+			-- Do not spend more than 5% of our reseach capacity to theory techs.
 			-- Do only use theory techs if more than 5 research slots are available.
 			local slots = ministerCountry:GetAllowedResearchSlots()
 			local ratio = researchCountTheory / slots
-			if ratio < 0.1 and slots > 5 then
+			if ratio < 0.05 and slots > 5 then
 				local count = 0
 				for _,tName in ipairs(techs) do
 					if techScoreTable[tName] then
