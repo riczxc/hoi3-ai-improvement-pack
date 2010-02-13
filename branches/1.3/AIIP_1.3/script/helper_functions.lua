@@ -107,17 +107,13 @@ function in_table ( e, t )
 end
 
 -- Is country A capital on the same land mass as country B capital ?
--- This function is convenient to detect colonies (invasions?).
--- useful no to spy colonial powers as Guanxi (for instance)
-function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
-	--Utils.debug("IsNeighbourOnSameContinent",tagA,"ROOT")
-
+function IsOnSameContinent(tagA, countryA, tagB, countryB)
 	local a = tostring(tagA)
 	local b = tostring(tagB)
 
 	-- Bypass stupid question
 	if a == b then
-		return false
+		return true
 	end
 
 	-- Island countries
@@ -143,9 +139,9 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 		local continentAsia = CCurrentGameState.GetProvince(4390):GetContinent() --Vladivostok
 
 		if a == 'SOV' and ((continentA == continentB) or (continentAsia == continentB)) then
-			return countryA:IsNeighbour(tagB)
+			return true
 		elseif b == 'SOV' and ((continentA == continentB) or (continentAsia == continentA)) then
-			return countryA:IsNeighbour(tagB)
+			return true
 		end
 		return false
 	end
@@ -156,15 +152,21 @@ function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
 		local continentEurope = CCurrentGameState.GetProvince(4503):GetContinent() --Istanbul
 
 		if a == 'TUR' and ((continentA == continentB) or (continentEurope == continentB)) then
-			return countryA:IsNeighbour(tagB)
+			return true
 		elseif b == 'TUR' and ((continentA == continentB) or (continentEurope == continentA)) then
-			return countryA:IsNeighbour(tagB)
+			return true
 		end
 		return false
 	end
+	
+	return (continentA == continentB)
+end
 
-	--Utils.debug("/IsNeighbourOnSameContinent")
-	return (continentA == continentB) and countryA:IsNeighbour(tagB)
+-- This function is convenient to detect colonies (invasions?).
+-- useful no to spy colonial powers as Guanxi (for instance)
+function IsNeighbourOnSameContinent(tagA, countryA, tagB, countryB)
+	--Utils.debug("IsNeighbourOnSameContinent",tagA,"ROOT")
+	return (IsOnSameContinent(tagA, countryA, tagB, countryB) and countryA:IsNeighbour(tagB))
 end
 
 
@@ -552,28 +554,35 @@ end
 function GetAverageBalance(ministerCountry, goods)
 	local key = tostring(ministerCountry:GetCountryTag())
 	if not gEconomy["stock"][key] then
-		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - HFInit_ManageTrade wasn't called yet.")
-		-- HFInit_ManageTrade wasn't called yet.
+		return 0
+	end
+	
+	if not IsValidCountry(ministerCountry) then
 		return 0
 	end
 
 	local period = math.min(gDayCount, G_AVERAGING_TIME_PERIOD)
-	if period == 0 then
-		--Utils.LUA_DEBUGOUT(tostring(ministerCountry:GetCountryTag()).." GetAverageBalance - No data yet!")
-		return 0 -- we have nothing to compare with
-	end
-
-	-- Averaging doesn't work if max stockpile reached.
-	if Stock(ministerCountry, goods) >= 99990 then
+	if period < 2 or Stock(ministerCountry, goods) >= 99990 then
+		-- We either don't have enough data to compare or max stockpile reached.
 		return ministerCountry:GetDailyBalance(goods):Get()
 	end
 
-	today = math.mod(gDayCount, G_MEASURED_TIME_PERIOD)
-	yesterday = math.mod(gDayCount - 1, G_MEASURED_TIME_PERIOD)
+	local today = math.mod(gDayCount, G_MEASURED_TIME_PERIOD)
+	local yesterday = math.mod(gDayCount - 1, G_MEASURED_TIME_PERIOD)
 
-	sum = 0
+	local sum = 0
 	for i = 0, period - 1 do
-		sum = sum + (gEconomy["stock"][key][goods][today] - gEconomy["stock"][key][goods][yesterday])
+		local stockToday = 0
+		if gEconomy["stock"][key][goods][today] then
+			stockToday = gEconomy["stock"][key][goods][today]
+		end
+		
+		local stockYesterday = 0
+		if gEconomy["stock"][key][goods][yesterday] then
+			stockYesterday = gEconomy["stock"][key][goods][yesterday]
+		end
+		
+		sum = sum + (stockToday - stockYesterday)
 		today = Zmod(today - 1, G_MEASURED_TIME_PERIOD)
 		yesterday = Zmod(yesterday - 1, G_MEASURED_TIME_PERIOD)
 	end
