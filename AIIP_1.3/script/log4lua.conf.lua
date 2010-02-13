@@ -27,7 +27,7 @@ config["ROOT"] = logger.new(
 						file.new("logs/AIIP-%s.log", "%Y-%m-%d")
 					},
 					"ROOT",
-					logger.INFO
+					logger.WARN
 				)
 
 config["INTEL"] = logger.new(
@@ -36,7 +36,7 @@ config["INTEL"] = logger.new(
 						file.new("logs/AIIP-INTEL-%s.log", "%Y-%m-%d")
 					},
 					"INTEL",
-					logger.INFO
+					logger.WARN
 				)
 
 config["POLIT"] = logger.new(
@@ -45,7 +45,7 @@ config["POLIT"] = logger.new(
 						file.new("logs/AIIP-POLIT-%s.log", "%Y-%m-%d")
 					},
 					"POLIT",
-					logger.INFO
+					logger.WARN
 				)
 
 config["PROD"] = logger.new(
@@ -54,7 +54,7 @@ config["PROD"] = logger.new(
 						file.new("logs/AIIP-PROD-%s.log", "%Y-%m-%d")
 					},
 					"PROD",
-					logger.INFO
+					logger.WARN
 				)
 				
 config["DIPLO"] = logger.new(
@@ -63,7 +63,7 @@ config["DIPLO"] = logger.new(
 						file.new("logs/AIIP-DIPLO-%s.log", "%Y-%m-%d")
 					},
 					"DIPLO",
-					logger.INFO
+					logger.DEBUG
 				)
 				
 config["TECH"] = logger.new(
@@ -72,7 +72,7 @@ config["TECH"] = logger.new(
 						file.new("logs/AIIP-TECH-%s.log", "%Y-%m-%d")
 					},
 					"TECH",
-					logger.INFO
+					logger.WARN
 				)
 
 -- dedicated to SQLite extensions
@@ -82,7 +82,7 @@ config["SQL"] = logger.new(
 						file.new("logs/AIIP-SQL-%s.log", "%Y-%m-%d")
 					},
 					"SQL",
-					logger.INFO
+					logger.WARN
 				)
 
 config["DEVEL"] = logger.new(
