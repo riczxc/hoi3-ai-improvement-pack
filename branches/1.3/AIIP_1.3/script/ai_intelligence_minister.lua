@@ -30,6 +30,8 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 	local domesticSpyPresence = ministerCountry:GetSpyPresence(ministerTag)
 	local currentMission = domesticSpyPresence:GetMission()
 	local newMission = currentMission
+	local currentPriority = domesticSpyPresence:GetPriority()
+	local newPriority = currentPriority
 	local changeMission = 0
 	local totalIC = ministerCountry:GetMaxIC() -- too lazy to rename the variable
 
@@ -48,7 +50,6 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 
 	-- consider new mission if month has changed
 	if changeMission == 1 then
-
 		-- Default mission type is counterespionage
 		newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
 
@@ -90,13 +91,9 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 				end
 			end
 		end
-	end
 
-	-- priority based on IC + war status, with random modifier
-	-- (easier to use spies against minor nations)
-	local newPriority = domesticSpyPresence:GetPriority()
-	if changeMission == 1 then
-
+		-- priority based on IC + war status, with random modifier
+		-- (easier to use spies against minor nations)
 		-- minors get 1 priority
 		newPriority = 1
 
@@ -126,24 +123,27 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		end
 
 		-- cap
-		newPriority = math.min( newPriority, CSpyPresence.MAX_SPY_PRIORITY )
+		newPriority = math.min(newPriority, CSpyPresence.MAX_SPY_PRIORITY)
+		
+		oldMission = newMission
+		newMission = Utils.CallScoredCountryAI(ministerTag, "ManageSpyMissionAtHome", newMission, ai, minister, ministerCountry)
+		if oldMission ~= newMission then
+			newPriority = CSpyPresence.MAX_SPY_PRIORITY
+		end
+		
+		-- change mission
+		if newMission ~= currentMission then
+			--Utils.LUA_DEBUGOUT("Change home mission to " .. newMission)
+			local command = CChangeSpyMission(ministerTag, ministerTag, newMission)
+			ai:Post(command)
+		end
 
-		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." change home priority to "..newPriority.." - month: "..tostring(currentMonth))
-		--Utils.LUA_DEBUGOUT( tostring(ministerTag).." change home mission to "..newMission.." - month: "..tostring(currentMonth))
-	end
-
-	-- change mission
-	if newMission ~= currentMission then
-		local command = CChangeSpyMission(ministerTag, ministerTag, newMission)
-		ai:Post(command)
-		--Utils.LUA_DEBUGOUT("mission changed")
-	end
-
-	-- update priority
-	if domesticSpyPresence:GetPriority() ~= newPriority then
-		command = CChangeSpyPriority(ministerTag, ministerTag, newPriority)
-		ai:Post(command)
-		--Utils.LUA_DEBUGOUT("priority changed")
+		-- update priority
+		if newPriority ~= currentPriority then
+			--Utils.LUA_DEBUGOUT("Change home priority to " .. newPriority)
+			local command = CChangeSpyPriority(ministerTag, ministerTag, newPriority)
+			ai:Post(command)
+		end
 	end
 end
 
@@ -154,10 +154,16 @@ function PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 
 
 	local dislike = 0
-	local rel = ministerCountry:GetRelation( countryTag )
+	local rel = ministerCountry:GetRelation(countryTag)
+	local relToUs = country:GetRelation(ministerTag)
 	local strategy = ministerCountry:GetStrategy()
 	local ourIC = ministerCountry:GetMaxIC()
 	local theirIC = country:GetMaxIC()
+	
+	-- We are influencing them. Support our party to increase alignment.
+	if relToUs:IsBeingInfluenced() then
+		return PickBestMissionCallback(ministerTag, ai, minister, countryTag, SpyMission.SPYMISSION_BOOST_OUR_PARTY, 100)
+	end
 
 	-- We are in the same faction. Nothing to be done.
 	if country:HasFaction() and ministerCountry:HasFaction() and ministerCountry:GetFaction() == country:GetFaction()  then
@@ -454,7 +460,11 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 			elseif country:IsGovernmentInExile() then
 				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad "..tostring(tag).." is GIE." )
 				oPrio = 0
-
+				
+			-- We have a special mission for this country
+			elseif PickBestMissionCallback(ministerTag, ai, minister, tag, SpyMission.SPYMISSION_NONE, 0) ~= SpyMission.SPYMISSION_NONE then
+				oPrio = 200
+				
 			-- valid countries, not part of current minister faction
 			elseif IsValidCountry(country) and not (ministerCountry:GetFaction():IsValid() and ministerCountry:GetFaction() == country:GetFaction()) then
 				--Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ".."evaluating spypriority for: ".. tostring(tag))
@@ -563,7 +573,7 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		local tag = country:GetCountryTag()
 		local nPrio	 = 0
 		local ratio	 = oPrio/maxPrio
-		local SpyPresence = ministerCountry:GetSpyPresence(tag)
+		local spyPresence = ministerCountry:GetSpyPresence(tag)
 		local mission = SpyMission.SPYMISSION_NONE --default mission is NONE.
 
 		-- Compute Normalized priority
@@ -594,13 +604,13 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		local year = CCurrentGameState.GetCurrentDate():GetYear()
 
 		-- change priority
-		if nPrio ~= SpyPresence:GetPriority() then
+		if nPrio ~= spyPresence:GetPriority() then
 			local command = CChangeSpyPriority( ministerTag, tag, nPrio )
 			ai:Post(command)
 		end
 
 		-- change mission
-		if mission ~= SpyPresence:GetMission() then
+		if mission ~= spyPresence:GetMission() then
 			local missionCommand = CChangeSpyMission( ministerTag, tag, mission )
 			ai:Post(missionCommand)
 		end
@@ -609,7 +619,6 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		-- dtools.harvest('spypriority', { A = ministerTag, B = tag, nprio = nPrio, mission = mission, oPrio = oPrio }, false )
 	end
 	-- dtools.harvest('spypriority', nil, true)
-	Utils.LUA_DEBUGOUT( tostring(ministerTag).." ManageSpiesAbroad ended")
 end
 
 
