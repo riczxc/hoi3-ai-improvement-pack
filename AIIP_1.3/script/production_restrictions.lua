@@ -93,6 +93,11 @@ function LoadRestrictions(minister, ministerCountry)
 		then
 			prod_restrictions["naval_bomber"] = { 100, naval_bomber }					
 			prod_restrictions["strategic_bomber"] = { 100, strategic_bomber} 			
+		else
+			-- More air for GER
+			prod_restrictions["submarine"] = { 50, submarine, 20, cas, 15, interceptor, 5, multi_role, 10, tactical_bomber }
+			prod_restrictions["destroyer"] = { 50, destroyer, 20, cas, 15, interceptor, 5, multi_role, 10, tactical_bomber }
+			prod_restrictions["transport_ship"] = { 50, transport_ship, 20, cas, 15, interceptor, 5, multi_role, 10, tactical_bomber }
 		end	
 	------------------------------------------SOVIET UNION---------------------------------------------------
 	elseif ministerTag == 'SOV' then
