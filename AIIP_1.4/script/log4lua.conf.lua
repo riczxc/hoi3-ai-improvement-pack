@@ -63,7 +63,7 @@ config["DIPLO"] = logger.new(
 						file.new("logs/AIIP-DIPLO-%s.log", "%Y-%m-%d")
 					},
 					"DIPLO",
-					logger.DEBUG
+					logger.WARN
 				)
 				
 config["TECH"] = logger.new(
