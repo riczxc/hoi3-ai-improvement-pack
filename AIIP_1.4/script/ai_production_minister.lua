@@ -31,7 +31,7 @@ function ProductionMinister_Tick_Impl(minister)
 
 	-- Don't build anything on day one. AI needs some time to know what it wants to build.
 	if gDayCount <= 0 then
-		--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
+		-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
 		return
 	end
 
@@ -40,7 +40,7 @@ function ProductionMinister_Tick_Impl(minister)
 	end
 
 	if availIC <= 0 then
-		--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
+		-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
 		return
 	end
 
@@ -95,24 +95,24 @@ function ProductionMinister_Tick_Impl(minister)
 		end
 
 		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
---Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
+-- Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
 			local unit = requestQueue:GetHeadData().pUnit
 			local unitName = tostring(unit:GetKey())
 			local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
 			local orderlist = SubUnitList()
 
 			if unit:IsRegiment() then
-				--Utils.LUA_DEBUGOUT( "Brigade unit")
+				-- Utils.LUA_DEBUGOUT( "Brigade unit")
 				orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unitName)
 			elseif unit:IsShip() then
-				--Utils.LUA_DEBUGOUT( "Naval unit")
+				-- Utils.LUA_DEBUGOUT( "Naval unit")
 				orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
 			elseif	unitName == "cag" or unitName == "cas" or unitName == "flying_bomb" or
 					unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role" or
 					unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber" or
 					unitName == "tactical_bomber" or unitName == "transport_plane"
 			then
-				--Utils.LUA_DEBUGOUT( "Air Unit")
+				-- Utils.LUA_DEBUGOUT( "Air Unit")
 				orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
 			else
 				availIC = availIC - ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
@@ -123,9 +123,9 @@ function ProductionMinister_Tick_Impl(minister)
 			ai:Post(construct)
 
 			requestQueue:RemoveHead()
---Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Unit")
+-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Unit")
 		else
---Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Province")
+-- Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Province")
 			if provinceIdPool == nil then
 				-- Load country specific province improvements
 				local improvements = LoadProvinceImprovements(ministerCountry)
@@ -181,7 +181,7 @@ function ProductionMinister_Tick_Impl(minister)
 				ratioProvince = 0
 				dtools.warn("Dice pool is empty. Figure out why country can't build any province improvements.", ministerCountry, "DEVEL")
 			end
---Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Province")
+-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Province")
 		end
 
 		if availICInThisIteration == availIC then
@@ -206,7 +206,7 @@ function ProductionMinister_Tick_Impl(minister)
 		ai:Post(construct)
 	end
 
-	--Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
+	-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
 end
 
 function CreateProvinceIdPoolAndDice(ministerCountry, improvements)
@@ -372,127 +372,114 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		return
 	end
 
-	--Utils.LUA_DEBUGOUT("BalanceProductionSliders - " .. tostring(ministerCountry:GetCountryTag()) )
-	-- if tostring(ministerCountry:GetCountryTag())=='GER' then
-		-- --Utils.LUA_DEBUGOUT( " BalanceProductionSliders ")
-	-- end
-	--local ministerCountry = minister:GetCountry()
-	--local TotalIC = ministerCountry:GetTotalIC()
-
-	local changes = CArrayFix(5)
+	local changes = { [0] = 0, 0, 0, 0, 0 }	
 	local dissent = ministerCountry:GetDissent():Get()
-	local availIC = ministerCountry:GetTotalIC()
+	local factorLeft = 1.0
 	local MaxIC = ministerCountry:GetTotalIC()
 
 	-- CONSUMER
-	local ConsumerNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):GetNeeded():Get()
+	local ConsumerNeed = ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_CONSUMER_):GetNeeded():Get() / MaxIC
 
 	-- SUPPLY
-	local SupplyStockFactor = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()/math.min(45000, MinStock(ministerCountry, CGoodsPool._SUPPLIES_ ))
-	-- 100% supply prod. at 0 stock, 50% at 1/2 goal stock and 0% at goal stock
-	local SupplyNeed = MaxIC*(1-math.min(1, SupplyStockFactor ))
-
-	if ministerCountry:isPuppet() then
-		SupplyNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get()
+	local SupplyNeed = ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get() / MaxIC
+	if not ministerCountry:isPuppet() then
+		local supplyStock = ministerCountry:GetPool():Get(CGoodsPool._SUPPLIES_ ):Get()
+		local supplyStockFactor = supplyStock / math.min(45000, MinStock(ministerCountry, CGoodsPool._SUPPLIES_))
+		SupplyNeed = SupplyNeed * (1 + 0.5 * (1 - supplyStockFactor))
 	end
 
 	-- REINFORCEMENT
-	local ReinforcementNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_ ):GetNeeded():Get()
+	local ReinforcementNeed = ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_REINFORCEMENT_):GetNeeded():Get() / MaxIC
 
 	-- PRODUCTION
-	local ProductionNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):GetNeeded():Get()
+	local ProductionNeed = ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_PRODUCTION_):GetNeeded():Get() / MaxIC
 
 	-- UPGRADE
-	local UpgradeNeed = ministerCountry:GetProductionDistributionAt( CDistributionSetting._PRODUCTION_UPGRADE_ ):GetNeeded():Get()
+	local UpgradeNeed = ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_UPGRADE_):GetNeeded():Get() / MaxIC
 	-- --Utils.LUA_DEBUGOUT("UpgradeNeed " .. UpgradeNeed )
 
 
 	-------------------------- Distribute IC --------------------------
 
-	-- consumer need (to prevent new dissent) + boost for dissent but never more than 90% of IC
-	ConsumerNeed = ConsumerNeed + math.max(0, MaxIC-ConsumerNeed) * math.min(dissent/10, 0.9)
+	-- fight dissent
+	ConsumerNeed =  math.min(ConsumerNeed + dissent, factorLeft)
+	changes[CDistributionSetting._PRODUCTION_CONSUMER_] = ConsumerNeed
+	factorLeft = factorLeft - ConsumerNeed
 
-	-- not more than availIC
-	ConsumerNeed = math.min(availIC, ConsumerNeed)
-	changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( ConsumerNeed ) )
-
-	availIC = availIC - ConsumerNeed
-
-	-- Supply (max availIC)
-	SupplyNeed = math.min(SupplyNeed, availIC )
-	changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( SupplyNeed ) )
-	availIC = availIC - SupplyNeed
+	-- Supply (max factorLeft)
+	SupplyNeed = math.min(SupplyNeed, factorLeft)
+	changes[CDistributionSetting._PRODUCTION_SUPPLY_] = SupplyNeed
+	factorLeft = factorLeft - SupplyNeed
 
 	-- prod
 	if 1==prioSelection then
-		ProductionNeed = math.min(ProductionNeed, availIC)
-		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-		availIC = availIC - ProductionNeed
+		ProductionNeed = math.min(ProductionNeed, factorLeft)
+		changes[CDistributionSetting._PRODUCTION_PRODUCTION_] = ProductionNeed
+		factorLeft = factorLeft - ProductionNeed
 
-		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
-		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
-		availIC = availIC - ReinforcementNeed
+		ReinforcementNeed = math.min(ReinforcementNeed, factorLeft )
+		changes[CDistributionSetting._PRODUCTION_REINFORCEMENT_] = ReinforcementNeed
+		factorLeft = factorLeft - ReinforcementNeed
 
-		UpgradeNeed = math.min(UpgradeNeed, availIC )
-		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-		availIC = availIC - UpgradeNeed
+		UpgradeNeed = math.min(UpgradeNeed, factorLeft )
+		changes[CDistributionSetting._PRODUCTION_UPGRADE_] = UpgradeNeed
+		factorLeft = factorLeft - UpgradeNeed
 
 	-- upgrades
 	elseif 2==prioSelection then
-		UpgradeNeed = math.min(UpgradeNeed, availIC )
-		changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-		availIC = availIC - UpgradeNeed
+		UpgradeNeed = math.min(UpgradeNeed, factorLeft )
+		changes[CDistributionSetting._PRODUCTION_UPGRADE_] = UpgradeNeed
+		factorLeft = factorLeft - UpgradeNeed
 
-		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
-		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
-		availIC = availIC - ReinforcementNeed
+		ReinforcementNeed = math.min(ReinforcementNeed, factorLeft )
+		changes[CDistributionSetting._PRODUCTION_REINFORCEMENT_] = ReinforcementNeed
+		factorLeft = factorLeft - ReinforcementNeed
 
-		ProductionNeed = math.min(ProductionNeed, availIC)
-		changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-		availIC = availIC - ProductionNeed
+		ProductionNeed = math.min(ProductionNeed, factorLeft)
+		changes[CDistributionSetting._PRODUCTION_PRODUCTION_] = ProductionNeed
+		factorLeft = factorLeft - ProductionNeed
 
 	-- reinforcement
 	else
-		ReinforcementNeed = math.min(ReinforcementNeed, availIC )
-		changes:SetAt( CDistributionSetting._PRODUCTION_REINFORCEMENT_, CFixedPoint( ReinforcementNeed ) )
-		availIC = availIC - ReinforcementNeed
+		ReinforcementNeed = math.min(ReinforcementNeed, factorLeft )
+		changes[CDistributionSetting._PRODUCTION_REINFORCEMENT_] = ReinforcementNeed
+		factorLeft = factorLeft - ReinforcementNeed
 
-		if availIC > 0 then
+		if factorLeft > 0 then
 			-- distribute same percentage of IC needed to upgrade and production
-			local equalizer = availIC / math.max(ProductionNeed + UpgradeNeed, availIC)
+			local equalizer = factorLeft / math.max(ProductionNeed + UpgradeNeed, factorLeft)
 			ProductionNeed = equalizer * ProductionNeed
-			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint( ProductionNeed ) )
-			availIC = availIC - ProductionNeed
+			changes[CDistributionSetting._PRODUCTION_PRODUCTION_] = ProductionNeed
+			factorLeft = factorLeft - ProductionNeed
 
 			UpgradeNeed = equalizer * UpgradeNeed
-			changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint( UpgradeNeed ) )
-			availIC = availIC - UpgradeNeed
+			changes[CDistributionSetting._PRODUCTION_UPGRADE_] = UpgradeNeed
+			factorLeft = factorLeft - UpgradeNeed
 		else
-			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint(0) )
-			changes:SetAt( CDistributionSetting._PRODUCTION_UPGRADE_, CFixedPoint(0) )
+			changes[CDistributionSetting._PRODUCTION_PRODUCTION_] = 0
+			changes[CDistributionSetting._PRODUCTION_UPGRADE_] = 0
 		end
 	end
 
 	-- leftover IC
-	if availIC > 0.01 then
+	if factorLeft > 0.01 then
 
 		-- AI
-		if 0 == prioSelection and availIC > 0.02 then
-			changes:SetAt( CDistributionSetting._PRODUCTION_PRODUCTION_, CFixedPoint(changes:GetAt( CDistributionSetting._PRODUCTION_PRODUCTION_ ):Get() + 0.02 ) )
-			availIC = availIC - 0.02
+		if 0 == prioSelection and factorLeft > 0.02 then
+			changes[CDistributionSetting._PRODUCTION_PRODUCTION_] = changes[CDistributionSetting._PRODUCTION_PRODUCTION_] + 0.02
+			factorLeft = factorLeft - 0.02
 		end
 
 		-- if there is dissent move all possible IC left into money
 		if dissent > 0.01 then
-			changes:SetAt( CDistributionSetting._PRODUCTION_CONSUMER_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_CONSUMER_ ):Get()+availIC ) )
-
+			changes[CDistributionSetting._PRODUCTION_CONSUMER_] = changes[CDistributionSetting._PRODUCTION_CONSUMER_] + factorLeft
 		-- otherwise make supplies
 		else
-			changes:SetAt( CDistributionSetting._PRODUCTION_SUPPLY_, CFixedPoint( changes:GetAt( CDistributionSetting._PRODUCTION_SUPPLY_ ):Get()+availIC ) )
+			changes[CDistributionSetting._PRODUCTION_SUPPLY_] = changes[CDistributionSetting._PRODUCTION_SUPPLY_] + factorLeft
 		end
 	end
 
-	local command = CChangeInvestmentCommand( ministerCountry:GetCountryTag(), changes )
+	local command = CChangeInvestmentCommand(ministerCountry:GetCountryTag(), changes[0], changes[1], changes[2], changes[3], changes[4])
 	ai:Post(command)
 end
 

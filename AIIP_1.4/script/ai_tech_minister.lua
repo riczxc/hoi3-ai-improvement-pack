@@ -21,7 +21,7 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	}
 
 	local sum = 0
-	local changes = CArrayFix(4)
+	local changes = { [0] = 0, 0, 0, 0 };
 	local AvailLS = 1
 
 	local threat = ministerCountry:GetRelation(ministerCountry:GetHighestThreat()):GetThreat():Get()
@@ -46,14 +46,14 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	local OfficerNeed = math.max((OfficerGoal-ministerCountry:GetOfficerRatio():Get())/OfficerGoal, 0)
 	OfficerNeed = math.min(AvailLS, OfficerNeed)
 	AvailLS = AvailLS - OfficerNeed
-	changes:SetAt(CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint(OfficerNeed * 100))
+	changes[CDistributionSetting._LEADERSHIP_NCO_] = OfficerNeed
 
 	-- aim for 1/5 IC or at least 20 and use 1/2 of avail LS
 	local DiploNeed = math.max(20, ministerCountry:GetTotalIC()/5)
 	DiploNeed = 0.5 * AvailLS * math.max(0, (DiploNeed-ministerCountry:GetDiplomaticInfluence():Get())/DiploNeed)
 	DiploNeed = math.min(AvailLS, DiploNeed)
 	AvailLS = AvailLS - DiploNeed
-	changes:SetAt(CDistributionSetting._LEADERSHIP_DIPLOMACY_, CFixedPoint(DiploNeed * 100))
+	changes[CDistributionSetting._LEADERSHIP_DIPLOMACY_] = DiploNeed
 
 	-- always go for 10%, more is useless, unless if GiE
 	local EspionageNeed = math.min(0.1, AvailLS)
@@ -62,7 +62,7 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	end
 	EspionageNeed = math.min(AvailLS, EspionageNeed)
 	AvailLS = AvailLS - EspionageNeed
-	changes:SetAt(CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint(EspionageNeed * 100))
+	changes[CDistributionSetting._LEADERSHIP_ESPIONAGE_] = EspionageNeed
 
 	-- remainder into research
 	local totalLS = ministerCountry:GetTotalLeadership():Get()
@@ -72,22 +72,22 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	local ResearchNeed = researchLS / totalLS
 	ResearchNeed = math.min(AvailLS, ResearchNeed)
 	AvailLS = AvailLS - ResearchNeed
-	changes:SetAt(CDistributionSetting._LEADERSHIP_RESEARCH_, CFixedPoint(ResearchNeed * 100))
+	changes[CDistributionSetting._LEADERSHIP_RESEARCH_] = ResearchNeed
 
 	-- Remainder into rest
 	local totalNeed = OfficerNeed + DiploNeed + EspionageNeed
 	if totalNeed > 0 then
 		OfficerNeed = OfficerNeed + AvailLS * (OfficerNeed / totalNeed)
-		changes:SetAt(CDistributionSetting._LEADERSHIP_NCO_, CFixedPoint(OfficerNeed * 100))
+		changes[CDistributionSetting._LEADERSHIP_NCO_] = OfficerNeed
 
 		DiploNeed = DiploNeed + AvailLS * (DiploNeed / totalNeed)
-		changes:SetAt(CDistributionSetting._LEADERSHIP_DIPLOMACY_, CFixedPoint(DiploNeed * 100))
+		changes[CDistributionSetting._LEADERSHIP_DIPLOMACY_] = DiploNeed
 
 		EspionageNeed = EspionageNeed + AvailLS * (EspionageNeed / totalNeed)
-		changes:SetAt(CDistributionSetting._LEADERSHIP_ESPIONAGE_, CFixedPoint(EspionageNeed * 100))
+		changes[CDistributionSetting._LEADERSHIP_ESPIONAGE_] = EspionageNeed
 	end
 
-	local command = CChangeLeadershipCommand(ministerCountry:GetCountryTag(), changes)
+	local command = CChangeLeadershipCommand(ministerCountry:GetCountryTag(), changes[ 0 ], changes[1], changes[2], changes[3])
 	ai:Post(command)
 end
 

@@ -205,9 +205,14 @@ function IsOceanNeighbour(tagA, tagB)
 end
 
 function HasExtraManpowerLeft(country)
-	local mp = EstimateMPToMobilize(country)
-	local result = country:GetManpower():Get() > (2 * country:GetMaxIC() + mp)
-	return (result and country:HasExtraManpowerLeft())
+	-- We get a No such operator defined exception calling following code since 1.4
+	-- Well let's hope this workaround is not necessary anymore in 1.4
+	-- TODO: TEST THIS!!!!!!!!!
+	--local mp = EstimateMPToMobilize(country)
+	--local result = country:GetManpower():Get() > (2 * country:GetMaxIC() + mp)
+	--return (result and country:HasExtraManpowerLeft())
+	
+	return country:HasExtraManpowerLeft()
 end
 
 function EstimateMPToMobilize(country)
