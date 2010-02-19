@@ -43,9 +43,14 @@ function EvalutateExistingTrades(ai, aliceTag)
 	local aliceCountry = aliceTag:GetCountry()
 
 	local tradeRoutes = {}
-	local aliceKey = tostring(aliceTag)
-	if gEconomy["trade_routes"] and gEconomy["trade_routes"][aliceKey] then
-		tradeRoutes = gEconomy["trade_routes"][aliceKey]
+
+	for country in CCurrentGameState.GetCountries() do
+		local countryTag = country:GetCountryTag()
+		if countryTag ~= aliceTag then
+			for route in aliceCountry:GetRelation(countryTag):GetTradeRoutes() do
+				table.insert(tradeRoutes, route)
+			end
+		end
 	end
 
 	local evaluationOrder = {
@@ -180,14 +185,14 @@ function Selling(country, goods)
 	end
 
 	-- cancel imports first
-	if ExistsImport(country:GetCountryTag(), goods) then
+	if ExistsImport(country, goods) then
 		--Utils.LUA_DEBUGOUT(tostring(country:GetCountryTag()).." ExistsImport "..tostring(GOODS_TO_STRING[goods]))
 		return 0
 	end
 
 	-- don't sell fuel if importing oil
 	if goods == CGoodsPool._FUEL_ then
-		if ExistsImport(country:GetCountryTag(), CGoodsPool._CRUDE_OIL_) then
+		if ExistsImport(country, CGoodsPool._CRUDE_OIL_) then
 			return 0
 		end
 	end
@@ -245,7 +250,7 @@ function Buying(country, goods)
 	local balance = GetAverageBalance(country, goods)
 
 		-- cancel exports first
-	if	ExistsExport(country:GetCountryTag(), goods) or
+	if	ExistsExport(country, goods) or
 		-- don't buy max stocked goods
 		HasMaxStock(country, goods) or
 		-- goods in positive balance and stock not empty
@@ -257,7 +262,7 @@ function Buying(country, goods)
 	end
 
 	-- buy as much oil as we need fuel unless fuel import or war then go on to eval oil like any good
-	if	goods == CGoodsPool._CRUDE_OIL_ and not ExistsImport(country:GetCountryTag(), CGoodsPool._FUEL_) and
+	if	goods == CGoodsPool._CRUDE_OIL_ and not ExistsImport(country, CGoodsPool._FUEL_) and
 		not (country:IsAtWar() or country:GetStrategy():IsPreparingWar())
 	then
 		return Buying(country, CGoodsPool._FUEL_)
@@ -436,12 +441,12 @@ function DiploScore_OfferTrade(ai, alice, bob, observer, action)
 				-- to-do reverse check!!!
 				if not IsTradeControlledByHuman(alice) then
 					-- we try to sell to bob but bob already sells that good or we import it
-					if alice2Bob>0 and (ExistsExport(bob, goods) or ExistsImport(alice, goods))	then
+					if alice2Bob>0 and (ExistsExport(bobCountry, goods) or ExistsImport(aliceCountry, goods))	then
 						--Utils.LUA_DEBUGOUT(tostring(bob).." export route exists (1)!")
 						return 0
 					end
 					-- we try to buy but already export the good or bob imports it
-					if bob2Alice>0 and (ExistsExport(alice, goods) or ExistsImport(bob, goods))	then
+					if bob2Alice>0 and (ExistsExport(aliceCountry, goods) or ExistsImport(bobCountry, goods))	then
 						--Utils.LUA_DEBUGOUT(tostring(alice).." export route exists (2)!")
 						return 0
 					end
