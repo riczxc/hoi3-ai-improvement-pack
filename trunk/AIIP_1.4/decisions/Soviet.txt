@@ -17,6 +17,8 @@ diplomatic_decisions = {
 		}
 		effect = {
 			set_country_flag = industry_transfered_to_siberia_v1
+			manpower = 100
+
 			national_unity = 3
 			8211 = {
 				industry = 1
@@ -49,6 +51,7 @@ diplomatic_decisions = {
 		}
 		effect = {
 			set_country_flag = industry_transfered_to_siberia_v2
+			manpower = 100
 			national_unity = 2
 			6730 = { industry = 1 }
 			8211 = { industry = 4 }
@@ -78,6 +81,7 @@ diplomatic_decisions = {
 		}
 		effect = {
 			set_country_flag = industry_transfered_to_siberia_v3
+			manpower = 100
 			national_unity = 4
 			8211 = { industry = 2 }
 			8314 = { industry = 4 }
@@ -104,7 +108,7 @@ diplomatic_decisions = {
 		effect = {
 			set_country_flag = the_great_officer_purge
 			national_unity = 25
-			manpower = 250
+			manpower = 500
 			dissent = 5
 
 			minister_of_security = 4040 # Was invalid ID 4041 in vanilla 1.3
