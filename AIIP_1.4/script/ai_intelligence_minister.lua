@@ -7,22 +7,19 @@ require('helper_functions')
 --Use our wrapper method in order to trap and log our errors
 function IntelligenceMinister_Tick(minister)
 	dtools.setLogContext(minister,"INTEL")
-	dtools.info('IntelligenceMinister_Tick')
 	return dtools.wrap(IntelligenceMinister_Tick_Impl,minister)
 end
 
 function IntelligenceMinister_Tick_Impl(minister)
 	if math.mod( CCurrentGameState.GetAIRand(), ai_configuration.INTELLIGENCE_DELAY) == 0 then
-		--Utils.LUA_DEBUGOUT("->IntelligenceMinister_Tick " .. tostring(minister:GetCountryTag()))
+		dtools.info('IntelligenceMinister_Tick')
+		
 		local ministerTag = minister:GetCountryTag()
 		local ministerCountry = minister:GetCountry()
 		local ai = minister:GetOwnerAI()
 
 		ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
-		--Utils.LUA_DEBUGOUT("manage spies abroad start")
 		ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
-		--Utils.LUA_DEBUGOUT("manage spies abroad end")
-		--Utils.LUA_DEBUGOUT("<-IntelligenceMinister_Tick")
 	end
 end
 
@@ -34,8 +31,6 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 	local newPriority = currentPriority
 	local changeMission = 0
 	local totalIC = ministerCountry:GetMaxIC() -- too lazy to rename the variable
-
-	--Utils.LUA_DEBUGOUT("manage spies at home for: "..tostring(ministerTag))
 	local currentMonth = CCurrentGameState.GetCurrentDate():GetMonthOfYear()
 
 	-- only consider switching to a new mission if current one lasted at least a month
@@ -62,17 +57,17 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			if not ministerCountry:IsAtWar() then
 				-- raise national unity if less than 60 or if neutrality is less than 60 and NU > 70 (for draft laws)
 				if (unity < 60) or (neutrality < 60 and unity < 70) then
-					--Utils.LUA_DEBUGOUT( tostring(ministerTag).." raise national unity mission - month: "..tostring(currentMonth))
+					-- Utils.LUA_DEBUGOUT( tostring(ministerTag).." raise national unity mission - month: "..tostring(currentMonth))
 					newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
 				-- otherwise lower neutrality for economic laws, except for micro powers and neutral countries
 				elseif totalIC >= 10 and (ministerCountry:IsMajor() or neutrality < 90) then
-					--Utils.LUA_DEBUGOUT("not micro power")
+					-- Utils.LUA_DEBUGOUT("not micro power")
 					local economicLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('economic_law'))
 					local economicLawIndex = ministerCountry:GetLaw(economicLawGroup):GetIndex()
 					local targetedEconomicLawIndex = GetLawIndexByName('war_economy')
 
 					if economicLawIndex < targetedEconomicLawIndex then
-						--Utils.LUA_DEBUGOUT( tostring(ministerTag).." lower neutrality mission - month: "..tostring(currentMonth))
+						-- Utils.LUA_DEBUGOUT( tostring(ministerTag).." lower neutrality mission - month: "..tostring(currentMonth))
 						newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
 					end
 				end
@@ -86,7 +81,7 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 			-- minors might support ruling party instead
 			if totalIC < 20 then
 				if math.mod(CCurrentGameState.GetAIRand(), 3) == 0 then
-					--Utils.LUA_DEBUGOUT( tostring(ministerTag).." minor exception support ruling party mission - month: "..tostring(currentMonth))
+					-- Utils.LUA_DEBUGOUT( tostring(ministerTag).." minor exception support ruling party mission - month: "..tostring(currentMonth))
 					newMission = 5
 				end
 			end
@@ -133,14 +128,14 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		
 		-- change mission
 		if newMission ~= currentMission then
-			--Utils.LUA_DEBUGOUT("Change home mission to " .. newMission)
+			-- Utils.LUA_DEBUGOUT("Change home mission to " .. newMission)
 			local command = CChangeSpyMission(ministerTag, ministerTag, newMission)
 			ai:Post(command)
 		end
 
 		-- update priority
 		if newPriority ~= currentPriority then
-			--Utils.LUA_DEBUGOUT("Change home priority to " .. newPriority)
+			-- Utils.LUA_DEBUGOUT("Change home priority to " .. newPriority)
 			local command = CChangeSpyPriority(ministerTag, ministerTag, newPriority)
 			ai:Post(command)
 		end
