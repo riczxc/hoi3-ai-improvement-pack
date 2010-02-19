@@ -296,10 +296,11 @@ function Logger:_formatStackTrace(pattern)
 			result = string.gsub(result, "%%FILE", sourceFile or "n/a")
 			result = string.gsub(result, "%%LINE", sourceLine or "n/a")
 			result = string.gsub(result, "%%METHOD", sourceMethod or "n/a")
-			result = string.gsub(result, "%%STACKTRACE", stackTrace)
             break
         end
     end
+	
+	result = string.gsub(result, "%%STACKTRACE", stackTrace)
 
     return result
 end
