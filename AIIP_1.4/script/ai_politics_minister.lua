@@ -49,57 +49,64 @@ function PoliticsMinister_Tick_Impl(minister)
 	--Utils.LUA_DEBUGOUT("<-PoliticsMinister_Tick")
 end
 
-function HandleMobilization( minister )
+function HandleMobilization(minister)
 	local ministerTag = minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
+	
+	if ministerCountry:IsAtWar() then
+		return
+	end
+	
+	local mobilize = false
+	
 	-- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
-	if not ministerCountry:IsMobilized() then
-		local ai = minister:GetOwnerAI()
-		if ministerCountry:GetStrategy():IsPreparingWar() then
-			local neutrality = ministerCountry:GetNeutrality():Get() * 0.9
-			for country in CCurrentGameState.GetCountries() do
-				local countryTag = country:GetCountryTag()
-				if IsValidCountry(country) and countryTag ~= ministerTag then
-					if ministerCountry:GetStrategy():IsPreparingWarWith(countryTag) and neutrality < ministerCountry:GetMaxNeutralityForWarWith(countryTag):Get() then
-						--Utils.LUA_DEBUGOUT( "MOBILIZE BECAUSE OF PREP FOR WAR " .. tostring(ministerTag) )
-						local command = CToggleMobilizationCommand( ministerTag, true )
-						ai:Post( command )
-						return
+	local ai = minister:GetOwnerAI()
+	if ministerCountry:GetStrategy():IsPreparingWar() then
+		local neutrality = ministerCountry:GetNeutrality():Get() * 0.9
+		for country in CCurrentGameState.GetCountries() do
+			local countryTag = country:GetCountryTag()
+			if IsValidCountry(country) and countryTag ~= ministerTag then
+				if ministerCountry:GetStrategy():IsPreparingWarWith(countryTag) and neutrality < ministerCountry:GetMaxNeutralityForWarWith(countryTag):Get() then
+					--Utils.LUA_DEBUGOUT( "MOBILIZE BECAUSE OF PREP FOR WAR " .. tostring(ministerTag) )
+					mobilize = true
+					break
+				end
+			end
+		end
+	else
+		local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleMobilization' )
+
+		if countrySpecific == nil then
+			local lawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('conscription_law'))
+			local lawIndex = ministerCountry:GetLaw(lawGroup):GetIndex()
+			local targetedLawIndex = GetLawIndexByName('two_year_draft')
+
+			-- Don't mobilize as long as we don't have appropriate conscription laws.
+			-- Manpower would kill us.
+			if lawIndex >= targetedLawIndex then
+				-- check if a neighbour is starting to look threatening
+				for neighbour in ministerCountry:GetNeighbours() do
+					local neighbourCountry = neighbour:GetCountry()
+
+					local neutrality = neighbourCountry:GetNeutrality():Get() * 0.9
+					local threat = CalculateThreat(ai, ministerTag, ministerCountry, neighbour, neighbourCountry)
+
+					-- If their threat to us is high enough and their neutrality low enough to declar war upon us
+					if threat > 50 and neutrality < neighbourCountry:GetMaxNeutralityForWarWith(ministerTag):Get() then
+						--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbour) )
+						mobilize = true
+						break
 					end
 				end
 			end
 		else
-			local countrySpecific = Utils.HasCountryAIFunction( ministerTag, 'HandleMobilization' )
-
-			if countrySpecific == nil then
-				local lawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('conscription_law'))
-				local lawIndex = ministerCountry:GetLaw(lawGroup):GetIndex()
-				local targetedLawIndex = GetLawIndexByName('two_year_draft')
-
-				-- Don't mobilize as long as we don't have appropriate conscription laws.
-				-- Manpower would kill us.
-				if lawIndex >= targetedLawIndex then
-					-- check if a neighbour is starting to look threatening
-					for neighbour in ministerCountry:GetNeighbours() do
-						local neighbourCountry = neighbour:GetCountry()
-
-						local neutrality = neighbourCountry:GetNeutrality():Get() * 0.9
-						local threat = CalculateThreat(ai, ministerTag, ministerCountry, neighbour, neighbourCountry)
-
-						-- If their threat to us is high enough and their neutrality low enough to declar war upon us
-						if threat > 50 and neutrality < neighbourCountry:GetMaxNeutralityForWarWith(ministerTag):Get() then
-							--Utils.LUA_DEBUGOUT( "MOBILIZE " .. tostring(ministerTag) .. " " .. tostring(threat) .. "towards" .. tostring(neighbour) )
-							local command = CToggleMobilizationCommand(ministerTag, true)
-							ai:Post(command)
-							return
-						end
-					end
-				end
-			else
-				countrySpecific( minister )
-			end
+			countrySpecific(minister)
+			return
 		end
 	end
+	
+	local command = CToggleMobilizationCommand(ministerTag, mobilize)
+	ai:Post(command)
 end
 
 function HandleLaws(minister)
