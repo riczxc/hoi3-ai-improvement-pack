@@ -102,3 +102,53 @@ country_event = {
 		relation = { who = SIA value = 10 }
 	}
 }
+
+
+#mengkukuo stuff.
+
+country_event = {
+	
+	id = 2704
+
+	is_triggered_only = yes
+
+	title = "EVTNAME2704"
+	desc = "EVTDESC2704"
+	picture = "siam"
+
+	option = {
+		name = "OK"		
+		9089 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		7377 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		7390 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		7384 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		5052 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		7348 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		7367 = {
+			secede_province = MEN
+			add_core = MEN
+		}
+		7358 = {
+			secede_province = MEN
+			add_core = MEN
+		}		
+	}
+}

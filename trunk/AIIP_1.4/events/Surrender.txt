@@ -969,12 +969,10 @@ country_event = {
 
 	option = {
 		name = "EVTOPTA501"
-		ai_chance = { factor = 100 }
 		inherit = FROM
 	}
 	option = {
 		name = "EVTOPTB501"
-		ai_chance = { factor = 0 }
 		create_vassal = FROM
 	}	
 }

@@ -185,7 +185,7 @@ riots = {
 ##
 
 economic_boost = {
-	ic = 0.01
+	global_ic = 0.01
 }
 
 volunteer_surge = {

@@ -109,3 +109,32 @@ country_event = {
 		remove_minister = 2206		# Georges
 	}
 }
+
+country_event = {
+	
+	id = 2902
+
+	trigger = {
+		tag = FRA
+		exists = VIC
+		FRA = {
+			controls = 2613 # Paris
+		}
+		VIC = {
+			ai = yes
+		}
+	}
+
+	mean_time_to_happen =  {
+		months = 2
+	}
+
+	title = "EVTNAME2902"
+	desc = "EVTDESC2902"
+	picture = "vichy_regime"
+
+	option = {
+		name = "EVTOPTA2902"
+		inherit = VIC
+	}
+}
