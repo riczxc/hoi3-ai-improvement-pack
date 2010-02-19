@@ -95,9 +95,9 @@ function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
 	local balance = {}
 	for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
 		if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ then
-			balance[goods] = GetAverageBalance(countryA, goods) - Importing(tagA, goods)
+			balance[goods] = GetAverageBalance(countryA, goods) - Importing(countryA, goods)
 			if goods == CGoodsPool._CRUDE_OIL_ then
-				balance[goods] = balance[goods] + GetAverageBalance(countryA, CGoodsPool._FUEL_)  - Importing(tagA, CGoodsPool._FUEL_)
+				balance[goods] = balance[goods] + GetAverageBalance(countryA, CGoodsPool._FUEL_)  - Importing(countryA, CGoodsPool._FUEL_)
 			end
 
 			if balance[goods] < 0 then
@@ -111,9 +111,9 @@ function EconomicInfluenceScore(tagA, countryA, tagB, countryB)
 		for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
 			if goods ~= CGoodsPool._MONEY_ and goods ~= CGoodsPool._SUPPLIES_ then
 				if balance[goods] < 0 then
-					local balanceB = GetAverageBalance(countryB, goods) + Exporting(tagB, goods)
+					local balanceB = GetAverageBalance(countryB, goods) + Exporting(countryB, goods)
 					-- A little cheating here...
-					if balanceB > 0 and not ExistsImport(tagB, goods) then
+					if balanceB > 0 and not ExistsImport(countryB, goods) then
 						local resourceImportance = balance[goods] / negativeBalanceTotal
 						factorResources = factorResources - math.max(balanceB / balance[goods], -1) * resourceImportance
 					end

@@ -326,8 +326,6 @@ G_MAX_GC_OVER_PRODUCTION = 15 -- How much IC are allowed to put into GC in %
 TRADING_THRESHOLD = 0.4
 
 function HFInit_Economy()
-	gEconomy["import"] = {}
-	gEconomy["export"] = {}
 	gEconomy["stock"] = {}
 	gEconomy["goods_cost"] = {
  		[0] = 	defines.goods_cost.SUPPLIES,
@@ -421,8 +419,6 @@ function HFInit_ManageTrade(ai, ministerTag)
 
 		gDayCount = gDayCount + 1
 		--Utils.LUA_DEBUGOUT("--> Day " .. tostring(gDayCount))
-		-- save today's trades
-		BufferingTrades()
 
 		local day = math.mod(gDayCount, G_MEASURED_TIME_PERIOD) -- Measuring a period of G_MEASURED_TIME_PERIOD days
 		for country in CCurrentGameState.GetCountries() do
@@ -450,88 +446,11 @@ function HFInit_ManageTrade(ai, ministerTag)
 	end
 end
 
-function BufferingTrades()
-	local MAX_GOODS = CGoodsPool._GC_NUMOF_-1
-	gEconomy["import"] = {}
-	gEconomy["export"] = {}
-	gEconomy["trade_routes"] = {}
-	local Iters = 0
-	local Counter = 0
-	for AliceCountry in CCurrentGameState.GetCountries() do
-		local AliceTag = AliceCountry:GetCountryTag()
-		gEconomy["trade_routes"][tostring(AliceTag)] = {}
-
-		for BobCountry in CCurrentGameState.GetCountries() do
-			local BobTag = BobCountry:GetCountryTag()
-			--if tostring(BobTag) ~= tostring(AliceTag) then
-				for route in AliceCountry:GetRelation( BobTag ):GetTradeRoutes() do
-					if route:IsValid() then
-						table.insert(gEconomy["trade_routes"][tostring(AliceTag)], route)
-						if Counter < Iters then
-							for goods = 0, MAX_GOODS do
-								if goods ~= CGoodsPool._MONEY_ then
-									local switch = false
-									local Bob2Alice = route:GetTradedToOf(goods):Get()
-									--local Alice2Bob = route:GetTradedFromOf(goods):Get()
-									if  0~=Bob2Alice then
-										-- direction?
-										if tostring(route:GetConvoyResponsible()) == tostring(BobTag) and Bob2Alice>0 then
-											--Utils.LUA_DEBUGOUT("Switch (1)")
-											--Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
-											AliceTag, BobTag = BobTag, AliceTag
-											switch = true
-										end
-										-- if tostring(route:GetConvoyResponsible()) == tostring(AliceTag) and Alice2Bob>0 then
-											-- Utils.LUA_DEBUGOUT("Switch (2)")
-											-- Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
-										-- end
-										-- ok Bob sends to ALice
-										if Bob2Alice>0 then
-											-- Utils.LUA_DEBUGOUT(tostring(AliceTag).." 2 "..tostring(BobTag).." (1) "..tostring(Alice2Bob).." "..tostring( GOODS_TO_STRING[goods]))
-										-- else
-											--Utils.LUA_DEBUGOUT(tostring(BobTag).." 2 "..tostring(AliceTag).." (2) "..tostring(Bob2Alice).." "..tostring( GOODS_TO_STRING[goods]))
-										end
-
-										-- if Bob2Alice > 0 then
-											-- AliceTag, BobTag = BobTag, AliceTag
-										-- end
-										if nil == gEconomy["export"][goods] then
-											gEconomy["import"][goods] = {}
-											gEconomy["export"][goods] = {}
-										end
-										if nil == gEconomy["export"][goods][tostring(BobTag)] then
-											gEconomy["export"][goods][tostring(BobTag)] = {}
-										end
-										if nil == gEconomy["import"][goods][tostring(AliceTag)] then
-											gEconomy["import"][goods][tostring(AliceTag)] = {}
-										end
-										gEconomy["export"][goods][tostring(BobTag)][tostring(AliceTag)]= Bob2Alice
-										gEconomy["import"][goods][tostring(AliceTag)][tostring(BobTag)] = Bob2Alice
-										-- reverse switch
-										if switch then
-											--Utils.LUA_DEBUGOUT("Switch (2)")
-											--Alice2Bob, Bob2Alice = Bob2Alice, Alice2Bob
-											AliceTag, BobTag = BobTag, AliceTag
-										end
-									end
-								end
-							end
-						end
-					end
-				--end
-			end
-			Counter = Counter + 1
-		end
-		Iters = Iters + 1
-		Counter = 0
-	end
-end
-
 -- Returns true if trade of given country is controlled by human.
 function IsTradeControlledByHuman(countryTag)
 	-- TODO: Trades can be automated without necessarily having diplomacy automated.
 	-- Ask PI to add a constant for this. Here's the request: http://forum.paradoxplaza.com/forum/showpost.php?p=10796834&postcount=156
-	return (CCurrentGameState.GetPlayer() == countryTag and CAI.IsAIControlledForPlayer(CAI._DIPLOMACY_))
+	return (CCurrentGameState.GetPlayer() == countryTag and not CAI.IsAIControlledForPlayer(CAI._DIPLOMACY_))
 end
 
 -- Returns average balance of given goods.
@@ -626,47 +545,24 @@ function Stock(country, goods)
 	return country:GetPool():Get(goods):Get()
 end
 
-function Importing(countryTag, goods)
-	return _ImportingExporting("import", tostring(AliceTag), goods)
+function Importing(country, goods)
+	local result = country:GetTradedFor():Get(goods):Get()
+	dtools.debug("Importing: " .. tostring(result) .. " " .. GOODS_TO_STRING[goods], country)
+	return result
 end
 
-function Exporting(countryTag, goods)
-	return _ImportingExporting("export", tostring(AliceTag), goods)
+function Exporting(country, goods)
+	local result = country:GetTradedAway():Get(goods):Get()
+	dtools.debug("Exporting: " .. tostring(result) .. " " .. GOODS_TO_STRING[goods], country)
+	return result
 end
 
-function _ImportingExporting(key, countryKey, goods)
-	if not gEconomy[key] or not gEconomy[key][goods] or not gEconomy[key][goods][countryKey] then
-		return 0
-	end
-
-	local sum = 0
-	for k,v in pairs(gEconomy[key][goods][countryKey]) do
-		sum = sum + v
-	end
-
-	return sum
+function ExistsImport(country, goods)
+	return (Importing(country, goods) > 0)
 end
 
-function ExistsExport(aliceTag, goods)
-	if goods ~= CGoodsPool._MONEY_ and gEconomy["export"][goods] and gEconomy["export"][goods][tostring(aliceTag)] then
-		-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." exports "..tostring(GOODS_TO_STRING[goods]).." "..tostring(gEconomy["export"][goods][tostring(aliceTag)]))
-		-- for bobTag, Export in pairs(gEconomy["export"][goods][tostring(aliceTag)]) do
-			-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." exports "..tostring(Export).." "..tostring(GOODS_TO_STRING[goods]).." to "..tostring(bobTag))
-		-- end
-		return true
-	end
-	return false
-end
-
-function ExistsImport(aliceTag, goods)
-	if goods ~= CGoodsPool._MONEY_ and gEconomy["import"][goods] and gEconomy["import"][goods][tostring(aliceTag)] then
-		--Utils.LUA_DEBUGOUT(tostring(gDayCount)..": "..tostring( aliceTag ).." imports "..tostring(GOODS_TO_STRING[goods]))
-		-- for bobTag, Import in pairs(gEconomy["export"][goods][tostring(aliceTag)]) do
-			-- Utils.LUA_DEBUGOUT(tostring( aliceTag ).." imports "..tostring(Import).." "..tostring(GOODS_TO_STRING[goods]).." from "..tostring(bobTag))
-		-- end
-		return true
-	end
-	return false
+function ExistsExport(country, goods)
+	return (Exporting(country, goods) > 0)
 end
 
 -- return true if country has money, makes money and doesn't overproduce CG to do so
@@ -689,7 +585,7 @@ function IsRich(AliceCountry)
 		local needResources = false
 		for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
 			if goods ~= CGoodsPool._SUPPLIES_ and goods ~= CGoodsPool._FUEL_ then
-				if ExistsImport(AliceCountry:GetCountryTag(), goods) then
+				if ExistsImport(AliceCountry, goods) then
 					importer = true
 					break
 				end
@@ -702,7 +598,7 @@ function IsRich(AliceCountry)
 
 		if 	not needResources and
 			not importer and
-			not ExistsExport(AliceCountry:GetCountryTag(), CGoodsPool._SUPPLIES_) and
+			not ExistsExport(AliceCountry, CGoodsPool._SUPPLIES_) and
 			GetAverageBalance(AliceCountry, CGoodsPool._MONEY_) > 0
 		then
 			--Utils.LUA_DEBUGOUT(tostring(AliceCountry:GetCountryTag()).." IsRich ")
@@ -730,10 +626,9 @@ end
 
 function IsResourceRich(country)
 	-- Utils.LUA_DEBUGOUT("IsResourceRich started")
-	local countryTag = country:GetCountryTag()
-	local result = ExistsImport(countryTag, CGoodsPool._ENERGY_) or (country:GetDailyBalance(CGoodsPool._ENERGY_):Get() <= 0)
-	result = result or ExistsImport(countryTag, CGoodsPool._METAL_) or (country:GetDailyBalance(CGoodsPool._METAL_):Get() <= 0)
-	result = result or ExistsImport(countryTag, CGoodsPool._RARE_MATERIALS_) or (country:GetDailyBalance(CGoodsPool._RARE_MATERIALS_):Get() <= 0)
+	local result = ExistsImport(country, CGoodsPool._ENERGY_) or (country:GetDailyBalance(CGoodsPool._ENERGY_):Get() <= 0)
+	result = result or ExistsImport(country, CGoodsPool._METAL_) or (country:GetDailyBalance(CGoodsPool._METAL_):Get() <= 0)
+	result = result or ExistsImport(country, CGoodsPool._RARE_MATERIALS_) or (country:GetDailyBalance(CGoodsPool._RARE_MATERIALS_):Get() <= 0)
 	-- Utils.LUA_DEBUGOUT("IsResourceRich finished")
 	return (not result)
 end

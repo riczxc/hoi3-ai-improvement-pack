@@ -1530,9 +1530,9 @@ function ConstructTechScoreTable(minister)
 	
 	for tech,resource in pairs(resourceTechs) do
 		if not techScoreTable[tech] then
-			if 	ExistsImport(ministerTag, resource) or (
+			if 	ExistsImport(ministerCountry, resource) or (
 					GetAverageBalance(ministerCountry, resource) < 0 and
-					not ExistsExport(ministerTag, resource)
+					not ExistsExport(ministerCountry, resource)
 				)
 			then
 				techScoreTable[tech] = maxPrio - 1 -- medium
@@ -1552,7 +1552,7 @@ function ConstructTechScoreTable(minister)
 	end
 	
 	if not techScoreTable['supply_production'] then
-		if	ExistsExport(ministerTag, CGoodsPool._SUPPLIES_) or  
+		if	ExistsExport(ministerCountry, CGoodsPool._SUPPLIES_) or  
 			(ministerCountry:GetProductionDistributionAt(CDistributionSetting._PRODUCTION_SUPPLY_):GetNeeded():Get() / baseIC) > 0.20 -- 20% of IC into supplies
 		then
 			techScoreTable['supply_production'] = maxPrio - 1 -- medium
