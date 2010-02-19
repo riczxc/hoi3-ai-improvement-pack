@@ -2,6 +2,23 @@
 local P = {}
 AI_JAP = P
 
+function P.IsControlling(countryTagA, countryTagB)
+	local countryB = countryTagB:GetCountry()
+	if 	not (countryTagB:IsValid() and countryTagB:IsReal() and countryB:Exists())
+		or 	countryB:IsGovernmentInExile()
+		or	(
+			countryB:IsSubject() and countryB:GetOverlord() == countryTagA
+		)
+		or 	(
+			countryB:GetRelation(countryTagA):HasWar() and
+			countryB:GetSurrenderLevel():Get() > 0.5
+		)
+	then
+		return true
+	end
+	return false
+end
+
 function P.ProposeDeclareWar( minister )
 	local ai = minister:GetOwnerAI()
 	local ministerTag = minister:GetCountryTag()
@@ -28,54 +45,27 @@ function P.ProposeDeclareWar( minister )
 		)
 	then
 		strategy:PrepareWar(csxTag, 100)
-		dtools.info("Preparing war against CSX.")
+		dtools.debug("Preparing war against CSX.")
 	end
 	
 	-- After Shanxi go for Communist China
-	if 	not (csxTag:IsValid() and csxTag:IsReal() and csxTag:GetCountry():Exists())
-	or 	csxTag:GetCountry():IsGovernmentInExile()
-	or	(
-		csxTag:GetCountry():IsSubject() and csxTag:GetCountry():GetOverlord() == ministerTag
-	)
-	or 	(
-		csxTag:GetCountry():GetRelation(ministerTag):HasWar() and
-		csxTag:GetCountry():GetSurrenderLevel():Get() > 0.5
-	)
-	then
+	if P.IsControlling(ministerTag, csxTag) then
 		strategy:PrepareWar(chcTag, 100)
-		dtools.info("Preparing war against CHC.")
+		dtools.debug("Preparing war against CHC.")
 	end
 	
 	-- After Communist China go for Nationalist China
-	if 	not (chcTag:IsValid() and chcTag:IsReal() and chcTag:GetCountry():Exists())
-	or 	chcTag:GetCountry():IsGovernmentInExile()
-	or	(
-		chcTag:GetCountry():IsSubject() and chcTag:GetCountry():GetOverlord() == ministerTag
-	)
-	or 	(
-		chcTag:GetCountry():GetRelation(ministerTag):HasWar() and
-		chcTag:GetCountry():GetSurrenderLevel():Get() > 0.5
-	)
-	then
+	if P.IsControlling(ministerTag, chcTag) then
 		strategy:PrepareWar(chiTag, 100)
-		dtools.info("Preparing war against CHI.")
+		dtools.debug("Preparing war against CHI.")
 	end
 	
 	-- After Nationalist China go for the rest
-	if 	not (chiTag:IsValid() and chiTag:IsReal() and chiTag:GetCountry():Exists())
-	or 	chiTag:GetCountry():IsGovernmentInExile()
-	or	(
-		chiTag:GetCountry():IsSubject() and chiTag:GetCountry():GetOverlord() == ministerTag
-	)
-	or 	(
-		chiTag:GetCountry():GetRelation(ministerTag):HasWar() and
-		chiTag:GetCountry():GetSurrenderLevel():Get() > 0.5
-	)
-	then
+	if P.IsControlling(ministerTag, chiTag) then
 		strategy:PrepareWar(cgxTag, 100)
-		dtools.info("Preparing war against CGX, CXB and CYN.")
 		strategy:PrepareWar(cxbTag, 100)
 		strategy:PrepareWar(cynTag, 100)
+		dtools.debug("Preparing war against CGX, CXB and CYN.")
 	end
 
 	local gerTag = CCountryDataBase.GetTag('GER')
@@ -88,6 +78,7 @@ function P.ProposeDeclareWar( minister )
 
 	if gerTag:GetCountry():GetRelation(sovTag):HasWar()
 	and not ministerCountry:GetRelation(sovTag):HasWar()
+	and P.IsControlling(ministerTag, chiTag) -- China no problem anymore
 	then
 		local chiTag = CCountryDataBase.GetTag('CHI')
 		
@@ -118,7 +109,7 @@ function P.ProposeDeclareWar( minister )
 
 			if troupCount < 1 and intelCoverage > 7 then
 				strategy:PrepareWar(sovTag, 100)
-				dtools.info("Preparing war against SOV.")
+				dtools.debug("Preparing war against SOV.")
 			end
 		end
 	end
@@ -131,9 +122,9 @@ function P.ProposeDeclareWar( minister )
 	and not usaTag:GetCountry():IsSubject() 					--USA isn't a subject nation
 	then
 		strategy:PrepareWar( usaTag, 100 )
-		dtools.info("Preparing war against USA.")
+		dtools.debug("Preparing war against USA.")
 		strategy:PrepareWar( phiTag, 100 )
-		dtools.info("Preparing war against PHI.")
+		dtools.debug("Preparing war against PHI.")
 	end
 
 	--ASIA CONQUEST
@@ -145,21 +136,21 @@ function P.ProposeDeclareWar( minister )
 		and not engTag:GetCountry():IsSubject() 					--ENG isn't a subject nation
 		then
 			strategy:PrepareWar( engTag, 100 )
-			dtools.info("Preparing war against ENG.")
+			dtools.debug("Preparing war against ENG.")
 		end
 		--Netherlands
 		if not ministerCountry:GetRelation(holTag):HasWar() 		--Not already at war with HOL
 		and not holTag:GetCountry():IsSubject() 					--HOL isn't a subject nation
 		then
 			strategy:PrepareWar( holTag, 100 )
-			dtools.info("Preparing war against HOL.")
+			dtools.debug("Preparing war against HOL.")
 		end
 		--France
 		if not ministerCountry:GetRelation(fraTag):HasWar() 		--Not already at war with FRA
 		and not fraTag:GetCountry():IsSubject() 					--FRA isn't a subject nation
 		then
 			strategy:PrepareWar( fraTag, 100 )
-			dtools.info("Preparing war against FRA.")
+			dtools.debug("Preparing war against FRA.")
 		end
 	end
 
