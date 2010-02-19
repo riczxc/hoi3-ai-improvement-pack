@@ -68,7 +68,7 @@ country_event = {
 
 	option = {
 		name = "EVTOPTA1202"			# Ok
-		manpower = 100
+		manpower = 300
 	}
 }
 
@@ -237,12 +237,6 @@ country_event = {
 		}
 		inherit = CZE
 		set_country_flag = czechoslovakia_annexed
-		2562 = { light_armor_brigade = current }
-		2562 = { light_armor_brigade = current }
-		lighttank_gun = 200
-		lighttank_engine = 200
-		lighttank_reliability = 200
-
 	}
 }
 

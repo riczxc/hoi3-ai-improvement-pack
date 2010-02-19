@@ -1687,3 +1687,135 @@ country_event = {
 		government = fascist_republic
 	}
 }
+
+#######################
+# Happy Random Events #
+#######################
+
+country_event = {
+
+	id = 5040 
+	
+	trigger = {
+		NOT = { has_country_modifier = economic_boost }
+	}
+
+	mean_time_to_happen = {
+		months =  36
+	}
+
+	title = "EVTNAME5040"
+	desc = "EVTDESC5040"
+	picture = "private_sector"
+
+	option = {
+		name = "EVTOPTA5040"
+		add_country_modifier = {
+			name = "economic_boost"
+			duration = 6
+		}
+	}
+}
+
+
+country_event = {
+
+	id = 5041 
+	
+	trigger = {
+		NOT = { has_country_modifier = volunteer_surge }
+	}
+
+	mean_time_to_happen = {
+		months =  36
+	}
+
+	title = "EVTNAME5041"
+	desc = "EVTDESC5041"
+	picture = "great_war_manifestion"
+
+	option = {
+		name = "EVTOPTA5041"
+		add_country_modifier = {
+			name = "volunteer_surge"
+			duration = 6
+		}
+	}
+}
+
+
+country_event = {
+
+	id = 5042 
+	
+	trigger = {
+		war = yes
+		NOT = { energy = 20000 }
+	}
+
+	mean_time_to_happen = {
+		months =  36
+	}
+
+	title = "EVTNAME5042"
+	desc = "EVTDESC5042"
+	picture = "great_war_manifestion"
+
+	option = {
+		name = "EVTOPTA5042"
+		energy = 50 
+	}
+}
+
+
+
+country_event = {
+
+	id = 5043 
+	
+	trigger = {
+		war = yes
+		NOT = { metal = 10000 }
+	}
+
+	mean_time_to_happen = {
+		months =  36
+	}
+
+	title = "EVTNAME5043"
+	desc = "EVTDESC5043"
+	picture = "great_war_manifestion"
+
+	option = {
+		name = "EVTOPTA5043"
+		metal = 50 
+	}
+}
+
+
+
+country_event = {
+
+	id = 5044
+	
+	trigger = {
+		war = yes
+		NOT = { rare_materials = 5000 }
+	}
+
+	mean_time_to_happen = {
+		months =  36
+	}
+
+	title = "EVTNAME5044"
+	desc = "EVTDESC5044"
+	picture = "great_war_manifestion"
+
+	option = {
+		name = "EVTOPTA5044"
+		rare_materials = 50
+	}
+}
+
+
+
