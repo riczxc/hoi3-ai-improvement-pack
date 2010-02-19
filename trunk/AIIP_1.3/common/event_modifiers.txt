@@ -131,7 +131,7 @@ troublesome_ministry = {
 }
 
 resistance_leader_caught = {
-	dissent = 0.1
+	dissent = 0.01
 }
 
 assassination_attempt_of_opposition_leader = {
@@ -180,6 +180,16 @@ reinforcements = {
 
 riots = {
 	dissent = 0.1
+}
+
+##
+
+economic_boost = {
+	ic = 0.01
+}
+
+volunteer_surge = {
+	global_manpower_modifier = 0.1
 }
 
 lendlease_take_uk = {
