@@ -329,8 +329,6 @@ function HFInit_Economy()
 	gEconomy["import"] = {}
 	gEconomy["export"] = {}
 	gEconomy["stock"] = {}
-	gEconomy["AI"] = {}
-	gEconomy["manual"] = {}
 	gEconomy["goods_cost"] = {
  		[0] = 	defines.goods_cost.SUPPLIES,
  				defines.goods_cost.FUEL,
@@ -425,8 +423,6 @@ function HFInit_ManageTrade(ai, ministerTag)
 		--Utils.LUA_DEBUGOUT("--> Day " .. tostring(gDayCount))
 		-- save today's trades
 		BufferingTrades()
-		-- reset 'today'
-		gEconomy["manual"] = {}
 
 		local day = math.mod(gDayCount, G_MEASURED_TIME_PERIOD) -- Measuring a period of G_MEASURED_TIME_PERIOD days
 		for country in CCurrentGameState.GetCountries() do
@@ -450,18 +446,8 @@ function HFInit_ManageTrade(ai, ministerTag)
 			else
 				gEconomy["stock"][strCountryTag] = nil
 			end
-			-- if country was not AI controlled 'yesterday'
-			if not gEconomy["AI"][strCountryTag] then
-				-- add country to list of manual (human) trading countries
-				gEconomy["manual"][strCountryTag] = strCountryTag
-			end
 		end
-		-- reset for 'tomorrow'
-		gEconomy["AI"] = {}
 	end
-
-	-- Add this country to the list of AI controlled countries
-	gEconomy["AI"][tostring(ministerTag)] = tostring(ministerTag)
 end
 
 function BufferingTrades()
@@ -542,15 +528,10 @@ function BufferingTrades()
 end
 
 -- Returns true if trade of given country is controlled by human.
--- Note: This function needs one day to return correct results;
--- 		 will always return true on first day (gDayCount == 0).
 function IsTradeControlledByHuman(countryTag)
-	key = tostring(countryTag)
-	if gEconomy["manual"][key] then
-		return true
-	else
-		return false
-	end
+	-- TODO: Trades can be automated without necessarily having diplomacy automated.
+	-- Ask PI to add a constant for this. Here's the request: http://forum.paradoxplaza.com/forum/showpost.php?p=10796834&postcount=156
+	return (CCurrentGameState.GetPlayer() == countryTag and CAI.IsAIControlledForPlayer(CAI._DIPLOMACY_))
 end
 
 -- Returns average balance of given goods.
