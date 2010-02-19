@@ -22,12 +22,12 @@ function P.ManageSpyMissionAtHome(newMission, ai, minister, ministerCountry)
 		local engTag = CCountryDataBase.GetTag('ENG')
 		local gerTag = CCountryDataBase.GetTag('GER')
 		
-		if not (gerTag:GetCountry():IsAtWar() or engTag:GetCountry():IsAtWar() or fraTag:GetCountry:IsAtWar()) then
+		if not (gerTag:GetCountry():IsAtWar() or engTag:GetCountry():IsAtWar() or fraTag:GetCountry():IsAtWar()) then
 			local rand = math.mod(CCurrentGameState.GetAIRand(), 4)
 			-- Lower only in 25% of all cases
 			if rand < 1 then
 				newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
-			elseif rand < 2
+			elseif rand < 2 then
 				newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
 			else
 				newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE
