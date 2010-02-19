@@ -546,15 +546,11 @@ function Stock(country, goods)
 end
 
 function Importing(country, goods)
-	local result = country:GetTradedFor():Get(goods):Get()
-	dtools.debug("Importing: " .. tostring(result) .. " " .. GOODS_TO_STRING[goods], country)
-	return result
+	return country:GetTradedFor():Get(goods):Get()
 end
 
 function Exporting(country, goods)
-	local result = country:GetTradedAway():Get(goods):Get()
-	dtools.debug("Exporting: " .. tostring(result) .. " " .. GOODS_TO_STRING[goods], country)
-	return result
+	return country:GetTradedAway():Get(goods):Get()
 end
 
 function ExistsImport(country, goods)
