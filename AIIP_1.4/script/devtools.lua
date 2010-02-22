@@ -39,14 +39,17 @@
 
 local mod_package_path
 local hoi3path
--- check for user mod files
-if CAI ~= nil and CAI.HasUserExtension() then
-	local modDir = tostring(CAI.GetModDirectory())
 
+-- check for user mod files
+if CAI ~= nil then
 	-- Extract HOI3 path from package.path
 	_,_,hoi3path = package.path:find(';([^;]-)\\lua[^;]-\\init\.lua;')
-	mod_package_path = hoi3path..'\\'..tostring(CAI.GetModDirectory())..'\\lib'
 
+	if CAI.HasUserExtension() then
+		mod_package_path = hoi3path..'\\'..tostring(CAI.GetModDirectory())..'\\lib'
+	else
+		mod_package_path = hoi3path..'\\script\\lib'
+	end
 	-- End of Devtools specific content
 else
 	-- This is a code to support run from pure lua in SciTE editor
@@ -63,8 +66,12 @@ package.cpath = package.cpath .. ";" .. mod_package_path.."\\?.dll"
 dtools = require('dtools')
 
 -- Read log4lua conf from mod directory
-if CAI ~= nil and CAI.HasUserExtension() then
-	dtools.loadConfig(hoi3path..'\\'..tostring(CAI.GetModDirectory())..'\\log4lua.conf.lua')
+if CAI ~= nil then
+	if CAI.HasUserExtension() then
+		dtools.loadConfig(hoi3path..'\\'..tostring(CAI.GetModDirectory())..'\\log4lua.conf.lua')
+	else
+		dtools.loadConfig(hoi3path..'\\script\\log4lua.conf.lua')
+	end
 end
 
 -- First debug output
