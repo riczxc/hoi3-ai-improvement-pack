@@ -66,6 +66,15 @@ config["DIPLO"] = logger.new(
 					logger.WARN
 				)
 				
+config["TRADE"] = logger.new(
+					{
+						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
+						file.new("logs/AIIP-TRADE-%s.log", "%Y-%m-%d")
+					},
+					"TRADE",
+					logger.WARN
+				)
+				
 config["TECH"] = logger.new(
 					{
 						file.new("logs/AIIP-%s.log", "%Y-%m-%d"),
