@@ -409,13 +409,13 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||int||_MODIFIER_GLOBAL_REVOLT_RISK_||
 
 ==SpyMission==
-Mission Support ruling party is missing in this list.
-Shoul be number 5.
+For some reason, the Support Party missions are called 'boost'.
 ||int||SPYMISSION_NONE||
 ||int||SPYMISSION_COUNTER_ESPIONAGE||
 ||int||SPYMISSION_MILITARY||
 ||int||SPYMISSION_TECH||
 ||int||SPYMISSION_POLITICAL||
+||int||SPYMISSION_BOOST_RULING_PARTY||
 ||int||SPYMISSION_BOOST_OUR_PARTY||
 ||int||SPYMISSION_LOWER_NATIONAL_UNITY||
 ||int||SPYMISSION_SUPPORT_RESISTANCE||
