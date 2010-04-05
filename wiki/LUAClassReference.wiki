@@ -477,7 +477,7 @@ For some reason, the Support Party missions are called 'boost'.
 ||int ||GetWantedSubUnits([#CSubUnitDefinition CSubUnitDefinition] subunit)||
 ||???||AddSubUnit||
 ||void ||PrepareWar([#CCountryTag CCountryTag] countryTag, int score?)||
-||???||PrepareWarDecision||
+||???||PrepareWarDecision([#CCountryTag CCountryTag] countryTag, int score?, [#CDecision CDecision] decision)||
 ||void||CancelPrepareWar([#CCountryTag CCountryTag] countryTag)||
 ||bool ||IsPreparingWar()||
 ||bool ||IsPreparingWarWith([#CCountryTag CCountryTag] countryTag)||
