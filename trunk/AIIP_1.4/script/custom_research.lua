@@ -476,15 +476,12 @@ local supply = {
 				}	
 local encryption = {
 					'electronic_mechanical_egineering',
+					'census_tabulation_machine',
+					'mechnical_computing_machine',
+					'electronic_computing_machine',
 					'decryption_machine',
 					'encryption_machine'
 				}	
-
-					-- took these out because research efficiency is bugged in 1.3
-					-- en/decrypt is still there for scenarios where the requirements are already researched
-					--'census_tabulation_machine',
-					--'mechnical_computing_machine',
-					--'electronic_computing_machine',
 
 -- Define technologies here which depend on another tech group.
 -- So if AI wants to research a tech in group A which depends
