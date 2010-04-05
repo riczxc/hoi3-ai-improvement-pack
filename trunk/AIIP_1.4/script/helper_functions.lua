@@ -545,12 +545,60 @@ function Stock(country, goods)
 	return country:GetPool():Get(goods):Get()
 end
 
+local _trade_cache = {}
+function CalcImportExportTableImpl(country)
+	local tagA = country:GetCountryTag()
+	
+	local result = {
+		import = {},
+		export = {}
+	}
+	
+	for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
+		result.import[goods] = 0
+		result.export[goods] = 0
+	end
+	
+	for countryB in CCurrentGameState.GetCountries() do
+		local tagB = countryB:GetCountryTag()
+		for route in country:GetRelation(tagB):GetTradeRoutes() do
+			if route:IsValid() then
+				for goods = 0, CGoodsPool._GC_NUMOF_ - 1 do
+					local amount = route:GetTradedToOf(goods):Get()
+					if amount > 0 then
+						-- Import
+						if route:GetConvoyResponsible() == tagA then
+							result.import[goods] = result.import[goods] + amount
+						-- Export
+						else
+							result.export[goods] = result.export[goods] + amount
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	return result
+end
+
+function CalcImportExportTable(country, countryTag)
+	local times = country:GetMaxIC()
+	return CallTimesAYear(countryTag, times, CalcImportExportTableImpl, country)
+end
+
 function Importing(country, goods)
-	return country:GetTradedFor():Get(goods):Get()
+	local countryTag = country:GetCountryTag()
+	local cache = CalcImportExportTable(country, countryTag)
+	-- dtools.debug("Importing " .. cache.import[goods] .. " " .. GOODS_TO_STRING[goods], country, "DEVEL")
+	return cache.import[goods]
 end
 
 function Exporting(country, goods)
-	return country:GetTradedAway():Get(goods):Get()
+	local countryTag = country:GetCountryTag()
+	local cache = CalcImportExportTable(country, countryTag)
+	-- dtools.debug("Exporting " .. cache.export[goods] .. " " .. GOODS_TO_STRING[goods], country, "DEVEL")
+	return cache.export[goods]
 end
 
 function ExistsImport(country, goods)
