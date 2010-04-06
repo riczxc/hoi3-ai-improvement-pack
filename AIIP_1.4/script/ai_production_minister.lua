@@ -7,10 +7,51 @@ require('production_division_templates')
 require('production_restrictions')
 require('production_province_improvements')
 
+local unitNames = {
+	naval = {
+		[0] = 'battlecruiser',
+		'battleship',
+		'carrier',
+		'destroyer',
+		'escort_carrier',
+		'heavy_cruiser',
+		'light_cruiser',
+		'nuclear_submarine',
+		'submarine',
+		'super_heavy_battleship',
+		'transport_ship'
+	},
+	land = {
+		[0] = 'armor_brigade',
+		'bergsjaeger_brigade',
+		'cavalry_brigade',
+		'garrison_brigade',
+		'infantry_brigade',
+		'light_armor_brigade',
+		'marine_brigade',
+		'mechanized_brigade',
+		'militia_brigade',
+		'motorized_brigade',
+		'paratrooper_brigade'
+	},
+	air = {
+		[0] = 'cag',
+		'cas',
+		'flying_bomb',
+		'flying_rocket',
+		'interceptor',
+		'multi_role',
+		'naval_bomber',
+		'rocket_interceptor',
+		'strategic_bomber',
+		'tactical_bomber',
+		'transport_plane'
+	}
+}
+
 --Use our wrapper method in order to trap and log our errors
 function ProductionMinister_Tick(minister)
 	dtools.setLogContext(minister,"PROD")
-	dtools.info('ProductionMinister_Tick')
 	return dtools.wrap(ProductionMinister_Tick_Impl,minister)
 end
 
@@ -31,7 +72,6 @@ function ProductionMinister_Tick_Impl(minister)
 
 	-- Don't build anything on day one. AI needs some time to know what it wants to build.
 	if gDayCount <= 0 then
-		-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
 		return
 	end
 
@@ -40,7 +80,6 @@ function ProductionMinister_Tick_Impl(minister)
 	end
 
 	if availIC <= 0 then
-		-- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick")
 		return
 	end
 
@@ -55,29 +94,35 @@ function ProductionMinister_Tick_Impl(minister)
 	local doBuildUnit = false
 	local gotManPower = HasExtraManpowerLeft(ministerCountry)
 
-	-- Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
-	-- Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
-	-- Utils.LUA_DEBUGOUT("Ratio province: " .. tostring(ratioProvince) .. "%")
+	Utils.LUA_DEBUGOUT("-------------------Production AI - " .. tostring(ministerTag) .. " -----------------------")
+	Utils.LUA_DEBUGOUT("gotManPower: " .. tostring(gotManPower))
+	Utils.LUA_DEBUGOUT("Ratio province: " .. tostring(ratioProvince) .. "%")
 	-- Utils.LUA_DEBUGOUT("Units filterted out:")
-
+	
+	dtools.debug("Request Queue: ")
 	-- Filter request queue
+	queue = {}
 	for request in ai:GetReqProdQueueIter() do
 		local unit = request.pUnit
-		local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
-		local cost = ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
+		
+		-- DEBUG output
+		local key = tostring(unit:GetKey())
+		if not queue[key] then
+			queue[key] = 0
+		end
+		queue[key] = queue[key] + 1
 
-		if not unit:IsRegiment() or gotManPower
-		then
+		if not unit:IsRegiment() or gotManPower then
 			doBuildUnit = true
 		else
-			-- Utils.LUA_DEBUGOUT(tostring(unit:GetKey()))
 			requestQueue:Remove(request)
 		end
 	end
+	dtools.debug(queue)
 
 	if not doBuildUnit then
 		-- Only build province improvements
-		ratioProvince = 100
+		-- ratioProvince = 100
 		-- Utils.LUA_DEBUGOUT("No unit to build. Changing ratio province to 100%.")
 	end
 
@@ -91,39 +136,79 @@ function ProductionMinister_Tick_Impl(minister)
 
 		if requestQueue:IsEmpty() then
 			doBuildUnit = false
-			ratioProvince = 100
+			ratioProvince = math.max(ratioProvince, 10 * nothingBuiltCounter)
 		end
 
 		if math.mod(CCurrentGameState.GetAIRand(), 100) >= ratioProvince then
--- Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Unit")
-			local unit = requestQueue:GetHeadData().pUnit
-			local unitName = tostring(unit:GetKey())
-			local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
 			local orderlist = SubUnitList()
+			
+			if not requestQueue:IsEmpty() then
+				local unit = requestQueue:GetHeadData().pUnit
+				local bBuildReserve = bBuildReserveAtPeace and unit:IsRegiment()
+				local unitName = tostring(unit:GetKey())
 
-			if unit:IsRegiment() then
-				-- Utils.LUA_DEBUGOUT( "Brigade unit")
-				orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unitName)
-			elseif unit:IsShip() then
-				-- Utils.LUA_DEBUGOUT( "Naval unit")
-				orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
-			elseif	unitName == "cag" or unitName == "cas" or unitName == "flying_bomb" or
-					unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role" or
-					unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber" or
-					unitName == "tactical_bomber" or unitName == "transport_plane"
-			then
-				-- Utils.LUA_DEBUGOUT( "Air Unit")
-				orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
+				if unit:IsRegiment() then
+					-- Utils.LUA_DEBUGOUT( "Brigade unit")
+					orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderlist, availIC, unitName)
+				elseif unit:IsShip() then
+					-- Utils.LUA_DEBUGOUT( "Naval unit")
+					orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
+				elseif	unitName == "cag" or unitName == "cas" or unitName == "flying_bomb" or
+						unitName == "flying_rocket" or unitName == "interceptor" or unitName == "multi_role" or
+						unitName == "naval_bomber" or unitName == "rocket_interceptor" or unitName == "strategic_bomber" or
+						unitName == "tactical_bomber" or unitName == "transport_plane"
+				then
+					-- Utils.LUA_DEBUGOUT( "Air Unit")
+					orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
+				else
+					availIC = availIC - ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
+					SubUnitList.Append(orderlist, unit)
+				end
+
+				local construct = CConstructUnitCommand(ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID())
+				ai:Post(construct)
+
+				requestQueue:RemoveHead()
 			else
-				availIC = availIC - ministerCountry:GetBuildCostIC(unit, 1, bBuildReserve):Get()
-				SubUnitList.Append(orderlist, unit)
+				-- Force a build
+				local p = {
+					land = 40,
+					air = ministerCountry:GetNumOfAirfields(),
+					naval = ministerCountry:GetNumOfPorts()
+				}
+				if not gotManPower then
+					p.land = 0
+				end
+				
+				local sum = p.air + p.naval
+				if sum > 0 then
+					p.naval = (p.naval / sum) * (100 - p.land)
+					p.air = (p.air / sum) * (100 - p.land)
+				end
+				sum = p.air + p.naval + p.land
+				
+				if sum > 0 then
+					for k,v in pairs(p) do
+						if math.mod(CCurrentGameState.GetAIRand(), 100) < v then
+							local unitName = unitNames[k][math.mod(CCurrentGameState.GetAIRand(), table.getn(unitNames[k]))]
+							dtools.debug(tostring(unitName) .. " with a chance of " .. (v) .. "%")
+							if k == "land" then
+								orderlist, availIC = BuildTemplateDivision(minister, ministerCountry, bBuildReserveAtPeace, orderlist, availIC, unitName)
+							else
+								orderlist, availIC = BuildNavalAndAir(minister, ministerCountry, false, orderlist, availIC, unitName)
+							end
+							break
+						end
+					end
+					
+					local construct = CConstructUnitCommand(ministerTag, orderlist, capitalProvId, 1, bBuildReserveAtPeace, CNullTag(), CID())
+					ai:Post(construct)
+				else
+					-- Build province improvements
+					doBuildUnit = false
+					ratioProvince = 100
+				end
 			end
-
-			local construct = CConstructUnitCommand(ministerTag, orderlist, capitalProvId, 1, bBuildReserve, CNullTag(), CID())
-			ai:Post(construct)
-
-			requestQueue:RemoveHead()
--- Utils.LUA_DEBUGOUT("<-ProductionMinister_Tick Unit")
 		else
 -- Utils.LUA_DEBUGOUT("->ProductionMinister_Tick Province")
 			if provinceIdPool == nil then
@@ -385,7 +470,10 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 	if not ministerCountry:isPuppet() then
 		local supplyStock = ministerCountry:GetPool():Get(CGoodsPool._SUPPLIES_ ):Get()
 		local supplyStockFactor = supplyStock / math.min(45000, MinStock(ministerCountry, CGoodsPool._SUPPLIES_))
-		SupplyNeed = SupplyNeed * (1 + 0.5 * (1 - supplyStockFactor))
+		-- If below half of min stock start give it an extra boost
+		local supplyBoost = math.max(0.5 - supplyStockFactor, 0)
+		SupplyNeed = math.max(SupplyNeed * (1 + 0.5 * (1 - supplyStockFactor)), 0) + supplyBoost
+		dtools.debug(string.format("stock: %f, factor: %f, boost: %f, need: %f", supplyStock, supplyStockFactor, supplyBoost, SupplyNeed), ministerCountry, "PROD")
 	end
 
 	-- REINFORCEMENT
@@ -500,7 +588,7 @@ function BuildTemplateDivision(minister, ministerCountry, bBuildReserve, orderli
 	local rem = math.mod( CCurrentGameState.GetAIRand(), 100)
 
 	-- Determine which template AI will builds
-	while prod_ratio[unit_name][i] and template_number == 0 do
+	while prod_ratio[unit_name] and prod_ratio[unit_name][i] and template_number == 0 do
 		pourcent = pourcent - prod_ratio[unit_name][i][1]
 		--Utils.LUA_DEBUGOUT(prod_ratio[unit_name][i][1])
 		if rem >= pourcent then
@@ -546,7 +634,7 @@ function BuildNavalAndAir(minister, ministerCountry, bBuildReserve, orderlist, a
 	local find = 0
 	local rem = math.mod( CCurrentGameState.GetAIRand(), 100)
 
-	while prod_restrictions[unit_name][i] and find == 0 do
+	while prod_restrictions[unit_name] and prod_restrictions[unit_name][i] and find == 0 do
 		pourcent = pourcent - prod_restrictions[unit_name][i]
 		--Utils.LUA_DEBUGOUT(prod_restrictions[unit_name][i])
 		if rem >= pourcent then

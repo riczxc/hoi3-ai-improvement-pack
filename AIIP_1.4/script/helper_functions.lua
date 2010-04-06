@@ -208,11 +208,11 @@ function HasExtraManpowerLeft(country)
 	-- We get a No such operator defined exception calling following code since 1.4
 	-- Well let's hope this workaround is not necessary anymore in 1.4
 	-- TODO: TEST THIS!!!!!!!!!
-	--local mp = EstimateMPToMobilize(country)
-	--local result = country:GetManpower():Get() > (2 * country:GetMaxIC() + mp)
-	--return (result and country:HasExtraManpowerLeft())
-	
-	return country:HasExtraManpowerLeft()
+	local mp = EstimateMPToMobilize(country)
+	local result = country:GetManpower():Get() > (2 * country:GetMaxIC() + mp)
+	-- return (result and country:HasExtraManpowerLeft())
+	-- return country:HasExtraManpowerLeft()
+	return result
 end
 
 function EstimateMPToMobilize(country)
@@ -224,34 +224,35 @@ function EstimateMPToMobilize(country)
 end
 
 function EstimateMPToMobilizeImpl(country)
-	local mp = 0
+	-- local mp = 0
 	
-	for unit in country:GetUnits() do
-		local children = false
-		for child in unit:GetChildren() do
-			children = true
-			break
-		end
+	-- for unit in country:GetUnitsIterator() do
+		-- local children = false
+		-- for child in unit:GetChildren() do
+			-- children = true
+			-- break
+		-- end
 		
-		local unitName = string.lower(tostring(unit:GetName()))
-		-- Filter out air, see and HQ units.
-		if not (
-			children or
-			string.match(unitName, "fleet") or
-			string.match(unitName, "flott") or
-			string.match(unitName, "marin") or
-			string.match(unitName, "kaigun") or
-			string.match(unitName, "navy") or
-			string.match(unitName, "trans") or
-			string.match(unitName, "air") or
-			string.match(unitName, "hq")
-		) then
-			dtools.debug("Added: " .. tostring(unit:GetName()), country, "DEVEL")
-			mp = mp + 8
-		else
-			dtools.debug("Filtered: " .. tostring(unit:GetName()), country, "DEVEL")
-		end
-	end
+		-- local unitName = string.lower(tostring(unit:GetName()))
+		---- Filter out air, see and HQ units.
+		-- if not (
+			-- children or
+			-- string.match(unitName, "fleet") or
+			-- string.match(unitName, "flott") or
+			-- string.match(unitName, "marin") or
+			-- string.match(unitName, "kaigun") or
+			-- string.match(unitName, "navy") or
+			-- string.match(unitName, "trans") or
+			-- string.match(unitName, "air") or
+			-- string.match(unitName, "hq")
+		-- ) then
+			-- dtools.debug("Added: " .. tostring(unit:GetName()), country, "DEVEL")
+			-- mp = mp + 8
+		-- else
+			-- dtools.debug("Filtered: " .. tostring(unit:GetName()), country, "DEVEL")
+		-- end
+	-- end
+	local mp = 8 * country:GetUnits():GetTotalAmountOfDivisions()
 	
 	local reserveArmy = (gReserve[tostring(country:GetCountryTag())] or 1.0)
 	local reservePenalty = country:GetGlobalModifier():GetValue(CModifier._MODIFIER_RESERVES_PENALTY_SIZE_):Get()
@@ -288,15 +289,15 @@ function CallTimesAYear(countryTag, times, f, ...)
 	if timeSpan > 365 / times then
 		resultCache[functionName].result = f(...)
 		resultCache[functionName].day = today
-		dtools.debug(
-			string.format(
-				"Recalculated function %s with result %s.", 
-				functionName, 
-				tostring(resultCache[functionName].result)
-			),
-			countryString,
-			'DEVEL'
-		)
+		-- dtools.debug(
+			-- string.format(
+				-- "Recalculated function %s with result %s.", 
+				-- functionName, 
+				-- tostring(resultCache[functionName].result)
+			-- ),
+			-- countryString,
+			-- 'DEVEL'
+		-- )
 	end
 	
 	return resultCache[functionName].result

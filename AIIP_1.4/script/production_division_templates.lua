@@ -531,13 +531,22 @@ function LoadProductionRatio(minister, ministerCountry)
 	-- Next, you define the brigades of a template
 	if not gProdRatio[ministerTag] then
 		gProdRatio[ministerTag] = {}
-		gProdRatio[ministerTag]['infantry_brigade'] = { 	-- Infantry
-											{ 50, infantry, infantry, infantry };
-											{ 30, infantry, infantry, artillery };
-											{ 5, infantry, infantry, anti_tank };
-											{ 5, infantry, infantry, anti_air };
-											{ 5, infantry, infantry, heavy_armor }
-										}
+		if ministerTag == 'CHI' then
+			gProdRatio[ministerTag]['infantry_brigade'] = { 	-- Infantry
+												{ 50, militia, militia, militia };
+												{ 40, infantry, infantry, artillery };
+												{ 5, infantry, infantry, anti_air };
+												{ 5, infantry, infantry, engineer }
+											}
+		else
+			gProdRatio[ministerTag]['infantry_brigade'] = { 	-- Infantry
+												{ 50, infantry, infantry, infantry };
+												{ 30, infantry, infantry, artillery };
+												{ 5, infantry, infantry, anti_tank };
+												{ 5, infantry, infantry, anti_air };
+												{ 5, infantry, infantry, heavy_armor }
+											}
+		end
 		gProdRatio[ministerTag]['marine_brigade'] = {		-- Marine
 											{ 100, marine, marine, marine }
 										}
