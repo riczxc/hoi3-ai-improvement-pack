@@ -140,16 +140,19 @@ function LoadProvinceImprovements(country)
 				priority = 0.1
 			},
 			air_base = {
-				priority = 0.3
+				priority = 0.2
 			},
 			naval_base = {
-				priority = 0.3
+				priority = 0.2
 			},
 			coastal_fort = {
 				priority = 0.2
 			},
 			radar_station = {
 				priority = 0.1
+			},
+			anti_air = {
+				priority = 0.2
 			}
 		}
 
