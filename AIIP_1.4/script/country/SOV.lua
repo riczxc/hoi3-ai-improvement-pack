@@ -5,6 +5,7 @@ AI_SOV = P
 function P.ProposeDeclareWar( minister )
 	local ai = minister:GetOwnerAI()
 	local ministerCountry = minister:GetCountry()
+	local ministerTag = ministerCountry:GetCountryTag()
 	local strategy = ministerCountry:GetStrategy()
 	local year = ai:GetCurrentDate():GetYear()
 	local month = ai:GetCurrentDate():GetMonthOfYear()
@@ -21,6 +22,15 @@ function P.ProposeDeclareWar( minister )
 	and not gerTag:GetCountry():IsSubject()								--GER isn't a subject nation							
 	and CCurrentGameState.GetProvince( 1861 ):GetController() == gerTag	--GER controls Berlin
 	then
+		dtools.debug("Preparing war against GER.")
+		if ministerCountry:GetRelation(gerTag):HasNap() then
+			local action = CNapAction(ministerTag, gerTag)
+			action:SetValue(false)
+			if action:IsSelectable() then
+				dtools.debug("Revoke NAP with GER.")
+				ai:PostAction(action)
+			end
+		end
 		strategy:PrepareWar( gerTag, 100 )
 	end
 	
@@ -33,7 +43,16 @@ function P.ProposeDeclareWar( minister )
 	and not gerTag:GetCountry():IsSubject()								--GER isn't a subject nation
 	and CCurrentGameState.GetProvince( 1861 ):GetController() == gerTag	--GER controls Berlin
 	then
+		dtools.debug("Preparing war against GER.")
 		-- Doesn't seem to run so well for GER. Attack GER.
+		if ministerCountry:GetRelation(gerTag):HasNap() then
+			local action = CNapAction(ministerTag, gerTag)
+			action:SetValue(false)
+			if action:IsSelectable() then
+				dtools.debug("Revoke NAP with GER.")
+				ai:PostAction(action)
+			end
+		end
 		strategy:PrepareWar( gerTag, 100 )
 	end
 	
@@ -69,8 +88,10 @@ function P.ManageSpyMissionAtHome(newMission, ai, minister, ministerCountry)
 		local conscriptionLawGroup = CLawDataBase.GetLawGroup(GetLawGroupIndexByName('conscription_law'))
 		local conscriptionLawIndex = ministerCountry:GetLaw(conscriptionLawGroup):GetIndex()
 		local targetedConscriptionLawIndex = GetLawIndexByName('three_year_draft')
+		local domesticSpyPresence = ministerCountry:GetSpyPresence(ministerCountry:GetCountryTag())
+		local domesticSpyLevel = tonumber(tostring(domesticSpyPresence:GetLevel()))
 		
-		if conscriptionLawIndex < targetedConscriptionLawIndex then
+		if conscriptionLawIndex < targetedConscriptionLawIndex and domesticSpyLevel > 5 then
 			if year <= 1937 or newMission ~= SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY then
 				newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
 			end
