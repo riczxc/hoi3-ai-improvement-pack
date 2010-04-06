@@ -569,34 +569,35 @@ function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
 		local nPrio	 = 0
 		local ratio	 = oPrio/maxPrio
 		local spyPresence = ministerCountry:GetSpyPresence(tag)
+		local domesticSpyPresence = ministerCountry:GetSpyPresence(ministerTag)
 		local mission = SpyMission.SPYMISSION_NONE --default mission is NONE.
 
-		-- Compute Normalized priority
-		if oPrio > 0 then
-			if ratio >= 0.8 then
-				nPrio = 3
-			elseif ratio >= 0.5 then
-				nPrio = 2
-			elseif ratio >= 0.1 then
-				nPrio = 1
+		-- If everything at home is ok
+		if tonumber(tostring(domesticSpyPresence:GetLevel())) > 5 then
+			-- Compute Normalized priority
+			if oPrio > 0 then
+				if ratio >= 0.8 then
+					nPrio = 3
+				elseif ratio >= 0.5 then
+					nPrio = 2
+				elseif ratio >= 0.1 then
+					nPrio = 1
+				end
 			end
-		end
 
-		-- How do we plan to use our spies ?
-		if nPrio > 0 then
-			mission = PickBestMission(country, minister, ministerTag, ministerCountry, ai)
+			-- How do we plan to use our spies ?
+			if nPrio > 0 then
+				mission = PickBestMission(country, minister, ministerTag, ministerCountry, ai)
 
-			if mission == SpyMission.SPYMISSION_NONE then
-				--a mission was pick but there is nothing to do ! Why the hell send spies there ?
-				--we lower normalized priority.
-				nPrio = nPrio - 1
+				if mission == SpyMission.SPYMISSION_NONE then
+					--a mission was pick but there is nothing to do ! Why the hell send spies there ?
+					--we lower normalized priority.
+					nPrio = nPrio - 1
+				end
 			end
+		else
+			nPrio = 0
 		end
-
-
-		local day = CCurrentGameState.GetCurrentDate():GetDayOfMonth()+1
-		local month = CCurrentGameState.GetCurrentDate():GetMonthOfYear()+1
-		local year = CCurrentGameState.GetCurrentDate():GetYear()
 
 		-- change priority
 		if nPrio ~= spyPresence:GetPriority() then

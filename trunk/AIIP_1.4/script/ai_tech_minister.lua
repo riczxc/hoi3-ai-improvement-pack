@@ -56,7 +56,12 @@ function BalanceLeadershipSliders(ai, ministerCountry)
 	changes[CDistributionSetting._LEADERSHIP_DIPLOMACY_] = DiploNeed
 
 	-- always go for 10%, more is useless, unless if GiE
+	local domesticSpyPresence = ministerCountry:GetSpyPresence(ministerCountry:GetCountryTag())
+	local domesticSpyLevel = tonumber(tostring(domesticSpyPresence:GetLevel()))
 	local EspionageNeed = math.min(0.1, AvailLS)
+	if domesticSpyLevel < 5 then
+		EspionageNeed = math.min(EspionageNeed + (5 - domesticSpyLevel) / 20, AvailLS)
+	end
 	if ministerCountry:IsGovernmentInExile() then
 		EspionageNeed = AvailLS
 	end
