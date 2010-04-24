@@ -9,6 +9,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 1.4 addition from [http://forum.paradoxplaza.com/forum/showpost.php?p=10544657], by guibod.
 
 ==CAlignment==
+Appears nowhere in 1.4 vanilla
+
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetLastDrift(`[#CIdeologyGroup CIdeologyGroup] ideologyGroup)                                          ||  1.3    ||  
 ||  ???                                                               ||  GetDistanceFrom                                                                                         ||  1.3    ||  
 
@@ -35,8 +37,8 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||  ???                                                               ||  MoveToNeighbor                                                                                          ||  1.3    ||  
 ||  ???                                                               ||  MoveUnit                                                                                                ||  1.3    ||  
 ||  ???                                                               ||  RequestSubUnit                                                                                          ||  1.3    ||  
-||  void                                                              ||  `Post(`??? command)                                                                                     ||  1.3    ||  
-||  void                                                              ||  `PostAction(`CAction action)                                                                            ||  1.3    ||  
+||  void                                                              ||  `Post(`[LUAClassReference#CCommand CCommand] command)                                                                                     ||  1.3    ||  
+||  void                                                              ||  `PostAction(`[LUAClassReference#CAction CAction] action)                                                                            ||  1.3    ||  
 ||  void                                                              ||  `PrintConsole(`string message)                                                                          ||  1.3    ||  
 
 ==CAIAgent==
@@ -153,33 +155,44 @@ constructed with CArrayFix(int size)
 ||  String                                                            ||  `GetName(`)                                                                                             ||  1.3    ||  
 
 ==CCancelUnitConstructionCommand==
+implements [#CCommand CCommand]
 
 ==CCallAllyAction==
+implements [#CAction CAction]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  ???                                                               ||  GetVersus                                                                                               ||  1.3    ||  
 ||  ???                                                               ||  SetVersus                                                                                               ||  1.3    ||  
 
 ==CChangeInvestmentCommand==
+implements [#CCommand CCommand]
 
 ==CChangeLawCommand==
+implements [#CCommand CCommand]
 
 ==CChangeLeadershipCommand==
+implements [#CCommand CCommand]
 
 ==CChangeSpyMission==
+implements [#CCommand CCommand]
 constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] other, int spyMission)
 
 ==CChangeSpyPriority==
+implements [#CCommand CCommand]
 constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] other, int priority)
 
 ==CCommand==
 
 ==CConstructBuildingCommand==
+implements [#CCommand CCommand]
 
 ==CConstructConvoyCommand==
+implements [#CCommand CCommand]
 
 ==CConstructSingleUnitCommand==
+implements [#CCommand CCommand]
 
 ==CConstructUnitCommand==
+implements [#CCommand CCommand]
 
 ==CContinent==
 
@@ -337,6 +350,7 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||  ???                                                               ||  AddDays                                                                                                 ||  1.3    ||  
 
 ==CDebtAction==
+implements [#CAction CAction]
 
 ==CDecision==
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
@@ -344,8 +358,10 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||  ???                                                               ||  IsPotential                                                                                             ||  1.3    ||  
 
 ==CDeclareWarAction==
+implements [#CAction CAction]
 
 ==CDiplomaticAction==
+implements [#CAction CAction]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  float                                                             ||  `GetAIAcceptance(`)                                                                                     ||  1.3    ||  
 ||  ???                                                               ||  GetType                                                                                                 ||  1.3    ||  
@@ -391,6 +407,7 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||  ???                                                               ||  GetPercentage                                                                                           ||  1.3    ||  
 
 ==CEmbargoAction==
+implements [#CAction CAction]
 
 ==CEventScope==
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
@@ -398,6 +415,7 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||  ???                                                               ||  `_nProvince`                                                                                            ||  1.3    ||  
 
 ==CFactionAction==
+implements [#CAction CAction]
 
 ==CFlags==
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
@@ -421,6 +439,7 @@ constructed with CFixedPoint(float val)
 ||  float                                                             ||  `GetRounded(`)                                                                                          ||  1.3    ||  
 
 ==CGuaranteeAction==
+implements [#CAction CAction]
 
 ==CGoodsPool==
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
@@ -544,14 +563,17 @@ constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [
 ||  int                                                               ||  `_MODIFIER_WAR_EXHAUSTION_`                                                                             ||  1.3    ||  
 
 ==CNapAction==
+implements [#CAction CAction]
 
 ==CNullTag==
 
 ==CNullTechnology==
 
 ==COfferMilitaryAccessAction==
+implements [#CAction CAction]
 
 ==CPeaceAction==
+implements [#CAction CAction]
 
 ==CLaw==
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
@@ -575,9 +597,11 @@ constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [
 ||  String                                                            ||  `GetKey(`)                                                                                              ||  1.3    ||  
 
 ==CLiberateCountryCommand==
+implements [#CCommand CCommand]
 constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, [#CCountryTag CCountryTag] countryTagToLiberate)
 
 ==CLicenceTechnologyAction==
+implements [#CAction CAction]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  ???                                                               ||  GetMoney                                                                                                ||  1.3    ||  
 ||  ???                                                               ||  GetParalell                                                                                             ||  1.3    ||  
@@ -623,6 +647,7 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||  ???                                                               ||  `_RULE_NONE_`                                                                                           ||  1.3    ||  
 
 ==CSendExpeditionaryForceAction==
+implements [#CAction CAction]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  ???                                                               ||  GetClaimType                                                                                            ||  1.3    ||  
 ||  ???                                                               ||  GetUnit                                                                                                 ||  1.3    ||  
@@ -652,10 +677,12 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||  bool                                                              ||  `IsValid(`)                                                                                             ||  1.3    ||  
 
 ==CSetFlagCommand==
+implements [#CCommand CCommand]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  void                                                              ||  `CSetFlagCommand(`[#CCountryTag CCountryTag] Which, String Flag, bool bSet = true )                     ||  1.4    ||  command that can be posted for setting/clearing a country flag                                                                                             ||  
 
 ==CSetVariableCommand==
+implements [#CCommand CCommand]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  void                                                              ||  `CSetVariableCommand(`[#CCountryTag CCountryTag] Which, String Flag, [#CFixedPoint CFixedPoint] vVal)   ||  1.4    ||  command that can be posted for setting a country variable                                                                                                  ||  
 
@@ -669,6 +696,7 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||  int                                                               ||  MAX_SPY_PRIORITY                                                                                        ||  1.3    ||  
 
 ==CStartResearchCommand==
+implements [#CCommand CCommand]
 
 ==CString==
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
@@ -767,9 +795,11 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||  float                                                             ||  `GetPriority(`)                                                                                         ||  1.3    ||  
 
 ==CToggleMobilizationCommand==
+implements [#CCommand CCommand]
 CToggleMobilizationCommand(??? ministerTag, bool ???)
 
 ==CTradeAction==
+implements [#CAction CAction]
 ||  *Type*                                                            ||  *Method/Property*                                                                                       ||  *Since*||  
 ||  [#CTradeRoute CTradeRoute]                                        ||  `GetRoute(`)                                                                                            ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetTrading(`int goods, ??? ministerTag)                                                                ||  1.3    ||  
