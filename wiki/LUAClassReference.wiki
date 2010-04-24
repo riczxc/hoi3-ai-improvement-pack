@@ -9,58 +9,57 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 1.4 addition from [http://forum.paradoxplaza.com/forum/showpost.php?p=10544657], by guibod.
 
 ==CAlignment==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetLastDrift(`[#CIdeologyGroup CIdeologyGroup] ideologyGroup)                                            ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetLastDrift(`[#CIdeologyGroup CIdeologyGroup]` ideologyGroup)`                                            ||  1.3    ||  
 ||  ???                                                               ||  `GetDistanceFrom()`                                                                                       ||  1.3    ||  
 
 
 ==CAllianceAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
-||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CAllianceAction CAllianceAction]                                 ||  CAllianceAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+====Constructor summary====
+|| [#CAllianceAction CAllianceAction]                                 ||  CAllianceAction([#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CAI==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `AlreadyTradingDisabledResource(`[#CTradeRoute CTradeRoute]` route)`                                      ||  1.3    ||  
 ||  bool                                                              ||  `AlreadyTradingResourceOtherWay(`[#CTradeRoute CTradeRoute]` route)`                                      ||  1.3    ||  
-||  bool                                                              ||  `CanDeclareWar(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)                          ||  1.3    ||  
-||  bool                                                              ||  `CanTradeFreeResources(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)                  ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetAmountTradedFrom(`int goods, [#CCountryTag CCountryTag] from, [#CCountryTag CCountryTag] to)          ||  1.3    ||  
+||  bool                                                              ||  `CanDeclareWar(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                          ||  1.3    ||  
+||  bool                                                              ||  `CanTradeFreeResources(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                  ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetAmountTradedFrom(`int goods, `[#CCountryTag CCountryTag]` from, `[#CCountryTag CCountryTag]` to)`          ||  1.3    ||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry(???)`                                                                                         ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetCountryAlignmentDistance(`[#CCountry CCountry] countryA, CCountry countryB)                           ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetCountryAlignmentDistance(`[#CCountry CCountry]` countryA, `[#CCountry CCountry]` countryB)`                           ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
 ||  string                                                            ||  `GetCommonModDirectory()`                                                                                 ||  1.3    ||  
 ||  string                                                            ||  `GetModDirectory()`                                                                                       ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetNormalizedAlignmentDistance(`[#CCountry CCountry] country, CFaction faction)                          ||  1.3    ||  
-||  number                                                            ||  `GetNumberOfOwnedProvinces(`[#CCountryTag CCountryTag] countryTag)                                        ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetNormalizedAlignmentDistance(`[#CCountry CCountry]` country, `[#CFaction CFaction]` faction)`                          ||  1.3    ||  
+||  number                                                            ||  `GetNumberOfOwnedProvinces(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
 ||  [#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||  `GetReqProdQueue()`                                                                                       ||  1.3    ||  
 ||  List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`  ||  `GetReqProdQueueIter()`                                                                                   ||  1.3    ||  
-||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)                            ||  1.3    ||  
-||  number                                                            ||  `GetSpamPenalty(`[#CCountryTag CCountryTag] countryTag`)`                                                 ||  1.3    ||  
+||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                            ||  1.3    ||  
+||  number                                                            ||  `GetSpamPenalty(`[#CCountryTag CCountryTag]` countryTag)`                                                 ||  1.3    ||  
 ||  bool                                                              ||  `HasCommonExtension()`                                                                                    ||  1.3    ||  
 ||  bool                                                              ||  `HasFilledProdQueue()`                                                                                    ||  1.4    ||  
-||  bool                                                              ||  `HasTradeGoneStale(`[#CTradeRoute CTradeRoute] route)`                                                    ||  1.3    ||  
+||  bool                                                              ||  `HasTradeGoneStale(`[#CTradeRoute CTradeRoute]` route)`                                                    ||  1.3    ||  
 ||  bool                                                              ||  `HasUserExtension()`                                                                                      ||  1.3    ||  
-||  bool                                                              ||  `IsAIControlledForPlayer(??? automationtype)`                              ||  1.4    ||  
-||  bool                                                              ||  `IsInfluencing(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)                          ||  1.3    ||  
-||  bool                                                              ||  `IsTradeingAwayNeededResource(`[#CTradeRoute CTradeRoute] route)                                          ||  1.3    ||  
+||  bool                                                              ||  `IsAIControlledForPlayer(number automationtype)`                              ||  1.4    ||  
+||  bool                                                              ||  `IsInfluencing(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                          ||  1.3    ||  
+||  bool                                                              ||  `IsTradeingAwayNeededResource(`[#CTradeRoute CTradeRoute]` route)`                                          ||  1.3    ||  
 ||  ???                                                               ||  `MoveToNeighbor(???)`                                                                                     ||  1.3    ||  
 ||  ???                                                               ||  `MoveUnit(???)`                                                                                           ||  1.3    ||  
 ||  ???                                                               ||  `RequestSubUnit(???)`                                                                                     ||  1.3    ||  
-||  void                                                              ||  `Post(`[LUAClassReference#CCommand CCommand] command)                                                     ||  1.3    ||  
-||  void                                                              ||  `PostAction(`[LUAClassReference#CAction CAction] action)                                                  ||  1.3    ||  
-||  void                                                              ||  `PrintConsole(`string message)                                                                            ||  1.3    ||  
+||  void                                                              ||  `Post(`[LUAClassReference#CCommand CCommand]` command)`                                                     ||  1.3    ||  
+||  void                                                              ||  `PostAction(`[LUAClassReference#CAction CAction]` action)`                                                  ||  1.3    ||  
+||  void                                                              ||  `PrintConsole(string message)`                                                                            ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  static number                                                               ||  `_DIPLOMACY_`                                                                                             ||  1.4    ||  
 ||  static number                                                               ||  `_INTELLIGENCE_`                                                                                          ||  1.4    ||  
@@ -90,7 +89,7 @@ CAI._INTELLIGENCE_
 
 ==CAIAgent==
 implements [#CAISubscriber CAISubscriber]
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetCountryTag()`                                                                                         ||  1.3    ||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry()`                                                                                            ||  1.3    ||  
@@ -98,7 +97,7 @@ implements [#CAISubscriber CAISubscriber]
 
 ==CAIEspionageMinister==
 implements [#CAIAgent CAIAgent]
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `IsAligningToFaction()`                                                                                   ||  1.3    ||  
@@ -106,7 +105,7 @@ implements [#CAIAgent CAIAgent]
 
 ==CAIForeignMinister==
 implements [#CAIAgent CAIAgent]
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  void                                                              ||  `ClearWarProposal()`                                                                                      ||  1.3    ||  
 ||  void                                                              ||  `ExecuteDiploDecisions()`                                                                                 ||  1.3    ||  
@@ -117,11 +116,11 @@ implements [#CAIAgent CAIAgent]
 ||  void                                                              ||  `ProposeWar(`[#CCountryTag CCountryTag]` countryTag, number warDesirability)`                             ||  1.3    ||  
 
 ==CAIIntel==
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CAIIntel CAIIntel]                                               ||  CAIIntel([#CCountryTag CCountryTag] source, [#CCountryTag CCountryTag] target)
+|| [#CAIIntel CAIIntel]                                               ||  `CAIIntel(`[#CCountryTag CCountryTag]` source, `[#CCountryTag CCountryTag]` target)`||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `CalculateOurMilitaryStrength()`                                                                          ||  1.3    ||  
 ||  number                                                            ||  `CalculateTheirPercievedMilitaryStrengh()`                                                                ||  1.3    ||  
@@ -134,7 +133,7 @@ implements [#CAIAgent CAIAgent]
 ==CAIPoliticsMinister==
 implements [#CAIAgent CAIAgent]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `IsCapitalSafeToLiberate(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
@@ -143,7 +142,7 @@ implements [#CAIAgent CAIAgent]
 ==CAIProductionMinister==
 implements [#CAIAgent CAIAgent]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `CountEscortsUnderConstruction()`                                                                         ||  1.3    ||  
 ||  number                                                            ||  `CountTotalDesiredEscorts()`                                                                              ||  1.3    ||  
@@ -153,7 +152,7 @@ implements [#CAIAgent CAIAgent]
 ||  void                                                              ||  `PrioritizeBuildQueue()`                                                                                  ||  1.3    ||  
 
 ==CAIStrategy==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `AddSubUnit(???)`                                                                                         ||  1.3    ||  
 ||  void                                                              ||  `CancelPrepareWar(`[#CCountryTag CCountryTag]` countryTag)`                                               ||  1.3    ||  
@@ -179,7 +178,7 @@ implements [#CAIAgent CAIAgent]
 ||  void                                                              ||  `PrepareWar(`[#CCountryTag CCountryTag]` countryTag, number score)`                                         ||  1.3    ||  
 ||  void                                                              ||  `PrepareWarDecision(`[#CCountryTag CCountryTag]` countryTag, number score, `[#CDecision CDecision]` decision)`||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                ||  *Since*||  
 ||  static number                                                               ||  `_AI_BALANCED_`                                                                                           ||  1.3    ||  
 ||  static number                                                               ||  `_AI_DIPLOMAT_`                                                                                           ||  1.3    ||  
@@ -191,7 +190,7 @@ implements [#CAIAgent CAIAgent]
 ==CAISubscriber==
 This class seems to subscribe an object to ticks (scheduled callbacks). WantTicks is likely to set up a call back function like `ForeignMinister_Tick()` from vanilla.
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `WantTicks(???)`                                                                                                 ||  1.3    ||  
 
@@ -199,7 +198,7 @@ This class seems to subscribe an object to ticks (scheduled callbacks). WantTick
 ==CAITechMinister==
 implements [#CAIAgent CAIAgent]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `CanResearch(`[#CTechnology CTechnology] tech)                                                            ||  1.3    ||  
 ||  [#CArrayFix CArrayFix]                                            ||  `GetFolderModifers()`                                                                                     ||  1.3    ||  
@@ -208,36 +207,36 @@ implements [#CAIAgent CAIAgent]
 
 
 ==CArrayFix==
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CArrayFix CArrayFix]                                               ||  CArrayFix(number size)
+|| [#CArrayFix CArrayFix]                                               ||  `CArrayFix(number size)`||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetAt(number index)`                                                                                       ||  1.3    ||  
 ||  void                                                              ||  `SetAt(number index, `[#CFixedPoint CFixedPoint]` value)`                                                                     ||  1.3    ||  
 
 
 ==CArrayFloat==
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CArrayFloat CArrayFloat]                                               ||  CArrayFloat(number size)
+|| [#CArrayFloat CArrayFloat]                                               ||  `CArrayFloat(number size)` ||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetAt(number index)`                                                                                       ||  1.3    ||  
 ||  void                                                              ||  `SetAt(number index, number value)`                                                                  ||  1.3    ||  
 
 
 ==CBuildingDataBase==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CBuilding CBuilding]                                            ||  `GetBuilding(string building)`                                                                            ||  1.3    ||  
 ||  [#CBuilding CBuilding]                                            ||  `GetBuildingFromIndex(number index)`                                                                         ||  1.3    ||  
 
 
 ==CBuilding==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  string                                                            ||  `GetName()`                                                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                               ||  1.3    ||  
@@ -246,11 +245,11 @@ implements [#CAIAgent CAIAgent]
 ==CCancelUnitConstructionCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]   ||  `CCancelUnitConstructionCommand(`[#CCountryTag CCountryTag]` countryTag, `[#CID CID]` cID)`
+|| [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]   ||  `CCancelUnitConstructionCommand(`[#CCountryTag CCountryTag]` countryTag, `[#CID CID]` cID)`||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]  ||  Clone()                                                                                                   ||  1.3    ||  
 
@@ -258,11 +257,11 @@ implements [#CCommand CCommand]
 ==CCallAllyAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CCallAllyAction CCallAllyAction]   ||  `CCallAllyAction(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` ally, `[#CCountryTag CCountryTag]` target)`
+|| [#CCallAllyAction CCallAllyAction]   ||  `CCallAllyAction(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` ally, `[#CCountryTag CCountryTag]` target)`||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create(???)`                                                                                                 ||  1.3    ||  
 ||  ???                                                               ||  `GetVersus(???)`                                                                                                 ||  1.3    ||  
@@ -271,7 +270,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CChangeInvestmentCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeInvestmentCommand CChangeInvestmentCommand]   ||  `CChangeInvestmentCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, ...)` ||  1.3    ||  
 
@@ -286,7 +285,7 @@ Constructor accepts one or more values for changes.
 ==CChangeLawCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeLawCommand CChangeLawCommand]   ||  `CChangeLawCommand(`[#CCountryTag CCountryTag]` actor, `[#CLaw CLaw]` law, `[#CLawGroup CLawGroup]` lawGroup)`||  1.3    ||  
 
@@ -318,7 +317,7 @@ implements [#CCommand CCommand]
 ==CChangeLeadershipCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeLeadershipCommand CChangeLeadershipCommand]   ||  `CChangeLeadershipCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, ...)`||  1.3    ||  
 
@@ -333,11 +332,11 @@ Constructor accepts one or more values for changes.
 ==CChangePriorityCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangePriorityCommand CChangePriorityCommand]   ||  `CChangePriorityCommand(`[#CCountryTag CCountryTag]` actor, `[#CID CID]` cID, number priority)`||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CChangePriorityCommand CChangePriorityCommand]                  ||  Clone()                                                                                                   ||  1.3    ||  
 
@@ -345,7 +344,7 @@ implements [#CCommand CCommand]
 ==CChangeSpyMission==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeSpyMission CChangeSpyMission]   ||  `CChangeSpyMission(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` target, number spyMission)`||  1.3    ||  
 
@@ -353,13 +352,13 @@ implements [#CCommand CCommand]
 ==CChangeSpyPriority==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeSpyPriority CChangeSpyPriority]   ||  `CChangeSpyPriority(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` target, number spyPriority)`||  1.3    ||  
 
 
 ==CCommand==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                  ||  IsValid()                                                                                                   ||  1.3    ||  
 
@@ -367,7 +366,7 @@ implements [#CCommand CCommand]
 ==CConstructBuildingCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CConstructBuildingCommand CConstructBuildingCommand]   ||  `CConstructBuildingCommand(`[#CCountryTag CCountryTag]` actor, `[#CBuilding CBuilding]` building, number provinceId, number quantity)`||  1.3    ||  
 
@@ -375,7 +374,7 @@ implements [#CCommand CCommand]
 ==CConstructConvoyCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CConstructConvoyCommand CConstructConvoyCommand]   ||  `CConstructConvoyCommand(`[#CCountryTag CCountryTag]` actor, bool ConvoyOrEscort, number quantity)`||  1.3    ||  
 
@@ -386,7 +385,7 @@ ConvoyOrEscort = is a boolean (true = escort, false = convoy)
 ==CConstructSingleUnitCommand==
 implements [#CCommand CCommand]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CConstructSingleUnitCommand CConstructSingleUnitCommand]        ||  `Clone()`                                                                                                  ||  1.3    ||  
 
@@ -394,23 +393,23 @@ implements [#CCommand CCommand]
 ==CConstructUnitCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CConstructUnitCommand CConstructUnitCommand]   ||  `CConstructUnitCommand(`[#CCountryTag CCountryTag]` actor, CList<`[#CSubUnitDefinition CSubUnitDefinition]`> orderlist, number capitalProvId, number quantity, bool bBuildReserveAtPeace, [#CCountryTag CCountryTag] countryTag, [#CID CID] cId)`||  1.3    ||  
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CConstructUnitCommand CConstructUnitCommand]                    ||  `Clone()`                                                                                                   ||  1.3    ||  
 
 
 ==CContinent==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                    || `GetName()`                                                                                                   ||  1.3    ||  
 ||  ???                    || `GetTag()`                                                                                                   ||  1.3    ||  
 
 ==CConvoy==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 || ??? ||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
 || ??? ||  `GetDesiredTransports(???)`                                              ||  1.3                                                                                                       ||  
@@ -418,14 +417,14 @@ implements [#CCommand CCommand]
 || ??? ||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
 
 ==CCountryDataBase==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetTag(string countryCode)`                                                                              ||  1.3    ||  
 
 ==CCountryTag==
 Supports implicit LUA toString conversion.
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry()`                                                                                            ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
@@ -436,12 +435,12 @@ Supports implicit LUA toString conversion.
 ==CCountryTagList==
 implements [#CList CList]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                              ||  `IsEnemy(???)`                                                                                            ||  1.3    ||  
 
 ==CCurrentGameState==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetAIRand()`                                                                                             ||  1.3    ||  Return value is between 0 and int.MAX_VALUE                                                                                                                ||  
 ||  List`<`[#CCountry CCountry]`>`                                    ||  `GetCountries()`                                                                                          ||  1.3    ||  
@@ -454,7 +453,7 @@ implements [#CList CList]
 ||  bool                                                              ||  `IsGlobalFlagSet(string flagName)`                                                                        ||  1.4    ||  check for global flag                                                                                                                                      ||  
 
 ==CCountry==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `CalcDesperation()`                                                                                       ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                                               ||  `CalculateReinforcementMultiplier()`                                                                          ||  1.3    ||  
@@ -573,14 +572,14 @@ implements [#CList CList]
 ==CCountryList==
 implements [#CList<CCountryTag> CList<CCountryTag>]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `IsEnemy()`                                                                                               ||  1.3    ||  
 
 ==CCountryTagList==
 
 ==CDate==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetDayOfMonth()`                                                                                         ||  1.3    ||  
 ||  number                                                            ||  `GetMonthOfYear()`                                                                                        ||  1.3    ||  
@@ -590,13 +589,13 @@ implements [#CList<CCountryTag> CList<CCountryTag>]
 ==CDebtAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CDebtAction CDebtAction]   ||  `CDebtAction(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` debtor)`||  1.3    ||  
 
 
 ==CDecision==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CString CString]                                                ||  GetKey()                                                                                                 ||  1.3    ||  
 ||  bool                                                               ||  IsAllowed()                                                                                                ||  1.3    ||  
@@ -606,11 +605,11 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CDeclareWarAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CDeclareWarAction CDeclareWarAction]                                 ||  CDeclareWarAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
@@ -618,7 +617,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CDiplomaticAction==
 implements [#CAction CAction]
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetAIAcceptance()`                                                                                       ||  1.3    ||  
 ||  ???                                                               ||  `GetValue(???)`                                                                                                  ||  1.3    ||  
@@ -627,7 +626,7 @@ implements [#CAction CAction]
 ||  bool                                                              ||  `IsSelectable()`                                                                                          ||  1.3    ||  
 ||  void                                                              ||  `SetValue(???)`                                                                                                  ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                ||  *Since*||  
 ||  static number                                                              ||  `ACCEPT`                                                                                                    ||  1.3    ||  
 ||  static number                                                               ||  `DECLINE`                                                                                                   ||  1.3    ||  
@@ -635,7 +634,7 @@ implements [#CAction CAction]
 
 
 ==CDiplomacyStatus==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `AllowDebts()`                                                                                            ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetTarget()`                                                                                             ||  1.3    ||  
@@ -659,12 +658,12 @@ implements [#CAction CAction]
 ||  void                                                              ||  `SetValue(`[#CFixedPoint CFixedPoint] relation)                                                           ||  1.3    ||  
 
 ==CDistributionSetting==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNeeded()`                                                                                             ||  1.3    ||  
 ||  ???                                                               ||  `GetPercentage(???)`                                                                                             ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                ||  *Since*||  
 ||  static number                                                            ||  `_LEADERSHIP_DIPLOMACY_`                                                                                  ||  1.3    ||  
 ||  static number                                                            ||  `_LEADERSHIP_ESPIONAGE_`                                                                                  ||  1.3    ||  
@@ -682,17 +681,17 @@ implements [#CAction CAction]
 ==CEmbargoAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CEmbargoAction CEmbargoAction]                                 ||  CEmbargoAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CEventScope==
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `_Country`                                                                                                ||  1.3    ||  
 ||  ???                                                               ||  `_nProvince`                                                                                              ||  1.3    ||  
@@ -700,22 +699,22 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CFactionAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CFactionAction CFactionAction]                                 ||  CFactionAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CFlags==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `IsFlagSet(`string key)                                                                                   ||  1.3    ||  
 
 ==CFaction==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetFactionLeader()`                                                                                      ||  1.3    ||  
 ||  [#CIdeologyGroup CIdeologyGroup]                                  ||  `GetIdeologyGroup()`                                                                                      ||  1.3    ||  
@@ -728,11 +727,11 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CFixedPoint==
 This class has no implicit conversion to number primitive type. You need to use methods in order to obtain arithmetical value.
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CFixedPoint CFixedPoint]                                 ||  `CFixedPoint(number val)`
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `Get()`                                                                                                   ||  1.3    ||  
 ||  number                                                            ||  `GetTruncated()`                                                                                          ||  1.3    ||  
@@ -742,21 +741,21 @@ This class has no implicit conversion to number primitive type. You need to use 
 ==CGuaranteeAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CGuaranteeAction CGuaranteeAction]                                 ||  CGuaranteeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CGoodsPool==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `Get(number goodType)`                                                                                          ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  static number                                                            ||  `_CRUDE_OIL_`                                                                                             ||  1.3    ||  
 ||  static number                                                            ||  `_ENERGY_`                                                                                                ||  1.3    ||  
@@ -770,7 +769,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ==CGovernment==
 This object support object to object comparison with equal operator.
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                        ||  `IsValid()`                                                                                          ||  1.3    ||  
 
@@ -778,19 +777,19 @@ This object support object to object comparison with equal operator.
 ==CID==
 This seems to be a unique ID generator.
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CID CID]                                 ||  `CID()`
 
 
 ==CIdeology==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CIdeologyGroup CIdeologyGroup]                                  ||  `GetGroup()`                                                                                              ||  1.3    ||  
 
 
 ==CIdeologyData==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `CalculateTotalSum(???)`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetValue(`[#CIdeology CIdeology]` ideology)`                                                                                         ||  1.3    ||  
@@ -799,7 +798,7 @@ This seems to be a unique ID generator.
 ==CIdeologyGroup==
 This object support object to object comparison with equal operator.
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFaction CFaction]                                              ||  `GetFaction()`                                                                                               ||  1.3    ||  
 ||  ???                                                               ||  `GetPosition(???)`                                                                                               ||  1.3    ||  
@@ -807,28 +806,28 @@ This object support object to object comparison with equal operator.
 
 ==CInfluenceAllianceLeader==
 implements [#CDiplomaticAction CDiplomaticAction]
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CInfluenceAllianceLeader CInfluenceAllianceLeader]                                 ||  CInfluenceAllianceLeader([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CInfluenceNation==
 implements [#CDiplomaticAction CDiplomaticAction]
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CInfluenceNation CInfluenceNation]                                 ||  CInfluenceNation([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CLaw==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CLawGroup CLawGroup]                                            ||  `GetGroup()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
@@ -838,7 +837,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 
 ==CLawDataBase==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  List`<`[#CLawGroup CLawGroup]`>`                                  ||  `GetGroups()`                                                                                             ||  1.3    ||  
 ||  [#CLawGroup CLawGroup]                                            ||  `GetLawGroup(number index)`                                                                                               ||  1.3    ||  
@@ -849,7 +848,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 
 ==CLawGroup==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
 ||  string                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
@@ -858,21 +857,21 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ==CLiberateCountryCommand==
 implements [#CCommand CCommand]
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CLiberateCountryCommand CLiberateCountryCommand]                                 ||  CLiberateCountryCommand([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
 
 ==CLicenceTechnologyAction==
 implements [#CDiplomaticAction CDiplomaticAction]
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                                               ||  `GetMoney()`                                                                                                  ||  1.3    ||  
 ||  number                                                               ||  `GetParalell()`                                                                                               ||  1.3    ||  
 ||  number                                                               ||  `GetSerial()`                                                                                                 ||  1.3    ||  
 ||  [#CSubUnitDefinition CSubUnitDefinition]                                                               ||  `GetSubunit()`                                                                                                 ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  static number                                                               ||  SEND                                                                                                      ||  1.3    ||  
 ||  static number                                                               ||  TAKE                                                                                                      ||  1.3    ||  
@@ -880,7 +879,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ==CList_CSubUnitConstructionEntry==
 implements [#CList CList]<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]>
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetHeadData()`                                                                                           ||  1.3    ||  
 ||  number                                         ||  `GetSize()`                                                                                           ||  1.3    ||  
@@ -894,20 +893,20 @@ implements [#CList CList]<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]
 ==CMilitaryAccessAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CMilitaryAccessAction CMilitaryAccessAction]                               ||  CMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
 
 ==CModifier==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  static number                                                            ||  `GetValue(`int modifier)                                                                                  ||  1.3    ||  
 ||  static number                                                            ||  `_MODIFIER_AIR_CAPACITY_`                                                                                 ||  1.3    ||  
@@ -996,11 +995,11 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CNapAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CNapAction CNapAction]                               ||  CNapAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
@@ -1008,7 +1007,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CNullTag==
 implements [#CCountryTag CCountryTag]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CNullTag CNullTag]                               ||  `CNullTag()` ||_1.3 ||
 
@@ -1020,11 +1019,11 @@ implements [#CTechnology CTechnology]
 ==COfferMilitaryAccessAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
@@ -1032,13 +1031,13 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CPeaceAction==
 implements [#CAction CAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
 
 ==CProvince==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CProvinceBuilding CProvinceBuilding]                            ||  `GetBuilding(`[#CBuilding CBuilding]` pBuilding)`                                                           ||  1.4    ||  
 ||  number                                                            ||  `GetCoastalFortLevel()`                                                                                   ||  1.4    ||  
@@ -1058,19 +1057,19 @@ implements [#CAction CAction]
 ||  bool                                                              ||  `IsFrontProvince(bool unknownFlag)`                                                                               ||  1.3    ||  
 
 ==CProvinceBuilding==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCurrent()`                                                                                            ||  1.4    ||  
 ||  [#CFixedPoint CFixedPoint]                                                               ||  `GetMax()`                                                                                                ||  1.4    ||  
 
 ==CResearchBonus==
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
 ||  static [#CFixedPoint CFixedPoint]                                        ||  `_vWeight`                                                                                                ||  1.3    ||  
 ||  static [#CTechnologyCategory CTechnologyCategory]                        ||  `_pCategory`                                                                                              ||  1.3    ||  
 
 ==CRule==
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
 ||  static number                                                               ||  `_RULE_ALLIANCE_GUARANTEE_`                                                                               ||  1.3    ||  
 ||  static number                                                               ||  `_RULE_FREE_RESOURCE_GIFTS_`                                                                              ||  1.3    ||  
@@ -1080,23 +1079,23 @@ implements [#CAction CAction]
 ==CSendExpeditionaryForceAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]                               ||  CSendExpeditionaryForceAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `GetClaimType(???)`                                                                                              ||  1.3    ||  
 ||  ???                                                               ||  `GetUnit(???)`                                                                                                   ||  1.3    ||  
 ||  ???                                                               ||  `GetTag(???)`                                                                                                   ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  static number                                                               ||  SEND                                                                                                      ||  1.3    ||  
 ||  static number                                                               ||  TAKE                                                                                                      ||  1.3    ||  
 
 ==CSimpleRandom==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `GetFixedPoint(???)`                                                                                             ||  1.3    ||  
 ||  ???                                                               ||  `GetInteger(???)`                                                                                                ||  1.3    ||  
@@ -1104,7 +1103,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  void                                                               ||  `Seed(number seed)`                                                                                                      ||  1.3    ||  
 
 ==CStrategicWarfare==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetBombingImpact()`                                                                                      ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetAlliesImpact()`                                                                                       ||  1.3    ||  
@@ -1113,7 +1112,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CSetFlagCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CSetFlagCommand CSetFlagCommand]                               ||  CSetFlagCommand(`[#CCountryTag CCountryTag]` Which, string Flag, bool bSet = true)`
 
@@ -1121,13 +1120,13 @@ implements [#CCommand CCommand]
 ==CSetVariableCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CSetVariableCommand CSetVariableCommand]                               ||  CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`
 
 
 ==CSpyPresence==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CDate CDate]                                                    ||  `GetLastMissionChangeDate()`                                                                              ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetLevel()`                                                                                              ||  1.3    ||  
@@ -1135,7 +1134,7 @@ implements [#CCommand CCommand]
 ||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3    ||  
 ||  ???                                                               ||  `MissionAllowed(???)`                                                                                          ||  1.3    ||  
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  MAX_SPY_LEVEL                                                                                             ||  1.3    ||  
 ||  number                                                            ||  MAX_SPY_PRIORITY                                                                                          ||  1.3    ||  
@@ -1144,7 +1143,7 @@ implements [#CCommand CCommand]
 ==CStartResearchCommand==
 implements [#CCommand CCommand]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CStartResearchCommand CStartResearchCommand]                               ||  CStartResearchCommand(`[#CCountryTag CCountryTag]` country, `[#CTechnology CTechnology]` techno)`
 
@@ -1152,25 +1151,25 @@ implements [#CCommand CCommand]
 ==Cstring==
 This class support implicit conversion to string primitive type as well as support for equal operator.
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#Cstring Cstring]                               ||  `Cstring(string str)`
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `GetCharPtr()`                                                                                            ||  1.3    ||  
 ||  string                                                            ||  `Getstring()`                                                                                             ||  1.3    ||  
 
 
 ==CSubUnitDataBase==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CSubUnitDefinition CSubUnitDefinition]                          ||  `GetSubUnit(string subUnitName)`                                                                          ||  1.3    ||  
 ||  List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`                ||  `GetSubUnitList()`                                                                                        ||  1.3    ||  
 
 
 ==CSubUnitDefinition==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetBuildCostIC()`                                                                                        ||  1.3    ||  
 ||  number                                                            ||  `GetBuildCostMP()`                                                                                        ||  1.3    ||  
@@ -1199,11 +1198,11 @@ This class support implicit conversion to string primitive type as well as suppo
 
 
 ==SubUnitList==
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#SubUnitList SubUnitList]                               ||  `SubUnitList()`
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  static void                                                       ||  `Append(`[#SubUnitList SubUnitList]` unitList, [#CSubUnitDefinition CSubUnitDefinition] unit)                                                                  ||  1.3    ||  
 ||  number                                                            ||  `GetSize()`                                                                                               ||  1.3    ||  
@@ -1211,7 +1210,7 @@ This class support implicit conversion to string primitive type as well as suppo
 
 ==CSubUnitConstruc
 tionEntry==
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
 ||  static number                                                            ||  nPrio                                                                                                     ||  1.3    ||  
 ||  static [#CSubUnitDefinition CSubUnitDefinition]                          ||  pUnit                                                                                                     ||  1.3    ||  
@@ -1220,7 +1219,7 @@ tionEntry==
 ==CTechnology==
 This class supports equal operator comparison.
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `CanResearch(???)`                                                                                                ||  1.3    ||  
 ||  ???                                                               ||  `CanUpgrade(???)`                                                                                                ||  1.3    ||  
@@ -1235,13 +1234,13 @@ This class supports equal operator comparison.
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
 ==CTechnologyCategory==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CString CString]                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
 
 ==CTechnologyDataBase==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  List`<`[#CTechnologyCategory CTechnologyCategory]`>`              ||  `GetCategories()`                                                                                         ||  1.3    ||  
 ||  number                                                            ||  `GetFolderIndex(string folderName)`                                                                       ||  1.3    ||  
@@ -1249,7 +1248,7 @@ This class supports equal operator comparison.
 
 
 ==CTechnologyFolder==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
 ||  [#CString CString]                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
@@ -1257,7 +1256,7 @@ This class supports equal operator comparison.
 
 
 ==CTechnologyStatus==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                        ||  `CanResearch(???)`                                                     ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCost(`[#CTechnology CTechnology]` tech, int level)`                                                     ||  1.3    ||  
@@ -1267,14 +1266,14 @@ This class supports equal operator comparison.
 ||  bool                                                              ||  `IsUnitAvailable(`[#CSubUnitDefinition CSubUnitDefinition]` unit)`                                          ||  1.3    ||  
 
 ==CTheatre==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3    ||  
 
 
 ==CToggleMobilizationCommand==
 implements [#CCommand CCommand]
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CToggleMobilizationCommand CToggleMobilizationCommand]                               ||  `CToggleMobilizationCommand(`[#CCountryTag CCountryTag]` countryTag, bool bMobilize)`
 
@@ -1282,11 +1281,11 @@ implements [#CCommand CCommand]
 ==CTradeAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-===Constructor summary===
+====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CTradeAction CTradeAction]                                 ||  CTradeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
 
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 ||  [#CTradeRoute CTradeRoute]                                        ||  `GetRoute()`                                                                                              ||  1.3    ||  
@@ -1296,7 +1295,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  void                                                              ||  `SetTrading(`[#CFixedPoint CFixedPoint] amount, number goodsType)                                                ||  1.3    ||  
 
 ==CTradeRoute==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetConvoyResponsible()`                                                                                  ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetFrom()`                                                                                               ||  1.3    ||  
@@ -1309,7 +1308,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
 ==CUnit==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  List`<`[#CUnit CUnit]`>`                                                               ||  `GetChildren()`                                                                                               ||  1.3    ||  
 ||  [#CString CString]                                                               ||  `GetName()`                                                                                               ||  1.3    ||  
@@ -1317,7 +1316,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 
 ==CUnitList==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetCount(`[#CSubUnitDefinition CSubUnitDefinition]` pType)`                                                ||  1.4    ||  You can fetch the definitions from calls like CSubUnitDataBase.GetSubUnit("armor_brigade"), but again, watch out for these as they cost a bit to calculate.||  
 ||  number                                                            ||  `GetTotalAmountOfArmies()`                                                                                ||  1.4    ||  
@@ -1330,7 +1329,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  ???                                                               ||  `GetTotalStrength()`                                                                                         ||  1.3    ||  
 
 ==CWar==
-===Method summary===
+====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `GetAttackers()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetCurrentRunningTimeInMonths()`                                                                         ||  1.3    ||  
@@ -1342,7 +1341,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==SpyMission==
 For some reason, the Support Party missions are called 'boost'.
 
-===Property summary===
+====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  SPYMISSION_BOOST_OUR_PARTY                                                                                ||  1.3    ||  
 ||  number                                                            ||  SPYMISSION_BOOST_RULING_PARTY                                                                             ||  1.3    ||  
