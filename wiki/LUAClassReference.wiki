@@ -2,81 +2,82 @@
 #sidebar LUAClassReferenceSideBar
 #labels Featured,Phase-Implementation
 
-=Hearts of Iron III - LUA class reference=
+=Hearts of Iron III - LUA class reference=
 
 This file is based on work done by [http://forum.paradoxplaza.com/forum/showthread.php?t=421039 Dominik, strongbowmatt] and [http://forum.paradoxplaza.com/forum/showthread.php?t=430111 azeno].
-1.4 addition from [http://forum.paradoxplaza.com/forum/showpost.php?p=10544657]
+
+1.4 addition from [http://forum.paradoxplaza.com/forum/showpost.php?p=10544657], by guibod.
 
 ==CAlignment==
-||[#CFixedPoint CFixedPoint]||GetLastDrift([#CIdeologyGroup CIdeologyGroup] ideologyGroup)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetLastDrift(`[#CIdeologyGroup CIdeologyGroup] ideologyGroup)||1.3||
 ||???||GetDistanceFrom||1.3||
 
 ==CAllianceAction==
 
 ==CAI==
-||bool||AlreadyTradingDisabledResource([#CTradeRoute CTradeRoute] route)||1.3||
-||bool||AlreadyTradingResourceOtherWay([#CTradeRoute CTradeRoute] route)||1.3||
-||bool||CanDeclareWar([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
-||bool||CanTradeFreeResources([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
-||[#CFixedPoint CFixedPoint]||GetAmountTradedFrom(int goods, [#CCountryTag CCountryTag] from, [#CCountryTag CCountryTag] to)||1.3||
-||[#CFixedPoint CFixedPoint]||GetCountryAlignmentDistance([#CCountry CCountry] countryA, CCountry countryB)||1.3||
-||[#CDate CDate]||GetCurrentDate()||1.3||
-||[#CFixedPoint CFixedPoint]||GetNormalizedAlignmentDistance([#CCountry CCountry] country, CFaction faction)||1.3||
-||int||GetNumberOfOwnedProvinces([#CCountryTag CCountryTag] countryTag)||1.3||
-||[#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||GetReqProdQueue()||1.3||
-||List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`||GetReqProdQueueIter()||1.3||
-||[#CDiplomacyStatus CDiplomacyStatus]||GetRelation([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
-||bool||HasFilledProdQueue()||1.4||
-||bool||IsAIControlledForPlayer([#CAutomationType CAutomationType] AUTOMATIONTYPE)||1.4||
-||bool||IsInfluencing([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
-||bool||IsTradeingAwayNeededResource([#CTradeRoute CTradeRoute] route)||1.3||
+||bool||`AlreadyTradingDisabledResource(`[#CTradeRoute CTradeRoute] route)||1.3||
+||bool||`AlreadyTradingResourceOtherWay(`[#CTradeRoute CTradeRoute] route)||1.3||
+||bool||`CanDeclareWar(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
+||bool||`CanTradeFreeResources(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetAmountTradedFrom(`int goods, [#CCountryTag CCountryTag] from, [#CCountryTag CCountryTag] to)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetCountryAlignmentDistance(`[#CCountry CCountry] countryA, CCountry countryB)||1.3||
+||[#CDate CDate]||`GetCurrentDate(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetNormalizedAlignmentDistance(`[#CCountry CCountry] country, CFaction faction)||1.3||
+||int||`GetNumberOfOwnedProvinces(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||[#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||`GetReqProdQueue(`)||1.3||
+||List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`||`GetReqProdQueueIter(`)||1.3||
+||[#CDiplomacyStatus CDiplomacyStatus]||`GetRelation(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
+||bool||`HasFilledProdQueue(`)||1.4||
+||bool||`IsAIControlledForPlayer(`[#CAutomationType CAutomationType] AUTOMATIONTYPE)||1.4||
+||bool||`IsInfluencing(`[#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)||1.3||
+||bool||`IsTradeingAwayNeededResource(`[#CTradeRoute CTradeRoute] route)||1.3||
 ||???||MoveToNeighbor||1.3||
 ||???||MoveUnit||1.3||
 ||???||RequestSubUnit||1.3||
-||void||Post(??? command)||1.3||
-||void||PostAction(CAction action)||1.3||
-||void||PrintConsole(string message)||1.3||
+||void||`Post(`??? command)||1.3||
+||void||`PostAction(`CAction action)||1.3||
+||void||`PrintConsole(`string message)||1.3||
 
 ==CAIAgent==
-||[#CCountryTag CCountryTag]||GetCountryTag()||1.3||
-||[#CCountry CCountry]||GetCountry()||1.3||
-||[#CAI CAI]||GetOwnerAI()||1.3||
+||[#CCountryTag CCountryTag]||`GetCountryTag(`)||1.3||
+||[#CCountry CCountry]||`GetCountry(`)||1.3||
+||[#CAI CAI]||`GetOwnerAI(`)||1.3||
 
 ==CAIEspionageMinister==
 implements [#CAIAgent CAIAgent]
-||bool||IsAligningToFaction(???)||1.3||
+||bool||`IsAligningToFaction(`???)||1.3||
 
 ==CAIForeignMinister==
 implements [#CAIAgent CAIAgent]
 ||???||ClearWarProposal||1.3||
-||void||ExecuteDiploDecisions()||1.3||
+||void||`ExecuteDiploDecisions(`)||1.3||
 ||???||GetProposedWarTarget||1.3||
-||float||GetSpamPenalty([#CCountryTag CCountryTag] countryTag)||1.3||
-||bool||HasTradeGoneStale([#CTradeRoute CTradeRoute] route)||1.3||
+||float||`GetSpamPenalty(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||bool||`HasTradeGoneStale(`[#CTradeRoute CTradeRoute] route)||1.3||
 ||???||PercOccupied||1.3||
 ||???||Propose||1.3||
 ||???||ProposeWar||1.3||
 
 ==CAIIntel==
 constructed with CAIIntel([#CCountryTag CCountryTag] countryTagA, CCountryTag countryTagB)
-||float||CalculateOurMilitaryStrength()||1.3||
-||float||CalculateTheirPercievedMilitaryStrengh()||1.3||
-||float||GetFactor()||1.3||
+||float||`CalculateOurMilitaryStrength(`)||1.3||
+||float||`CalculateTheirPercievedMilitaryStrengh(`)||1.3||
+||float||`GetFactor(`)||1.3||
 ||???||GetTheirFactor||1.3||
 ||???||GetUncertaintyFactor||1.3||
-||bool||HasNoIntel()||1.3||
+||bool||`HasNoIntel(`)||1.3||
 
 ==CAIPoliticsMinister==
 implements [#CAIAgent CAIAgent]
-||bool||IsCapitalSafeToLiberate([#CCountryTag CCountryTag] countryTag)||1.3||
+||bool||`IsCapitalSafeToLiberate(`[#CCountryTag CCountryTag] countryTag)||1.3||
 
 ==CAIProductionMinister==
 implements [#CAIAgent CAIAgent]
-||int||CountEscortsUnderConstruction()||1.3||
-||int||CountTotalDesiredEscorts()||1.3||
-||int||CountTransportsUnderConstruction()||1.3||
-||void||PrioritizeBuildQueue()||1.3||
-||float||GetDesperation()||1.3||
+||int||`CountEscortsUnderConstruction(`)||1.3||
+||int||`CountTotalDesiredEscorts(`)||1.3||
+||int||`CountTransportsUnderConstruction(`)||1.3||
+||void||`PrioritizeBuildQueue(`)||1.3||
+||float||`GetDesperation(`)||1.3||
 
 ==CAIStrategy==
 ||???||`_AI_BALANCED_`||1.3||
@@ -85,26 +86,26 @@ implements [#CAIAgent CAIAgent]
 ||???||`_AI_MILITARIST_`||1.3||
 ||???||`_AI_UNDEFINED_`||1.3||
 ||???||AddSubUnit||1.3||
-||void||CancelPrepareWar([#CCountryTag CCountryTag] countryTag)||1.3||
-||float||GetAccessScore([#CCountryTag CCountryTag] countryTag)||1.3||
-||float||GetAntagonism([#CCountryTag CCountryTag] countryTag)||1.3||
-||[#CCountryTag CCountryTag]||GetCountryTag()||1.3||
-||float||GetFriendliness([#CCountryTag CCountryTag] countryTag)||1.3||
+||void||`CancelPrepareWar(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||float||`GetAccessScore(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||float||`GetAntagonism(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||[#CCountryTag CCountryTag]||`GetCountryTag(`)||1.3||
+||float||`GetFriendliness(`[#CCountryTag CCountryTag] countryTag)||1.3||
 ||???||GetPersonality||1.3||
-||float||GetProtectionism([#CCountryTag CCountryTag] countryTag)||1.3||
+||float||`GetProtectionism(`[#CCountryTag CCountryTag] countryTag)||1.3||
 ||???||GetTheatres||1.3||
-||int||GetWantedSubUnits([#CSubUnitDefinition CSubUnitDefinition] subunit)||1.3||
+||int||`GetWantedSubUnits(`[#CSubUnitDefinition CSubUnitDefinition] subunit)||1.3||
 ||???||GetWarScoreWith||1.3||
 ||???||GetWarTarget||1.3||
 ||???||GetWarTargets||1.3||
-||bool||IsBalanced()||1.3||
-||bool||IsDiplomat()||1.3||
-||bool||IsIndustrialist()||1.3||
-||bool||IsMilitarist()||1.3||
-||bool||IsPreparingWar()||1.3||
-||bool||IsPreparingWarWith([#CCountryTag CCountryTag] countryTag)||1.3||
-||void||PrepareWar([#CCountryTag CCountryTag] countryTag, int score?)||1.3||
-||???||PrepareWarDecision([#CCountryTag CCountryTag] countryTag, int score?, [#CDecision CDecision] decision)||1.3||
+||bool||`IsBalanced(`)||1.3||
+||bool||`IsDiplomat(`)||1.3||
+||bool||`IsIndustrialist(`)||1.3||
+||bool||`IsMilitarist(`)||1.3||
+||bool||`IsPreparingWar(`)||1.3||
+||bool||`IsPreparingWarWith(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||void||`PrepareWar(`[#CCountryTag CCountryTag] countryTag, int score?)||1.3||
+||???||`PrepareWarDecision(`[#CCountryTag CCountryTag] countryTag, int score?, [#CDecision CDecision] decision)||1.3||
 
 ==CAISubscriber==
 ||???||WantTicks||1.3||
@@ -112,14 +113,14 @@ implements [#CAIAgent CAIAgent]
 
 ==CAITechMinister==
 implements [#CAIAgent CAIAgent]
-||bool||CanResearch([#CTechnology CTechnology] tech)||1.3||
-||[#CArrayFix CArrayFix]||GetFolderModifers()||1.3||
-||[#CArrayFix CArrayFix]||GetTechModifers()||1.3||
+||bool||`CanResearch(`[#CTechnology CTechnology] tech)||1.3||
+||[#CArrayFix CArrayFix]||`GetFolderModifers(`)||1.3||
+||[#CArrayFix CArrayFix]||`GetTechModifers(`)||1.3||
 
 ==CArrayFix==
 constructed with CArrayFix(int size)
-||[#CFixedPoint CFixedPoint]||GetAt(int index)||1.3||
-||void||SetAt(int index, CFixedPoint value)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetAt(`int index)||1.3||
+||void||`SetAt(`int index, CFixedPoint value)||1.3||
 
 ==CArrayFloat==
 
@@ -131,11 +132,11 @@ constructed with CArrayFix(int size)
 ||`_TECHNOLOGY_`||1.4||
 
 ==CBuildingDataBase==
-||[#CBuilding CBuilding]||GetBuilding(string building)||1.3||
-||[#CBuilding CBuilding]||GetBuildingFromIndex(int index)||1.3||
+||[#CBuilding CBuilding]||`GetBuilding(`string building)||1.3||
+||[#CBuilding CBuilding]||`GetBuildingFromIndex(`int index)||1.3||
 
 ==CBuilding==
-||String ||GetName()||1.3||
+||String ||`GetName(`)||1.3||
 
 ==CCancelUnitConstructionCommand==
 
@@ -174,144 +175,144 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||IsForTradeRoute||1.3||
 
 ==CCountryDataBase==
-||[#CCountryTag CCountryTag]||GetTag(String countryCode)||1.3||
+||[#CCountryTag CCountryTag]||`GetTag(`String countryCode)||1.3||
 
 ==CCountryTag==
-||[#CCountry CCountry]||GetCountry()||1.3||
-||int||GetIndex()||1.3||
-||[#CCountryTag CCountryTag]||GetTag()||1.3||
-||bool||IsReal()||1.3||
-||bool||IsValid()||1.3||
+||[#CCountry CCountry]||`GetCountry(`)||1.3||
+||int||`GetIndex(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetTag(`)||1.3||
+||bool||`IsReal(`)||1.3||
+||bool||`IsValid(`)||1.3||
 
 ==CCurrentGameState==
-||int||GetAIRand()||1.3||Return value is between 0 and int.MAX_VALUE||
-||List`<`[#CCountry CCountry]`>` ||GetCountries()||1.3||
-||[#CDate CDate]||GetCurrentDate()||1.3||
-||[#CFaction CFaction]||GetFaction(String faction)||1.3||
-||???||GetInstance()||1.3||
-||[#CCountryTag CCountryTag]||GetPlayer()||1.3||
-||[#CProvince CProvince]||GetProvince(int provineId)||1.3||
-||bool||IsGlobalFlagSet(String flagName)||1.4||check for global flag||
+||int||`GetAIRand(`)||1.3||Return value is between 0 and int.MAX_VALUE||
+||List`<`[#CCountry CCountry]`>` ||`GetCountries(`)||1.3||
+||[#CDate CDate]||`GetCurrentDate(`)||1.3||
+||[#CFaction CFaction]||`GetFaction(`String faction)||1.3||
+||???||`GetInstance(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetPlayer(`)||1.3||
+||[#CProvince CProvince]||`GetProvince(`int provineId)||1.3||
+||bool||`IsGlobalFlagSet(`String flagName)||1.4||check for global flag||
 
 ==CCountry==
-||[#CFixedPoint CFixedPoint]||CalcDesperation()||1.3||
+||[#CFixedPoint CFixedPoint]||`CalcDesperation(`)||1.3||
 ||???||CalculateReinforcementMultiplier||1.3||
-||int||CalculateNumberOfActiveInfluences()||1.3||
-||bool||Exists()||1.3||
-||???||AccessIdeologyOrganization()||1.3||return value should have GetValue([#CIdeology CIdeology] ideology)||
-||???||AccessIdeologyPopularity()||1.3|| --return value should have GetValue([#CIdeology CIdeology] ideology)||
-||bool||CanCreatePuppet()||1.3||
-||float||GetAbility([#CTechnologyCategory CTechnologyCategory] category)||1.3||
-||[#CProvince CProvince]||GetActingCapitalLocation()||1.3||
-||List`<`[#CProvince CProvince]`>` ||GetAirBases()||1.3||
-||[#CAlignment CAlignment]||GetAlignment()||1.3||
-||???||GetAlignmentCord()||1.3||
-||List`<`[#CCountryTag CCountryTag]`>` ||GetAllies()||1.3||
-||int||GetAllowedResearchSlots()||1.3||
-||int||GetAvailableIC()||1.3||
-||[#CFixedPoint CFixedPoint]||GetBuildCost([#CBuilding CBuilding] building)||1.3||
-||[#CFixedPoint CFixedPoint]||GetBuildCostIC(??? pUnit, int ???, bool buildReserve)||1.3||
-||int||GetCapital()||1.3||
-||[#CProvince CProvince]||GetCapitalLocation()||1.3||
-||[#CFixedPoint CFixedPoint]||GetConvoyBuildCost()||1.3||
+||int||`CalculateNumberOfActiveInfluences(`)||1.3||
+||bool||`Exists(`)||1.3||
+||???||`AccessIdeologyOrganization(`)||1.3||return value should have GetValue([#CIdeology CIdeology] ideology)||
+||???||`AccessIdeologyPopularity(`)||1.3|| --return value should have GetValue([#CIdeology CIdeology] ideology)||
+||bool||`CanCreatePuppet(`)||1.3||
+||float||`GetAbility(`[#CTechnologyCategory CTechnologyCategory] category)||1.3||
+||[#CProvince CProvince]||`GetActingCapitalLocation(`)||1.3||
+||List`<`[#CProvince CProvince]`>` ||`GetAirBases(`)||1.3||
+||[#CAlignment CAlignment]||`GetAlignment(`)||1.3||
+||???||`GetAlignmentCord(`)||1.3||
+||List`<`[#CCountryTag CCountryTag]`>` ||`GetAllies(`)||1.3||
+||int||`GetAllowedResearchSlots(`)||1.3||
+||int||`GetAvailableIC(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetBuildCost(`[#CBuilding CBuilding] building)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetBuildCostIC(`??? pUnit, int ???, bool buildReserve)||1.3||
+||int||`GetCapital(`)||1.3||
+||[#CProvince CProvince]||`GetCapitalLocation(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetConvoyBuildCost(`)||1.3||
 ||???||GetConvoyBuildTime||1.3||
-||[#CGoodsPool CGoodsPool]||GetConvoyedIn()||1.4||
-||[#CGoodsPool CGoodsPool]||GetConvoyedOut()||1.4||
-||int||GetConvoys()||1.3||
-||[#CCountryTag CCountryTag]||GetCountryTag()||1.3||
-||List`<`[#CCountryTag CCountryTag]`>` ||GetCurrentAtWarWith()||1.3||
-||List`<`[#CUnit CTechnology]`>`||GetCurrentResearch()||1.4||
-||[#CFixedPoint CFixedPoint]||GetDailyBalance(int goods)||1.3||
-||[#CFixedPoint CFixedPoint]||GetDailyExpense(int goods)||1.3||
-||[#CFixedPoint CFixedPoint]||GetDailyIncome(int goods)||1.3||
-||[#CDiplomacyStatus CDiplomacyStatus]||GetDiplomacy()||1.3||
-||[#CFixedPoint CFixedPoint]||GetDiplomaticDistance([#CCountryTag CCountryTag] countryTag)||1.3||
-||[#CFixedPoint CFixedPoint]||GetDiplomaticInfluence()||1.3||
-||[#CFixedPoint CFixedPoint]||GetDissent()||1.3||
-||[#CFixedPoint CFixedPoint]||GetEffectiveNeutrality()||1.3||
-||[#CFixedPoint CFixedPoint]||GetEscortBuildCost()||1.3||
+||[#CGoodsPool CGoodsPool]||`GetConvoyedIn(`)||1.4||
+||[#CGoodsPool CGoodsPool]||`GetConvoyedOut(`)||1.4||
+||int||`GetConvoys(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetCountryTag(`)||1.3||
+||List`<`[#CCountryTag CCountryTag]`>` ||`GetCurrentAtWarWith(`)||1.3||
+||List`<`[#CUnit CTechnology]`>`||`GetCurrentResearch(`)||1.4||
+||[#CFixedPoint CFixedPoint]||`GetDailyBalance(`int goods)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetDailyExpense(`int goods)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetDailyIncome(`int goods)||1.3||
+||[#CDiplomacyStatus CDiplomacyStatus]||`GetDiplomacy(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetDiplomaticDistance(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetDiplomaticInfluence(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetDissent(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetEffectiveNeutrality(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetEscortBuildCost(`)||1.3||
 ||???||GetEscortBuildTime||1.3||
-||int||GetEscorts()||1.3||
-||[#CFaction CFaction]||GetFaction()||1.3||
-||[#CFlags CFlags]||GetFlags()||1.4||
-||[#CModifier CModifier]||GetGlobalModifier()||1.3||
-||???||GetGovernment()||1.3||
-||[#CCountryTag CCountryTag]||GetHighestThreat()||1.3||
-||[#CFixedPoint CFixedPoint]||GetICPart(int distributionSetting)||1.3||
-||[#CLaw CLaw]||GetLaw([#CLawGroup CLawGroup] lawGroup)||1.3||
+||int||`GetEscorts(`)||1.3||
+||[#CFaction CFaction]||`GetFaction(`)||1.3||
+||[#CFlags CFlags]||`GetFlags(`)||1.4||
+||[#CModifier CModifier]||`GetGlobalModifier(`)||1.3||
+||???||`GetGovernment(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetHighestThreat(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetICPart(`int distributionSetting)||1.3||
+||[#CLaw CLaw]||`GetLaw(`[#CLawGroup CLawGroup] lawGroup)||1.3||
 ||???||GetLawFromIndex||1.3||
-||[#CDistributionSetting CDistributionSetting]||GetLeadershipDistributionAt(int distributionSetting)||1.3||
-||[#CFixedPoint CFixedPoint]||GetManpower()||1.3||
-||int||GetMaxIC()||1.3||
-||[#CFixedPoint CFixedPoint]||GetMaxNeutralityForWarWith([#CCountryTag CCountryTag] countryTag)||1.3||
-||[#CFixedPoint CFixedPoint]||GetMoneyBalanceAverage()||1.3||
-||[#CFixedPoint CFixedPoint]||GetNationalUnity()||1.3||
-||List`<`[#CProvince CProvince]`>` ||GetNavalBases()||1.3||
-||List`<`[#CCountryTag CCountryTag]`>` ||GetNeighbours()||1.3||
-||[#CFixedPoint CFixedPoint]||GetNeutrality()||1.3||
-||int||GetNumberOfControlledProvinces()||1.3||
-||int||GetNumberOfCurrentResearch()||1.3||
-||int||GetNumberOfOwnedProvinces()||1.3||
-||int||GetNumOfAllies()||1.3||
-||int||GetNumOfAirfields()||1.3||
-||int||GetNumOfPorts()||1.3||
-||[#CFixedPoint CFixedPoint]||GetOfficerRatio()||1.3||
-||[#CCountryTag CCountryTag]||GetOverlord()||1.3||
-||List`<`int`>`||GetOwnedProvinces()||1.3||
-||[#CGoodsPool CGoodsPool]||GetPool()||1.3||
-||List`<`[#CCountryTag CCountryTag]`>` ||GetPossibleLiberations()||1.3||
-||???||GetPossiblePuppets()||1.3||
-||[#CDistributionSetting CDistributionSetting]||GetProductionDistributionAt(int distributionSetting)||1.3||
-||[#CDiplomacyStatus CDiplomacyStatus]||GetRelation([#CCountryTag CCountryTag] countryTag)||1.3||
-||???||GetRules()||1.3||
-||[#CIdeology CIdeology]||GetRulingIdeology()||1.3||
-||[#CSpyPresence CSpyPresence]||GetSpyPresence([#CCountryTag CCountryTag] countryTag)||1.3||
-||???||GetStrategicWarfare()||1.3||
-||[#CAIStrategy CAIStrategy]||GetStrategy()||1.3||
-||[#CFixedPoint CFixedPoint]||GetSupplyBalanceAverage()||1.3||
-||[#CFixedPoint CFixedPoint]||GetSurrenderLevel()||1.3||
-||[#CTechnologyStatus CTechnologyStatus]||GetTechnologyStatus()||1.3||
-||int||GetTotalIC()||1.3||
-||[#CFixedPoint CFixedPoint]||GetTotalLeadership()||1.3||
-||int||GetTotalNeededTransports()||1.3||
-||[#CGoodsPool CGoodsPool]||GetTotalProduced()||1.4||
-||[#CGoodsPool CGoodsPool]||GetTradedAway()||1.4||
-||[#CGoodsPool CGoodsPool]||GetTradedFor()||1.4||
-||int||GetTransports()||1.3||
-||[#CUnitList CUnitList]||GetUnits()||1.4||
-||List`<`[#CUnit CUnit]`>`||GetUnitsIterator()||1.4||
-||[#CFixedPoint CFixedPoint]||GetUsedIC()||1.3||
-||[#CFixedPoint CFixedPoint]||GetVariable(String key)||1.4||country variable by key||
-||[#CVariables CVariables]||GetVariables()||1.4||country variables||
-||List`<`[#CCountryTag CCountryTag]`>`||GetVassals()||1.3||
-||bool||HasConstruction()||1.3||
-||bool||HasDiplomatEnroute([#CCountryTag CCountryTag] countryTag)||1.3||
-||bool||HasExtraManpowerLeft()||1.3||
-||bool||HasFaction()||1.3||
-||bool||HasNeighborInFaction([#CFaction CFaction] faction)||1.3||
-||bool||IsAtWar()||1.3||
-||bool||IsBuildingAllowed([#CBuilding CBuilding] building, CProvince province)||1.3||
-||bool||IsEnemy([#CCountryTag CCountryTag] otherCountryTag)||1.3||
-||bool||IsFactionLeader()||1.3||
-||bool||IsFriend([#CCountryTag CCountryTag] otherCountryTag, bool ???)||1.3||
-||bool||IsGovernmentInExile()||1.3||
-||bool||IsMajor()||1.3||
-||bool||isPuppet()||1.3||
-||bool||IsMobilized()||1.3||
-||bool||IsNeighbour([#CCountryTag CCountryTag] otherCountryTag)||1.3||
-||bool||IsNeighbourToFactionHostile([#CFaction CFaction] faction, bool ???)||1.3||
+||[#CDistributionSetting CDistributionSetting]||`GetLeadershipDistributionAt(`int distributionSetting)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetManpower(`)||1.3||
+||int||`GetMaxIC(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetMaxNeutralityForWarWith(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetMoneyBalanceAverage(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetNationalUnity(`)||1.3||
+||List`<`[#CProvince CProvince]`>` ||`GetNavalBases(`)||1.3||
+||List`<`[#CCountryTag CCountryTag]`>` ||`GetNeighbours(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetNeutrality(`)||1.3||
+||int||`GetNumberOfControlledProvinces(`)||1.3||
+||int||`GetNumberOfCurrentResearch(`)||1.3||
+||int||`GetNumberOfOwnedProvinces(`)||1.3||
+||int||`GetNumOfAllies(`)||1.3||
+||int||`GetNumOfAirfields(`)||1.3||
+||int||`GetNumOfPorts(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetOfficerRatio(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetOverlord(`)||1.3||
+||List`<`int`>`||`GetOwnedProvinces(`)||1.3||
+||[#CGoodsPool CGoodsPool]||`GetPool(`)||1.3||
+||List`<`[#CCountryTag CCountryTag]`>` ||`GetPossibleLiberations(`)||1.3||
+||???||`GetPossiblePuppets(`)||1.3||
+||[#CDistributionSetting CDistributionSetting]||`GetProductionDistributionAt(`int distributionSetting)||1.3||
+||[#CDiplomacyStatus CDiplomacyStatus]||`GetRelation(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||???||`GetRules(`)||1.3||
+||[#CIdeology CIdeology]||`GetRulingIdeology(`)||1.3||
+||[#CSpyPresence CSpyPresence]||`GetSpyPresence(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||???||`GetStrategicWarfare(`)||1.3||
+||[#CAIStrategy CAIStrategy]||`GetStrategy(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetSupplyBalanceAverage(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetSurrenderLevel(`)||1.3||
+||[#CTechnologyStatus CTechnologyStatus]||`GetTechnologyStatus(`)||1.3||
+||int||`GetTotalIC(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetTotalLeadership(`)||1.3||
+||int||`GetTotalNeededTransports(`)||1.3||
+||[#CGoodsPool CGoodsPool]||`GetTotalProduced(`)||1.4||
+||[#CGoodsPool CGoodsPool]||`GetTradedAway(`)||1.4||
+||[#CGoodsPool CGoodsPool]||`GetTradedFor(`)||1.4||
+||int||`GetTransports(`)||1.3||
+||[#CUnitList CUnitList]||`GetUnits(`)||1.4||
+||List`<`[#CUnit CUnit]`>`||`GetUnitsIterator(`)||1.4||
+||[#CFixedPoint CFixedPoint]||`GetUsedIC(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetVariable(`String key)||1.4||country variable by key||
+||[#CVariables CVariables]||`GetVariables(`)||1.4||country variables||
+||List`<`[#CCountryTag CCountryTag]`>`||`GetVassals(`)||1.3||
+||bool||`HasConstruction(`)||1.3||
+||bool||`HasDiplomatEnroute(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||bool||`HasExtraManpowerLeft(`)||1.3||
+||bool||`HasFaction(`)||1.3||
+||bool||`HasNeighborInFaction(`[#CFaction CFaction] faction)||1.3||
+||bool||`IsAtWar(`)||1.3||
+||bool||`IsBuildingAllowed(`[#CBuilding CBuilding] building, CProvince province)||1.3||
+||bool||`IsEnemy(`[#CCountryTag CCountryTag] otherCountryTag)||1.3||
+||bool||`IsFactionLeader(`)||1.3||
+||bool||`IsFriend(`[#CCountryTag CCountryTag] otherCountryTag, bool ???)||1.3||
+||bool||`IsGovernmentInExile(`)||1.3||
+||bool||`IsMajor(`)||1.3||
+||bool||`isPuppet(`)||1.3||
+||bool||`IsMobilized(`)||1.3||
+||bool||`IsNeighbour(`[#CCountryTag CCountryTag] otherCountryTag)||1.3||
+||bool||`IsNeighbourToFactionHostile(`[#CFaction CFaction] faction, bool ???)||1.3||
 ||bool||IsSubject||1.3||
-||bool||NeedConvoyToTradeWith([#CCountryTag CCountryTag] countryTag)||1.3||
-||bool||MayLiberateCountries()||1.3||
+||bool||`NeedConvoyToTradeWith(`[#CCountryTag CCountryTag] countryTag)||1.3||
+||bool||`MayLiberateCountries(`)||1.3||
 
 ==CCountryList==
 
 ==CCountryTagList==
 
 ==CDate==
-||int||GetDayOfMonth()||1.3||
-||int||GetMonthOfYear()||1.3||
-||int||GetYear()||1.3||
+||int||`GetDayOfMonth(`)||1.3||
+||int||`GetMonthOfYear(`)||1.3||
+||int||`GetYear(`)||1.3||
 ||???||AddDays||1.3||
 
 ==CDebtAction==
@@ -323,31 +324,31 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ==CDeclareWarAction==
 
 ==CDiplomaticAction==
-||float||GetAIAcceptance()||1.3||
+||float||`GetAIAcceptance(`)||1.3||
 ||???||GetType||1.3||
-||bool||IsSelectable()||1.3||
+||bool||`IsSelectable(`)||1.3||
 
 ==CDiplomacyStatus==
-||bool||AllowDebts()||1.3||
-||[#CCountryTag CCountryTag]||GetTarget()||1.3||
-||[#CFixedPoint CFixedPoint]||GetThreat()||1.3||
-||List`<`[#CTradeRoute CTradeRoute]`>` ||GetTradeRoutes()||1.3||
-||[#CFixedPoint CFixedPoint]||GetValue()||1.3||
-||[#CWar CWar]||GetWar()||1.3||
-||bool||HasAlliance()||1.3||
-||bool||HasAnyAgreement()||1.3||
-||bool||HasEmbargo()||1.3||
-||bool||HasFriendlyAgreement()||1.3||
-||bool||HasHostileAgreement()||1.3||
-||bool||HasMilitaryAccess()||1.3||
-||bool||HasNap()||1.3||
-||bool||HasTruce()||1.3||
-||bool||HasWar()||1.3||
-||bool||IsBeingInfluenced()||1.3||
-||bool||IsFightingWarTogether()||1.3||
-||bool||IsGuaranteed()||1.3||
-||bool||IsGuaranting()||1.3||
-||void||SetValue([#CFixedPoint CFixedPoint] relation)||1.3||
+||bool||`AllowDebts(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetTarget(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetThreat(`)||1.3||
+||List`<`[#CTradeRoute CTradeRoute]`>` ||`GetTradeRoutes(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetValue(`)||1.3||
+||[#CWar CWar]||`GetWar(`)||1.3||
+||bool||`HasAlliance(`)||1.3||
+||bool||`HasAnyAgreement(`)||1.3||
+||bool||`HasEmbargo(`)||1.3||
+||bool||`HasFriendlyAgreement(`)||1.3||
+||bool||`HasHostileAgreement(`)||1.3||
+||bool||`HasMilitaryAccess(`)||1.3||
+||bool||`HasNap(`)||1.3||
+||bool||`HasTruce(`)||1.3||
+||bool||`HasWar(`)||1.3||
+||bool||`IsBeingInfluenced(`)||1.3||
+||bool||`IsFightingWarTogether(`)||1.3||
+||bool||`IsGuaranteed(`)||1.3||
+||bool||`IsGuaranting(`)||1.3||
+||void||`SetValue(`[#CFixedPoint CFixedPoint] relation)||1.3||
 
 ==CDistributionSetting==
 ||int||`_LEADERSHIP_DIPLOMACY_`||1.3||
@@ -361,7 +362,7 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||int||`_PRODUCTION_REINFORCEMENT_`||1.3||
 ||int||`_PRODUCTION_SUPPLY_`||1.3||
 ||int||`_PRODUCTION_UPGRADE_`||1.3||
-||[#CFixedPoint CFixedPoint]||GetNeeded()||1.3||
+||[#CFixedPoint CFixedPoint]||`GetNeeded(`)||1.3||
 ||???||GetPercentage||1.3||
 
 ==CEmbargoAction==
@@ -373,22 +374,22 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ==CFactionAction==
 
 ==CFlags==
-||bool||IsFlagSet(string key)||1.3||
+||bool||`IsFlagSet(`string key)||1.3||
 
 ==CFaction==
-||[#CCountryTag CCountryTag]||GetFactionLeader()||1.3||
-||[#CIdeologyGroup CIdeologyGroup]||GetIdeologyGroup()||1.3||
-||List`<`[#CCountryTag CCountryTag]`>`||GetMembers()||1.3||
-||[#CFixedPoint CFixedPoint]||GetNormalizedProgress()||1.3||
-||int||GetNumberOfMembers()||1.3||
+||[#CCountryTag CCountryTag]||`GetFactionLeader(`)||1.3||
+||[#CIdeologyGroup CIdeologyGroup]||`GetIdeologyGroup(`)||1.3||
+||List`<`[#CCountryTag CCountryTag]`>`||`GetMembers(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetNormalizedProgress(`)||1.3||
+||int||`GetNumberOfMembers(`)||1.3||
 ||???||GetProgress||1.3||
-||bool||IsValid()||1.3||
+||bool||`IsValid(`)||1.3||
 
 ==CFixedPoint==
 constructed with CFixedPoint(float val)
-||float||Get()||1.3||
-||float||GetTruncated()||1.3||
-||float||GetRounded()||1.3||
+||float||`Get(`)||1.3||
+||float||`GetTruncated(`)||1.3||
+||float||`GetRounded(`)||1.3||
 
 ==CGuaranteeAction==
 
@@ -401,14 +402,14 @@ constructed with CFixedPoint(float val)
 ||int||`_MONEY_`||1.3||
 ||int||`_RARE_MATERIALS_`||1.3||
 ||int||`_SUPPLIES_`||1.3||
-||[#CFixedPoint CFixedPoint]||Get(int goods)||1.3||
+||[#CFixedPoint CFixedPoint]||`Get(`int goods)||1.3||
 
 ==CGovernment==
 
 ==CID==
 
 ==CIdeology==
-||[#CIdeologyGroup CIdeologyGroup]||GetGroup()||1.3||
+||[#CIdeologyGroup CIdeologyGroup]||`GetGroup(`)||1.3||
 
 ==CIdeologyData==
 ||???||CalculateTotalSum||1.3||
@@ -424,7 +425,7 @@ constructed with CFixedPoint(float val)
 constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [#CCountryTag CCountryTag] countryTag)
 
 ==CModifier==
-||float||GetValue(int modifier)||1.3||
+||float||`GetValue(`int modifier)||1.3||
 ||int||`_MODIFIER_AIR_CAPACITY_`||1.3||
 ||int||`_MODIFIER_AIR_ORGANISATION_`||1.3||
 ||int||`_MODIFIER_ALIGN_TOWARDS_`||1.3||
@@ -519,22 +520,22 @@ constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [
 ==CPeaceAction==
 
 ==CLaw==
-||[#CLawGroup CLawGroup]||GetGroup()||1.3||
-||int||GetIndex()||1.3||
-||String ||GetKey()||1.3||
-||bool||ValidFor(??? ministerTag)||1.3||
+||[#CLawGroup CLawGroup]||`GetGroup(`)||1.3||
+||int||`GetIndex(`)||1.3||
+||String ||`GetKey(`)||1.3||
+||bool||`ValidFor(`??? ministerTag)||1.3||
 
 ==CLawDataBase==
-||List`<`[#CLawGroup CLawGroup]`>` ||GetGroups()||1.3||
+||List`<`[#CLawGroup CLawGroup]`>` ||`GetGroups(`)||1.3||
 ||[#CLawGroup CLawGroup]||GetLawGroup||1.3||
-||[#CLaw CLaw]||GetLaw(int index)||1.3||
-||List`<`[#CLaw CLaw]`>` ||GetLawList()||1.3||
-||int||GetNumberOfLawGroups()||1.3||
-||int||GetNumberOfLaws()||1.3||
+||[#CLaw CLaw]||`GetLaw(`int index)||1.3||
+||List`<`[#CLaw CLaw]`>` ||`GetLawList(`)||1.3||
+||int||`GetNumberOfLawGroups(`)||1.3||
+||int||`GetNumberOfLaws(`)||1.3||
 
 ==CLawGroup==
-||int||GetIndex()||1.3||
-||String ||GetKey()||1.3||
+||int||`GetIndex(`)||1.3||
+||String ||`GetKey(`)||1.3||
 
 ==CLiberateCountryCommand==
 constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, [#CCountryTag CCountryTag] countryTagToLiberate)
@@ -547,28 +548,28 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||???||TAKE||1.3||
 
 ==CProvince==
-||[#CProvinceBuilding CProvinceBuilding]||GetBuilding([#CBuilding CBuilding] pBuilding)||1.4||
-||int||GetCoastalFortLevel()||1.4||
-||[#CContinent CContinent]||GetContinent()||1.3||
-||[#CCountryTag CCountryTag]||GetController()||1.3||
-||?||GetControlledProvinces()||1.4||
-||?||GetCoreProvinces()||1.4||
-||?||GetCurrentConstructionLevel()||1.4||
-||int||GetFortLevel()||1.4||
-||[#CFixedPoint CFixedPoint]||GetInfrastructure()||1.3||
+||[#CProvinceBuilding CProvinceBuilding]||`GetBuilding(`[#CBuilding CBuilding] pBuilding)||1.4||
+||int||`GetCoastalFortLevel(`)||1.4||
+||[#CContinent CContinent]||`GetContinent(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetController(`)||1.3||
+||?||`GetControlledProvinces(`)||1.4||
+||?||`GetCoreProvinces(`)||1.4||
+||?||`GetCurrentConstructionLevel(`)||1.4||
+||int||`GetFortLevel(`)||1.4||
+||[#CFixedPoint CFixedPoint]||`GetInfrastructure(`)||1.3||
 ||???||GetIntelLevel||1.3||
-||[#CFixedPoint CFixedPoint]||GetMaxInfrastructure()||1.3||
-||int||GetNumberOfUnits()||1.3||
-||[#CCountryTag CCountryTag]||GetOwner()||1.3||
-||int||GetProvinceID()||1.3||
-||List`<`???`>`||GetUnits()||1.3||
+||[#CFixedPoint CFixedPoint]||`GetMaxInfrastructure(`)||1.3||
+||int||`GetNumberOfUnits(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetOwner(`)||1.3||
+||int||`GetProvinceID(`)||1.3||
+||List`<`???`>`||`GetUnits(`)||1.3||
 ||???||HasAdjacentEnemyOrCB||1.3||
-||bool||HasBuilding([#CBuilding CBuilding] building)||1.3||
-||bool||IsFrontProvince(bool ???)||1.3||
+||bool||`HasBuilding(`[#CBuilding CBuilding] building)||1.3||
+||bool||`IsFrontProvince(`bool ???)||1.3||
 
 ==CProvinceBuilding==
-||[#CFixedPoint CFixedPoint]||GetCurrent()||1.4||
-||?||GetMax()||1.4||
+||[#CFixedPoint CFixedPoint]||`GetCurrent(`)||1.4||
+||?||`GetMax(`)||1.4||
 
 ==CResearchBonus==
 ||[#CFixedPoint CFixedPoint]||_vWeight||1.3||
@@ -591,30 +592,30 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||Seed||1.3||
 
 ==CStrategicWarfare==
-||[#CFixedPoint CFixedPoint]||GetBombingImpact()||1.3||
-||[#CFixedPoint CFixedPoint]||GetAlliesImpact()||1.3||
-||[#CFixedPoint CFixedPoint]||GetConvoyImpact()||1.3||
+||[#CFixedPoint CFixedPoint]||`GetBombingImpact(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetAlliesImpact(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetConvoyImpact(`)||1.3||
 
 ==CTradeRoute==
-||[#CCountryTag CCountryTag]||GetConvoyResponsible()||1.3||
-||[#CCountryTag CCountryTag]||GetFrom()||1.3||
+||[#CCountryTag CCountryTag]||`GetConvoyResponsible(`)||1.3||
+||[#CCountryTag CCountryTag]||`GetFrom(`)||1.3||
 ||???||GetLastInactive||1.3||
-||[#CCountryTag CCountryTag]||GetTo()||1.3||
-||[#CFixedPoint CFixedPoint]||GetTradedFromOf(int goods)||1.3||
-||[#CFixedPoint CFixedPoint]||GetTradedToOf(int goods)||1.3||
-||bool||IsInactive()||1.3||
-||bool||IsValid()||1.3||
+||[#CCountryTag CCountryTag]||`GetTo(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetTradedFromOf(`int goods)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetTradedToOf(`int goods)||1.3||
+||bool||`IsInactive(`)||1.3||
+||bool||`IsValid(`)||1.3||
 
 ==CSetFlagCommand==
-||void||CSetFlagCommand([#CCountryTag CCountryTag] Which, String Flag, bool bSet = true )||1.4||command that can be posted for setting/clearing a country flag||
+||void||`CSetFlagCommand(`[#CCountryTag CCountryTag] Which, String Flag, bool bSet = true )||1.4||command that can be posted for setting/clearing a country flag||
 
 ==CSetVariableCommand==
-||void||CSetVariableCommand([#CCountryTag CCountryTag] Which, String Flag, [#CFixedPoint CFixedPoint] vVal)||1.4||command that can be posted for setting a country variable||
+||void||`CSetVariableCommand(`[#CCountryTag CCountryTag] Which, String Flag, [#CFixedPoint CFixedPoint] vVal)||1.4||command that can be posted for setting a country variable||
 
 ==CSpyPresence==
-||[#CDate CDate]||GetLastMissionChangeDate()||1.3||
-||int||GetMission()||1.3||
-||int||GetPriority()||1.3||
+||[#CDate CDate]||`GetLastMissionChangeDate(`)||1.3||
+||int||`GetMission(`)||1.3||
+||int||`GetPriority(`)||1.3||
 ||???||MissionAllowed||1.3||
 ||int||MAX_SPY_LEVEL||1.3||
 ||int||MAX_SPY_PRIORITY||1.3||
@@ -622,50 +623,50 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ==CStartResearchCommand==
 
 ==CString==
-||???||GetCharPtr()||1.3||
-||String ||GetString()||1.3||
+||???||`GetCharPtr(`)||1.3||
+||String ||`GetString(`)||1.3||
 
 ==CSubUnitDataBase==
-||[#CSubUnitDefinition CSubUnitDefinition]||GetSubUnit(string subUnitName)||1.3||
-||List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`||GetSubUnitList()||1.3||
+||[#CSubUnitDefinition CSubUnitDefinition]||`GetSubUnit(`string subUnitName)||1.3||
+||List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`||`GetSubUnitList(`)||1.3||
 
 ==CSubUnitDefinition==
-||float||GetBuildCostIC()||1.3||
-||float||GetBuildCostMP()||1.3||
-||int||GetBuildTime()||1.3||
-||float||GetCombatWidth()||1.3||
-||float||GetCompletionSize()||1.3||
-||int||GetDefaultStrength()||1.3||
-||float||GetDefensivness()||1.3||
-||???||GetKey()||1.3||
-||int||GetIndex()||1.3||
-||String||GetName()||1.3||
-||float||GetSoftness()||1.3||
-||float||GetToughness()||1.3||
-||bool||CanParadrop()||1.3||
-||bool||IsBomber()||1.3||
-||bool||IsBuildable()||1.3||
-||bool||IsCag()||1.3||
-||bool||IsCapitalShip()||1.3||
-||bool||IsCarrier()||1.3||
-||bool||IsRegiment()||1.3||
-||bool||IsSecondRank()||1.3||
-||bool||IsShip()||1.3||
-||bool||IsSub()||1.3||
-||bool||IsTransport()||1.3||
-||bool||IsValid()||1.3||
+||float||`GetBuildCostIC(`)||1.3||
+||float||`GetBuildCostMP(`)||1.3||
+||int||`GetBuildTime(`)||1.3||
+||float||`GetCombatWidth(`)||1.3||
+||float||`GetCompletionSize(`)||1.3||
+||int||`GetDefaultStrength(`)||1.3||
+||float||`GetDefensivness(`)||1.3||
+||???||`GetKey(`)||1.3||
+||int||`GetIndex(`)||1.3||
+||String||`GetName(`)||1.3||
+||float||`GetSoftness(`)||1.3||
+||float||`GetToughness(`)||1.3||
+||bool||`CanParadrop(`)||1.3||
+||bool||`IsBomber(`)||1.3||
+||bool||`IsBuildable(`)||1.3||
+||bool||`IsCag(`)||1.3||
+||bool||`IsCapitalShip(`)||1.3||
+||bool||`IsCarrier(`)||1.3||
+||bool||`IsRegiment(`)||1.3||
+||bool||`IsSecondRank(`)||1.3||
+||bool||`IsShip(`)||1.3||
+||bool||`IsSub(`)||1.3||
+||bool||`IsTransport(`)||1.3||
+||bool||`IsValid(`)||1.3||
 
 ==SubUnitList==
-||static void||Append(SubUnitList unitList, ??? unit)||1.3||
-||int||GetSize()||1.3||
+||static void||`Append(`SubUnitList unitList, ??? unit)||1.3||
+||int||`GetSize(`)||1.3||
 
 ==CList_CSubUnitConstructionEntry==
-||CSubUnitConstructionEntry||GetHeadData()||1.3||
-||CSubUnitConstructionEntry||GetTailData()||1.3||
-||bool||IsEmpty()||1.3||
-||void||Remove([#CSubUnitConstructionEntry CSubUnitConstructionEntry] request)||1.3||
-||void||RemoveHead()||1.3||
-||void||RemoveTail()||1.3||
+||CSubUnitConstructionEntry||`GetHeadData(`)||1.3||
+||CSubUnitConstructionEntry||`GetTailData(`)||1.3||
+||bool||`IsEmpty(`)||1.3||
+||void||`Remove(`[#CSubUnitConstructionEntry CSubUnitConstructionEntry] request)||1.3||
+||void||`RemoveHead(`)||1.3||
+||void||`RemoveTail(`)||1.3||
 
 ==CSubUnitConstructionEntry==
 ||int||nPrio||1.3||
@@ -674,46 +675,46 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ==CTechnology==
 ||???||CanUpgrade||1.3||
 ||???||GetDifficulty||1.3||
-||???||GetEnableUnit()||1.3||
-||[#CTechnologyFolder CTechnologyFolder]||GetFolder()||1.3||
-||String||GetKey()||1.3||
-||???||GetOnCompletion()||1.4||
-||List`<`[#CResearchBonus CResearchBonus]`>`||GetResearchBonus()||1.3||
-||bool||IsOneLevelOnly()||1.3||
-||bool||IsValid()||1.3||
+||???||`GetEnableUnit(`)||1.3||
+||[#CTechnologyFolder CTechnologyFolder]||`GetFolder(`)||1.3||
+||String||`GetKey(`)||1.3||
+||???||`GetOnCompletion(`)||1.4||
+||List`<`[#CResearchBonus CResearchBonus]`>`||`GetResearchBonus(`)||1.3||
+||bool||`IsOneLevelOnly(`)||1.3||
+||bool||`IsValid(`)||1.3||
 
 ==CTechnologyCategory==
-||String||GetKey()||1.3||
-||int||GetIndex()||1.3||
+||String||`GetKey(`)||1.3||
+||int||`GetIndex(`)||1.3||
 
 ==CTechnologyDataBase==
-||List`<`[#CTechnologyCategory CTechnologyCategory]`>`||GetCategories()||1.3||
-||int||GetFolderIndex(String folderName)||1.3||
-||List`<`[#CTechnology CTechnology]`>`||GetTechnologies()||1.3||
+||List`<`[#CTechnologyCategory CTechnologyCategory]`>`||`GetCategories(`)||1.3||
+||int||`GetFolderIndex(`String folderName)||1.3||
+||List`<`[#CTechnology CTechnology]`>`||`GetTechnologies(`)||1.3||
 
 ==CTechnologyFolder==
-||String||GetKey()||1.3||
-||int||GetIndex()||1.3||
+||String||`GetKey(`)||1.3||
+||int||`GetIndex(`)||1.3||
 
 ==CTechnologyStatus==
-||[#CFixedPoint CFixedPoint]||GetCost([#CTechnology CTechnology] tech, int level)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetCost(`[#CTechnology CTechnology] tech, int level)||1.3||
 ||???||GetEffectiveYear||1.3||
-||int||GetLevel([#CTechnology CTechnology] tech)||1.3||
-||int||GetYear([#CTechnology CTechnology], level)||1.3||
-||bool||IsUnitAvailable([#CSubUnitDefinition CSubUnitDefinition] unit)||1.3||
+||int||`GetLevel(`[#CTechnology CTechnology] tech)||1.3||
+||int||`GetYear(`[#CTechnology CTechnology], level)||1.3||
+||bool||`IsUnitAvailable(`[#CSubUnitDefinition CSubUnitDefinition] unit)||1.3||
 
 ==CTheatre==
-||float||GetPriority()||1.3||
+||float||`GetPriority(`)||1.3||
 
 ==CToggleMobilizationCommand==
 CToggleMobilizationCommand(??? ministerTag, bool ???)
 
 ==CTradeAction==
-||[#CTradeRoute CTradeRoute]||GetRoute()||1.3||
-||[#CFixedPoint CFixedPoint]||GetTrading(int goods, ??? ministerTag)||1.3||
-||bool||IsConvoyPossible()||1.3||
-||void||SetRoute([#CTradeRoute CTradeRoute] route)||1.3||
-||void||SetTrading([#CFixedPoint CFixedPoint] amount, int goods)||1.3||
+||[#CTradeRoute CTradeRoute]||`GetRoute(`)||1.3||
+||[#CFixedPoint CFixedPoint]||`GetTrading(`int goods, ??? ministerTag)||1.3||
+||bool||`IsConvoyPossible(`)||1.3||
+||void||`SetRoute(`[#CTradeRoute CTradeRoute] route)||1.3||
+||void||`SetTrading(`[#CFixedPoint CFixedPoint] amount, int goods)||1.3||
 ||???||PROPOSE||1.3||
 
 ==CUnit==
@@ -721,22 +722,22 @@ CToggleMobilizationCommand(??? ministerTag, bool ???)
 ||GetChildren||1.3||
 
 ==CUnitList==
-||int||GetCount([#CSubUnitDefinition CSubUnitDefinition] pType)||1.4||You can fetch the definitions from calls like CSubUnitDataBase.GetSubUnit("armor_brigade"), but again, watch out for these as they cost a bit to calculate.||
-||int||GetTotalAmountOfArmies()||1.4||
-||int||GetTotalAmountOfDivisions()||1.4||
-||int||GetTotalNumOfPlanes()||1.4||
-||int||GetTotalNumOfRegiments()||1.4||
-||int||GetTotalNumOfShips()||1.4||
-||int||GetTotalNumOfTransports()||1.4||
-||int||GetTotalNumOfWarShips()||1.4||
+||int||`GetCount(`[#CSubUnitDefinition CSubUnitDefinition] pType)||1.4||You can fetch the definitions from calls like CSubUnitDataBase.GetSubUnit("armor_brigade"), but again, watch out for these as they cost a bit to calculate.||
+||int||`GetTotalAmountOfArmies(`)||1.4||
+||int||`GetTotalAmountOfDivisions(`)||1.4||
+||int||`GetTotalNumOfPlanes(`)||1.4||
+||int||`GetTotalNumOfRegiments(`)||1.4||
+||int||`GetTotalNumOfShips(`)||1.4||
+||int||`GetTotalNumOfTransports(`)||1.4||
+||int||`GetTotalNumOfWarShips(`)||1.4||
 ||?||GetTotalStrength||1.3||
 
 ==CWar==
 ||???||GetAttackers||1.3||
-||int||GetCurrentRunningTimeInMonths()||1.3||
+||int||`GetCurrentRunningTimeInMonths(`)||1.3||
 ||???||GetDefenders||1.3||
-||bool||IsLimited()||1.3||
-||bool||IsPartOfWar([#CCountryTag CCountryTag] countryTag)||1.3||
+||bool||`IsLimited(`)||1.3||
+||bool||`IsPartOfWar(`[#CCountryTag CCountryTag] countryTag)||1.3||
 
 ==SpyMission==
 For some reason, the Support Party missions are called 'boost'.

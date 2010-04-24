@@ -1,5 +1,5 @@
-* Class Reference
-  * Main classes
+* [LUAClassReference Class Reference]
+  * [LUAClassReference Main classes]
     * [LUAClassReference#CAlignment CAlignment]
     * [LUAClassReference#CBuilding CBuilding]
     * [LUAClassReference#CBuildingDataBase CBuildingDataBase]
@@ -52,7 +52,7 @@
     * [LUAClassReference#CUnit CUnit]
     * [LUAClassReference#CUnitList CUnitList]
     * [LUAClassReference#CWar CWar]
-  * Minister classes
+  * [LUAClassReference Minister classes]
     * [LUAClassReference#CAI CAI]
     * [LUAClassReference#CAIAgent CAIAgent]
     * [LUAClassReference#CAIEspionageMinister CAIEspionageMinister]
@@ -63,7 +63,7 @@
     * [LUAClassReference#CAIStrategy CAIStrategy]
     * [LUAClassReference#CAISubscriber CAISubscriber]
     * [LUAClassReference#CAITechMinister CAITechMinister]
-  * Enumeration classes
+  * [LUAClassReference Enumeration classes]
     * [LUAClassReference#CAIStrategy CAIStrategy]
     * [LUAClassReference#CAutomationType CAutomationType]
     * [LUAClassReference#CDistributionSetting CDistributionSetting]
@@ -73,7 +73,7 @@
     * [LUAClassReference#CRule CRule]
     * [LUAClassReference#CSpyPresence CSpyPresence]
     * [LUAClassReference#SpyMission SpyMission]
-  * Action classes
+  * [LUAClassReference Action classes]
     * [LUAClassReference#CAllianceAction CAllianceAction]
     * [LUAClassReference#CCallAllyAction CCallAllyAction]
     * [LUAClassReference#CChangeSpyMission CChangeSpyMission]
@@ -91,7 +91,7 @@
     * [LUAClassReference#CPeaceAction CPeaceAction]
     * [LUAClassReference#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]
     * [LUAClassReference#CTradeAction CTradeAction]
-  * Command classes
+  * [LUAClassReference Command classes]
     * [LUAClassReference#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]
     * [LUAClassReference#CChangeInvestmentCommand CChangeInvestmentCommand]
     * [LUAClassReference#CChangeLawCommand CChangeLawCommand]
@@ -107,7 +107,7 @@
     * [LUAClassReference#CStartResearchCommand CStartResearchCommand]
     * [LUAClassReference#CToggleMobilizationCommand CToggleMobilizationCommand]
     * [LUAClassReference#SubUnitList SubUnitList]
-  * Primitive type classes
+  * [LUAClassReference Primitive type classes]
     * [LUAClassReference#CArrayFix CArrayFix]
     * [LUAClassReference#CArrayFloat CArrayFloat]
     * [LUAClassReference#CDate CDate]
