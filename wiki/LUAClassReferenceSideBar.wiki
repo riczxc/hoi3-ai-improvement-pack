@@ -1,4 +1,3 @@
-* [LUAClassReference Class Reference]
   * [LUAClassReference Main classes]
     * [LUAClassReference#CAlignment CAlignment]
     * [LUAClassReference#CBuilding CBuilding]
