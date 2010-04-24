@@ -62,11 +62,11 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ===Property summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  `_DIPLOMACY_`                                                                                             ||  1.4    ||  
-||  ???                                                               ||  `_INTELLIGENCE_`                                                                                          ||  1.4    ||  
-||  ???                                                               ||  `_POLITICS_`                                                                                              ||  1.4    ||  
-||  ???                                                               ||  `_PRODUCTION_`                                                                                            ||  1.4    ||  
-||  ???                                                               ||  `_TECHNOLOGY_`                                                                                            ||  1.4    ||  
+||  static number                                                               ||  `_DIPLOMACY_`                                                                                             ||  1.4    ||  
+||  static number                                                               ||  `_INTELLIGENCE_`                                                                                          ||  1.4    ||  
+||  static number                                                               ||  `_POLITICS_`                                                                                              ||  1.4    ||  
+||  static number                                                               ||  `_PRODUCTION_`                                                                                            ||  1.4    ||  
+||  static number                                                               ||  `_TECHNOLOGY_`                                                                                            ||  1.4    ||  
 
 ===Metod Details===
 ===GetSpamPenalty===
@@ -181,11 +181,11 @@ implements [#CAIAgent CAIAgent]
 
 ===Property summary===
 ||  *Type*                                                            ||  *Property*                                                                                                ||  *Since*||  
-||  ???                                                               ||  `_AI_BALANCED_`                                                                                           ||  1.3    ||  
-||  ???                                                               ||  `_AI_DIPLOMAT_`                                                                                           ||  1.3    ||  
-||  ???                                                               ||  `_AI_INDUSTRIALIST_`                                                                                      ||  1.3    ||  
-||  ???                                                               ||  `_AI_MILITARIST_`                                                                                         ||  1.3    ||  
-||  ???                                                               ||  `_AI_UNDEFINED_`                                                                                          ||  1.3    ||  
+||  static number                                                               ||  `_AI_BALANCED_`                                                                                           ||  1.3    ||  
+||  static number                                                               ||  `_AI_DIPLOMAT_`                                                                                           ||  1.3    ||  
+||  static number                                                               ||  `_AI_INDUSTRIALIST_`                                                                                      ||  1.3    ||  
+||  static number                                                               ||  `_AI_MILITARIST_`                                                                                         ||  1.3    ||  
+||  static number                                                               ||  `_AI_UNDEFINED_`                                                                                          ||  1.3    ||  
 
 
 ==CAISubscriber==
@@ -239,7 +239,7 @@ implements [#CAIAgent CAIAgent]
 ==CBuilding==
 ===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  String                                                            ||  `GetName()`                                                                                               ||  1.3    ||  
+||  string                                                            ||  `GetName()`                                                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                               ||  1.3    ||  
 
 
@@ -273,7 +273,7 @@ implements [#CCommand CCommand]
 
 ===Constructor summary===
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CChangeInvestmentCommand CChangeInvestmentCommand]   ||  `CChangeInvestmentCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, …)`
+|| [#CChangeInvestmentCommand CChangeInvestmentCommand]   ||  `CChangeInvestmentCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, ...)` ||  1.3    ||  
 
 ===Constructor detail===
 Constructor accepts one or more values for changes.
@@ -288,7 +288,7 @@ implements [#CCommand CCommand]
 
 ===Constructor summary===
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CChangeLawCommand CChangeLawCommand]   ||  `CChangeLawCommand(`[#CCountryTag CCountryTag]` actor, `[#CLaw CLaw]` law, `[#CLawGroup CLawGroup]` lawGroup)`
+|| [#CChangeLawCommand CChangeLawCommand]   ||  `CChangeLawCommand(`[#CCountryTag CCountryTag]` actor, `[#CLaw CLaw]` law, `[#CLawGroup CLawGroup]` lawGroup)`||  1.3    ||  
 
 ===Constructor detail===
 {{{
@@ -320,7 +320,7 @@ implements [#CCommand CCommand]
 
 ===Constructor summary===
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CChangeLeadershipCommand CChangeLeadershipCommand]   ||  `CChangeLeadershipCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, …)`
+|| [#CChangeLeadershipCommand CChangeLeadershipCommand]   ||  `CChangeLeadershipCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, ...)`||  1.3    ||  
 
 ===Constructor detail===
 Constructor accepts one or more values for changes.
@@ -335,7 +335,7 @@ implements [#CCommand CCommand]
 
 ===Constructor summary===
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CChangePriorityCommand CChangePriorityCommand]   ||  `CChangePriorityCommand(`[#CCountryTag CCountryTag]` actor, `[#CID CID]` cID, number priority)`
+|| [#CChangePriorityCommand CChangePriorityCommand]   ||  `CChangePriorityCommand(`[#CCountryTag CCountryTag]` actor, `[#CID CID]` cID, number priority)`||  1.3    ||  
 
 ===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -344,44 +344,88 @@ implements [#CCommand CCommand]
 
 ==CChangeSpyMission==
 implements [#CCommand CCommand]
-constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] other, int spyMission)
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CChangeSpyMission CChangeSpyMission]   ||  `CChangeSpyMission(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` target, number spyMission)`||  1.3    ||  
+
 
 ==CChangeSpyPriority==
 implements [#CCommand CCommand]
-constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] other, int priority)
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CChangeSpyPriority CChangeSpyPriority]   ||  `CChangeSpyPriority(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` target, number spyPriority)`||  1.3    ||  
+
 
 ==CCommand==
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                  ||  IsValid()                                                                                                   ||  1.3    ||  
+
 
 ==CConstructBuildingCommand==
 implements [#CCommand CCommand]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CConstructBuildingCommand CConstructBuildingCommand]   ||  `CConstructBuildingCommand(`[#CCountryTag CCountryTag]` actor, `[#CBuilding CBuilding]` building, number provinceId, number quantity)`||  1.3    ||  
+
+
 ==CConstructConvoyCommand==
 implements [#CCommand CCommand]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CConstructConvoyCommand CConstructConvoyCommand]   ||  `CConstructConvoyCommand(`[#CCountryTag CCountryTag]` actor, bool ConvoyOrEscort, number quantity)`||  1.3    ||  
+
+===Constructor detail===
+ConvoyOrEscort = is a boolean (true = escort, false = convoy)
+
+
 ==CConstructSingleUnitCommand==
 implements [#CCommand CCommand]
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CConstructSingleUnitCommand CConstructSingleUnitCommand]        ||  Clone()                                                                                                   ||  1.3    ||  
+||  [#CConstructSingleUnitCommand CConstructSingleUnitCommand]        ||  `Clone()`                                                                                                  ||  1.3    ||  
+
 
 ==CConstructUnitCommand==
 implements [#CCommand CCommand]
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CConstructUnitCommand CConstructUnitCommand]   ||  `CConstructUnitCommand(`[#CCountryTag CCountryTag]` actor, CList<`[#CSubUnitDefinition CSubUnitDefinition]`> orderlist, number capitalProvId, number quantity, bool bBuildReserveAtPeace, [#CCountryTag CCountryTag] countryTag, [#CID CID] cId)`||  1.3    ||  
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CConstructUnitCommand CConstructUnitCommand]                    ||  Clone()                                                                                                   ||  1.3    ||  
+||  [#CConstructUnitCommand CConstructUnitCommand]                    ||  `Clone()`                                                                                                   ||  1.3    ||  
+
 
 ==CContinent==
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                    || `GetName()`                                                                                                   ||  1.3    ||  
+||  ???                    || `GetTag()`                                                                                                   ||  1.3    ||  
 
 ==CConvoy==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  GetDesiredEscorts                                                 ||  1.3                                                                                                       ||  
-||  GetDesiredTransports                                              ||  1.3                                                                                                       ||  
-||  GetEfficiency                                                     ||  1.3                                                                                                       ||  
-||  IsForTradeRoute                                                   ||  1.3                                                                                                       ||  
+|| ??? ||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
+|| ??? ||  `GetDesiredTransports(???)`                                              ||  1.3                                                                                                       ||  
+|| ??? ||  `GetEfficiency(???)`                                                    ||  1.3                                                                                                       ||  
+|| ??? ||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
 
 ==CCountryDataBase==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CCountryTag CCountryTag]                                        ||  `GetTag(`String countryCode)                                                                              ||  1.3    ||  
+||  [#CCountryTag CCountryTag]                                        ||  `GetTag(string countryCode)`                                                                              ||  1.3    ||  
 
 ==CCountryTag==
+Supports implicit LUA toString conversion.
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry()`                                                                                            ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
@@ -389,25 +433,35 @@ implements [#CCommand CCommand]
 ||  bool                                                              ||  `IsReal()`                                                                                                ||  1.3    ||  
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
+==CCountryTagList==
+implements [#CList CList]
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                                              ||  `IsEnemy(???)`                                                                                            ||  1.3    ||  
+
 ==CCurrentGameState==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetAIRand()`                                                                                             ||  1.3    ||  Return value is between 0 and int.MAX_VALUE                                                                                                                ||  
 ||  List`<`[#CCountry CCountry]`>`                                    ||  `GetCountries()`                                                                                          ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
-||  [#CFaction CFaction]                                              ||  `GetFaction(`String faction)                                                                              ||  1.3    ||  
+||  [#CFaction CFaction]                                              ||  `GetFaction(string faction)`                                                                              ||  1.3    ||  
+||  List`<`[#CFaction CFaction]`>`                                    ||  `GetFactions()`                                                                              ||  1.3    ||  
 ||  ???                                                               ||  `GetInstance()`                                                                                           ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetPlayer()`                                                                                             ||  1.3    ||  
-||  [#CProvince CProvince]                                            ||  `GetProvince(`int provineId)                                                                              ||  1.3    ||  
-||  bool                                                              ||  `IsGlobalFlagSet(`String flagName)                                                                        ||  1.4    ||  check for global flag                                                                                                                                      ||  
+||  [#CProvince CProvince]                                            ||  `GetProvince(number provinceId)`                                                                              ||  1.3    ||  
+||  bool                                                              ||  `IsGlobalFlagSet(string flagName)`                                                                        ||  1.4    ||  check for global flag                                                                                                                                      ||  
 
 ==CCountry==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `CalcDesperation()`                                                                                       ||  1.3    ||  
-||  ???                                                               ||  CalculateReinforcementMultiplier                                                                          ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                                               ||  `CalculateReinforcementMultiplier()`                                                                          ||  1.3    ||  
 ||  number                                                            ||  `CalculateNumberOfActiveInfluences()`                                                                     ||  1.3    ||  
 ||  bool                                                              ||  `Exists()`                                                                                                ||  1.3    ||  
-||  ???                                                               ||  `AccessIdeologyOrganization()`                                                                            ||  1.3    ||  return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                         ||  
-||  ???                                                               ||  `AccessIdeologyPopularity()`                                                                              ||  1.3    ||   --return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                      ||  
+||  [#CIdeology CIdeology]                                                                ||  `AccessIdeologyOrganization()`                                                                            ||  1.3    ||  return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                         ||  
+||  [#CIdeology CIdeology]                                                               ||  `AccessIdeologyPopularity()`                                                                              ||  1.3    ||   --return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                      ||  
 ||  bool                                                              ||  `CanCreatePuppet()`                                                                                       ||  1.3    ||  
 ||  number                                                            ||  `GetAbility(`[#CTechnologyCategory CTechnologyCategory] category)                                         ||  1.3    ||  
 ||  [#CProvince CProvince]                                            ||  `GetActingCapitalLocation()`                                                                              ||  1.3    ||  
@@ -417,41 +471,45 @@ implements [#CCommand CCommand]
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetAllies()`                                                                                             ||  1.3    ||  
 ||  number                                                            ||  `GetAllowedResearchSlots()`                                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetAvailableIC()`                                                                                        ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetBuildCost(`[#CBuilding CBuilding] building)                                                           ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetBuildCostIC(`??? pUnit, int ???, bool buildReserve)                                                   ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetBuildCost(`[#CBuilding CBuilding]` building)`                                                           ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetBuildCostIC(`[#CSubUnitDefinition CSubUnitDefinition]` pUnit, number quantity, bool buildReserve)`                                                   ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetBuildCostMP(`[#CSubUnitDefinition CSubUnitDefinition]` pUnit, number quantity, bool buildReserve)`                                                   ||  1.3    ||  
+||  ???                                        ||  `GetBuildTime(???)`                                                           ||  1.3    ||  
 ||  number                                                            ||  `GetCapital()`                                                                                            ||  1.3    ||  
 ||  [#CProvince CProvince]                                            ||  `GetCapitalLocation()`                                                                                    ||  1.3    ||  
+||  List`<`[#CProvince CProvince]`>`                                                                 ||  `GetControlledProvinces()`                                                                                ||  1.4    ||  
+||  List`<`[#CProvince CProvince]`>`                                                                 ||  `GetCoreProvinces()`                                                                                      ||  1.4    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetConvoyBuildCost()`                                                                                    ||  1.3    ||  
-||  ???                                                               ||  GetConvoyBuildTime                                                                                        ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                                               ||  `GetConvoyBuildTime()`                                                                                        ||  1.3    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetConvoyedIn()`                                                                                         ||  1.4    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetConvoyedOut()`                                                                                        ||  1.4    ||  
-||  number                                                            ||  `GetConvoys()`                                                                                            ||  1.3    ||  
+||  List`<`[#CConvoy CConvoy]`>`                                                            ||  `GetConvoys()`                                                                                            ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetCountryTag()`                                                                                         ||  1.3    ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetCurrentAtWarWith()`                                                                                   ||  1.3    ||  
 ||  List`<`[#CUnit CTechnology]`>`                                    ||  `GetCurrentResearch()`                                                                                    ||  1.4    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyBalance(`int goods)                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyExpense(`int goods)                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyIncome(`int goods)                                                                               ||  1.3    ||  
-||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetDiplomacy()`                                                                                          ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyBalance(number goods)`                                                                              ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyExpense(number goods)`                                                                              ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyIncome(number goods)`                                                                               ||  1.3    ||  
+||  List`<`[#CDiplomacyStatus CDiplomacyStatus]`>`                              ||  `GetDiplomacy()`                                                                                          ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetDiplomaticDistance(`[#CCountryTag CCountryTag] countryTag)                                            ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetDiplomaticInfluence()`                                                                                ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetDissent()`                                                                                            ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetEffectiveNeutrality()`                                                                                ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetEscortBuildCost()`                                                                                    ||  1.3    ||  
-||  ???                                                               ||  GetEscortBuildTime                                                                                        ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                                               ||  `GetEscortBuildTime()`                                                                                        ||  1.3    ||  
 ||  number                                                            ||  `GetEscorts()`                                                                                            ||  1.3    ||  
 ||  [#CFaction CFaction]                                              ||  `GetFaction()`                                                                                            ||  1.3    ||  
 ||  [#CFlags CFlags]                                                  ||  `GetFlags()`                                                                                              ||  1.4    ||  
 ||  [#CModifier CModifier]                                            ||  `GetGlobalModifier()`                                                                                     ||  1.3    ||  
-||  ???                                                               ||  `GetGovernment()`                                                                                         ||  1.3    ||  
+||  [#CGovernment CGovernment]                                                               ||  `GetGovernment()`                                                                                         ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetHighestThreat()`                                                                                      ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetICPart(`int distributionSetting)                                                                      ||  1.3    ||  
-||  [#CLaw CLaw]                                                      ||  `GetLaw(`[#CLawGroup CLawGroup] lawGroup)                                                                 ||  1.3    ||  
-||  ???                                                               ||  GetLawFromIndex                                                                                           ||  1.3    ||  
-||  [#CDistributionSetting CDistributionSetting]                      ||  `GetLeadershipDistributionAt(`int distributionSetting)                                                    ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetICPart(number distributionSetting)`                                                                      ||  1.3    ||  
+||  [#CLaw CLaw]                                                      ||  `GetLaw(`[#CLawGroup CLawGroup]` lawGroup)`                                                                 ||  1.3    ||  
+||  [#CLaw CLaw]                                                               ||  GetLawFromIndex(number index)`                                                                                            ||  1.3    ||  
+||  [#CDistributionSetting CDistributionSetting]                      ||  `GetLeadershipDistributionAt(number distributionSetting)`                                                    ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetManpower()`                                                                                           ||  1.3    ||  
 ||  number                                                            ||  `GetMaxIC()`                                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetMaxNeutralityForWarWith(`[#CCountryTag CCountryTag] countryTag)                                       ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetMaxNeutralityForWarWith(`[#CCountryTag CCountryTag]` countryTag)`                                       ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetMoneyBalanceAverage()`                                                                                ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNationalUnity()`                                                                                      ||  1.3    ||  
 ||  List`<`[#CProvince CProvince]`>`                                  ||  `GetNavalBases()`                                                                                         ||  1.3    ||  
@@ -465,16 +523,16 @@ implements [#CCommand CCommand]
 ||  number                                                            ||  `GetNumOfPorts()`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetOfficerRatio()`                                                                                       ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetOverlord()`                                                                                           ||  1.3    ||  
-||  List`<`int`>`                                                     ||  `GetOwnedProvinces()`                                                                                     ||  1.3    ||  
+||  List<number>                                                     ||  `GetOwnedProvinces()`                                                                                     ||  1.3    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetPool()`                                                                                               ||  1.3    ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetPossibleLiberations()`                                                                                ||  1.3    ||  
-||  ???                                                               ||  `GetPossiblePuppets()`                                                                                    ||  1.3    ||  
-||  [#CDistributionSetting CDistributionSetting]                      ||  `GetProductionDistributionAt(`int distributionSetting)                                                    ||  1.3    ||  
-||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag] countryTag)                                                      ||  1.3    ||  
-||  ???                                                               ||  `GetRules()`                                                                                              ||  1.3    ||  
+||  List`<`[#CCountryTag CCountryTag]`>`                                                               ||  `GetPossiblePuppets()`                                                                                    ||  1.3    ||  
+||  [#CDistributionSetting CDistributionSetting]                      ||  `GetProductionDistributionAt(number distributionSetting)`                                                    ||  1.3    ||  
+||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag]` countryTag)`                                                      ||  1.3    ||  
+||  [#CRule CRule]                                                               ||  `GetRules()`                                                                                              ||  1.3    ||  
 ||  [#CIdeology CIdeology]                                            ||  `GetRulingIdeology()`                                                                                     ||  1.3    ||  
 ||  [#CSpyPresence CSpyPresence]                                      ||  `GetSpyPresence(`[#CCountryTag CCountryTag] countryTag)                                                   ||  1.3    ||  
-||  ???                                                               ||  `GetStrategicWarfare()`                                                                                   ||  1.3    ||  
+||  [#CStrategicWarfare CStrategicWarfare]                                                               ||  `GetStrategicWarfare()`                                                                                   ||  1.3    ||  
 ||  [#CAIStrategy CAIStrategy]                                        ||  `GetStrategy()`                                                                                           ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetSupplyBalanceAverage()`                                                                               ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetSurrenderLevel()`                                                                                     ||  1.3    ||  
@@ -489,68 +547,95 @@ implements [#CCommand CCommand]
 ||  [#CUnitList CUnitList]                                            ||  `GetUnits()`                                                                                              ||  1.4    ||  
 ||  List`<`[#CUnit CUnit]`>`                                          ||  `GetUnitsIterator()`                                                                                      ||  1.4    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetUsedIC()`                                                                                             ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetVariable(`String key)                                                                                 ||  1.4    ||  country variable by key                                                                                                                                    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetVariable(`string key)                                                                                 ||  1.4    ||  country variable by key                                                                                                                                    ||  
 ||  [#CVariables CVariables]                                          ||  `GetVariables()`                                                                                          ||  1.4    ||  country variables                                                                                                                                          ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetVassals()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `HasConstruction()`                                                                                       ||  1.3    ||  
-||  bool                                                              ||  `HasDiplomatEnroute(`[#CCountryTag CCountryTag] countryTag)                                               ||  1.3    ||  
+||  bool                                                              ||  `HasDiplomatEnroute(`[#CCountryTag CCountryTag]` countryTag)`                                               ||  1.3    ||  
 ||  bool                                                              ||  `HasExtraManpowerLeft()`                                                                                  ||  1.3    ||  
 ||  bool                                                              ||  `HasFaction()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `HasNeighborInFaction(`[#CFaction CFaction] faction)                                                      ||  1.3    ||  
 ||  bool                                                              ||  `IsAtWar()`                                                                                               ||  1.3    ||  
-||  bool                                                              ||  `IsBuildingAllowed(`[#CBuilding CBuilding] building, CProvince province)                                  ||  1.3    ||  
+||  bool                                                              ||  `IsBuildingAllowed(`[#CBuilding CBuilding]` building, `[#CProvince CProvince]` province)`                                  ||  1.3    ||  
 ||  bool                                                              ||  `IsEnemy(`[#CCountryTag CCountryTag] otherCountryTag)                                                     ||  1.3    ||  
 ||  bool                                                              ||  `IsFactionLeader()`                                                                                       ||  1.3    ||  
-||  bool                                                              ||  `IsFriend(`[#CCountryTag CCountryTag] otherCountryTag, bool ???)                                          ||  1.3    ||  
+||  bool                                                              ||  `IsFriend(`[#CCountryTag CCountryTag] otherCountryTag, bool unknownFlag)                                          ||  1.3    ||  
 ||  bool                                                              ||  `IsGovernmentInExile()`                                                                                   ||  1.3    ||  
 ||  bool                                                              ||  `IsMajor()`                                                                                               ||  1.3    ||  
-||  bool                                                              ||  `isPuppet()`                                                                                              ||  1.3    ||  
 ||  bool                                                              ||  `IsMobilized()`                                                                                           ||  1.3    ||  
 ||  bool                                                              ||  `IsNeighbour(`[#CCountryTag CCountryTag] otherCountryTag)                                                 ||  1.3    ||  
-||  bool                                                              ||  `IsNeighbourToFactionHostile(`[#CFaction CFaction] faction, bool ???)                                     ||  1.3    ||  
-||  bool                                                              ||  IsSubject                                                                                                 ||  1.3    ||  
-||  bool                                                              ||  `NeedConvoyToTradeWith(`[#CCountryTag CCountryTag] countryTag)                                            ||  1.3    ||  
+||  bool                                                              ||  `IsNeighbourToFactionHostile(`[#CFaction CFaction]` faction, bool unknownFlag)`                                     ||  1.3    ||  
+||  bool                                                              ||  `isPuppet()`                                                                                              ||  1.3    ||  
+||  bool                                                              ||  `IsSubject()`                                                                                              ||  1.3    ||  
+||  bool                                                              ||  `NeedConvoyToTradeWith(`[#CCountryTag CCountryTag]` countryTag)`                                            ||  1.3    ||  
 ||  bool                                                              ||  `MayLiberateCountries()`                                                                                  ||  1.3    ||  
 
 ==CCountryList==
 implements [#CList<CCountryTag> CList<CCountryTag>]
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `IsEnemy()`                                                                                               ||  1.3    ||  
 
 ==CCountryTagList==
 
 ==CDate==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetDayOfMonth()`                                                                                         ||  1.3    ||  
 ||  number                                                            ||  `GetMonthOfYear()`                                                                                        ||  1.3    ||  
 ||  number                                                            ||  `GetYear()`                                                                                               ||  1.3    ||  
-||  ???                                                               ||  AddDays                                                                                                   ||  1.3    ||  
+||  ???                                                               ||  `AddDays(???)`                                                                                                   ||  1.3    ||  
 
 ==CDebtAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CDebtAction CDebtAction]   ||  `CDebtAction(`[#CCountryTag CCountryTag]` actor, `[#CCountryTag CCountryTag]` debtor)`||  1.3    ||  
+
+
 ==CDecision==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  IsAllowed                                                                                                 ||  1.3    ||  
-||  ???                                                               ||  IsPotential                                                                                               ||  1.3    ||  
+||  [#CString CString]                                                ||  GetKey()                                                                                                 ||  1.3    ||  
+||  bool                                                               ||  IsAllowed()                                                                                                ||  1.3    ||  
+||  bool                                                               ||  IsPotential()                                                                                               ||  1.3    ||  
+
 
 ==CDeclareWarAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CDeclareWarAction CDeclareWarAction]                                 ||  CDeclareWarAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
+
 ==CDiplomaticAction==
 implements [#CAction CAction]
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetAIAcceptance()`                                                                                       ||  1.3    ||  
-||  ???                                                               ||  GetValue                                                                                                  ||  1.3    ||  
-||  ???                                                               ||  GetType                                                                                                   ||  1.3    ||  
+||  ???                                                               ||  `GetValue(???)`                                                                                                  ||  1.3    ||  
+||  ???                                                               ||  `GetType(???)`                                                                                                   ||  1.3    ||  
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 ||  bool                                                              ||  `IsSelectable()`                                                                                          ||  1.3    ||  
-||  ???                                                               ||  SetValue                                                                                                  ||  1.3    ||  
-||  ???                                                               ||  ACCEPT                                                                                                    ||  1.3    ||  
-||  ???                                                               ||  DECLINE                                                                                                   ||  1.3    ||  
-||  ???                                                               ||  PROPOSE                                                                                                   ||  1.3    ||  
+||  void                                                              ||  `SetValue(???)`                                                                                                  ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Property*                                                                                                ||  *Since*||  
+||  static number                                                              ||  `ACCEPT`                                                                                                    ||  1.3    ||  
+||  static number                                                               ||  `DECLINE`                                                                                                   ||  1.3    ||  
+||  static number                                                               ||  `PROPOSE`                                                                                                   ||  1.3    ||  
+
 
 ==CDiplomacyStatus==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `AllowDebts()`                                                                                            ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetTarget()`                                                                                             ||  1.3    ||  
@@ -574,25 +659,40 @@ implements [#CAction CAction]
 ||  void                                                              ||  `SetValue(`[#CFixedPoint CFixedPoint] relation)                                                           ||  1.3    ||  
 
 ==CDistributionSetting==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  `_LEADERSHIP_DIPLOMACY_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_LEADERSHIP_ESPIONAGE_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_LEADERSHIP_NCO_`                                                                                        ||  1.3    ||  
-||  number                                                            ||  `_LEADERSHIP_numof_`                                                                                      ||  1.3    ||  
-||  number                                                            ||  `_LEADERSHIP_RESEARCH_`                                                                                   ||  1.3    ||  
-||  number                                                            ||  `_PRODUCTION_CONSUMER_`                                                                                   ||  1.3    ||  
-||  number                                                            ||  `_PRODUCTION_numof_`                                                                                      ||  1.3    ||  
-||  number                                                            ||  `_PRODUCTION_PRODUCTION_`                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_PRODUCTION_REINFORCEMENT_`                                                                              ||  1.3    ||  
-||  number                                                            ||  `_PRODUCTION_SUPPLY_`                                                                                     ||  1.3    ||  
-||  number                                                            ||  `_PRODUCTION_UPGRADE_`                                                                                    ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNeeded()`                                                                                             ||  1.3    ||  
-||  ???                                                               ||  GetPercentage                                                                                             ||  1.3    ||  
+||  ???                                                               ||  `GetPercentage(???)`                                                                                             ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Property*                                                                                                ||  *Since*||  
+||  static number                                                            ||  `_LEADERSHIP_DIPLOMACY_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_LEADERSHIP_ESPIONAGE_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_LEADERSHIP_NCO_`                                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_LEADERSHIP_numof_`                                                                                      ||  1.3    ||  
+||  static number                                                            ||  `_LEADERSHIP_RESEARCH_`                                                                                   ||  1.3    ||  
+||  static number                                                            ||  `_PRODUCTION_CONSUMER_`                                                                                   ||  1.3    ||  
+||  static number                                                            ||  `_PRODUCTION_numof_`                                                                                      ||  1.3    ||  
+||  static number                                                            ||  `_PRODUCTION_PRODUCTION_`                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_PRODUCTION_REINFORCEMENT_`                                                                              ||  1.3    ||  
+||  static number                                                            ||  `_PRODUCTION_SUPPLY_`                                                                                     ||  1.3    ||  
+||  static number                                                            ||  `_PRODUCTION_UPGRADE_`                                                                                    ||  1.3    ||  
+
 
 ==CEmbargoAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CEmbargoAction CEmbargoAction]                                 ||  CEmbargoAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
+
 ==CEventScope==
+===Property summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `_Country`                                                                                                ||  1.3    ||  
 ||  ???                                                               ||  `_nProvince`                                                                                              ||  1.3    ||  
@@ -600,265 +700,411 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CFactionAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CFactionAction CFactionAction]                                 ||  CFactionAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
+
 ==CFlags==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `IsFlagSet(`string key)                                                                                   ||  1.3    ||  
 
 ==CFaction==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetFactionLeader()`                                                                                      ||  1.3    ||  
 ||  [#CIdeologyGroup CIdeologyGroup]                                  ||  `GetIdeologyGroup()`                                                                                      ||  1.3    ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetMembers()`                                                                                            ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNormalizedProgress()`                                                                                 ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfMembers()`                                                                                    ||  1.3    ||  
-||  ???                                                               ||  GetProgress                                                                                               ||  1.3    ||  
+||  ???                                                               ||  `GetProgress(???)`                                                                                               ||  1.3    ||  
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
 ==CFixedPoint==
-constructed with CFixedPoint(float val)
+This class has no implicit conversion to number primitive type. You need to use methods in order to obtain arithmetical value.
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CFixedPoint CFixedPoint]                                 ||  `CFixedPoint(number val)`
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `Get()`                                                                                                   ||  1.3    ||  
 ||  number                                                            ||  `GetTruncated()`                                                                                          ||  1.3    ||  
 ||  number                                                            ||  `GetRounded()`                                                                                            ||  1.3    ||  
 
+
 ==CGuaranteeAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-==CGoodsPool==
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CGuaranteeAction CGuaranteeAction]                                 ||  CGuaranteeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  `_CRUDE_OIL_`                                                                                             ||  1.3    ||  
-||  number                                                            ||  `_ENERGY_`                                                                                                ||  1.3    ||  
-||  number                                                            ||  `_FUEL_`                                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_GC_NUMOF_`                                                                                              ||  1.3    ||  
-||  number                                                            ||  `_METAL_`                                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_MONEY_`                                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_RARE_MATERIALS_`                                                                                        ||  1.3    ||  
-||  number                                                            ||  `_SUPPLIES_`                                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `Get(`int goods)                                                                                          ||  1.3    ||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
+
+==CGoodsPool==
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `Get(number goodType)`                                                                                          ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  static number                                                            ||  `_CRUDE_OIL_`                                                                                             ||  1.3    ||  
+||  static number                                                            ||  `_ENERGY_`                                                                                                ||  1.3    ||  
+||  static number                                                            ||  `_FUEL_`                                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_GC_NUMOF_`                                                                                              ||  1.3    ||  
+||  static number                                                            ||  `_METAL_`                                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_MONEY_`                                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_RARE_MATERIALS_`                                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_SUPPLIES_`                                                                                              ||  1.3    ||  
+
 
 ==CGovernment==
+This object support object to object comparison with equal operator.
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                                        ||  `IsValid()`                                                                                          ||  1.3    ||  
+
 
 ==CID==
+This seems to be a unique ID generator.
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CID CID]                                 ||  `CID()`
+
 
 ==CIdeology==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CIdeologyGroup CIdeologyGroup]                                  ||  `GetGroup()`                                                                                              ||  1.3    ||  
 
+
 ==CIdeologyData==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  CalculateTotalSum                                                                                         ||  1.3    ||  
+||  ???                                                               ||  `CalculateTotalSum(???)`                                                                                         ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetValue(`[#CIdeology CIdeology]` ideology)`                                                                                         ||  1.3    ||  
+
 
 ==CIdeologyGroup==
+This object support object to object comparison with equal operator.
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  GetPosition                                                                                               ||  1.3    ||  
+||  [#CFaction CFaction]                                              ||  `GetFaction()`                                                                                               ||  1.3    ||  
+||  ???                                                               ||  `GetPosition(???)`                                                                                               ||  1.3    ||  
+
 
 ==CInfluenceAllianceLeader==
 implements [#CDiplomaticAction CDiplomaticAction]
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CInfluenceAllianceLeader CInfluenceAllianceLeader]                                 ||  CInfluenceAllianceLeader([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
 
 ==CInfluenceNation==
 implements [#CDiplomaticAction CDiplomaticAction]
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CInfluenceNation CInfluenceNation]                                 ||  CInfluenceNation([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
 
 ==CLaw==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CLawGroup CLawGroup]                                            ||  `GetGroup()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
-||  String                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
-||  bool                                                              ||  `ValidFor(`??? ministerTag)                                                                               ||  1.3    ||  
+||  string                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  bool                                                            ||  `IsValid()`                                                                                                ||  1.3    ||  
+||  bool                                                              ||  `ValidFor(`[#CCountryTag CCountryTag]` countryTag)`                                                                               ||  1.3    ||  
+
 
 ==CLawDataBase==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  List`<`[#CLawGroup CLawGroup]`>`                                  ||  `GetGroups()`                                                                                             ||  1.3    ||  
-||  [#CLawGroup CLawGroup]                                            ||  GetLawGroup                                                                                               ||  1.3    ||  
-||  [#CLaw CLaw]                                                      ||  `GetLaw(`int index)                                                                                       ||  1.3    ||  
+||  [#CLawGroup CLawGroup]                                            ||  `GetLawGroup(number index)`                                                                                               ||  1.3    ||  
+||  [#CLaw CLaw]                                                      ||  `GetLaw(number index)`                                                                                       ||  1.3    ||  
 ||  List`<`[#CLaw CLaw]`>`                                            ||  `GetLawList()`                                                                                            ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfLawGroups()`                                                                                  ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfLaws()`                                                                                       ||  1.3    ||  
 
+
 ==CLawGroup==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
-||  String                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  string                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  bool                                                            ||  `IsValid()`                                                                                                ||  1.3    ||  
+
 
 ==CLiberateCountryCommand==
 implements [#CCommand CCommand]
-constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, [#CCountryTag CCountryTag] countryTagToLiberate)
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CLiberateCountryCommand CLiberateCountryCommand]                                 ||  CLiberateCountryCommand([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
 
 ==CLicenceTechnologyAction==
 implements [#CDiplomaticAction CDiplomaticAction]
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  GetMoney                                                                                                  ||  1.3    ||  
-||  ???                                                               ||  GetParalell                                                                                               ||  1.3    ||  
-||  ???                                                               ||  GetSerial                                                                                                 ||  1.3    ||  
-||  ???                                                               ||  SEND                                                                                                      ||  1.3    ||  
-||  ???                                                               ||  TAKE                                                                                                      ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                                               ||  `GetMoney()`                                                                                                  ||  1.3    ||  
+||  number                                                               ||  `GetParalell()`                                                                                               ||  1.3    ||  
+||  number                                                               ||  `GetSerial()`                                                                                                 ||  1.3    ||  
+||  [#CSubUnitDefinition CSubUnitDefinition]                                                               ||  `GetSubunit()`                                                                                                 ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  static number                                                               ||  SEND                                                                                                      ||  1.3    ||  
+||  static number                                                               ||  TAKE                                                                                                      ||  1.3    ||  
+
 
 ==CList_CSubUnitConstructionEntry==
-Noted as CList_CSubUnitConstructionEntry, correspond to CList<CSubUnitConstructionEntry>
+implements [#CList CList]<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]>
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  CSubUnitConstructionEntry                                         ||  `GetHeadData()`                                                                                           ||  1.3    ||  
-||  CSubUnitConstructionEntry                                         ||  `GetTailData()`                                                                                           ||  1.3    ||  
+||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetHeadData()`                                                                                           ||  1.3    ||  
+||  number                                         ||  `GetSize()`                                                                                           ||  1.3    ||  
+||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetTailData()`                                                                                           ||  1.3    ||  
 ||  bool                                                              ||  `IsEmpty()`                                                                                               ||  1.3    ||  
-||  void                                                              ||  `Remove(`[#CSubUnitConstructionEntry CSubUnitConstructionEntry] request)                                  ||  1.3    ||  
+||  void                                                              ||  `Remove(`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]` request)`                                  ||  1.3    ||  
 ||  void                                                              ||  `RemoveHead()`                                                                                            ||  1.3    ||  
 ||  void                                                              ||  `RemoveTail()`                                                                                            ||  1.3    ||  
+
 
 ==CMilitaryAccessAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
-constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [#CCountryTag CCountryTag] countryTag)
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CMilitaryAccessAction CMilitaryAccessAction]                               ||  CMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
 
 ==CModifier==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  `GetValue(`int modifier)                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_AIR_CAPACITY_`                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_AIR_ORGANISATION_`                                                                             ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_ALIGN_TOWARDS_`                                                                                ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_ATTACK_REINFORCE_CHANCE_`                                                                      ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_ATTRITION_`                                                                                    ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_COASTAL_FORT_LEVEL_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_COMBAT_MOVEMENT_SPEED_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_COMBAT_WIDTH_`                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_COUNTER_ESPIONAGE_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_COUNTER_INTELLIGENCE_`                                                                         ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_DEFEND_REINFORCE_CHANCE_`                                                                      ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_DISSENT_`                                                                                      ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_DRIFT_SPEED_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_ESPIONAGE_BONUS_`                                                                              ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_FORT_LEVEL_`                                                                                   ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_CRUDE_OIL_`                                                                             ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_ENERGY_`                                                                                ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_FUEL_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_IC_`                                                                                    ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_INFRASTRUCTURE_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_LEADERSHIP_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_`                                                                   ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_MANPOWER_`                                                                              ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_MANPOWER_MODIFIER_`                                                                     ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_METAL_`                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_MONEY_`                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_RARE_MATERIALS_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_REVOLT_RISK_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_GLOBAL_SUPPLIES_`                                                                              ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_IC_`                                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_INCORPORATE_COST_`                                                                             ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_INDUSTRIAL_EFFICIENCY_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_INFRASTRUCTURE_`                                                                               ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LAND_ORGANISATION_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_ANTI_AIR_`                                                                               ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_CRUDE_OIL_`                                                                              ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_ENERGY_`                                                                                 ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_FUEL_`                                                                                   ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_IC_`                                                                                     ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_INFRASTRUCTURE_`                                                                         ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_LEADERSHIP_`                                                                             ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_LEADERSHIP_MODIFIER_`                                                                    ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_MANPOWER_`                                                                               ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_MANPOWER_MODIFIER_`                                                                      ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_METAL_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_MONEY_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_PARTISAN_SUPPORT_`                                                                       ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_RARE_MATERIALS_`                                                                         ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_REVOLT_RISK_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_LOCAL_SUPPLIES_`                                                                               ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_MAX_WAR_EXHAUSTION_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_MINIMUM_REVOLT_RISK_`                                                                          ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_NATIONAL_UNITY_`                                                                               ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_NATIONAL_UNITY_EFFECT_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_NAVAL_BASE_EFFICIENCY_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_NAVAL_CAPACITY_`                                                                               ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_NAVAL_ORGANISATION_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_NEUTRALITY_CHANGE_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_OFFICER_RECRUITMENT_`                                                                          ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_OFFMAP_INDUSTRY_INTEL_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_OFFMAP_LAND_INTEL_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_OFFMAP_NAVAL_INTEL_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_OFFMAP_POLITICAL_INTEL_`                                                                       ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_ORG_REGAIN_`                                                                                   ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_PARTISAN_EFFICENCY_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_`                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_PEACE_OFFMAP_INTEL_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_PEACETIME_MANPOWER_ROTATION_`                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_RADAR_LEVEL_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_RESEARCH_EFFICIENCY_`                                                                          ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_RESERVES_PENALTY_SIZE_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_RULING_PARTY_SUPPORT_`                                                                         ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_SUPPLY_CONSUMPTION_`                                                                           ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_SUPPLY_THROUGHPUT_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_SUSEPTIBILITY_`                                                                                ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_TERRITORIAL_PRIDE_`                                                                            ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_THREAT_IMPACT_`                                                                                ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_UNIT_RECRUITMENT_TIME_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_UNIT_REPAIR_`                                                                                  ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_UNIT_START_EXPERIENCE_`                                                                        ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_WAR_CONSUMER_GOODS_DEMAND_`                                                                    ||  1.3    ||  
-||  number                                                            ||  `_MODIFIER_WAR_EXHAUSTION_`                                                                               ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  static number                                                            ||  `GetValue(`int modifier)                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_AIR_CAPACITY_`                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_AIR_ORGANISATION_`                                                                             ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_ALIGN_TOWARDS_`                                                                                ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_ATTACK_REINFORCE_CHANCE_`                                                                      ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_ATTRITION_`                                                                                    ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_COASTAL_FORT_LEVEL_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_COMBAT_MOVEMENT_SPEED_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_COMBAT_WIDTH_`                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_COUNTER_ESPIONAGE_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_COUNTER_INTELLIGENCE_`                                                                         ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_DEFEND_REINFORCE_CHANCE_`                                                                      ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_DISSENT_`                                                                                      ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_DRIFT_SPEED_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_ESPIONAGE_BONUS_`                                                                              ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_FORT_LEVEL_`                                                                                   ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_CRUDE_OIL_`                                                                             ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_ENERGY_`                                                                                ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_FUEL_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_IC_`                                                                                    ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_INFRASTRUCTURE_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_LEADERSHIP_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_`                                                                   ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_MANPOWER_`                                                                              ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_MANPOWER_MODIFIER_`                                                                     ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_METAL_`                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_MONEY_`                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_RARE_MATERIALS_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_REVOLT_RISK_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_GLOBAL_SUPPLIES_`                                                                              ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_IC_`                                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_INCORPORATE_COST_`                                                                             ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_INDUSTRIAL_EFFICIENCY_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_INFRASTRUCTURE_`                                                                               ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LAND_ORGANISATION_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_ANTI_AIR_`                                                                               ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_CRUDE_OIL_`                                                                              ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_ENERGY_`                                                                                 ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_FUEL_`                                                                                   ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_IC_`                                                                                     ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_INFRASTRUCTURE_`                                                                         ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_LEADERSHIP_`                                                                             ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_LEADERSHIP_MODIFIER_`                                                                    ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_MANPOWER_`                                                                               ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_MANPOWER_MODIFIER_`                                                                      ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_METAL_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_MONEY_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_PARTISAN_SUPPORT_`                                                                       ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_RARE_MATERIALS_`                                                                         ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_REVOLT_RISK_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_LOCAL_SUPPLIES_`                                                                               ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_MAX_WAR_EXHAUSTION_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_MINIMUM_REVOLT_RISK_`                                                                          ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_NATIONAL_UNITY_`                                                                               ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_NATIONAL_UNITY_EFFECT_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_NAVAL_BASE_EFFICIENCY_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_NAVAL_CAPACITY_`                                                                               ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_NAVAL_ORGANISATION_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_NEUTRALITY_CHANGE_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_OFFICER_RECRUITMENT_`                                                                          ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_OFFMAP_INDUSTRY_INTEL_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_OFFMAP_LAND_INTEL_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_OFFMAP_NAVAL_INTEL_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_OFFMAP_POLITICAL_INTEL_`                                                                       ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_ORG_REGAIN_`                                                                                   ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_PARTISAN_EFFICENCY_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_`                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_PEACE_OFFMAP_INTEL_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_PEACETIME_MANPOWER_ROTATION_`                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_RADAR_LEVEL_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_RESEARCH_EFFICIENCY_`                                                                          ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_RESERVES_PENALTY_SIZE_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_RULING_PARTY_SUPPORT_`                                                                         ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_SUPPLY_CONSUMPTION_`                                                                           ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_SUPPLY_THROUGHPUT_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_SUSEPTIBILITY_`                                                                                ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_TERRITORIAL_PRIDE_`                                                                            ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_THREAT_IMPACT_`                                                                                ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_UNIT_RECRUITMENT_TIME_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_UNIT_REPAIR_`                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_UNIT_START_EXPERIENCE_`                                                                        ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_WAR_CONSUMER_GOODS_DEMAND_`                                                                    ||  1.3    ||  
+||  static number                                                            ||  `_MODIFIER_WAR_EXHAUSTION_`                                                                               ||  1.3    ||  
 
 ==CNapAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CNapAction CNapAction]                               ||  CNapAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
+
 ==CNullTag==
 implements [#CCountryTag CCountryTag]
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CNullTag CNullTag]                               ||  `CNullTag()` ||_1.3 ||
+
 
 ==CNullTechnology==
 implements [#CTechnology CTechnology]
 
+
 ==COfferMilitaryAccessAction==
 implements [#CDiplomaticAction CDiplomaticAction]
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
 
 ==CPeaceAction==
 implements [#CAction CAction]
 
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+
 ==CProvince==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CProvinceBuilding CProvinceBuilding]                            ||  `GetBuilding(`[#CBuilding CBuilding] pBuilding)                                                           ||  1.4    ||  
+||  [#CProvinceBuilding CProvinceBuilding]                            ||  `GetBuilding(`[#CBuilding CBuilding]` pBuilding)`                                                           ||  1.4    ||  
 ||  number                                                            ||  `GetCoastalFortLevel()`                                                                                   ||  1.4    ||  
 ||  [#CContinent CContinent]                                          ||  `GetContinent()`                                                                                          ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetController()`                                                                                         ||  1.3    ||  
-||  ?                                                                 ||  `GetControlledProvinces()`                                                                                ||  1.4    ||  
-||  ?                                                                 ||  `GetCoreProvinces()`                                                                                      ||  1.4    ||  
-||  ?                                                                 ||  `GetCurrentConstructionLevel()`                                                                           ||  1.4    ||  
+||  number                                                                 ||  `GetCurrentConstructionLevel(`[#CBuilding CBuilding]` pBuilding)`                                                                           ||  1.4    ||  
 ||  number                                                            ||  `GetFortLevel()`                                                                                          ||  1.4    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetInfrastructure()`                                                                                     ||  1.3    ||  
-||  ???                                                               ||  GetIntelLevel                                                                                             ||  1.3    ||  
+||  number                                                               ||  `GetIntelLevel(`[#CCountryTag CCountryTag]` observer)`                                                                                             ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetMaxInfrastructure()`                                                                                  ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfUnits()`                                                                                      ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetOwner()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetProvinceID()`                                                                                         ||  1.3    ||  
-||  List`<`???`>`                                                     ||  `GetUnits()`                                                                                              ||  1.3    ||  
-||  ???                                                               ||  HasAdjacentEnemyOrCB                                                                                      ||  1.3    ||  
+||  [#CUnitList CUnitList]                                                     ||  `GetUnits()`                                                                                              ||  1.3    ||  
+||  bool                                                               ||  `HasAdjacentEnemyOrCB(???)`                                                                                      ||  1.3    ||  
 ||  bool                                                              ||  `HasBuilding(`[#CBuilding CBuilding] building)                                                            ||  1.3    ||  
-||  bool                                                              ||  `IsFrontProvince(`bool ???)                                                                               ||  1.3    ||  
+||  bool                                                              ||  `IsFrontProvince(bool unknownFlag)`                                                                               ||  1.3    ||  
 
 ==CProvinceBuilding==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCurrent()`                                                                                            ||  1.4    ||  
-||  ???                                                               ||  `GetMax()`                                                                                                ||  1.4    ||  
+||  [#CFixedPoint CFixedPoint]                                                               ||  `GetMax()`                                                                                                ||  1.4    ||  
 
 ==CResearchBonus==
-||  [#CFixedPoint CFixedPoint]                                        ||  `_vWeight`                                                                                                ||  1.3    ||  
-||  [#CTechnologyCategory CTechnologyCategory]                        ||  `_pCategory`                                                                                              ||  1.3    ||  
+===Property summary===
+||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
+||  static [#CFixedPoint CFixedPoint]                                        ||  `_vWeight`                                                                                                ||  1.3    ||  
+||  static [#CTechnologyCategory CTechnologyCategory]                        ||  `_pCategory`                                                                                              ||  1.3    ||  
 
 ==CRule==
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  `_RULE_ALLIANCE_GUARANTEE_`                                                                               ||  1.3    ||  
-||  ???                                                               ||  `_RULE_FREE_RESOURCE_GIFTS_`                                                                              ||  1.3    ||  
-||  ???                                                               ||  `_RULE_LIMITED_WAR_`                                                                                      ||  1.3    ||  
-||  ???                                                               ||  `_RULE_NONE_`                                                                                             ||  1.3    ||  
+===Property summary===
+||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
+||  static number                                                               ||  `_RULE_ALLIANCE_GUARANTEE_`                                                                               ||  1.3    ||  
+||  static number                                                               ||  `_RULE_FREE_RESOURCE_GIFTS_`                                                                              ||  1.3    ||  
+||  static number                                                               ||  `_RULE_LIMITED_WAR_`                                                                                      ||  1.3    ||  
+||  static number                                                               ||  `_RULE_NONE_`                                                                                             ||  1.3    ||  
 
 ==CSendExpeditionaryForceAction==
 implements [#CDiplomaticAction CDiplomaticAction]
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]                               ||  CSendExpeditionaryForceAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  GetClaimType                                                                                              ||  1.3    ||  
-||  ???                                                               ||  GetUnit                                                                                                   ||  1.3    ||  
+||  ???                                                               ||  `GetClaimType(???)`                                                                                              ||  1.3    ||  
+||  ???                                                               ||  `GetUnit(???)`                                                                                                   ||  1.3    ||  
+||  ???                                                               ||  `GetTag(???)`                                                                                                   ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  static number                                                               ||  SEND                                                                                                      ||  1.3    ||  
+||  static number                                                               ||  TAKE                                                                                                      ||  1.3    ||  
 
 ==CSimpleRandom==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  GetFixedPoint                                                                                             ||  1.3    ||  
-||  ???                                                               ||  GetInteger                                                                                                ||  1.3    ||  
-||  ???                                                               ||  GetNumber                                                                                                 ||  1.3    ||  
-||  ???                                                               ||  Seed                                                                                                      ||  1.3    ||  
+||  ???                                                               ||  `GetFixedPoint(???)`                                                                                             ||  1.3    ||  
+||  ???                                                               ||  `GetInteger(???)`                                                                                                ||  1.3    ||  
+||  ???                                                               ||  `GetNumber(???)`                                                                                                 ||  1.3    ||  
+||  void                                                               ||  `Seed(number seed)`                                                                                                      ||  1.3    ||  
 
 ==CStrategicWarfare==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetBombingImpact()`                                                                                      ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetAlliesImpact()`                                                                                       ||  1.3    ||  
@@ -866,38 +1112,65 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ==CSetFlagCommand==
 implements [#CCommand CCommand]
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  void                                                              ||  `CSetFlagCommand(`[#CCountryTag CCountryTag] Which, String Flag, bool bSet = true )                       ||  1.4    ||  command that can be posted for setting/clearing a country flag                                                                                             ||  
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CSetFlagCommand CSetFlagCommand]                               ||  CSetFlagCommand(`[#CCountryTag CCountryTag]` Which, string Flag, bool bSet = true)`
+
 
 ==CSetVariableCommand==
 implements [#CCommand CCommand]
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  void                                                              ||  `CSetVariableCommand(`[#CCountryTag CCountryTag] Which, String Flag, [#CFixedPoint CFixedPoint] vVal)     ||  1.4    ||  command that can be posted for setting a country variable                                                                                                  ||  
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CSetVariableCommand CSetVariableCommand]                               ||  CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`
+
 
 ==CSpyPresence==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CDate CDate]                                                    ||  `GetLastMissionChangeDate()`                                                                              ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetLevel()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetMission()`                                                                                            ||  1.3    ||  
 ||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3    ||  
-||  ???                                                               ||  MissionAllowed()                                                                                          ||  1.3    ||  
+||  ???                                                               ||  `MissionAllowed(???)`                                                                                          ||  1.3    ||  
+
+===Property summary===
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  MAX_SPY_LEVEL                                                                                             ||  1.3    ||  
 ||  number                                                            ||  MAX_SPY_PRIORITY                                                                                          ||  1.3    ||  
+
 
 ==CStartResearchCommand==
 implements [#CCommand CCommand]
 
-==CString==
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CStartResearchCommand CStartResearchCommand]                               ||  CStartResearchCommand(`[#CCountryTag CCountryTag]` country, `[#CTechnology CTechnology]` techno)`
+
+
+==Cstring==
+This class support implicit conversion to string primitive type as well as support for equal operator.
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#Cstring Cstring]                               ||  `Cstring(string str)`
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `GetCharPtr()`                                                                                            ||  1.3    ||  
-||  String                                                            ||  `GetString()`                                                                                             ||  1.3    ||  
+||  string                                                            ||  `Getstring()`                                                                                             ||  1.3    ||  
+
 
 ==CSubUnitDataBase==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CSubUnitDefinition CSubUnitDefinition]                          ||  `GetSubUnit(`string subUnitName)                                                                          ||  1.3    ||  
+||  [#CSubUnitDefinition CSubUnitDefinition]                          ||  `GetSubUnit(string subUnitName)`                                                                          ||  1.3    ||  
 ||  List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`                ||  `GetSubUnitList()`                                                                                        ||  1.3    ||  
 
+
 ==CSubUnitDefinition==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetBuildCostIC()`                                                                                        ||  1.3    ||  
 ||  number                                                            ||  `GetBuildCostMP()`                                                                                        ||  1.3    ||  
@@ -906,9 +1179,9 @@ implements [#CCommand CCommand]
 ||  number                                                            ||  `GetCompletionSize()`                                                                                     ||  1.3    ||  
 ||  number                                                            ||  `GetDefaultStrength()`                                                                                    ||  1.3    ||  
 ||  number                                                            ||  `GetDefensivness()`                                                                                       ||  1.3    ||  
-||  ???                                                               ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  Cstring                                                               ||  `GetKey()`                                                                                                ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
-||  String                                                            ||  `GetName()`                                                                                               ||  1.3    ||  
+||  string                                                            ||  `GetName()`                                                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetSoftness()`                                                                                           ||  1.3    ||  
 ||  number                                                            ||  `GetToughness()`                                                                                          ||  1.3    ||  
 ||  bool                                                              ||  `CanParadrop()`                                                                                           ||  1.3    ||  
@@ -924,88 +1197,129 @@ implements [#CCommand CCommand]
 ||  bool                                                              ||  `IsTransport()`                                                                                           ||  1.3    ||  
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
-==SubUnitList==
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  static void                                                       ||  `Append(`SubUnitList unitList, ??? unit)                                                                  ||  1.3    ||  
-||  number                                                            ||  `GetSize()`                                                                                               ||  1.3    ||  
 
-==CSubUnitConstructionEntry==
+==SubUnitList==
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#SubUnitList SubUnitList]                               ||  `SubUnitList()`
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  nPrio                                                                                                     ||  1.3    ||  
-||  [#CSubUnitDefinition CSubUnitDefinition]                          ||  pUnit                                                                                                     ||  1.3    ||  
+||  static void                                                       ||  `Append(`[#SubUnitList SubUnitList]` unitList, [#CSubUnitDefinition CSubUnitDefinition] unit)                                                                  ||  1.3    ||  
+||  number                                                            ||  `GetSize()`                                                                                               ||  1.3    ||  
+||  bool                                                            ||  `IsEmpty()`                                                                                               ||  1.3    ||  
+
+==CSubUnitConstruc
+tionEntry==
+===Property summary===
+||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
+||  static number                                                            ||  nPrio                                                                                                     ||  1.3    ||  
+||  static [#CSubUnitDefinition CSubUnitDefinition]                          ||  pUnit                                                                                                     ||  1.3    ||  
+
 
 ==CTechnology==
+This class supports equal operator comparison.
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  CanUpgrade                                                                                                ||  1.3    ||  
-||  ???                                                               ||  GetDifficulty                                                                                             ||  1.3    ||  
-||  ???                                                               ||  `GetEnableUnit()`                                                                                         ||  1.3    ||  
+||  ???                                                               ||  `CanResearch(???)`                                                                                                ||  1.3    ||  
+||  ???                                                               ||  `CanUpgrade(???)`                                                                                                ||  1.3    ||  
+||  number                                                               ||  `GetDifficulty()`                                                                                             ||  1.3    ||  
+||  bool                                                               ||  `GetEnableUnit()`                                                                                         ||  1.3    ||  
 ||  [#CTechnologyFolder CTechnologyFolder]                            ||  `GetFolder()`                                                                                             ||  1.3    ||  
-||  String                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
-||  ???                                                               ||  `GetOnCompletion()`                                                                                       ||  1.4    ||  
+||  number                                                            ||  `GetIndex()`                                                                                                ||  1.3    ||  
+||  [#CString CString]                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  ???                                                               ||  `GetOnCompletion(???)`                                                                                       ||  1.4    ||  
 ||  List`<`[#CResearchBonus CResearchBonus]`>`                        ||  `GetResearchBonus()`                                                                                      ||  1.3    ||  
 ||  bool                                                              ||  `IsOneLevelOnly()`                                                                                        ||  1.3    ||  
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
 ==CTechnologyCategory==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  String                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  [#CString CString]                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
 
 ==CTechnologyDataBase==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  List`<`[#CTechnologyCategory CTechnologyCategory]`>`              ||  `GetCategories()`                                                                                         ||  1.3    ||  
-||  number                                                            ||  `GetFolderIndex(`String folderName)                                                                       ||  1.3    ||  
+||  number                                                            ||  `GetFolderIndex(string folderName)`                                                                       ||  1.3    ||  
 ||  List`<`[#CTechnology CTechnology]`>`                              ||  `GetTechnologies()`                                                                                       ||  1.3    ||  
 
+
 ==CTechnologyFolder==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  String                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
+||  [#CString CString]                                                            ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  bool                                                            ||  `IsValid()`                                                                                              ||  1.3    ||  
+
 
 ==CTechnologyStatus==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetCost(`[#CTechnology CTechnology] tech, int level)                                                     ||  1.3    ||  
-||  ???                                                               ||  GetEffectiveYear                                                                                          ||  1.3    ||  
-||  number                                                            ||  `GetLevel(`[#CTechnology CTechnology] tech)                                                               ||  1.3    ||  
-||  number                                                            ||  `GetYear(`[#CTechnology CTechnology], level)                                                              ||  1.3    ||  
-||  bool                                                              ||  `IsUnitAvailable(`[#CSubUnitDefinition CSubUnitDefinition] unit)                                          ||  1.3    ||  
+||  ???                                        ||  `CanResearch(???)`                                                     ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetCost(`[#CTechnology CTechnology]` tech, int level)`                                                     ||  1.3    ||  
+||  ???                                                               ||  `GetEffectiveYear(???)`                                                                                          ||  1.3    ||  
+||  number                                                            ||  `GetLevel(`[#CTechnology CTechnology]` tech)`                                                               ||  1.3    ||  
+||  number                                                            ||  `GetYear(`[#CTechnology CTechnology]` tech, number level)`                                                              ||  1.3    ||  
+||  bool                                                              ||  `IsUnitAvailable(`[#CSubUnitDefinition CSubUnitDefinition]` unit)`                                          ||  1.3    ||  
 
 ==CTheatre==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3    ||  
 
+
 ==CToggleMobilizationCommand==
 implements [#CCommand CCommand]
-CToggleMobilizationCommand(??? ministerTag, bool ???)
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CToggleMobilizationCommand CToggleMobilizationCommand]                               ||  `CToggleMobilizationCommand(`[#CCountryTag CCountryTag]` countryTag, bool bMobilize)`
+
 
 ==CTradeAction==
 implements [#CDiplomaticAction CDiplomaticAction]
+
+===Constructor summary===
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CTradeAction CTradeAction]                                 ||  CTradeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 ||  [#CTradeRoute CTradeRoute]                                        ||  `GetRoute()`                                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetTrading(`int goods, ??? ministerTag)                                                                  ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetTrading(number goodsType, [#CCountryTag CCountryTag] ministerTag)                                                                  ||  1.3    ||  
 ||  bool                                                              ||  `IsConvoyPossible()`                                                                                      ||  1.3    ||  
 ||  void                                                              ||  `SetRoute(`[#CTradeRoute CTradeRoute] route)                                                              ||  1.3    ||  
-||  void                                                              ||  `SetTrading(`[#CFixedPoint CFixedPoint] amount, int goods)                                                ||  1.3    ||  
+||  void                                                              ||  `SetTrading(`[#CFixedPoint CFixedPoint] amount, number goodsType)                                                ||  1.3    ||  
 
 ==CTradeRoute==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetConvoyResponsible()`                                                                                  ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetFrom()`                                                                                               ||  1.3    ||  
-||  ???                                                               ||  GetLastInactive                                                                                           ||  1.3    ||  
+||  ???                                        ||  `GetCost(???)`                                                                                               ||  1.3    ||  
+||  ???                                                               ||  `GetLastInactive(???)`                                                                                           ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetTo()`                                                                                                 ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetTradedFromOf(`int goods)                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetTradedToOf(`int goods)                                                                                ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetTradedFromOf(number goodsType)`                                                                              ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetTradedToOf(number goodsType)`                                                                                ||  1.3    ||  
 ||  bool                                                              ||  `IsInactive()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
 
 ==CUnit==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  IsMoving                                                                                                  ||  1.3    ||  
-||  ???                                                               ||  GetChildren                                                                                               ||  1.3    ||  
+||  List`<`[#CUnit CUnit]`>`                                                               ||  `GetChildren()`                                                                                               ||  1.3    ||  
+||  [#CString CString]                                                               ||  `GetName()`                                                                                               ||  1.3    ||  
+||  bool                                                               ||  `IsMoving()`                                                                                                  ||  1.3    ||  
+
 
 ==CUnitList==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  `GetCount(`[#CSubUnitDefinition CSubUnitDefinition] pType)                                                ||  1.4    ||  You can fetch the definitions from calls like CSubUnitDataBase.GetSubUnit("armor_brigade"), but again, watch out for these as they cost a bit to calculate.||  
+||  number                                                            ||  `GetCount(`[#CSubUnitDefinition CSubUnitDefinition]` pType)`                                                ||  1.4    ||  You can fetch the definitions from calls like CSubUnitDataBase.GetSubUnit("armor_brigade"), but again, watch out for these as they cost a bit to calculate.||  
 ||  number                                                            ||  `GetTotalAmountOfArmies()`                                                                                ||  1.4    ||  
 ||  number                                                            ||  `GetTotalAmountOfDivisions()`                                                                             ||  1.4    ||  
 ||  number                                                            ||  `GetTotalNumOfPlanes()`                                                                                   ||  1.4    ||  
@@ -1013,20 +1327,23 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  number                                                            ||  `GetTotalNumOfShips()`                                                                                    ||  1.4    ||  
 ||  number                                                            ||  `GetTotalNumOfTransports()`                                                                               ||  1.4    ||  
 ||  number                                                            ||  `GetTotalNumOfWarShips()`                                                                                 ||  1.4    ||  
-||  ?                                                                 ||  GetTotalStrength                                                                                          ||  1.3    ||  
+||  ???                                                               ||  `GetTotalStrength()`                                                                                         ||  1.3    ||  
 
 ==CWar==
+===Method summary===
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  GetAttackers                                                                                              ||  1.3    ||  
+||  ???                                                               ||  `GetAttackers()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetCurrentRunningTimeInMonths()`                                                                         ||  1.3    ||  
-||  ???                                                               ||  GetDefenders                                                                                              ||  1.3    ||  
+||  ???                                                               ||  `GetDefenders()`                                                                                              ||  1.3    ||  
+||  [#CDate CDate]                                        ||  `GetStartDate()`                                                                                              ||  1.3    ||  
 ||  bool                                                              ||  `IsLimited()`                                                                                             ||  1.3    ||  
-||  bool                                                              ||  `IsPartOfWar(`[#CCountryTag CCountryTag] countryTag)                                                      ||  1.3    ||  
+||  bool                                                              ||  `IsPartOfWar(`[#CCountryTag CCountryTag]` countryTag)`                                                      ||  1.3    ||  
 
 ==SpyMission==
 For some reason, the Support Party missions are called 'boost'.
 
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+===Property summary===
+||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
 ||  number                                                            ||  SPYMISSION_BOOST_OUR_PARTY                                                                                ||  1.3    ||  
 ||  number                                                            ||  SPYMISSION_BOOST_RULING_PARTY                                                                             ||  1.3    ||  
 ||  number                                                            ||  SPYMISSION_COUNTER_ESPIONAGE                                                                              ||  1.3    ||  
@@ -1042,7 +1359,3 @@ For some reason, the Support Party missions are called 'boost'.
 ||  number                                                            ||  SPYMISSION_RAISE_NATIONAL_UNITY                                                                           ||  1.3    ||  
 ||  number                                                            ||  SPYMISSION_SUPPORT_RESISTANCE                                                                             ||  1.3    ||  
 ||  number                                                            ||  SPYMISSION_TECH                                                                                           ||  1.3    ||  
-
-==Unknown methods==
-||  ???                                                               ||  Clone                                                                                                     ||  1.3    ||  
-||  ???                                                               ||  GetFactions                                                                                               ||  1.3    ||  
