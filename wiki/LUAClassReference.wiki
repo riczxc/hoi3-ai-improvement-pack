@@ -783,7 +783,7 @@ This class has no implicit conversion to number primitive type. You need to use 
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CFixedPoint CFixedPoint]                                 ||  `CFixedPoint(number val)`
+|| [#CFixedPoint CFixedPoint]                                 ||  `CFixedPoint(number val)` ||  1.3    ||
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -870,7 +870,7 @@ This object support object to object comparison with equal operator.
 implements [#CDiplomaticAction CDiplomaticAction]
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CInfluenceAllianceLeader CInfluenceAllianceLeader]                                 ||  CInfluenceAllianceLeader([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#CInfluenceAllianceLeader CInfluenceAllianceLeader]                                 ||  `CInfluenceAllianceLeader(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -882,7 +882,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 implements [#CDiplomaticAction CDiplomaticAction]
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CInfluenceNation CInfluenceNation]                                 ||  CInfluenceNation([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CInfluenceNation CInfluenceNation]                                 ||  `CInfluenceNation(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`||  1.3    ||
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -926,7 +926,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 implements [#CCommand CCommand]
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CLiberateCountryCommand CLiberateCountryCommand]                                 ||  CLiberateCountryCommand([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#CLiberateCountryCommand CLiberateCountryCommand]                                 ||  `CLiberateCountryCommand(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 
 -----
@@ -965,7 +965,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CMilitaryAccessAction CMilitaryAccessAction]                               ||  CMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#CMilitaryAccessAction CMilitaryAccessAction]                               ||  `CMilitaryAccessAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1069,7 +1069,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CNapAction CNapAction]                               ||  CNapAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#CNapAction CNapAction]                               ||  `CNapAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1096,7 +1096,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  `COfferMilitaryAccessAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1109,7 +1109,7 @@ implements [#CAction CAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  `CPeaceAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 
 -----
@@ -1162,7 +1162,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]                               ||  CSendExpeditionaryForceAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
+|| [#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]                               ||  `CSendExpeditionaryForceAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1198,7 +1198,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSetFlagCommand CSetFlagCommand]                               ||  CSetFlagCommand(`[#CCountryTag CCountryTag]` Which, string Flag, bool bSet = true)`  ||  1.3    ||  
+|| [#CSetFlagCommand CSetFlagCommand]                               ||  `CSetFlagCommand(`[#CCountryTag CCountryTag]` Which, string Flag, bool bSet = true)`  ||  1.3    ||  
 
 
 -----
@@ -1207,7 +1207,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSetVariableCommand CSetVariableCommand]                               ||  CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`  ||  1.3    ||  
+|| [#CSetVariableCommand CSetVariableCommand]                               ||  `CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`  ||  1.3    ||  
 
 
 -----
@@ -1232,7 +1232,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CStartResearchCommand CStartResearchCommand]                               ||  CStartResearchCommand(`[#CCountryTag CCountryTag]` country, `[#CTechnology CTechnology]` techno)` ||  1.3    ||  
+|| [#CStartResearchCommand CStartResearchCommand]                               ||  `CStartResearchCommand(`[#CCountryTag CCountryTag]` country, `[#CTechnology CTechnology]` techno)` ||  1.3    ||  
 
 
 -----
@@ -1300,8 +1300,7 @@ This class support implicit conversion to string primitive type as well as suppo
 ||  bool                                                            ||  `IsEmpty()`                                                                                               ||  1.3    ||  
 
 -----
-==CSubUnitConstruc
-tionEntry==
+==CSubUnitConstructionEntry==
 ====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
 ||  static number                                                            ||  nPrio                                                                                                     ||  1.3    ||  
