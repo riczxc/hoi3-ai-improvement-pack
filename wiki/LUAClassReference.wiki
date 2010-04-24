@@ -2,6 +2,8 @@
 #sidebar LUAClassReferenceSideBar
 #labels Featured,Phase-Implementation
 
+=Hearts of Iron III - LUA class reference=
+
 This file is based on work done by [http://forum.paradoxplaza.com/forum/showthread.php?t=421039 Dominik, strongbowmatt] and [http://forum.paradoxplaza.com/forum/showthread.php?t=430111 azeno].
 1.4 addition from [http://forum.paradoxplaza.com/forum/showpost.php?p=10544657]
 
@@ -77,11 +79,11 @@ implements [#CAIAgent CAIAgent]
 ||float||GetDesperation()||1.3||
 
 ==CAIStrategy==
-||???||_AI_BALANCED_||1.3||
-||???||_AI_DIPLOMAT_||1.3||
-||???||_AI_INDUSTRIALIST_||1.3||
-||???||_AI_MILITARIST_||1.3||
-||???||_AI_UNDEFINED_||1.3||
+||???||`_AI_BALANCED_`||1.3||
+||???||`_AI_DIPLOMAT_`||1.3||
+||???||`_AI_INDUSTRIALIST_`||1.3||
+||???||`_AI_MILITARIST_`||1.3||
+||???||`_AI_UNDEFINED_`||1.3||
 ||???||AddSubUnit||1.3||
 ||void||CancelPrepareWar([#CCountryTag CCountryTag] countryTag)||1.3||
 ||float||GetAccessScore([#CCountryTag CCountryTag] countryTag)||1.3||
@@ -122,11 +124,11 @@ constructed with CArrayFix(int size)
 ==CArrayFloat==
 
 ==CAutomationType==
-||_DIPLOMACY_||1.4||
-||_INTELLIGENCE_||1.4||
-||_POLITICS_||1.4||
-||_PRODUCTION_||1.4||
-||_TECHNOLOGY_||1.4||
+||`_DIPLOMACY_`||1.4||
+||`_INTELLIGENCE_`||1.4||
+||`_POLITICS_`||1.4||
+||`_PRODUCTION_`||1.4||
+||`_TECHNOLOGY_`||1.4||
 
 ==CBuildingDataBase==
 ||[#CBuilding CBuilding]||GetBuilding(string building)||1.3||
@@ -348,17 +350,17 @@ constructed with ([#CCountryTag CCountryTag] owner, [#CCountryTag CCountryTag] o
 ||void||SetValue([#CFixedPoint CFixedPoint] relation)||1.3||
 
 ==CDistributionSetting==
-||int||_LEADERSHIP_DIPLOMACY_||1.3||
-||int||_LEADERSHIP_ESPIONAGE_||1.3||
-||int||_LEADERSHIP_NCO_||1.3||
-||int||_LEADERSHIP_numof_||1.3||
-||int||_LEADERSHIP_RESEARCH_||1.3||
-||int||_PRODUCTION_CONSUMER_||1.3||
-||int||_PRODUCTION_numof_||1.3||
-||int||_PRODUCTION_PRODUCTION_||1.3||
-||int||_PRODUCTION_REINFORCEMENT_||1.3||
-||int||_PRODUCTION_SUPPLY_||1.3||
-||int||_PRODUCTION_UPGRADE_||1.3||
+||int||`_LEADERSHIP_DIPLOMACY_`||1.3||
+||int||`_LEADERSHIP_ESPIONAGE_`||1.3||
+||int||`_LEADERSHIP_NCO_`||1.3||
+||int||`_LEADERSHIP_numof_`||1.3||
+||int||`_LEADERSHIP_RESEARCH_`||1.3||
+||int||`_PRODUCTION_CONSUMER_`||1.3||
+||int||`_PRODUCTION_numof_`||1.3||
+||int||`_PRODUCTION_PRODUCTION_`||1.3||
+||int||`_PRODUCTION_REINFORCEMENT_`||1.3||
+||int||`_PRODUCTION_SUPPLY_`||1.3||
+||int||`_PRODUCTION_UPGRADE_`||1.3||
 ||[#CFixedPoint CFixedPoint]||GetNeeded()||1.3||
 ||???||GetPercentage||1.3||
 
@@ -391,14 +393,14 @@ constructed with CFixedPoint(float val)
 ==CGuaranteeAction==
 
 ==CGoodsPool==
-||int||_CRUDE_OIL_||1.3||
-||int||_ENERGY_||1.3||
-||int||_FUEL_||1.3||
-||int||_GC_NUMOF_||1.3||
-||int||_METAL_||1.3||
-||int||_MONEY_||1.3||
-||int||_RARE_MATERIALS_||1.3||
-||int||_SUPPLIES_||1.3||
+||int||`_CRUDE_OIL_`||1.3||
+||int||`_ENERGY_`||1.3||
+||int||`_FUEL_`||1.3||
+||int||`_GC_NUMOF_`||1.3||
+||int||`_METAL_`||1.3||
+||int||`_MONEY_`||1.3||
+||int||`_RARE_MATERIALS_`||1.3||
+||int||`_SUPPLIES_`||1.3||
 ||[#CFixedPoint CFixedPoint]||Get(int goods)||1.3||
 
 ==CGovernment==
@@ -423,88 +425,88 @@ constructed with CMilitaryAccessAction([#CCountryTag CCountryTag] ministerTag, [
 
 ==CModifier==
 ||float||GetValue(int modifier)||1.3||
-||int||_MODIFIER_AIR_CAPACITY_||1.3||
-||int||_MODIFIER_AIR_ORGANISATION_||1.3||
-||int||_MODIFIER_ALIGN_TOWARDS_||1.3||
-||int||_MODIFIER_ATTACK_REINFORCE_CHANCE_||1.3||
-||int||_MODIFIER_ATTRITION_||1.3||
-||int||_MODIFIER_COASTAL_FORT_LEVEL_||1.3||
-||int||_MODIFIER_COMBAT_MOVEMENT_SPEED_||1.3||
-||int||_MODIFIER_COMBAT_WIDTH_||1.3||
-||int||_MODIFIER_COUNTER_ESPIONAGE_||1.3||
-||int||_MODIFIER_COUNTER_INTELLIGENCE_||1.3||
-||int||_MODIFIER_DEFEND_REINFORCE_CHANCE_||1.3||
-||int||_MODIFIER_DISSENT_||1.3||
-||int||_MODIFIER_DRIFT_SPEED_||1.3||
-||int||_MODIFIER_ESPIONAGE_BONUS_||1.3||
-||int||_MODIFIER_FORT_LEVEL_||1.3||
-||int||_MODIFIER_GLOBAL_CRUDE_OIL_||1.3||
-||int||_MODIFIER_GLOBAL_ENERGY_||1.3||
-||int||_MODIFIER_GLOBAL_FUEL_||1.3||
-||int||_MODIFIER_GLOBAL_IC_||1.3||
-||int||_MODIFIER_GLOBAL_INFRASTRUCTURE_||1.3||
-||int||_MODIFIER_GLOBAL_LEADERSHIP_||1.3||
-||int||_MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_||1.3||
-||int||_MODIFIER_GLOBAL_MANPOWER_||1.3||
-||int||_MODIFIER_GLOBAL_MANPOWER_MODIFIER_||1.3||
-||int||_MODIFIER_GLOBAL_METAL_||1.3||
-||int||_MODIFIER_GLOBAL_MONEY_||1.3||
-||int||_MODIFIER_GLOBAL_RARE_MATERIALS_||1.3||
-||int||_MODIFIER_GLOBAL_REVOLT_RISK_||1.3||
-||int||_MODIFIER_GLOBAL_SUPPLIES_||1.3||
-||int||_MODIFIER_IC_||1.3||
-||int||_MODIFIER_INCORPORATE_COST_||1.3||
-||int||_MODIFIER_INDUSTRIAL_EFFICIENCY_||1.3||
-||int||_MODIFIER_INFRASTRUCTURE_||1.3||
-||int||_MODIFIER_LAND_ORGANISATION_||1.3||
-||int||_MODIFIER_LOCAL_ANTI_AIR_||1.3||
-||int||_MODIFIER_LOCAL_CRUDE_OIL_||1.3||
-||int||_MODIFIER_LOCAL_ENERGY_||1.3||
-||int||_MODIFIER_LOCAL_FUEL_||1.3||
-||int||_MODIFIER_LOCAL_IC_||1.3||
-||int||_MODIFIER_LOCAL_INFRASTRUCTURE_||1.3||
-||int||_MODIFIER_LOCAL_LEADERSHIP_||1.3||
-||int||_MODIFIER_LOCAL_LEADERSHIP_MODIFIER_||1.3||
-||int||_MODIFIER_LOCAL_MANPOWER_||1.3||
-||int||_MODIFIER_LOCAL_MANPOWER_MODIFIER_||1.3||
-||int||_MODIFIER_LOCAL_METAL_||1.3||
-||int||_MODIFIER_LOCAL_MONEY_||1.3||
-||int||_MODIFIER_LOCAL_PARTISAN_SUPPORT_||1.3||
-||int||_MODIFIER_LOCAL_RARE_MATERIALS_||1.3||
-||int||_MODIFIER_LOCAL_REVOLT_RISK_||1.3||
-||int||_MODIFIER_LOCAL_SUPPLIES_||1.3||
-||int||_MODIFIER_MAX_WAR_EXHAUSTION_||1.3||
-||int||_MODIFIER_MINIMUM_REVOLT_RISK_||1.3||
-||int||_MODIFIER_NATIONAL_UNITY_||1.3||
-||int||_MODIFIER_NATIONAL_UNITY_EFFECT_||1.3||
-||int||_MODIFIER_NAVAL_BASE_EFFICIENCY_||1.3||
-||int||_MODIFIER_NAVAL_CAPACITY_||1.3||
-||int||_MODIFIER_NAVAL_ORGANISATION_||1.3||
-||int||_MODIFIER_NEUTRALITY_CHANGE_||1.3||
-||int||_MODIFIER_OFFICER_RECRUITMENT_||1.3||
-||int||_MODIFIER_OFFMAP_INDUSTRY_INTEL_||1.3||
-||int||_MODIFIER_OFFMAP_LAND_INTEL_||1.3||
-||int||_MODIFIER_OFFMAP_NAVAL_INTEL_||1.3||
-||int||_MODIFIER_OFFMAP_POLITICAL_INTEL_||1.3||
-||int||_MODIFIER_ORG_REGAIN_||1.3||
-||int||_MODIFIER_PARTISAN_EFFICENCY_||1.3||
-||int||_MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_||1.3||
-||int||_MODIFIER_PEACE_OFFMAP_INTEL_||1.3||
-||int||_MODIFIER_PEACETIME_MANPOWER_ROTATION_||1.3||
-||int||_MODIFIER_RADAR_LEVEL_||1.3||
-||int||_MODIFIER_RESEARCH_EFFICIENCY_||1.3||
-||int||_MODIFIER_RESERVES_PENALTY_SIZE_||1.3||
-||int||_MODIFIER_RULING_PARTY_SUPPORT_||1.3||
-||int||_MODIFIER_SUPPLY_CONSUMPTION_||1.3||
-||int||_MODIFIER_SUPPLY_THROUGHPUT_||1.3||
-||int||_MODIFIER_SUSEPTIBILITY_||1.3||
-||int||_MODIFIER_TERRITORIAL_PRIDE_||1.3||
-||int||_MODIFIER_THREAT_IMPACT_||1.3||
-||int||_MODIFIER_UNIT_RECRUITMENT_TIME_||1.3||
-||int||_MODIFIER_UNIT_REPAIR_||1.3||
-||int||_MODIFIER_UNIT_START_EXPERIENCE_||1.3||
-||int||_MODIFIER_WAR_CONSUMER_GOODS_DEMAND_||1.3||
-||int||_MODIFIER_WAR_EXHAUSTION_||1.3||
+||int||`_MODIFIER_AIR_CAPACITY_`||1.3||
+||int||`_MODIFIER_AIR_ORGANISATION_`||1.3||
+||int||`_MODIFIER_ALIGN_TOWARDS_`||1.3||
+||int||`_MODIFIER_ATTACK_REINFORCE_CHANCE_`||1.3||
+||int||`_MODIFIER_ATTRITION_`||1.3||
+||int||`_MODIFIER_COASTAL_FORT_LEVEL_`||1.3||
+||int||`_MODIFIER_COMBAT_MOVEMENT_SPEED_`||1.3||
+||int||`_MODIFIER_COMBAT_WIDTH_`||1.3||
+||int||`_MODIFIER_COUNTER_ESPIONAGE_`||1.3||
+||int||`_MODIFIER_COUNTER_INTELLIGENCE_`||1.3||
+||int||`_MODIFIER_DEFEND_REINFORCE_CHANCE_`||1.3||
+||int||`_MODIFIER_DISSENT_`||1.3||
+||int||`_MODIFIER_DRIFT_SPEED_`||1.3||
+||int||`_MODIFIER_ESPIONAGE_BONUS_`||1.3||
+||int||`_MODIFIER_FORT_LEVEL_`||1.3||
+||int||`_MODIFIER_GLOBAL_CRUDE_OIL_`||1.3||
+||int||`_MODIFIER_GLOBAL_ENERGY_`||1.3||
+||int||`_MODIFIER_GLOBAL_FUEL_`||1.3||
+||int||`_MODIFIER_GLOBAL_IC_`||1.3||
+||int||`_MODIFIER_GLOBAL_INFRASTRUCTURE_`||1.3||
+||int||`_MODIFIER_GLOBAL_LEADERSHIP_`||1.3||
+||int||`_MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_`||1.3||
+||int||`_MODIFIER_GLOBAL_MANPOWER_`||1.3||
+||int||`_MODIFIER_GLOBAL_MANPOWER_MODIFIER_`||1.3||
+||int||`_MODIFIER_GLOBAL_METAL_`||1.3||
+||int||`_MODIFIER_GLOBAL_MONEY_`||1.3||
+||int||`_MODIFIER_GLOBAL_RARE_MATERIALS_`||1.3||
+||int||`_MODIFIER_GLOBAL_REVOLT_RISK_`||1.3||
+||int||`_MODIFIER_GLOBAL_SUPPLIES_`||1.3||
+||int||`_MODIFIER_IC_`||1.3||
+||int||`_MODIFIER_INCORPORATE_COST_`||1.3||
+||int||`_MODIFIER_INDUSTRIAL_EFFICIENCY_`||1.3||
+||int||`_MODIFIER_INFRASTRUCTURE_`||1.3||
+||int||`_MODIFIER_LAND_ORGANISATION_`||1.3||
+||int||`_MODIFIER_LOCAL_ANTI_AIR_`||1.3||
+||int||`_MODIFIER_LOCAL_CRUDE_OIL_`||1.3||
+||int||`_MODIFIER_LOCAL_ENERGY_`||1.3||
+||int||`_MODIFIER_LOCAL_FUEL_`||1.3||
+||int||`_MODIFIER_LOCAL_IC_`||1.3||
+||int||`_MODIFIER_LOCAL_INFRASTRUCTURE_`||1.3||
+||int||`_MODIFIER_LOCAL_LEADERSHIP_`||1.3||
+||int||`_MODIFIER_LOCAL_LEADERSHIP_MODIFIER_`||1.3||
+||int||`_MODIFIER_LOCAL_MANPOWER_`||1.3||
+||int||`_MODIFIER_LOCAL_MANPOWER_MODIFIER_`||1.3||
+||int||`_MODIFIER_LOCAL_METAL_`||1.3||
+||int||`_MODIFIER_LOCAL_MONEY_`||1.3||
+||int||`_MODIFIER_LOCAL_PARTISAN_SUPPORT_`||1.3||
+||int||`_MODIFIER_LOCAL_RARE_MATERIALS_`||1.3||
+||int||`_MODIFIER_LOCAL_REVOLT_RISK_`||1.3||
+||int||`_MODIFIER_LOCAL_SUPPLIES_`||1.3||
+||int||`_MODIFIER_MAX_WAR_EXHAUSTION_`||1.3||
+||int||`_MODIFIER_MINIMUM_REVOLT_RISK_`||1.3||
+||int||`_MODIFIER_NATIONAL_UNITY_`||1.3||
+||int||`_MODIFIER_NATIONAL_UNITY_EFFECT_`||1.3||
+||int||`_MODIFIER_NAVAL_BASE_EFFICIENCY_`||1.3||
+||int||`_MODIFIER_NAVAL_CAPACITY_`||1.3||
+||int||`_MODIFIER_NAVAL_ORGANISATION_`||1.3||
+||int||`_MODIFIER_NEUTRALITY_CHANGE_`||1.3||
+||int||`_MODIFIER_OFFICER_RECRUITMENT_`||1.3||
+||int||`_MODIFIER_OFFMAP_INDUSTRY_INTEL_`||1.3||
+||int||`_MODIFIER_OFFMAP_LAND_INTEL_`||1.3||
+||int||`_MODIFIER_OFFMAP_NAVAL_INTEL_`||1.3||
+||int||`_MODIFIER_OFFMAP_POLITICAL_INTEL_`||1.3||
+||int||`_MODIFIER_ORG_REGAIN_`||1.3||
+||int||`_MODIFIER_PARTISAN_EFFICENCY_`||1.3||
+||int||`_MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_`||1.3||
+||int||`_MODIFIER_PEACE_OFFMAP_INTEL_`||1.3||
+||int||`_MODIFIER_PEACETIME_MANPOWER_ROTATION_`||1.3||
+||int||`_MODIFIER_RADAR_LEVEL_`||1.3||
+||int||`_MODIFIER_RESEARCH_EFFICIENCY_`||1.3||
+||int||`_MODIFIER_RESERVES_PENALTY_SIZE_`||1.3||
+||int||`_MODIFIER_RULING_PARTY_SUPPORT_`||1.3||
+||int||`_MODIFIER_SUPPLY_CONSUMPTION_`||1.3||
+||int||`_MODIFIER_SUPPLY_THROUGHPUT_`||1.3||
+||int||`_MODIFIER_SUSEPTIBILITY_`||1.3||
+||int||`_MODIFIER_TERRITORIAL_PRIDE_`||1.3||
+||int||`_MODIFIER_THREAT_IMPACT_`||1.3||
+||int||`_MODIFIER_UNIT_RECRUITMENT_TIME_`||1.3||
+||int||`_MODIFIER_UNIT_REPAIR_`||1.3||
+||int||`_MODIFIER_UNIT_START_EXPERIENCE_`||1.3||
+||int||`_MODIFIER_WAR_CONSUMER_GOODS_DEMAND_`||1.3||
+||int||`_MODIFIER_WAR_EXHAUSTION_`||1.3||
 
 ==CNapAction==
 
@@ -573,10 +575,10 @@ constructed with CLiberateCountryCommand([#CCountryTag CCountryTag] countryTag, 
 ||[#CTechnologyCategory CTechnologyCategory]||_pCategory||1.3||
 
 ==CRule==
-||_RULE_ALLIANCE_GUARANTEE_||1.3||
-||_RULE_FREE_RESOURCE_GIFTS_||1.3||
-||_RULE_LIMITED_WAR_||1.3||
-||_RULE_NONE_||1.3||
+||`_RULE_ALLIANCE_GUARANTEE_`||1.3||
+||`_RULE_FREE_RESOURCE_GIFTS_`||1.3||
+||`_RULE_LIMITED_WAR_`||1.3||
+||`_RULE_NONE_`||1.3||
 
 ==CSendExpeditionaryForceAction==
 ||???||GetClaimType||1.3||
