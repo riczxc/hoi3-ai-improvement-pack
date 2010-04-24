@@ -19,7 +19,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
-|| [#CAllianceAction CAllianceAction]                                 ||  CAllianceAction([#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
+|| [#CAllianceAction CAllianceAction]                                 ||  `CAllianceAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -33,7 +33,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  bool                                                              ||  `AlreadyTradingResourceOtherWay(`[#CTradeRoute CTradeRoute]` route)`                                      ||  1.3    ||  
 ||  bool                                                              ||  `CanDeclareWar(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                          ||  1.3    ||  
 ||  bool                                                              ||  `CanTradeFreeResources(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                  ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetAmountTradedFrom(`int goods, `[#CCountryTag CCountryTag]` from, `[#CCountryTag CCountryTag]` to)`          ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetAmountTradedFrom(number goodsType, `[#CCountryTag CCountryTag]` from, `[#CCountryTag CCountryTag]` to)`          ||  1.3    ||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry(???)`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCountryAlignmentDistance(`[#CCountry CCountry]` countryA, `[#CCountry CCountry]` countryB)`                           ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
@@ -80,11 +80,13 @@ This method is used in vanilla Foreign minister.
 ===IsAIControlledForPlayer===
 new static function in CAI for checking players automation setting for screens `CAI.IsAIControlledForPlayer(AUTOMATIONTYPE)`
 here are the automation types :
+{{{
 CAI._DIPLOMACY_
 CAI._PRODUCTION_
 CAI._TECHNOLOGY_
 CAI._POLITICS_
 CAI._INTELLIGENCE_
+}}}
 
 
 ==CAIAgent==
@@ -274,7 +276,7 @@ implements [#CCommand CCommand]
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeInvestmentCommand CChangeInvestmentCommand]   ||  `CChangeInvestmentCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, ...)` ||  1.3    ||  
 
-===Constructor detail===
+====Constructor detail====
 Constructor accepts one or more values for changes.
 
 {{{
@@ -289,7 +291,7 @@ implements [#CCommand CCommand]
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeLawCommand CChangeLawCommand]   ||  `CChangeLawCommand(`[#CCountryTag CCountryTag]` actor, `[#CLaw CLaw]` law, `[#CLawGroup CLawGroup]` lawGroup)`||  1.3    ||  
 
-===Constructor detail===
+====Constructor detail====
 {{{
 	-- see if we can get a better law
 	for group in CLawDataBase.GetGroups() do
@@ -321,7 +323,7 @@ implements [#CCommand CCommand]
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CChangeLeadershipCommand CChangeLeadershipCommand]   ||  `CChangeLeadershipCommand(`[#CCountryTag CCountryTag]` actor, `[#CFixedPoint CFixedPoint]` change1, ...)`||  1.3    ||  
 
-===Constructor detail===
+====Constructor detail====
 Constructor accepts one or more values for changes.
 
 {{{
@@ -360,7 +362,7 @@ implements [#CCommand CCommand]
 ==CCommand==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  bool                  ||  IsValid()                                                                                                   ||  1.3    ||  
+||  bool                  ||  `IsValid()`                                                                                                   ||  1.3    ||  
 
 
 ==CConstructBuildingCommand==
@@ -378,7 +380,7 @@ implements [#CCommand CCommand]
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#CConstructConvoyCommand CConstructConvoyCommand]   ||  `CConstructConvoyCommand(`[#CCountryTag CCountryTag]` actor, bool ConvoyOrEscort, number quantity)`||  1.3    ||  
 
-===Constructor detail===
+====Constructor detail====
 ConvoyOrEscort = is a boolean (true = escort, false = convoy)
 
 
@@ -395,7 +397,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CConstructUnitCommand CConstructUnitCommand]   ||  `CConstructUnitCommand(`[#CCountryTag CCountryTag]` actor, CList<`[#CSubUnitDefinition CSubUnitDefinition]`> orderlist, number capitalProvId, number quantity, bool bBuildReserveAtPeace, [#CCountryTag CCountryTag] countryTag, [#CID CID] cId)`||  1.3    ||  
+|| [#CConstructUnitCommand CConstructUnitCommand]   ||  `CConstructUnitCommand(`[#CCountryTag CCountryTag]` actor, CList<`[#CSubUnitDefinition CSubUnitDefinition]`> orderlist, number capitalProvId, number quantity, bool bBuildReserveAtPeace, `[#CCountryTag CCountryTag]` countryTag, `[#CID CID]` cId)`||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -412,8 +414,8 @@ implements [#CCommand CCommand]
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 || ??? ||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
-|| ??? ||  `GetDesiredTransports(???)`                                              ||  1.3                                                                                                       ||  
-|| ??? ||  `GetEfficiency(???)`                                                    ||  1.3                                                                                                       ||  
+|| ??? ||  `GetDesiredTransports(???)`                                              ||  1.3                                                                                                       ||  
+|| ??? ||  `GetEfficiency(???)`                                                    ||  1.3                                                                                                       ||  
 || ??? ||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
 
 ==CCountryDataBase==
@@ -422,7 +424,7 @@ implements [#CCommand CCommand]
 ||  [#CCountryTag CCountryTag]                                        ||  `GetTag(string countryCode)`                                                                              ||  1.3    ||  
 
 ==CCountryTag==
-Supports implicit LUA toString conversion.
+Supports implicit LUA toString conversion.
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -504,7 +506,7 @@ implements [#CList CList]
 ||  [#CCountryTag CCountryTag]                                        ||  `GetHighestThreat()`                                                                                      ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetICPart(number distributionSetting)`                                                                      ||  1.3    ||  
 ||  [#CLaw CLaw]                                                      ||  `GetLaw(`[#CLawGroup CLawGroup]` lawGroup)`                                                                 ||  1.3    ||  
-||  [#CLaw CLaw]                                                               ||  GetLawFromIndex(number index)`                                                                                            ||  1.3    ||  
+||  [#CLaw CLaw]                                                               ||  `GetLawFromIndex(number index)`                                                                                            ||  1.3    ||  
 ||  [#CDistributionSetting CDistributionSetting]                      ||  `GetLeadershipDistributionAt(number distributionSetting)`                                                    ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetManpower()`                                                                                           ||  1.3    ||  
 ||  number                                                            ||  `GetMaxIC()`                                                                                              ||  1.3    ||  
@@ -522,7 +524,7 @@ implements [#CList CList]
 ||  number                                                            ||  `GetNumOfPorts()`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetOfficerRatio()`                                                                                       ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetOverlord()`                                                                                           ||  1.3    ||  
-||  List<number>                                                     ||  `GetOwnedProvinces()`                                                                                     ||  1.3    ||  
+||  List`<`number`>`                                                     ||  `GetOwnedProvinces()`                                                                                     ||  1.3    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetPool()`                                                                                               ||  1.3    ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetPossibleLiberations()`                                                                                ||  1.3    ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                                                               ||  `GetPossiblePuppets()`                                                                                    ||  1.3    ||  
@@ -546,23 +548,23 @@ implements [#CList CList]
 ||  [#CUnitList CUnitList]                                            ||  `GetUnits()`                                                                                              ||  1.4    ||  
 ||  List`<`[#CUnit CUnit]`>`                                          ||  `GetUnitsIterator()`                                                                                      ||  1.4    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetUsedIC()`                                                                                             ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetVariable(`string key)                                                                                 ||  1.4    ||  country variable by key                                                                                                                                    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetVariable(string key)`                                                                                 ||  1.4    ||  country variable by key                                                                                                                                    ||  
 ||  [#CVariables CVariables]                                          ||  `GetVariables()`                                                                                          ||  1.4    ||  country variables                                                                                                                                          ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetVassals()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `HasConstruction()`                                                                                       ||  1.3    ||  
 ||  bool                                                              ||  `HasDiplomatEnroute(`[#CCountryTag CCountryTag]` countryTag)`                                               ||  1.3    ||  
 ||  bool                                                              ||  `HasExtraManpowerLeft()`                                                                                  ||  1.3    ||  
 ||  bool                                                              ||  `HasFaction()`                                                                                            ||  1.3    ||  
-||  bool                                                              ||  `HasNeighborInFaction(`[#CFaction CFaction] faction)                                                      ||  1.3    ||  
+||  bool                                                              ||  `HasNeighborInFaction(`[#CFaction CFaction]` faction)`                                                      ||  1.3    ||  
 ||  bool                                                              ||  `IsAtWar()`                                                                                               ||  1.3    ||  
 ||  bool                                                              ||  `IsBuildingAllowed(`[#CBuilding CBuilding]` building, `[#CProvince CProvince]` province)`                                  ||  1.3    ||  
-||  bool                                                              ||  `IsEnemy(`[#CCountryTag CCountryTag] otherCountryTag)                                                     ||  1.3    ||  
+||  bool                                                              ||  `IsEnemy(`[#CCountryTag CCountryTag]` otherCountryTag)`                                                     ||  1.3    ||  
 ||  bool                                                              ||  `IsFactionLeader()`                                                                                       ||  1.3    ||  
-||  bool                                                              ||  `IsFriend(`[#CCountryTag CCountryTag] otherCountryTag, bool unknownFlag)                                          ||  1.3    ||  
+||  bool                                                              ||  `IsFriend(`[#CCountryTag CCountryTag]` otherCountryTag, bool unknownFlag)`                                          ||  1.3    ||  
 ||  bool                                                              ||  `IsGovernmentInExile()`                                                                                   ||  1.3    ||  
 ||  bool                                                              ||  `IsMajor()`                                                                                               ||  1.3    ||  
 ||  bool                                                              ||  `IsMobilized()`                                                                                           ||  1.3    ||  
-||  bool                                                              ||  `IsNeighbour(`[#CCountryTag CCountryTag] otherCountryTag)                                                 ||  1.3    ||  
+||  bool                                                              ||  `IsNeighbour(`[#CCountryTag CCountryTag]` otherCountryTag)`                                                 ||  1.3    ||  
 ||  bool                                                              ||  `IsNeighbourToFactionHostile(`[#CFaction CFaction]` faction, bool unknownFlag)`                                     ||  1.3    ||  
 ||  bool                                                              ||  `isPuppet()`                                                                                              ||  1.3    ||  
 ||  bool                                                              ||  `IsSubject()`                                                                                              ||  1.3    ||  
@@ -597,9 +599,9 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CDecision==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CString CString]                                                ||  GetKey()                                                                                                 ||  1.3    ||  
-||  bool                                                               ||  IsAllowed()                                                                                                ||  1.3    ||  
-||  bool                                                               ||  IsPotential()                                                                                               ||  1.3    ||  
+||  [#CString CString]                                                ||  `GetKey()`                                                                                                ||  1.3    ||  
+||  bool                                                               ||  `IsAllowed()`                                                                                                ||  1.3    ||  
+||  bool                                                               ||  `IsPotential()`                                                                                               ||  1.3    ||  
 
 
 ==CDeclareWarAction==
@@ -607,7 +609,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CDeclareWarAction CDeclareWarAction]                                 ||  CDeclareWarAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CDeclareWarAction CDeclareWarAction]                                 ||  CDeclareWarAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -655,7 +657,7 @@ implements [#CAction CAction]
 ||  bool                                                              ||  `IsFightingWarTogether()`                                                                                 ||  1.3    ||  
 ||  bool                                                              ||  `IsGuaranteed()`                                                                                          ||  1.3    ||  
 ||  bool                                                              ||  `IsGuaranting()`                                                                                          ||  1.3    ||  
-||  void                                                              ||  `SetValue(`[#CFixedPoint CFixedPoint] relation)                                                           ||  1.3    ||  
+||  void                                                              ||  `SetValue(`[#CFixedPoint CFixedPoint]` relation)`                                                           ||  1.3    ||  
 
 ==CDistributionSetting==
 ====Method summary====
@@ -683,7 +685,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CEmbargoAction CEmbargoAction]                                 ||  CEmbargoAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CEmbargoAction CEmbargoAction]                                 ||  CEmbargoAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -701,7 +703,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CFactionAction CFactionAction]                                 ||  CFactionAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CFactionAction CFactionAction]                                 ||  CFactionAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -711,7 +713,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ==CFlags==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  bool                                                              ||  `IsFlagSet(`string key)                                                                                   ||  1.3    ||  
+||  bool                                                              ||  `IsFlagSet(string key)`                                                                                  ||  1.3    ||  
 
 ==CFaction==
 ====Method summary====
@@ -743,7 +745,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CGuaranteeAction CGuaranteeAction]                                 ||  CGuaranteeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CGuaranteeAction CGuaranteeAction]                                 ||  CGuaranteeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    || 
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -775,11 +777,11 @@ This object support object to object comparison with equal operator.
 
 
 ==CID==
-This seems to be a unique ID generator.
+This seems to be a unique ID generator.
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CID CID]                                 ||  `CID()`
+|| [#CID CID]                                 ||  `CID()`  ||  1.3    ||  
 
 
 ==CIdeology==
@@ -808,7 +810,7 @@ This object support object to object comparison with equal operator.
 implements [#CDiplomaticAction CDiplomaticAction]
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CInfluenceAllianceLeader CInfluenceAllianceLeader]                                 ||  CInfluenceAllianceLeader([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CInfluenceAllianceLeader CInfluenceAllianceLeader]                                 ||  CInfluenceAllianceLeader([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -859,7 +861,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 implements [#CCommand CCommand]
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CLiberateCountryCommand CLiberateCountryCommand]                                 ||  CLiberateCountryCommand([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CLiberateCountryCommand CLiberateCountryCommand]                                 ||  CLiberateCountryCommand([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 
 ==CLicenceTechnologyAction==
@@ -895,7 +897,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CMilitaryAccessAction CMilitaryAccessAction]                               ||  CMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CMilitaryAccessAction CMilitaryAccessAction]                               ||  CMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -997,7 +999,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CNapAction CNapAction]                               ||  CNapAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CNapAction CNapAction]                               ||  CNapAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1021,7 +1023,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1033,7 +1035,7 @@ implements [#CAction CAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  COfferMilitaryAccessAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 
 ==CProvince==
@@ -1081,7 +1083,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]                               ||  CSendExpeditionaryForceAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]                               ||  CSendExpeditionaryForceAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1114,7 +1116,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSetFlagCommand CSetFlagCommand]                               ||  CSetFlagCommand(`[#CCountryTag CCountryTag]` Which, string Flag, bool bSet = true)`
+|| [#CSetFlagCommand CSetFlagCommand]                               ||  CSetFlagCommand(`[#CCountryTag CCountryTag]` Which, string Flag, bool bSet = true)`  ||  1.3    ||  
 
 
 ==CSetVariableCommand==
@@ -1122,7 +1124,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSetVariableCommand CSetVariableCommand]                               ||  CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`
+|| [#CSetVariableCommand CSetVariableCommand]                               ||  CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`  ||  1.3    ||  
 
 
 ==CSpyPresence==
@@ -1145,7 +1147,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CStartResearchCommand CStartResearchCommand]                               ||  CStartResearchCommand(`[#CCountryTag CCountryTag]` country, `[#CTechnology CTechnology]` techno)`
+|| [#CStartResearchCommand CStartResearchCommand]                               ||  CStartResearchCommand(`[#CCountryTag CCountryTag]` country, `[#CTechnology CTechnology]` techno)` ||  1.3    ||  
 
 
 ==Cstring==
@@ -1200,7 +1202,7 @@ This class support implicit conversion to string primitive type as well as suppo
 ==SubUnitList==
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#SubUnitList SubUnitList]                               ||  `SubUnitList()`
+|| [#SubUnitList SubUnitList]                               ||  `SubUnitList()` ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -1275,7 +1277,7 @@ This class supports equal operator comparison.
 implements [#CCommand CCommand]
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CToggleMobilizationCommand CToggleMobilizationCommand]                               ||  `CToggleMobilizationCommand(`[#CCountryTag CCountryTag]` countryTag, bool bMobilize)`
+|| [#CToggleMobilizationCommand CToggleMobilizationCommand]                               ||  `CToggleMobilizationCommand(`[#CCountryTag CCountryTag]` countryTag, bool bMobilize)` ||  1.3    ||  
 
 
 ==CTradeAction==
@@ -1283,7 +1285,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CTradeAction CTradeAction]                                 ||  CTradeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB)
+|| [#CTradeAction CTradeAction]                                 ||  CTradeAction([#CCountryTag CCountryTag] countryTagA, [#CCountryTag CCountryTag] countryTagB) ||  1.3    ||  
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
