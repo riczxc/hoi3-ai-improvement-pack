@@ -1,6 +1,6 @@
 #summary LUA Class Reference
-#sidebar LUAClassReferenceSideBar
 #labels Featured,Phase-Implementation
+#sidebar LUAClassReferenceSideBar
 
 =Hearts of Iron III - LUA class reference=
 
@@ -445,10 +445,10 @@ implements [#CCommand CCommand]
 ==CConvoy==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-|| ??? ||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
+|| ???ï¿½||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
 || ??? ||  `GetDesiredTransports(???)`                                              ||  1.3                                                                                                       ||  
 || ??? ||  `GetEfficiency(???)`                                                    ||  1.3                                                                                                       ||  
-|| ??? ||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
+|| ???ï¿½||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
 
 -----
 ==CCountryDataBase==
@@ -1241,7 +1241,7 @@ This class support implicit conversion to string primitive type as well as suppo
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#Cstring Cstring]                               ||  `Cstring(string str)`
+|| [#Cstring Cstring]                               ||  `Cstring(string str)` || 1.3 ||
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
