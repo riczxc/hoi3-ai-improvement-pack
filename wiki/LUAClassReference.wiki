@@ -41,19 +41,19 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  [#CCountry CCountry]                                              ||  `GetCountry(???)`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCountryAlignmentDistance(`[#CCountry CCountry]` countryA, `[#CCountry CCountry]` countryB)`                           ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
-||  string                                                            ||  `GetCommonModDirectory()`                                                                                 ||  1.3    ||  
-||  string                                                            ||  `GetModDirectory()`                                                                                       ||  1.3    ||  
+||  static string                                                            ||  `GetCommonModDirectory()`                                                                                 ||  1.3    ||  
+||  static string                                                            ||  `GetModDirectory()`                                                                                       ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNormalizedAlignmentDistance(`[#CCountry CCountry]` country, `[#CFaction CFaction]` faction)`                          ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfOwnedProvinces(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
 ||  [#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||  `GetReqProdQueue()`                                                                                       ||  1.3    ||  
 ||  List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`  ||  `GetReqProdQueueIter()`                                                                                   ||  1.3    ||  
 ||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                            ||  1.3    ||  
 ||  number                                                            ||  `GetSpamPenalty(`[#CCountryTag CCountryTag]` countryTag)`                                                 ||  1.3    ||  
-||  bool                                                              ||  `HasCommonExtension()`                                                                                    ||  1.3    ||  
+||  static bool                                                              ||  `HasCommonExtension()`                                                                                    ||  1.3    ||  
 ||  bool                                                              ||  `HasFilledProdQueue()`                                                                                    ||  1.4    ||  
 ||  bool                                                              ||  `HasTradeGoneStale(`[#CTradeRoute CTradeRoute]` route)`                                                    ||  1.3    ||  
-||  bool                                                              ||  `HasUserExtension()`                                                                                      ||  1.3    ||  
-||  bool                                                              ||  `IsAIControlledForPlayer(number automationtype)`                              ||  1.4    ||  
+||  static bool                                                              ||  `HasUserExtension()`                                                                                      ||  1.3    ||  
+||  static bool                                                              ||  `IsAIControlledForPlayer(number automationtype)`                              ||  1.4    ||  
 ||  bool                                                              ||  `IsInfluencing(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                          ||  1.3    ||  
 ||  bool                                                              ||  `IsTradeingAwayNeededResource(`[#CTradeRoute CTradeRoute]` route)`                                          ||  1.3    ||  
 ||  ???                                                               ||  `MoveToNeighbor(???)`                                                                                     ||  1.3    ||  
