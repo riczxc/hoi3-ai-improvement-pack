@@ -862,7 +862,7 @@ This object support object to object comparison with equal operator.
 ==CGovernmentPositionDataBase==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  bool                                        ||  `GetGovernmentPositionByIndex(number index)`                                                                                          ||  2.0    ||  
+||  static bool                                        ||  `GetGovernmentPositionByIndex(number index)`                                                                                          ||  2.0    ||  
 
 ====Associated constants====
 Lothos introduced as set of constants used in semper fidelis.
