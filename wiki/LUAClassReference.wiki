@@ -7,6 +7,7 @@
 This file is based on work done by [http://forum.paradoxplaza.com/forum/showthread.php?t=421039 Dominik, strongbowmatt] and [http://forum.paradoxplaza.com/forum/showthread.php?t=430111 azeno].
 
 1.4 addition from [http://forum.paradoxplaza.com/forum/showpost.php?p=10544657], by guibod.
+2.0 (semper fi) addition, by guibod
 
 
 -----
@@ -37,18 +38,22 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  bool                                                              ||  `AlreadyTradingResourceOtherWay(`[#CTradeRoute CTradeRoute]` route)`                                      ||  1.3    ||  
 ||  bool                                                              ||  `CanDeclareWar(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                          ||  1.3    ||  
 ||  bool                                                              ||  `CanTradeFreeResources(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                  ||  1.3    ||  
+||  bool                                                              ||  `EvaluateCancelTrades(number needs, number goodType )`                  ||  2.0    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetAmountTradedFrom(number goodsType, `[#CCountryTag CCountryTag]` from, `[#CCountryTag CCountryTag]` to)`          ||  1.3    ||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry(???)`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCountryAlignmentDistance(`[#CCountry CCountry]` countryA, `[#CCountry CCountry]` countryB)`                           ||  1.3    ||  
 ||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
 ||  static string                                                            ||  `GetCommonModDirectory()`                                                                                 ||  1.3    ||  
+||  [#CArrayFix CArrayFix]  											||  `GetDeployedSubUnitCounts()`                                                                                   ||  2.0   ||  
 ||  static string                                                            ||  `GetModDirectory()`                                                                                       ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNormalizedAlignmentDistance(`[#CCountry CCountry]` country, `[#CFaction CFaction]` faction)`                          ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfOwnedProvinces(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
+||  [#CArrayFix CArrayFix]  										||  `GetProductionSubUnitCounts()`                                                                                   ||  2.0   ||  
 ||  [#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||  `GetReqProdQueue()`                                                                                       ||  1.3    ||  
 ||  List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`  ||  `GetReqProdQueueIter()`                                                                                   ||  1.3    ||  
 ||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                            ||  1.3    ||  
 ||  number                                                            ||  `GetSpamPenalty(`[#CCountryTag CCountryTag]` countryTag)`                                                 ||  1.3    ||  
+||  [#CArrayFix CArrayFix]  											||  `GetTheatreSubUnitNeedCounts()`                                                                                   ||  2.0   ||  
 ||  static bool                                                              ||  `HasCommonExtension()`                                                                                    ||  1.3    ||  
 ||  bool                                                              ||  `HasFilledProdQueue()`                                                                                    ||  1.4    ||  
 ||  bool                                                              ||  `HasTradeGoneStale(`[#CTradeRoute CTradeRoute]` route)`                                                    ||  1.3    ||  
@@ -148,7 +153,7 @@ implements [#CAIAgent CAIAgent]
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `IsCapitalSafeToLiberate(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
-
+||  List<[#CMinister CMinister]>                                      ||  `GetPossibleMinisters()`                                        ||  2.0    ||  
 
 -----
 ==CAIProductionMinister==
@@ -411,6 +416,17 @@ implements [#CCommand CCommand]
 ====Constructor detail====
 ConvoyOrEscort = is a boolean (true = escort, false = convoy)
 
+-----
+==CConstruction==
+Nothing proves that this object is named as CConstruction. Codes from Semper Fidelis hints the existence of such an object CCountry:GetConstructions()
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  number                                                            ||  `GetCost()`                                                                                              ||  2.0   ||  
+||  [#CMilitaryConstruction CMilitaryConstruction]                    ||  `GetMilitary()`                                                                                           ||  2.0   ||  
+||  bool                                                              ||  `IsMilitary()`                                                                                           ||  2.0   ||  
+
+
 
 -----
 ==CConstructSingleUnitCommand==
@@ -445,10 +461,10 @@ implements [#CCommand CCommand]
 ==CConvoy==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-|| ???�||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
+|| ????||  `GetDesiredEscorts(???)`                                                ||  1.3                                                                                                       ||  
 || ??? ||  `GetDesiredTransports(???)`                                              ||  1.3                                                                                                       ||  
 || ??? ||  `GetEfficiency(???)`                                                    ||  1.3                                                                                                       ||  
-|| ???�||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
+|| ????||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
 
 -----
 ==CCountryDataBase==
@@ -494,13 +510,14 @@ implements [#CList CList]
 ==CCountry==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CIdeology CIdeology]                                            ||  `AccessIdeologyOrganization()`                                                                            ||  1.3    ||  return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                         ||  
+||  [#CIdeology CIdeology]                                            ||  `AccessIdeologyPopularity()`                                                                              ||  1.3    ||   --return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                      ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `CalcDesperation()`                                                                                       ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                                               ||  `CalculateReinforcementMultiplier()`                                                                          ||  1.3    ||  
+||  bool                                                              ||  `CalculateIsAllied(`[#CCountryTag CCountryTag]` countryTag)`                                              ||  2.0    ||  
 ||  number                                                            ||  `CalculateNumberOfActiveInfluences()`                                                                     ||  1.3    ||  
-||  bool                                                              ||  `Exists()`                                                                                                ||  1.3    ||  
-||  [#CIdeology CIdeology]                                                                ||  `AccessIdeologyOrganization()`                                                                            ||  1.3    ||  return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                         ||  
-||  [#CIdeology CIdeology]                                                               ||  `AccessIdeologyPopularity()`                                                                              ||  1.3    ||   --return value should have GetValue([#CIdeology CIdeology] ideology)                                                                                      ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `CalculateReinforcementMultiplier()`                                                                      ||  1.3    ||  
 ||  bool                                                              ||  `CanCreatePuppet()`                                                                                       ||  1.3    ||  
+||  bool                                                              ||  `Exists()`                                                                                                ||  1.3    ||  
 ||  number                                                            ||  `GetAbility(`[#CTechnologyCategory CTechnologyCategory] category)                                         ||  1.3    ||  
 ||  [#CProvince CProvince]                                            ||  `GetActingCapitalLocation()`                                                                              ||  1.3    ||  
 ||  List`<`[#CProvince CProvince]`>`                                  ||  `GetAirBases()`                                                                                           ||  1.3    ||  
@@ -517,6 +534,7 @@ implements [#CList CList]
 ||  [#CProvince CProvince]                                            ||  `GetCapitalLocation()`                                                                                    ||  1.3    ||  
 ||  List`<`[#CProvince CProvince]`>`                                                                 ||  `GetControlledProvinces()`                                                                                ||  1.4    ||  
 ||  List`<`[#CProvince CProvince]`>`                                                                 ||  `GetCoreProvinces()`                                                                                      ||  1.4    ||  
+||  List`<`[#CConstruction CConstruction]`>`                                        ||  `GetConstructions()`                                                                                    ||  2.0    ||  Lists all ongoing production for a current AI ||
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetConvoyBuildCost()`                                                                                    ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                                               ||  `GetConvoyBuildTime()`                                                                                        ||  1.3    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetConvoyedIn()`                                                                                         ||  1.4    ||  
@@ -525,9 +543,9 @@ implements [#CList CList]
 ||  [#CCountryTag CCountryTag]                                        ||  `GetCountryTag()`                                                                                         ||  1.3    ||  
 ||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetCurrentAtWarWith()`                                                                                   ||  1.3    ||  
 ||  List`<`[#CUnit CTechnology]`>`                                    ||  `GetCurrentResearch()`                                                                                    ||  1.4    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyBalance(number goods)`                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyExpense(number goods)`                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyIncome(number goods)`                                                                               ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyBalance(number goodIndex)`                                                                              ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyExpense(number goodIndex)`                                                                              ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetDailyIncome(number goodIndex)`                                                                               ||  1.3    ||  
 ||  List`<`[#CDiplomacyStatus CDiplomacyStatus]`>`                              ||  `GetDiplomacy()`                                                                                          ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetDiplomaticDistance(`[#CCountryTag CCountryTag] countryTag)                                            ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetDiplomaticInfluence()`                                                                                ||  1.3    ||  
@@ -541,6 +559,7 @@ implements [#CList CList]
 ||  [#CModifier CModifier]                                            ||  `GetGlobalModifier()`                                                                                     ||  1.3    ||  
 ||  [#CGovernment CGovernment]                                                               ||  `GetGovernment()`                                                                                         ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetHighestThreat()`                                                                                      ||  1.3    ||  
+||  [#CGoodsPool CGoodsPool]                                        ||  `GetHomeProduced()`                                                                                      ||  2.0    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetICPart(number distributionSetting)`                                                                      ||  1.3    ||  
 ||  [#CLaw CLaw]                                                      ||  `GetLaw(`[#CLawGroup CLawGroup]` lawGroup)`                                                                 ||  1.3    ||  
 ||  [#CLaw CLaw]                                                               ||  `GetLawFromIndex(number index)`                                                                                            ||  1.3    ||  
@@ -548,6 +567,7 @@ implements [#CList CList]
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetManpower()`                                                                                           ||  1.3    ||  
 ||  number                                                            ||  `GetMaxIC()`                                                                                              ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetMaxNeutralityForWarWith(`[#CCountryTag CCountryTag]` countryTag)`                                       ||  1.3    ||  
+||  [#CMinister CMinister] 	                                          ||  `GetMinister(number positionIndex)`                                                                                           ||  2.0    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetMoneyBalanceAverage()`                                                                                ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNationalUnity()`                                                                                      ||  1.3    ||  
 ||  List`<`[#CProvince CProvince]`>`                                  ||  `GetNavalBases()`                                                                                         ||  1.3    ||  
@@ -570,17 +590,23 @@ implements [#CList CList]
 ||  [#CRule CRule]                                                               ||  `GetRules()`                                                                                              ||  1.3    ||  
 ||  [#CIdeology CIdeology]                                            ||  `GetRulingIdeology()`                                                                                     ||  1.3    ||  
 ||  [#CSpyPresence CSpyPresence]                                      ||  `GetSpyPresence(`[#CCountryTag CCountryTag] countryTag)                                                   ||  1.3    ||  
+||  List`<`[#CCountryTag CCountryTag]`>`                              ||  `GetSpyingOnUs()`																							||	2.0	||
 ||  [#CStrategicWarfare CStrategicWarfare]                                                               ||  `GetStrategicWarfare()`                                                                                   ||  1.3    ||  
 ||  [#CAIStrategy CAIStrategy]                                        ||  `GetStrategy()`                                                                                           ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetSupplyBalanceAverage()`                                                                               ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetSurrenderLevel()`                                                                                     ||  1.3    ||  
 ||  [#CTechnologyStatus CTechnologyStatus]                            ||  `GetTechnologyStatus()`                                                                                   ||  1.3    ||  
+||  number                                                            ||  `GetTotalConvoyTransports()`                                                                              ||  2.0    ||  
+||  number                                                            ||  `GetTotalCoreBuildingLevels(number buildingIndex)`                                                                                            ||  2.0    ||  
 ||  number                                                            ||  `GetTotalIC()`                                                                                            ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetTotalLeadership()`                                                                                    ||  1.3    ||  
+||  number                                                            ||  `GetTotalNeededConvoyTransports()`                                                                              ||  2.0    ||  
 ||  number                                                            ||  `GetTotalNeededTransports()`                                                                              ||  1.3    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetTotalProduced()`                                                                                      ||  1.4    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetTradedAway()`                                                                                         ||  1.4    ||  
+||  [#CGoodsPool CGoodsPool]                                          ||  `GetTradedAwaySansAlliedSupply()`                                                                                          ||  2.0    ||  
 ||  [#CGoodsPool CGoodsPool]                                          ||  `GetTradedFor()`                                                                                          ||  1.4    ||  
+||  [#CGoodsPool CGoodsPool]                                          ||  `GetTradedForSansAlliedSupply()`                                                                                          ||  2.0    ||  
 ||  number                                                            ||  `GetTransports()`                                                                                         ||  1.3    ||  
 ||  [#CUnitList CUnitList]                                            ||  `GetUnits()`                                                                                              ||  1.4    ||  
 ||  List`<`[#CUnit CUnit]`>`                                          ||  `GetUnitsIterator()`                                                                                      ||  1.4    ||  
@@ -626,7 +652,8 @@ implements [#CList<CCountryTag> CList<CCountryTag>]
 ||  number                                                            ||  `GetDayOfMonth()`                                                                                         ||  1.3    ||  
 ||  number                                                            ||  `GetMonthOfYear()`                                                                                        ||  1.3    ||  
 ||  number                                                            ||  `GetYear()`                                                                                               ||  1.3    ||  
-||  ???                                                               ||  `AddDays(???)`                                                                                                   ||  1.3    ||  
+||  void                                                              ||  `AddDays(number daysToAdd)`                                                                                            ||  1.3    ||  
+||  number                                                            ||  `GetTotalDays()`                                                                                          ||  2.0    ||  
 
 -----
 ==CDebtAction==
@@ -810,6 +837,7 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `Get(number goodType)`                                                                                          ||  1.3    ||  
+||  number                                        ||  `GetFloat(number goodType)`                                                                                          ||  2.0    ||  
 
 ====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -830,6 +858,26 @@ This object support object to object comparison with equal operator.
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                        ||  `IsValid()`                                                                                          ||  1.3    ||  
 
+-----
+==CGovernmentPositionDataBase==
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                                        ||  `GetGovernmentPositionByIndex(number index)`                                                                                          ||  2.0    ||  
+
+====Associated constants====
+Lothos introduced as set of constants used in semper fidelis.
+
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  static number                                                     ||  `_HEAD_OF_STATE_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_HEAD_OF_GOVERNMENT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_CHIEF_OF_AIR_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_CHIEF_OF_NAVY_`                                                                                                ||  2.0    ||  
+||  static number                                                     ||  `_CHIEF_OF_ARMY_`                                                                                                  ||  2.0    ||  
+||  static number                                                     ||  `_CHIEF_OF_STAFF_`                                                                                              ||  2.0    ||  
+||  static number                                                     ||  `_MINISTER_OF_INTELLIGENCE_`                                                                                                 ||  2.0    ||  
+||  static number                                                     ||  `_MINISTER_OF_SECURITY_`                                                                                                 ||  2.0    ||  
+||  static number                                                     ||  `_ARMAMENT_MINISTER_`                                                                                        ||  2.0    ||  
+||  static number                                                     ||  `_FOREIGN_MINISTER_`                                                                                              ||  2.0    ||  
 
 -----
 ==CID==
@@ -899,7 +947,6 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  bool                                                            ||  `IsValid()`                                                                                                ||  1.3    ||  
 ||  bool                                                              ||  `ValidFor(`[#CCountryTag CCountryTag]` countryTag)`                                                                               ||  1.3    ||  
 
-
 -----
 ==CLawDataBase==
 ====Method summary====
@@ -910,6 +957,40 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  List`<`[#CLaw CLaw]`>`                                            ||  `GetLawList()`                                                                                            ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfLawGroups()`                                                                                  ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfLaws()`                                                                                       ||  1.3    ||  
+
+====Associated constants====
+Lothos introduced as set of constants used in semper fidelis.
+
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  static number                                                     ||  `_OPEN_SOCIETY_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_LIMITED_RESTRICTIONS_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_REPRESSION_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_TOTALITARIAN_SYSTEM_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_VOLUNTEER_ARMY_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_ONE_YEAR_DRAFT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_TWO_YEAR_DRAFT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_THREE_YEAR_DRAFT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_SERVICE_BY_REQUIREMENT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_FULL_CIVILIAN_ECONOMY_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_BASIC_MOBILISATION_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_FULL_MOBILISATION_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_WAR_ECONOMY_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_TOTAL_ECONOMIC_MOBILISATION_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_MINIMAL_EDUCATION_INVESTMENT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_AVERAGE_EDUCATION_INVESTMENT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_MEDIUM_LARGE_EDUCATION_INVESTMENT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_BIG_EDUCATION_INVESTMENT_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_CONSUMER_PRODUCT_ORIENTATION_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_MIXED_INDUSTRY_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_HEAVY_INDUSTRY_EMPHASIS_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_FREE_PRESS_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_CENSORED_PRESS_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_STATE_PRESS_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_PROPAGANDA_PRESS_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_MINIMAL_TRAINING_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_BASIC_TRAINING_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_ADVANCED_TRAINING_`                                                                                             ||  2.0   ||  
+||  static number                                                     ||  `_SPECIALIST_TRAINING_`                                                                                             ||  2.0   ||  
 
 
 -----
@@ -971,6 +1052,27 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 
+
+-----
+==CMilitaryConstruction==
+Nothing proves that this object is named as CConstruction. Codes from Semper Fidelis hints the existence of such an object CConstruction:GetMilitary()
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                                                              ||  `IsLand()`                                                                                              ||  2.0   ||  
+||  bool										                      ||  `IsAir()`                                                                                           ||  2.0   ||  
+||  bool                                                              ||  `IsNaval()`                                                                                           ||  2.0   ||  
+
+
+-----
+==CMinister==
+Ministers are ingame people in charge of a ministry. As I am writing this nothings proves it implements [#CAIAgent CAIAgent].
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                                            ||  `CanTakePosition(number positionIndex)`                                                                                                ||  2.0    ||  
+||  [#CIdeology CIdeology]                                            ||  `GetIdeology()`                                                                                                ||  2.0    ||  
+||  [#CPersonality CPersonality]                                            ||  `GetPersonality(number positionIndex)`                                                                                                ||  2.0    ||  
 
 -----
 ==CModifier==
@@ -1111,6 +1213,14 @@ implements [#CAction CAction]
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
 || [#COfferMilitaryAccessAction COfferMilitaryAccessAction]                               ||  `CPeaceAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
 
+-----
+==CPersonality==
+Nothing proves that this object is named as CPersonality. Codes from Semper Fidelis hints the existence of such an object CMinister:getPersonality(number)
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CString CString]                                                ||  `GetKey()`                                                                                                ||  2.0   ||  
+||  number                                                            ||  `GetIndex()`                                                                                              ||  2.0   ||  
 
 -----
 ==CProvince==
@@ -1360,7 +1470,7 @@ This class supports equal operator comparison.
 ||  number                                                            ||  `GetLevel(`[#CTechnology CTechnology]` tech)`                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetYear(`[#CTechnology CTechnology]` tech, number level)`                                                              ||  1.3    ||  
 ||  bool                                                              ||  `IsUnitAvailable(`[#CSubUnitDefinition CSubUnitDefinition]` unit)`                                          ||  1.3    ||  
-
+||  bool                                                              ||  `IsBuildingAvailable(`[#CBuilding CBuilding]` unit)`                                          ||  1.3    ||  
 -----
 ==CTheatre==
 ====Method summary====
