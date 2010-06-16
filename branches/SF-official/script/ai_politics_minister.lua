@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 5/9/2010
+-- Date Last Modified: 6/11/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws
@@ -14,9 +14,9 @@ local _TOTALITARIAN_SYSTEM_ = 4
 
 local _VOLUNTEER_ARMY_ = 6
 local _ONE_YEAR_DRAFT_ = 7
-local _TWO_YEAR_DRAFT_ = 7
-local _THREE_YEAR_DRAFT_ = 7
-local _SERVICE_BY_REQUIREMENT_ = 7
+local _TWO_YEAR_DRAFT_ = 8
+local _THREE_YEAR_DRAFT_ = 9
+local _SERVICE_BY_REQUIREMENT_ = 10
 
 local _FULL_CIVILIAN_ECONOMY_ = 11
 local _BASIC_MOBILISATION_ = 12
@@ -192,7 +192,9 @@ function Laws(minister)
 		-- Execute the new law
 		if not(loNewLaw == nil) then
 			if not(loNewLaw:GetIndex() == loCurrentLaw:GetIndex()) then
-				ai:Post(CChangeLawCommand(ministerTag, loNewLaw, loGroup))
+				if loNewLaw:ValidFor(ministerTag) then
+					ai:Post(CChangeLawCommand(ministerTag, loNewLaw, loGroup))
+				end
 			end
 		end
 	end
@@ -268,7 +270,7 @@ end
 --################
 function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -306,14 +308,14 @@ function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPos
 	end
 
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function ArmamentMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -365,14 +367,14 @@ function ArmamentMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosit
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function ForeignMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local lsFaction = tostring(ministerCountry:GetFaction():GetTag())
 	local lbIsArwar = ministerCountry:IsAtWar()
 	local liCurrentScore = 0
@@ -411,14 +413,14 @@ function ForeignMinister(ai, ministerTag, ministerCountry, vaMinisters, voPositi
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function ChiefOfStaff(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -451,14 +453,14 @@ function ChiefOfStaff(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function MinisterOfIntelligence(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -492,14 +494,14 @@ function MinisterOfIntelligence(ai, ministerTag, ministerCountry, vaMinisters, v
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function ChiefOfArmy(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -531,14 +533,14 @@ function ChiefOfArmy(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function ChiefOfNavy(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -570,14 +572,14 @@ function ChiefOfNavy(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end
 end
 function ChiefOfAir(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local loMinister = nil
-	local loCurrentMinsiter = ministerCountry:GetMinister(voPosition)
+	local loCurrentMinister = ministerCountry:GetMinister(voPosition)
 	local liCurrentScore = 0
 	
 	if table.getn(vaMinisters) > 0 then
@@ -609,7 +611,7 @@ function ChiefOfAir(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	end
 	
 	if not(loMinister == nil) then
-		if not(loCurrentMinsiter == loMinister) then
+		if not(loCurrentMinister == loMinister) then
 			ai:Post(CChangeMinisterCommand(ministerTag, loMinister, voPosition))
 		end
 	end

@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Germany File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 5/20/2010
+-- Date Last Modified: 6/11/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -228,11 +228,11 @@ end
 -- Land ratio distribution
 function P.LandRatio(minister)
 	local laArray = {
-		2, -- Garrison
-		13, -- Infantry
-		2, -- Motorized
+		1, -- Garrison
+		10, -- Infantry
+		3, -- Motorized
 		1, -- Mechanized
-		1, -- Armor
+		2, -- Armor
 		0, -- Militia
 		0}; -- Cavalry
 	
@@ -356,6 +356,7 @@ end
 
 -- #######################################
 -- Diplomacy Hooks
+-- InfluenceIgnore(minister)
 
 -- These all must return a numeric score (100 being 100% chance of success)
 
@@ -374,13 +375,35 @@ end
 
 -- Scripted items no return value
 
+-- Influence Ignore list
+function P.InfluenceIgnore(minister)
+	-- Ignore Denmark if they join allies don't waste the diplomacy
+	-- Ignore Poland as we will DOW them with Danzig or War event
+	-- Ignore Baltic states as Russia will annex them
+	-- Ignore Austria, Czechoslovakia as we will get them
+	-- Ignore Switzerland as there is no chance of them joining
+	-- Ignore Vichy, they wont join anyone unles DOWed
+	local laIgnoreList = {
+		"AUS",
+		"CZE",
+		"SCH",
+		"LAT",
+		"LIT",
+		"EST",
+		"VIC",
+		"DEN",
+		"POL"};
+	
+	return laIgnoreList
+end
+
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsRepTag = tostring(recipient)
 	
-	if lsRepTag == "AUS" or lsRepTag == "CZE" or lsRepTag == "SCH" then
-		score = 0 -- we get them anyway
-	elseif lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" or lsRepTag == "ITA" or lsRepTag == "JAP" then
-		score = score + 70
+	if lsRepTag == "ITA" or lsRepTag == "JAP" then
+		score = score + 100
+	elseif lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" then
+		score = score + 60
 	elseif lsRepTag == "AST" or lsRepTag == "CAN" or lsRepTag == "SAF" or lsRepTag == "NZL" then
 		score = score - 20
 	end

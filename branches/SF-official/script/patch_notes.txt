@@ -1,0 +1,27 @@
+- Fixed incorect tag assignment to marco polo prepare for war in the JAP.lua file
+- Added the lsActorTag variable to the trade section in the USA.lua file
+- Militia techs added to Russian AI ignore list
+- Russia will no longer build garrison units.
+- Russia build weights adjusted to build more armor and less infantry.
+- Germany build weights adjusted to build more armor and less infantry.
+- USA IC build weights adjust to build less ships and more air power.
+- Modified SPR/SPA join Axis check to be a penalty instead of a flat no and to take into account London/Gibraltar.
+- Russia had a duplicate decision method in the SOV.lua file, deleted the old one.
+- AI Nations in Factions will not offer alliances to other nations.
+- AI Nations will no longer offer NAPs to countries they are allied with or countries that are aligning to the same faction.
+- When an AI nation joins a faction it will break all of its alliances.
+- Cleaned up some un-unsed variables in ai_intelligence_minister.lua
+- Added a ValidFor check to the execution of laws in ai_politics_minister.lua
+- Made Italy and Japan higher influence priority for Germany
+- Turkey will be inclined to stay out of the war unless Moscow falls or the provinces on the Soviet/Turkish border fall
+- Turkey will be more inclined to trade with Germany
+- Portugal had is joining Axis penalty changed to a -50 chance if they have no neighbor in the Axis instead of impossible.
+- Added Poland, Denmark and Baltic States to Germanies list of countries not to waste time influencing.
+- Added an Ideology Bonus to the Influence score check in ai_diplomacy.lua
+- Fixed a small variable assignment in ai_production_minister to not retrieve the GetTechnologyStatus on each call.
+- Added a money buffer to the Trade AI of 0.10 so it will not always go down to a 0 (balance economy)
+- Italy and Japan will not join any faction that their Ideology group does not support regardless of influence.
+- Added a new hook for Influence ignore lists. This will cause the AI to never try and influence the specified countries even if to prevent them from joining an enemy.
+- Fixed an issue on how the AI calculates resources for building new IC.
+- AI Influence enhanced now and will rotate in and out countries to influence based on score
+- AI Influence now will cancel influences if its current diplomacy settings will not support it

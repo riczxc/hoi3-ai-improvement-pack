@@ -438,7 +438,7 @@ function ManageProduction(minister)
 		--Utils.LUA_DEBUGOUT("Country: " .. tostring(ministerTag))
 		--Utils.LUA_DEBUGOUT("IC: " .. tostring(ministerCountry:GetTotalIC()))
 
-		local ministerTech = ministerCountry:GetTechnologyStatus()
+		local loTechStatus = ministerCountry:GetTechnologyStatus()
 		local vbNaval = (ministerCountry:GetNumOfPorts() > 0 and ministerCountry:GetTotalIC() >= 20)
 		
 		local laProdWeights = GetBuildRatio(minister, ministerTag, vbNaval, "ProductionWeights")
@@ -709,10 +709,10 @@ function ManageProduction(minister)
 				
 				-- Armor
 				if laLandUnitNeed[5] > 0 then
-					local lbLA = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("light_armor_brigade"))
-					local lbA = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("armor_brigade"))
-					local lbHA = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("heavy_armor_brigade"))
-					local lbSHA = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("super_heavy_armor_brigade"))
+					local lbLA = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("light_armor_brigade"))
+					local lbA = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("armor_brigade"))
+					local lbHA = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("heavy_armor_brigade"))
+					local lbSHA = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("super_heavy_armor_brigade"))
 
 					local liArmorCount = GetUnitCount(_LIGHT_ARMOR_BRIGADE_, _ARMOR_BRIGADE_, prodArrayCounts, currentArrayCounts)
 					local liHeavyCount = GetUnitCount(_HEAVY_ARMOR_BRIGADE_, _SUPER_HEAVY_ARMOR_BRIGADE_, prodArrayCounts, currentArrayCounts)
@@ -764,9 +764,9 @@ function ManageProduction(minister)
 				local liTotalSFNeeded = math.max(0, math.ceil((liTotalLandUnits / laSpecialForcesRatio[1]) * laSpecialForcesRatio[2]) - liTotalSFUnits)
 
 				if liTotalSFNeeded > 0 then
-					local lbMo = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("bergsjaeger_brigade"))
-					local lbMa = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("marine_brigade"))
-					local lbPa = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("paratrooper_brigade"))
+					local lbMo = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("bergsjaeger_brigade"))
+					local lbMa = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("marine_brigade"))
+					local lbPa = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("paratrooper_brigade"))
 					
 					local liMountainTotal = prodArrayCounts[_BERGSJAEGER_BRIGADE_] + currentArrayCounts[_BERGSJAEGER_BRIGADE_]
 					local liMarineTotal = prodArrayCounts[_MARINE_BRIGADE_] + currentArrayCounts[_MARINE_BRIGADE_]
@@ -848,9 +848,9 @@ function ManageProduction(minister)
 			
 			-- Fighters/Interceptors
 			if laAirUnitNeed[1] > 0 then
-				local lbIn = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("interceptor"))
-				local lbMf = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("multi_role"))
-				local lbRIn = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("rocket_interceptor"))
+				local lbIn = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("interceptor"))
+				local lbMf = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("multi_role"))
+				local lbRIn = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("rocket_interceptor"))
 				
 				local liUnitType
 			
@@ -890,8 +890,8 @@ function ManageProduction(minister)
 			local loFlyingBomb = CSubUnitDataBase.GetSubUnit("flying_bomb")
 			local loFlyingRocket = CSubUnitDataBase.GetSubUnit("flying_rocket")
 			
-			local lbFlyingBomb = ministerCountry:GetTechnologyStatus():IsUnitAvailable(loFlyingBomb)
-			local lbFlyingRocket = ministerCountry:GetTechnologyStatus():IsUnitAvailable(loFlyingRocket)
+			local lbFlyingBomb = loTechStatus:IsUnitAvailable(loFlyingBomb)
+			local lbFlyingRocket = loTechStatus:IsUnitAvailable(loFlyingRocket)
 
 			-- Calculate how many Flying Weapons are needed			
 			if lbFlyingBomb or lbFlyingRocket then
@@ -950,7 +950,7 @@ function ManageProduction(minister)
 			laUnitNeeds[_DESTROYER_] = laNavalUnitNeed[1]
 			-- Submarine, if you can do nuke shift everthing into Nuclear
 			if laNavalUnitNeed[2] > 0 then
-				if ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("nuclear_submarine")) then
+				if loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("nuclear_submarine")) then
 					laUnitNeeds[_NUCLEAR_SUBMARINE_] = laNavalUnitNeed[2]
 				else
 					laUnitNeeds[_SUBMARINE_] = laNavalUnitNeed[2]
@@ -958,8 +958,8 @@ function ManageProduction(minister)
 			end
 			-- Cruisers Elastic Random for Light and Heavy but leaning to Light
 			if laNavalUnitNeed[3] > 0 then
-				local lbCL = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("light_cruiser"))
-				local lbCH = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("heavy_cruiser"))
+				local lbCL = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("light_cruiser"))
+				local lbCH = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("heavy_cruiser"))
 			
 				if lbCL and lbCH then
 					local liShift = (math.random(30, 80)) * 0.01
@@ -973,9 +973,9 @@ function ManageProduction(minister)
 			end
 			-- Capital ships, process one a time if need be
 			if laNavalUnitNeed[4] > 0 then
-				local lbBC = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("battlecruiser"))
-				local lbBB = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("battleship"))
-				local lbSBB = ministerTech:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("super_heavy_battleship"))
+				local lbBC = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("battlecruiser"))
+				local lbBB = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("battleship"))
+				local lbSBB = loTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit("super_heavy_battleship"))
 				local liUnitType
 			
 				if lbBC and lbBB and lbSBB then
@@ -1534,19 +1534,17 @@ function ConstructBuildings(ai, minister, ministerTag, ministerCountry, ic, vbGo
 	return ic
 end
 
-function CalculateHomeProduced(ministerCountry, voResourceType)
-	local liConvoyedIn = ministerCountry:GetConvoyedIn():Get(voResourceType):Get()
-	local liDailyHome = ministerCountry:GetHomeProduced():Get(voResourceType):Get()
-	local liDailyExpense = ministerCountry:GetDailyExpense(CGoodsPool._ENERGY_):Get()
+function CalculateHomeProduced(loResource)
+	local liDailyHome = loResource.vDailyHome
 	
-	if liConvoyedIn > 0 then
+	if loResource.vConvoyedIn > 0 then
 		-- If the Convoy in exceeds Home Produced by 10% it means they have a glutten coming in or
 		--   are a sea bearing country like ENG or JAP
 		--   so go ahead and count this as home produced up to 80% of it just in case something happens!
-		if liDailyHome > liDailyExpense then
-			liDailyHome = liDailyHome + liConvoyedIn
-		elseif liConvoyedIn > (liDailyHome * 0.1) then
-			liDailyHome = liDailyHome + (liConvoyedIn * 0.9)
+		if liDailyHome > loResource.vDailyExpense then
+			liDailyHome = liDailyHome + loResource.vConvoyedIn
+		elseif loResource.vConvoyedIn > (liDailyHome * 0.1) then
+			liDailyHome = liDailyHome + (loResource.vConvoyedIn * 0.9)
 		end
 	end	
 	
@@ -1559,13 +1557,21 @@ function CoreProvincesLoop(ministerCountry, voTechStatus, viRocketCap, viReactor
 	local lbBuildIndustry = false
 	local laCorePrv = {}
 	
-	liExpenseFactor = ministerCountry:GetDailyExpense(CGoodsPool._ENERGY_):Get() * 0.5
-	liExpenseFactor = liExpenseFactor + ministerCountry:GetDailyExpense(CGoodsPool._METAL_):Get()
-	liExpenseFactor = liExpenseFactor + (ministerCountry:GetDailyExpense(CGoodsPool._RARE_MATERIALS_):Get() * 2)
+	local loEnergy = CResourceValues()
+	local loMetal = CResourceValues()
+	local loRare = CResourceValues()
 	
-	liHomeFactor = CalculateHomeProduced(ministerCountry, CGoodsPool._ENERGY_) * 0.5
-	liHomeFactor = liHomeFactor + CalculateHomeProduced(ministerCountry, CGoodsPool._METAL_)
-	liHomeFactor = liHomeFactor + (CalculateHomeProduced(ministerCountry, CGoodsPool._RARE_MATERIALS_) * 2)
+	loEnergy:GetResourceValues( ministerCountry, CGoodsPool._ENERGY_ )
+	loMetal:GetResourceValues( ministerCountry, CGoodsPool._METAL_ )
+	loRare:GetResourceValues( ministerCountry, CGoodsPool._RARE_MATERIALS_ )
+	
+	liExpenseFactor = loEnergy.vDailyExpense * 0.5
+	liExpenseFactor = liExpenseFactor + loMetal.vDailyExpense
+	liExpenseFactor = liExpenseFactor + (loRare.vDailyExpense * 2)
+	
+	liHomeFactor = CalculateHomeProduced(loEnergy) * 0.5
+	liHomeFactor = liHomeFactor + CalculateHomeProduced(loMetal)
+	liHomeFactor = liHomeFactor + (CalculateHomeProduced(loRare) * 2)
 	
 	-- We produce more than what we use so build more industry
 	if liHomeFactor > liExpenseFactor then

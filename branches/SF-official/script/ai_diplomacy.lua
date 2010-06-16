@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Diplomacy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 5/2/2010
+-- Date Last Modified: 6/11/2010
 -----------------------------------------------------------
 require('utils')
 
@@ -14,10 +14,10 @@ end
 
 function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 	if observer == actor then -- are recipient worth inviting
-		local recipientCountry = recipient:GetCountry()
-		if recipientCountry:IsAtWar() then
+		local loRecipientCountry = recipient:GetCountry()
+		if loRecipientCountry:IsAtWar() then
 			-- is our war target at war with the faction
-			for diploStatus in recipientCountry:GetDiplomacy() do
+			for diploStatus in loRecipientCountry:GetDiplomacy() do
 				local target = diploStatus:GetTarget()
 				if target:IsValid() and diploStatus:HasWar() then
 					if actor:GetCountry():GetRelation(target):HasWar() then
@@ -35,10 +35,11 @@ function DiploScore_InviteToFaction(ai, actor, recipient, observer)
 		local score = 100
 		--Utils.LUA_DEBUGOUT("-------------------------------------")
 		--Utils.LUA_DEBUGOUT("DiploScore_InviteToFaction (" .. tostring( actor )  .. "->" .. tostring( recipient ) .. ")")
-		local faction = actor:GetCountry():GetFaction()
+		local loFaction = actor:GetCountry():GetFaction()
+		local loRecipientCountry = recipient:GetCountry()
 		
-		if recipient:GetCountry():IsNeighbourToFactionHostile(faction, true) 
-		and (not recipient:GetCountry():HasNeighborInFaction(faction))
+		if loRecipientCountry:IsNeighbourToFactionHostile(loFaction, true) 
+		and (not loRecipientCountry:HasNeighborInFaction(loFaction))
 		then
 			score = 0 -- need some backup bro
 		end
@@ -559,6 +560,11 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 		if recipientCountry:HasNeighborInFaction(actorFaction) then
 			liScore = liScore + 20
 		end
+		if recipientCountry:GetRulingIdeology():GetGroup() ~= actorCountry:GetRulingIdeology():GetGroup() then
+			liScore = liScore - 15
+		else
+			liScore = liScore + 15
+		end		
 		
 		return Utils.CallScoredCountryAI(actor, 'DiploScore_InfluenceNation', liScore, ai, actor, recipient, observer)
 	else
