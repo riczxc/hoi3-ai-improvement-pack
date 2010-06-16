@@ -6,7 +6,7 @@ Below list list all LUA functions called by HOI3 executable. Some are well known
 
 = Details =
 
-  * `ForeignMinister_OnWar(`[LUAClassReference#CAIAgent CAIAgent]` agent,`[LUAClassReference#CCountryTag CCountryTag]` countryTag1,`[LUAClassReference#CCountryTag CCountryTag]` countryTag2,  `[LUAClassReference#CWar CCWar]`? war )
+  * `ForeignMinister_OnWar(`[LUAClassReference#CAIAgent CAIAgent]` agent,`[LUAClassReference#CCountryTag CCountryTag]` countryTag1,`[LUAClassReference#CCountryTag CCountryTag]` countryTag2,  `[LUAClassReference#CWar CCWar]`? war )`
   * `ForeignMinister_EvaluateDecision(`[LUAClassReference#CAIAgent CAIAgent]` agent, `[LUAClassReference#CDecision CDecision]` decision, ??? scope)`
   * `ForeignMinister_Tick(`[LUAClassReference#CAIForeignMinister CAIForeignMinister]` minister)`
   * `IntelligenceMinister_Tick(`[LUAClassReference#CAIEspionageMinister CAIEspionageMinister]` minister)`
