@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 USA File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 5/13/2010
+-- Date Last Modified: 6/11/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -138,16 +138,16 @@ function P.ProductionWeights(minister)
 	if CCurrentGameState.GetCurrentDate():GetYear() <= 1940 and not(minister:GetCountry():IsAtWar()) then
 		local laArray = {
 			0.15, -- Land
-			0.25, -- Air
-			0.45, -- Sea
+			0.35, -- Air
+			0.35, -- Sea
 			0.15}; -- Other
 		
 		rValue = laArray	
 	else
 		local laArray = {
 			0.40, -- Land
-			0.25, -- Air
-			0.30, -- Sea
+			0.30, -- Air
+			0.25, -- Sea
 			0.05}; -- Other
 		
 		rValue = laArray
@@ -158,7 +158,7 @@ end
 -- Land ratio distribution
 function P.LandRatio(minister)
 	local laArray = {
-		2, -- Garrison
+		1, -- Garrison
 		10, -- Infantry
 		4, -- Motorized
 		3, -- Mechanized
@@ -236,17 +236,25 @@ end
 -- END OF PRODUTION OVERIDES
 -- #######################################
 
-function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
-	local lsRepTag = tostring(recipient)
+-- Influence Ignore list
+function P.InfluenceIgnore(minister)
+	-- Ignore Austria, Czechoslovakia as we will get them
+	-- Ignore Switzerland as there is no chance of them joining
+	-- Ignore Vichy, they wont join anyone unles DOWed
+	local laIgnoreList = {
+		"AUS",
+		"CZE",
+		"SCH",
+		"VIC",
+		"JAP",
+		"ITA"};
 	
-	if lsRepTag == "AUS" or lsRepTag == "CZE" or lsRepTag == "SCH" then
-		score = 0
-	end
-
-	return score
+	return laIgnoreList
 end
 
 function P.DiploScore_OfferTrade(score, ai, actor, recipient, observer, voTradedFrom, voTradedTo)
+	local lsActorTag = tostring(actor)
+	
 	if tostring(actor) == "JAP"
 	or lsActorTag == "CHI"
 	or lsActorTag == "CHC" 

@@ -298,12 +298,31 @@ function P.DiploScore_OfferTrade(score, ai, actor, recipient, observer, voTraded
 	return score
 end
 
+-- Influence Ignore list
+function P.InfluenceIgnore(minister)
+	-- Ignore Afghanistan as they are not worth our time
+	-- Ignore Ethiopia as they are going to get hammered by Italy
+	-- Ignore Austria, Czechoslovakia as we will get them
+	-- Ignore Switzerland as there is no chance of them joining
+	-- Ignore Vichy, they wont join anyone unles DOWed
+	local laIgnoreList = {
+		"AFG",
+		"ETH",
+		"AUS",
+		"CZE",
+		"SCH",
+		"VIC",
+		"JAP",
+		"ITA"};
+	
+	return laIgnoreList
+end
+
+
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsRepTag = tostring(recipient)
 	
-	if lsRepTag == "AUS" or lsRepTag == "CZE" or lsRepTag == "SCH" then
-		return 0 -- They are going anyways
-	elseif lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" or lsRepTag == "ITA" or lsRepTag == "JAP" then
+	if lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" then
 		score = score - 20
 	elseif lsRepTag == "AST" or lsRepTag == "CAN" or lsRepTag == "SAF" or lsRepTag == "NZL" or lsRepTag == "USA" then
 		score = score + 70

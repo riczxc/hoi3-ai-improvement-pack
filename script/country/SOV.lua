@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Soviet File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 5/22/2010
+-- Date Last Modified: 6/11/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -50,6 +50,10 @@ function P.LandTechs(minister)
 		"cavalry_support|3",
 		"cavalry_guns|3", 
 		"cavalry_at|3",
+		"militia_smallarms|0",
+		"militia_support|0",
+		"militia_guns|0",
+		"militia_at|0",
 		"marine_infantry|0",
 		"jungle_warfare_equipment|0",
 		"amphibious_warfare_equipment|0",
@@ -204,18 +208,18 @@ function P.LandRatio(minister)
 	
 	if minister:GetOwnerAI():GetCurrentDate():GetYear() >= 1940 then
 		laArray = {
-			2, -- Garrison
-			15, -- Infantry
-			2, -- Motorized
+			0, -- Garrison
+			10, -- Infantry
+			3, -- Motorized
 			1, -- Mechanized
 			2, -- Armor
 			0, -- Militia
 			0}; -- Cavalry
 	else
 		laArray = {
-			2, -- Garrison
-			15, -- Infantry
-			2, -- Motorized
+			0, -- Garrison
+			10, -- Infantry
+			3, -- Motorized
 			1, -- Mechanized
 			2, -- Armor
 			0, -- Militia
@@ -407,25 +411,12 @@ function P.ProposeDeclareWar( minister )
 	end
 end
 
-function P.ForeignMinister_EvaluateDecision( score, agent, decision, scope )
-	
-	if decision:GetKey():GetString() == "finnish_winter_war" then
-		--local ministerCountry = agent:GetCountry()
-		--local strategy = ministerCountry:GetStrategy()
-		--strategy:PrepareWarDecision( CCountryDataBase.GetTag('FIN'), 100, decision )
-		
-		-- lets not prepare too much, we can take the fins easily
-		score = 100 
-	end
-
-	return score
-end
-
 function P.ForeignMinister_EvaluateDecision(score, agent, decision, scope)
 	local lsDecision = decision:GetKey():GetString()
 	
 	if lsDecision == "finnish_winter_war" then
-		score = 100 -- ai will select decision when we are ready for war
+		-- lets not prepare too much, we can take the fins easily
+		score = 100
 	elseif lsDecision == "ultimatum_to_the_baltic_states" then
 		local liYear = CCurrentGameState.GetCurrentDate():GetYear()
 		local fraTag = CCountryDataBase.GetTag("FRA")
@@ -455,14 +446,27 @@ function P.DiploScore_OfferTrade(score, ai, actor, recipient, observer, voTraded
 	return score
 end
 
-function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
-	local lsRepTag = tostring(recipient)
-	
-	if lsRepTag == "AUS" or lsRepTag == "CZE" or lsRepTag == "SCH" then
-		score = 0
-	end
 
-	return score
+-- Influence Ignore list
+function P.InfluenceIgnore(minister)
+	-- Ignore Denmark if they join allies don't waste the diplomacy
+	-- Ignore Poland as we will DOW them with Danzig or War event
+	-- Ignore Baltic states as Russia will annex them
+	-- Ignore Austria, Czechoslovakia as we will get them
+	-- Ignore Switzerland as there is no chance of them joining
+	-- Ignore Vichy, they wont join anyone unles DOWed
+	local laIgnoreList = {
+		"AUS",
+		"CZE",
+		"SCH",
+		"LAT",
+		"LIT",
+		"EST",
+		"VIC",
+		"JAP",
+		"ITA"};
+	
+	return laIgnoreList
 end
 
 -- Soviets want more troops, let them learn on the battlefield.

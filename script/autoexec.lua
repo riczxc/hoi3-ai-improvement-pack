@@ -1,7 +1,7 @@
 -----------------------------------------------------------
 -- LUA Hearts of Iron 3 Auto EXE File
 -- Modified By: Lothos
--- Date Last Modified: 3/23/2010
+-- Date Last Modified: 6/9/2010
 --
 -- NOTES: This file is run on app start after exports are done inside 
 -- 		  the engine (once per context created)
@@ -69,4 +69,5 @@ require('SIK')
 require('SPA')
 require('SPR')
 require('SWE')
+require('TUR')
 require('VIC')

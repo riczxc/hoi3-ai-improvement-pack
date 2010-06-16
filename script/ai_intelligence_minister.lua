@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Spy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 4/26/2010
+-- Date Last Modified: 6/8/2010
 -----------------------------------------------------------
 
 -- ###################################
@@ -86,8 +86,6 @@ end
 
 
 function ManageSpiesAbroad(minister, ministerTag, ministerCountry, ai)
-	local TotalIC = ministerCountry:GetTotalIC()
-	local countryTagAtWarWith = {}
 	local nSpyWeight = 0
 	
 	--Utils.LUA_DEBUGOUT("Country: " .. tostring(ministerTag))
