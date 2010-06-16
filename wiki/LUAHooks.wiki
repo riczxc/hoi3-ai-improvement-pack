@@ -2,8 +2,7 @@
 
 = Introduction =
 
-Below list list all LUA functions called by HOI3 executable. Some are well known, others as known as hooks thanks to Lothos annotations.
-
+Below list list all LUA functions called by HOI3 executable. Some are well known, others as known as hooks thanks to Lothos annotations. Below list is for Semper Fi.
 
 = Details =
 
@@ -16,4 +15,14 @@ Below list list all LUA functions called by HOI3 executable. Some are well known
   * `BalanceProductionSliders(`[LUAClassReference#CAI CAI]` ai, `[LUAClassReference#CCountry CCountry]` ministerCountry, number prioSelection)`
   * `TechMinister_Tick(`[LUAClassReference#CAITechMinister CAITechMinister]` minister, bool set_sliders, bool set_research)`
   * `ForeignMinister_ManageTrade(`[LUAClassReference#CAI CAI]` ai, `[LUAClassReference#CCountryTag CCountryTag]` ministerTag)
-  * `DiploScore_OfferTrade(`ai, actor, recipient, observer, voTradeAction, voTradedFrom, voTradedTo)
+  * `DiploScore_OfferTrade(`[LUAClassReference#CAI CAI]` ai, `[LUAClassReference#CCountryTag CCountryTag]` actor, `[LUAClassReference#CCountryTag CCountryTag]` recipient, `[LUAClassReference#CCountryTag CCountryTag]` observer, `[LUAClassReference#CTradeAction CTradeAction]` voTradeAction, table voTradedFrom, table voTradedTo)`
+
+===DiploScore_OfferTrade note===
+Both voTradedFrom and voTradedTo parameter seems to be either dictionaries or object with following keys/properties :
+  * voTradedTo.vMoney
+  * voTradedTo.vMetal
+  * voTradedTo.vEnergy
+  * voTradedTo.vRareMaterials
+  * voTradedTo.vCrudeOil
+  * voTradedTo.vSupplies
+  * voTradedTo.vFuel
