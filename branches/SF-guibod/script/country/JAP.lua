@@ -4,6 +4,12 @@
 -- Modified By: Lothos
 -- Date Last Modified: 6/11/2010
 -----------------------------------------------------------
+local FLAG_LIMITED_CONTINENTAL_WAR = "JAP_LIMITED_CONTINENTAL_WAR"
+local FLAG_TOTAL_CONTINENTAL_WAR = "JAP_TOTAL_CONTINENTAL_WAR"
+local FLAG_LOST_CONTINENTAL_WAR = "JAP_TOTAL_CONTINENTAL_WAR"
+local FLAG_PACIFIC_WAR = "JAP_PACIFIC_WAR"
+local FLAG_GOTTERDAMMERUNG = "JAP_GOTTERDAMMERUNG"
+
 local P = {}
 AI_JAP = P
 
@@ -172,16 +178,13 @@ end
 --   1.0 = 100% the total needs to equal 1.0
 function P.ProductionWeights(minister)
 	local rValue
+	local loFlags = minister:GetCountry():GetFlags()
 	
-	if CCurrentGameState.GetCurrentDate():GetYear() <= 1938 and not(minister:GetCountry():IsAtWar()) then
-		local laArray = {
-			0.55, -- Land
-			0.15, -- Air
-			0.25, -- Sea
-			0.05}; -- Other
+	-- Strong navy/air emphasis if no more troops on continent 
+	-- or ongoing pacific war with no major engagement on continent
+	if loFlags:IsFlagSet(FLAG_LOST_CONTINENTAL_WAR) or 
+		loFlags:IsFlagSet(FLAG_PACIFIC_WAR) and not(loFlags:IsFlagSet(FLAG_TOTAL_CONTINENTAL_WAR)) then
 		
-		rValue = laArray
-	else
 		local laArray = {
 			0.30, -- Land
 			0.25, -- Air
@@ -189,6 +192,14 @@ function P.ProductionWeights(minister)
 			0.05}; -- Other
 		
 		rValue = laArray	
+	else
+		local laArray = {
+			0.55, -- Land
+			0.15, -- Air
+			0.25, -- Sea
+			0.05}; -- Other
+		
+		rValue = laArray
 	end
 	
 	return rValue
@@ -216,12 +227,24 @@ function P.SpecialForcesRatio(minister)
 end
 -- Air ratio distribution
 function P.AirRatio(minister)
-	local laArray = {
-		5, -- Fighter
-		1, -- CAS
-		2, -- Tactical
-		2, -- Naval Bomber
-		0}; -- Strategic
+	local loFlags = minister:GetCountry():GetFlags()
+	
+	-- No needs for NAV if no pacific war
+	if loFlags:IsFlagSet(FLAG_PACIFIC_WAR) then 
+		local laArray = {
+			5, -- Fighter
+			1, -- CAS
+			2, -- Tactical
+			2, -- Naval Bomber
+			0}; -- Strategic
+	else
+		local laArray = {
+			5, -- Fighter
+			1, -- CAS
+			4, -- Tactical
+			0, -- Naval Bomber
+			0}; -- Strategic
+	end
 	
 	return laArray
 end
@@ -456,6 +479,99 @@ end
 function P.DiploScore_Alliance(score, ai, actor, recipient, observer, action)
 	-- Just process the invite to faction code
 	return P.DiploScore_InviteToFaction( score, ai, actor, recipient, observer)	
+end
+
+function P.EvaluateFlags(minister)
+	-- Continental VP, list of all asian inland objectives for JAP (not too far inland as historically)
+	-- (Korea, Mandchouria, Eastern China, Eastern SOV, Siam, Indochina)
+	local laProvContinentalVP = {
+		4390 --[[Vladivostok]], 8230 --[[Magadan]], 8744 --[[Ulanude]], 8743 --[[Irkutsk]] --SOVIET UNION
+		8892 --[[Ulaanbaatar]], --MONGOLIA
+		5341 --[[Pusan]], -- KOREA
+		4979 --[[Beiping]], 5494 --[[Nanjing]], 5542 --[[Shanghai]], 5246 --[[Qingdao]], 5834 --[[Guangzhou]], 5868 --[[Hongkong]], --CHINA
+		7139 --[[Harbin]], -- MANCHURIA
+		6148 --[[Bangkok]], -- SIAM
+		5916 --[[Hanoi]], 6236 --[[Saigon]] -- INDOCHINA
+		
+		-- Not needed, it would prevent focus on pacific war. Since UK is a major but unable to provide heavy asian engagement
+		-- 6394 --[[Singapore]],
+		-- 6070 --[[Rangoon]], -- BURMA
+		-- 5875 --[[Calcutta]], 9406 --[[Delhi]], 6005 --[[Bombay]] --INDIA
+	} 
+
+	-- Homefront provinces, list of all provinces on Honshu, Hokkaido, Kyushu  and Shikoku
+	local laProvHomefront = {
+		-- PORTS
+		5315 --[[Tokyo]], 5345 --[[Kyoto]], 4986 --[[Akita]], 5218 --[[Kanazawa]]
+		5370 --[[Osaka]], 5425 --[[Hiroshima]], 5478 --[[Susaki]], 5543 --[[Nagasaki]],
+		7238 --[[Sapporo]], 
+		
+		-- MANPOWER
+		5120 --[[Sendai]], 5150	--[[Niigata]], 5187 --[[Fukushima]], 5249 --[[Taegu]], 5641 --[[Kagoshima]]
+	}
+	
+	-- Pacific VP, list of all pacific war realistic
+	local laProvPacificVP = {
+		-- JAPAN
+		10642 --[[Iwo Jima]], 5759 --[[Naha]],  5809 --[[Kaohsiung]], -- Near islands
+		10643 --[[Marcus Island]], 10651 --[[Truk]], 10653 --[[Ponape]], 10658	--[[Kwajalein]], 10663 --[[Eniwetok]], 5966	 --[[Saipan]], 6291 --[[Palau]], --Polynesia
+		
+		-- USA
+		1066 --[[Wake Island]], 10669 --[[Midway Island]], 5825 --[[Honolulu]], 6119 --[[Guam]],
+		3658 --[[Sanfransisco]], 7350 --[[Sandiego]], 8078 --[[Anchorage]],
+		7717 --[[Panama]],
+		
+		-- NETHERLAND
+		6507 --[[Batavia]], 7764 --[[Hollandia]], 
+		
+		-- PHILIPINE
+		6142 --[[Manila]], 6246 --[[Puertoprincesa]]
+		
+		-- AUSTRALIA
+		6467 --[[Rabaul]], 6566 --[[Portmoresby]]
+	}
+	
+	local status
+	
+	-- JAP_LIMITED_CONTINENTAL_WAR
+	-- e.g. 2nd Sino-Japanese war
+	-- Japan is involved in a continental war involving regional powers
+	status  = Strategic_TerritoryStatus(minister, laProvContinentalVP, 2)
+	Strategic_SetFlag(minister, FLAG_LIMITED_CONTINENTAL_WAR, status.hasOutOfControl )
+	
+	-- JAP_TOTAL_CONTINENTAL_WAR
+	-- e.g. war against Soviets
+	-- Japan is involved in a continental war involving major powers
+	Strategic_SetFlag(minister, FLAG_TOTAL_CONTINENTAL_WAR, status.hasOutOfControl and status.isMajorInvolved )
+	
+	-- JAP_LOST_CONTINENTAL_WAR
+	-- Japan is involved in a continental war and losing
+	-- (mandchouria is no more a puppet, no more control on Seoul, PyongYang, Dagu, Qingdao, Shangai or Ghangzu)
+	Strategic_SetFlag(minister, FLAG_LOST_CONTINENTAL_WAR, status.isOutOfControl)
+	
+	-- JAP_PACIFIC_WAR
+	-- e.g. war against USA 
+	-- Japan is involved in a war accross the pacific involving enemy major powers
+	status  = Strategic_TerritoryStatus(minister, laProvPacificVP, 2) 
+	Strategic_SetFlag(minister, FLAG_PACIFIC_WAR, not(status.isUnderControl) and status.isMajorInvolved)
+		
+	-- JAP_GOTTERDAMMERUNG
+	-- Japan home islands are partially occupied by enemy troops
+	status  = Strategic_TerritoryStatus(minister, laProvHomefront, 1) --infolevel = 1 don't care about allies or neutral, NOBODY should control our mainland
+	Strategic_SetFlag(minister, FLAG_GOTTERDAMMERUNG, status.hasOutOfControl)
+end
+
+function P.CallLaw_training_laws(minister, voCurrentLaw)
+	local _MINIMAL_TRAINING_ = 27
+	local _BASIC_TRAINING_ = 28
+	local loFlags = minister:GetCountry():GetFlags()
+	
+	-- Rush troop production
+	if loFlags:IsFlagSet(FLAG_GOTTERDAMMERUNG)  then
+		return CLawDataBase.GetLaw(_MINIMAL_TRAINING_)
+	else
+		return CLawDataBase.GetLaw(_SPECIALIST_TRAINING_)
+	end if
 end
 
 return AI_JAP

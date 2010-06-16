@@ -33,6 +33,7 @@ require('ai_production_minister')
 require('ai_support_functions')
 require('ai_tech_minister')
 require('ai_trade')
+require('ai_strategic')
 
 
 -- load country specific AI modules.
