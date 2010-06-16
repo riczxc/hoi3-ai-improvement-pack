@@ -859,10 +859,15 @@ This object support object to object comparison with equal operator.
 ||  bool                                        ||  `IsValid()`                                                                                          ||  1.3    ||  
 
 -----
+==CGovernmentPosition==
+
+No known properties or methods.
+
+-----
 ==CGovernmentPositionDataBase==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  static bool                                        ||  `GetGovernmentPositionByIndex(number index)`                                                                                          ||  2.0    ||  
+||  static [#GovernmentPosition GovernmentPosition]                   ||  `GetGovernmentPositionByIndex(number index)`                                                                                          ||  2.0    ||  
 
 ====Associated constants====
 Lothos introduced as set of constants used in semper fidelis.
@@ -1070,7 +1075,7 @@ Ministers are ingame people in charge of a ministry. As I am writing this nothin
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  bool                                            ||  `CanTakePosition(number positionIndex)`                                                                                                ||  2.0    ||  
+||  bool                                            ||  `CanTakePosition([#CGovernmentPosition CGovernmentPosition]` position)`                                                                                                ||  2.0    ||  
 ||  [#CIdeology CIdeology]                                            ||  `GetIdeology()`                                                                                                ||  2.0    ||  
 ||  [#CPersonality CPersonality]                                            ||  `GetPersonality(number positionIndex)`                                                                                                ||  2.0    ||  
 
