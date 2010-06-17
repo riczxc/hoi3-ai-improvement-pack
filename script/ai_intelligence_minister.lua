@@ -234,3 +234,5 @@ function PickBestMission(SpyPresence, cRelation, isFriend, isNeighbor, voTCountr
 	return nMission
 end
 
+-- Wrap CORE-TO-LUA hooks functions
+dtools.wrapFunction("IntelligenceMinister_Tick","INTEL")

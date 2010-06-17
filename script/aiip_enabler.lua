@@ -50,14 +50,15 @@ if CAI ~= nil then
 	else
 		mod_package_path = hoi3path..'\\script\\lib'
 	end
-	-- End of Devtools specific content
+	
+	package.path = package.path:gsub('lua\\%?\\init.lua;', 'lua\\%?\\init.lua;'..mod_package_path.."\\%?.lua;"..mod_package_path.."\\%?\\init.lua;", 1)
 else
-	-- This is a code to support run from pure lua in SciTE editor
-	-- You may need to update the value to fit your file location
-	mod_package_path = "C:\\Documents and Settings\\GUBO\\AIIPDEV\\1.3\\AIIP_1.3\\script\\lib"
+	-- In pure lua mode, package.path looks sightly different
+	-- We need a constant to be set
+	hoi3path = DEV_PATH
+	mod_package_path = hoi3path.."\\script\\lib"
+	package.path = package.path:gsub('\.\?\.lua', '\?.lua;'..mod_package_path.."\\%?.lua;"..mod_package_path.."\\%?\\init.lua", 1)
 end
-
-package.path = package.path:gsub('lua\\%?\\init.lua;', 'lua\\%?\\init.lua;'..mod_package_path.."\\%?.lua;"..mod_package_path.."\\%?\\init.lua;", 1)
 
 -- We also rely on binary DLL (sqlite support)
 package.cpath = package.cpath .. ";" .. mod_package_path.."\\?.dll"
@@ -66,12 +67,10 @@ package.cpath = package.cpath .. ";" .. mod_package_path.."\\?.dll"
 dtools = require('dtools')
 
 -- Read log4lua conf from mod directory
-if CAI ~= nil then
-	if CAI.HasUserExtension() then
-		dtools.loadConfig(hoi3path..'\\'..tostring(CAI.GetModDirectory())..'\\log4lua.conf.lua')
-	else
-		dtools.loadConfig(hoi3path..'\\script\\log4lua.conf.lua')
-	end
+if CAI ~= nil and CAI.HasUserExtension() then
+	dtools.loadConfig(hoi3path..'\\'..tostring(CAI.GetModDirectory())..'\\log4lua.conf.lua')
+else
+	dtools.loadConfig(hoi3path..'\\script\\log4lua.conf.lua')
 end
 
 -- First debug output
