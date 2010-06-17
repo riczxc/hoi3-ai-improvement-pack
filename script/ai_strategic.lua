@@ -9,10 +9,8 @@ function Strategic_Evaluate(minister)
 	-- Avoid 
 	if math.mod( CCurrentGameState.GetAIRand(), 9) == 0 then
 		Utils.CallCountryAI(ministerTag, "EvaluateFlags", minister)
-	end if
+	end
 end
-
-function 
 
 -- Convenience shortcut 
 function Strategic_SetFlag(minister, sFlagName, bValue)
@@ -72,7 +70,7 @@ function Strategic_TerritoryStatus(minister, paProvinceIdTable, piInfoLevel )
 	
 	if type(paProvinceIdTable) ~= "table" then
 		return R
-	end if
+	end
 	
 	local ministerTag = minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
@@ -93,7 +91,7 @@ function Strategic_TerritoryStatus(minister, paProvinceIdTable, piInfoLevel )
 	local lbIsCurrentMajor= false
 	
 	-- Cycle through all listed provinces
-	for k, liProvinceId in pairs(paProvinceIdTable) then
+	for k, liProvinceId in pairs(paProvinceIdTable) do
 		loProvince = CCurrentGameState.GetProvince(liProvinceId)
 		
 		-- if province exists
@@ -119,7 +117,7 @@ function Strategic_TerritoryStatus(minister, paProvinceIdTable, piInfoLevel )
 						laCountryCache[controllerCountryTag].isEnemy = ministerStrategy:IsPreparingWarWith(controllerCountryTag) or ministerCountry:GetRelation(controllerCountryTag):HasWar()
 						laCountryCache[controllerCountryTag].isMajor = controllerCountryTag:getCountry():isMajor()
 					end
-				end if
+				end
 				
 				-- Feed from cache
 				lbIsCurrentEnemy = laCountryCache[controllerCountryTag].isEnemy 
@@ -137,21 +135,21 @@ function Strategic_TerritoryStatus(minister, paProvinceIdTable, piInfoLevel )
 					
 					if false == R.hasMajorInvolved then
 						R.hasMajorInvolved = lbIsCurrentMajor
-					end if
-				end if
-			end if
-		end if
+					end
+				end
+			end
+		end
 	end
 	
 	-- Not under control
 	if R.hasOutOfControl then
 		R.isUnderControl = false
-	end if
+	end
 	
 	-- Not out of control
 	if R.hasUnderControl then
 		R.isOutOfControl = false
-	end if
+	end
 	
 	R.isDisputed = R.isUnderControl and R.isOutOfControl
 	

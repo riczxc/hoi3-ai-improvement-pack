@@ -485,7 +485,7 @@ function P.EvaluateFlags(minister)
 	-- Continental VP, list of all asian inland objectives for JAP (not too far inland as historically)
 	-- (Korea, Mandchouria, Eastern China, Eastern SOV, Siam, Indochina)
 	local laProvContinentalVP = {
-		4390 --[[Vladivostok]], 8230 --[[Magadan]], 8744 --[[Ulanude]], 8743 --[[Irkutsk]] --SOVIET UNION
+		4390 --[[Vladivostok]], 8230 --[[Magadan]], 8744 --[[Ulanude]], 8743 --[[Irkutsk]], --SOVIET UNION
 		8892 --[[Ulaanbaatar]], --MONGOLIA
 		5341 --[[Pusan]], -- KOREA
 		4979 --[[Beiping]], 5494 --[[Nanjing]], 5542 --[[Shanghai]], 5246 --[[Qingdao]], 5834 --[[Guangzhou]], 5868 --[[Hongkong]], --CHINA
@@ -502,7 +502,7 @@ function P.EvaluateFlags(minister)
 	-- Homefront provinces, list of all provinces on Honshu, Hokkaido, Kyushu  and Shikoku
 	local laProvHomefront = {
 		-- PORTS
-		5315 --[[Tokyo]], 5345 --[[Kyoto]], 4986 --[[Akita]], 5218 --[[Kanazawa]]
+		5315 --[[Tokyo]], 5345 --[[Kyoto]], 4986 --[[Akita]], 5218 --[[Kanazawa]],
 		5370 --[[Osaka]], 5425 --[[Hiroshima]], 5478 --[[Susaki]], 5543 --[[Nagasaki]],
 		7238 --[[Sapporo]], 
 		
@@ -525,7 +525,7 @@ function P.EvaluateFlags(minister)
 		6507 --[[Batavia]], 7764 --[[Hollandia]], 
 		
 		-- PHILIPINE
-		6142 --[[Manila]], 6246 --[[Puertoprincesa]]
+		6142 --[[Manila]], 6246 --[[Puertoprincesa]],
 		
 		-- AUSTRALIA
 		6467 --[[Rabaul]], 6566 --[[Portmoresby]]
@@ -571,7 +571,7 @@ function P.CallLaw_training_laws(minister, voCurrentLaw)
 		return CLawDataBase.GetLaw(_MINIMAL_TRAINING_)
 	else
 		return CLawDataBase.GetLaw(_SPECIALIST_TRAINING_)
-	end if
+	end
 end
 
 return AI_JAP

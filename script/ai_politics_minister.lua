@@ -279,7 +279,7 @@ function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPos
 	laPersonalityScore["efficient_sociopath"] = 60
 	laPersonalityScore["crime_fighter"] = 50
 	laPersonalityScore["compassionate_gentleman"] = 40
-	laPersonalityScore["silent_lawyer"} = 30
+	laPersonalityScore["silent_lawyer"] = 30
 	laPersonalityScore["prince_of_terror"] = 20
 	laPersonalityScore["back_stabber"] = 10
 	
@@ -292,7 +292,7 @@ function ArmamentMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosit
 	laPersonalityScore["resource_industrialist"] = 140
 	laPersonalityScore["laissez_faires_capitalist"] = 130
 	laPersonalityScore["military_entrepreneur"] = 120
-	laPersonalityScore["theoretical_scientist"} = 110
+	laPersonalityScore["theoretical_scientist"] = 110
 	laPersonalityScore["infantry_proponent"] = 100
 	laPersonalityScore["air_to_ground_proponent"] = 90
 	laPersonalityScore["air_superiority_proponent"] = 80
