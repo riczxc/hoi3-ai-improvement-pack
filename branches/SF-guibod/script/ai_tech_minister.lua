@@ -911,3 +911,5 @@ function GetExtraSlots(ExtraSlots, viResearchCount, viTechArrayLength)
 	return ExtraSlots
 end
 
+-- Wrap CORE-TO-LUA hooks functions
+dtools.wrapFunction("TechMinister_Tick","TECH")

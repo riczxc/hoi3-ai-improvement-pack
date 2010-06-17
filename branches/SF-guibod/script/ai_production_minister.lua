@@ -1729,4 +1729,7 @@ end
 -- #######################
 -- END Convoy Building
 -- #######################
-	
+
+-- Wrap CORE-TO-LUA hooks functions
+dtools.wrapFunction("ProductionMinister_Tick","PROD")
+dtools.wrapFunction("BalanceProductionSliders","PROD")

@@ -5,6 +5,9 @@
 -- Date Last Modified: 5/12/2010
 -----------------------------------------------------------
 
+-- Extends Utils support with devtools extensions
+require('aiip_enabler')
+
 local P = {}
 Utils = P
 

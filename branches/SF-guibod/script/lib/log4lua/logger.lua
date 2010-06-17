@@ -242,6 +242,11 @@ function Logger:formatMessage(pattern, level, message, exception, country)
     if (type(message) == "table") then
         message = utils.convertTableToString(message, 5)
     end
+    
+    if country == nil then
+    	country = ""
+    end
+     
     message = string.gsub(tostring(message), "%%", "%%%%")
 
     -- If the pattern contains any traceback relevant placeholders process them.
@@ -268,6 +273,7 @@ function Logger:formatMessage(pattern, level, message, exception, country)
     result = string.gsub(result, "%%LEVEL", level)
     result = string.gsub(result, "%%MESSAGE", message)
 	result = string.gsub(result, "%%COUNTRY", country)
+
     -- tweak for AIIP (log4lua is bugged)
 	if exception ~= nil then
 		result = string.gsub(result, "%%ERROR", exception)

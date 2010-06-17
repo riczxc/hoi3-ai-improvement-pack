@@ -34,7 +34,7 @@ module("dtools", package.seeall)
 -- Class definition
 local devtools = {}
 devtools.__index = devtools
-devtools.enabled = false
+devtools.enabled = true
 
 local _module = devtools
 
@@ -71,6 +71,32 @@ function _module.wrap(f, ...)
 		return ret
 	else
 		return f(...)
+	end
+end
+
+-- Renames a function with "DtoolsWrapped" prefix
+-- Creates a new function named as previous one
+-- that relies uses dtools.wrap() on renamed function
+function _module.wrapFunction(strFname, strLogGroup )
+	if devtools.enabled then
+		local f = _G[strFname]
+		if f ~= nil and type(f) == "function" then
+			if strLogGroup == nil then
+				strLogGroup = "ROOT"
+			end
+		
+			--copy function
+			_G["DtoolsWrapped"..strFname] = f
+			
+			--change function source
+			f = function(...)
+				-- we attempt to use 1st parameter as
+				-- an object supporting getTag() or getCountryTag()
+				-- If not, we really don't care.
+				dtools.setLogContext(select(1, ...),strLogGroup)
+				_G[strFname] = dtools.wrap(_G["DtoolsWrapped"..strFname], ...) 
+			end
+		end
 	end
 end
 

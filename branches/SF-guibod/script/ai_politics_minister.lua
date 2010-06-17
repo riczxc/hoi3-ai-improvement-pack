@@ -501,3 +501,6 @@ end
 --################
 -- End of Law sub-methods
 --################
+
+-- Wrap CORE-TO-LUA hooks functions
+dtools.wrapFunction("PoliticsMinister_Tick","POLIT")
