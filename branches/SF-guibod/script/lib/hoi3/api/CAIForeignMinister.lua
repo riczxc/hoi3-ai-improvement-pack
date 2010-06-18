@@ -1,53 +1,46 @@
 require('hoi3.Hoi3Object')
 
-CAIForeignMinister = Hoi3Object:subclass('hoi3.CAIAgent')
+CAIForeignMinisterObject = Hoi3Object:subclass('hoi3.CAIAgent')
 
 ---
 -- @since 1.3
 -- @return void
-function CAIForeignMinister:ClearWarProposal()
+function CAIForeignMinisterObject:ClearWarProposal()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
-function CAIForeignMinister:ExecuteDiploDecisions()
+function CAIForeignMinisterObject:ExecuteDiploDecisions()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIForeignMinister:GetProposedWarTarget()
+function CAIForeignMinisterObject:GetProposedWarTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIForeignMinister:GetProposedWarTarget()
+function CAIForeignMinisterObject:GetProposedWarTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIForeignMinister:GetProposedWarTarget()
-	Hoi3Object.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @return CAI
-function CAIForeignMinister:GetOwnerAI()
+function CAIForeignMinisterObject:GetProposedWarTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAIForeignMinister:PercOccupied(...)
+function CAIForeignMinisterObject:PercOccupied(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
@@ -56,7 +49,7 @@ end
 -- @param CDiplomaticAction  action
 -- @param number score
 -- @return void
-function CAIForeignMinister:Propose(action, score)
+function CAIForeignMinisterObject:Propose(action, score)
 	Hoi3Object.assertParameterType(1, action, 'CDiplomaticAction')
 	Hoi3Object.assertParameterType(2, score, 'number')
 	
@@ -68,7 +61,7 @@ end
 -- @param CCountryTag  countryTag
 -- @param number warDesirability
 -- @return void
-function CAIForeignMinister:ProposeWar(countryTag, warDesirability)
+function CAIForeignMinisterObject:ProposeWar(countryTag, warDesirability)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, warDesirability, 'number')
 	
