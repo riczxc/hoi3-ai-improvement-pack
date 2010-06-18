@@ -11,26 +11,6 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 
 
 -----
-==CAlignment==
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetLastDrift(`[#CIdeologyGroup CIdeologyGroup]` ideologyGroup)`                                            ||  1.3    ||  
-||  ???                                                               ||  `GetDistanceFrom()`                                                                                       ||  1.3    ||  
-
-
------
-==CAllianceAction==
-implements [#CDiplomaticAction CDiplomaticAction]
-
-====Constructor summary====
-|| [#CAllianceAction CAllianceAction]                                 ||  `CAllianceAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
-
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
-
-
------
 ==CAI==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
@@ -105,14 +85,13 @@ implements [#CAISubscriber CAISubscriber]
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetCountryTag()`                                                                                         ||  1.3    ||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry()`                                                                                            ||  1.3    ||  
-
+||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 
 -----
 ==CAIEspionageMinister==
 implements [#CAIAgent CAIAgent]
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `IsAligningToFaction()`                                                                                   ||  1.3    ||  
 
 
@@ -124,7 +103,6 @@ implements [#CAIAgent CAIAgent]
 ||  void                                                              ||  `ClearWarProposal()`                                                                                      ||  1.3    ||  
 ||  void                                                              ||  `ExecuteDiploDecisions()`                                                                                 ||  1.3    ||  
 ||  [#CCountryTag CCountryTag]                                        ||  `GetProposedWarTarget()`                                                                                  ||  1.3    ||  
-||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  ???                                                               ||  `PercOccupied(???)`                                                                                       ||  1.3    ||  
 ||  void                                                              ||  `Propose(`[#CDiplomaticAction CDiplomaticAction]` action, number score)`                                  ||  1.3    ||  
 ||  void                                                              ||  `ProposeWar(`[#CCountryTag CCountryTag]` countryTag, number warDesirability)`                             ||  1.3    ||  
@@ -151,7 +129,6 @@ implements [#CAIAgent CAIAgent]
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  bool                                                              ||  `IsCapitalSafeToLiberate(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
 ||  List<[#CMinister CMinister]>                                      ||  `GetPossibleMinisters()`                                        ||  2.0    ||  
 
@@ -165,7 +142,6 @@ implements [#CAIAgent CAIAgent]
 ||  number                                                            ||  `CountTotalDesiredEscorts()`                                                                              ||  1.3    ||  
 ||  number                                                            ||  `CountTransportsUnderConstruction()`                                                                      ||  1.3    ||  
 ||  number                                                            ||  `GetDesperation()`                                                                                        ||  1.3    ||  
-||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  void                                                              ||  `PrioritizeBuildQueue()`                                                                                  ||  1.3    ||  
 
 -----
@@ -222,8 +198,27 @@ implements [#CAIAgent CAIAgent]
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  bool                                                              ||  `CanResearch(`[#CTechnology CTechnology] tech)                                                            ||  1.3    ||  
 ||  [#CArrayFix CArrayFix]                                            ||  `GetFolderModifers()`                                                                                     ||  1.3    ||  
-||  [#CAI CAI]                                                        ||  `GetOwnerAI()`                                                                                            ||  1.3    ||  
 ||  [#CArrayFix CArrayFix]                                            ||  `GetTechModifers()`                                                                                       ||  1.3    ||  
+
+-----
+==CAlignment==
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetLastDrift(`[#CIdeologyGroup CIdeologyGroup]` ideologyGroup)`                                            ||  1.3    ||  
+||  ???                                                               ||  `GetDistanceFrom()`                                                                                       ||  1.3    ||  
+
+
+-----
+==CAllianceAction==
+implements [#CDiplomaticAction CDiplomaticAction]
+
+====Constructor summary====
+|| [#CAllianceAction CAllianceAction]                                 ||  `CAllianceAction(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)` ||  1.3    ||  
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
+
 
 
 -----
@@ -254,8 +249,8 @@ implements [#CAIAgent CAIAgent]
 ==CBuildingDataBase==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CBuilding CBuilding]                                            ||  `GetBuilding(string building)`                                                                            ||  1.3    ||  
-||  [#CBuilding CBuilding]                                            ||  `GetBuildingFromIndex(number index)`                                                                         ||  1.3    ||  
+||  static [#CBuilding CBuilding]                                            ||  `GetBuilding(string building)`                                                                            ||  1.3    ||  
+||  static [#CBuilding CBuilding]                                            ||  `GetBuildingFromIndex(number index)`                                                                         ||  1.3    ||  
 
 
 -----
@@ -264,19 +259,6 @@ implements [#CAIAgent CAIAgent]
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  string                                                            ||  `GetName()`                                                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetIndex()`                                                                                               ||  1.3    ||  
-
-
------
-==CCancelUnitConstructionCommand==
-implements [#CCommand CCommand]
-
-====Constructor summary====
-||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]   ||  `CCancelUnitConstructionCommand(`[#CCountryTag CCountryTag]` countryTag, `[#CID CID]` cID)`||  1.3    ||  
-
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]  ||  Clone()                                                                                                   ||  1.3    ||  
 
 
 -----
@@ -292,6 +274,19 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  ???                                                               ||  `Create(???)`                                                                                                 ||  1.3    ||  
 ||  ???                                                               ||  `GetVersus(???)`                                                                                                 ||  1.3    ||  
 ||  ???                                                               ||  `SetVersus(???)`                                                                                                 ||  1.3    ||  
+
+-----
+==CCancelUnitConstructionCommand==
+implements [#CCommand CCommand]
+
+====Constructor summary====
+||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
+|| [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]   ||  `CCancelUnitConstructionCommand(`[#CCountryTag CCountryTag]` countryTag, `[#CID CID]` cID)`||  1.3    ||  
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CCancelUnitConstructionCommand CCancelUnitConstructionCommand]  ||  Clone()                                                                                                   ||  1.3    ||  
+
 
 -----
 ==CChangeInvestmentCommand==
@@ -466,45 +461,6 @@ implements [#CCommand CCommand]
 || ??? ||  `GetEfficiency(???)`                                                    ||  1.3                                                                                                       ||  
 || ????||  `IsForTradeRoute(???)`                                                   ||  1.3                                                                                                       ||  
 
------
-==CCountryDataBase==
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CCountryTag CCountryTag]                                        ||  `GetTag(string countryCode)`                                                                              ||  1.3    ||  
-
------
-==CCountryTag==
-Supports implicit LUA toString conversion.
-
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CCountry CCountry]                                              ||  `GetCountry()`                                                                                            ||  1.3    ||  
-||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
-||  [#CCountryTag CCountryTag]                                        ||  `GetTag()`                                                                                                ||  1.3    ||  
-||  bool                                                              ||  `IsReal()`                                                                                                ||  1.3    ||  
-||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
-
------
-==CCountryTagList==
-implements [#CList CList]
-
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  bool                                              ||  `IsEnemy(???)`                                                                                            ||  1.3    ||  
-
------
-==CCurrentGameState==
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  `GetAIRand()`                                                                                             ||  1.3    ||  Return value is between 0 and int.MAX_VALUE                                                                                                                ||  
-||  List`<`[#CCountry CCountry]`>`                                    ||  `GetCountries()`                                                                                          ||  1.3    ||  
-||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
-||  [#CFaction CFaction]                                              ||  `GetFaction(string faction)`                                                                              ||  1.3    ||  
-||  List`<`[#CFaction CFaction]`>`                                    ||  `GetFactions()`                                                                              ||  1.3    ||  
-||  ???                                                               ||  `GetInstance()`                                                                                           ||  1.3    ||  
-||  [#CCountryTag CCountryTag]                                        ||  `GetPlayer()`                                                                                             ||  1.3    ||  
-||  [#CProvince CProvince]                                            ||  `GetProvince(number provinceId)`                                                                              ||  1.3    ||  
-||  bool                                                              ||  `IsGlobalFlagSet(string flagName)`                                                                        ||  1.4    ||  check for global flag                                                                                                                                      ||  
 
 -----
 ==CCountry==
@@ -633,6 +589,46 @@ implements [#CList CList]
 ||  bool                                                              ||  `IsSubject()`                                                                                              ||  1.3    ||  
 ||  bool                                                              ||  `NeedConvoyToTradeWith(`[#CCountryTag CCountryTag]` countryTag)`                                            ||  1.3    ||  
 ||  bool                                                              ||  `MayLiberateCountries()`                                                                                  ||  1.3    ||  
+
+-----
+==CCountryDataBase==
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CCountryTag CCountryTag]                                        ||  `GetTag(string countryCode)`                                                                              ||  1.3    ||  
+
+-----
+==CCountryTag==
+Supports implicit LUA toString conversion.
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CCountry CCountry]                                              ||  `GetCountry()`                                                                                            ||  1.3    ||  
+||  number                                                            ||  `GetIndex()`                                                                                              ||  1.3    ||  
+||  [#CCountryTag CCountryTag]                                        ||  `GetTag()`                                                                                                ||  1.3    ||  
+||  bool                                                              ||  `IsReal()`                                                                                                ||  1.3    ||  
+||  bool                                                              ||  `IsValid()`                                                                                               ||  1.3    ||  
+
+-----
+==CCountryTagList==
+implements [#CList CList]
+
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  bool                                              ||  `IsEnemy(???)`                                                                                            ||  1.3    ||  
+
+-----
+==CCurrentGameState==
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  number                                                            ||  `GetAIRand()`                                                                                             ||  1.3    ||  Return value is between 0 and int.MAX_VALUE                                                                                                                ||  
+||  List`<`[#CCountry CCountry]`>`                                    ||  `GetCountries()`                                                                                          ||  1.3    ||  
+||  [#CDate CDate]                                                    ||  `GetCurrentDate()`                                                                                        ||  1.3    ||  
+||  [#CFaction CFaction]                                              ||  `GetFaction(string faction)`                                                                              ||  1.3    ||  
+||  List`<`[#CFaction CFaction]`>`                                    ||  `GetFactions()`                                                                              ||  1.3    ||  
+||  ???                                                               ||  `GetInstance()`                                                                                           ||  1.3    ||  
+||  [#CCountryTag CCountryTag]                                        ||  `GetPlayer()`                                                                                             ||  1.3    ||  
+||  [#CProvince CProvince]                                            ||  `GetProvince(number provinceId)`                                                                              ||  1.3    ||  
+||  bool                                                              ||  `IsGlobalFlagSet(string flagName)`                                                                        ||  1.4    ||  check for global flag                                                                                                                                      ||  
 
 -----
 ==CCountryList==
