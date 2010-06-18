@@ -1,32 +1,32 @@
 require('hoi3.Hoi3Object')
 
-CAI = Hoi3Object:subclass('hoi3.Hoi3Object')
+CAIObject = Hoi3Object:subclass('hoi3.Hoi3Object')
 
 --- 
 -- @since 1.4
-CAI._DIPLOMACY_	= 1 
+CAIObject._DIPLOMACY_	= 1 
 
 --- 
 -- @since 1.4
-CAI._INTELLIGENCE_ = 2
+CAIObject._INTELLIGENCE_ = 2
 
 --- 
 -- @since 1.4
-CAI._POLITICS_ = 3
+CAIObject._POLITICS_ = 3
 
 --- 
 -- @since 1.4
-CAI._PRODUCTION_ = 4
+CAIObject._PRODUCTION_ = 4
 
 --- 
 -- @since 1.4
-CAI._TECHNOLOGY_ = 5
+CAIObject._TECHNOLOGY_ = 5
 
 ---
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool 
-function CAI:AlreadyTradingDisabledResource(route)
+function CAIObject:AlreadyTradingDisabledResource(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -36,7 +36,7 @@ end
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool 
-function CAI:AlreadyTradingResourceOtherWay(route)
+function CAIObject:AlreadyTradingResourceOtherWay(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -47,7 +47,7 @@ end
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:CanDeclareWar(countryTagA,  countryTagB)
+function CAIObject:CanDeclareWar(countryTagA,  countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -59,7 +59,7 @@ end
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:CanTradeFreeResources(countryTagA,  countryTagB)
+function CAIObject:CanTradeFreeResources(countryTagA,  countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -71,7 +71,7 @@ end
 -- @param number needs
 -- @param number goodsType
 -- @return bool
-function CAI:EvaluateCancelTrades(needs,  goodType)
+function CAIObject:EvaluateCancelTrades(needs,  goodType)
 	Hoi3Object.assertParameterType(1, needs, 'number')
 	Hoi3Object.assertParameterType(2, goodType, 'number')
 		
@@ -85,7 +85,7 @@ end
 -- @param CCountryTag from
 -- @param CCountryTag to
 -- @return CFixedPoint
-function CAI:GetAmountTradedFrom(goodsType, from,  to)
+function CAIObject:GetAmountTradedFrom(goodsType, from,  to)
 	Hoi3Object.assertParameterType(1, goodsType, 'number')
 	Hoi3Object.assertParameterType(2, from, 'CCountryTag')
 	Hoi3Object.assertParameterType(3, to, 'CCountryTag')
@@ -96,7 +96,7 @@ end
 ---
 -- @since 1.3
 -- @return CCountry
-function CAI:GetCountry(x)
+function CAIObject:GetCountry(x)
 	Hoi3Object.throwUnknownSignature()
 end
 
@@ -105,7 +105,7 @@ end
 -- @param CCountry countryA
 -- @param CCountry countryB
 -- @return CFixedPoint
-function CAI:GetCountryAlignmentDistance(countryA, countryB)
+function CAIObject:GetCountryAlignmentDistance(countryA, countryB)
 	Hoi3Object.assertParameterType(1, countryA, 'CCountry')
 	Hoi3Object.assertParameterType(2, countryB, 'CCountry')
 	
@@ -116,7 +116,7 @@ end
 -- @since 1.3
 -- @return CDate
 -- @static
-function CAI.GetCurrentDate()
+function CAIObject.GetCurrentDate()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -124,14 +124,14 @@ end
 -- @since 1.3
 -- @return string
 -- @static
-function CAI.GetCommonModDirectory()
+function CAIObject.GetCommonModDirectory()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetDeployedSubUnitCounts()
+function CAIObject:GetDeployedSubUnitCounts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -139,7 +139,7 @@ end
 -- @since 1.3
 -- @return string
 -- @static
-function CAI.GetModDirectory()
+function CAIObject.GetModDirectory()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -148,7 +148,7 @@ end
 -- @param CCountry country
 -- @param CFaction faction
 -- @return CFixedPoint
-function CAI:GetNormalizedAlignmentDistance(country, faction)
+function CAIObject:GetNormalizedAlignmentDistance(country, faction)
 	Hoi3Object.assertParameterType(1, country, 'CCountry')
 	Hoi3Object.assertParameterType(2, faction, 'CFaction')
 	
@@ -159,7 +159,7 @@ end
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAI:GetNumberOfOwnedProvinces(countryTag)
+function CAIObject:GetNumberOfOwnedProvinces(countryTag)
 	Hoi3Object.assertParameterType(1, country, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -168,21 +168,21 @@ end
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetProductionSubUnitCounts(countryTag)
+function CAIObject:GetProductionSubUnitCounts(countryTag)
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CList_CSubUnitConstructionEntry
-function CAI:GetReqProdQueue()
+function CAIObject:GetReqProdQueue()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CSubUnitConstructionEntry>
-function CAI:GetReqProdQueueIter()
+function CAIObject:GetReqProdQueueIter()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -191,7 +191,7 @@ end
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return CDiplomacyStatus
-function CAI:GetRelation(countryTagA, countryTagB)
+function CAIObject:GetRelation(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -202,7 +202,7 @@ end
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return CDiplomacyStatus
-function CAI:GetSpamPenalty(countryTag)
+function CAIObject:GetSpamPenalty(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -211,14 +211,14 @@ end
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetTheatreSubUnitNeedCounts()
+function CAIObject:GetTheatreSubUnitNeedCounts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetTheatreSubUnitNeedCounts()
+function CAIObject:GetTheatreSubUnitNeedCounts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -226,14 +226,14 @@ end
 -- @since 1.3
 -- @return bool
 -- @static
-function CAI.HasCommonExtension()
+function CAIObject.HasCommonExtension()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return bool
-function CAI:HasFilledProdQueue()
+function CAIObject:HasFilledProdQueue()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -241,7 +241,7 @@ end
 -- @since 1.3
 -- @param  CTradeRoute route
 -- @return bool
-function CAI:HasTradeGoneStale(route)
+function CAIObject:HasTradeGoneStale(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -251,7 +251,7 @@ end
 -- @since 1.3
 -- @return bool
 -- @static
-function CAI.HasUserExtension()
+function CAIObject.HasUserExtension()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -260,7 +260,7 @@ end
 -- @param number automationtype
 -- @return bool
 -- @static
-function CAI.IsAIControlledForPlayer(automationtype)
+function CAIObject.IsAIControlledForPlayer(automationtype)
 	Hoi3Object.assertParameterType(1, automationtype, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -271,7 +271,7 @@ end
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:IsInfluencing(countryTagA, countryTagB)
+function CAIObject:IsInfluencing(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -282,7 +282,7 @@ end
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool
-function CAI:IsTradeingAwayNeededResource(route)
+function CAIObject:IsTradeingAwayNeededResource(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -291,21 +291,21 @@ end
 ---
 -- @since 1.3
 -- @return unknown
-function CAI:MoveToNeighbor(...)
+function CAIObject:MoveToNeighbor(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAI:MoveUnit(...)
+function CAIObject:MoveUnit(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAI:RequestSubUnit(...)
+function CAIObject:RequestSubUnit(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
@@ -313,7 +313,7 @@ end
 -- @since 1.3
 -- @param CCommand command
 -- @return void
-function CAI:Post(command)
+function CAIObject:Post(command)
 	Hoi3Object.assertParameterType(1, command, 'CCommand')
 	
 	Hoi3Object.throwUnknownSignature()
@@ -323,7 +323,7 @@ end
 -- @since 1.3
 -- @param CAction action
 -- @return void
-function CAI:PostAction(action)
+function CAIObject:PostAction(action)
 	Hoi3Object.assertParameterType(1, action, 'CAction')
 	
 	Hoi3Object.throwUnknownSignature()
@@ -333,8 +333,12 @@ end
 -- @since 1.3
 -- @param string message
 -- @return void
-function CAI:PrintConsole(action)
+function CAIObject:PrintConsole(message)
 	Hoi3Object.assertParameterType(1, message, 'string')
 	
 	Hoi3Object.throwUnknownSignature()
 end
+
+-- CAI has static methods and properties
+-- we need to declare a CAI table 
+CAI = CAIObject
