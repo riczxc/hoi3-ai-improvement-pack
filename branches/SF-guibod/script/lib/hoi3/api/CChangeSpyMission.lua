@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CChangeSpyMissionObject = Hoi3Object:subclass('hoi3.CCommand')
+CChangeSpyMissionObject = CCommandObject:subclass('hoi3.CChangeSpyMissionObject')
 
 ---
 -- @since 1.3

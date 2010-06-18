@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CChangeInvestmentCommandObject = Hoi3Object:subclass('hoi3.CCommand')
+CChangeInvestmentCommandObject = CCommandObject:subclass('hoi3.CChangeInvestmentCommandObject')
 
 ---
 -- @since 1.3

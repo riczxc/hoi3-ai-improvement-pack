@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CChangeLeadershipCommandObject = Hoi3Object:subclass('hoi3.CCommand')
+CChangeLeadershipCommandObject = CCommandObject:subclass('hoi3.CChangeLeadershipCommandObject')
 
 ---
 -- @since 1.3

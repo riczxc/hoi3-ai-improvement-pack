@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CChangePriorityCommandObject = Hoi3Object:subclass('hoi3.CCommand')
+CChangePriorityCommandObject = CCommandObject:subclass('hoi3.CChangePriorityCommandObject')
 
 ---
 -- @since 1.3

@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CConstructionObject = Hoi3Object:subclass('hoi3.Hoi3Object')
+CConstructionObject = Hoi3Object:subclass('hoi3.CConstructionObject')
 
 ---
 -- @since 2.0

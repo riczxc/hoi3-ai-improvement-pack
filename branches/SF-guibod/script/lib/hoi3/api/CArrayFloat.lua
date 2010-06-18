@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CArrayFloatObject = Hoi3Object:subclass('hoi3.Hoi3Object')
+CArrayFloatObject = Hoi3Object:subclass('hoi3.CArrayFloatObject')
 
 ---
 -- @since 1.3

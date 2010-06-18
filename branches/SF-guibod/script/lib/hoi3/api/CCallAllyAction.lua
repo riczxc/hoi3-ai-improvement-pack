@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CDiplomaticAction')
 
-CCallAllyActionObject = Hoi3Object:subclass('hoi3.CDiplomaticAction')
+CCallAllyActionObject = CDiplomaticActionObject:subclass('hoi3.CCallAllyActionObject')
 
 ---
 -- @since 1.3

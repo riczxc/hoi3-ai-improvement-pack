@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CCancelUnitConstructionCommandObject = Hoi3Object:subclass('hoi3.CCommand')
+CCancelUnitConstructionCommandObject = CCommandObject:subclass('hoi3.CCancelUnitConstructionCommandObject')
 
 ---
 -- @since 1.3
