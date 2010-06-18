@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CAIObject = Hoi3Object:subclass('hoi3.Hoi3Object')
+CAIObject = Hoi3Object:subclass('hoi3.CAIObject')
 
 --- 
 -- @since 1.4

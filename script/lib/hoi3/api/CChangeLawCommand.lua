@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CChangeLawCommandObject = Hoi3Object:subclass('hoi3.CCommand')
+CChangeLawCommandObject = CCommandObject:subclass('hoi3.CChangeLawCommandObject')
 
 ---
 -- @since 1.3

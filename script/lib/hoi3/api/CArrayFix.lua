@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CArrayFixObject = Hoi3Object:subclass('hoi3.Hoi3Object')
+CArrayFixObject = Hoi3Object:subclass('hoi3.CArrayFixObject')
 
 ---
 -- @since 1.3

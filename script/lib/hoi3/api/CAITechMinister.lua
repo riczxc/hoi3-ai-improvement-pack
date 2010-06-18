@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CAIAgent')
 
-CAITechMinisterObject = Hoi3Object:subclass('hoi3.CAIAgent')
+CAITechMinisterObject = CAIAgentObject:subclass('hoi3.CAITechMinisterObject')
 
 ---
 -- @since 1.3

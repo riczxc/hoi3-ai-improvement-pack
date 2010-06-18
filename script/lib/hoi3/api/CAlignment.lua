@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CAlignmentObject = Hoi3Object:subclass('hoi3.CAlignment')
+CAlignmentObject = Hoi3Object:subclass('hoi3.CAlignmentObject')
 
 ---
 -- @since 1.3

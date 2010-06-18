@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CCommand')
 
-CConstructConvoyCommandObject = Hoi3Object:subclass('hoi3.CCommand')
+CConstructConvoyCommandObject = CCommandObject:subclass('hoi3.CConstructConvoyCommandObject')
 
 ---
 -- @since 1.3

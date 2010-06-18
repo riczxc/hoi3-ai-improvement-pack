@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CAISubscriber')
 
-CAIAgentObject = Hoi3Object:subclass('hoi3.CAISubscriber')
+CAIAgentObject = CAISubscriberObject:subclass('hoi3.CAIAgentObject')
 
 ---
 -- @since 1.3
@@ -19,6 +19,6 @@ end
 ---
 -- @since 1.3
 -- @return CAI
-function CAIEspionageMinisterObject:GetOwnerAI()
+function CAIAgentObject:GetOwnerAI()
 	Hoi3Object.throwNotYetImplemented()
 end

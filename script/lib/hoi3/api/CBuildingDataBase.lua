@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CBuildingDataBaseObject = Hoi3Object:subclass('hoi3.Hoi3Object')
+CBuildingDataBaseObject = Hoi3Object:subclass('hoi3.CBuildingDataBaseObject')
 
 ---
 -- @since 1.3
