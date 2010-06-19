@@ -2,11 +2,27 @@
 -- LUA Hearts of Iron 3 Soviet File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 6/18/2010
 -----------------------------------------------------------
 
 local P = {}
 AI_SOV = P
+
+-- #######################################
+-- Static Production Variables overide
+function P._LandRatio_Units_(minister)
+	local laLandRatioUnits = {
+		'garrison_brigade', -- Garrison
+		'infantry_brigade', -- Infantry
+		'motorized_brigade', -- Motorized
+		'mechanized_brigade', -- Mechanized
+		'armor_brigade|heavy_armor_brigade|super_heavy_armor_brigade', -- Armor
+		'militia_brigade', -- Militia
+		'cavalry_brigade'}; -- Cavalry
+	
+	return laLandRatioUnits
+end
+-- #######################################
 
 -- Tech weights
 --   1.0 = 100% the total needs to equal 1.0
@@ -205,14 +221,14 @@ end
 -- Land ratio distribution
 function P.LandRatio(minister)
 	local laArray
-	
+
 	if minister:GetOwnerAI():GetCurrentDate():GetYear() >= 1940 then
 		laArray = {
 			0, -- Garrison
 			10, -- Infantry
 			3, -- Motorized
 			1, -- Mechanized
-			2, -- Armor
+			1.5, -- Armor
 			0, -- Militia
 			0}; -- Cavalry
 	else
@@ -221,7 +237,7 @@ function P.LandRatio(minister)
 			10, -- Infantry
 			3, -- Motorized
 			1, -- Mechanized
-			2, -- Armor
+			1.5, -- Armor
 			0, -- Militia
 			1}; -- Cavalry
 	end

@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Production File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 5/23/2010
+-- Date Last Modified: 6/18/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -70,7 +70,31 @@ local _POLICE_BRIGADE_ = 45
 local _HQ_BRIGADE_ = 46
 local _PARTISAN_BRIGADE_ = 47
 
+-- Static Arrays used for Ratio setup
+local _LandRatio_Units_ = {
+	'garrison_brigade', -- Garrison
+	'infantry_brigade', -- Infantry
+	'motorized_brigade', -- Motorized
+	'mechanized_brigade', -- Mechanized
+	'light_armor_brigade|armor_brigade|heavy_armor_brigade|super_heavy_armor_brigade', -- Armor
+	'militia_brigade', -- Militia
+	'cavalry_brigade'}; -- Cavalry
 
+local _AirRatio_Units_ = {
+	'interceptor|multi_role|rocket_interceptor', -- Fighter
+	'cas', -- CAS
+	'tactical_bomber', -- Tactical
+	'naval_bomber', -- Naval Bomber
+	'strategic_bomber'}; -- Strategic
+	
+local _NavalRatio_Units_ = {
+	'destroyer', -- Destroyers
+	'submarine', -- Submarines
+	'light_cruiser|heavy_cruiser', -- Cruisers
+	'battlecruiser|battleship|super_heavy_battleship', -- Capital
+	'escort_carrier', -- Escort Carrier
+	'carrier'}; -- Carrier
+		
 -- ######################
 -- Default parameters for countries 
 -- ######################
@@ -439,15 +463,26 @@ function ManageProduction(minister)
 		--Utils.LUA_DEBUGOUT("IC: " .. tostring(ministerCountry:GetTotalIC()))
 
 		local loTechStatus = ministerCountry:GetTechnologyStatus()
-		local vbNaval = (ministerCountry:GetNumOfPorts() > 0 and ministerCountry:GetTotalIC() >= 20)
+		local lbNaval = (ministerCountry:GetNumOfPorts() > 0 and ministerCountry:GetTotalIC() >= 20)
+		local lbAir = (ministerCountry:GetNumOfAirfields() > 0)
 		
-		local laProdWeights = GetBuildRatio(minister, ministerTag, vbNaval, "ProductionWeights")
-		local laLandRatio = GetBuildRatio(minister, ministerTag, vbNaval, "LandRatio")
-		local laSpecialForcesRatio = GetBuildRatio(minister, ministerTag, vbNaval, "SpecialForcesRatio")
-		local laAirRatio = GetBuildRatio(minister, ministerTag, vbNaval, "AirRatio")
-		local laRocketRatio = GetBuildRatio(minister, ministerTag, vbNaval, "RocketRatio")
-		local laNavalRatio = GetBuildRatio(minister, ministerTag, vbNaval, "NavalRatio")
-		local laTransportLandRatio = GetBuildRatio(minister, ministerTag, vbNaval, "TransportLandRatio")
+		local laProdWeights = GetBuildRatio(minister, ministerTag, lbNaval, "ProductionWeights")
+		local laLandRatio = GetBuildRatio(minister, ministerTag, lbNaval, "LandRatio")
+		local laSpecialForcesRatio = GetBuildRatio(minister, ministerTag, lbNaval, "SpecialForcesRatio")
+		local laAirRatio = GetBuildRatio(minister, ministerTag, lbNaval, "AirRatio")
+		local laRocketRatio = GetBuildRatio(minister, ministerTag, lbNaval, "RocketRatio")
+		local laNavalRatio = GetBuildRatio(minister, ministerTag, lbNaval, "NavalRatio")
+		local laTransportLandRatio = GetBuildRatio(minister, ministerTag, lbNaval, "TransportLandRatio")
+		
+		-- If no air fields set all of its ratios to 0 so the Air power code does not fire
+		if not(lbAir) then
+			for i = 1, table.getn(laAirRatio) do
+				laAirRatio[i] = 0
+			end
+			
+			-- Now move the Air IC over to the Land section
+			laProdWeights[1] = laProdWeights[1] + laProdWeights[2]
+		end
 		
 		-- Figure out how much IC is suppose to be designated in the appropriate area
 		local liPotentialLandIC = tonumber(tostring(icProdAllocated * laProdWeights[1]))
@@ -459,6 +494,26 @@ function ManageProduction(minister)
 		local liNeededAirIC = 0
 		local liNeededNavalIC = 0
 		local liNeededOtherIC = 0
+		
+		-- Verify Build Ratios against avaialbe units
+		if Utils.HasCountryAIFunction( ministerTag, "_LandRatio_Units_") then
+			laLandRatio = VerifyRatio(loTechStatus, laLandRatio, Utils.CallCountryAI(ministerTag, "_LandRatio_Units_", minister))
+		else
+			laLandRatio = VerifyRatio(loTechStatus, laLandRatio, _LandRatio_Units_)
+		end
+
+		if Utils.HasCountryAIFunction( ministerTag, "_AirRatio_Units_") then
+			laAirRatio = VerifyRatio(loTechStatus, laAirRatio, Utils.CallCountryAI(ministerTag, "_AirRatio_Units_", minister))
+		else
+			laAirRatio = VerifyRatio(loTechStatus, laAirRatio, _AirRatio_Units_)
+		end
+		
+		if Utils.HasCountryAIFunction( ministerTag, "_NavalRatio_Units_") then
+			laNavalRatio = VerifyRatio(loTechStatus, laNavalRatio, Utils.CallCountryAI(ministerTag, "_NavalRatio_Units_", minister))
+		else
+			laNavalRatio = VerifyRatio(loTechStatus, laNavalRatio, _NavalRatio_Units_)
+		end
+		
 		
 		-- Figure out what the AI is currently producin in each category
 		for loBuildItem in ministerCountry:GetConstructions() do
@@ -691,7 +746,7 @@ function ManageProduction(minister)
 				
 				-- Multiplier used to figure out how many units of each type you need
 				--   to keep the ratio
-				local liMultiplier = GetMultiplier(laLandUnitRatio)
+				local liMultiplier = GetMultiplier(laLandUnitRatio, laLandRatio)
 				
 				local laLandUnitNeed = {}
 				laLandUnitNeed[1] = (laLandRatio[1] * liMultiplier) - laLandUnitCount[1]
@@ -837,7 +892,7 @@ function ManageProduction(minister)
 			laAirUnitRatio[4] = CalculateRatio(laAirUnitCount[4], laAirRatio[4])
 			laAirUnitRatio[5] = CalculateRatio(laAirUnitCount[5], laAirRatio[5])
 
-			liMultiplier = GetMultiplier(laAirUnitRatio)
+			liMultiplier = GetMultiplier(laAirUnitRatio, laAirRatio)
 
 			local laAirUnitNeed = {}
 			laAirUnitNeed[1] = (laAirRatio[1] * liMultiplier) - laAirUnitCount[1]
@@ -937,7 +992,7 @@ function ManageProduction(minister)
 			laNavalUnitRatio[5] = CalculateRatio(laNavalUnitCount[5], laNavalRatio[5])
 			laNavalUnitRatio[6] = CalculateRatio(laNavalUnitCount[6], laNavalRatio[6])
 			
-			liMultiplier = GetMultiplier(laNavalUnitRatio)
+			liMultiplier = GetMultiplier(laNavalUnitRatio, laNavalRatio)
 
 			local laNavalUnitNeed = {}
 			laNavalUnitNeed[1] = (laNavalRatio[1] * liMultiplier) - laNavalUnitCount[1]
@@ -1148,7 +1203,7 @@ end
 function BuildNavalUnits(ic, minister, vbGoOver)
 	ic = BuildUnit(ic, minister, _TRANSPORT_SHIP_, 3, "transport_ship", 1, nil, 0, "Build_Transport", vbGoOver)
 
-	ic = BuildUnit(ic, minister, _CARRIER_, 1, "carrier", 1, nil, "Build_Carrier", vbGoOver)
+	ic = BuildUnit(ic, minister, _CARRIER_, 1, "carrier", 1, nil, 0, "Build_Carrier", vbGoOver)
 	ic = BuildUnit(ic, minister, _SUPER_HEAVY_BATTLESHIP_, 1, "super_heavy_battleship", 1, nil, 0, "Build_SuperBattleship", vbGoOver)
 	ic = BuildUnit(ic, minister, _BATTLESHIP_, 1, "battleship", 1, nil, 0, "Build_Battleship", vbGoOver)
 	ic = BuildUnit(ic, minister, _BATTLECRUISER_, 1, "battlecruiser", 1, nil, 0, "Build_Battlecruiser", vbGoOver)
@@ -1223,19 +1278,54 @@ function GetBuildRatio(minister, ministerTag, vbNaval, vsType)
 		end					
 	end		
 end
-function GetMultiplier(vaArray)
+function GetMultiplier(vaUnitMultiplier, vaRatio)
 	local i = 2
-	local liMultiplier = vaArray[1]
+	local liMultiplier = vaUnitMultiplier[1]
+	local liAddOne = 1
 	
-	while i <= table.getn(vaArray) do
-		if liMultiplier < vaArray[i] then
-			liMultiplier = vaArray[i]
+	while i <= table.getn(vaUnitMultiplier) do
+		if vaRatio[i] > 0 then
+			if liAddOne == 1 and liMultiplier > 0 then
+				if math.max((liMultiplier - vaUnitMultiplier[i]), (vaUnitMultiplier[i] - liMultiplier)) > 1 then
+					liAddOne = 0
+				end
+			end
+			
+			if liMultiplier < vaUnitMultiplier[i] then
+				liMultiplier = vaUnitMultiplier[i]
+			end
 		end
+		
 		i = i + 1
 	end
 	
-	return liMultiplier
+	return liMultiplier + liAddOne
 end
+
+-- Goes through the ratios and sets them to 0 if the country can't build any of those units
+function VerifyRatio(voTechStatus, vaRatio, vaType)
+	for i = 1, table.getn(vaRatio) do
+		if vaRatio[i] > 0 then
+			local lbCanBuild = false
+			local laUnits = Utils.Split(vaType[i], '|')
+			
+			for x = 1, table.getn(laUnits) do
+				if voTechStatus:IsUnitAvailable(CSubUnitDataBase.GetSubUnit(laUnits[x])) then
+					lbCanBuild = true
+					break
+				end
+			end
+			
+			if not(lbCanBuild) then
+				vaRatio[i] = 0
+			end
+		end
+	end
+	
+	return vaRatio
+end
+
+
 -- #######################
 -- End of Helper Build Methods
 -- #######################
@@ -1469,7 +1559,11 @@ function ConstructBuildings(ai, minister, ministerTag, ministerCountry, ic, vbGo
 			--   Since there is no practical way to teach the AI to build forts just allow hooks for country specific stuff
 			if ic > 0.2 and loTechStatus:IsBuildingAvailable(air_base) then
 				if Utils.HasCountryAIFunction(ministerTag, "Build_AirBase") then
-					ic = Utils.CallCountryAI(ministerTag, "Build_AirBase", ic, minister, vbGoOver)				
+					ic = Utils.CallCountryAI(ministerTag, "Build_AirBase", ic, minister, vbGoOver)
+					
+				-- This country has no airfields so try and build one in its capital
+				elseif ministerCountry:GetNumOfAirfields() == 0 then
+					ic = Support.Build_AirBase(ic, minister, ministerCountry:GetActingCapitalLocation():GetProvinceID(), 1, vbGoOver) -- Cooktown
 				end
 			end
 			

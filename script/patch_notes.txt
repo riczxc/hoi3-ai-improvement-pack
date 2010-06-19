@@ -25,3 +25,7 @@
 - Fixed an issue on how the AI calculates resources for building new IC.
 - AI Influence enhanced now and will rotate in and out countries to influence based on score
 - AI Influence now will cancel influences if its current diplomacy settings will not support it
+- AI had a parameter missing the production section for the Carrier call in the ai_production_minister.lua
+- AI production, fixed an issue if all unit counts where reaching 0 within a multiplier causing nothing to be built.
+- AI will no longer build planes if it has no airfields
+- AI countries that have no airfields should build atleast 1 on their capital if they have the tech
