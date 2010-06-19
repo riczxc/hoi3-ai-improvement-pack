@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 6/16/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws

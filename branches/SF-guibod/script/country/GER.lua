@@ -2,11 +2,28 @@
 -- LUA Hearts of Iron 3 Germany File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 6/18/2010
 -----------------------------------------------------------
 
 local P = {}
 AI_GER = P
+
+-- #######################################
+-- Static Production Variables overide
+function P._LandRatio_Units_(minister)
+	local laLandRatioUnits = {
+		'garrison_brigade', -- Garrison
+		'infantry_brigade', -- Infantry
+		'motorized_brigade', -- Motorized
+		'mechanized_brigade', -- Mechanized
+		'armor_brigade|heavy_armor_brigade|super_heavy_armor_brigade', -- Armor
+		'militia_brigade', -- Militia
+		'cavalry_brigade'}; -- Cavalry
+	
+	return laLandRatioUnits
+end
+-- #######################################
+
 
 -- #######################################
 -- Start of Tech Research
@@ -232,7 +249,7 @@ function P.LandRatio(minister)
 		10, -- Infantry
 		3, -- Motorized
 		1, -- Mechanized
-		2, -- Armor
+		1.5, -- Armor
 		0, -- Militia
 		0}; -- Cavalry
 	
