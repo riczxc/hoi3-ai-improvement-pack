@@ -2,11 +2,27 @@
 -- LUA Hearts of Iron 3 United Kingdom File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 6/18/2010
 -----------------------------------------------------------
 
 local P = {}
 AI_ENG = P
+
+-- #######################################
+-- Static Production Variables overide
+function P._LandRatio_Units_(minister)
+	local laLandRatioUnits = {
+		'garrison_brigade', -- Garrison
+		'infantry_brigade', -- Infantry
+		'motorized_brigade', -- Motorized
+		'mechanized_brigade', -- Mechanized
+		'armor_brigade|heavy_armor_brigade|super_heavy_armor_brigade', -- Armor
+		'militia_brigade', -- Militia
+		'cavalry_brigade'}; -- Cavalry
+	
+	return laLandRatioUnits
+end
+-- #######################################
 
 -- Tech weights
 --   1.0 = 100% the total needs to equal 1.0
