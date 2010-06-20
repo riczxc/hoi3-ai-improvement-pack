@@ -4,13 +4,6 @@ CAllianceActionObject = CDiplomaticActionObject:subclass('hoi3.CAllianceActionOb
 
 ---
 -- @since 1.3
--- @return unknown 
-function CAllianceActionObject.Create()
-	Hoi3Object.throwUnknownReturnType()
-end 
-
----
--- @since 1.3
 -- @return CAllianceActionObject
 function CAllianceAction(countryTagA,  countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
