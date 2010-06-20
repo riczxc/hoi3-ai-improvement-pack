@@ -70,12 +70,20 @@ end
 -- @since 2.0
 -- @param number needs
 -- @param number goodsType
--- @return bool
-function CAIObject:EvaluateCancelTrades(needs,  goodType)
+-- @return CFixedPoint
+function CAIObject:EvaluateCancelTrades(needs,  goodsType)
 	Hoi3Object.assertParameterType(1, needs, 'number')
-	Hoi3Object.assertParameterType(2, goodType, 'number')
+	Hoi3Object.assertParameterType(2, goodsType, 'number')
+	
+	assert(goodsType < CGoodsPool._GC_NUMOF_ + 1, string.format("goodsType must be lower than %d", CGoodsPool._GC_NUMOF_ + 1))
+	assert(goodsType > 0, string.format("goodsType must be greater than %d", 0))
 		
-	Hoi3Object.throwNotYetImplemented()
+	-- Simulate trade cancelation
+	if needs > 0 then
+	   return needs - 1
+	else
+	   return needs + 1
+	end
 end
 
 
@@ -117,7 +125,7 @@ end
 -- @return CDate
 -- @static
 function CAIObject.GetCurrentDate()
-	Hoi3Object.throwNotYetImplemented()
+	return CDateObject:new()
 end
 
 ---

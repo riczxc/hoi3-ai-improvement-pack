@@ -6,14 +6,14 @@ CDateObject = Hoi3Object:subclass('hoi3.CDateObject')
 -- @since 1.3
 -- @return number 
 function CDateObject:GetDayOfMonth()
-	Hoi3Object.throwNotYetImplemented()
+	return 1
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CDateObject:GetMonthOfYear()
-	Hoi3Object.throwNotYetImplemented()
+	return 1
 end
 
 ---
@@ -27,7 +27,7 @@ end
 -- @since 1.3
 -- @return number
 function CDateObject:GetYear()
-	Hoi3Object.throwNotYetImplemented()
+	return 1936
 end
 
 ---
