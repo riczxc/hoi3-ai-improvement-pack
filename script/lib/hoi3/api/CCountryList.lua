@@ -1,10 +1,10 @@
 require('hoi3.api.CList')
 
-CCountryTagListObject = CList:subclass('hoi3.CCountryTagListObject')
+CCountryListObject = CListObject:subclass('hoi3.CCountryListObject')
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryTagList:IsEnemy()
+function CCountryListObject:IsEnemy()
 	Hoi3Object.throwNotYetImplemented()
 end  
