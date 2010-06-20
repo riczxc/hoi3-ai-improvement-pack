@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Production File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/18/2010
+-- Date Last Modified: 6/19/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -748,6 +748,16 @@ function ManageProduction(minister)
 				--   to keep the ratio
 				local liMultiplier = GetMultiplier(laLandUnitRatio, laLandRatio)
 				
+				--if tostring(ministerTag) == "GER" then
+--					Utils.LUA_DEBUGOUT("Country: " .. tostring(ministerTag))
+--					Utils.LUA_DEBUGOUT("liMultiplier: " .. tostring(liMultiplier))
+					
+--					for i = 1, table.getn(laLandUnitRatio) do
+						--Utils.LUA_DEBUGOUT("laLandUnitRatio: " .. tostring(laLandUnitRatio[i]))
+					--end
+				--end
+				
+				
 				local laLandUnitNeed = {}
 				laLandUnitNeed[1] = (laLandRatio[1] * liMultiplier) - laLandUnitCount[1]
 				laLandUnitNeed[2] = (laLandRatio[2] * liMultiplier) - laLandUnitCount[2]
@@ -1281,13 +1291,13 @@ end
 function GetMultiplier(vaUnitMultiplier, vaRatio)
 	local i = 2
 	local liMultiplier = vaUnitMultiplier[1]
-	local liAddOne = 1
+	local liAddToMultiplier = 2
 	
 	while i <= table.getn(vaUnitMultiplier) do
 		if vaRatio[i] > 0 then
-			if liAddOne == 1 and liMultiplier > 0 then
-				if math.max((liMultiplier - vaUnitMultiplier[i]), (vaUnitMultiplier[i] - liMultiplier)) > 1 then
-					liAddOne = 0
+			if liAddToMultiplier > 0 and liMultiplier > 0 then
+				if math.max((liMultiplier - vaUnitMultiplier[i]), (vaUnitMultiplier[i] - liMultiplier)) > liAddToMultiplier then
+					liAddToMultiplier = 0
 				end
 			end
 			
@@ -1299,7 +1309,7 @@ function GetMultiplier(vaUnitMultiplier, vaRatio)
 		i = i + 1
 	end
 	
-	return liMultiplier + liAddOne
+	return liMultiplier + liAddToMultiplier
 end
 
 -- Goes through the ratios and sets them to 0 if the country can't build any of those units
