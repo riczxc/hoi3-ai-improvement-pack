@@ -5,13 +5,6 @@ CCallAllyActionObject = CDiplomaticActionObject:subclass('hoi3.CCallAllyActionOb
 ---
 -- @since 1.3
 -- @return unknown
-function CCallAllyActionObject:Create(...)
-	Hoi3Object.throwUnknownSignature()
-end
-
----
--- @since 1.3
--- @return unknown
 function CCallAllyActionObject:GetVersus(...)
 	Hoi3Object.throwUnknownSignature()
 end
