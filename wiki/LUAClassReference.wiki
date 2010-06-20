@@ -18,7 +18,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||  bool                                                              ||  `AlreadyTradingResourceOtherWay(`[#CTradeRoute CTradeRoute]` route)`                                      ||  1.3    ||  
 ||  bool                                                              ||  `CanDeclareWar(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                          ||  1.3    ||  
 ||  bool                                                              ||  `CanTradeFreeResources(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                  ||  1.3    ||  
-||  bool                                                              ||  `EvaluateCancelTrades(number needs, number goodType )`                  ||  2.0    ||  
+||  number                                                            ||  `EvaluateCancelTrades(number needs, number goodType )`                  ||  2.0    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetAmountTradedFrom(number goodsType, `[#CCountryTag CCountryTag]` from, `[#CCountryTag CCountryTag]` to)`          ||  1.3    ||  
 ||  [#CCountry CCountry]                                              ||  `GetCountry(???)`                                                                                         ||  1.3    ||  
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetCountryAlignmentDistance(`[#CCountry CCountry]` countryA, `[#CCountry CCountry]` countryB)`                           ||  1.3    ||  
