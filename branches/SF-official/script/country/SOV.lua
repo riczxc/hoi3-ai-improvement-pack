@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Soviet File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/18/2010
+-- Date Last Modified: 6/20/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -210,37 +210,24 @@ function P.ProductionWeights(minister)
 		
 	else
 		laArray = {
-			0.60, -- Land
-			0.25, -- Air
-			0.05, -- Sea
-			0.10}; -- Other
+			0.72, -- Land
+			0.20, -- Air
+			0.03, -- Sea
+			0.05}; -- Other
 	end
 	
 	return laArray
 end
 -- Land ratio distribution
 function P.LandRatio(minister)
-	local laArray
-
-	if minister:GetOwnerAI():GetCurrentDate():GetYear() >= 1940 then
-		laArray = {
-			0, -- Garrison
-			10, -- Infantry
-			3, -- Motorized
-			1, -- Mechanized
-			1.5, -- Armor
-			0, -- Militia
-			0}; -- Cavalry
-	else
-		laArray = {
-			0, -- Garrison
-			10, -- Infantry
-			3, -- Motorized
-			1, -- Mechanized
-			1.5, -- Armor
-			0, -- Militia
-			1}; -- Cavalry
-	end
+	local laArray = {
+		0, -- Garrison
+		14, -- Infantry
+		3, -- Motorized
+		1, -- Mechanized
+		2, -- Armor
+		0, -- Militia
+		0}; -- Cavalry
 	
 	return laArray
 end

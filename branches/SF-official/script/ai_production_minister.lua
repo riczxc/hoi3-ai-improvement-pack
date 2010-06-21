@@ -200,7 +200,7 @@ function DefaultProdMix.ProductionWeights(minister)
 			0.50, -- Land
 			0.25, -- Air
 			0.20, -- Sea
-			0.5}; -- Other
+			0.05}; -- Other
 		
 		rValue = laArray	
 	else
@@ -1169,22 +1169,19 @@ function BuildLandUnits(ic, minister, vbGoOver)
 	end
 
 	-- Handles Superior Firepower and give some variation to infantry division sizes
-	if table.getn(LegUnitArray) > 1 then
+	if table.getn(LegUnitArray) > 0 then
 		local loTech = CTechnologyDataBase.GetTechnology("superior_firepower")
 		local liLevel = minister:GetCountry():GetTechnologyStatus():GetLevel(loTech)
 
 		if liLevel > 0 then
+			-- 3 infantry and 2 Support
 			ic = BuildUnit(ic, minister, _INFANTRY_BRIGADE_, 4, "infantry_brigade", 3, LegUnitArray, 2, "Build_Infantry", vbGoOver)
 		else
-			if math.random(100) > 50 then
-				-- 2 infantry and 2 Support
-				ic = BuildUnit(ic, minister, _INFANTRY_BRIGADE_, 4, "infantry_brigade", 2, LegUnitArray, 2, "Build_Infantry", vbGoOver)
-			else
-				-- 3 infantry and 1 Support
-				ic = BuildUnit(ic, minister, _INFANTRY_BRIGADE_, 4, "infantry_brigade", 3, LegUnitArray, 1, "Build_Infantry", vbGoOver)
-			end
+			-- 2 infantry and 2 Support
+			ic = BuildUnit(ic, minister, _INFANTRY_BRIGADE_, 4, "infantry_brigade", 2, LegUnitArray, 2, "Build_Infantry", vbGoOver)
 		end
 	else
+		-- 3 infantry and 0 Support
 		ic = BuildUnit(ic, minister, _INFANTRY_BRIGADE_, 4, "infantry_brigade", 3, LegUnitArray, 1, "Build_Infantry", vbGoOver)
 	end
 	
