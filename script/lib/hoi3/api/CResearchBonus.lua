@@ -1,12 +1,12 @@
 require('hoi3.Hoi3Object')
 
-CResearchBonusObject = Hoi3Object:subclass('hoi3.CResearchBonus')
+CResearchBonus = Hoi3Object:subclass('hoi3.CResearchBonus')
 
 --[[
 	FIXME: middleclass notation makes underscored properties private.
 	There may be problem accessing _vWeight or _pCategory !
 ]]
-function CResearchBonusObject:initialize(vWeight, pCategory)
+function CResearchBonus:initialize(vWeight, pCategory)
   Hoi3Object.assertParameterType(1, vWeight, 'CFixedPoint')
   Hoi3Object.assertParameterType(2, pCategory, 'CTechnologyCategory')
   

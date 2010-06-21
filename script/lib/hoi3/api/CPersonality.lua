@@ -1,17 +1,17 @@
 require('hoi3.Hoi3Object')
 
-CPersonalityObject = Hoi3Object:subclass('hoi3.CPersonalityObject')
+CPersonality = Hoi3Object:subclass('hoi3.CPersonality')
 
 ---
 -- @since 2.0
 -- @return CString
-function CPersonalityObject:GetKey()
+function CPersonality:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return number
-function CPersonalityObject:GetIndex()
+function CPersonality:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end

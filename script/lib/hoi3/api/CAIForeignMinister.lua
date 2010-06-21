@@ -1,46 +1,46 @@
 require('hoi3.api.CAIAgent')
 
-CAIForeignMinisterObject = CAIAgentObject:subclass('hoi3.CAIForeignMinisterObject')
+CAIForeignMinister = CAIAgent:subclass('hoi3.CAIForeignMinister')
 
 ---
 -- @since 1.3
 -- @return void
-function CAIForeignMinisterObject:ClearWarProposal()
+function CAIForeignMinister:ClearWarProposal()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
-function CAIForeignMinisterObject:ExecuteDiploDecisions()
+function CAIForeignMinister:ExecuteDiploDecisions()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIForeignMinisterObject:GetProposedWarTarget()
+function CAIForeignMinister:GetProposedWarTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIForeignMinisterObject:GetProposedWarTarget()
+function CAIForeignMinister:GetProposedWarTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIForeignMinisterObject:GetProposedWarTarget()
+function CAIForeignMinister:GetProposedWarTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAIForeignMinisterObject:PercOccupied(...)
+function CAIForeignMinister:PercOccupied(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
@@ -49,7 +49,7 @@ end
 -- @param CDiplomaticAction  action
 -- @param number score
 -- @return void
-function CAIForeignMinisterObject:Propose(action, score)
+function CAIForeignMinister:Propose(action, score)
 	Hoi3Object.assertParameterType(1, action, 'CDiplomaticAction')
 	Hoi3Object.assertParameterType(2, score, 'number')
 	
@@ -61,7 +61,7 @@ end
 -- @param CCountryTag  countryTag
 -- @param number warDesirability
 -- @return void
-function CAIForeignMinisterObject:ProposeWar(countryTag, warDesirability)
+function CAIForeignMinister:ProposeWar(countryTag, warDesirability)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, warDesirability, 'number')
 	

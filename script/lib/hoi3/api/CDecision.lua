@@ -1,24 +1,24 @@
 require('hoi3.Hoi3Object')
 
-CDecisionObject = Hoi3Object:subclass('hoi3.CDecisionObject')
+CDecision = Hoi3Object:subclass('hoi3.CDecision')
 
 ---
 -- @since 1.3
 -- @return CString 
-function CDecisionObject:GetKey()
+function CDecision:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDecisionObject:IsAllowed()
+function CDecision:IsAllowed()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDecisionObject:IsPotential()
+function CDecision:IsPotential()
 	Hoi3Object.throwNotYetImplemented()
 end

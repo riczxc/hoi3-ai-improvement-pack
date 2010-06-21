@@ -1,10 +1,10 @@
 require('hoi3.Hoi3Object')
 
-CGovernmentObject = Hoi3Object:subclass('hoi3.CGovernmentObject')
+CGovernment = Hoi3Object:subclass('hoi3.CGovernment')
 
 ---
 -- @since 1.3
 -- @return bool
-function CGovernmentObject:IsValid()
+function CGovernment:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end

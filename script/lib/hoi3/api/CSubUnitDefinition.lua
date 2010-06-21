@@ -1,171 +1,171 @@
 require('hoi3.Hoi3Object')
 
-CSubUnitDefinitionObject = Hoi3Object:subclass('hoi3.CSubUnitDefinitionObject')
+CSubUnitDefinition = Hoi3Object:subclass('hoi3.CSubUnitDefinition')
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetBuildCostIC()
+function CSubUnitDefinition:GetBuildCostIC()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetBuildCostMP()
+function CSubUnitDefinition:GetBuildCostMP()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetBuildTime()
+function CSubUnitDefinition:GetBuildTime()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetCombatWidth()
+function CSubUnitDefinition:GetCombatWidth()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetCompletionSize()
+function CSubUnitDefinition:GetCompletionSize()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetDefaultStrength()
+function CSubUnitDefinition:GetDefaultStrength()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetDefensivness()
+function CSubUnitDefinition:GetDefensivness()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return Cstring
-function CSubUnitDefinitionObject:GetKey()
+function CSubUnitDefinition:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetIndex()
+function CSubUnitDefinition:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return string
-function CSubUnitDefinitionObject:GetName()
+function CSubUnitDefinition:GetName()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetSoftness()
+function CSubUnitDefinition:GetSoftness()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinitionObject:GetToughness()
+function CSubUnitDefinition:GetToughness()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:CanParadrop()
+function CSubUnitDefinition:CanParadrop()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsBomber()
+function CSubUnitDefinition:IsBomber()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsBuildable()
+function CSubUnitDefinition:IsBuildable()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsCag()
+function CSubUnitDefinition:IsCag()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsCapitalShip()
+function CSubUnitDefinition:IsCapitalShip()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsCarrier()
+function CSubUnitDefinition:IsCarrier()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsRegiment()
+function CSubUnitDefinition:IsRegiment()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsSecondRank()
+function CSubUnitDefinition:IsSecondRank()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsShip()
+function CSubUnitDefinition:IsShip()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsSub()
+function CSubUnitDefinition:IsSub()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsTransport()
+function CSubUnitDefinition:IsTransport()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinitionObject:IsValid()
+function CSubUnitDefinition:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end

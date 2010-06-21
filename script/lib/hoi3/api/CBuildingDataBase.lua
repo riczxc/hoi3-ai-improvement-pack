@@ -1,12 +1,12 @@
-require('hoi3.Hoi3Object')
+require('hoi3.AbstractObject')
 
-CBuildingDataBaseObject = Hoi3Object:subclass('hoi3.CBuildingDataBaseObject')
+CBuildingDataBase = AbstractObject:subclass('hoi3.CBuildingDataBase')
 
 ---
 -- @since 1.3
 -- @param string building
 -- @return CBuilding 
-function CBuildingDataBaseObject.GetBuilding(building)
+function CBuildingDataBase.GetBuilding(building)
 	Hoi3Object.assertParameterType(1, building, 'string')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -16,12 +16,8 @@ end
 -- @since 1.3
 -- @param number building
 -- @return CBuilding 
-function CBuildingDataBaseObject.GetBuildingFromIndex(building)
+function CBuildingDataBase.GetBuildingFromIndex(building)
 	Hoi3Object.assertParameterType(1, building, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
 end
-
--- CBuildingDataBase has static methods and properties
--- we need to declare a CBuildingDataBase table 
-CBuildingDataBase = CBuildingDataBaseObject

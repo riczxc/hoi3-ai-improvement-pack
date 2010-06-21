@@ -1,24 +1,24 @@
 require('hoi3.Hoi3Object')
 
-CLawGroupObject = Hoi3Object:subclass('hoi3.CLawGroupObject')
+CLawGroup = Hoi3Object:subclass('hoi3.CLawGroup')
 
 ---
 -- @since 1.3
 -- @return string
-function CLawGroupObject:GetIndex()
+function CLawGroup:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CLawGroupObject:GetKey()
+function CLawGroup:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CLawGroupObject:IsValid()
+function CLawGroup:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end

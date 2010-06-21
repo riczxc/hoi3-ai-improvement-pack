@@ -1,17 +1,13 @@
-require('hoi3.Hoi3Object')
+require('hoi3.AbstractObject')
 
-CCountryDataBaseObject = Hoi3Object:subclass('hoi3.CCountryDataBaseObject')
+CCountryDataBase = AbstractObject:subclass('hoi3.CCountryDataBase')
 
 ---
 -- @since 1.3
 -- @param string countryCode
 -- @return CCountryTag 
-function CCountryDataBaseObject.GetTag(countryCode)
+function CCountryDataBase.GetTag(countryCode)
 	Hoi3Object.assertParameterType(1, countryCode, 'string')
 	
 	Hoi3Object.throwNotYetImplemented()
 end
-
--- CCountryDataBase has static methods and properties
--- we need to declare a CCountryDataBase table 
-CCountryDataBase = CCountryDataBaseObject

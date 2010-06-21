@@ -1,60 +1,60 @@
 require('hoi3.Hoi3Object')
 
-CTechnologyObject = Hoi3Object:subclass('hoi3.CTechnologyObject')
+CTechnology = Hoi3Object:subclass('hoi3.CTechnology')
 
 ---
 -- @since 1.3 
 -- @return bool
-function CTechnologyObject:CanResearch(...)
+function CTechnology:CanResearch(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3 
 -- @return bool
-function CTechnologyObject:CanUpgrade(...)
+function CTechnology:CanUpgrade(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CTechnologyObject:GetDifficulty()
+function CTechnology:GetDifficulty()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CTechnologyObject:GetEnableUnit()
+function CTechnology:GetEnableUnit()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CTechnologyFolder
-function CTechnologyObject:GetFolder()
+function CTechnology:GetFolder()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CTechnologyObject:GetIndex()
+function CTechnology:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return Cstring
-function CTechnologyObject:GetKey()
+function CTechnology:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3 
 -- @return unknown
-function CTechnologyObject:GetOnCompletion(...)
+function CTechnology:GetOnCompletion(...)
 	Hoi3Object.throwUnknownSignature()
 	Hoi3Object.throwUnknownReturnType()
 end
@@ -62,20 +62,20 @@ end
 ---
 -- @since 1.3
 -- @return table<CResearchBonus>
-function CTechnologyObject:GetResearchBonus()
+function CTechnology:GetResearchBonus()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CTechnologyObject:IsOneLevelOnly()
+function CTechnology:IsOneLevelOnly()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CTechnologyObject:IsValid()
+function CTechnology:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end

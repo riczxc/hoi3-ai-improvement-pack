@@ -1,31 +1,31 @@
 require('hoi3.api.CDiplomaticAction')
 
-CLicenceTechnologyActionObject = CDiplomaticActionObject:subclass('hoi3.CLicenceTechnologyAction')
+CLicenceTechnologyAction = CDiplomaticAction:subclass('hoi3.CLicenceTechnologyAction')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CLicenceTechnologyActionObject:GetMoney()
+function CLicenceTechnologyAction:GetMoney()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CLicenceTechnologyActionObject:GetParalell()
+function CLicenceTechnologyAction:GetParalell()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CLicenceTechnologyActionObject:GetSerial()
+function CLicenceTechnologyAction:GetSerial()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CSubUnitDefinition
-function CLicenceTechnologyActionObject:GetSubunit()
+function CLicenceTechnologyAction:GetSubunit()
 	Hoi3Object.throwNotYetImplemented()
 end

@@ -1,12 +1,12 @@
 require('hoi3.Hoi3Object')
 
-CFlagsObject = Hoi3Object:subclass('hoi3.CFlagsObject')
+CFlags = Hoi3Object:subclass('hoi3.CFlags')
 
 ---
 -- @since 1.3
 -- @param string key
 -- @return bool
-function CFlagsObject:IsFlagSet(key)
+function CFlags:IsFlagSet(key)
 	Hoi3Object.assertParameterType(1, key, 'string')
 	
 	Hoi3Object.throwNotYetImplemented()

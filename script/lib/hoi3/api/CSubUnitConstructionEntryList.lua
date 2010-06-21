@@ -1,32 +1,32 @@
 require('hoi3.api.CList')
 
-CSubUnitConstructionEntryListObject = Hoi3Object:subclass('hoi3.CSubUnitConstructionEntryListObject')
+CSubUnitConstructionEntryList = Hoi3Object:subclass('hoi3.CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3
 -- @return CSubUnitConstructionEntry
-function CSubUnitConstructionEntryListObject:GetHeadData()
+function CSubUnitConstructionEntryList:GetHeadData()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitConstructionEntryListObject:GetSize()
+function CSubUnitConstructionEntryList:GetSize()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CSubUnitConstructionEntry
-function CSubUnitConstructionEntryListObject:GetTailData()
+function CSubUnitConstructionEntryList:GetTailData()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitConstructionEntryListObject:IsEmpty()
+function CSubUnitConstructionEntryList:IsEmpty()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -34,7 +34,7 @@ end
 -- @since 1.3
 -- @param CSubUnitConstructionEntry request
 -- @return void
-function CSubUnitConstructionEntryListObject:Remove(request)
+function CSubUnitConstructionEntryList:Remove(request)
 	Hoi3Object.assertParameterType(1, request, 'CSubUnitConstructionEntry')
 
 	Hoi3Object.throwNotYetImplemented()
@@ -43,13 +43,13 @@ end
 ---
 -- @since 1.3
 -- @return void
-function CSubUnitConstructionEntryListObject:RemoveHead()
+function CSubUnitConstructionEntryList:RemoveHead()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
-function CSubUnitConstructionEntryListObject:RemoveTail()
+function CSubUnitConstructionEntryList:RemoveTail()
 	Hoi3Object.throwNotYetImplemented()
 end

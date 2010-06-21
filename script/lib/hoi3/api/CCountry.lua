@@ -1,25 +1,25 @@
 require('hoi3.Hoi3Object')
 
-CCountryObject = Hoi3Object:subclass('hoi3.CCountryObject')
+CCountry = Hoi3Object:subclass('hoi3.CCountry')
 
 ---
 -- @since 1.3
 -- @return CIdeology 
-function CCountryObject:AccessIdeologyOrganization()
+function CCountry:AccessIdeologyOrganization()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CIdeology 
-function CCountryObject:AccessIdeologyPopularity()
+function CCountry:AccessIdeologyPopularity()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
-function CCountryObject:CalcDesperation()
+function CCountry:CalcDesperation()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -27,7 +27,7 @@ end
 -- @since 2.0
 -- @param CCountryTag  countryTag
 -- @return bool 
-function CCountryObject:CalculateIsAllied(countryTag)
+function CCountry:CalculateIsAllied(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -36,28 +36,28 @@ end
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:CalculateNumberOfActiveInfluences()
+function CCountry:CalculateNumberOfActiveInfluences()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
-function CCountryObject:CalculateReinforcementMultiplier()
+function CCountry:CalculateReinforcementMultiplier()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool 
-function CCountryObject:CanCreatePuppet()
+function CCountry:CanCreatePuppet()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool 
-function CCountryObject:Exists()
+function CCountry:Exists()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -65,7 +65,7 @@ end
 -- @since 1.3
 -- @param CTechnologyCategory  category
 -- @return bool 
-function CCountryObject:GetAbility(category)
+function CCountry:GetAbility(category)
 	Hoi3Object.assertParameterType(1, category, 'CTechnologyCategory')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -74,42 +74,42 @@ end
 ---
 -- @since 1.3
 -- @return CProvince 
-function CCountryObject:GetActingCapitalLocation()
+function CCountry:GetActingCapitalLocation()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CProvince> 
-function CCountryObject:GetAirBases()
+function CCountry:GetAirBases()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CAlignment 
-function CCountryObject:GetAlignment()
+function CCountry:GetAlignment()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown 
-function CCountryObject:GetAlignmentCord()
+function CCountry:GetAlignmentCord()
 	Hoi3Object.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetAllowedResearchSlots()
+function CCountry:GetAllowedResearchSlots()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetAvailableIC()
+function CCountry:GetAvailableIC()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -117,7 +117,7 @@ end
 -- @since 1.3
 -- @param CBuilding  building
 -- @return CFixedPoint 
-function CCountryObject:GetBuildCost(building)
+function CCountry:GetBuildCost(building)
 	Hoi3Object.assertParameterType(1, building, 'CBuilding')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -129,7 +129,7 @@ end
 -- @param number quantity
 -- @param bool buildReserve
 -- @return CFixedPoint 
-function CCountryObject:GetBuildCostIC(pUnit, quantity, buildReserve)
+function CCountry:GetBuildCostIC(pUnit, quantity, buildReserve)
 	Hoi3Object.assertParameterType(1, pUnit, 'CSubUnitDefinition')
 	Hoi3Object.assertParameterType(2, quantity, 'number')
 	Hoi3Object.assertParameterType(3, buildReserve, 'boolean')
@@ -143,7 +143,7 @@ end
 -- @param number quantity
 -- @param bool buildReserve
 -- @return CFixedPoint 
-function CCountryObject:GetBuildCostMP(pUnit, quantity, buildReserve)
+function CCountry:GetBuildCostMP(pUnit, quantity, buildReserve)
 	Hoi3Object.assertParameterType(1, pUnit, 'CSubUnitDefinition')
 	Hoi3Object.assertParameterType(2, quantity, 'number')
 	Hoi3Object.assertParameterType(3, buildReserve, 'boolean')
@@ -154,98 +154,98 @@ end
 ---
 -- @since 1.3
 -- @return unknown 
-function CCountryObject:GetBuildTime(...)
+function CCountry:GetBuildTime(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return number  
-function CCountryObject:GetCapital()
+function CCountry:GetCapital()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CProvince 
-function CCountryObject:GetCapitalLocation()
+function CCountry:GetCapitalLocation()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return table<CProvince> 
-function CCountryObject:GetControlledProvinces()
+function CCountry:GetControlledProvinces()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return table<CProvince> 
-function CCountryObject:GetCoreProvinces()
+function CCountry:GetCoreProvinces()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return table<CConstruction>
-function CCountryObject:GetConstructions()
+function CCountry:GetConstructions()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
-function CCountryObject:GetConvoyBuildCost()
+function CCountry:GetConvoyBuildCost()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
-function CCountryObject:GetConvoyBuildTime()
+function CCountry:GetConvoyBuildTime()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool 
-function CCountryObject:GetConvoyedIn()
+function CCountry:GetConvoyedIn()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool 
-function CCountryObject:GetConvoyedOut()
+function CCountry:GetConvoyedOut()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CConvoy> 
-function CCountryObject:GetConvoys()
+function CCountry:GetConvoys()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CCountryObject:GetCountryTag()
+function CCountry:GetCountryTag()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag> 
-function CCountryObject:GetCurrentAtWarWith()
+function CCountry:GetCurrentAtWarWith()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return table<CTechnology>
-function CCountryObject:GetCurrentResearch()
+function CCountry:GetCurrentResearch()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -253,7 +253,7 @@ end
 -- @since 1.3
 -- @param number goodIndex
 -- @return CFixedPoint
-function CCountryObject:GetDailyBalance(goodIndex)
+function CCountry:GetDailyBalance(goodIndex)
 	Hoi3Object.assertParameterType(1, goodIndex, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -263,7 +263,7 @@ end
 -- @since 1.3
 -- @param number goodIndex
 -- @return CFixedPoint
-function CCountryObject:GetDailyExpense(goodIndex)
+function CCountry:GetDailyExpense(goodIndex)
 	Hoi3Object.assertParameterType(1, goodIndex, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -273,7 +273,7 @@ end
 -- @since 1.3
 -- @param number goodIndex
 -- @return CFixedPoint
-function CCountryObject:GetDailyIncome(goodIndex)
+function CCountry:GetDailyIncome(goodIndex)
 	Hoi3Object.assertParameterType(1, goodIndex, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -282,7 +282,7 @@ end
 ---
 -- @since 1.3
 -- @return table<CDiplomacyStatus>
-function CCountryObject:GetDiplomacy()
+function CCountry:GetDiplomacy()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -290,7 +290,7 @@ end
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return CFixedPoint
-function CCountryObject:GetDiplomaticDistance(countryTag)
+function CCountry:GetDiplomaticDistance(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -299,77 +299,77 @@ end
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetDiplomaticInfluence()
+function CCountry:GetDiplomaticInfluence()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetDissent()
+function CCountry:GetDissent()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetEffectiveNeutrality()
+function CCountry:GetEffectiveNeutrality()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetEscortBuildCost()
+function CCountry:GetEscortBuildCost()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetEscortBuildTime()
+function CCountry:GetEscortBuildTime()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetEscorts()
+function CCountry:GetEscorts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFaction
-function CCountryObject:GetFaction()
+function CCountry:GetFaction()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CModifier
-function CCountryObject:GetGlobalModifier()
+function CCountry:GetGlobalModifier()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CGovernment
-function CCountryObject:GetGovernment()
+function CCountry:GetGovernment()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CCountryObject:GetHighestThreat()
+function CCountry:GetHighestThreat()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return CGoodsPool
-function CCountryObject:GetHomeProduced()
+function CCountry:GetHomeProduced()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -377,7 +377,7 @@ end
 -- @since 1.3
 -- @param number distributionSetting
 -- @return CFixedPoint
-function CCountryObject:GetICPart(distributionSetting)
+function CCountry:GetICPart(distributionSetting)
 	Hoi3Object.assertParameterType(1, distributionSetting, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -387,7 +387,7 @@ end
 -- @since 1.3
 -- @param CLawGroup lawGroup
 -- @return CLaw
-function CCountryObject:GetLaw(lawGroup)
+function CCountry:GetLaw(lawGroup)
 	Hoi3Object.assertParameterType(1, lawGroup, 'CLawGroup')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -397,7 +397,7 @@ end
 -- @since 1.3
 -- @param number groupIndex
 -- @return CLaw
-function CCountryObject:GetLawFromIndex(groupIndex)
+function CCountry:GetLawFromIndex(groupIndex)
 	Hoi3Object.assertParameterType(1, groupIndex, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -407,7 +407,7 @@ end
 -- @since 1.3
 -- @param number distributionSetting
 -- @return CDistributionSetting
-function CCountryObject:GetLeadershipDistributionAt(distributionSetting)
+function CCountry:GetLeadershipDistributionAt(distributionSetting)
 	Hoi3Object.assertParameterType(1, distributionSetting, 'number')
 
 	Hoi3Object.throwNotYetImplemented()
@@ -416,14 +416,14 @@ end
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetManpower()
+function CCountry:GetManpower()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetMaxIC()
+function CCountry:GetMaxIC()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -431,7 +431,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  countryTag
 -- @return CFixedPoint
-function CCountryObject:GetMaxNeutralityForWarWith(countryTag)
+function CCountry:GetMaxNeutralityForWarWith(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 
 	Hoi3Object.throwNotYetImplemented()
@@ -441,126 +441,126 @@ end
 -- @since 2.0
 -- @param number positionIndex
 -- @return CMinister
-function CCountryObject:GetMinister(positionIndex)
+function CCountry:GetMinister(positionIndex)
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetMoneyBalanceAverage()
+function CCountry:GetMoneyBalanceAverage()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetNationalUnity()
+function CCountry:GetNationalUnity()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CProvince>
-function CCountryObject:GetNavalBases()
+function CCountry:GetNavalBases()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CProvince>
-function CCountryObject:GetNeighbours()
+function CCountry:GetNeighbours()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetNeutrality()
+function CCountry:GetNeutrality()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetNumberOfControlledProvinces()
+function CCountry:GetNumberOfControlledProvinces()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetNumberOfCurrentResearch()
+function CCountry:GetNumberOfCurrentResearch()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetNumberOfOwnedProvinces()
+function CCountry:GetNumberOfOwnedProvinces()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetNumOfAllies()
+function CCountry:GetNumOfAllies()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number 
-function CCountryObject:GetNumOfAirfields()
+function CCountry:GetNumOfAirfields()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetNumOfPorts()
+function CCountry:GetNumOfPorts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetOfficerRatio()
+function CCountry:GetOfficerRatio()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CCountryObject:GetOverlord()
+function CCountry:GetOverlord()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<number>
-function CCountryObject:GetOwnedProvinces()
+function CCountry:GetOwnedProvinces()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CGoodsPool
-function CCountryObject:GetPool()
+function CCountry:GetPool()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
-function CCountryObject:GetPossibleLiberations()
+function CCountry:GetPossibleLiberations()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
-function CCountryObject:GetPossiblePuppets()
+function CCountry:GetPossiblePuppets()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -568,7 +568,7 @@ end
 -- @since 1.3
 -- @param number distributionSetting
 -- @return CDistributionSetting
-function CCountryObject:GetProductionDistributionAt(distributionSetting)
+function CCountry:GetProductionDistributionAt(distributionSetting)
 	Hoi3Object.assertParameterType(1, distributionSetting, 'CDistributionSetting')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -578,7 +578,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  countryTag
 -- @return CDiplomacyStatus
-function CCountryObject:GetRelation(countryTag)
+function CCountry:GetRelation(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -587,14 +587,14 @@ end
 ---
 -- @since 1.3
 -- @return CRule
-function CCountryObject:GetRules()
+function CCountry:GetRules()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CIdeology
-function CCountryObject:GetRulingIdeology()
+function CCountry:GetRulingIdeology()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -602,7 +602,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  countryTag
 -- @return CSpyPresence
-function CCountryObject:GetSpyPresence(countryTag)
+function CCountry:GetSpyPresence(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -611,49 +611,49 @@ end
 ---
 -- @since 2.0
 -- @return table<CCountryTag>
-function CCountryObject:GetSpyingOnUs()
+function CCountry:GetSpyingOnUs()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CStrategicWarfare
-function CCountryObject:GetStrategicWarfare()
+function CCountry:GetStrategicWarfare()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CAIStrategy
-function CCountryObject:GetStrategy()
+function CCountry:GetStrategy()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetSupplyBalanceAverage()
+function CCountry:GetSupplyBalanceAverage()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetSurrenderLevel()
+function CCountry:GetSurrenderLevel()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CTechnologyStatus
-function CCountryObject:GetTechnologyStatus()
+function CCountry:GetTechnologyStatus()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return number 
-function CCountryObject:GetTotalConvoyTransports()
+function CCountry:GetTotalConvoyTransports()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -661,7 +661,7 @@ end
 -- @since 2.0
 -- @param number buildingIndex
 -- @return number 
-function CCountryObject:GetTotalCoreBuildingLevels(buildingIndex)
+function CCountry:GetTotalCoreBuildingLevels(buildingIndex)
 	Hoi3Object.assertParameterType(1, buildingIndex, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -670,91 +670,91 @@ end
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetTotalIC()
+function CCountry:GetTotalIC()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetTotalLeadership()
+function CCountry:GetTotalLeadership()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetTotalNeededConvoyTransports()
+function CCountry:GetTotalNeededConvoyTransports()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetTotalNeededTransports()
+function CCountry:GetTotalNeededTransports()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool
-function CCountryObject:GetTotalProduced()
+function CCountry:GetTotalProduced()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool
-function CCountryObject:GetTradedAway()
+function CCountry:GetTradedAway()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return CGoodsPool
-function CCountryObject:GetTradedAwaySansAlliedSupply()
+function CCountry:GetTradedAwaySansAlliedSupply()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool
-function CCountryObject:GetTradedFor()
+function CCountry:GetTradedFor()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return CGoodsPool
-function CCountryObject:GetTradedForSansAlliedSupply()
+function CCountry:GetTradedForSansAlliedSupply()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CCountryObject:GetTransports()
+function CCountry:GetTransports()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CUnitList
-function CCountryObject:GetUnits()
+function CCountry:GetUnits()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return table<CUnit>
-function CCountryObject:GetUnitsIterator()
+function CCountry:GetUnitsIterator()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CCountryObject:GetUsedIC()
+function CCountry:GetUsedIC()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -762,7 +762,7 @@ end
 -- @since 1.4
 -- @param string key
 -- @return CFixedPoint
-function CCountryObject:GetVariable(key)
+function CCountry:GetVariable(key)
 	Hoi3Object.assertParameterType(1, key, 'string')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -771,21 +771,21 @@ end
 ---
 -- @since 1.4
 -- @return CVariables
-function CCountryObject:GetVariables()
+function CCountry:GetVariables()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
-function CCountryObject:GetVassals()
+function CCountry:GetVassals()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:HasConstruction()
+function CCountry:HasConstruction()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -793,7 +793,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  countryTag
 -- @return bool
-function CCountryObject:HasDiplomatEnroute(countryTag)
+function CCountry:HasDiplomatEnroute(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -802,14 +802,14 @@ end
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:HasExtraManpowerLeft()
+function CCountry:HasExtraManpowerLeft()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:HasFaction()
+function CCountry:HasFaction()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -817,7 +817,7 @@ end
 -- @since 1.3
 -- @param CFaction faction
 -- @return bool
-function CCountryObject:HasNeighborInFaction(faction)
+function CCountry:HasNeighborInFaction(faction)
 	Hoi3Object.assertParameterType(1, faction, 'CFaction')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -826,7 +826,7 @@ end
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:IsAtWar()
+function CCountry:IsAtWar()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -835,7 +835,7 @@ end
 -- @param CBuilding  building
 -- @param CProvince  province
 -- @return bool
-function CCountryObject:IsBuildingAllowed(building, province)
+function CCountry:IsBuildingAllowed(building, province)
 	Hoi3Object.assertParameterType(1, building, 'CBuilding')
 	Hoi3Object.assertParameterType(2, province, 'CProvince')
 	
@@ -846,7 +846,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  otherCountryTag
 -- @return bool
-function CCountryObject:IsEnemy(otherCountryTag)
+function CCountry:IsEnemy(otherCountryTag)
 	Hoi3Object.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -855,7 +855,7 @@ end
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:IsFactionLeader()
+function CCountry:IsFactionLeader()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -864,7 +864,7 @@ end
 -- @param CCountryTag  otherCountryTag
 -- @param bool unknownFlag
 -- @return bool
-function CCountryObject:IsFriend(otherCountryTag, unknownFlag)
+function CCountry:IsFriend(otherCountryTag, unknownFlag)
 	Hoi3Object.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, unknownFlag, 'boolean')
 	
@@ -874,21 +874,21 @@ end
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:IsGovernmentInExile()
+function CCountry:IsGovernmentInExile()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:IsMajor()
+function CCountry:IsMajor()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:IsMobilized()
+function CCountry:IsMobilized()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -896,7 +896,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  otherCountryTag
 -- @return bool
-function CCountryObject:IsNeighbour(otherCountryTag)
+function CCountry:IsNeighbour(otherCountryTag)
 	Hoi3Object.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -907,7 +907,7 @@ end
 -- @param CFaction  faction
 -- @param bool unknownFlag
 -- @return bool
-function CCountryObject:IsNeighbourToFactionHostile(faction, unknownFlag)
+function CCountry:IsNeighbourToFactionHostile(faction, unknownFlag)
 	Hoi3Object.assertParameterType(1, faction, 'CFaction')
 	Hoi3Object.assertParameterType(2, unknownFlag, 'boolean')
 	
@@ -917,14 +917,14 @@ end
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:isPuppet()
+function CCountry:isPuppet()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:IsSubject()
+function CCountry:IsSubject()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -932,7 +932,7 @@ end
 -- @since 1.3
 -- @param CCountryTag  countryTag
 -- @return bool
-function CCountryObject:NeedConvoyToTradeWith(countryTag)
+function CCountry:NeedConvoyToTradeWith(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -941,6 +941,6 @@ end
 ---
 -- @since 1.3
 -- @return bool
-function CCountryObject:MayLiberateCountries()
+function CCountry:MayLiberateCountries()
 	Hoi3Object.throwNotYetImplemented()
 end

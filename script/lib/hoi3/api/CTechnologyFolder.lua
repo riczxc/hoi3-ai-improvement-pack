@@ -1,24 +1,24 @@
 require('hoi3.Hoi3Object')
 
-CTechnologyFolderObject = Hoi3Object:subclass('hoi3.CTechnologyFolderObject')
+CTechnologyFolder = Hoi3Object:subclass('hoi3.CTechnologyFolder')
 
 ---
 -- @since 1.3 
 -- @return number
-function CTechnologyFolderObject:GetIndex()
+function CTechnologyFolder:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3 
 -- @return CString
-function CTechnologyFolderObject:GetKey()
+function CTechnologyFolder:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3 
 -- @return bool
-function CTechnologyFolderObject:IsValid()
+function CTechnologyFolder:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end

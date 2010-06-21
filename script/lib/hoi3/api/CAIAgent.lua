@@ -1,24 +1,24 @@
 require('hoi3.api.CAISubscriber')
 
-CAIAgentObject = CAISubscriberObject:subclass('hoi3.CAIAgentObject')
+CAIAgent = CAISubscriber:subclass('hoi3.CAIAgent')
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CAIAgentObject:GetCountryTag()
+function CAIAgent:GetCountryTag()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountry
-function CAIAgentObject:GetCountry()
+function CAIAgent:GetCountry()
 	Hoi3Object.throwNotYetImplemented()
 end
   
 ---
 -- @since 1.3
 -- @return CAI
-function CAIAgentObject:GetOwnerAI()
+function CAIAgent:GetOwnerAI()
 	Hoi3Object.throwNotYetImplemented()
 end

@@ -1,10 +1,10 @@
 require('hoi3.api.CList')
 
-CCountryTagListObject = CListObject:subclass('hoi3.CCountryTagListObject')
+CCountryTagList = CList:subclass('hoi3.CCountryTagList')
 
 ---
 -- @since 1.3
 -- @return bool
-function CCountryTagListObject:IsEnemy(...)
+function CCountryTagList:IsEnemy(...)
 	Hoi3Object.throwUnknownSignature()
 end  

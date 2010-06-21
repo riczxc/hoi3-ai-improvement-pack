@@ -1,32 +1,32 @@
 require('hoi3.Hoi3Object')
 
-CLawObject = Hoi3Object:subclass('hoi3.CLawObject')
+CLaw = Hoi3Object:subclass('hoi3.CLaw')
 
 ---
 -- @since 1.3
 -- @return CLawGroup
-function CLawObject:GetGroup()
+function CLaw:GetGroup()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CLawObject:GetIndex()
+function CLaw:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return string
-function CLawObject:GetKey()
+function CLaw:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CLawObject:IsValid()
+function CLaw:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -34,7 +34,7 @@ end
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return bool
-function CLawObject:ValidFor(countryTag)
+function CLaw:ValidFor(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 
 	Hoi3Object.throwNotYetImplemented()

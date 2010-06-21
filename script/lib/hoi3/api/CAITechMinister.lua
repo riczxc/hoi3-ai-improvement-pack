@@ -1,12 +1,12 @@
 require('hoi3.api.CAIAgent')
 
-CAITechMinisterObject = CAIAgentObject:subclass('hoi3.CAITechMinisterObject')
+CAITechMinister = CAIAgent:subclass('hoi3.CAITechMinister')
 
 ---
 -- @since 1.3
 -- @param CTechnology tech
 -- @return bool
-function CAITechMinisterObject:CanResearch(tech)
+function CAITechMinister:CanResearch(tech)
 	Hoi3Object.assertParameterType(1, tech, 'CTechnology')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -15,13 +15,13 @@ end
 ---
 -- @since 1.3
 -- @return CArrayFix
-function CAITechMinisterObject:GetFolderModifers()
+function CAITechMinister:GetFolderModifers()
 	Hoi3Object.throwNotYetImplemented()
 end  
 
 ---
 -- @since 1.3
 -- @return CArrayFix
-function CAITechMinisterObject:GetTechModifers()
+function CAITechMinister:GetTechModifers()
 	Hoi3Object.throwNotYetImplemented()
 end  

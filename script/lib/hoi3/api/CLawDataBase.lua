@@ -1,11 +1,11 @@
-require('hoi3.Hoi3Object')
+require('hoi3.AbstractObject')
 
-CLawDataBaseObject = Hoi3Object:subclass('hoi3.CLawDataBaseObject')
+CLawDataBase = AbstractObject:subclass('hoi3.CLawDataBase')
 
 ---
 -- @since 1.3
 -- @return table<CLawGroup>
-function CLawDataBaseObject.GetGroups()	
+function CLawDataBase.GetGroups()	
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -13,7 +13,7 @@ end
 -- @since 1.3
 -- @param number index
 -- @return CLawGroup 
-function CLawDataBaseObject.GetLawGroup(index)
+function CLawDataBase.GetLawGroup(index)
 	Hoi3Object.assertParameterType(1, index, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -23,7 +23,7 @@ end
 -- @since 1.3
 -- @param number index
 -- @return CLaw 
-function CLawDataBaseObject.CLaw(index)
+function CLawDataBase.CLaw(index)
 	Hoi3Object.assertParameterType(1, index, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -32,24 +32,20 @@ end
 ---
 -- @since 1.3
 -- @return table<CLaw>
-function CLawDataBaseObject.GetLawList()	
+function CLawDataBase.GetLawList()	
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CLawDataBaseObject.GetNumberOfLawGroups()	
+function CLawDataBase.GetNumberOfLawGroups()	
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CLawDataBaseObject.GetNumberOfLaws()	
+function CLawDataBase.GetNumberOfLaws()	
 	Hoi3Object.throwNotYetImplemented()
 end
-
--- CLawDataBase has static methods and properties
--- we need to declare a CLawDataBase table 
-CLawDataBase = CLawDataBaseObject

@@ -1,11 +1,11 @@
 require('hoi3.api.CCommand')
 
-CSetFlagCommandObject = CCommandObject:subclass('hoi3.CSetFlagCommandObject')
+CSetFlagCommand = CCommand:subclass('hoi3.CSetFlagCommand')
 
 ---
 -- @since 1.3
--- @return CChangeInvestmentCommandObject 
-function CSetFlagCommandObject:Clone()
+-- @return CChangeInvestmentCommand 
+function CSetFlagCommand:Clone()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -14,8 +14,8 @@ end
 -- @param CCountryTag  Which
 -- @param string Flag
 -- @param bool bSet = true
--- @return CSetFlagCommandObject
-function CSetFlagCommand(which, flag, bSet)
+-- @return CSetFlagCommand
+function CSetFlagCommand:initialize(which, flag, bSet)
 	Hoi3Object.assertParameterType(1, which, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, flag, 'string')
 	Hoi3Object.assertParameterType(3, bSet, 'boolean')

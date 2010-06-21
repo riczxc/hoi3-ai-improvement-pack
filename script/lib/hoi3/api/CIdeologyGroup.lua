@@ -1,17 +1,17 @@
 require('hoi3.Hoi3Object')
 
-CIdeologyGroupObject = Hoi3Object:subclass('hoi3.CIdeologyGroupObject')
+CIdeologyGroup = Hoi3Object:subclass('hoi3.CIdeologyGroup')
 
 ---
 -- @since 1.3
 -- @return CFaction
-function CIdeologyGroupObject:GetFaction()
+function CIdeologyGroup:GetFaction()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CIdeologyGroupObject:GetPosition(...)
+function CIdeologyGroup:GetPosition(...)
 	Hoi3Object.throwUnknownSignature()
 end
