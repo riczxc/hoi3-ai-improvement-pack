@@ -476,6 +476,9 @@ function ForeignMinister_HandlePeace(minister)
 
 		elseif not(loInfluenceAction == nil) and liInfluenceLeft > 0  then
 			ai:PostAction(loInfluenceAction)
+		else
+			loInfluenceAction = nil
+			loInfluenceActionWorst = nil
 		end
 	end
 end

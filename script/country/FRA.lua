@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 France File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/18/2010
+-- Date Last Modified: 6/20/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -50,6 +50,10 @@ function P.LandTechs(minister)
 		"cavalry_support|3",
 		"cavalry_guns|3", 
 		"cavalry_at|3",
+		"militia_smallarms|0",
+		"militia_support|0",
+		"militia_guns|0",
+		"militia_at|0",
 		"marine_infantry|0",
 		"jungle_warfare_equipment|0",
 		"amphibious_warfare_equipment|0",
@@ -165,32 +169,18 @@ end
 -- Production Weights
 --   1.0 = 100% the total needs to equal 1.0
 function P.ProductionWeights(minister)
-	local rValue
+	local laArray = {
+		0.60, -- Land
+		0.20, -- Air
+		0.15, -- Sea
+		0.05}; -- Other
 	
-	if minister:GetCountry():IsAtWar() then
-		local laArray = {
-			0.50, -- Land
-			0.25, -- Air
-			0.20, -- Sea
-			0.05}; -- Other
-		
-		rValue = laArray	
-	else
-		local laArray = {
-			0.40, -- Land
-			0.25, -- Air
-			0.20, -- Sea
-			0.15}; -- Other
-		
-		rValue = laArray
-	end
-	
-	return rValue
+	return laArray
 end
 -- Land ratio distribution
 function P.LandRatio(minister)
 	local laArray = {
-		2, -- Garrison
+		0, -- Garrison
 		15, -- Infantry
 		2, -- Motorized
 		1, -- Mechanized

@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Germany File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/18/2010
+-- Date Last Modified: 6/20/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -221,15 +221,15 @@ function P.ProductionWeights(minister)
 		-- Desperation check and if so heavy production of land forces
 		if ministerCountry:CalcDesperation():Get() > 0.4 then
 			laArray = {
-				0.65, -- Land
-				0.30, -- Air
+				0.75, -- Land
+				0.20, -- Air
 				0.05, -- Sea
 				0.0}; -- Other
 		else
 			laArray = {
-				0.50, -- Land
-				0.25, -- Air
-				0.20, -- Sea
+				0.65, -- Land
+				0.20, -- Air
+				0.10, -- Sea
 				0.05}; -- Other
 		end
 	else
@@ -417,10 +417,12 @@ end
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsRepTag = tostring(recipient)
 	
-	if lsRepTag == "ITA" or lsRepTag == "JAP" then
-		score = score + 100
+	if lsRepTag == "JAP" then
+		score = score + 999
+	elseif lsRepTag == "ITA" then
+		score = score + 800
 	elseif lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" then
-		score = score + 60
+		score = score + 120
 	elseif lsRepTag == "AST" or lsRepTag == "CAN" or lsRepTag == "SAF" or lsRepTag == "NZL" then
 		score = score - 20
 	end
