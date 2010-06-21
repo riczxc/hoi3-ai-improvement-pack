@@ -154,15 +154,25 @@ end
 --   1.0 = 100% the total needs to equal 1.0
 function P.ProductionWeights(minister)
 	local rValue
+	local lbAtWar = minister:GetCountry():IsAtWar()
 	
-	if CCurrentGameState.GetCurrentDate():GetYear() <= 1938 and not(minister:GetCountry():IsAtWar()) then
+	if CCurrentGameState.GetCurrentDate():GetYear() <= 1938 and not(lbAtWar) then
 		local laArray = {
 			0.20, -- Land
 			0.25, -- Air
 			0.40, -- Sea
 			0.15}; -- Other
 		
-		rValue = laArray	
+		rValue = laArray
+	elseif lbAtWar then
+		local laArray = {
+			0.50, -- Land
+			0.20, -- Air
+			0.25, -- Sea
+			0.05}; -- Other
+		
+		rValue = laArray
+	
 	else
 		local laArray = {
 			0.40, -- Land
