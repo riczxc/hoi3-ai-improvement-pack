@@ -5,21 +5,9 @@ CAI = Hoi3Object:subclass('hoi3.CAI')
 --- 
 -- @since 1.4
 CAI._DIPLOMACY_	= 1 
-
---- 
--- @since 1.4
 CAI._INTELLIGENCE_ = 2
-
---- 
--- @since 1.4
 CAI._POLITICS_ = 3
-
---- 
--- @since 1.4
 CAI._PRODUCTION_ = 4
-
---- 
--- @since 1.4
 CAI._TECHNOLOGY_ = 5
 
 ---
@@ -29,8 +17,14 @@ CAI._TECHNOLOGY_ = 5
 function CAI:AlreadyTradingDisabledResource(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("AlreadyTradingDisabledResource", route)
 end 
+
+--[[
+function CAI:AlreadyTradingDisabledResourceFake(route)
+	return false
+end
+]]
 
 ---
 -- @since 1.3
@@ -39,7 +33,7 @@ end
 function CAI:AlreadyTradingResourceOtherWay(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("AlreadyTradingResourceOtherWay", route)
 end 
 
 ---
@@ -47,11 +41,11 @@ end
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:CanDeclareWar(countryTagA,  countryTagB)
+function CAI:CanDeclareWar(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("CanDeclareWar", countryTagA, countryTagB)
 end
 
 ---
@@ -63,7 +57,7 @@ function CAI:CanTradeFreeResources(countryTagA,  countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("CanTradeFreeResources", countryTagA, countryTagB)
 end
 
 ---
@@ -74,10 +68,14 @@ end
 function CAI:EvaluateCancelTrades(needs,  goodsType)
 	Hoi3Object.assertParameterType(1, needs, 'number')
 	Hoi3Object.assertParameterType(2, goodsType, 'number')
-	
+
 	assert(goodsType < CGoodsPool._GC_NUMOF_ + 1, string.format("goodsType must be lower than %d", CGoodsPool._GC_NUMOF_ + 1))
 	assert(goodsType > 0, string.format("goodsType must be greater than %d", 0))
-		
+	
+	return self:loadResultOrFake("EvaluateCancelTrades", needs,  goodsType)
+end
+
+function CAI:EvaluateCancelTradesFake(needs, goodsType)
 	-- Simulate trade cancelation
 	if needs > 0 then
 	   return needs - 1
@@ -98,7 +96,7 @@ function CAI:GetAmountTradedFrom(goodsType, from,  to)
 	Hoi3Object.assertParameterType(2, from, 'CCountryTag')
 	Hoi3Object.assertParameterType(3, to, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("GetAmountTradedFrom", goodsType, from,  to)
 end
 
 ---
@@ -117,7 +115,7 @@ function CAI:GetCountryAlignmentDistance(countryA, countryB)
 	Hoi3Object.assertParameterType(1, countryA, 'CCountry')
 	Hoi3Object.assertParameterType(2, countryB, 'CCountry')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("GetCountryAlignmentDistance", countryA, countryB)
 end
 
 ---
@@ -125,7 +123,8 @@ end
 -- @return CDate
 -- @static
 function CAI.GetCurrentDate()
-	return CDate:new()
+	
+	return CAI.loadResultOrFake(CAI, "GetCurrentDate")
 end
 
 ---
@@ -133,14 +132,14 @@ end
 -- @return string
 -- @static
 function CAI.GetCommonModDirectory()
-	Hoi3Object.throwNotYetImplemented()
+	return CAI.loadResultOrFake(CAI, "GetCommonModDirectory")
 end
 
 ---
 -- @since 2.0
 -- @return CArrayFix
 function CAI:GetDeployedSubUnitCounts()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("GetDeployedSubUnitCounts")
 end
 
 ---
@@ -148,7 +147,7 @@ end
 -- @return string
 -- @static
 function CAI.GetModDirectory()
-	Hoi3Object.throwNotYetImplemented()
+	return CAI.loadResultOrFake(CAI, "GetModDirectory")
 end
 
 ---
@@ -160,7 +159,7 @@ function CAI:GetNormalizedAlignmentDistance(country, faction)
 	Hoi3Object.assertParameterType(1, country, 'CCountry')
 	Hoi3Object.assertParameterType(2, faction, 'CFaction')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("GetNormalizedAlignmentDistance",country, faction)
 end
 
 ---
@@ -170,7 +169,7 @@ end
 function CAI:GetNumberOfOwnedProvinces(countryTag)
 	Hoi3Object.assertParameterType(1, country, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFake("GetNumberOfOwnedProvinces",countryTag)
 end
 
 ---

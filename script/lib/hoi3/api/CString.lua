@@ -22,7 +22,7 @@ end
 -- @since 1.3
 -- @param string str
 -- @return Cstring
-function Cstring:initialize(str)
+function CString:initialize(str)
 	Hoi3Object.assertParameterType(1, str, 'string')
 
 	Hoi3Object.throwNotYetImplemented()
