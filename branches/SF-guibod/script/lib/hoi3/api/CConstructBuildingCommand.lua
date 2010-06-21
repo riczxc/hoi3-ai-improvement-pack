@@ -1,6 +1,6 @@
 require('hoi3.api.CCommand')
 
-CConstructBuildingCommandObject = CCommandObject:subclass('hoi3.CConstructBuildingCommandObject')
+CConstructBuildingCommand = CCommand:subclass('hoi3.CConstructBuildingCommand')
 
 ---
 -- @since 1.3
@@ -8,8 +8,8 @@ CConstructBuildingCommandObject = CCommandObject:subclass('hoi3.CConstructBuildi
 -- @param CBuilding building
 -- @param number provinceId
 -- @param number quantity
--- @return CConstructBuildingCommandObject
-function CConstructBuildingCommand(actor, building, provinceId, quantity)
+-- @return CConstructBuildingCommand
+function CConstructBuildingCommand:initialize(actor, building, provinceId, quantity)
 	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, target, 'CBuilding')
 	Hoi3Object.assertParameterType(3, provinceId, 'number')

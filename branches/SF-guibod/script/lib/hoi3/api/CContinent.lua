@@ -1,17 +1,17 @@
 require('hoi3.Hoi3Object')
 
-CContinentObject = Hoi3Object:subclass('hoi3.CContinentObject')
+CContinent = Hoi3Object:subclass('hoi3.CContinent')
 
 ---
 -- @since 1.3
 -- @return unknown 
-function CContinentObject:GetName()
+function CContinent:GetName()
 	Hoi3Object.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CContinentObject:GetTag()
+function CContinent:GetTag()
 	Hoi3Object.throwUnknownReturnType()
 end

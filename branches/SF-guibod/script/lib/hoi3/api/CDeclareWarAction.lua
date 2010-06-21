@@ -1,13 +1,13 @@
 require('hoi3.api.CDiplomaticAction')
 
-CDeclareWarActionObject = CDiplomaticActionObject:subclass('hoi3.CDeclareWarActionObject')
+CDeclareWarAction = CDiplomaticAction:subclass('hoi3.CDeclareWarAction')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
--- @return CDeclareWarActionObject
-function CDeclareWarAction(countryTagA, countryTagB)
+-- @return CDeclareWarAction
+function CDeclareWarAction:initialize(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 

@@ -1,49 +1,49 @@
 require('hoi3.api.CAction')
 
-CDiplomaticActionObject = CActionObject:subclass('hoi3.CDiplomaticActionObject')
+CDiplomaticAction = CAction:subclass('hoi3.CDiplomaticAction')
 
-CDiplomaticActionObject.ACCEPT	= 1
-CDiplomaticActionObject.DECLINE = 2
-CDiplomaticActionObject.PROPOSE	= 3  
+CDiplomaticAction.ACCEPT	= 1
+CDiplomaticAction.DECLINE = 2
+CDiplomaticAction.PROPOSE	= 3  
 
 ---
 -- @since 1.3
 -- @return number
-function CDiplomaticActionObject:GetAIAcceptance()
+function CDiplomaticAction:GetAIAcceptance()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CDiplomaticActionObject:GetValue(...)
+function CDiplomaticAction:GetValue(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CDiplomaticActionObject:GetType(...)
+function CDiplomaticAction:GetType(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomaticActionObject:IsValid()
+function CDiplomaticAction:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomaticActionObject:IsSelectable()
+function CDiplomaticAction:IsSelectable()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CDiplomaticActionObject:SetValue(...)
+function CDiplomaticAction:SetValue(...)
 	Hoi3Object.throwUnknownSignature()
 end

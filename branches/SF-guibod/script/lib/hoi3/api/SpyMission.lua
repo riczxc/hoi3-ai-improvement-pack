@@ -1,23 +1,19 @@
-require('hoi3.Hoi3Object')
+require('hoi3.AbstractObject')
 
-SpyMissionObject = Hoi3Object:subclass('hoi3.SpyMission')
+SpyMission = AbstractObject:subclass('hoi3.SpyMission')
 
-SpyMissionObject.SPYMISSION_BOOST_OUR_PARTY  = 1
-SpyMissionObject.SPYMISSION_BOOST_RULING_PARTY = 2
-SpyMissionObject.SPYMISSION_COUNTER_ESPIONAGE  = 3
-SpyMissionObject.SPYMISSION_DISRUPT_PRODUCTION  = 4
-SpyMissionObject.SPYMISSION_DISRUPT_RESEARCH  = 5
-SpyMissionObject.SPYMISSION_INCREASE_THREAT  = 6
-SpyMissionObject.SPYMISSION_LOWER_NATIONAL_UNITY = 7
-SpyMissionObject.SPYMISSION_LOWER_NEUTRALITY = 8
-SpyMissionObject.SPYMISSION_MAX  = 9
-SpyMissionObject.SPYMISSION_MILITARY   = 10
-SpyMissionObject.SPYMISSION_NONE   = 11
-SpyMissionObject.SPYMISSION_POLITICAL   = 12
-SpyMissionObject.SPYMISSION_RAISE_NATIONAL_UNITY  = 13
-SpyMissionObject.SPYMISSION_SUPPORT_RESISTANCE  = 14
-SpyMissionObject.SPYMISSION_TECH   = 15
-
--- SpyMission has static methods and properties
--- we need to declare a SpyMission table
-SpyMission = SpyMissionObject
+SpyMission.SPYMISSION_BOOST_OUR_PARTY  = 1
+SpyMission.SPYMISSION_BOOST_RULING_PARTY = 2
+SpyMission.SPYMISSION_COUNTER_ESPIONAGE  = 3
+SpyMission.SPYMISSION_DISRUPT_PRODUCTION  = 4
+SpyMission.SPYMISSION_DISRUPT_RESEARCH  = 5
+SpyMission.SPYMISSION_INCREASE_THREAT  = 6
+SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY = 7
+SpyMission.SPYMISSION_LOWER_NEUTRALITY = 8
+SpyMission.SPYMISSION_MAX  = 9
+SpyMission.SPYMISSION_MILITARY   = 10
+SpyMission.SPYMISSION_NONE   = 11
+SpyMission.SPYMISSION_POLITICAL   = 12
+SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY  = 13
+SpyMission.SPYMISSION_SUPPORT_RESISTANCE  = 14
+SpyMission.SPYMISSION_TECH   = 15

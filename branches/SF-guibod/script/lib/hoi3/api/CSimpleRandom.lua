@@ -1,25 +1,25 @@
 require('hoi3.Hoi3Object')
 
-CSimpleRandomObject = Hoi3Object:subclass('hoi3.CSimpleRandomObject')
+CSimpleRandom = Hoi3Object:subclass('hoi3.CSimpleRandom')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CSimpleRandomObject:GetFixedPoint(...)
+function CSimpleRandom:GetFixedPoint(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSimpleRandomObject:GetInteger(...)
+function CSimpleRandom:GetInteger(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CSimpleRandomObject:GetNumber(...)
+function CSimpleRandom:GetNumber(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
@@ -27,7 +27,7 @@ end
 -- @since 1.3
 -- @param number seed
 -- @return void
-function CSimpleRandomObject:Seed(seed)
+function CSimpleRandom:Seed(seed)
 	Hoi3Object.assertParameterType(1, seed, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()

@@ -1,12 +1,12 @@
 require('hoi3.Hoi3Object')
 
-CMinisterObject = Hoi3Object:subclass('hoi3.CMinisterObject')
+CMinister = Hoi3Object:subclass('hoi3.CMinister')
 
 ---
 -- @since 2.0
 -- @param CGovernmentPosition position
 -- @return bool
-function CMinisterObject:CanTakePosition(position)
+function CMinister:CanTakePosition(position)
 	Hoi3Object.assertParameterType(1, position, 'CGovernmentPosition')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -15,7 +15,7 @@ end
 ---
 -- @since 2.0
 -- @return CIdeology
-function CMinisterObject:GetIdeology()
+function CMinister:GetIdeology()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -23,7 +23,7 @@ end
 -- @since 2.0
 -- @param number positionIndex
 -- @return CPersonality
-function CMinisterObject:GetPersonality(positionIndex)
+function CMinister:GetPersonality(positionIndex)
 	Hoi3Object.assertParameterType(1, positionIndex, 'number')
 	
 	Hoi3Object.throwNotYetImplemented()

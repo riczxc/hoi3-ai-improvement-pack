@@ -1,137 +1,137 @@
 require('hoi3.Hoi3Object')
 
-CDiplomacyStatusObject = Hoi3Object:subclass('hoi3.CDiplomacyStatusObject')
+CDiplomacyStatus = Hoi3Object:subclass('hoi3.CDiplomacyStatus')
 
 ---
 -- @since 1.3
 -- @return bool 
-function CDiplomacyStatusObject:AllowDebts()
+function CDiplomacyStatus:AllowDebts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CDiplomacyStatusObject:GetTarget()
+function CDiplomacyStatus:GetTarget()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CDiplomacyStatusObject:GetThreat()
+function CDiplomacyStatus:GetThreat()
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return table<CTradeRoute>
-function CDiplomacyStatusObject:GetTradeRoutes()
+function CDiplomacyStatus:GetTradeRoutes()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CDiplomacyStatusObject:GetValue()
+function CDiplomacyStatus:GetValue()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CWar
-function CDiplomacyStatusObject:GetWar()
+function CDiplomacyStatus:GetWar()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasAlliance()
+function CDiplomacyStatus:HasAlliance()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasAnyAgreement()
+function CDiplomacyStatus:HasAnyAgreement()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasEmbargo()
+function CDiplomacyStatus:HasEmbargo()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasFriendlyAgreement()
+function CDiplomacyStatus:HasFriendlyAgreement()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasHostileAgreement()
+function CDiplomacyStatus:HasHostileAgreement()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasMilitaryAccess()
+function CDiplomacyStatus:HasMilitaryAccess()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasNap()
+function CDiplomacyStatus:HasNap()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasTruce()
+function CDiplomacyStatus:HasTruce()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:HasWar()
+function CDiplomacyStatus:HasWar()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:IsBeingInfluenced()
+function CDiplomacyStatus:IsBeingInfluenced()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:IsFightingWarTogether()
+function CDiplomacyStatus:IsFightingWarTogether()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:IsGuaranteed()
+function CDiplomacyStatus:IsGuaranteed()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomacyStatusObject:IsGuaranting()
+function CDiplomacyStatus:IsGuaranting()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -139,7 +139,7 @@ end
 -- @since 1.3
 -- @param CFixedPoint relation
 -- @return void
-function CDiplomacyStatusObject:SetValue(relation)
+function CDiplomacyStatus:SetValue(relation)
 	Hoi3Object.assertParameterType(1, relation, 'CFixedPoint')
 	
 	Hoi3Object.throwNotYetImplemented()

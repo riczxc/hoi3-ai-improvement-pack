@@ -1,38 +1,38 @@
 require('hoi3.api.CAIAgent')
 
-CAIProductionMinisterObject = CAIAgentObject:subclass('hoi3.CAIProductionMinisterObject')
+CAIProductionMinister = CAIAgent:subclass('hoi3.CAIProductionMinister')
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinisterObject:CountEscortsUnderConstruction()
+function CAIProductionMinister:CountEscortsUnderConstruction()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinisterObject:CountTotalDesiredEscorts()
+function CAIProductionMinister:CountTotalDesiredEscorts()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinisterObject:CountTransportsUnderConstruction()
+function CAIProductionMinister:CountTransportsUnderConstruction()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinisterObject:GetDesperation()
+function CAIProductionMinister:GetDesperation()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
-function CAIProductionMinisterObject:PrioritizeBuildQueue()
+function CAIProductionMinister:PrioritizeBuildQueue()
 	Hoi3Object.throwUnknownSignature()
 end

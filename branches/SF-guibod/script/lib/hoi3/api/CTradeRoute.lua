@@ -1,26 +1,26 @@
 require('hoi3.Hoi3Object')
 
-CTradeRouteObject = Hoi3Object:subclass('hoi3.CTradeRouteObject')
+CTradeRoute = Hoi3Object:subclass('hoi3.CTradeRoute')
 
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CTradeRouteObject:GetConvoyResponsible()
+function CTradeRoute:GetConvoyResponsible()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CTradeRouteObject:GetFrom()
+function CTradeRoute:GetFrom()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CTradeRouteObject:GetCost(...)
+function CTradeRoute:GetCost(...)
 	Hoi3Object.throwUnknownSignature()
 	Hoi3Object.throwUnknownReturnType()
 end
@@ -28,7 +28,7 @@ end
 ---
 -- @since 1.3
 -- @return unknown
-function CTradeRouteObject:GetLastInactive(...)
+function CTradeRoute:GetLastInactive(...)
 	Hoi3Object.throwUnknownSignature()
 	Hoi3Object.throwUnknownReturnType()
 end
@@ -36,7 +36,7 @@ end
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CTradeRouteObject:GetTo()
+function CTradeRoute:GetTo()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -44,7 +44,7 @@ end
 -- @since 1.3
 -- @param number goodsType
 -- @return CFixedPoint 
-function CTradeRouteObject:GetTradedFromOf(goodsType)
+function CTradeRoute:GetTradedFromOf(goodsType)
 	Hoi3Object.assertParameterType(1, goodsType, 'number')
 	Hoi3Object.throwNotYetImplemented()
 end
@@ -53,7 +53,7 @@ end
 -- @since 1.3
 -- @param number goodsType
 -- @return CFixedPoint 
-function CTradeRouteObject:GetTradedToOf(goodsType)
+function CTradeRoute:GetTradedToOf(goodsType)
 	Hoi3Object.assertParameterType(1, goodsType, 'number')
 	Hoi3Object.throwNotYetImplemented()
 end
@@ -61,13 +61,13 @@ end
 ---
 -- @since 1.3
 -- @return bool 
-function CTradeRouteObject:IsInactive()
+function CTradeRoute:IsInactive()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool 
-function CTradeRouteObject:IsValid()
+function CTradeRoute:IsValid()
 	Hoi3Object.throwNotYetImplemented()
 end

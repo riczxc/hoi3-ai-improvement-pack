@@ -1,10 +1,10 @@
 require('hoi3.Hoi3Object')
 
-CIdeologyObject = Hoi3Object:subclass('hoi3.CIdeologyObject')
+CIdeology = Hoi3Object:subclass('hoi3.CIdeology')
 
 ---
 -- @since 1.3
 -- @return CIdeologyGroup
-function CIdeologyObject:GetGroup()
+function CIdeology:GetGroup()
 	Hoi3Object.throwNotYetImplemented()
 end

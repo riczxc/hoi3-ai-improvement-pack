@@ -1,14 +1,14 @@
 require('hoi3.api.CCommand')
 
-CChangeLawCommandObject = CCommandObject:subclass('hoi3.CChangeLawCommandObject')
+CChangeLawCommand = CCommand:subclass('hoi3.CChangeLawCommand')
 
 ---
 -- @since 1.3
 -- @param CCountryTag actor
 -- @param CLaw law
 -- @param CLawGroup lawGroup
--- @return CChangeLawCommandObject
-function CChangeLawCommand(actor, law, lawGroup)
+-- @return CChangeLawCommand
+function CChangeLawCommand:initialize(actor, law, lawGroup)
 	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, law, 'CLaw')
 	Hoi3Object.assertParameterType(3, lawGroup, 'CLawGroup')

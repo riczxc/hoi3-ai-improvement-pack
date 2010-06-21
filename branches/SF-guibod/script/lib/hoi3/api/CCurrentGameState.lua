@@ -1,25 +1,25 @@
-require('hoi3.Hoi3Object')
+require('hoi3.AbstractObject')
 
-CCurrentGameStateObject = Hoi3Object:subclass('hoi3.CCurrentGameStateObject')
+CCurrentGameState = AbstractObject:subclass('hoi3.CCurrentGameState')
 
 ---
 -- @since 1.3
 -- @return number 
-function CCurrentGameStateObject.GetAIRand()
+function CCurrentGameState.GetAIRand()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountry> 
-function CCurrentGameStateObject.GetCountries()
+function CCurrentGameState.GetCountries()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CDate
-function CCurrentGameStateObject.GetCurrentDate()
+function CCurrentGameState.GetCurrentDate()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -27,7 +27,7 @@ end
 -- @since 1.3
 -- @param string faction
 -- @return CFaction
-function CCurrentGameStateObject.GetFaction(faction)
+function CCurrentGameState.GetFaction(faction)
 	Hoi3Object.assertParameterType(1, faction, 'string')
 	
 	Hoi3Object.throwNotYetImplemented()
@@ -36,21 +36,21 @@ end
 ---
 -- @since 1.3
 -- @return table<CFaction>
-function CCurrentGameStateObject.GetFactions()
+function CCurrentGameState.GetFactions()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CCurrentGameStateObject.GetInstance()
+function CCurrentGameState.GetInstance()
 	Hoi3Object.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CCurrentGameStateObject.GetPlayer()
+function CCurrentGameState.GetPlayer()
 	Hoi3Object.throwNotYetImplemented()
 end
 
@@ -58,7 +58,7 @@ end
 -- @since 1.3
 -- @param number provinceId
 -- @return CProvince
-function CCurrentGameStateObject.GetProvince(provinceId)
+function CCurrentGameState.GetProvince(provinceId)
 	Hoi3Object.assertParameterType(1, provinceId, 'number')
 
 	Hoi3Object.throwNotYetImplemented()
@@ -68,12 +68,8 @@ end
 -- @since 1.4
 -- @param string flagName
 -- @return bool
-function CCurrentGameStateObject.IsGlobalFlagSet(flagName)
+function CCurrentGameState.IsGlobalFlagSet(flagName)
 	Hoi3Object.assertParameterType(1, flagName, 'string')
 
 	Hoi3Object.throwNotYetImplemented()
 end
-
--- CCurrentGameState has static methods and properties
--- we need to declare a CCurrentGameState table
-CCurrentGameState = CCurrentGameStateObject

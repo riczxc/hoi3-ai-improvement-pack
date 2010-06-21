@@ -1,12 +1,12 @@
 require('hoi3.Hoi3Object')
 
-CAlignmentObject = Hoi3Object:subclass('hoi3.CAlignmentObject')
+CAlignment = Hoi3Object:subclass('hoi3.CAlignment')
 
 ---
 -- @since 1.3
 -- @param CIdeologyGroup ideologyGroup
 -- @return number 
-function CAlignmentObject:GetLastDrift(ideologyGroup)
+function CAlignment:GetLastDrift(ideologyGroup)
 	Hoi3Object.assertParameterType(1, ideologyGroup, 'CIdeologyGroup')
 	
 	return self:genRandomNumber() 
@@ -15,6 +15,6 @@ end
 ---
 -- @since 1.3
 -- @return unknown
-function CAlignmentObject:GetDistanceFrom()
+function CAlignment:GetDistanceFrom()
 	Hoi3Object.throwUnknownReturnType()
 end

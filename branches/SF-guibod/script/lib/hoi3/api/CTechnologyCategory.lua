@@ -1,17 +1,17 @@
 require('hoi3.Hoi3Object')
 
-CTechnologyCategoryObject = Hoi3Object:subclass('hoi3.CTechnologyCategoryObject')
+CTechnologyCategory = Hoi3Object:subclass('hoi3.CTechnologyCategory')
 
 ---
 -- @since1.3 
 -- @return CString
-function CTechnologyCategoryObject:GetKey()
+function CTechnologyCategory:GetKey()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3 
 -- @return number
-function CTechnologyCategoryObject:GetIndex()
+function CTechnologyCategory:GetIndex()
 	Hoi3Object.throwNotYetImplemented()
 end

@@ -1,24 +1,24 @@
 require('hoi3.Hoi3Object')
 
-CUnitObject = Hoi3Object:subclass('hoi3.CUnit')
+CUnit = Hoi3Object:subclass('hoi3.CUnit')
 
 ---
 -- @since 1.3
 -- @return table<CUnit> (or CSubUnitDefinition ?) 
-function CUnitObject:GetChildren()
+function CUnit:GetChildren()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CString
-function CUnitObject:GetName()
+function CUnit:GetName()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CUnitObject:IsMoving()
+function CUnit:IsMoving()
 	Hoi3Object.throwNotYetImplemented()
 end

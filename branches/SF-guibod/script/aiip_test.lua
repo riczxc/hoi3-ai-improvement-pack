@@ -38,6 +38,7 @@ require('ai_strategic')
 
 -- Call a core-to-lua hook
 --CAllianceAction(1,2)
-print(CAI.GetCurrentDate():GetMonthOfYear())
+--print(CAI.GetCurrentDate():GetMonthOfYear())
+
 myCAI = CAI:new()
 myCAI:EvaluateCancelTrades(2, 12)

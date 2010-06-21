@@ -1,31 +1,31 @@
 require('hoi3.Hoi3Object')
 
-CConvoyObject = Hoi3Object:subclass('hoi3.CConvoyObject')
+CConvoy = Hoi3Object:subclass('hoi3.CConvoy')
 
 ---
 -- @since 1.3
 -- @return unknown 
-function CConvoyObject:GetDesiredEscorts(...)
+function CConvoy:GetDesiredEscorts(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CConvoyObject:GetDesiredTransports(...)
+function CConvoy:GetDesiredTransports(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CConvoyObject:GetEfficiency(...)
+function CConvoy:GetEfficiency(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
-function CConvoyObject:IsForTradeRoute(...)
+function CConvoy:IsForTradeRoute(...)
 	Hoi3Object.throwUnknownSignature()
 end

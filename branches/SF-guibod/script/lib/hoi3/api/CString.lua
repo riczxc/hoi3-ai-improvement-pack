@@ -1,18 +1,18 @@
 require('hoi3.Hoi3Object')
 
-CStringObject = Hoi3Object:subclass('hoi3.CStringObject')
+CString = Hoi3Object:subclass('hoi3.CString')
 
 ---
 -- @since 1.3
 -- @return string
-function CStringObject:Getstring()
+function CString:Getstring()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CStringObject:GetCharPtr(...)
+function CString:GetCharPtr(...)
 	Hoi3Object.throwUnknownSignature()
 	Hoi3Object.throwUnknownReturnType()
 end
@@ -22,7 +22,7 @@ end
 -- @since 1.3
 -- @param string str
 -- @return Cstring
-function Cstring(country, techno)
+function Cstring:initialize(str)
 	Hoi3Object.assertParameterType(1, str, 'string')
 
 	Hoi3Object.throwNotYetImplemented()

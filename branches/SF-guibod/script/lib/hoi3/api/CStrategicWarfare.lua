@@ -1,24 +1,24 @@
 require('hoi3.Hoi3Object')
 
-CStrategicWarfareObject = Hoi3Object:subclass('hoi3.CStrategicWarfareObject')
+CStrategicWarfare = Hoi3Object:subclass('hoi3.CStrategicWarfare')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CStrategicWarfareObject:GetBombingImpact()
+function CStrategicWarfare:GetBombingImpact()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CStrategicWarfareObject:GetAlliesImpact()
+function CStrategicWarfare:GetAlliesImpact()
 	Hoi3Object.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CStrategicWarfareObject:GetConvoyImpact()
+function CStrategicWarfare:GetConvoyImpact()
 	Hoi3Object.throwNotYetImplemented()
 end

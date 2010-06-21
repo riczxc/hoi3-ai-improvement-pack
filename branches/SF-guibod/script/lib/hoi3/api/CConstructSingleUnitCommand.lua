@@ -1,10 +1,10 @@
 require('hoi3.api.CCommand')
 
-CConstructSingleUnitCommandObject = CCommandObject:subclass('hoi3.CConstructSingleUnitCommandObject')
+CConstructSingleUnitCommand = CCommand:subclass('hoi3.CConstructSingleUnitCommand')
 
 ---
 -- @since 1.3
--- @return CConstructSingleUnitCommandObject 
-function CConstructSingleUnitCommandObject:Clone()
+-- @return CConstructSingleUnitCommand 
+function CConstructSingleUnitCommand:Clone()
 	Hoi3Object.throwNotYetImplemented()
 end

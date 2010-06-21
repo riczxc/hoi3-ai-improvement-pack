@@ -1,17 +1,13 @@
-require('hoi3.Hoi3Object')
+require('hoi3.AbstractObject')
 
-CGoodsPoolObject = Hoi3Object:subclass('hoi3.CGoodsPool')
+CGoodsPool = AbstractObject:subclass('hoi3.CGoodsPool')
 
-CGoodsPoolObject._MONEY_ = 1
-CGoodsPoolObject._METAL_ = 2
-CGoodsPoolObject._ENERGY_ = 3
-CGoodsPoolObject._RARE_MATERIALS_ = 4
-CGoodsPoolObject._CRUDE_OIL_ = 5
-CGoodsPoolObject._SUPPLIES_ = 6
-CGoodsPoolObject._FUEL_ = 7
+CGoodsPool._MONEY_ = 1
+CGoodsPool._METAL_ = 2
+CGoodsPool._ENERGY_ = 3
+CGoodsPool._RARE_MATERIALS_ = 4
+CGoodsPool._CRUDE_OIL_ = 5
+CGoodsPool._SUPPLIES_ = 6
+CGoodsPool._FUEL_ = 7
 
-CGoodsPoolObject._GC_NUMOF_ = 7
-
--- CGoodsPool has static methods and properties
--- we need to declare a CGoodsPool table
-CGoodsPool = CGoodsPoolObject
+CGoodsPool._GC_NUMOF_ = 7
