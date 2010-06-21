@@ -5,6 +5,6 @@ CActionObject = Hoi3Object:subclass('hoi3.CActionObject')
 ---
 -- @since 1.3
 -- @return unknown 
-function CAllianceActionObject.Create()
+function CActionObject.Create()
 	Hoi3Object.throwUnknownReturnType()
 end 

@@ -104,7 +104,7 @@ end
 ---
 -- @since 1.3
 -- @return CCountry
-function CAIObject:GetCountry(x)
+function CAIObject:GetCountry(...)
 	Hoi3Object.throwUnknownSignature()
 end
 
