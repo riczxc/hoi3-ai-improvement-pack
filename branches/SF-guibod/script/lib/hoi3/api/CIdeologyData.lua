@@ -1,6 +1,6 @@
 require('hoi3.Hoi3Object')
 
-CIdeologyObject = Hoi3Object:subclass('hoi3.CIdeologyDataObject')
+CIdeologyDataObject = Hoi3Object:subclass('hoi3.CIdeologyDataObject')
 
 ---
 -- @since 1.3
