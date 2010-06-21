@@ -29,7 +29,7 @@ This file is based on work done by [http://forum.paradoxplaza.com/forum/showthre
 ||  [#CFixedPoint CFixedPoint]                                        ||  `GetNormalizedAlignmentDistance(`[#CCountry CCountry]` country, `[#CFaction CFaction]` faction)`                          ||  1.3    ||  
 ||  number                                                            ||  `GetNumberOfOwnedProvinces(`[#CCountryTag CCountryTag]` countryTag)`                                        ||  1.3    ||  
 ||  [#CArrayFix CArrayFix]  										||  `GetProductionSubUnitCounts()`                                                                                   ||  2.0   ||  
-||  [#CList_CSubUnitConstructionEntry CList_CSubUnitConstructionEntry]||  `GetReqProdQueue()`                                                                                       ||  1.3    ||  
+||  [#CSubUnitConstructionEntryCList CSubUnitConstructionEntryCList]||  `GetReqProdQueue()`                                                                                       ||  1.3    ||  
 ||  List`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]`>`  ||  `GetReqProdQueueIter()`                                                                                   ||  1.3    ||  
 ||  [#CDiplomacyStatus CDiplomacyStatus]                              ||  `GetRelation(`[#CCountryTag CCountryTag]` countryTagA, `[#CCountryTag CCountryTag]` countryTagB)`                            ||  1.3    ||  
 ||  number                                                            ||  `GetSpamPenalty(`[#CCountryTag CCountryTag]` countryTag)`                                                 ||  1.3    ||  
@@ -1028,20 +1028,6 @@ implements [#CDiplomaticAction CDiplomaticAction]
 
 
 -----
-==CList_CSubUnitConstructionEntry==
-implements [#CList CList]<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]>
-====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetHeadData()`                                                                                           ||  1.3    ||  
-||  number                                         ||  `GetSize()`                                                                                           ||  1.3    ||  
-||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetTailData()`                                                                                           ||  1.3    ||  
-||  bool                                                              ||  `IsEmpty()`                                                                                               ||  1.3    ||  
-||  void                                                              ||  `Remove(`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]` request)`                                  ||  1.3    ||  
-||  void                                                              ||  `RemoveHead()`                                                                                            ||  1.3    ||  
-||  void                                                              ||  `RemoveTail()`                                                                                            ||  1.3    ||  
-
-
------
 ==CMilitaryAccessAction==
 implements [#CDiplomaticAction CDiplomaticAction]
 
@@ -1071,7 +1057,7 @@ Ministers are ingame people in charge of a ministry. As I am writing this nothin
 
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  bool                                            ||  `CanTakePosition([#CGovernmentPosition CGovernmentPosition]` position)`                                                                                                ||  2.0    ||  
+||  bool                                            ||  `CanTakePosition(`[#CGovernmentPosition CGovernmentPosition]` position)`                                                                                                ||  2.0    ||  
 ||  [#CIdeology CIdeology]                                            ||  `GetIdeology()`                                                                                                ||  2.0    ||  
 ||  [#CPersonality CPersonality]                                            ||  `GetPersonality(number positionIndex)`                                                                                                ||  2.0    ||  
 
@@ -1082,7 +1068,7 @@ Ministers are ingame people in charge of a ministry. As I am writing this nothin
 
 ====Property summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  static number                                                            ||  `GetValue(`int modifier)                                                                                  ||  1.3    ||  
+||  static number                                                            ||  `GetValue(number modifier)`                                                                                  ||  1.3    ||  
 ||  static number                                                            ||  `_MODIFIER_AIR_CAPACITY_`                                                                                 ||  1.3    ||  
 ||  static number                                                            ||  `_MODIFIER_AIR_ORGANISATION_`                                                                             ||  1.3    ||  
 ||  static number                                                            ||  `_MODIFIER_ALIGN_TOWARDS_`                                                                                ||  1.3    ||  
@@ -1255,8 +1241,8 @@ Nothing proves that this object is named as CPersonality. Codes from Semper Fide
 ==CResearchBonus==
 ====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
-||  static [#CFixedPoint CFixedPoint]                                        ||  `_vWeight`                                                                                                ||  1.3    ||  
-||  static [#CTechnologyCategory CTechnologyCategory]                        ||  `_pCategory`                                                                                              ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `_vWeight`                                                                                                ||  1.3    ||  
+||  [#CTechnologyCategory CTechnologyCategory]                        ||  `_pCategory`                                                                                              ||  1.3    ||  
 
 -----
 ==CRule==
@@ -1318,7 +1304,7 @@ implements [#CCommand CCommand]
 
 ====Constructor summary====
 ||  *Type*                                                            ||  *Constructor*                                                                                             ||  *Since*||  
-|| [#CSetVariableCommand CSetVariableCommand]                               ||  `CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, [#CFixedPoint CFixedPoint] vVal)`  ||  1.3    ||  
+|| [#CSetVariableCommand CSetVariableCommand]                               ||  `CSetVariableCommand(`[#CCountryTag CCountryTag]` Which, string Flag, `[#CFixedPoint CFixedPoint]` vVal)`  ||  1.3    ||  
 
 
 -----
@@ -1326,7 +1312,7 @@ implements [#CCommand CCommand]
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  [#CDate CDate]                                                    ||  `GetLastMissionChangeDate()`                                                                              ||  1.3    ||  
-||  [#CDate CDate]                                                    ||  `GetLevel()`                                                                                              ||  1.3    ||  
+||  number		                                                      ||  `GetLevel()`                                                                                              ||  1.3    ||  
 ||  number                                                            ||  `GetMission()`                                                                                            ||  1.3    ||  
 ||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3    ||  
 ||  ???                                                               ||  `MissionAllowed(???)`                                                                                          ||  1.3    ||  
@@ -1359,13 +1345,32 @@ This class support implicit conversion to string primitive type as well as suppo
 ||  ???                                                               ||  `GetCharPtr()`                                                                                            ||  1.3    ||  
 ||  string                                                            ||  `Getstring()`                                                                                             ||  1.3    ||  
 
+-----
+==CSubUnitConstructionEntry==
+====Property summary====
+||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
+||  number                                                            ||  nPrio                                                                                                     ||  1.3    ||  
+||  [#CSubUnitDefinition CSubUnitDefinition]                          ||  pUnit                                                                                                     ||  1.3    ||  
+
+-----
+==CSubUnitConstructionEntryCList==
+implements [#CList CList]<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]>
+====Method summary====
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetHeadData()`                                                                                           ||  1.3    ||  
+||  number                                         ||  `GetSize()`                                                                                           ||  1.3    ||  
+||  [#CSubUnitConstructionEntry CSubUnitConstructionEntry]                                         ||  `GetTailData()`                                                                                           ||  1.3    ||  
+||  bool                                                              ||  `IsEmpty()`                                                                                               ||  1.3    ||  
+||  void                                                              ||  `Remove(`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]` request)`                                  ||  1.3    ||  
+||  void                                                              ||  `RemoveHead()`                                                                                            ||  1.3    ||  
+||  void                                                              ||  `RemoveTail()`                                                                                            ||  1.3    ||  
 
 -----
 ==CSubUnitDataBase==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  [#CSubUnitDefinition CSubUnitDefinition]                          ||  `GetSubUnit(string subUnitName)`                                                                          ||  1.3    ||  
-||  List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`                ||  `GetSubUnitList()`                                                                                        ||  1.3    ||  
+||  static [#CSubUnitDefinition CSubUnitDefinition]                          ||  `GetSubUnit(string subUnitName)`                                                                          ||  1.3    ||  
+||  static List`<`[#CSubUnitDefinition CSubUnitDefinition]`>`                ||  `GetSubUnitList()`                                                                                        ||  1.3    ||  
 
 
 -----
@@ -1411,14 +1416,6 @@ This class support implicit conversion to string primitive type as well as suppo
 ||  bool                                                            ||  `IsEmpty()`                                                                                               ||  1.3    ||  
 
 -----
-==CSubUnitConstructionEntry==
-====Property summary====
-||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
-||  static number                                                            ||  nPrio                                                                                                     ||  1.3    ||  
-||  static [#CSubUnitDefinition CSubUnitDefinition]                          ||  pUnit                                                                                                     ||  1.3    ||  
-
-
------
 ==CTechnology==
 This class supports equal operator comparison.
 
@@ -1447,9 +1444,9 @@ This class supports equal operator comparison.
 ==CTechnologyDataBase==
 ====Method summary====
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  List`<`[#CTechnologyCategory CTechnologyCategory]`>`              ||  `GetCategories()`                                                                                         ||  1.3    ||  
-||  number                                                            ||  `GetFolderIndex(string folderName)`                                                                       ||  1.3    ||  
-||  List`<`[#CTechnology CTechnology]`>`                              ||  `GetTechnologies()`                                                                                       ||  1.3    ||  
+||  static List`<`[#CTechnologyCategory CTechnologyCategory]`>`              ||  `GetCategories()`                                                                                         ||  1.3    ||  
+||  static number                                                            ||  `GetFolderIndex(string folderName)`                                                                       ||  1.3    ||  
+||  static List`<`[#CTechnology CTechnology]`>`                              ||  `GetTechnologies()`                                                                                       ||  1.3    ||  
 
 
 -----
@@ -1464,19 +1461,20 @@ This class supports equal operator comparison.
 -----
 ==CTechnologyStatus==
 ====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since* ||  
 ||  ???                                        ||  `CanResearch(???)`                                                     ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetCost(`[#CTechnology CTechnology]` tech, int level)`                                                     ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetCost(`[#CTechnology CTechnology]` tech, number level)`                                                     ||  1.3    ||  
 ||  ???                                                               ||  `GetEffectiveYear(???)`                                                                                          ||  1.3    ||  
 ||  number                                                            ||  `GetLevel(`[#CTechnology CTechnology]` tech)`                                                               ||  1.3    ||  
 ||  number                                                            ||  `GetYear(`[#CTechnology CTechnology]` tech, number level)`                                                              ||  1.3    ||  
 ||  bool                                                              ||  `IsUnitAvailable(`[#CSubUnitDefinition CSubUnitDefinition]` unit)`                                          ||  1.3    ||  
 ||  bool                                                              ||  `IsBuildingAvailable(`[#CBuilding CBuilding]` unit)`                                          ||  1.3    ||  
+
 -----
 ==CTheatre==
 ====Method summary====
-||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
-||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3    ||  
+||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since* ||  
+||  number                                                            ||  `GetPriority()`                                                                                           ||  1.3     ||  
 
 
 -----
@@ -1499,10 +1497,10 @@ implements [#CDiplomaticAction CDiplomaticAction]
 ||  *Type*                                                            ||  *Method*                                                                                                  ||  *Since*||  
 ||  ???                                                               ||  `Create()`                                                                                                ||  1.3    ||  
 ||  [#CTradeRoute CTradeRoute]                                        ||  `GetRoute()`                                                                                              ||  1.3    ||  
-||  [#CFixedPoint CFixedPoint]                                        ||  `GetTrading(number goodsType, [#CCountryTag CCountryTag] ministerTag)                                                                  ||  1.3    ||  
+||  [#CFixedPoint CFixedPoint]                                        ||  `GetTrading(number goodsType, `[#CCountryTag CCountryTag]` ministerTag)`                                                                  ||  1.3    ||  
 ||  bool                                                              ||  `IsConvoyPossible()`                                                                                      ||  1.3    ||  
-||  void                                                              ||  `SetRoute(`[#CTradeRoute CTradeRoute] route)                                                              ||  1.3    ||  
-||  void                                                              ||  `SetTrading(`[#CFixedPoint CFixedPoint] amount, number goodsType)                                                ||  1.3    ||  
+||  void                                                              ||  `SetRoute(`[#CTradeRoute CTradeRoute]` route) `                                                             ||  1.3    ||  
+||  void                                                              ||  `SetTrading(`[#CFixedPoint CFixedPoint]` amount, number goodsType) `                                               ||  1.3    ||  
 
 -----
 ==CTradeRoute==
@@ -1558,18 +1556,18 @@ For some reason, the Support Party missions are called 'boost'.
 
 ====Property summary====
 ||  *Type*                                                            ||  *Property*                                                                                                  ||  *Since*||  
-||  number                                                            ||  SPYMISSION_BOOST_OUR_PARTY                                                                                ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_BOOST_RULING_PARTY                                                                             ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_COUNTER_ESPIONAGE                                                                              ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_DISRUPT_PRODUCTION                                                                             ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_DISRUPT_RESEARCH                                                                               ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_INCREASE_THREAT                                                                                ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_LOWER_NATIONAL_UNITY                                                                           ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_LOWER_NEUTRALITY                                                                               ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_MAX                                                                                            ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_MILITARY                                                                                       ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_NONE                                                                                           ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_POLITICAL                                                                                      ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_RAISE_NATIONAL_UNITY                                                                           ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_SUPPORT_RESISTANCE                                                                             ||  1.3    ||  
-||  number                                                            ||  SPYMISSION_TECH                                                                                           ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_BOOST_OUR_PARTY                                                                                ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_BOOST_RULING_PARTY                                                                             ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_COUNTER_ESPIONAGE                                                                              ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_DISRUPT_PRODUCTION                                                                             ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_DISRUPT_RESEARCH                                                                               ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_INCREASE_THREAT                                                                                ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_LOWER_NATIONAL_UNITY                                                                           ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_LOWER_NEUTRALITY                                                                               ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_MAX                                                                                            ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_MILITARY                                                                                       ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_NONE                                                                                           ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_POLITICAL                                                                                      ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_RAISE_NATIONAL_UNITY                                                                           ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_SUPPORT_RESISTANCE                                                                             ||  1.3    ||  
+||  static number                                                            ||  SPYMISSION_TECH                                                                                           ||  1.3    ||  
