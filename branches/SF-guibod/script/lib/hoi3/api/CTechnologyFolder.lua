@@ -12,7 +12,8 @@ end
 ---
 -- @since 1.3 
 -- @return CString
-function CTechnologyFolder:GetKey()
+--function CTechnologyFolder:GetKey()
+CTechnologyFolder.GetKey = function()
 	Hoi3Object.throwNotYetImplemented()
 end
 
