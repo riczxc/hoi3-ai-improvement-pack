@@ -1,35 +1,3 @@
-require('hoi3.Hoi3Object')
+require('hoi3.api.CArrayFix')
 
-CArrayFloat = Hoi3Object:subclass('hoi3.CArrayFloat')
-
----
--- @since 1.3
--- @param number size
--- @return CArrayFloat
-function CArrayFloat:initialize(size)
-	Hoi3Object.assertParameterType(1, size, 'number')
-	
-	Hoi3Object.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @param number index
--- @return CFixedPoint 
-function CArrayFloat:GetAt(index)
-	Hoi3Object.assertParameterType(1, index, 'number')
-	
-	Hoi3Object.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @param number index
--- @param CFixedPoint value
--- @return void
-function CArrayFloat:SetAt(index, value)
-	Hoi3Object.assertParameterType(1, index, 'number')
-	Hoi3Object.assertParameterType(2, value, 'CFixedPoint')
-	
-	Hoi3Object.throwNotYetImplemented()
-end
+CArrayFloat = CArrayFix:subclass('hoi3.CArrayFloat')

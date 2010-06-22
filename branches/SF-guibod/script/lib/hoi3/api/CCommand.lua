@@ -6,5 +6,8 @@ CCommand = Hoi3Object:subclass('hoi3.CCommand')
 -- @since 1.3
 -- @return bool 
 function CCommand:isValid()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'isValid'
+	)
 end

@@ -9,19 +9,29 @@ CAITechMinister = CAIAgent:subclass('hoi3.CAITechMinister')
 function CAITechMinister:CanResearch(tech)
 	Hoi3Object.assertParameterType(1, tech, 'CTechnology')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'CanResearch',
+		tech
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CArrayFix
 function CAITechMinister:GetFolderModifers()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CArrayFix',
+		'GetFolderModifers'
+	)
 end  
 
 ---
 -- @since 1.3
 -- @return CArrayFix
 function CAITechMinister:GetTechModifers()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CArrayFix',
+		'GetTechModifers'
+	)
 end  

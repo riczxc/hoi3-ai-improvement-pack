@@ -1,26 +1,43 @@
-require('hoi3.Hoi3Object')
+require('hoi3.MultitonObject')
 
-CCountry = Hoi3Object:subclass('hoi3.CCountry')
+CCountry = MultitonObject:subclass('hoi3.CCountry')
+
+---
+-- @param CCountryTag countryTag
+function CCountry:initalize(countryTag)
+	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	
+	self.countryTag = countryTag
+end
 
 ---
 -- @since 1.3
 -- @return CIdeology 
 function CCountry:AccessIdeologyOrganization()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CIdeology',
+		'AccessIdeologyOrganization'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CIdeology 
 function CCountry:AccessIdeologyPopularity()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CIdeology',
+		'AccessIdeologyPopularity'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:CalcDesperation()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'CalcDesperation'
+	)
 end
 
 ---
@@ -30,35 +47,51 @@ end
 function CCountry:CalculateIsAllied(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'CalculateIsAllied',
+		countryTag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:CalculateNumberOfActiveInfluences()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'CalculateNumberOfActiveInfluences'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:CalculateReinforcementMultiplier()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'CalculateReinforcementMultiplier'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CCountry:CanCreatePuppet()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'CanCreatePuppet'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CCountry:Exists()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'Exists'
+	)
 end
 
 ---
@@ -68,28 +101,41 @@ end
 function CCountry:GetAbility(category)
 	Hoi3Object.assertParameterType(1, category, 'CTechnologyCategory')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'GetAbility',
+		category
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CProvince 
 function CCountry:GetActingCapitalLocation()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CProvince',
+		'GetActingCapitalLocation'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CProvince> 
 function CCountry:GetAirBases()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CProvince>',
+		'GetAirBases'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CAlignment 
 function CCountry:GetAlignment()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CAlignment',
+		'GetAlignment'
+	)
 end
 
 ---
@@ -103,14 +149,20 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetAllowedResearchSlots()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetAllowedResearchSlots'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:GetAvailableIC()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetAvailableIC'
+	)
 end
 
 ---
@@ -120,7 +172,11 @@ end
 function CCountry:GetBuildCost(building)
 	Hoi3Object.assertParameterType(1, building, 'CBuilding')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetBuildCost',
+		building
+	)
 end
 
 ---
@@ -134,7 +190,13 @@ function CCountry:GetBuildCostIC(pUnit, quantity, buildReserve)
 	Hoi3Object.assertParameterType(2, quantity, 'number')
 	Hoi3Object.assertParameterType(3, buildReserve, 'boolean')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetBuildCostIC',
+		pUnit, 
+		quantity, 
+		buildReserve
+	)
 end
 
 ---
@@ -148,7 +210,13 @@ function CCountry:GetBuildCostMP(pUnit, quantity, buildReserve)
 	Hoi3Object.assertParameterType(2, quantity, 'number')
 	Hoi3Object.assertParameterType(3, buildReserve, 'boolean')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetBuildCostMP',
+		pUnit, 
+		quantity, 
+		buildReserve
+	)
 end
 
 ---
@@ -162,91 +230,127 @@ end
 -- @since 1.3
 -- @return number  
 function CCountry:GetCapital()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetCapital'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CProvince 
 function CCountry:GetCapitalLocation()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CProvince',
+		'GetCapitalLocation'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return table<CProvince> 
 function CCountry:GetControlledProvinces()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CProvince>',
+		'GetControlledProvinces'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return table<CProvince> 
 function CCountry:GetCoreProvinces()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CProvince>',
+		'GetCoreProvinces'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return table<CConstruction>
 function CCountry:GetConstructions()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CConstruction>',
+		'GetConstructions'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:GetConvoyBuildCost()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetConvoyBuildCost'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:GetConvoyBuildTime()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetConvoyBuildTime'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool 
 function CCountry:GetConvoyedIn()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetConvoyedIn'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool 
 function CCountry:GetConvoyedOut()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetConvoyedOut'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CConvoy> 
 function CCountry:GetConvoys()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CConvoy>',
+		'GetConvoys'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
 function CCountry:GetCountryTag()
-	Hoi3Object.throwNotYetImplemented()
+	return self.countryTag
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag> 
 function CCountry:GetCurrentAtWarWith()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CCountryTag>',
+		'GetCurrentAtWarWith'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return table<CTechnology>
 function CCountry:GetCurrentResearch()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CTechnology>',
+		'GetCurrentResearch'
+	)
 end
 
 ---
@@ -256,7 +360,11 @@ end
 function CCountry:GetDailyBalance(goodIndex)
 	Hoi3Object.assertParameterType(1, goodIndex, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetDailyBalance',
+		goodIndex
+	)
 end
 
 ---
@@ -266,7 +374,11 @@ end
 function CCountry:GetDailyExpense(goodIndex)
 	Hoi3Object.assertParameterType(1, goodIndex, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetDailyExpense',
+		goodIndex
+	)
 end
 
 ---
@@ -276,14 +388,21 @@ end
 function CCountry:GetDailyIncome(goodIndex)
 	Hoi3Object.assertParameterType(1, goodIndex, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetDailyIncome',
+		goodIndex
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CDiplomacyStatus>
 function CCountry:GetDiplomacy()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CDiplomacyStatus>',
+		'GetDiplomacy'
+	)
 end
 
 ---
@@ -293,84 +412,121 @@ end
 function CCountry:GetDiplomaticDistance(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetDiplomaticDistance',
+		countryTag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetDiplomaticInfluence()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetDiplomaticInfluence'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetDissent()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetDissent'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetEffectiveNeutrality()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetEffectiveNeutrality'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetEscortBuildCost()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetEscortBuildCost'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetEscortBuildTime()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetEscortBuildTime'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetEscorts()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetEscorts'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFaction
 function CCountry:GetFaction()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFaction',
+		'GetFaction'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CModifier
 function CCountry:GetGlobalModifier()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CModifier',
+		'GetGlobalModifier'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CGovernment
 function CCountry:GetGovernment()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGovernment',
+		'GetGovernment'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
 function CCountry:GetHighestThreat()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CCountryTag',
+		'GetHighestThreat'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return CGoodsPool
 function CCountry:GetHomeProduced()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetHomeProduced'
+	)
 end
 
 ---
@@ -380,7 +536,11 @@ end
 function CCountry:GetICPart(distributionSetting)
 	Hoi3Object.assertParameterType(1, distributionSetting, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetICPart',
+		distributionSetting
+	)
 end
 
 ---
@@ -390,7 +550,11 @@ end
 function CCountry:GetLaw(lawGroup)
 	Hoi3Object.assertParameterType(1, lawGroup, 'CLawGroup')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CLaw',
+		'GetLaw',
+		lawGroup
+	)
 end
 
 ---
@@ -400,7 +564,11 @@ end
 function CCountry:GetLawFromIndex(groupIndex)
 	Hoi3Object.assertParameterType(1, groupIndex, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CLaw',
+		'GetLawFromIndex',
+		groupIndex
+	)
 end
 
 ---
@@ -410,21 +578,31 @@ end
 function CCountry:GetLeadershipDistributionAt(distributionSetting)
 	Hoi3Object.assertParameterType(1, distributionSetting, 'number')
 
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CDistributionSetting',
+		'GetLeadershipDistributionAt',
+		distributionSetting
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetManpower()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetManpower'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetMaxIC()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetMaxIC'
+	)
 end
 
 ---
@@ -434,7 +612,11 @@ end
 function CCountry:GetMaxNeutralityForWarWith(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetMaxNeutralityForWarWith',
+		countryTag
+	)
 end
 
 ---
@@ -442,126 +624,183 @@ end
 -- @param number positionIndex
 -- @return CMinister
 function CCountry:GetMinister(positionIndex)
-	Hoi3Object.throwNotYetImplemented()
+	Hoi3Object.assertParameterType(1, positionIndex, 'number')
+	
+	return self:loadResultOrFakeOrRandom(
+		'CMinister',
+		'GetMinister',
+		positionIndex
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetMoneyBalanceAverage()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetMoneyBalanceAverage'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetNationalUnity()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetNationalUnity'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CProvince>
 function CCountry:GetNavalBases()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CProvince>',
+		'GetNavalBases'
+	)
 end
 
 ---
 -- @since 1.3
--- @return table<CProvince>
+-- @return table<CCountryTag>
 function CCountry:GetNeighbours()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CCountryTag>',
+		'GetNeighbours'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetNeutrality()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetNeutrality'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumberOfControlledProvinces()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetNumberOfControlledProvinces'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumberOfCurrentResearch()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetNumberOfCurrentResearch'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumberOfOwnedProvinces()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetNumberOfOwnedProvinces'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumOfAllies()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetNumOfAllies'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumOfAirfields()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetNumOfAirfields'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetNumOfPorts()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetNumOfPorts'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetOfficerRatio()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetOfficerRatio'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
 function CCountry:GetOverlord()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CCountryTag',
+		'GetOverlord'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<number>
 function CCountry:GetOwnedProvinces()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<number>',
+		'GetOwnedProvinces'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CGoodsPool
 function CCountry:GetPool()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetPool'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetPossibleLiberations()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CCountryTag>',
+		'GetPossibleLiberations'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetPossiblePuppets()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CCountryTag>',
+		'GetPossiblePuppets'
+	)
 end
 
 ---
@@ -571,7 +810,11 @@ end
 function CCountry:GetProductionDistributionAt(distributionSetting)
 	Hoi3Object.assertParameterType(1, distributionSetting, 'CDistributionSetting')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetProductionDistributionAt',
+		distributionSetting
+	)
 end
 
 ---
@@ -581,21 +824,31 @@ end
 function CCountry:GetRelation(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CDiplomacyStatus',
+		'GetRelation',
+		countryTag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CRule
 function CCountry:GetRules()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CRule',
+		'GetRules'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CIdeology
 function CCountry:GetRulingIdeology()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CIdeology',
+		'GetRulingIdeology'
+	)
 end
 
 ---
@@ -605,56 +858,81 @@ end
 function CCountry:GetSpyPresence(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CSpyPresence',
+		'GetSpyPresence',
+		countryTag
+	)
 end
 
 ---
 -- @since 2.0
 -- @return table<CCountryTag>
 function CCountry:GetSpyingOnUs()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CCountryTag>',
+		'GetSpyingOnUs'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CStrategicWarfare
 function CCountry:GetStrategicWarfare()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CStrategicWarfare',
+		'GetStrategicWarfare'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CAIStrategy
 function CCountry:GetStrategy()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CAIStrategy',
+		'GetStrategy'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetSupplyBalanceAverage()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetSupplyBalanceAverage'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetSurrenderLevel()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetSurrenderLevel'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CTechnologyStatus
 function CCountry:GetTechnologyStatus()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CTechnologyStatus',
+		'GetTechnologyStatus'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return number 
 function CCountry:GetTotalConvoyTransports()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetTotalConvoyTransports'
+	)
 end
 
 ---
@@ -664,98 +942,141 @@ end
 function CCountry:GetTotalCoreBuildingLevels(buildingIndex)
 	Hoi3Object.assertParameterType(1, buildingIndex, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetTotalCoreBuildingLevels',
+		buildingIndex
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetTotalIC()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetTotalIC'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetTotalLeadership()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetTotalLeadership'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetTotalNeededConvoyTransports()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetTotalNeededConvoyTransports'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetTotalNeededTransports()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetTotalNeededTransports'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool
 function CCountry:GetTotalProduced()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetTotalProduced'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool
 function CCountry:GetTradedAway()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetTradedAway'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return CGoodsPool
 function CCountry:GetTradedAwaySansAlliedSupply()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetTradedAwaySansAlliedSupply'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return CGoodsPool
 function CCountry:GetTradedFor()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetTradedFor'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return CGoodsPool
 function CCountry:GetTradedForSansAlliedSupply()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CGoodsPool',
+		'GetTradedForSansAlliedSupply'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CCountry:GetTransports()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetTransports'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return CUnitList
 function CCountry:GetUnits()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CUnitList',
+		'GetUnits'
+	)
 end
 
 ---
 -- @since 1.4
 -- @return table<CUnit>
 function CCountry:GetUnitsIterator()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CUnit>',
+		'GetUnitsIterator'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetUsedIC()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetUsedIC'
+	)
 end
 
 ---
@@ -765,7 +1086,10 @@ end
 function CCountry:GetVariable(key)
 	Hoi3Object.assertParameterType(1, key, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetVariable'
+	)
 end
 
 ---
