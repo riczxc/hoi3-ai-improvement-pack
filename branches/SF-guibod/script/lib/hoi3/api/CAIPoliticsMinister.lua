@@ -9,13 +9,19 @@ CAIPoliticsMinister = CAIAgent:subclass('hoi3.CAIPoliticsMinister')
 function CAIPoliticsMinister:IsCapitalSafeToLiberate(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwUnknownSignature()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsCapitalSafeToLiberate',
+		countryTag
+	)
 end
 
 ---
 -- @since 2.0
 -- @return table<CMinister>
 function CAIPoliticsMinister:GetPossibleMinisters()
-	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CMinister>',
+		'GetPossibleMinisters'
+	)
 end

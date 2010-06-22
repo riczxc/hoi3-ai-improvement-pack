@@ -4,11 +4,19 @@ CAIStrategy = Hoi3Object:subclass('hoi3.CAIStrategy')
 
 --- 
 -- @since 1.3
-CAI._AI_BALANCED_	= 1 
-CAI._AI_DIPLOMAT_	= 2
-CAI._AI_INDUSTRIALIST_ = 3
-CAI._AI_MILITARIST_	= 4
-CAI._AI_UNDEFINED_	= 5
+CAIStrategy._AI_BALANCED_	= 1 
+CAIStrategy._AI_DIPLOMAT_	= 2
+CAIStrategy._AI_INDUSTRIALIST_ = 3
+CAIStrategy._AI_MILITARIST_	= 4
+CAIStrategy._AI_UNDEFINED_	= 5
+
+---
+-- @param CCountryTag countryTag
+function CAIStrategy:initalize(countryTag)
+	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	
+	self.countryTag = countryTag
+end
 
 ---
 -- @since 1.3
@@ -34,7 +42,11 @@ end
 function CAIStrategy:GetAccessScore(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetAccessScore',
+		countryTag
+	)
 end  
 
 ---
@@ -44,21 +56,25 @@ end
 function CAIStrategy:GetAntagonism(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetAntagonism',
+		countryTag
+	)
 end  
 
 ---
 -- @since 1.3
 -- @return CCountry
 function CAIStrategy:GetCountry()
-	Hoi3Object.throwNotYetImplemented()
+	return self.countryTag:GetCountry()
 end  
 
 ---
 -- @since 1.3
 -- @return CCountryTag
 function CAIStrategy:GetCountryTag()
-	Hoi3Object.throwNotYetImplemented()
+	return self.countryTag
 end  
 
 ---
@@ -68,7 +84,11 @@ end
 function CAIStrategy:GetFriendliness(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetFriendliness',
+		countryTag
+	)
 end  
 
 ---
@@ -85,7 +105,11 @@ end
 function CAIStrategy:GetProtectionism(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetProtectionism',
+		countryTag
+	)
 end  
 
 ---
@@ -102,7 +126,11 @@ end
 function CAIStrategy:GetThreat(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		'GetThreat',
+		countryTag
+	)
 end  
 
 ---
@@ -137,35 +165,50 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsBalanced()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsBalanced'
+	)
 end  
 
 ---
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsDiplomat()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsDiplomat'
+	)
 end  
 
 ---
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsIndustrialist()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsIndustrialist'
+	)
 end  
 
 ---
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsMilitarist()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsMilitarist'
+	)
 end  
 
 ---
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsPreparingWar()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsPreparingWar'
+	)
 end  
 
 ---
@@ -175,7 +218,11 @@ end
 function CAIStrategy:IsPreparingWarWith(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsPreparingWar',
+		countryTag
+	)
 end  
 
 ---

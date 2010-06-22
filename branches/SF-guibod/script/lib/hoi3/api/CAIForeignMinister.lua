@@ -20,7 +20,10 @@ end
 -- @since 1.3
 -- @return CCountryTag
 function CAIForeignMinister:GetProposedWarTarget()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CCountryTag',
+		'GetProposedWarTarget'
+	)
 end
 
 ---
