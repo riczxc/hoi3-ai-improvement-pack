@@ -1,9 +1,18 @@
-require('hoi3.Hoi3Object')
+require('hoi3.MultitonObject')
 
-CAI = Hoi3Object:subclass('hoi3.CAI')
+CAI = MultitonObject:subclass('hoi3.CAI')
+
+---
+-- @param CCountryTag countryTag
+function CAI:initalize(countryTag)
+	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	
+	self.countryTag = countryTag
+end
 
 --- 
 -- @since 1.4
+-- @static
 CAI._DIPLOMACY_	= 1 
 CAI._INTELLIGENCE_ = 2
 CAI._POLITICS_ = 3
@@ -17,14 +26,12 @@ CAI._TECHNOLOGY_ = 5
 function CAI:AlreadyTradingDisabledResource(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
-	return self:loadResultOrFake("AlreadyTradingDisabledResource", route)
-end 
-
---[[
-function CAI:AlreadyTradingDisabledResourceFake(route)
-	return false
+	return self:loadResultOrFakeOrRandom(
+		'boolean', 
+		"AlreadyTradingDisabledResource", 
+		route
+	)
 end
-]]
 
 ---
 -- @since 1.3
@@ -33,7 +40,11 @@ end
 function CAI:AlreadyTradingResourceOtherWay(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
-	return self:loadResultOrFake("AlreadyTradingResourceOtherWay", route)
+	return self:loadResultOrFakeOrRandom(
+		'boolean', 
+		"AlreadyTradingResourceOtherWay", 
+		route
+	)
 end 
 
 ---
@@ -45,7 +56,12 @@ function CAI:CanDeclareWar(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
-	return self:loadResultOrFake("CanDeclareWar", countryTagA, countryTagB)
+	return self:loadResultOrFakeOrRandom(
+		'boolean', 
+		"CanDeclareWar", 
+		countryTagA, 
+		countryTagB
+	)
 end
 
 ---
@@ -57,7 +73,12 @@ function CAI:CanTradeFreeResources(countryTagA,  countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
-	return self:loadResultOrFake("CanTradeFreeResources", countryTagA, countryTagB)
+	return self:loadResultOrFakeOrRandom(
+		'boolean', 
+		"CanTradeFreeResources", 
+		countryTagA, 
+		countryTagB
+	)
 end
 
 ---
@@ -72,7 +93,12 @@ function CAI:EvaluateCancelTrades(needs,  goodsType)
 	assert(goodsType < CGoodsPool._GC_NUMOF_ + 1, string.format("goodsType must be lower than %d", CGoodsPool._GC_NUMOF_ + 1))
 	assert(goodsType > 0, string.format("goodsType must be greater than %d", 0))
 	
-	return self:loadResultOrFake("EvaluateCancelTrades", needs,  goodsType)
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint', 
+		"EvaluateCancelTrades", 
+		needs,  
+		goodsType
+	)
 end
 
 function CAI:EvaluateCancelTradesFake(needs, goodsType)
@@ -96,7 +122,13 @@ function CAI:GetAmountTradedFrom(goodsType, from,  to)
 	Hoi3Object.assertParameterType(2, from, 'CCountryTag')
 	Hoi3Object.assertParameterType(3, to, 'CCountryTag')
 	
-	return self:loadResultOrFake("GetAmountTradedFrom", goodsType, from,  to)
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		"GetAmountTradedFrom", 
+		goodsType, 
+		from,  
+		to
+	)
 end
 
 ---
@@ -115,7 +147,12 @@ function CAI:GetCountryAlignmentDistance(countryA, countryB)
 	Hoi3Object.assertParameterType(1, countryA, 'CCountry')
 	Hoi3Object.assertParameterType(2, countryB, 'CCountry')
 	
-	return self:loadResultOrFake("GetCountryAlignmentDistance", countryA, countryB)
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		"GetCountryAlignmentDistance", 
+		countryA, 
+		countryB
+	)
 end
 
 ---
@@ -123,8 +160,13 @@ end
 -- @return CDate
 -- @static
 function CAI.GetCurrentDate()
-	
-	return CAI.loadResultOrFake(CAI, "GetCurrentDate")
+	return CAI.loadResultOrFakeOrRandom(
+		--loadResultOrFake is used statically, we pass "self" paramater as class reference
+		--instead of class instance !
+		CAI,
+		'CDate',
+		"GetCurrentDate"
+	)	
 end
 
 ---
@@ -132,14 +174,21 @@ end
 -- @return string
 -- @static
 function CAI.GetCommonModDirectory()
-	return CAI.loadResultOrFake(CAI, "GetCommonModDirectory")
+	return CAI.loadResultOrFakeOrRandom(
+		CAI,
+		'string',
+		"GetCommonModDirectory"
+	)
 end
 
 ---
 -- @since 2.0
 -- @return CArrayFix
 function CAI:GetDeployedSubUnitCounts()
-	return self:loadResultOrFake("GetDeployedSubUnitCounts")
+	return self:loadResultOrFakeOrRandom(
+		'CArrayFix',
+		"GetDeployedSubUnitCounts"
+	)
 end
 
 ---
@@ -147,7 +196,11 @@ end
 -- @return string
 -- @static
 function CAI.GetModDirectory()
-	return CAI.loadResultOrFake(CAI, "GetModDirectory")
+	return CAI.loadResultOrFakeOrRandom(
+		CAI,
+		'string',
+		"GetModDirectory"
+	)
 end
 
 ---
@@ -159,7 +212,12 @@ function CAI:GetNormalizedAlignmentDistance(country, faction)
 	Hoi3Object.assertParameterType(1, country, 'CCountry')
 	Hoi3Object.assertParameterType(2, faction, 'CFaction')
 	
-	return self:loadResultOrFake("GetNormalizedAlignmentDistance",country, faction)
+	return self:loadResultOrFakeOrRandom(
+		'CFixedPoint',
+		"GetNormalizedAlignmentDistance",
+		country, 
+		faction
+	)
 end
 
 ---
@@ -169,28 +227,41 @@ end
 function CAI:GetNumberOfOwnedProvinces(countryTag)
 	Hoi3Object.assertParameterType(1, country, 'CCountryTag')
 	
-	return self:loadResultOrFake("GetNumberOfOwnedProvinces",countryTag)
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		"GetNumberOfOwnedProvinces",
+		countryTag
+	)
 end
 
 ---
 -- @since 2.0
--- @return CArrayFix
-function CAI:GetProductionSubUnitCounts(countryTag)
-	Hoi3Object.throwNotYetImplemented()
+-- @return 
+function CAI:GetProductionSubUnitCounts()
+	return self:loadResultOrFakeOrRandom(
+		'CArrayFix',
+		"GetProductionSubUnitCounts"
+	)
 end
 
 ---
 -- @since 1.3
--- @return CList_CSubUnitConstructionEntry
+-- @return CSubUnitConstructionEntryList
 function CAI:GetReqProdQueue()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CSubUnitConstructionEntryList',
+		"GetReqProdQueue"
+	)
 end
 
 ---
 -- @since 1.3
 -- @return table<CSubUnitConstructionEntry>
 function CAI:GetReqProdQueueIter()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'table<CSubUnitConstructionEntry>',
+		"GetReqProdQueueIter"
+	)
 end
 
 ---
@@ -202,31 +273,36 @@ function CAI:GetRelation(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CDiplomacyStatus',
+		"GetRelation",
+		countryTagA, 
+		countryTagB
+	)
 end
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
--- @return CDiplomacyStatus
+-- @return number
 function CAI:GetSpamPenalty(countryTag)
 	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		"number",
+		"GetSpamPenalty",
+		countryTag
+	)
 end
 
 ---
 -- @since 2.0
 -- @return CArrayFix
 function CAI:GetTheatreSubUnitNeedCounts()
-	Hoi3Object.throwNotYetImplemented()
-end
-
----
--- @since 2.0
--- @return CArrayFix
-function CAI:GetTheatreSubUnitNeedCounts()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		"CArrayFix",
+		"GetTheatreSubUnitNeedCounts"
+	)
 end
 
 ---
@@ -234,14 +310,21 @@ end
 -- @return bool
 -- @static
 function CAI.HasCommonExtension()
-	Hoi3Object.throwNotYetImplemented()
+	return CAI.loadResultOrFakeOrRandom(
+		CAI,
+		'boolean',
+		"HasCommonExtension"
+	)
 end
 
 ---
 -- @since 1.4
 -- @return bool
 function CAI:HasFilledProdQueue()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasFilledProdQueue'
+	)
 end
 
 ---
@@ -251,7 +334,11 @@ end
 function CAI:HasTradeGoneStale(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasTradeGoneStale',
+		route
+	)	
 end
 
 ---
@@ -259,7 +346,11 @@ end
 -- @return bool
 -- @static
 function CAI.HasUserExtension()
-	Hoi3Object.throwNotYetImplemented()
+	return CAI.loadResultOrFakeOrRandom(
+		CAI,
+		'boolean',
+		"HasUserExtension"
+	)
 end
 
 ---
@@ -270,7 +361,11 @@ end
 function CAI.IsAIControlledForPlayer(automationtype)
 	Hoi3Object.assertParameterType(1, automationtype, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsAIControlledForPlayer',
+		automationtype
+	)	
 end
 
 ---
@@ -282,7 +377,12 @@ function CAI:IsInfluencing(countryTagA, countryTagB)
 	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
 	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsInfluencing',
+		countryTagA, 
+		countryTagB
+	)
 end
 
 ---
@@ -292,7 +392,11 @@ end
 function CAI:IsTradeingAwayNeededResource(route)
 	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsTradeingAwayNeededResource',
+		route
+	)
 end
 
 ---
@@ -323,7 +427,8 @@ end
 function CAI:Post(command)
 	Hoi3Object.assertParameterType(1, command, 'CCommand')
 	
-	Hoi3Object.throwUnknownSignature()
+	--TODO: do log something in here through dtools. It is quite interresting to 
+	--have a function posted.
 end
 
 ---
@@ -333,7 +438,8 @@ end
 function CAI:PostAction(action)
 	Hoi3Object.assertParameterType(1, action, 'CAction')
 	
-	Hoi3Object.throwUnknownSignature()
+	--TODO: do log something in here through dtools. It is quite interresting to 
+	--have a function posted.
 end
 
 ---
@@ -343,9 +449,6 @@ end
 function CAI:PrintConsole(message)
 	Hoi3Object.assertParameterType(1, message, 'string')
 	
-	Hoi3Object.throwUnknownSignature()
+	print(message)
+	dtools.info(message)
 end
-
--- CAI has static methods and properties
--- we need to declare a CAI table 
-CAI = CAI

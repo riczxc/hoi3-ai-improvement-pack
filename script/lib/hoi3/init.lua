@@ -7,6 +7,7 @@
 	All values returned fully random atm. 
 ]]
 
+module( "hoi3", package.seeall)
 
 -- Now declare all HOI3 API objects
 require('hoi3.api.CAction')
@@ -113,3 +114,14 @@ require('hoi3.api.CUnit')
 require('hoi3.api.CUnitList')
 require('hoi3.api.CWar')
 require('hoi3.api.SpyMission')
+
+function testAll()
+	require("lunit")
+	require("hoi3.tests.unit")
+	require("hoi3.tests.type")
+	require("hoi3.tests.save")
+	require("hoi3.tests.multiton")
+	require("hoi3.tests.abstract")
+	
+	lunit.main()
+end

@@ -25,20 +25,6 @@ end
 
 ---
 -- @since 1.3
--- @return CCountryTag
-function CAIForeignMinister:GetProposedWarTarget()
-	Hoi3Object.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @return CCountryTag
-function CAIForeignMinister:GetProposedWarTarget()
-	Hoi3Object.throwNotYetImplemented()
-end
-
----
--- @since 1.3
 -- @return unknown
 function CAIForeignMinister:PercOccupied(...)
 	Hoi3Object.throwUnknownSignature()

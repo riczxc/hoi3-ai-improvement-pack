@@ -36,9 +36,33 @@ require('ai_tech_minister')
 require('ai_trade')
 require('ai_strategic')
 
+hoi3.testAll()
+
 -- Call a core-to-lua hook
 --CAllianceAction(1,2)
 --print(CAI.GetCurrentDate():GetMonthOfYear())
 
-myCAI = CAI:new()
-myCAI:EvaluateCancelTrades(2, 12)
+--[[
+--	Example of HoI3Object:saveResult 
+	
+myCAI = CAI()
+myRoute = CTradeRoute()
+myResult = "abcdefgh"
+
+myCAI:saveResult(myResult,CAI.AlreadyTradingDisabledResource,myRoute)
+assert(myResult == myCAI:AlreadyTradingDisabledResource(myRoute), "Something wrong with saveResult")
+]]
+
+--myCAI:EvaluateCancelTrades(2, 12)
+--[[myCAI = CAI()
+myRoute = CTradeRoute()
+myResult = "abcdefgh"
+
+print(myCAI:GetCommonModDirectory())
+print(myCAI:GetReqProdQueueIter())
+print(myCAI:GetReqProdQueue())
+print(myCAI:AlreadyTradingDisabledResource(myRoute))
+print(myCAI:AlreadyTradingDisabledResource(myRoute))
+]]
+--myCAI:saveResult(myResult,CAI.AlreadyTradingDisabledResource,myRoute)
+--assert(myResult == myCAI:AlreadyTradingDisabledResource(myRoute), "Something wrong with saveResult")
