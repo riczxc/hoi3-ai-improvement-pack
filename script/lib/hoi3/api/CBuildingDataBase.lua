@@ -9,7 +9,12 @@ CBuildingDataBase = AbstractObject:subclass('hoi3.CBuildingDataBase')
 function CBuildingDataBase.GetBuilding(building)
 	Hoi3Object.assertParameterType(1, building, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return CBuildingDataBase.loadResultOrFakeOrRandom(
+		CBuildingDataBase,
+		'CBuilding',
+		'GetBuilding',
+		building
+	)
 end
 
 ---
@@ -19,5 +24,10 @@ end
 function CBuildingDataBase.GetBuildingFromIndex(building)
 	Hoi3Object.assertParameterType(1, building, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return CBuildingDataBase.loadResultOrFakeOrRandom(
+		CBuildingDataBase,
+		'CBuilding',
+		'GetBuilding',
+		building
+	)
 end

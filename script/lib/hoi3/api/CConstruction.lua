@@ -6,19 +6,28 @@ CConstruction = Hoi3Object:subclass('hoi3.CConstruction')
 -- @since 2.0
 -- @return number 
 function CConstruction:GetCost()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetCost'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return CMilitaryConstruction
 function CConstruction:GetMilitary()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'CMilitaryConstruction',
+		'GetMilitary'
+	)
 end
 
 ---
 -- @since 2.0
 -- @return bool
 function CConstruction:IsMilitary()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsMilitary'
+	)
 end

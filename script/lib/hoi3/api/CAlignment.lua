@@ -9,7 +9,11 @@ CAlignment = Hoi3Object:subclass('hoi3.CAlignment')
 function CAlignment:GetLastDrift(ideologyGroup)
 	Hoi3Object.assertParameterType(1, ideologyGroup, 'CIdeologyGroup')
 	
-	return self:genRandomNumber() 
+	return self:loadResultOrFakeOrRandom(
+		'number',
+		'GetLastDrift',
+		ideologyGroup
+	)
 end
 
 ---
