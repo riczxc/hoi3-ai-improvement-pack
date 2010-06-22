@@ -6,5 +6,8 @@ CAIEspionageMinister = CAIAgent:subclass('hoi3.CAIEspionageMinister')
 -- @since 1.3
 -- @return bool
 function CAIEspionageMinister:IsAligningToFaction()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsAligningToFaction'
+	)
 end  

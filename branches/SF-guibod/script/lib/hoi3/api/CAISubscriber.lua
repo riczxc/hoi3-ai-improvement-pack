@@ -1,6 +1,6 @@
-require('hoi3.Hoi3Object')
+require('hoi3.MultitonObject')
 
-CAISubscriber = Hoi3Object:subclass('hoi3.CAISubscriber')
+CAISubscriber = MultitonObject:subclass('hoi3.CAISubscriber')
 
 ---
 -- @since 1.3
