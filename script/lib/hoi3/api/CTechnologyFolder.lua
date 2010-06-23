@@ -1,12 +1,14 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CTechnologyFolder = Hoi3Object:subclass('hoi3.CTechnologyFolder')
 
 ---
 -- @since 1.3 
 -- @return number
 function CTechnologyFolder:GetIndex()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -14,12 +16,12 @@ end
 -- @return CString
 --function CTechnologyFolder:GetKey()
 CTechnologyFolder.GetKey = function()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3 
 -- @return bool
 function CTechnologyFolder:IsValid()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

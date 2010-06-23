@@ -1,40 +1,42 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CWar = Hoi3Object:subclass('hoi3.CWar')
 
 ---
 -- @since 1.3
 -- @return unknown 
 function CWar:GetAttackers()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CWar:GetCurrentRunningTimeInMonths()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
 function CWar:GetDefenders()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return CDate
 function CWar:GetStartDate()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CWar:IsLimited()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -42,7 +44,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool
 function CWar:IsPartOfWar(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented(countryTag)
+	hoi3.throwNotYetImplemented(countryTag)
 end

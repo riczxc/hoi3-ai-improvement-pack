@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CToggleMobilizationCommand = CCommand:subclass('hoi3.CToggleMobilizationCommand')
 
 ---
@@ -8,8 +10,8 @@ CToggleMobilizationCommand = CCommand:subclass('hoi3.CToggleMobilizationCommand'
 -- @param boolean  bMobilize
 -- @return CToggleMobilizationCommand
 function CToggleMobilizationCommand:initialize(countryTag, bMobilize)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, bMobilize, 'boolean')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(2, bMobilize, 'boolean')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

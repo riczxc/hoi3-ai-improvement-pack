@@ -1,3 +1,6 @@
 - List all object that support direct comparison and provide
 middleclass "__eq" method.
 see "eq" at http://www.lua.org/manual/5.1/manual.html#2.5.9
+
+- Transform all API to module, and provide a method to release class definition
+in the global scope.

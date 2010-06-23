@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CConstructBuildingCommand = CCommand:subclass('hoi3.CConstructBuildingCommand')
 
 ---
@@ -10,10 +12,10 @@ CConstructBuildingCommand = CCommand:subclass('hoi3.CConstructBuildingCommand')
 -- @param number quantity
 -- @return CConstructBuildingCommand
 function CConstructBuildingCommand:initialize(actor, building, provinceId, quantity)
-	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, target, 'CBuilding')
-	Hoi3Object.assertParameterType(3, provinceId, 'number')
-	Hoi3Object.assertParameterType(4, quantity, 'number')
+	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CBuilding')
+	hoi3.assertParameterType(3, provinceId, 'number')
+	hoi3.assertParameterType(4, quantity, 'number')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

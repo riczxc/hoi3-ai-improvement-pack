@@ -1,11 +1,13 @@
 require('hoi3.api.CAISubscriber')
 
+module("hoi3.api", package.seeall)
+
 CAIAgent = CAISubscriber:subclass('hoi3.CAIAgent')
 
 ---
 -- @param CCountryTag countryTag
 function CAIAgent:initalize(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	self.countryTag = countryTag
 end

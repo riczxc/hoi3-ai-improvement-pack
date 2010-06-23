@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CTradeRoute = Hoi3Object:subclass('hoi3.CTradeRoute')
 
 
@@ -7,37 +9,37 @@ CTradeRoute = Hoi3Object:subclass('hoi3.CTradeRoute')
 -- @since 1.3
 -- @return CCountryTag 
 function CTradeRoute:GetConvoyResponsible()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
 function CTradeRoute:GetFrom()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
 function CTradeRoute:GetCost(...)
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
 function CTradeRoute:GetLastInactive(...)
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
 function CTradeRoute:GetTo()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -45,8 +47,8 @@ end
 -- @param number goodsType
 -- @return CFixedPoint 
 function CTradeRoute:GetTradedFromOf(goodsType)
-	Hoi3Object.assertParameterType(1, goodsType, 'number')
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -54,20 +56,20 @@ end
 -- @param number goodsType
 -- @return CFixedPoint 
 function CTradeRoute:GetTradedToOf(goodsType)
-	Hoi3Object.assertParameterType(1, goodsType, 'number')
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CTradeRoute:IsInactive()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CTradeRoute:IsValid()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,5 +1,7 @@
 require('hoi3.api.CDiplomaticAction')
 
+module("hoi3.api", package.seeall)
+
 CSendExpeditionaryForceAction = CDiplomaticAction:subclass('hoi3.CSendExpeditionaryForceAction')
 
 --[[
@@ -15,24 +17,24 @@ CSendExpeditionaryForceAction.SEND = 1
 -- @since 2.0
 -- @return unknown
 function CSendExpeditionaryForceAction:GetClaimType(...)	
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 2.0
 -- @return unknown
 function CSendExpeditionaryForceAction:GetUnit(...)	
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 2.0
 -- @return unknown
 function CSendExpeditionaryForceAction:GetTag(...)	
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
@@ -41,8 +43,8 @@ end
 -- @param CCountryTag countryTagB
 -- @return CSendExpeditionaryForceAction
 function CSendExpeditionaryForceAction:initialize(countryTagA, countryTagB)
-	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
+	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

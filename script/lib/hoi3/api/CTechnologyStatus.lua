@@ -1,12 +1,14 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CTechnologyStatus = Hoi3Object:subclass('hoi3.CTechnologyStatus')
 
 ---
 -- @since 1.3
 -- @return bool 
 function CTechnologyStatus:CanResearch(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
@@ -15,18 +17,18 @@ end
 -- @param number level
 -- @return CFixedPoint 
 function CTechnologyStatus:GetCost(tech, level)
-	Hoi3Object.assertParameterType(1, tech, 'CTechnology')
-	Hoi3Object.assertParameterType(2, level, 'number')
+	hoi3.assertParameterType(1, tech, 'CTechnology')
+	hoi3.assertParameterType(2, level, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown 
 function CTechnologyStatus:GetEffectiveYear(...)
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
@@ -34,9 +36,9 @@ end
 -- @param CTechnology  tech
 -- @return number 
 function CTechnologyStatus:GetLevel(tech)
-	Hoi3Object.assertParameterType(1, tech, 'CTechnology')
+	hoi3.assertParameterType(1, tech, 'CTechnology')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -45,10 +47,10 @@ end
 -- @param number level
 -- @return CFixedPoint 
 function CTechnologyStatus:GetYear(tech, level)
-	Hoi3Object.assertParameterType(1, tech, 'CTechnology')
-	Hoi3Object.assertParameterType(2, level, 'number')
+	hoi3.assertParameterType(1, tech, 'CTechnology')
+	hoi3.assertParameterType(2, level, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -56,9 +58,9 @@ end
 -- @param CSubUnitDefinition  unit
 -- @return bool 
 function CTechnologyStatus:IsUnitAvailable(unit)
-	Hoi3Object.assertParameterType(1, unit, 'CSubUnitDefinition')
+	hoi3.assertParameterType(1, unit, 'CSubUnitDefinition')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -66,7 +68,7 @@ end
 -- @param CBuilding  building
 -- @return bool 
 function CTechnologyStatus:IsBuildingAvailable(building)
-	Hoi3Object.assertParameterType(1, building, 'CBuilding')
+	hoi3.assertParameterType(1, building, 'CBuilding')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

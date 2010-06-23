@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CDate = Hoi3Object:subclass('hoi3.CDate')
 
 ---
@@ -20,7 +22,7 @@ end
 -- @since 2.0
 -- @return unknown
 function CDate:GetTotalDays()
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
@@ -35,7 +37,7 @@ end
 -- @param number daysToAdd
 -- @return void
 function CDate:AddDays(daysToAdd)
-	Hoi3Object.assertParameterType(1, daysToAdd, 'number')
+	hoi3.assertParameterType(1, daysToAdd, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

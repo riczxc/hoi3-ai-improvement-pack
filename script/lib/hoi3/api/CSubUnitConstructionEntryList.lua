@@ -1,33 +1,35 @@
 require('hoi3.api.CList')
 
+module("hoi3.api", package.seeall)
+
 CSubUnitConstructionEntryList = Hoi3Object:subclass('hoi3.CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3
 -- @return CSubUnitConstructionEntry
 function CSubUnitConstructionEntryList:GetHeadData()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CSubUnitConstructionEntryList:GetSize()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CSubUnitConstructionEntry
 function CSubUnitConstructionEntryList:GetTailData()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CSubUnitConstructionEntryList:IsEmpty()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -35,21 +37,21 @@ end
 -- @param CSubUnitConstructionEntry request
 -- @return void
 function CSubUnitConstructionEntryList:Remove(request)
-	Hoi3Object.assertParameterType(1, request, 'CSubUnitConstructionEntry')
+	hoi3.assertParameterType(1, request, 'CSubUnitConstructionEntry')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
 function CSubUnitConstructionEntryList:RemoveHead()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
 function CSubUnitConstructionEntryList:RemoveTail()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

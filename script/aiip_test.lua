@@ -24,6 +24,10 @@ require('utils')
 -- relies on aiip_enabler.lua that is called
 -- from utils.lua
 require('hoi3')
+require('hoi3.api')
+
+-- hoi3.api.CAction => CAction
+hoi3.api.releaseApiOnGlobalScope()
 
 -- Resume Fake autoexec
 require('ai_country')

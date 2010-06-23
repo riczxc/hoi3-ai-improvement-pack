@@ -1,19 +1,21 @@
 require('hoi3.api.CAIAgent')
 
+module("hoi3.api", package.seeall)
+
 CAIForeignMinister = CAIAgent:subclass('hoi3.CAIForeignMinister')
 
 ---
 -- @since 1.3
 -- @return void
 function CAIForeignMinister:ClearWarProposal()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return void
 function CAIForeignMinister:ExecuteDiploDecisions()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -30,7 +32,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIForeignMinister:PercOccupied(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
@@ -39,10 +41,10 @@ end
 -- @param number score
 -- @return void
 function CAIForeignMinister:Propose(action, score)
-	Hoi3Object.assertParameterType(1, action, 'CDiplomaticAction')
-	Hoi3Object.assertParameterType(2, score, 'number')
+	hoi3.assertParameterType(1, action, 'CDiplomaticAction')
+	hoi3.assertParameterType(2, score, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -51,8 +53,8 @@ end
 -- @param number warDesirability
 -- @return void
 function CAIForeignMinister:ProposeWar(countryTag, warDesirability)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, warDesirability, 'number')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(2, warDesirability, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

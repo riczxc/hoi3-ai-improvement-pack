@@ -1,10 +1,12 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CGovernment = Hoi3Object:subclass('hoi3.CGovernment')
 
 ---
 -- @since 1.3
 -- @return bool
 function CGovernment:IsValid()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

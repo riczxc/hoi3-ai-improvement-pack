@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CRule = Hoi3Object:subclass('hoi3.CRule')
 
 CRule._RULE_ALLIANCE_GUARANTEE_	= 1

@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CTechnologyDataBase = AbstractObject:subclass('hoi3.CTechnologyDataBase')
 
 ---
@@ -8,9 +10,9 @@ CTechnologyDataBase = AbstractObject:subclass('hoi3.CTechnologyDataBase')
 -- @param string folderName
 -- @return number 
 function CTechnologyDataBase.GetFolderIndex(folderName)
-	Hoi3Object.assertParameterType(1, folderName, 'string')
+	hoi3.assertParameterType(1, folderName, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -18,7 +20,7 @@ end
 -- @static
 -- @return table<CTechnologyCategory>
 function CTechnologyDataBase.GetCategories()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -26,5 +28,5 @@ end
 -- @static
 -- @return table<CTechnology>
 function CTechnologyDataBase.GetTechnologies()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

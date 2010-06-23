@@ -1,38 +1,62 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CCountryTag = Hoi3Object:subclass('hoi3.CCountryTag')
+
+---
+-- @since 1.3
+-- @param string tag
+-- @return CCountry 
+function CCountryTag:initialize(tag)
+	hoi3.assertParameterType(1, tag, 'string')
+	assert(string.len(tag)==3, "A country tag must be 3 character long.")
+	
+	self.tag = tag
+end
 
 ---
 -- @since 1.3
 -- @return CCountry 
 function CCountryTag:GetCountry()
-	Hoi3Object.throwNotYetImplemented()
+	return CCountry:new(self.tag)
 end
 
 ---
 -- @since 1.3
 -- @return number 
 function CCountryTag:GetIndex()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
 function CCountryTag:GetTag()
-	Hoi3Object.throwNotYetImplemented()
+	return self.tag
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CCountryTag:IsReal()
-	Hoi3Object.throwNotYetImplemented()
+	return CCountryTag:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsReal'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CCountryTag:IsValid()
-	Hoi3Object.throwNotYetImplemented()
+	return CCountryTag:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsValid'
+	)
+end
+
+
+function CCountryTag.random()
+	local availableTags = {}
 end

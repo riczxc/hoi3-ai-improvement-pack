@@ -1,5 +1,7 @@
 require('hoi3.api.CDiplomaticAction')
 
+module("hoi3.api", package.seeall)
+
 CDebtAction = CDiplomaticAction:subclass('hoi3.CDebtAction')
 
 ---
@@ -8,8 +10,8 @@ CDebtAction = CDiplomaticAction:subclass('hoi3.CDebtAction')
 -- @param CCountryTag debtor
 -- @return CDebtAction
 function CDebtAction:initialize(actor, debtor)
-	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, debtor, 'CCountryTag')
+	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(2, debtor, 'CCountryTag')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,6 +1,19 @@
-require('hoi3.Hoi3Object')
+require('hoi3.MultitonObject')
 
-CBuilding = Hoi3Object:subclass('hoi3.CBuilding')
+CBuilding = MultitonObject:subclass('hoi3.CBuilding')
+
+---
+-- @since 1.3
+-- @param number index
+-- @param string name
+-- @return string 
+function CBuilding:initialize(index, name)
+	hoi3.assertParameterType(1, country, 'CCountry')
+	hoi3.assertParameterType(1, country, 'CCountry')
+	
+	self.index = index
+	self.name = name
+end
 
 ---
 -- @since 1.3

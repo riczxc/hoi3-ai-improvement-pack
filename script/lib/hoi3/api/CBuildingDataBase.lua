@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CBuildingDataBase = AbstractObject:subclass('hoi3.CBuildingDataBase')
 
 ---
@@ -7,7 +9,7 @@ CBuildingDataBase = AbstractObject:subclass('hoi3.CBuildingDataBase')
 -- @param string building
 -- @return CBuilding 
 function CBuildingDataBase.GetBuilding(building)
-	Hoi3Object.assertParameterType(1, building, 'string')
+	hoi3.assertParameterType(1, building, 'string')
 	
 	return CBuildingDataBase.loadResultOrFakeOrRandom(
 		CBuildingDataBase,
@@ -22,7 +24,7 @@ end
 -- @param number building
 -- @return CBuilding 
 function CBuildingDataBase.GetBuildingFromIndex(building)
-	Hoi3Object.assertParameterType(1, building, 'number')
+	hoi3.assertParameterType(1, building, 'number')
 	
 	return CBuildingDataBase.loadResultOrFakeOrRandom(
 		CBuildingDataBase,

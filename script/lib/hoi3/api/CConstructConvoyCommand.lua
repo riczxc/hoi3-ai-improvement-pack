@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CConstructConvoyCommand = CCommand:subclass('hoi3.CConstructConvoyCommand')
 
 ---
@@ -9,9 +11,9 @@ CConstructConvoyCommand = CCommand:subclass('hoi3.CConstructConvoyCommand')
 -- @param number quantity
 -- @return CConstructConvoyCommand
 function CConstructConvoyCommand:initialize(actor, ConvoyOrEscort, quantity)
-	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, ConvoyOrEscort, 'boolean')
-	Hoi3Object.assertParameterType(3, quantity, 'number')
+	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(2, ConvoyOrEscort, 'boolean')
+	hoi3.assertParameterType(3, quantity, 'number')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

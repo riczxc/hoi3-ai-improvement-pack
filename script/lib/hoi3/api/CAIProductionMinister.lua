@@ -1,5 +1,7 @@
 require('hoi3.api.CAIAgent')
 
+module("hoi3.api", package.seeall)
+
 CAIProductionMinister = CAIAgent:subclass('hoi3.CAIProductionMinister')
 
 ---
@@ -46,5 +48,5 @@ end
 -- @since 1.3
 -- @return void
 function CAIProductionMinister:PrioritizeBuildQueue()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

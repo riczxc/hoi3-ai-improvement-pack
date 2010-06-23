@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CCancelUnitConstructionCommand = CCommand:subclass('hoi3.CCancelUnitConstructionCommand')
 
 ---
@@ -8,16 +10,16 @@ CCancelUnitConstructionCommand = CCommand:subclass('hoi3.CCancelUnitConstruction
 -- @param CID cID
 -- @return CCancelUnitConstructionCommand
 function CCancelUnitConstructionCommand:initialize(countryTag, cID)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, cID, 'CID')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(2, cID, 'CID')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CCancelUnitConstructionCommand 
 function CCancelUnitConstructionCommand:Clone()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 

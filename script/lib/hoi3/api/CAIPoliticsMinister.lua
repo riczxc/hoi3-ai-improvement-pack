@@ -1,5 +1,7 @@
 require('hoi3.api.CAIAgent')
 
+module("hoi3.api", package.seeall)
+
 CAIPoliticsMinister = CAIAgent:subclass('hoi3.CAIPoliticsMinister')
 
 ---
@@ -7,7 +9,7 @@ CAIPoliticsMinister = CAIAgent:subclass('hoi3.CAIPoliticsMinister')
 -- @param CCountryTag countryTag
 -- @return bool
 function CAIPoliticsMinister:IsCapitalSafeToLiberate(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'boolean',

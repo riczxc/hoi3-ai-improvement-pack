@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 SpyMission = AbstractObject:subclass('hoi3.SpyMission')
 
 SpyMission.SPYMISSION_BOOST_OUR_PARTY  = 1

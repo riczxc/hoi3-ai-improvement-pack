@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CGoodsPool = AbstractObject:subclass('hoi3.CGoodsPool')
 
 CGoodsPool._MONEY_ = 1

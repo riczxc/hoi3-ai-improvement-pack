@@ -1,20 +1,22 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CString = Hoi3Object:subclass('hoi3.CString')
 
 ---
 -- @since 1.3
 -- @return string
 function CString:Getstring()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CString:GetCharPtr(...)
-	Hoi3Object.throwUnknownSignature()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownSignature()
+	hoi3.throwUnknownReturnType()
 end
 
 
@@ -23,7 +25,7 @@ end
 -- @param string str
 -- @return Cstring
 function CString:initialize(str)
-	Hoi3Object.assertParameterType(1, str, 'string')
+	hoi3.assertParameterType(1, str, 'string')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

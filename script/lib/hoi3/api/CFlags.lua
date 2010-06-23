@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CFlags = Hoi3Object:subclass('hoi3.CFlags')
 
 ---
@@ -7,7 +9,7 @@ CFlags = Hoi3Object:subclass('hoi3.CFlags')
 -- @param string key
 -- @return bool
 function CFlags:IsFlagSet(key)
-	Hoi3Object.assertParameterType(1, key, 'string')
+	hoi3.assertParameterType(1, key, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CFixedPoint = Hoi3Object:subclass('hoi3.CFixedPoint')
 
 ---
@@ -7,29 +9,33 @@ CFixedPoint = Hoi3Object:subclass('hoi3.CFixedPoint')
 -- @param CCountryTag actor
 -- @return CFixedPoint
 function CFixedPoint:initialize(val)
-	Hoi3Object.assertParameterType(1, val, 'number')
+	hoi3.assertParameterType(1, val, 'number')
 
-	Hoi3Object.throwNotYetImplemented()
+	self.value = val
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CFixedPoint:Get()
-	Hoi3Object.throwNotYetImplemented()
+	return self.value
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CFixedPoint:GetTruncated()
-	Hoi3Object.throwNotYetImplemented()
+	return math.floor(self.value)
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CFixedPoint:GetRounded()
-	Hoi3Object.throwNotYetImplemented()
+  	return math.floor(self.value + 0.5)
 end
 
+
+function CFixedPoint.random()
+	return CFixedPoint(math.random()*100)
+end

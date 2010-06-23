@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CModifier = AbstractObject:subclass('hoi3.CModifier')
 
 CModifier._MODIFIER_AIR_CAPACITY_	= 1
@@ -87,11 +89,10 @@ CModifier._MODIFIER_WAR_EXHAUSTION_	= 82
 
 ---
 -- @since 2.0
--- @static
 -- @param number modifier
 -- @return number
-function CMinister.GetValue(modifier)
-	Hoi3Object.assertParameterType(1, modifier, 'number')
+function CModifier:GetValue(modifier)
+	hoi3.assertParameterType(1, modifier, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,26 +1,28 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CSimpleRandom = Hoi3Object:subclass('hoi3.CSimpleRandom')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CSimpleRandom:GetFixedPoint(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CSimpleRandom:GetInteger(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
 -- @since 1.3
 -- @return number
 function CSimpleRandom:GetNumber(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
@@ -28,8 +30,8 @@ end
 -- @param number seed
 -- @return void
 function CSimpleRandom:Seed(seed)
-	Hoi3Object.assertParameterType(1, seed, 'number')
+	hoi3.assertParameterType(1, seed, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 

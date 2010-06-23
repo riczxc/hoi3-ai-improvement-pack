@@ -1,11 +1,13 @@
 require('hoi3.MultitonObject')
 
+module("hoi3.api", package.seeall)
+
 CCountry = MultitonObject:subclass('hoi3.CCountry')
 
 ---
 -- @param CCountryTag countryTag
 function CCountry:initalize(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	self.countryTag = countryTag
 end
@@ -45,7 +47,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool 
 function CCountry:CalculateIsAllied(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'boolean',
@@ -99,7 +101,7 @@ end
 -- @param CTechnologyCategory  category
 -- @return bool 
 function CCountry:GetAbility(category)
-	Hoi3Object.assertParameterType(1, category, 'CTechnologyCategory')
+	hoi3.assertParameterType(1, category, 'CTechnologyCategory')
 	
 	return self:loadResultOrFakeOrRandom(
 		'boolean',
@@ -142,7 +144,7 @@ end
 -- @since 1.3
 -- @return unknown 
 function CCountry:GetAlignmentCord()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
@@ -170,7 +172,7 @@ end
 -- @param CBuilding  building
 -- @return CFixedPoint 
 function CCountry:GetBuildCost(building)
-	Hoi3Object.assertParameterType(1, building, 'CBuilding')
+	hoi3.assertParameterType(1, building, 'CBuilding')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -186,9 +188,9 @@ end
 -- @param bool buildReserve
 -- @return CFixedPoint 
 function CCountry:GetBuildCostIC(pUnit, quantity, buildReserve)
-	Hoi3Object.assertParameterType(1, pUnit, 'CSubUnitDefinition')
-	Hoi3Object.assertParameterType(2, quantity, 'number')
-	Hoi3Object.assertParameterType(3, buildReserve, 'boolean')
+	hoi3.assertParameterType(1, pUnit, 'CSubUnitDefinition')
+	hoi3.assertParameterType(2, quantity, 'number')
+	hoi3.assertParameterType(3, buildReserve, 'boolean')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -206,9 +208,9 @@ end
 -- @param bool buildReserve
 -- @return CFixedPoint 
 function CCountry:GetBuildCostMP(pUnit, quantity, buildReserve)
-	Hoi3Object.assertParameterType(1, pUnit, 'CSubUnitDefinition')
-	Hoi3Object.assertParameterType(2, quantity, 'number')
-	Hoi3Object.assertParameterType(3, buildReserve, 'boolean')
+	hoi3.assertParameterType(1, pUnit, 'CSubUnitDefinition')
+	hoi3.assertParameterType(2, quantity, 'number')
+	hoi3.assertParameterType(3, buildReserve, 'boolean')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -223,7 +225,7 @@ end
 -- @since 1.3
 -- @return unknown 
 function CCountry:GetBuildTime(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
@@ -358,7 +360,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyBalance(goodIndex)
-	Hoi3Object.assertParameterType(1, goodIndex, 'number')
+	hoi3.assertParameterType(1, goodIndex, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -372,7 +374,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyExpense(goodIndex)
-	Hoi3Object.assertParameterType(1, goodIndex, 'number')
+	hoi3.assertParameterType(1, goodIndex, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -386,7 +388,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyIncome(goodIndex)
-	Hoi3Object.assertParameterType(1, goodIndex, 'number')
+	hoi3.assertParameterType(1, goodIndex, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -410,7 +412,7 @@ end
 -- @param CCountryTag countryTag
 -- @return CFixedPoint
 function CCountry:GetDiplomaticDistance(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -534,7 +536,7 @@ end
 -- @param number distributionSetting
 -- @return CFixedPoint
 function CCountry:GetICPart(distributionSetting)
-	Hoi3Object.assertParameterType(1, distributionSetting, 'number')
+	hoi3.assertParameterType(1, distributionSetting, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -548,7 +550,7 @@ end
 -- @param CLawGroup lawGroup
 -- @return CLaw
 function CCountry:GetLaw(lawGroup)
-	Hoi3Object.assertParameterType(1, lawGroup, 'CLawGroup')
+	hoi3.assertParameterType(1, lawGroup, 'CLawGroup')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CLaw',
@@ -562,7 +564,7 @@ end
 -- @param number groupIndex
 -- @return CLaw
 function CCountry:GetLawFromIndex(groupIndex)
-	Hoi3Object.assertParameterType(1, groupIndex, 'number')
+	hoi3.assertParameterType(1, groupIndex, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CLaw',
@@ -576,7 +578,7 @@ end
 -- @param number distributionSetting
 -- @return CDistributionSetting
 function CCountry:GetLeadershipDistributionAt(distributionSetting)
-	Hoi3Object.assertParameterType(1, distributionSetting, 'number')
+	hoi3.assertParameterType(1, distributionSetting, 'number')
 
 	return self:loadResultOrFakeOrRandom(
 		'CDistributionSetting',
@@ -610,7 +612,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return CFixedPoint
 function CCountry:GetMaxNeutralityForWarWith(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -624,7 +626,7 @@ end
 -- @param number positionIndex
 -- @return CMinister
 function CCountry:GetMinister(positionIndex)
-	Hoi3Object.assertParameterType(1, positionIndex, 'number')
+	hoi3.assertParameterType(1, positionIndex, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CMinister',
@@ -808,7 +810,7 @@ end
 -- @param number distributionSetting
 -- @return CDistributionSetting
 function CCountry:GetProductionDistributionAt(distributionSetting)
-	Hoi3Object.assertParameterType(1, distributionSetting, 'CDistributionSetting')
+	hoi3.assertParameterType(1, distributionSetting, 'CDistributionSetting')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -822,7 +824,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return CDiplomacyStatus
 function CCountry:GetRelation(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CDiplomacyStatus',
@@ -856,7 +858,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return CSpyPresence
 function CCountry:GetSpyPresence(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CSpyPresence',
@@ -940,7 +942,7 @@ end
 -- @param number buildingIndex
 -- @return number 
 function CCountry:GetTotalCoreBuildingLevels(buildingIndex)
-	Hoi3Object.assertParameterType(1, buildingIndex, 'number')
+	hoi3.assertParameterType(1, buildingIndex, 'number')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -1084,7 +1086,7 @@ end
 -- @param string key
 -- @return CFixedPoint
 function CCountry:GetVariable(key)
-	Hoi3Object.assertParameterType(1, key, 'string')
+	hoi3.assertParameterType(1, key, 'string')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -1096,21 +1098,24 @@ end
 -- @since 1.4
 -- @return CVariables
 function CCountry:GetVariables()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetVassals()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:HasConstruction()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasConstruction'
+	)
 end
 
 ---
@@ -1118,23 +1123,34 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool
 function CCountry:HasDiplomatEnroute(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasDiplomatEnroute',
+		countryTag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:HasExtraManpowerLeft()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasExtraManpowerLeft'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:HasFaction()
-	Hoi3Object.throwNotYetImplemented()
+	-- FIXME, check CFaction instead ?
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasFaction'
+	)
 end
 
 ---
@@ -1142,16 +1158,23 @@ end
 -- @param CFaction faction
 -- @return bool
 function CCountry:HasNeighborInFaction(faction)
-	Hoi3Object.assertParameterType(1, faction, 'CFaction')
+	hoi3.assertParameterType(1, faction, 'CFaction')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'HasNeighborInFaction',
+		faction
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:IsAtWar()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsAtWar'
+	)
 end
 
 ---
@@ -1160,10 +1183,15 @@ end
 -- @param CProvince  province
 -- @return bool
 function CCountry:IsBuildingAllowed(building, province)
-	Hoi3Object.assertParameterType(1, building, 'CBuilding')
-	Hoi3Object.assertParameterType(2, province, 'CProvince')
+	hoi3.assertParameterType(1, building, 'CBuilding')
+	hoi3.assertParameterType(2, province, 'CProvince')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsBuildingAllowed',
+		building, 
+		province
+	)
 end
 
 ---
@@ -1171,16 +1199,23 @@ end
 -- @param CCountryTag  otherCountryTag
 -- @return bool
 function CCountry:IsEnemy(otherCountryTag)
-	Hoi3Object.assertParameterType(1, otherCountryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsEnemy',
+		otherCountryTag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:IsFactionLeader()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsFactionLeader'
+	)
 end
 
 ---
@@ -1189,31 +1224,45 @@ end
 -- @param bool unknownFlag
 -- @return bool
 function CCountry:IsFriend(otherCountryTag, unknownFlag)
-	Hoi3Object.assertParameterType(1, otherCountryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, unknownFlag, 'boolean')
+	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
+	hoi3.assertParameterType(2, unknownFlag, 'boolean')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsFriend',
+		otherCountryTag, 
+		unknownFlag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:IsGovernmentInExile()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsGovernmentInExile'
+	)
 end
 
 ---
+-- Is current country Major ?
+--
+-- Is total IC > 60 ?
 -- @since 1.3
 -- @return bool
 function CCountry:IsMajor()
-	Hoi3Object.throwNotYetImplemented()
+	return CCountry:GetTotalIC() >= 60
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:IsMobilized()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsMobilized'
+	)
 end
 
 ---
@@ -1221,9 +1270,13 @@ end
 -- @param CCountryTag  otherCountryTag
 -- @return bool
 function CCountry:IsNeighbour(otherCountryTag)
-	Hoi3Object.assertParameterType(1, otherCountryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsNeighbour',
+		otherCountryTag
+	)
 end
 
 ---
@@ -1232,24 +1285,37 @@ end
 -- @param bool unknownFlag
 -- @return bool
 function CCountry:IsNeighbourToFactionHostile(faction, unknownFlag)
-	Hoi3Object.assertParameterType(1, faction, 'CFaction')
-	Hoi3Object.assertParameterType(2, unknownFlag, 'boolean')
+	hoi3.assertParameterType(1, faction, 'CFaction')
+	hoi3.assertParameterType(2, unknownFlag, 'boolean')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsNeighbourToFactionHostile',
+		faction, 
+		unknownFlag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:isPuppet()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'isPuppet',
+		faction, 
+		unknownFlag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:IsSubject()
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'IsSubject'
+	)
 end
 
 ---
@@ -1257,14 +1323,27 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool
 function CCountry:NeedConvoyToTradeWith(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'NeedConvoyToTradeWith',
+		countryTag
+	)
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:MayLiberateCountries()
-	Hoi3Object.throwNotYetImplemented()
+	-- TODO: Interrogate Politic Minister 
+	return self:loadResultOrFakeOrRandom(
+		'boolean',
+		'MayLiberateCountries'
+	)
+end
+
+
+function CCountry.random()
+	return CCountry:new(CCountryTag.random())
 end
