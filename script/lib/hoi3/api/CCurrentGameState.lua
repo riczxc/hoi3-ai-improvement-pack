@@ -41,7 +41,7 @@ end
 -- @param string faction
 -- @return CFaction
 function CCurrentGameState.GetFaction(faction)
-	hoi3.assertParameterType(1, faction, 'string')
+	hoi3.assertParameterType(1, faction, hoi3.TYPE_STRING)
 	
 	return CCurrentGameState:loadResultOrImplOrRandom(
 		'CFaction',
@@ -51,7 +51,7 @@ function CCurrentGameState.GetFaction(faction)
 end
 
 function CCurrentGameState.GetFactionImpl(faction)
-	hoi3.assertParameterType(1, faction, 'string')
+	hoi3.assertParameterType(1, faction, hoi3.TYPE_STRING)
 	
 	for i,k in ipairs(CCurrentGameState.GetFactions()) do
 		if k.GetName() == faction then
@@ -101,7 +101,7 @@ end
 -- @param number provinceId
 -- @return CProvince
 function CCurrentGameState.GetProvince(provinceId)
-	hoi3.assertParameterType(1, provinceId, 'number')
+	hoi3.assertParameterType(1, provinceId, hoi3.TYPE_NUMBER)
 
 	return CCurrentGameState:loadResultOrImplOrRandom(
 		'CProvince',
@@ -115,7 +115,7 @@ end
 -- @param string flagName
 -- @return bool
 function CCurrentGameState.IsGlobalFlagSet(flagName)
-	hoi3.assertParameterType(1, flagName, 'string')
+	hoi3.assertParameterType(1, flagName, hoi3.TYPE_STRING)
 
 	hoi3.throwNotYetImplemented()
 end

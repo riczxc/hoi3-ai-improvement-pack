@@ -13,7 +13,7 @@ CChangePriorityCommand = CCommand:subclass('hoi3.CChangePriorityCommand')
 function CChangePriorityCommand:initialize(actor, cid, priority)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, cid, 'CID')
-	hoi3.assertParameterType(3, priority, 'number')
+	hoi3.assertParameterType(3, priority, hoi3.TYPE_NUMBER)
 
 	hoi3.throwNotYetImplemented()
 end

@@ -37,7 +37,7 @@ end
 -- @param number daysToAdd
 -- @return void
 function CDate:AddDays(daysToAdd)
-	hoi3.assertParameterType(1, daysToAdd, 'number')
+	hoi3.assertParameterType(1, daysToAdd, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

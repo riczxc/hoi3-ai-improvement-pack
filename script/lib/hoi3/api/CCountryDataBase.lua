@@ -9,7 +9,7 @@ CCountryDataBase = hoi3.AbstractObject:subclass('hoi3.CCountryDataBase')
 -- @param string countryCode
 -- @return CCountryTag 
 function CCountryDataBase.GetTag(countryCode)
-	hoi3.assertParameterType(1, countryCode, 'string')
+	hoi3.assertParameterType(1, countryCode, hoi3.TYPE_STRING)
 	
 	return CCountryDataBase.loadResultOrImplOrRandom(
 		CCountryDataBase,

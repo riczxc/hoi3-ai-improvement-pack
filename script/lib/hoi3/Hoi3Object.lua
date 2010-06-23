@@ -87,7 +87,13 @@ end
 	or use return hint in order to provide a randomized value
 	or throw a notimplemented error
 ]]
-Hoi3Object.loadResultOrImplOrRandom  = function(self, returnTypeAsString, methodName, ...)
+Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, ...)
+	-- expectedType can be either a string
+	-- or a more complex Randomizer object instance
+	if type(expectedType) == hoi3.TYPE_STRING then
+		expectedType = hoi3.Randomizer:new(expectedType)
+	end
+	
 	-- Real method
 	local fReference = self[methodName]
 	if fReference == nil or
@@ -99,7 +105,7 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, returnTypeAsString, method
 	if self:hasResult(fReference, ...) then
 		return Hoi3Object.assertReturnTypeAndReturn(
 			self:loadResult(fReference, ...),
-			returnTypeAsString
+			expectedType:__tostring()
 		)
 	end
 	
@@ -120,7 +126,7 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, returnTypeAsString, method
 	-- Create a randomized result (depending on expected return type)
 	if computedValue == nil then
 		-- May throw a specific exception "no randomizer"
-		computedValue = Hoi3Object.computeRandomizedValue(returnTypeAsString)
+		computedValue = expectedType:compute(def)
 	end
 	
 	if computedValue ~= nil then
@@ -137,65 +143,11 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, returnTypeAsString, method
 		-- And return (with a test on returned value type)
 		return Hoi3Object.assertReturnTypeAndReturn(
 			Hoi3Object.resultTable[self][fReference][hash],
-			returnTypeAsString
+			expectedType:__tostring()
 		)
 	end
 	
-	Hoi3Object.throwNoYetImplemented()	
+	hoi3.throwNotYetImplemented()	
 end
 
----
--- Compute random value for a given type
--- this method returns "nil" instead of throwing exception
-Hoi3Object.computeRandomizedValue = function(returnTypeAsString)
-	--TODO: support random hint, such as table size, % true/false, random(min/max)...
-	math.randomseed( os.time() )
-	
-	if returnTypeAsString == hoi3.TYPE_FUNCTION or
-		returnTypeAsString == hoi3.TYPE_THREAD or
-		returnTypeAsString == hoi3.TYPE_USERDATA then
-		-- Throw an error, we don't handle such special datatypes !
-		error("Failed to randomize special datatype. function, thread and userdata type are not handled")   
-	elseif returnTypeAsString == hoi3.TYPE_NIL then
-		return nil
-	elseif returnTypeAsString == hoi3.TYPE_STRING then
-		-- return a human readable string of 10 caracters
-		local conso = {"b","c","d","f","g","h","j","k","l","m","n","p","r","s","t","v","w","x","y","z","_"}
-		local vocal = {"a","e","i","o","u"}
-		local value = ""
-		local length = 10
-			
-		for i = 0, length, 2 do
-			value = value .. conso[ math.random(#conso)]
-			value = value .. vocal[ math.random(#vocal)]
-		end
-		
-		return value		
-	elseif returnTypeAsString == hoi3.TYPE_NUMBER then
-		return math.random(0,100)
-	elseif returnTypeAsString == hoi3.TYPE_BOOLEAN then
-		if math.random(2) == 1 then 
-			return true 
-		else 
-			return false 
-		end
-	elseif returnTypeAsString:sub(0,6) == hoi3.TYPE_TABLE.."<" then
-		local myType = returnTypeAsString:sub(0,-2):sub(7)
-		local myTable = {}
-		local myValue
-		for i = 0, math.random(10) do
-			myValue = Hoi3Object.computeRandomizedValue(myType)
-			print(myValue)
-			table.insert(myTable,Hoi3Object.computeRandomizedValue(myType))
-		end
-		return myTable
-	else
-		-- try to delegate to object reference
-		if _G[returnTypeAsString] and _G[returnTypeAsString].random
-			and type(_G[returnTypeAsString].random) == hoi3.TYPE_FUNCTION then
-			return _G[returnTypeAsString].random()
-		end
-	end
-	
-	hoi3.throwNoRandomizerSupport(returnTypeAsString)
-end
+

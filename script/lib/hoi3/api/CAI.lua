@@ -43,7 +43,7 @@ function CAI:AlreadyTradingResourceOtherWay(route)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean', 
+		hoi3.TYPE_BOOLEAN, 
 		"AlreadyTradingResourceOtherWay", 
 		route
 	)
@@ -59,7 +59,7 @@ function CAI:CanDeclareWar(countryTagA, countryTagB)
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean', 
+		hoi3.TYPE_BOOLEAN, 
 		"CanDeclareWar", 
 		countryTagA, 
 		countryTagB
@@ -76,7 +76,7 @@ function CAI:CanTradeFreeResources(countryTagA,  countryTagB)
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean', 
+		hoi3.TYPE_BOOLEAN, 
 		"CanTradeFreeResources", 
 		countryTagA, 
 		countryTagB
@@ -89,8 +89,8 @@ end
 -- @param number goodsType
 -- @return CFixedPoint
 function CAI:EvaluateCancelTrades(needs,  goodsType)
-	hoi3.assertParameterType(1, needs, 'number')
-	hoi3.assertParameterType(2, goodsType, 'number')
+	hoi3.assertParameterType(1, needs, hoi3.TYPE_NUMBER)
+	hoi3.assertParameterType(2, goodsType, hoi3.TYPE_NUMBER)
 
 	assert(goodsType < CGoodsPool._GC_NUMOF_ + 1, string.format("goodsType must be lower than %d", CGoodsPool._GC_NUMOF_ + 1))
 	assert(goodsType > 0, string.format("goodsType must be greater than %d", 0))
@@ -111,7 +111,7 @@ end
 -- @param CCountryTag to
 -- @return CFixedPoint
 function CAI:GetAmountTradedFrom(goodsType, from,  to)
-	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, from, 'CCountryTag')
 	hoi3.assertParameterType(3, to, 'CCountryTag')
 	
@@ -169,7 +169,7 @@ end
 function CAI.GetCommonModDirectory()
 	return CAI.loadResultOrImplOrRandom(
 		CAI,
-		'string',
+		hoi3.TYPE_STRING,
 		"GetCommonModDirectory"
 	)
 end
@@ -191,7 +191,7 @@ end
 function CAI.GetModDirectory()
 	return CAI.loadResultOrImplOrRandom(
 		CAI,
-		'string',
+		hoi3.TYPE_STRING,
 		"GetModDirectory"
 	)
 end
@@ -221,7 +221,7 @@ function CAI:GetNumberOfOwnedProvinces(countryTag)
 	hoi3.assertParameterType(1, country, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		"GetNumberOfOwnedProvinces",
 		countryTag
 	)
@@ -305,7 +305,7 @@ end
 function CAI.HasCommonExtension()
 	return CAI.loadResultOrImplOrRandom(
 		CAI,
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		"HasCommonExtension"
 	)
 end
@@ -315,7 +315,7 @@ end
 -- @return bool
 function CAI:HasFilledProdQueue()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasFilledProdQueue'
 	)
 end
@@ -328,7 +328,7 @@ function CAI:HasTradeGoneStale(route)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasTradeGoneStale',
 		route
 	)	
@@ -341,7 +341,7 @@ end
 function CAI.HasUserExtension()
 	return CAI.loadResultOrImplOrRandom(
 		CAI,
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		"HasUserExtension"
 	)
 end
@@ -352,10 +352,10 @@ end
 -- @return bool
 -- @static
 function CAI.IsAIControlledForPlayer(automationtype)
-	hoi3.assertParameterType(1, automationtype, 'number')
+	hoi3.assertParameterType(1, automationtype, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsAIControlledForPlayer',
 		automationtype
 	)	
@@ -371,7 +371,7 @@ function CAI:IsInfluencing(countryTagA, countryTagB)
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsInfluencing',
 		countryTagA, 
 		countryTagB
@@ -386,7 +386,7 @@ function CAI:IsTradeingAwayNeededResource(route)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsTradeingAwayNeededResource',
 		route
 	)
@@ -440,7 +440,7 @@ end
 -- @param string message
 -- @return void
 function CAI:PrintConsole(message)
-	hoi3.assertParameterType(1, message, 'string')
+	hoi3.assertParameterType(1, message, hoi3.TYPE_STRING)
 	
 	print(message)
 	dtools.info(message)

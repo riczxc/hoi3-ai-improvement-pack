@@ -9,7 +9,7 @@ CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.CFixedPoint')
 -- @param CCountryTag actor
 -- @return CFixedPoint
 function CFixedPoint:initialize(val)
-	hoi3.assertParameterType(1, val, 'number')
+	hoi3.assertParameterType(1, val, hoi3.TYPE_NUMBER)
 
 	self.value = val
 end

@@ -26,7 +26,7 @@ end
 -- @param number positionIndex
 -- @return CPersonality
 function CMinister:GetPersonality(positionIndex)
-	hoi3.assertParameterType(1, positionIndex, 'number')
+	hoi3.assertParameterType(1, positionIndex, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

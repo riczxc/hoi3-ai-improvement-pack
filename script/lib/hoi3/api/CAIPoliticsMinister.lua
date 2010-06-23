@@ -12,7 +12,7 @@ function CAIPoliticsMinister:IsCapitalSafeToLiberate(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsCapitalSafeToLiberate',
 		countryTag
 	)

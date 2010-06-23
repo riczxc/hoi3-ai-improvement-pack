@@ -12,7 +12,9 @@ module( "hoi3", package.seeall)
 require("hoi3.Hoi3Object")
 require("hoi3.AbstractObject")
 require("hoi3.MultitonObject")
+require("hoi3.Randomizer")
 
+TYPE_NIL	 	= 'nil'
 TYPE_NUMBER 	= 'number'
 TYPE_BOOLEAN 	= 'boolean'
 TYPE_STRING 	= 'string'
@@ -27,9 +29,9 @@ TYPE_USERDATA 	= 'userdata'
 function testType(value, typeAsString)
 	local t = type(value)
 	
-	if typeAsString:sub(0,6) == TYPE_TABLE.."<" then
+	if Randomizer.isIteratorTypeString(typeAsString) then
 		if(t~=TYPE_TABLE) then return false end
-		local myType = typeAsString:sub(0,-2):sub(7)
+		local myType = Randomizer.getIteratorTypeFromString(typeAsString)
 		for i,v in pairs(value) do
 			if not testType(v, myType) then
 				return false
@@ -100,6 +102,8 @@ function testAll()
 	require("hoi3.tests.multiton")
 	require("hoi3.tests.abstract")
 	require("hoi3.tests.fixedpoint")
+	require("hoi3.tests.random")
 	
 	lunit.main()
 end
+

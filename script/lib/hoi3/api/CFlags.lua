@@ -9,7 +9,7 @@ CFlags = hoi3.Hoi3Object:subclass('hoi3.CFlags')
 -- @param string key
 -- @return bool
 function CFlags:IsFlagSet(key)
-	hoi3.assertParameterType(1, key, 'string')
+	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 	
 	hoi3.throwNotYetImplemented()
 end

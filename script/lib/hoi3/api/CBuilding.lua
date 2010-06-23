@@ -20,7 +20,7 @@ end
 -- @return string 
 function CBuilding:GetName()
 	return self:loadResultOrImplOrRandom(
-		'string',
+		hoi3.TYPE_STRING,
 		'GetName'
 	)
 end
@@ -30,7 +30,7 @@ end
 -- @return number
 function CBuilding:GetIndex()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetIndex'
 	)
 end

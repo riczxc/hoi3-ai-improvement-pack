@@ -16,7 +16,7 @@ end
 -- @param number index
 -- @return CLawGroup 
 function CLawDataBase.GetLawGroup(index)
-	hoi3.assertParameterType(1, index, 'number')
+	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end
@@ -26,7 +26,7 @@ end
 -- @param number index
 -- @return CLaw 
 function CLawDataBase.CLaw(index)
-	hoi3.assertParameterType(1, index, 'number')
+	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

@@ -9,7 +9,7 @@ CArrayFix = hoi3.Hoi3Object:subclass('hoi3.CArrayFix')
 -- @param number size
 -- @return CArrayFix
 function CArrayFix:initialize(size)
-	hoi3.assertParameterType(1, size, 'number')
+	hoi3.assertParameterType(1, size, hoi3.TYPE_NUMBER)
 	
 	CArrayFix.array = {}
 	for i = 0, size do
@@ -22,7 +22,7 @@ end
 -- @param number index
 -- @return CFixedPoint 
 function CArrayFix:GetAt(index)
-	hoi3.assertParameterType(1, index, 'number')
+	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	
 	if index < #CArrayFix.array and 
 		CArrayFix.array[index] ~= nil then
@@ -38,7 +38,7 @@ end
 -- @param CFixedPoint value
 -- @return void
 function CArrayFix:SetAt(index, value)
-	hoi3.assertParameterType(1, index, 'number')
+	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, value, 'CFixedPoint')
 	
 	if index < #CArrayFix.array then

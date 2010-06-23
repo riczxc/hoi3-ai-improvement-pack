@@ -13,7 +13,7 @@ CChangeSpyMission = CCommand:subclass('hoi3.CChangeSpyMission')
 function CChangeSpyMission:initialize(actor, target, spyMission)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, target, 'CCountryTag')
-	hoi3.assertParameterType(3, spyMission, 'number')
+	hoi3.assertParameterType(3, spyMission, hoi3.TYPE_NUMBER)
 
 	hoi3.throwNotYetImplemented()
 end

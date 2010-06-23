@@ -22,7 +22,7 @@ end
 -- @return number 
 function CAIIntel:CalculateOurMilitaryStrength()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'CalculateOurMilitaryStrength'
 	)
 end
@@ -32,7 +32,7 @@ end
 -- @return number
 function CAIIntel:CalculateTheirPercievedMilitaryStrengh()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'CalculateTheirPercievedMilitaryStrengh'
 	)
 end  
@@ -42,7 +42,7 @@ end
 -- @return number
 function CAIIntel:GetFactor()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetFactor'
 	)
 end  
@@ -66,7 +66,7 @@ end
 -- @return bool
 function CAIIntel:HasNoIntel()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'GetFactor'
 	)
 end  

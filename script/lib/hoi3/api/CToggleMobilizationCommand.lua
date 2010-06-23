@@ -11,7 +11,7 @@ CToggleMobilizationCommand = CCommand:subclass('hoi3.CToggleMobilizationCommand'
 -- @return CToggleMobilizationCommand
 function CToggleMobilizationCommand:initialize(countryTag, bMobilize)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, bMobilize, 'boolean')
+	hoi3.assertParameterType(2, bMobilize, hoi3.TYPE_BOOLEAN)
 
 	hoi3.throwNotYetImplemented()
 end

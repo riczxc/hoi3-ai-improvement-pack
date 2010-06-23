@@ -12,7 +12,7 @@ function CAlignment:GetLastDrift(ideologyGroup)
 	hoi3.assertParameterType(1, ideologyGroup, 'CIdeologyGroup')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetLastDrift',
 		ideologyGroup
 	)

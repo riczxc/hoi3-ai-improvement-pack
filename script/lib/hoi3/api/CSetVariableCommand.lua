@@ -19,7 +19,7 @@ end
 -- @return CSetVariableCommand
 function CSetVariableCommand:initialize(which, flag, vVal)
 	hoi3.assertParameterType(1, which, 'CCountryTag')
-	hoi3.assertParameterType(2, flag, 'string')
+	hoi3.assertParameterType(2, flag, hoi3.TYPE_STRING)
 	hoi3.assertParameterType(3, bSet, 'CFixedPoint')
 
 	hoi3.throwNotYetImplemented()

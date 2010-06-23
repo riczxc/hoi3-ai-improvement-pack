@@ -36,7 +36,7 @@ end
 -- @param CCountryTag  ministerTag
 -- @return CFixedPoint 
 function CSpyPresence:GetTrading(goodsType, ministerTag)
-	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, ministerTag, 'CCountryTag')
 	
 	hoi3.throwNotYetImplemented()
@@ -66,7 +66,7 @@ end
 -- @return void 
 function CSpyPresence:SetTrading(amount, goodsType)
 	hoi3.assertParameterType(1, amount, 'CFixedPoint')
-	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

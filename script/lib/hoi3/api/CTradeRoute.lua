@@ -47,7 +47,7 @@ end
 -- @param number goodsType
 -- @return CFixedPoint 
 function CTradeRoute:GetTradedFromOf(goodsType)
-	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -56,7 +56,7 @@ end
 -- @param number goodsType
 -- @return CFixedPoint 
 function CTradeRoute:GetTradedToOf(goodsType)
-	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	hoi3.throwNotYetImplemented()
 end
 

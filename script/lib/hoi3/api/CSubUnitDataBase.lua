@@ -10,7 +10,7 @@ CSubUnitDataBase = hoi3.AbstractObject:subclass('hoi3.CSubUnitDataBase')
 -- @param string subUnitName
 -- @return CSubUnitDefinition 
 function CSubUnitDataBase.CSubUnitDefinition(subUnitName)
-	hoi3.assertParameterType(1, subUnitName, 'string')
+	hoi3.assertParameterType(1, subUnitName, hoi3.TYPE_STRING)
 	
 	hoi3.throwNotYetImplemented()
 end
