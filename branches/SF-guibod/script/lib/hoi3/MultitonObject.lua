@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module( "hoi3", package.seeall)
+
 MultitonObject = Hoi3Object:subclass('hoi3.MultitonObject')
 
 MultitonObject.instances = {}

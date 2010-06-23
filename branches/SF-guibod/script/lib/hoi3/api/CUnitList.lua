@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CUnitList = Hoi3Object:subclass('hoi3.CUnitList')
+CUnitList = hoi3.Hoi3Object:subclass('hoi3.CUnitList')
 
 ---
 -- @since 1.4

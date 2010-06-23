@@ -1,8 +1,8 @@
-require('hoi3.MultitonObject')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CContinent = MultitonObject:subclass('hoi3.CContinent')
+CContinent = hoi3.MultitonObject:subclass('hoi3.CContinent')
 
 ---
 --

@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CFixedPoint = Hoi3Object:subclass('hoi3.CFixedPoint')
+CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.CFixedPoint')
 
 ---
 -- @since 1.3

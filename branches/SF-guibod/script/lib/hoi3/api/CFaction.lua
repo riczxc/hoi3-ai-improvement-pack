@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CFaction = Hoi3Object:subclass('hoi3.CFaction')
+CFaction = hoi3.Hoi3Object:subclass('hoi3.CFaction')
 
 ---
 -- @since 1.3

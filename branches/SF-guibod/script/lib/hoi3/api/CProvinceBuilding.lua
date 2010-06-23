@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CProvinceBuilding = Hoi3Object:subclass('hoi3.CProvinceBuilding')
+CProvinceBuilding = hoi3.Hoi3Object:subclass('hoi3.CProvinceBuilding')
 
 ---
 -- @since 1.4

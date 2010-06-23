@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTheatre = Hoi3Object:subclass('hoi3.CTheatre')
+CTheatre = hoi3.Hoi3Object:subclass('hoi3.CTheatre')
 
 ---
 -- @since 1.3

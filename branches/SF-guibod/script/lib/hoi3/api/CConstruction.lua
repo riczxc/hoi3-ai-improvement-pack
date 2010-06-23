@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CConstruction = Hoi3Object:subclass('hoi3.CConstruction')
+CConstruction = hoi3.Hoi3Object:subclass('hoi3.CConstruction')
 
 ---
 -- @since 2.0

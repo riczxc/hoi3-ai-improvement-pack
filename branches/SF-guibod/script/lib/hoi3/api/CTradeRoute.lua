@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTradeRoute = Hoi3Object:subclass('hoi3.CTradeRoute')
+CTradeRoute = hoi3.Hoi3Object:subclass('hoi3.CTradeRoute')
 
 
 ---

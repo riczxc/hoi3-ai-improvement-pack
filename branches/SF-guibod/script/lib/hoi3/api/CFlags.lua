@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CFlags = Hoi3Object:subclass('hoi3.CFlags')
+CFlags = hoi3.Hoi3Object:subclass('hoi3.CFlags')
 
 ---
 -- @since 1.3

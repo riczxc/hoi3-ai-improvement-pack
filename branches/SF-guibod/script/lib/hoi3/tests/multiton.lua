@@ -3,12 +3,12 @@
 ]]
 module( "hoi3.tests.multiton", package.seeall, lunit.testcase )
 
-require("hoi3.MultitonObject")
+require("hoi3")
 
 local obj = nil
 
 function setup()
- 	obj = MultitonObject:subclass("test.multiton")
+ 	obj = hoi3.MultitonObject:subclass("test.multiton")
 end
 
 function teardown()

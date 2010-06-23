@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CDiplomacyStatus = Hoi3Object:subclass('hoi3.CDiplomacyStatus')
+CDiplomacyStatus = hoi3.Hoi3Object:subclass('hoi3.CDiplomacyStatus')
 
 ---
 -- @since 1.3

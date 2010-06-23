@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAIStrategy = Hoi3Object:subclass('hoi3.CAIStrategy')
+CAIStrategy = hoi3.Hoi3Object:subclass('hoi3.CAIStrategy')
 
 --- 
 -- @since 1.3

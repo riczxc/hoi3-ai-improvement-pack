@@ -1,8 +1,8 @@
-require('hoi3.AbstractObject')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CCurrentGameState = AbstractObject:subclass('hoi3.CCurrentGameState')
+CCurrentGameState = hoi3.AbstractObject:subclass('hoi3.CCurrentGameState')
 
 ---
 -- Returns a random integer (?) value from 1 to 100 

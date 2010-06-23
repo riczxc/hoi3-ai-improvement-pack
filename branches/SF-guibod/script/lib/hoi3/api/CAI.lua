@@ -1,8 +1,8 @@
-require('hoi3.MultitonObject')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAI = MultitonObject:subclass('hoi3.CAI')
+CAI = hoi3.MultitonObject:subclass('hoi3.CAI')
 
 ---
 -- @param CCountryTag countryTag
@@ -29,7 +29,7 @@ function CAI:AlreadyTradingDisabledResource(route)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrFakeOrRandom(
-		CAI.TYPE_BOOLEAN, 
+		hoi3.TYPE_BOOLEAN, 
 		"AlreadyTradingDisabledResource", 
 		route
 	)

@@ -1,5 +1,7 @@
 require('middleclass')
 
+module( "hoi3", package.seeall)
+
 Hoi3Object = class('hoi3.Hoi3Object')
 
 --[[
