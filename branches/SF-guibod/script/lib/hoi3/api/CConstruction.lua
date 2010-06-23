@@ -9,7 +9,7 @@ CConstruction = hoi3.Hoi3Object:subclass('hoi3.CConstruction')
 -- @return number 
 function CConstruction:GetCost()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetCost'
 	)
 end
@@ -29,7 +29,7 @@ end
 -- @return bool
 function CConstruction:IsMilitary()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsMilitary'
 	)
 end

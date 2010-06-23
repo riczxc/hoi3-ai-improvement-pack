@@ -9,7 +9,7 @@ CAIEspionageMinister = CAIAgent:subclass('hoi3.CAIEspionageMinister')
 -- @return bool
 function CAIEspionageMinister:IsAligningToFaction()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsAligningToFaction'
 	)
 end  

@@ -10,7 +10,7 @@ CTechnologyDataBase = hoi3.AbstractObject:subclass('hoi3.CTechnologyDataBase')
 -- @param string folderName
 -- @return number 
 function CTechnologyDataBase.GetFolderIndex(folderName)
-	hoi3.assertParameterType(1, folderName, 'string')
+	hoi3.assertParameterType(1, folderName, hoi3.TYPE_STRING)
 	
 	hoi3.throwNotYetImplemented()
 end

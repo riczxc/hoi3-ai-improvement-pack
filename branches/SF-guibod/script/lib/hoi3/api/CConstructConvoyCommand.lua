@@ -12,8 +12,8 @@ CConstructConvoyCommand = CCommand:subclass('hoi3.CConstructConvoyCommand')
 -- @return CConstructConvoyCommand
 function CConstructConvoyCommand:initialize(actor, ConvoyOrEscort, quantity)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
-	hoi3.assertParameterType(2, ConvoyOrEscort, 'boolean')
-	hoi3.assertParameterType(3, quantity, 'number')
+	hoi3.assertParameterType(2, ConvoyOrEscort, hoi3.TYPE_BOOLEAN)
+	hoi3.assertParameterType(3, quantity, hoi3.TYPE_NUMBER)
 
 	hoi3.throwNotYetImplemented()
 end

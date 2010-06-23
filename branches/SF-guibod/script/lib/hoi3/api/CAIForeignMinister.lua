@@ -42,7 +42,7 @@ end
 -- @return void
 function CAIForeignMinister:Propose(action, score)
 	hoi3.assertParameterType(1, action, 'CDiplomaticAction')
-	hoi3.assertParameterType(2, score, 'number')
+	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end
@@ -54,7 +54,7 @@ end
 -- @return void
 function CAIForeignMinister:ProposeWar(countryTag, warDesirability)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, warDesirability, 'number')
+	hoi3.assertParameterType(2, warDesirability, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

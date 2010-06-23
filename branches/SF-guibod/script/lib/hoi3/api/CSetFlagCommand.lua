@@ -19,8 +19,8 @@ end
 -- @return CSetFlagCommand
 function CSetFlagCommand:initialize(which, flag, bSet)
 	hoi3.assertParameterType(1, which, 'CCountryTag')
-	hoi3.assertParameterType(2, flag, 'string')
-	hoi3.assertParameterType(3, bSet, 'boolean')
+	hoi3.assertParameterType(2, flag, hoi3.TYPE_STRING)
+	hoi3.assertParameterType(3, bSet, hoi3.TYPE_BOOLEAN)
 
 	hoi3.throwNotYetImplemented()
 end

@@ -30,7 +30,7 @@ end
 -- @param number seed
 -- @return void
 function CSimpleRandom:Seed(seed)
-	hoi3.assertParameterType(1, seed, 'number')
+	hoi3.assertParameterType(1, seed, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

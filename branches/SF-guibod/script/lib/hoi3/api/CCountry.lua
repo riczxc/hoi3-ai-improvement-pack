@@ -50,7 +50,7 @@ function CCountry:CalculateIsAllied(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'CalculateIsAllied',
 		countryTag
 	)
@@ -61,7 +61,7 @@ end
 -- @return number 
 function CCountry:CalculateNumberOfActiveInfluences()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'CalculateNumberOfActiveInfluences'
 	)
 end
@@ -81,7 +81,7 @@ end
 -- @return bool 
 function CCountry:CanCreatePuppet()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'CanCreatePuppet'
 	)
 end
@@ -91,7 +91,7 @@ end
 -- @return bool 
 function CCountry:Exists()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'Exists'
 	)
 end
@@ -104,7 +104,7 @@ function CCountry:GetAbility(category)
 	hoi3.assertParameterType(1, category, 'CTechnologyCategory')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'GetAbility',
 		category
 	)
@@ -152,7 +152,7 @@ end
 -- @return number 
 function CCountry:GetAllowedResearchSlots()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetAllowedResearchSlots'
 	)
 end
@@ -162,7 +162,7 @@ end
 -- @return number 
 function CCountry:GetAvailableIC()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetAvailableIC'
 	)
 end
@@ -189,8 +189,8 @@ end
 -- @return CFixedPoint 
 function CCountry:GetBuildCostIC(pUnit, quantity, buildReserve)
 	hoi3.assertParameterType(1, pUnit, 'CSubUnitDefinition')
-	hoi3.assertParameterType(2, quantity, 'number')
-	hoi3.assertParameterType(3, buildReserve, 'boolean')
+	hoi3.assertParameterType(2, quantity, hoi3.TYPE_NUMBER)
+	hoi3.assertParameterType(3, buildReserve, hoi3.TYPE_BOOLEAN)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -209,8 +209,8 @@ end
 -- @return CFixedPoint 
 function CCountry:GetBuildCostMP(pUnit, quantity, buildReserve)
 	hoi3.assertParameterType(1, pUnit, 'CSubUnitDefinition')
-	hoi3.assertParameterType(2, quantity, 'number')
-	hoi3.assertParameterType(3, buildReserve, 'boolean')
+	hoi3.assertParameterType(2, quantity, hoi3.TYPE_NUMBER)
+	hoi3.assertParameterType(3, buildReserve, hoi3.TYPE_BOOLEAN)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -233,7 +233,7 @@ end
 -- @return number  
 function CCountry:GetCapital()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetCapital'
 	)
 end
@@ -360,7 +360,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyBalance(goodIndex)
-	hoi3.assertParameterType(1, goodIndex, 'number')
+	hoi3.assertParameterType(1, goodIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -374,7 +374,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyExpense(goodIndex)
-	hoi3.assertParameterType(1, goodIndex, 'number')
+	hoi3.assertParameterType(1, goodIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -388,7 +388,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyIncome(goodIndex)
-	hoi3.assertParameterType(1, goodIndex, 'number')
+	hoi3.assertParameterType(1, goodIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -476,7 +476,7 @@ end
 -- @return number
 function CCountry:GetEscorts()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetEscorts'
 	)
 end
@@ -536,7 +536,7 @@ end
 -- @param number distributionSetting
 -- @return CFixedPoint
 function CCountry:GetICPart(distributionSetting)
-	hoi3.assertParameterType(1, distributionSetting, 'number')
+	hoi3.assertParameterType(1, distributionSetting, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -564,7 +564,7 @@ end
 -- @param number groupIndex
 -- @return CLaw
 function CCountry:GetLawFromIndex(groupIndex)
-	hoi3.assertParameterType(1, groupIndex, 'number')
+	hoi3.assertParameterType(1, groupIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
 		'CLaw',
@@ -578,7 +578,7 @@ end
 -- @param number distributionSetting
 -- @return CDistributionSetting
 function CCountry:GetLeadershipDistributionAt(distributionSetting)
-	hoi3.assertParameterType(1, distributionSetting, 'number')
+	hoi3.assertParameterType(1, distributionSetting, hoi3.TYPE_NUMBER)
 
 	return self:loadResultOrImplOrRandom(
 		'CDistributionSetting',
@@ -602,7 +602,7 @@ end
 -- @return number
 function CCountry:GetMaxIC()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetMaxIC'
 	)
 end
@@ -626,7 +626,7 @@ end
 -- @param number positionIndex
 -- @return CMinister
 function CCountry:GetMinister(positionIndex)
-	hoi3.assertParameterType(1, positionIndex, 'number')
+	hoi3.assertParameterType(1, positionIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
 		'CMinister',
@@ -690,7 +690,7 @@ end
 -- @return number 
 function CCountry:GetNumberOfControlledProvinces()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetNumberOfControlledProvinces'
 	)
 end
@@ -700,7 +700,7 @@ end
 -- @return number 
 function CCountry:GetNumberOfCurrentResearch()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetNumberOfCurrentResearch'
 	)
 end
@@ -710,7 +710,7 @@ end
 -- @return number 
 function CCountry:GetNumberOfOwnedProvinces()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetNumberOfOwnedProvinces'
 	)
 end
@@ -720,7 +720,7 @@ end
 -- @return number 
 function CCountry:GetNumOfAllies()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetNumOfAllies'
 	)
 end
@@ -730,7 +730,7 @@ end
 -- @return number 
 function CCountry:GetNumOfAirfields()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetNumOfAirfields'
 	)
 end
@@ -740,7 +740,7 @@ end
 -- @return number
 function CCountry:GetNumOfPorts()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetNumOfPorts'
 	)
 end
@@ -813,7 +813,7 @@ function CCountry:GetProductionDistributionAt(distributionSetting)
 	hoi3.assertParameterType(1, distributionSetting, 'CDistributionSetting')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetProductionDistributionAt',
 		distributionSetting
 	)
@@ -932,7 +932,7 @@ end
 -- @return number 
 function CCountry:GetTotalConvoyTransports()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetTotalConvoyTransports'
 	)
 end
@@ -942,10 +942,10 @@ end
 -- @param number buildingIndex
 -- @return number 
 function CCountry:GetTotalCoreBuildingLevels(buildingIndex)
-	hoi3.assertParameterType(1, buildingIndex, 'number')
+	hoi3.assertParameterType(1, buildingIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetTotalCoreBuildingLevels',
 		buildingIndex
 	)
@@ -956,7 +956,7 @@ end
 -- @return number
 function CCountry:GetTotalIC()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetTotalIC'
 	)
 end
@@ -976,7 +976,7 @@ end
 -- @return number
 function CCountry:GetTotalNeededConvoyTransports()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetTotalNeededConvoyTransports'
 	)
 end
@@ -986,7 +986,7 @@ end
 -- @return number
 function CCountry:GetTotalNeededTransports()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetTotalNeededTransports'
 	)
 end
@@ -1046,7 +1046,7 @@ end
 -- @return number
 function CCountry:GetTransports()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetTransports'
 	)
 end
@@ -1086,7 +1086,7 @@ end
 -- @param string key
 -- @return CFixedPoint
 function CCountry:GetVariable(key)
-	hoi3.assertParameterType(1, key, 'string')
+	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 	
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
@@ -1113,7 +1113,7 @@ end
 -- @return bool
 function CCountry:HasConstruction()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasConstruction'
 	)
 end
@@ -1126,7 +1126,7 @@ function CCountry:HasDiplomatEnroute(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasDiplomatEnroute',
 		countryTag
 	)
@@ -1137,7 +1137,7 @@ end
 -- @return bool
 function CCountry:HasExtraManpowerLeft()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasExtraManpowerLeft'
 	)
 end
@@ -1148,7 +1148,7 @@ end
 function CCountry:HasFaction()
 	-- FIXME, check CFaction instead ?
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasFaction'
 	)
 end
@@ -1161,7 +1161,7 @@ function CCountry:HasNeighborInFaction(faction)
 	hoi3.assertParameterType(1, faction, 'CFaction')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'HasNeighborInFaction',
 		faction
 	)
@@ -1172,7 +1172,7 @@ end
 -- @return bool
 function CCountry:IsAtWar()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsAtWar'
 	)
 end
@@ -1187,7 +1187,7 @@ function CCountry:IsBuildingAllowed(building, province)
 	hoi3.assertParameterType(2, province, 'CProvince')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsBuildingAllowed',
 		building, 
 		province
@@ -1202,7 +1202,7 @@ function CCountry:IsEnemy(otherCountryTag)
 	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsEnemy',
 		otherCountryTag
 	)
@@ -1213,7 +1213,7 @@ end
 -- @return bool
 function CCountry:IsFactionLeader()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsFactionLeader'
 	)
 end
@@ -1225,10 +1225,10 @@ end
 -- @return bool
 function CCountry:IsFriend(otherCountryTag, unknownFlag)
 	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, unknownFlag, 'boolean')
+	hoi3.assertParameterType(2, unknownFlag, hoi3.TYPE_BOOLEAN)
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsFriend',
 		otherCountryTag, 
 		unknownFlag
@@ -1240,7 +1240,7 @@ end
 -- @return bool
 function CCountry:IsGovernmentInExile()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsGovernmentInExile'
 	)
 end
@@ -1260,7 +1260,7 @@ end
 -- @return bool
 function CCountry:IsMobilized()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsMobilized'
 	)
 end
@@ -1273,7 +1273,7 @@ function CCountry:IsNeighbour(otherCountryTag)
 	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsNeighbour',
 		otherCountryTag
 	)
@@ -1286,10 +1286,10 @@ end
 -- @return bool
 function CCountry:IsNeighbourToFactionHostile(faction, unknownFlag)
 	hoi3.assertParameterType(1, faction, 'CFaction')
-	hoi3.assertParameterType(2, unknownFlag, 'boolean')
+	hoi3.assertParameterType(2, unknownFlag, hoi3.TYPE_BOOLEAN)
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsNeighbourToFactionHostile',
 		faction, 
 		unknownFlag
@@ -1301,7 +1301,7 @@ end
 -- @return bool
 function CCountry:isPuppet()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'isPuppet',
 		faction, 
 		unknownFlag
@@ -1313,7 +1313,7 @@ end
 -- @return bool
 function CCountry:IsSubject()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsSubject'
 	)
 end
@@ -1326,7 +1326,7 @@ function CCountry:NeedConvoyToTradeWith(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'NeedConvoyToTradeWith',
 		countryTag
 	)
@@ -1338,7 +1338,7 @@ end
 function CCountry:MayLiberateCountries()
 	-- TODO: Interrogate Politic Minister 
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'MayLiberateCountries'
 	)
 end

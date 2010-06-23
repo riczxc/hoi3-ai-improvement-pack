@@ -12,7 +12,7 @@ function CAITechMinister:CanResearch(tech)
 	hoi3.assertParameterType(1, tech, 'CTechnology')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'CanResearch',
 		tech
 	)

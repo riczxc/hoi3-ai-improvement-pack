@@ -9,7 +9,7 @@ CBuildingDataBase = hoi3.AbstractObject:subclass('hoi3.CBuildingDataBase')
 -- @param string building
 -- @return CBuilding 
 function CBuildingDataBase.GetBuilding(building)
-	hoi3.assertParameterType(1, building, 'string')
+	hoi3.assertParameterType(1, building, hoi3.TYPE_STRING)
 	
 	return CBuildingDataBase.loadResultOrImplOrRandom(
 		CBuildingDataBase,
@@ -24,7 +24,7 @@ end
 -- @param number building
 -- @return CBuilding 
 function CBuildingDataBase.GetBuildingFromIndex(building)
-	hoi3.assertParameterType(1, building, 'number')
+	hoi3.assertParameterType(1, building, hoi3.TYPE_NUMBER)
 	
 	return CBuildingDataBase.loadResultOrImplOrRandom(
 		CBuildingDataBase,

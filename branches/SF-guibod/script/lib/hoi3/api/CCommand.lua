@@ -9,7 +9,7 @@ CCommand = hoi3.Hoi3Object:subclass('hoi3.CCommand')
 -- @return bool 
 function CCommand:isValid()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'isValid'
 	)
 end

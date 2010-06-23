@@ -18,7 +18,7 @@ end
 -- @return CFixedPoint 
 function CTechnologyStatus:GetCost(tech, level)
 	hoi3.assertParameterType(1, tech, 'CTechnology')
-	hoi3.assertParameterType(2, level, 'number')
+	hoi3.assertParameterType(2, level, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end
@@ -48,7 +48,7 @@ end
 -- @return CFixedPoint 
 function CTechnologyStatus:GetYear(tech, level)
 	hoi3.assertParameterType(1, tech, 'CTechnology')
-	hoi3.assertParameterType(2, level, 'number')
+	hoi3.assertParameterType(2, level, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end

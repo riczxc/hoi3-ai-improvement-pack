@@ -7,8 +7,8 @@ CContinent = hoi3.MultitonObject:subclass('hoi3.CContinent')
 ---
 --
 function CContinent:initialize(tag, name)
-	hoi3.assertParameterType(1, tag, 'string')
-	hoi3.assertParameterType(2, name, 'string')
+	hoi3.assertParameterType(1, tag, hoi3.TYPE_STRING)
+	hoi3.assertParameterType(2, name, hoi3.TYPE_STRING)
 	
 	self.tag = tag
 	self.name = name

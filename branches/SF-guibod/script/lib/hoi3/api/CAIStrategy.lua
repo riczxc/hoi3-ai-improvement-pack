@@ -45,7 +45,7 @@ function CAIStrategy:GetAccessScore(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetAccessScore',
 		countryTag
 	)
@@ -59,7 +59,7 @@ function CAIStrategy:GetAntagonism(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetAntagonism',
 		countryTag
 	)
@@ -87,7 +87,7 @@ function CAIStrategy:GetFriendliness(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetFriendliness',
 		countryTag
 	)
@@ -108,7 +108,7 @@ function CAIStrategy:GetProtectionism(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetProtectionism',
 		countryTag
 	)
@@ -168,7 +168,7 @@ end
 -- @return bool
 function CAIStrategy:IsBalanced()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsBalanced'
 	)
 end  
@@ -178,7 +178,7 @@ end
 -- @return bool
 function CAIStrategy:IsDiplomat()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsDiplomat'
 	)
 end  
@@ -188,7 +188,7 @@ end
 -- @return bool
 function CAIStrategy:IsIndustrialist()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsIndustrialist'
 	)
 end  
@@ -198,7 +198,7 @@ end
 -- @return bool
 function CAIStrategy:IsMilitarist()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsMilitarist'
 	)
 end  
@@ -208,7 +208,7 @@ end
 -- @return bool
 function CAIStrategy:IsPreparingWar()
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsPreparingWar'
 	)
 end  
@@ -221,7 +221,7 @@ function CAIStrategy:IsPreparingWarWith(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsPreparingWar',
 		countryTag
 	)
@@ -234,7 +234,7 @@ end
 -- @return void
 function CAIStrategy:PrepareWar(countryTag, score)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, score, 'number')
+	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()
 end  
@@ -247,7 +247,7 @@ end
 -- @return void
 function CAIStrategy:PrepareWarDecision(countryTag, score, decision)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, score, 'number')
+	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(3, decision, 'CDecision')
 	
 	hoi3.throwNotYetImplemented()

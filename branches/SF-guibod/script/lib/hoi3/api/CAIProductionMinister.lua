@@ -9,7 +9,7 @@ CAIProductionMinister = CAIAgent:subclass('hoi3.CAIProductionMinister')
 -- @return number
 function CAIProductionMinister:CountEscortsUnderConstruction()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'CountEscortsUnderConstruction'
 	)
 end
@@ -19,7 +19,7 @@ end
 -- @return number
 function CAIProductionMinister:CountTotalDesiredEscorts()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'CountTotalDesiredEscorts'
 	)
 end
@@ -29,7 +29,7 @@ end
 -- @return number
 function CAIProductionMinister:CountTransportsUnderConstruction()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'CountTransportsUnderConstruction'
 	)
 end
@@ -39,7 +39,7 @@ end
 -- @return number
 function CAIProductionMinister:GetDesperation()
 	return self:loadResultOrImplOrRandom(
-		'number',
+		hoi3.TYPE_NUMBER,
 		'GetDesperation'
 	)
 end

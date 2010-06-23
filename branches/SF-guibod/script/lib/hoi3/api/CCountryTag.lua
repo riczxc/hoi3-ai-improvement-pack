@@ -9,7 +9,7 @@ CCountryTag = hoi3.Hoi3Object:subclass('hoi3.CCountryTag')
 -- @param string tag
 -- @return CCountry 
 function CCountryTag:initialize(tag)
-	hoi3.assertParameterType(1, tag, 'string')
+	hoi3.assertParameterType(1, tag, hoi3.TYPE_STRING)
 	assert(string.len(tag)==3, "A country tag must be 3 character long.")
 	
 	self.tag = tag
@@ -41,7 +41,7 @@ end
 -- @return bool 
 function CCountryTag:IsReal()
 	return CCountryTag:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsReal'
 	)
 end
@@ -51,7 +51,7 @@ end
 -- @return bool 
 function CCountryTag:IsValid()
 	return CCountryTag:loadResultOrImplOrRandom(
-		'boolean',
+		hoi3.TYPE_BOOLEAN,
 		'IsValid'
 	)
 end
