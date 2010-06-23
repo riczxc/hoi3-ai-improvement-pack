@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CChangeLeadershipCommand = CCommand:subclass('hoi3.CChangeLeadershipCommand')
 
 ---
@@ -11,10 +13,10 @@ CChangeLeadershipCommand = CCommand:subclass('hoi3.CChangeLeadershipCommand')
 -- @param CFixedPoint ...
 -- @return CChangeInvestmentCommand
 function CChangeLeadershipCommand:initialize(actor, ...)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	for i,v in ipairs(...) do
-		Hoi3Object.assertParameterType(i+2, v, 'CFixedPoint')
+		hoi3.assertParameterType(i+2, v, 'CFixedPoint')
 	end
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

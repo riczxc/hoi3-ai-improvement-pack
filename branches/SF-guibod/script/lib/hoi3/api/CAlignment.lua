@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CAlignment = Hoi3Object:subclass('hoi3.CAlignment')
 
 ---
@@ -7,7 +9,7 @@ CAlignment = Hoi3Object:subclass('hoi3.CAlignment')
 -- @param CIdeologyGroup ideologyGroup
 -- @return number 
 function CAlignment:GetLastDrift(ideologyGroup)
-	Hoi3Object.assertParameterType(1, ideologyGroup, 'CIdeologyGroup')
+	hoi3.assertParameterType(1, ideologyGroup, 'CIdeologyGroup')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -20,5 +22,5 @@ end
 -- @since 1.3
 -- @return unknown
 function CAlignment:GetDistanceFrom()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownReturnType()
 end

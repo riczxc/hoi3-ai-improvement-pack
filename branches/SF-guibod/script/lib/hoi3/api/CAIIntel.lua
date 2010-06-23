@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CAIIntel = Hoi3Object:subclass('hoi3.CAIIntel')
 
 ---
@@ -8,8 +10,8 @@ CAIIntel = Hoi3Object:subclass('hoi3.CAIIntel')
 -- @param CCountryTag target
 -- @return CAIIntel
 function CAIIntel:initialize(source, target)
-	Hoi3Object.assertParameterType(1, source, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, target, 'CCountryTag')
+	hoi3.assertParameterType(1, source, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CCountryTag')
 	
 	self.source = source
 	self.target = target
@@ -49,14 +51,14 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIIntel:GetTheirFactor(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
 -- @since 1.3
 -- @return unknown
 function CAIIntel:GetUncertaintyFactor(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---

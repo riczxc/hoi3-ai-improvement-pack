@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CConstructUnitCommand = CCommand:subclass('hoi3.CConstructUnitCommand')
 
 ---
@@ -13,20 +15,20 @@ CConstructUnitCommand = CCommand:subclass('hoi3.CConstructUnitCommand')
 -- @param CID cID
 -- @return CConstructUnitCommand
 function CConstructUnitCommand:initialize(actor, orderlist, capitalProvId, quantity, bBuildReserveAtPeace, countryTag, cId)
-	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, orderlist, 'table')
-	Hoi3Object.assertParameterType(3, capitalProvId, 'number')
-	Hoi3Object.assertParameterType(4, quantity, 'number')
-	Hoi3Object.assertParameterType(5, bBuildReserveAtPeace, 'boolean')
-	Hoi3Object.assertParameterType(6, countryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(7, cID, 'CID')
+	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(2, orderlist, 'table')
+	hoi3.assertParameterType(3, capitalProvId, 'number')
+	hoi3.assertParameterType(4, quantity, 'number')
+	hoi3.assertParameterType(5, bBuildReserveAtPeace, 'boolean')
+	hoi3.assertParameterType(6, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(7, cID, 'CID')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CConstructUnitCommand 
 function CConstructUnitCommand:Clone()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

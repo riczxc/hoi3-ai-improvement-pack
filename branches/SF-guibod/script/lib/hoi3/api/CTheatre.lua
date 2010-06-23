@@ -1,10 +1,12 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CTheatre = Hoi3Object:subclass('hoi3.CTheatre')
 
 ---
 -- @since 1.3
 -- @return number 
 function CTheatre:GetPriority()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

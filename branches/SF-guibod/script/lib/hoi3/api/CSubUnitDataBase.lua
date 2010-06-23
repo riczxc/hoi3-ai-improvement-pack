@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CSubUnitDataBase = AbstractObject:subclass('hoi3.CSubUnitDataBase')
 
 ---
@@ -8,9 +10,9 @@ CSubUnitDataBase = AbstractObject:subclass('hoi3.CSubUnitDataBase')
 -- @param string subUnitName
 -- @return CSubUnitDefinition 
 function CSubUnitDataBase.CSubUnitDefinition(subUnitName)
-	Hoi3Object.assertParameterType(1, subUnitName, 'string')
+	hoi3.assertParameterType(1, subUnitName, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -18,5 +20,5 @@ end
 -- @static
 -- @return table<CSubUnitDefinition>
 function CSubUnitDataBase.GetSubUnitList()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

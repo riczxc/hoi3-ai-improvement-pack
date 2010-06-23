@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CChangeSpyMission = CCommand:subclass('hoi3.CChangeSpyMission')
 
 ---
@@ -9,9 +11,9 @@ CChangeSpyMission = CCommand:subclass('hoi3.CChangeSpyMission')
 -- @param number spyMission
 -- @return CChangeSpyMission
 function CChangeSpyMission:initialize(actor, target, spyMission)
-	Hoi3Object.assertParameterType(1, actor, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, target, 'CCountryTag')
-	Hoi3Object.assertParameterType(3, spyMission, 'number')
+	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CCountryTag')
+	hoi3.assertParameterType(3, spyMission, 'number')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,12 +1,14 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CSetVariableCommand = CCommand:subclass('hoi3.CSetVariableCommand')
 
 ---
 -- @since 1.3
 -- @return CChangeInvestmentCommand 
 function CSetVariableCommand:Clone()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -16,9 +18,9 @@ end
 -- @param CFixedPoint bSet
 -- @return CSetVariableCommand
 function CSetVariableCommand:initialize(which, flag, vVal)
-	Hoi3Object.assertParameterType(1, which, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, flag, 'string')
-	Hoi3Object.assertParameterType(3, bSet, 'CFixedPoint')
+	hoi3.assertParameterType(1, which, 'CCountryTag')
+	hoi3.assertParameterType(2, flag, 'string')
+	hoi3.assertParameterType(3, bSet, 'CFixedPoint')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,24 +1,26 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CMilitaryConstruction = Hoi3Object:subclass('hoi3.CMilitaryConstruction')
 
 ---
 -- @since 2.0
 -- @return bool
 function CMilitaryConstruction:IsLand()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return bool
 function CMilitaryConstruction:IsAir()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 2.0
 -- @return bool
 function CMilitaryConstruction:IsNaval()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

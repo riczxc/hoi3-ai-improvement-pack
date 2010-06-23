@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CSubUnitConstructionEntry = Hoi3Object:subclass('hoi3.CSubUnitConstructionEntry')
 
 --[[
@@ -7,8 +9,8 @@ CSubUnitConstructionEntry = Hoi3Object:subclass('hoi3.CSubUnitConstructionEntry'
 	There may be problem accessing _vWeight or _pCategory !
 ]]
 function CSubUnitConstructionEntry:initialize(nPrio, pUnit)
-  Hoi3Object.assertParameterType(1, nPrio, 'number')
-  Hoi3Object.assertParameterType(2, pUnit, 'CSubUnitDefinition')
+  hoi3.assertParameterType(1, nPrio, 'number')
+  hoi3.assertParameterType(2, pUnit, 'CSubUnitDefinition')
   
   --number
   self.nPrio	= nil

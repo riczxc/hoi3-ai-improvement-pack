@@ -2,79 +2,17 @@ require('middleclass')
 
 Hoi3Object = class('hoi3.Hoi3Object')
 
-Hoi3Object.TYPE_NUMBER 		= 'number'
-Hoi3Object.TYPE_BOOLEAN 	= 'boolean'
-Hoi3Object.TYPE_STRING 		= 'string'
-Hoi3Object.TYPE_TABLE	 	= 'table'
-Hoi3Object.TYPE_FUNCTION 	= 'function'
-Hoi3Object.TYPE_THREAD 		= 'thread'
-Hoi3Object.TYPE_USERDATA 	= 'userdata'
-
-function Hoi3Object.testType(value, typeAsString)
-	local t = type(value)
-	
-	if typeAsString:sub(0,6) == "table<" then
-		if(t~="table") then return false end
-		local myType = typeAsString:sub(0,-2):sub(7)
-		for i,v in pairs(value) do
-			if not Hoi3Object.testType(v, myType) then
-				return false
-			end
-		end
-		return true
-	elseif typeAsString == Hoi3Object.TYPE_TABLE or 
-		typeAsString == Hoi3Object.TYPE_NUMBER or 
-		typeAsString==Hoi3Object.TYPE_STRING or 
-		typeAsString==Hoi3Object.TYPE_BOOLEAN then
-		return t==typeAsString
-	elseif t == Hoi3Object.TYPE_TABLE then
-		return instanceOf(_G[typeAsString], value)
-	else
-		--thread, userdata, nil or function
-		return false
-	end
-end
-
-function Hoi3Object.assertParameterType(index, parameterValue, typeAsString)
-	assert(
-		Hoi3Object.testType(parameterValue, typeAsString),
-		"passed argument #"..index.." is not type "..typeAsString..", "..type(parameterValue).." found."
-	)
-end
-
-function Hoi3Object.assertReturnType(returnValue, typeAsString)
-	assert(
-		Hoi3Object.testType(returnValue, typeAsString),
-		"returned value is not type "..typeAsString..", "..type(returnValue).." found."
-	)
-end
-
-function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
-	Hoi3Object.assertReturnType(returnValue, typeAsString)
-	return returnValue
-end
-
-function Hoi3Object.throwNotYetImplemented()
-	error("Unsupported API feature. Not yet implemented in HOI3 fake API.")
-end
-
-function Hoi3Object.throwUnknownSignature()
-	error("Unknown API signature. Not implemented in HOI3 fake API.")
-end
-
-function Hoi3Object.throwUnknownReturnType()
-	error("Unknown API return type. Not implemented in HOI3 fake API.")
-end
-
-function Hoi3Object.throwNoRandomizerSupport(typeAsString)
-	error("Missing randomizer support for "..typeAsString..". Not implemented in HOI3 fake API.")
-end
-
-
 --[[
 	Easy way to define constant result for the same call 
 	signature on the same instance of the same object.
 ]]
+
+
+
+function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
+	hoi3.assertReturnType(returnValue, typeAsString)
+	return returnValue
+end
 
 ---
 -- Transform parameters list to a string (hashable)
@@ -99,7 +37,7 @@ Hoi3Object.resultTable = {}
 -- Save a value for a object instance (or object definition for static method),
 -- method, and parameters.
 Hoi3Object.saveResult = function(self, value, method, ...)
-	assert(type(method)==Hoi3Object.TYPE_FUNCTION, "Unable to save value. Unknown function or method.")
+	assert(type(method)==hoi3.TYPE_FUNCTION, "Unable to save value. Unknown function or method.")
 	
 	local hash = Hoi3Object.hashArgs(...)
 	if Hoi3Object.resultTable[self] == nil then
@@ -131,7 +69,7 @@ Hoi3Object.hasResult = function(self, method, ...)
 end
 
 Hoi3Object.loadResult = function(self, method, ...)
-	assert(type(method)==Hoi3Object.TYPE_FUNCTION, "Unable to recover value. Unknown function or method.")
+	assert(type(method)==hoi3.TYPE_FUNCTION, "Unable to recover value. Unknown function or method.")
 	
 	local hash = Hoi3Object.hashArgs(...) 	
 	assert(Hoi3Object.resultTable[self] ~= nil, "Unable to recover value. Unknown object reference.")
@@ -151,7 +89,7 @@ Hoi3Object.loadResultOrFakeOrRandom  = function(self, returnTypeAsString, method
 	-- Real method
 	local fReference = self[methodName]
 	if fReference == nil or
-		type(fReference) ~= Hoi3Object.TYPE_FUNCTION then
+		type(fReference) ~= hoi3.TYPE_FUNCTION then
 		error("Unable to recover value. Function name refers to a non function reference.")
 	end
 	
@@ -171,7 +109,7 @@ Hoi3Object.loadResultOrFakeOrRandom  = function(self, returnTypeAsString, method
 	-- Try fake method is exists
 	local fFakeReference = self[methodName.."Fake"]
 	if fFakeReference ~= nil  then
-		assert(type(fFakeReference) == Hoi3Object.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non function reference.")
+		assert(type(fFakeReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non function reference.")
 		
 		computedValue = fFakeReference(...)
 	end
@@ -208,18 +146,17 @@ end
 -- Compute random value for a given type
 -- this method returns "nil" instead of throwing exception
 Hoi3Object.computeRandomizedValue = function(returnTypeAsString)
-	--TODO: implement table<type>
-	
+	--TODO: support random hint, such as table size, % true/false, random(min/max)...
 	math.randomseed( os.time() )
 	
-	if returnTypeAsString == Hoi3Object.TYPE_FUNCTION or
-		returnTypeAsString == Hoi3Object.TYPE_THREAD or
-		returnTypeAsString == Hoi3Object.TYPE_USERDATA then
+	if returnTypeAsString == hoi3.TYPE_FUNCTION or
+		returnTypeAsString == hoi3.TYPE_THREAD or
+		returnTypeAsString == hoi3.TYPE_USERDATA then
 		-- Throw an error, we don't handle such special datatypes !
-		assert(false, "Failed to randomize special datatype. function, thread and userdata type are not handled")   
-	elseif returnTypeAsString == Hoi3Object.TYPE_NIL then
+		error("Failed to randomize special datatype. function, thread and userdata type are not handled")   
+	elseif returnTypeAsString == hoi3.TYPE_NIL then
 		return nil
-	elseif returnTypeAsString == Hoi3Object.TYPE_STRING then
+	elseif returnTypeAsString == hoi3.TYPE_STRING then
 		-- return a human readable string of 10 caracters
 		local conso = {"b","c","d","f","g","h","j","k","l","m","n","p","r","s","t","v","w","x","y","z","_"}
 		local vocal = {"a","e","i","o","u"}
@@ -232,15 +169,15 @@ Hoi3Object.computeRandomizedValue = function(returnTypeAsString)
 		end
 		
 		return value		
-	elseif returnTypeAsString == Hoi3Object.TYPE_NUMBER then
+	elseif returnTypeAsString == hoi3.TYPE_NUMBER then
 		return math.random(0,100)
-	elseif returnTypeAsString == Hoi3Object.TYPE_BOOLEAN then
+	elseif returnTypeAsString == hoi3.TYPE_BOOLEAN then
 		if math.random(2) == 1 then 
 			return true 
 		else 
 			return false 
 		end
-	elseif returnTypeAsString:sub(0,6) == Hoi3Object.TYPE_TABLE.."<" then
+	elseif returnTypeAsString:sub(0,6) == hoi3.TYPE_TABLE.."<" then
 		local myType = returnTypeAsString:sub(0,-2):sub(7)
 		local myTable = {}
 		local myValue
@@ -253,10 +190,10 @@ Hoi3Object.computeRandomizedValue = function(returnTypeAsString)
 	else
 		-- try to delegate to object reference
 		if _G[returnTypeAsString] and _G[returnTypeAsString].random
-			and type(_G[returnTypeAsString].random) == Hoi3Object.TYPE_FUNCTION then
+			and type(_G[returnTypeAsString].random) == hoi3.TYPE_FUNCTION then
 			return _G[returnTypeAsString].random()
 		end
 	end
 	
-	Hoi3Object.throwNoRandomizerSupport(returnTypeAsString)
+	hoi3.throwNoRandomizerSupport(returnTypeAsString)
 end

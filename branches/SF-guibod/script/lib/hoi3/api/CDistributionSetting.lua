@@ -1,19 +1,21 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CDistributionSetting = Hoi3Object:subclass('hoi3.CDistributionSetting')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CDistributionSetting:GetNeeded()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return unknown
 function CDistributionSetting:GetPercentage(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 

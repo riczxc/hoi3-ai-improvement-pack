@@ -1,5 +1,7 @@
 require('hoi3.api.CAIAgent')
 
+module("hoi3.api", package.seeall)
+
 CAIEspionageMinister = CAIAgent:subclass('hoi3.CAIEspionageMinister')
 
 ---

@@ -1,5 +1,7 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CAIStrategy = Hoi3Object:subclass('hoi3.CAIStrategy')
 
 --- 
@@ -13,7 +15,7 @@ CAIStrategy._AI_UNDEFINED_	= 5
 ---
 -- @param CCountryTag countryTag
 function CAIStrategy:initalize(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	self.countryTag = countryTag
 end
@@ -22,7 +24,7 @@ end
 -- @since 1.3
 -- @return unknown 
 function CAIStrategy:AddSubUnit(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end
 
 ---
@@ -30,9 +32,9 @@ end
 -- @param CCountryTag countryTag
 -- @return void
 function CAIStrategy:CancelPrepareWar(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -40,7 +42,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetAccessScore(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -54,7 +56,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetAntagonism(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -82,7 +84,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetFriendliness(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -95,7 +97,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetPersonality(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
@@ -103,7 +105,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetProtectionism(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'number',
@@ -116,7 +118,7 @@ end
 -- @since 1.3
 -- @return table<CTheatre>
 function CAIStrategy:GetTheatres(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
@@ -124,7 +126,7 @@ end
 -- @param CCountryTag countryTag
 -- @return CFixedPoint
 function CAIStrategy:GetThreat(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'CFixedPoint',
@@ -137,28 +139,28 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWantedSubUnits(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWarScoreWith(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWarTarget(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWarTargets(...)
-	Hoi3Object.throwUnknownSignature()
+	hoi3.throwUnknownSignature()
 end  
 
 ---
@@ -216,7 +218,7 @@ end
 -- @param CCountryTag countryTag
 -- @return bool
 function CAIStrategy:IsPreparingWarWith(countryTag)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrFakeOrRandom(
 		'boolean',
@@ -231,10 +233,10 @@ end
 -- @param number score
 -- @return void
 function CAIStrategy:PrepareWar(countryTag, score)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, score, 'number')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(2, score, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end  
 
 ---
@@ -244,9 +246,9 @@ end
 -- @param CDecision decision
 -- @return void
 function CAIStrategy:PrepareWarDecision(countryTag, score, decision)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, score, 'number')
-	Hoi3Object.assertParameterType(3, decision, 'CDecision')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(2, score, 'number')
+	hoi3.assertParameterType(3, decision, 'CDecision')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end  

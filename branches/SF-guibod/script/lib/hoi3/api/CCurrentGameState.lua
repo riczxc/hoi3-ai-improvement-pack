@@ -1,26 +1,39 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CCurrentGameState = AbstractObject:subclass('hoi3.CCurrentGameState')
 
 ---
+-- Returns a random integer (?) value from 1 to 100 
 -- @since 1.3
 -- @return number 
 function CCurrentGameState.GetAIRand()
-	Hoi3Object.throwNotYetImplemented()
+	math.randomseed(os.time())
+	return math.random(100)
 end
 
 ---
 -- @since 1.3
 -- @return table<CCountry> 
 function CCurrentGameState.GetCountries()
-	Hoi3Object.throwNotYetImplemented()
+	--TODO: get infos from CCountryDatabase
+	
+	return CCurrentGameState.loadResultOrFakeOrRandom(
+		CCurrentGameState
+		'table<CCountry>',
+		'GetCountries'
+	)
 end
 
 ---
 -- @since 1.3
 -- @return CDate
 function CCurrentGameState.GetCurrentDate()
-	Hoi3Object.throwNotYetImplemented()
+	return CCurrentGameState:loadResultOrFakeOrRandom(
+		'CDate',
+		'GetCurrentDate'
+	)
 end
 
 ---
@@ -28,30 +41,59 @@ end
 -- @param string faction
 -- @return CFaction
 function CCurrentGameState.GetFaction(faction)
-	Hoi3Object.assertParameterType(1, faction, 'string')
+	hoi3.assertParameterType(1, faction, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return CCurrentGameState:loadResultOrFakeOrRandom(
+		'CFaction',
+		'GetFaction',
+		faction
+	)
+end
+
+function CCurrentGameState.GetFactionFake(faction)
+	hoi3.assertParameterType(1, faction, 'string')
+	
+	for i,k in ipairs(CCurrentGameState.GetFactions()) do
+		if k.GetName() == faction then
+			return k
+		end
+	end
 end
 
 ---
 -- @since 1.3
 -- @return table<CFaction>
 function CCurrentGameState.GetFactions()
-	Hoi3Object.throwNotYetImplemented()
+	return CCurrentGameState:loadResultOrFakeOrRandom(
+		'table<CFaction>',
+		'GetFactions',
+		faction
+	)
+end
+
+function CCurrentGameState.GetFactionsFake()
+	return {
+		CFaction('axis'),
+		CFaction('allies'),
+		CFaction('comintern')
+	}
 end
 
 ---
 -- @since 1.3
 -- @return unknown
 function CCurrentGameState.GetInstance()
-	Hoi3Object.throwUnknownReturnType()
+	hoi3.throwUnknownReturnType()
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag
 function CCurrentGameState.GetPlayer()
-	Hoi3Object.throwNotYetImplemented()
+	return CCurrentGameState:loadResultOrFakeOrRandom(
+		'CCountryTag',
+		'GetPlayer'
+	)
 end
 
 ---
@@ -59,9 +101,13 @@ end
 -- @param number provinceId
 -- @return CProvince
 function CCurrentGameState.GetProvince(provinceId)
-	Hoi3Object.assertParameterType(1, provinceId, 'number')
+	hoi3.assertParameterType(1, provinceId, 'number')
 
-	Hoi3Object.throwNotYetImplemented()
+	return CCurrentGameState:loadResultOrFakeOrRandom(
+		'CProvince',
+		'GetProvince',
+		provinceId
+	)
 end
 
 ---
@@ -69,7 +115,7 @@ end
 -- @param string flagName
 -- @return bool
 function CCurrentGameState.IsGlobalFlagSet(flagName)
-	Hoi3Object.assertParameterType(1, flagName, 'string')
+	hoi3.assertParameterType(1, flagName, 'string')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

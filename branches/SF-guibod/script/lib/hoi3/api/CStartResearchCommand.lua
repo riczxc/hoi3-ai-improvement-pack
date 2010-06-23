@@ -1,12 +1,14 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CStartResearchCommand = CCommand:subclass('hoi3.CStartResearchCommand')
 
 ---
 -- @since 1.3
 -- @return CChangeInvestmentCommand 
 function CStartResearchCommand:Clone()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -15,8 +17,8 @@ end
 -- @param CTechnology  techno
 -- @return CStartResearchCommand
 function CStartResearchCommand:initialize(country, techno)
-	Hoi3Object.assertParameterType(1, country, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, techno, 'CTechnology')
+	hoi3.assertParameterType(1, country, 'CCountryTag')
+	hoi3.assertParameterType(2, techno, 'CTechnology')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

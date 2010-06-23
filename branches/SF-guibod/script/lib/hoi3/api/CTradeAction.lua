@@ -1,5 +1,7 @@
 require('hoi3.api.CDiplomaticAction')
 
+module("hoi3.api", package.seeall)
+
 CTradeAction = CDiplomaticAction:subclass('hoi3.CTradeAction')
 
 ---
@@ -8,24 +10,24 @@ CTradeAction = CDiplomaticAction:subclass('hoi3.CTradeAction')
 -- @param CCountryTag countryTagB
 -- @return CTradeAction
 function CTradeAction:initialize(countryTagA, countryTagB)
-	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
+	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CTradeRoute 
 function CSpyPresence:GetRoute()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CTradeRoute 
 function CSpyPresence:GetRoute()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -34,17 +36,17 @@ end
 -- @param CCountryTag  ministerTag
 -- @return CFixedPoint 
 function CSpyPresence:GetTrading(goodsType, ministerTag)
-	Hoi3Object.assertParameterType(1, goodsType, 'number')
-	Hoi3Object.assertParameterType(2, ministerTag, 'CCountryTag')
+	hoi3.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(2, ministerTag, 'CCountryTag')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return bool 
 function CSpyPresence:IsConvoyPossible()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -52,9 +54,9 @@ end
 -- @param CTradeRoute  route
 -- @return void 
 function CSpyPresence:SetRoute(route)
-	Hoi3Object.assertParameterType(1, route, 'CTradeRoute')
+	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
@@ -63,9 +65,9 @@ end
 -- @param number goodsType
 -- @return void 
 function CSpyPresence:SetTrading(amount, goodsType)
-	Hoi3Object.assertParameterType(1, amount, 'CFixedPoint')
-	Hoi3Object.assertParameterType(1, goodsType, 'number')
+	hoi3.assertParameterType(1, amount, 'CFixedPoint')
+	hoi3.assertParameterType(1, goodsType, 'number')
 	
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 

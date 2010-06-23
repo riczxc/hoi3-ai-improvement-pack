@@ -1,5 +1,7 @@
 require('hoi3.api.CAIAgent')
 
+module("hoi3.api", package.seeall)
+
 CAITechMinister = CAIAgent:subclass('hoi3.CAITechMinister')
 
 ---
@@ -7,7 +9,7 @@ CAITechMinister = CAIAgent:subclass('hoi3.CAITechMinister')
 -- @param CTechnology tech
 -- @return bool
 function CAITechMinister:CanResearch(tech)
-	Hoi3Object.assertParameterType(1, tech, 'CTechnology')
+	hoi3.assertParameterType(1, tech, 'CTechnology')
 	
 	return self:loadResultOrFakeOrRandom(
 		'boolean',

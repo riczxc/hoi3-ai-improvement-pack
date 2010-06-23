@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CChangeInvestmentCommand = CCommand:subclass('hoi3.CChangeInvestmentCommand')
 
 ---
@@ -11,18 +13,18 @@ CChangeInvestmentCommand = CCommand:subclass('hoi3.CChangeInvestmentCommand')
 -- @param CFixedPoint ...
 -- @return CChangeInvestmentCommand
 function CChangeInvestmentCommand:initialize(actor, ...)
-	Hoi3Object.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	for i,v in ipairs(...) do
-		Hoi3Object.assertParameterType(i+2, v, 'CFixedPoint')
+		hoi3.assertParameterType(i+2, v, 'CFixedPoint')
 	end
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.3
 -- @return CChangeInvestmentCommand 
 function CChangeInvestmentCommand:Clone()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 

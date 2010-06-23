@@ -1,5 +1,7 @@
 require('hoi3.api.CDiplomaticAction')
 
+module("hoi3.api", package.seeall)
+
 COfferMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.COfferMilitaryAccessAction')
 
 ---
@@ -8,8 +10,8 @@ COfferMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.COfferMilitaryAcce
 -- @param CCountryTag countryTagB
 -- @return COfferMilitaryAccessAction
 function COfferMilitaryAccessAction:initialize(countryTagA, countryTagB)
-	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
+	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

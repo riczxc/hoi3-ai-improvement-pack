@@ -1,5 +1,7 @@
 require('hoi3.AbstractObject')
 
+module("hoi3.api", package.seeall)
+
 CCountryDataBase = AbstractObject:subclass('hoi3.CCountryDataBase')
 
 ---
@@ -7,7 +9,11 @@ CCountryDataBase = AbstractObject:subclass('hoi3.CCountryDataBase')
 -- @param string countryCode
 -- @return CCountryTag 
 function CCountryDataBase.GetTag(countryCode)
-	Hoi3Object.assertParameterType(1, countryCode, 'string')
+	hoi3.assertParameterType(1, countryCode, 'string')
 	
-	Hoi3Object.throwNotYetImplemented()
+	return CCountryDataBase.loadResultOrFakeOrRandom(
+		CCountryDataBase,
+		'CCountryTag',
+		'GetTag'
+	)
 end

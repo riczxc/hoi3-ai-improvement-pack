@@ -1,5 +1,7 @@
 require('hoi3.api.CCommand')
 
+module("hoi3.api", package.seeall)
+
 CLiberateCountryCommand = CCommand:subclass('hoi3.CLiberateCountryCommand')
 
 ---
@@ -8,8 +10,8 @@ CLiberateCountryCommand = CCommand:subclass('hoi3.CLiberateCountryCommand')
 -- @param CCountryTag countryTagB
 -- @return CLiberateCountryCommand
 function CLiberateCountryCommand:initialize(countryTagA, countryTagB)
-	Hoi3Object.assertParameterType(1, countryTagA, 'CCountryTag')
-	Hoi3Object.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
+	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end

@@ -1,17 +1,19 @@
 require('hoi3.Hoi3Object')
 
+module("hoi3.api", package.seeall)
+
 CProvinceBuilding = Hoi3Object:subclass('hoi3.CProvinceBuilding')
 
 ---
 -- @since 1.4
 -- @return CFixedPoint
 function CProvinceBuilding:GetCurrent()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
 
 ---
 -- @since 1.4
 -- @return CFixedPoint
 function CProvinceBuilding:GetMax()
-	Hoi3Object.throwNotYetImplemented()
+	hoi3.throwNotYetImplemented()
 end
