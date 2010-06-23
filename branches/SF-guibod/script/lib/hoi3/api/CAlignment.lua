@@ -11,7 +11,7 @@ CAlignment = hoi3.Hoi3Object:subclass('hoi3.CAlignment')
 function CAlignment:GetLastDrift(ideologyGroup)
 	hoi3.assertParameterType(1, ideologyGroup, 'CIdeologyGroup')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetLastDrift',
 		ideologyGroup

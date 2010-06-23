@@ -1,8 +1,8 @@
 --[[
-	HOI3 fake API
+	HOI3 Impl API
 	
 	It is sometimes difficult to code pure LUA features for HOI3
-	This package provide basic support for a fake game instance.
+	This package provide basic support for a Impl game instance.
 
 	All values returned fully random atm. 
 ]]
@@ -74,22 +74,22 @@ function assertReturnType(returnValue, typeAsString)
 end
 
 function throwNotYetImplemented()
-	error("Unsupported API feature. Not yet implemented in HOI3 fake API.")
+	error("Unsupported API feature. Not yet implemented in HOI3 Impl API.")
 end
 
 function throwUnknownSignature()
-	error("Unknown API signature. Not implemented in HOI3 fake API.")
+	error("Unknown API signature. Not implemented in HOI3 Impl API.")
 end
 
 function throwUnknownReturnType()
-	error("Unknown API return type. Not implemented in HOI3 fake API.")
+	error("Unknown API return type. Not implemented in HOI3 Impl API.")
 end
 
 function throwNoRandomizerSupport(typeAsString)
 	if typeAsString == nil then
 		typeAsString = "[no type specified]"
 	end
-	error("Missing randomizer support for "..typeAsString..". Not implemented in HOI3 fake API.")
+	error("Missing randomizer support for "..typeAsString..". Not implemented in HOI3 Impl API.")
 end
 
 function testAll()

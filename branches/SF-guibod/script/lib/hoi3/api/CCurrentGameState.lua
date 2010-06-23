@@ -19,7 +19,7 @@ end
 function CCurrentGameState.GetCountries()
 	--TODO: get infos from CCountryDatabase
 	
-	return CCurrentGameState.loadResultOrFakeOrRandom(
+	return CCurrentGameState.loadResultOrImplOrRandom(
 		CCurrentGameState
 		'table<CCountry>',
 		'GetCountries'
@@ -30,7 +30,7 @@ end
 -- @since 1.3
 -- @return CDate
 function CCurrentGameState.GetCurrentDate()
-	return CCurrentGameState:loadResultOrFakeOrRandom(
+	return CCurrentGameState:loadResultOrImplOrRandom(
 		'CDate',
 		'GetCurrentDate'
 	)
@@ -43,14 +43,14 @@ end
 function CCurrentGameState.GetFaction(faction)
 	hoi3.assertParameterType(1, faction, 'string')
 	
-	return CCurrentGameState:loadResultOrFakeOrRandom(
+	return CCurrentGameState:loadResultOrImplOrRandom(
 		'CFaction',
 		'GetFaction',
 		faction
 	)
 end
 
-function CCurrentGameState.GetFactionFake(faction)
+function CCurrentGameState.GetFactionImpl(faction)
 	hoi3.assertParameterType(1, faction, 'string')
 	
 	for i,k in ipairs(CCurrentGameState.GetFactions()) do
@@ -64,14 +64,14 @@ end
 -- @since 1.3
 -- @return table<CFaction>
 function CCurrentGameState.GetFactions()
-	return CCurrentGameState:loadResultOrFakeOrRandom(
+	return CCurrentGameState:loadResultOrImplOrRandom(
 		'table<CFaction>',
 		'GetFactions',
 		faction
 	)
 end
 
-function CCurrentGameState.GetFactionsFake()
+function CCurrentGameState.GetFactionsImpl()
 	return {
 		CFaction('axis'),
 		CFaction('allies'),
@@ -90,7 +90,7 @@ end
 -- @since 1.3
 -- @return CCountryTag
 function CCurrentGameState.GetPlayer()
-	return CCurrentGameState:loadResultOrFakeOrRandom(
+	return CCurrentGameState:loadResultOrImplOrRandom(
 		'CCountryTag',
 		'GetPlayer'
 	)
@@ -103,7 +103,7 @@ end
 function CCurrentGameState.GetProvince(provinceId)
 	hoi3.assertParameterType(1, provinceId, 'number')
 
-	return CCurrentGameState:loadResultOrFakeOrRandom(
+	return CCurrentGameState:loadResultOrImplOrRandom(
 		'CProvince',
 		'GetProvince',
 		provinceId

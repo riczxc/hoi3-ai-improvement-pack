@@ -11,7 +11,7 @@ CBuildingDataBase = hoi3.AbstractObject:subclass('hoi3.CBuildingDataBase')
 function CBuildingDataBase.GetBuilding(building)
 	hoi3.assertParameterType(1, building, 'string')
 	
-	return CBuildingDataBase.loadResultOrFakeOrRandom(
+	return CBuildingDataBase.loadResultOrImplOrRandom(
 		CBuildingDataBase,
 		'CBuilding',
 		'GetBuilding',
@@ -26,7 +26,7 @@ end
 function CBuildingDataBase.GetBuildingFromIndex(building)
 	hoi3.assertParameterType(1, building, 'number')
 	
-	return CBuildingDataBase.loadResultOrFakeOrRandom(
+	return CBuildingDataBase.loadResultOrImplOrRandom(
 		CBuildingDataBase,
 		'CBuilding',
 		'GetBuilding',

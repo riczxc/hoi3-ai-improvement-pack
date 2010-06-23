@@ -8,7 +8,7 @@ CCountryList = CList:subclass('hoi3.CCountryList')
 -- @since 1.3
 -- @return bool
 function CCountryList:IsEnemy()
-	return CCountryList:loadResultOrFakeOrRandom(
+	return CCountryList:loadResultOrImplOrRandom(
 		'boolean',
 		'IsEnemy'
 	)

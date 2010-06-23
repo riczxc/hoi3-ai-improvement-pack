@@ -44,7 +44,7 @@ end
 function CAIStrategy:GetAccessScore(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetAccessScore',
 		countryTag
@@ -58,7 +58,7 @@ end
 function CAIStrategy:GetAntagonism(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetAntagonism',
 		countryTag
@@ -86,7 +86,7 @@ end
 function CAIStrategy:GetFriendliness(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetFriendliness',
 		countryTag
@@ -107,7 +107,7 @@ end
 function CAIStrategy:GetProtectionism(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetProtectionism',
 		countryTag
@@ -128,7 +128,7 @@ end
 function CAIStrategy:GetThreat(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetThreat',
 		countryTag
@@ -167,7 +167,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsBalanced()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsBalanced'
 	)
@@ -177,7 +177,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsDiplomat()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsDiplomat'
 	)
@@ -187,7 +187,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsIndustrialist()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsIndustrialist'
 	)
@@ -197,7 +197,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsMilitarist()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsMilitarist'
 	)
@@ -207,7 +207,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsPreparingWar()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsPreparingWar'
 	)
@@ -220,7 +220,7 @@ end
 function CAIStrategy:IsPreparingWarWith(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsPreparingWar',
 		countryTag

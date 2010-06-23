@@ -40,7 +40,7 @@ end
 -- @since 1.3
 -- @return bool 
 function CCountryTag:IsReal()
-	return CCountryTag:loadResultOrFakeOrRandom(
+	return CCountryTag:loadResultOrImplOrRandom(
 		'boolean',
 		'IsReal'
 	)
@@ -50,7 +50,7 @@ end
 -- @since 1.3
 -- @return bool 
 function CCountryTag:IsValid()
-	return CCountryTag:loadResultOrFakeOrRandom(
+	return CCountryTag:loadResultOrImplOrRandom(
 		'boolean',
 		'IsValid'
 	)

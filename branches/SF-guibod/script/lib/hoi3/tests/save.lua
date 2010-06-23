@@ -10,14 +10,14 @@ local obj = nil
 function setup()
  	obj = hoi3.Hoi3Object:subclass("test.object")
 	function obj:myFunctionWithoutParam()
-		return self:loadResultOrFakeOrRandom(
+		return self:loadResultOrImplOrRandom(
   	 		'string', 
 			"myFunctionWithoutParam"
 		)
   	end
   	
   	function obj:myFunctionWithParam(a,b)
-		return self:loadResultOrFakeOrRandom(
+		return self:loadResultOrImplOrRandom(
   	 		'string', 
 			"myFunctionWithParam",
 			a,
@@ -26,7 +26,7 @@ function setup()
   	end
   	
   	obj.myStaticFunctionWithoutParam = function()
-		return obj.loadResultOrFakeOrRandom(
+		return obj.loadResultOrImplOrRandom(
 			obj,
   	 		'string', 
 			"myStaticFunctionWithoutParam"
@@ -34,7 +34,7 @@ function setup()
   	end
   	
   	obj.myStaticFunctionWithParam = function(a, b)
-		return obj.loadResultOrFakeOrRandom(
+		return obj.loadResultOrImplOrRandom(
 			obj,
   	 		'string', 
 			"myStaticFunctionWithParam",
@@ -44,14 +44,14 @@ function setup()
   	end
   	
   	function obj:myFakableFunction()
-		return self:loadResultOrFakeOrRandom(
+		return self:loadResultOrImplOrRandom(
   	 		'string', 
 			"myFakableFunction"
 		)
   	end
   	
-  	function obj:myFakableFunctionFake()
-		return "FakedValue"
+  	function obj:myFakableFunctionImpl()
+		return "ImpldValue"
   	end
 end
 
@@ -133,5 +133,5 @@ function testFakable()
   	local myObj = obj()
 		
 	assert_string(obj:myFakableFunction())
-	assert_equal("FakedValue",obj:myFakableFunction())
+	assert_equal("ImpldValue",obj:myFakableFunction())
 end

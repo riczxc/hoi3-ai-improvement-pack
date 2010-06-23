@@ -19,7 +19,7 @@ end
 -- @since 1.3
 -- @return string 
 function CBuilding:GetName()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'string',
 		'GetName'
 	)
@@ -29,7 +29,7 @@ end
 -- @since 1.3
 -- @return number
 function CBuilding:GetIndex()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetIndex'
 	)

@@ -22,7 +22,7 @@ end
 -- @since 1.3
 -- @return CCountryTag
 function CAIForeignMinister:GetProposedWarTarget()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'CCountryTag',
 		'GetProposedWarTarget'
 	)

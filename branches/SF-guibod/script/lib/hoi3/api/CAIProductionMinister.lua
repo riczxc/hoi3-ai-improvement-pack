@@ -8,7 +8,7 @@ CAIProductionMinister = CAIAgent:subclass('hoi3.CAIProductionMinister')
 -- @since 1.3
 -- @return number
 function CAIProductionMinister:CountEscortsUnderConstruction()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'CountEscortsUnderConstruction'
 	)
@@ -18,7 +18,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIProductionMinister:CountTotalDesiredEscorts()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'CountTotalDesiredEscorts'
 	)
@@ -28,7 +28,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIProductionMinister:CountTransportsUnderConstruction()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'CountTransportsUnderConstruction'
 	)
@@ -38,7 +38,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIProductionMinister:GetDesperation()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetDesperation'
 	)
