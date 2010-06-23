@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CMinister = Hoi3Object:subclass('hoi3.CMinister')
+CMinister = hoi3.Hoi3Object:subclass('hoi3.CMinister')
 
 ---
 -- @since 2.0

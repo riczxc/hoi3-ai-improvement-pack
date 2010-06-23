@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CIdeologyData = Hoi3Object:subclass('hoi3.CIdeologyData')
+CIdeologyData = hoi3.Hoi3Object:subclass('hoi3.CIdeologyData')
 
 ---
 -- @since 1.3

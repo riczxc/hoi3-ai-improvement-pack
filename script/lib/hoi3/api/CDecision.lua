@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CDecision = Hoi3Object:subclass('hoi3.CDecision')
+CDecision = hoi3.Hoi3Object:subclass('hoi3.CDecision')
 
 ---
 -- @since 1.3

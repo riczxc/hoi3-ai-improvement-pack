@@ -1,8 +1,8 @@
-require('hoi3.AbstractObject')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CBuildingDataBase = AbstractObject:subclass('hoi3.CBuildingDataBase')
+CBuildingDataBase = hoi3.AbstractObject:subclass('hoi3.CBuildingDataBase')
 
 ---
 -- @since 1.3

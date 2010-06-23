@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CArrayFix = Hoi3Object:subclass('hoi3.CArrayFix')
+CArrayFix = hoi3.Hoi3Object:subclass('hoi3.CArrayFix')
 
 ---
 -- @since 1.3

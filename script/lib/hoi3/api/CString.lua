@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CString = Hoi3Object:subclass('hoi3.CString')
+CString = hoi3.Hoi3Object:subclass('hoi3.CString')
 
 ---
 -- @since 1.3

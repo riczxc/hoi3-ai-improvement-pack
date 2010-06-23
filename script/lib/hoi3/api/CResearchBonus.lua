@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CResearchBonus = Hoi3Object:subclass('hoi3.CResearchBonus')
+CResearchBonus = hoi3.Hoi3Object:subclass('hoi3.CResearchBonus')
 
 --[[
 	FIXME: middleclass notation makes underscored properties private.

@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CSpyPresence = Hoi3Object:subclass('hoi3.CSpyPresence')
+CSpyPresence = hoi3.Hoi3Object:subclass('hoi3.CSpyPresence')
 
 CSpyPresence.MAX_SPY_LEVEL = 10
 CSpyPresence.MAX_SPY_PRIORITY = 4

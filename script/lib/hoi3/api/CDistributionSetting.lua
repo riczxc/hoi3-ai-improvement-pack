@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CDistributionSetting = Hoi3Object:subclass('hoi3.CDistributionSetting')
+CDistributionSetting = hoi3.Hoi3Object:subclass('hoi3.CDistributionSetting')
 
 ---
 -- @since 1.3

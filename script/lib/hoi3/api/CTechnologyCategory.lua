@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTechnologyCategory = Hoi3Object:subclass('hoi3.CTechnologyCategory')
+CTechnologyCategory = hoi3.Hoi3Object:subclass('hoi3.CTechnologyCategory')
 
 ---
 -- @since1.3 

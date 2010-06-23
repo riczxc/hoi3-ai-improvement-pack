@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAIIntel = Hoi3Object:subclass('hoi3.CAIIntel')
+CAIIntel = hoi3.Hoi3Object:subclass('hoi3.CAIIntel')
 
 ---
 -- @since 1.3

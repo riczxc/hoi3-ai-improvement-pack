@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CSubUnitDefinition = Hoi3Object:subclass('hoi3.CSubUnitDefinition')
+CSubUnitDefinition = hoi3.Hoi3Object:subclass('hoi3.CSubUnitDefinition')
 
 ---
 -- @since 1.3

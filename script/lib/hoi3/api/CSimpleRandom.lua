@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CSimpleRandom = Hoi3Object:subclass('hoi3.CSimpleRandom')
+CSimpleRandom = hoi3.Hoi3Object:subclass('hoi3.CSimpleRandom')
 
 ---
 -- @since 1.3

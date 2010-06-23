@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CSubUnitConstructionEntry = Hoi3Object:subclass('hoi3.CSubUnitConstructionEntry')
+CSubUnitConstructionEntry = hoi3.Hoi3Object:subclass('hoi3.CSubUnitConstructionEntry')
 
 --[[
 	FIXME: middleclass notation makes underscored properties private.

@@ -1,8 +1,8 @@
-require('hoi3.AbstractObject')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CModifier = AbstractObject:subclass('hoi3.CModifier')
+CModifier = hoi3.AbstractObject:subclass('hoi3.CModifier')
 
 CModifier._MODIFIER_AIR_CAPACITY_	= 1
 CModifier._MODIFIER_AIR_ORGANISATION_	= 2

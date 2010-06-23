@@ -113,7 +113,7 @@ function releaseApiOnGlobalScope()
 	
 	for key, value in pairs(hoi3.api) do
 	 	if type(value) == "table" and 
-	 		subclassOf(Hoi3Object, value) then
+	 		subclassOf(hoi3.Hoi3Object, value) then
 	 		_G[key] = value
 	 	end
 	end

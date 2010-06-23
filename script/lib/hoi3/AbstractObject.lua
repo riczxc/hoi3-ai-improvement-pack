@@ -5,6 +5,8 @@
 ]]
 require('hoi3.Hoi3Object')
 
+module( "hoi3", package.seeall)
+
 AbstractObject = Hoi3Object:subclass('hoi3.AbstractObject')
 
 AbstractObject.initialize = function(instance, ...)

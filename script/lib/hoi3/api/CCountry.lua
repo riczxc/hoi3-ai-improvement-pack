@@ -1,8 +1,8 @@
-require('hoi3.MultitonObject')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CCountry = MultitonObject:subclass('hoi3.CCountry')
+CCountry = hoi3.MultitonObject:subclass('hoi3.CCountry')
 
 ---
 -- @param CCountryTag countryTag

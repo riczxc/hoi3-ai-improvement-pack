@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CCountryTag = Hoi3Object:subclass('hoi3.CCountryTag')
+CCountryTag = hoi3.Hoi3Object:subclass('hoi3.CCountryTag')
 
 ---
 -- @since 1.3

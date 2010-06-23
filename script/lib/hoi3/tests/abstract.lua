@@ -8,7 +8,7 @@ require("hoi3.AbstractObject")
 local obj = nil
 
 function setup()
- 	obj = AbstractObject:subclass("test.abstract")
+ 	obj = hoi3.AbstractObject:subclass("test.abstract")
 end
 
 function teardown()

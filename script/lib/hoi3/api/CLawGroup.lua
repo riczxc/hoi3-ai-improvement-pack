@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CLawGroup = Hoi3Object:subclass('hoi3.CLawGroup')
+CLawGroup = hoi3.Hoi3Object:subclass('hoi3.CLawGroup')
 
 ---
 -- @since 1.3

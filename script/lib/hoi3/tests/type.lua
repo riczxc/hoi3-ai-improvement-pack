@@ -3,11 +3,16 @@
 ]]
 module( "hoi3.tests.type", package.seeall, lunit.testcase )
 
-require("hoi3.Hoi3Object")
+require("hoi3")
+require("hoi3.api")
+
+local myClass
 
 function setup()
-  local myClass = Hoi3Object:subclass("test.object")
-  _G["myClass"] = myClass
+  	-- A Hoi3Object must be defined inside hoi3.api to benefit
+  	-- from datatesting based on name (as string)
+  	hoi3.api.myClass = hoi3.Hoi3Object:subclass("test.object")
+  	myClass = hoi3.api.myClass 
 end
 
 function testBoolean()
@@ -34,8 +39,9 @@ function testNumber()
 	assert_false(hoi3.testType({}, 'number'))
 end
 
-function testHoiObject()
+function testObject()
 	assert_true(hoi3.testType(myClass(), 'Object'))
+	assert_true(hoi3.testType(myClass(), 'Hoi3Object'))
 	assert_true(hoi3.testType(myClass(), 'myClass'))
 	assert_true(hoi3.testType(myClass:new(), 'myClass'))
 end

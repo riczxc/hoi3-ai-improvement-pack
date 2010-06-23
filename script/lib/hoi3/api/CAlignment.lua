@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAlignment = Hoi3Object:subclass('hoi3.CAlignment')
+CAlignment = hoi3.Hoi3Object:subclass('hoi3.CAlignment')
 
 ---
 -- @since 1.3

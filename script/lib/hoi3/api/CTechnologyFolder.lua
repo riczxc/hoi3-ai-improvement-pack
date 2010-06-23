@@ -1,8 +1,8 @@
-require('hoi3.Hoi3Object')
+require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTechnologyFolder = Hoi3Object:subclass('hoi3.CTechnologyFolder')
+CTechnologyFolder = hoi3.Hoi3Object:subclass('hoi3.CTechnologyFolder')
 
 ---
 -- @since 1.3 

@@ -3,12 +3,12 @@
 ]]
 module( "hoi3.tests.save", package.seeall, lunit.testcase )
 
-require("hoi3.Hoi3Object")
+require("hoi3")
 
 local obj = nil
 
 function setup()
- 	obj = Hoi3Object:subclass("test.object")
+ 	obj = hoi3.Hoi3Object:subclass("test.object")
 	function obj:myFunctionWithoutParam()
 		return self:loadResultOrFakeOrRandom(
   	 		'string', 
