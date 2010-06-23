@@ -83,11 +83,11 @@ end
 
 --[[
 	If a result is defined, get it
-	or fallback to function name+"Fake"suffix
+	or fallback to function name+"Impl"suffix
 	or use return hint in order to provide a randomized value
 	or throw a notimplemented error
 ]]
-Hoi3Object.loadResultOrFakeOrRandom  = function(self, returnTypeAsString, methodName, ...)
+Hoi3Object.loadResultOrImplOrRandom  = function(self, returnTypeAsString, methodName, ...)
 	-- Real method
 	local fReference = self[methodName]
 	if fReference == nil or
@@ -104,19 +104,19 @@ Hoi3Object.loadResultOrFakeOrRandom  = function(self, returnTypeAsString, method
 	end
 	
 	-- No real method result, we'll have to compute value
-	-- (either by fake method or randomized result)
+	-- (either by Impl method or randomized result)
 	-- and to cheat it as real function result.
 	local computedValue
 	
-	-- Try fake method is exists
-	local fFakeReference = self[methodName.."Fake"]
-	if fFakeReference ~= nil  then
-		assert(type(fFakeReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non function reference.")
+	-- Try Impl method is exists
+	local fImplReference = self[methodName.."Impl"]
+	if fImplReference ~= nil  then
+		assert(type(fImplReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non function reference.")
 		
-		computedValue = fFakeReference(...)
+		computedValue = fImplReference(...)
 	end
 	
-	-- No fake method result ?
+	-- No Impl method result ?
 	-- Create a randomized result (depending on expected return type)
 	if computedValue == nil then
 		-- May throw a specific exception "no randomizer"

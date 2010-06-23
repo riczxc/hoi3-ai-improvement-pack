@@ -21,7 +21,7 @@ end
 -- @since 1.3
 -- @return number 
 function CAIIntel:CalculateOurMilitaryStrength()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'CalculateOurMilitaryStrength'
 	)
@@ -31,7 +31,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIIntel:CalculateTheirPercievedMilitaryStrengh()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'CalculateTheirPercievedMilitaryStrengh'
 	)
@@ -41,7 +41,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIIntel:GetFactor()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'number',
 		'GetFactor'
 	)
@@ -65,7 +65,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIIntel:HasNoIntel()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'GetFactor'
 	)

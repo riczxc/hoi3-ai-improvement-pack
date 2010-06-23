@@ -11,7 +11,7 @@ CCountryDataBase = hoi3.AbstractObject:subclass('hoi3.CCountryDataBase')
 function CCountryDataBase.GetTag(countryCode)
 	hoi3.assertParameterType(1, countryCode, 'string')
 	
-	return CCountryDataBase.loadResultOrFakeOrRandom(
+	return CCountryDataBase.loadResultOrImplOrRandom(
 		CCountryDataBase,
 		'CCountryTag',
 		'GetTag'

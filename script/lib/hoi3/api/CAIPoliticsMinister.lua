@@ -11,7 +11,7 @@ CAIPoliticsMinister = CAIAgent:subclass('hoi3.CAIPoliticsMinister')
 function CAIPoliticsMinister:IsCapitalSafeToLiberate(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'boolean',
 		'IsCapitalSafeToLiberate',
 		countryTag
@@ -22,7 +22,7 @@ end
 -- @since 2.0
 -- @return table<CMinister>
 function CAIPoliticsMinister:GetPossibleMinisters()
-	return self:loadResultOrFakeOrRandom(
+	return self:loadResultOrImplOrRandom(
 		'table<CMinister>',
 		'GetPossibleMinisters'
 	)
