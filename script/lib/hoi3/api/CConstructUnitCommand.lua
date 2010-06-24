@@ -15,6 +15,7 @@ CConstructUnitCommand = CCommand:subclass('hoi3.CConstructUnitCommand')
 -- @param CID cID
 -- @return CConstructUnitCommand
 function CConstructUnitCommand:initialize(actor, orderlist, capitalProvId, quantity, bBuildReserveAtPeace, countryTag, cId)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, orderlist, 'table')
 	hoi3.assertParameterType(3, capitalProvId, hoi3.TYPE_NUMBER)
@@ -30,5 +31,6 @@ end
 -- @since 1.3
 -- @return CConstructUnitCommand 
 function CConstructUnitCommand:Clone()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end

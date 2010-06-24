@@ -12,6 +12,7 @@ CConstructBuildingCommand = CCommand:subclass('hoi3.CConstructBuildingCommand')
 -- @param number quantity
 -- @return CConstructBuildingCommand
 function CConstructBuildingCommand:initialize(actor, building, provinceId, quantity)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, target, 'CBuilding')
 	hoi3.assertParameterType(3, provinceId, hoi3.TYPE_NUMBER)

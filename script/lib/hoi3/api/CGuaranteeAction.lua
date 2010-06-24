@@ -10,6 +10,7 @@ CGuaranteeAction = CDiplomaticAction:subclass('hoi3.CGuaranteeAction')
 -- @param CCountryTag countryTagB
 -- @return CGuaranteeAction
 function CGuaranteeAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

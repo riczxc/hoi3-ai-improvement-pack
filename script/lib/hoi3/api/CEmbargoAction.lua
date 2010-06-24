@@ -10,6 +10,7 @@ CEmbargoAction = CDiplomaticAction:subclass('hoi3.CEmbargoAction')
 -- @param CCountryTag countryTagB
 -- @return CEmbargoAction
 function CEmbargoAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

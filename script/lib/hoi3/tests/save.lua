@@ -75,6 +75,10 @@ function testSavedStaticWithoutParam()
 	obj.saveResult(obj, myResult,obj.myStaticFunctionWithoutParam)
 	assert_equal(myResult,obj.myStaticFunctionWithoutParam())
 	assert_equal(myResult,obj.myStaticFunctionWithoutParam())
+
+	obj.saveResult(obj, 5,obj.myStaticFunctionWithoutParam)
+	assert_equal(5,obj.myStaticFunctionWithoutParam())
+	assert_equal(5,obj.myStaticFunctionWithoutParam())
 end
 
 function testSavedWithParam()

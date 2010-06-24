@@ -9,7 +9,8 @@ CSubUnitConstructionEntry = hoi3.Hoi3Object:subclass('hoi3.CSubUnitConstructionE
 	There may be problem accessing _vWeight or _pCategory !
 ]]
 function CSubUnitConstructionEntry:initialize(nPrio, pUnit)
-  hoi3.assertParameterType(1, nPrio, hoi3.TYPE_NUMBER)
+  hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, nPrio, hoi3.TYPE_NUMBER)
   hoi3.assertParameterType(2, pUnit, 'CSubUnitDefinition')
   
   --number

@@ -8,5 +8,6 @@ CCountryTagList = CList:subclass('hoi3.CCountryTagList')
 -- @since 1.3
 -- @return bool
 function CCountryTagList:IsEnemy(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  

@@ -8,6 +8,7 @@ CBuilding = hoi3.MultitonObject:subclass('hoi3.CBuilding')
 -- @param string name
 -- @return string 
 function CBuilding:initialize(index, name)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, name, hoi3.TYPE_STRING)
 	

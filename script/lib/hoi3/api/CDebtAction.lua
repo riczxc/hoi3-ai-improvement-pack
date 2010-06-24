@@ -10,6 +10,7 @@ CDebtAction = CDiplomaticAction:subclass('hoi3.CDebtAction')
 -- @param CCountryTag debtor
 -- @return CDebtAction
 function CDebtAction:initialize(actor, debtor)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, debtor, 'CCountryTag')
 

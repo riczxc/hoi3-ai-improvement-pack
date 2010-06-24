@@ -9,6 +9,7 @@ CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.CFixedPoint')
 -- @param CCountryTag actor
 -- @return CFixedPoint
 function CFixedPoint:initialize(val)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, val, hoi3.TYPE_NUMBER)
 
 	self.value = val
@@ -18,6 +19,7 @@ end
 -- @since 1.3
 -- @return number
 function CFixedPoint:Get()
+	hoi3.assertNonStatic(self)
 	return self.value
 end
 

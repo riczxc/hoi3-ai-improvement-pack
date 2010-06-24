@@ -109,6 +109,7 @@ function Randomizer:computeString()
 		end
 	end
 	
+	dtools.debug("Randomized string content : "..str)
 	return str	
 end
 
@@ -122,7 +123,9 @@ Randomizer.computeBoolean = function(self)
 	self = self or {}
 	self.perc = self.perc or 50
 	
-	return math.random(100) < self.perc	
+	local bool = math.random(100) < self.perc	
+	dtools.debug("Randomized boolean content : "..tostring(bool))
+	return bool
 end
 
 ---

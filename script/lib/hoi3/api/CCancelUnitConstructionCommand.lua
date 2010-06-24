@@ -10,6 +10,7 @@ CCancelUnitConstructionCommand = CCommand:subclass('hoi3.CCancelUnitConstruction
 -- @param CID cID
 -- @return CCancelUnitConstructionCommand
 function CCancelUnitConstructionCommand:initialize(countryTag, cID)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	hoi3.assertParameterType(2, cID, 'CID')
 
@@ -20,6 +21,7 @@ end
 -- @since 1.3
 -- @return CCancelUnitConstructionCommand 
 function CCancelUnitConstructionCommand:Clone()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 

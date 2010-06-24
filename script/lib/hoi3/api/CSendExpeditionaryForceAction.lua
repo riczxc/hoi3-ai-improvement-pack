@@ -17,6 +17,7 @@ CSendExpeditionaryForceAction.SEND = 1
 -- @since 2.0
 -- @return unknown
 function CSendExpeditionaryForceAction:GetClaimType(...)	
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 	hoi3.throwUnknownReturnType()
 end

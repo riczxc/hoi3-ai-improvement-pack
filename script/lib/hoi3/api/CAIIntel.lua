@@ -10,6 +10,7 @@ CAIIntel = hoi3.Hoi3Object:subclass('hoi3.CAIIntel')
 -- @param CCountryTag target
 -- @return CAIIntel
 function CAIIntel:initialize(source, target)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, source, 'CCountryTag')
 	hoi3.assertParameterType(2, target, 'CCountryTag')
 	
@@ -21,6 +22,7 @@ end
 -- @since 1.3
 -- @return number 
 function CAIIntel:CalculateOurMilitaryStrength()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'CalculateOurMilitaryStrength'
@@ -31,6 +33,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIIntel:CalculateTheirPercievedMilitaryStrengh()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'CalculateTheirPercievedMilitaryStrengh'
@@ -41,6 +44,7 @@ end
 -- @since 1.3
 -- @return number
 function CAIIntel:GetFactor()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetFactor'
@@ -51,6 +55,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIIntel:GetTheirFactor(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -58,6 +63,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIIntel:GetUncertaintyFactor(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -65,6 +71,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIIntel:HasNoIntel()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'GetFactor'

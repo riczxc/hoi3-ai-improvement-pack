@@ -10,6 +10,7 @@ CNapAction = CDiplomaticAction:subclass('hoi3.CNapAction')
 -- @param CCountryTag countryTagB
 -- @return CNapAction
 function CNapAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

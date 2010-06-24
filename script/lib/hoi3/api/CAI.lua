@@ -7,6 +7,7 @@ CAI = hoi3.MultitonObject:subclass('hoi3.CAI')
 ---
 -- @param CCountryTag countryTag
 function CAI:initalize(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	self.countryTag = countryTag
@@ -26,6 +27,7 @@ CAI._TECHNOLOGY_ = 5
 -- @param CTradeRoute route
 -- @return bool 
 function CAI:AlreadyTradingDisabledResource(route)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
@@ -40,6 +42,7 @@ end
 -- @param CTradeRoute route
 -- @return bool 
 function CAI:AlreadyTradingResourceOtherWay(route)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
@@ -55,6 +58,7 @@ end
 -- @param CCountryTag countryTagB
 -- @return bool
 function CAI:CanDeclareWar(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -72,6 +76,7 @@ end
 -- @param CCountryTag countryTagB
 -- @return bool
 function CAI:CanTradeFreeResources(countryTagA,  countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -89,6 +94,7 @@ end
 -- @param number goodsType
 -- @return CFixedPoint
 function CAI:EvaluateCancelTrades(needs,  goodsType)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, needs, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, goodsType, hoi3.TYPE_NUMBER)
 
@@ -111,6 +117,7 @@ end
 -- @param CCountryTag to
 -- @return CFixedPoint
 function CAI:GetAmountTradedFrom(goodsType, from,  to)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, from, 'CCountryTag')
 	hoi3.assertParameterType(3, to, 'CCountryTag')
@@ -128,6 +135,7 @@ end
 -- @since 1.3
 -- @return CCountry
 function CAI:GetCountry(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -137,6 +145,7 @@ end
 -- @param CCountry countryB
 -- @return CFixedPoint
 function CAI:GetCountryAlignmentDistance(countryA, countryB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryA, 'CCountry')
 	hoi3.assertParameterType(2, countryB, 'CCountry')
 	
@@ -178,6 +187,7 @@ end
 -- @since 2.0
 -- @return CArrayFix
 function CAI:GetDeployedSubUnitCounts()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CArrayFix',
 		"GetDeployedSubUnitCounts"
@@ -202,6 +212,7 @@ end
 -- @param CFaction faction
 -- @return CFixedPoint
 function CAI:GetNormalizedAlignmentDistance(country, faction)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, country, 'CCountry')
 	hoi3.assertParameterType(2, faction, 'CFaction')
 	
@@ -218,6 +229,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAI:GetNumberOfOwnedProvinces(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, country, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -231,6 +243,7 @@ end
 -- @since 2.0
 -- @return CArrayFix
 function CAI:GetProductionSubUnitCounts()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CArrayFix',
 		"GetProductionSubUnitCounts"
@@ -241,6 +254,7 @@ end
 -- @since 1.3
 -- @return CSubUnitConstructionEntryList
 function CAI:GetReqProdQueue()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CSubUnitConstructionEntryList',
 		"GetReqProdQueue"
@@ -251,6 +265,7 @@ end
 -- @since 1.3
 -- @return table<CSubUnitConstructionEntry>
 function CAI:GetReqProdQueueIter()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CSubUnitConstructionEntry>',
 		"GetReqProdQueueIter"
@@ -263,6 +278,7 @@ end
 -- @param CCountryTag countryTagB
 -- @return CDiplomacyStatus
 function CAI:GetRelation(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -279,6 +295,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAI:GetSpamPenalty(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -292,6 +309,7 @@ end
 -- @since 2.0
 -- @return CArrayFix
 function CAI:GetTheatreSubUnitNeedCounts()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		"CArrayFix",
 		"GetTheatreSubUnitNeedCounts"
@@ -303,6 +321,7 @@ end
 -- @return bool
 -- @static
 function CAI.HasCommonExtension()
+	hoi3.assertNonStatic(self)
 	return CAI.loadResultOrImplOrRandom(
 		CAI,
 		hoi3.TYPE_BOOLEAN,
@@ -314,6 +333,7 @@ end
 -- @since 1.4
 -- @return bool
 function CAI:HasFilledProdQueue()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'HasFilledProdQueue'
@@ -325,6 +345,7 @@ end
 -- @param  CTradeRoute route
 -- @return bool
 function CAI:HasTradeGoneStale(route)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
@@ -367,6 +388,7 @@ end
 -- @param CCountryTag countryTagB
 -- @return bool
 function CAI:IsInfluencing(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 	
@@ -383,6 +405,7 @@ end
 -- @param CTradeRoute route
 -- @return bool
 function CAI:IsTradeingAwayNeededResource(route)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	return self:loadResultOrImplOrRandom(
@@ -396,6 +419,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAI:MoveToNeighbor(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -403,6 +427,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAI:MoveUnit(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -410,6 +435,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAI:RequestSubUnit(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -418,8 +444,10 @@ end
 -- @param CCommand command
 -- @return void
 function CAI:Post(command)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, command, 'CCommand')
 	
+	print("Command posted!")
 	--TODO: do log something in here through dtools. It is quite interresting to 
 	--have a function posted.
 end
@@ -429,8 +457,10 @@ end
 -- @param CAction action
 -- @return void
 function CAI:PostAction(action)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, action, 'CAction')
 	
+	print("Action posted!")
 	--TODO: do log something in here through dtools. It is quite interresting to 
 	--have a function posted.
 end
@@ -440,6 +470,7 @@ end
 -- @param string message
 -- @return void
 function CAI:PrintConsole(message)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, message, hoi3.TYPE_STRING)
 	
 	print(message)

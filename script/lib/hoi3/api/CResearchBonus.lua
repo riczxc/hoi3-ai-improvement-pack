@@ -9,11 +9,12 @@ CResearchBonus = hoi3.Hoi3Object:subclass('hoi3.CResearchBonus')
 	There may be problem accessing _vWeight or _pCategory !
 ]]
 function CResearchBonus:initialize(vWeight, pCategory)
-  hoi3.assertParameterType(1, vWeight, 'CFixedPoint')
-  hoi3.assertParameterType(2, pCategory, 'CTechnologyCategory')
+  	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, vWeight, 'CFixedPoint')
+  	hoi3.assertParameterType(2, pCategory, 'CTechnologyCategory')
   
-  --CFixedPoint
-  self._vWeight	= nil
-  --CTechnologyCategory
-  self._pCategory	= nil
+  	--CFixedPoint
+  	self._vWeight	= vWeight
+  	--CTechnologyCategory
+  	self._pCategory	= pCategory
 end
