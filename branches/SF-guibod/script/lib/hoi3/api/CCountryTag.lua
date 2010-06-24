@@ -14,7 +14,6 @@ function CCountryTag:initialize(tag)
 	assert(string.len(tag)==3, "A country tag must be 3 character long.")
 	
 	self.tag = tag
-	print("CCountryTag initialized")
 end
 
 ---
@@ -23,7 +22,7 @@ end
 function CCountryTag:GetCountry()
 	hoi3.assertNonStatic(self)
 	
-	return CCountry:new(self.tag)
+	return CCountry(self)
 end
 
 ---
@@ -39,7 +38,7 @@ end
 -- @return CCountryTag 
 function CCountryTag:GetTag()
 	hoi3.assertNonStatic(self)
-	return self.tag
+	return self
 end
 
 ---
@@ -62,9 +61,4 @@ function CCountryTag:IsValid()
 		hoi3.TYPE_BOOLEAN,
 		'IsValid'
 	)
-end
-
-
-function CCountryTag.random()
-	local availableTags = {}
 end

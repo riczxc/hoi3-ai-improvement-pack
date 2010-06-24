@@ -40,33 +40,14 @@ require('ai_tech_minister')
 require('ai_trade')
 require('ai_strategic')
 
-hoi3.testAll()
+dtools.setLogContext("","DEVEL")
 
--- Call a core-to-lua hook
---CAllianceAction(1,2)
---print(CAI.GetCurrentDate():GetMonthOfYear())
+--hoi3.testAll()
 
---[[
---	Example of HoI3Object:saveResult 
-	
-myCAI = CAI()
-myRoute = CTradeRoute()
-myResult = "abcdefgh"
+CCurrentGameState.saveResult(CCurrentGameState, 7,CCurrentGameState.GetAIRand)
 
-myCAI:saveResult(myResult,CAI.AlreadyTradingDisabledResource,myRoute)
-assert(myResult == myCAI:AlreadyTradingDisabledResource(myRoute), "Something wrong with saveResult")
-]]
-
---myCAI:EvaluateCancelTrades(2, 12)
---[[myCAI = CAI()
-myRoute = CTradeRoute()
-myResult = "abcdefgh"
-
-print(myCAI:GetCommonModDirectory())
-print(myCAI:GetReqProdQueueIter())
-print(myCAI:GetReqProdQueue())
-print(myCAI:AlreadyTradingDisabledResource(myRoute))
-print(myCAI:AlreadyTradingDisabledResource(myRoute))
-]]
---myCAI:saveResult(myResult,CAI.AlreadyTradingDisabledResource,myRoute)
---assert(myResult == myCAI:AlreadyTradingDisabledResource(myRoute), "Something wrong with saveResult")
+local minister = CAIPoliticsMinister(CCountryTag('GER'))
+print(minister:GetCountry())
+print(minister:GetCountry():IsMobilized())
+     
+PoliticsMinister_Tick(minister)
