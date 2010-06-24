@@ -15,6 +15,7 @@ CAIStrategy._AI_UNDEFINED_	= 5
 ---
 -- @param CCountryTag countryTag
 function CAIStrategy:initalize(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	self.countryTag = countryTag
@@ -24,6 +25,7 @@ end
 -- @since 1.3
 -- @return unknown 
 function CAIStrategy:AddSubUnit(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -32,6 +34,7 @@ end
 -- @param CCountryTag countryTag
 -- @return void
 function CAIStrategy:CancelPrepareWar(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	hoi3.throwNotYetImplemented()
@@ -42,6 +45,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetAccessScore(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -56,6 +60,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetAntagonism(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -69,6 +74,7 @@ end
 -- @since 1.3
 -- @return CCountry
 function CAIStrategy:GetCountry()
+	hoi3.assertNonStatic(self)
 	return self.countryTag:GetCountry()
 end  
 
@@ -76,6 +82,7 @@ end
 -- @since 1.3
 -- @return CCountryTag
 function CAIStrategy:GetCountryTag()
+	hoi3.assertNonStatic(self)
 	return self.countryTag
 end  
 
@@ -84,6 +91,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetFriendliness(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -97,6 +105,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetPersonality(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -105,6 +114,7 @@ end
 -- @param CCountryTag countryTag
 -- @return number
 function CAIStrategy:GetProtectionism(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -118,6 +128,7 @@ end
 -- @since 1.3
 -- @return table<CTheatre>
 function CAIStrategy:GetTheatres(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -126,6 +137,7 @@ end
 -- @param CCountryTag countryTag
 -- @return CFixedPoint
 function CAIStrategy:GetThreat(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -139,6 +151,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWantedSubUnits(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -146,6 +159,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWarScoreWith(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -153,6 +167,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWarTarget(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -160,6 +175,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CAIStrategy:GetWarTargets(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end  
 
@@ -167,6 +183,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsBalanced()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsBalanced'
@@ -177,6 +194,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsDiplomat()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsDiplomat'
@@ -187,6 +205,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsIndustrialist()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsIndustrialist'
@@ -197,6 +216,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsMilitarist()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsMilitarist'
@@ -207,6 +227,7 @@ end
 -- @since 1.3
 -- @return bool
 function CAIStrategy:IsPreparingWar()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsPreparingWar'
@@ -218,6 +239,7 @@ end
 -- @param CCountryTag countryTag
 -- @return bool
 function CAIStrategy:IsPreparingWarWith(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -233,6 +255,7 @@ end
 -- @param number score
 -- @return void
 function CAIStrategy:PrepareWar(countryTag, score)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
 	
@@ -246,6 +269,7 @@ end
 -- @param CDecision decision
 -- @return void
 function CAIStrategy:PrepareWarDecision(countryTag, score, decision)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(3, decision, 'CDecision')

@@ -10,6 +10,7 @@ COfferMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.COfferMilitaryAcce
 -- @param CCountryTag countryTagB
 -- @return COfferMilitaryAccessAction
 function COfferMilitaryAccessAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

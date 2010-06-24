@@ -7,6 +7,7 @@ CCountry = hoi3.MultitonObject:subclass('hoi3.CCountry')
 ---
 -- @param CCountryTag countryTag
 function CCountry:initalize(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	self.countryTag = countryTag
@@ -16,6 +17,7 @@ end
 -- @since 1.3
 -- @return CIdeology 
 function CCountry:AccessIdeologyOrganization()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CIdeology',
 		'AccessIdeologyOrganization'
@@ -26,6 +28,7 @@ end
 -- @since 1.3
 -- @return CIdeology 
 function CCountry:AccessIdeologyPopularity()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CIdeology',
 		'AccessIdeologyPopularity'
@@ -36,6 +39,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:CalcDesperation()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'CalcDesperation'
@@ -47,6 +51,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool 
 function CCountry:CalculateIsAllied(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -60,6 +65,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:CalculateNumberOfActiveInfluences()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'CalculateNumberOfActiveInfluences'
@@ -70,6 +76,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:CalculateReinforcementMultiplier()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'CalculateReinforcementMultiplier'
@@ -80,6 +87,7 @@ end
 -- @since 1.3
 -- @return bool 
 function CCountry:CanCreatePuppet()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'CanCreatePuppet'
@@ -90,6 +98,7 @@ end
 -- @since 1.3
 -- @return bool 
 function CCountry:Exists()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'Exists'
@@ -101,6 +110,7 @@ end
 -- @param CTechnologyCategory  category
 -- @return bool 
 function CCountry:GetAbility(category)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, category, 'CTechnologyCategory')
 	
 	return self:loadResultOrImplOrRandom(
@@ -114,6 +124,7 @@ end
 -- @since 1.3
 -- @return CProvince 
 function CCountry:GetActingCapitalLocation()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CProvince',
 		'GetActingCapitalLocation'
@@ -124,6 +135,7 @@ end
 -- @since 1.3
 -- @return table<CProvince> 
 function CCountry:GetAirBases()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CProvince>',
 		'GetAirBases'
@@ -134,6 +146,7 @@ end
 -- @since 1.3
 -- @return CAlignment 
 function CCountry:GetAlignment()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CAlignment',
 		'GetAlignment'
@@ -144,6 +157,7 @@ end
 -- @since 1.3
 -- @return unknown 
 function CCountry:GetAlignmentCord()
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownReturnType()
 end
 
@@ -151,6 +165,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetAllowedResearchSlots()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetAllowedResearchSlots'
@@ -161,6 +176,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetAvailableIC()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetAvailableIC'
@@ -172,6 +188,7 @@ end
 -- @param CBuilding  building
 -- @return CFixedPoint 
 function CCountry:GetBuildCost(building)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, building, 'CBuilding')
 	
 	return self:loadResultOrImplOrRandom(
@@ -188,6 +205,7 @@ end
 -- @param bool buildReserve
 -- @return CFixedPoint 
 function CCountry:GetBuildCostIC(pUnit, quantity, buildReserve)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, pUnit, 'CSubUnitDefinition')
 	hoi3.assertParameterType(2, quantity, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(3, buildReserve, hoi3.TYPE_BOOLEAN)
@@ -208,6 +226,7 @@ end
 -- @param bool buildReserve
 -- @return CFixedPoint 
 function CCountry:GetBuildCostMP(pUnit, quantity, buildReserve)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, pUnit, 'CSubUnitDefinition')
 	hoi3.assertParameterType(2, quantity, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(3, buildReserve, hoi3.TYPE_BOOLEAN)
@@ -225,6 +244,7 @@ end
 -- @since 1.3
 -- @return unknown 
 function CCountry:GetBuildTime(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -232,6 +252,7 @@ end
 -- @since 1.3
 -- @return number  
 function CCountry:GetCapital()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetCapital'
@@ -242,6 +263,7 @@ end
 -- @since 1.3
 -- @return CProvince 
 function CCountry:GetCapitalLocation()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CProvince',
 		'GetCapitalLocation'
@@ -252,6 +274,7 @@ end
 -- @since 1.4
 -- @return table<CProvince> 
 function CCountry:GetControlledProvinces()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CProvince>',
 		'GetControlledProvinces'
@@ -262,6 +285,7 @@ end
 -- @since 1.4
 -- @return table<CProvince> 
 function CCountry:GetCoreProvinces()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CProvince>',
 		'GetCoreProvinces'
@@ -272,6 +296,7 @@ end
 -- @since 2.0
 -- @return table<CConstruction>
 function CCountry:GetConstructions()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CConstruction>',
 		'GetConstructions'
@@ -282,6 +307,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:GetConvoyBuildCost()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetConvoyBuildCost'
@@ -292,6 +318,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint 
 function CCountry:GetConvoyBuildTime()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetConvoyBuildTime'
@@ -302,6 +329,7 @@ end
 -- @since 1.4
 -- @return CGoodsPool 
 function CCountry:GetConvoyedIn()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetConvoyedIn'
@@ -312,6 +340,7 @@ end
 -- @since 1.4
 -- @return CGoodsPool 
 function CCountry:GetConvoyedOut()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetConvoyedOut'
@@ -322,6 +351,7 @@ end
 -- @since 1.3
 -- @return table<CConvoy> 
 function CCountry:GetConvoys()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CConvoy>',
 		'GetConvoys'
@@ -332,6 +362,7 @@ end
 -- @since 1.3
 -- @return CCountryTag 
 function CCountry:GetCountryTag()
+	hoi3.assertNonStatic(self)
 	return self.countryTag
 end
 
@@ -339,6 +370,7 @@ end
 -- @since 1.3
 -- @return table<CCountryTag> 
 function CCountry:GetCurrentAtWarWith()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CCountryTag>',
 		'GetCurrentAtWarWith'
@@ -349,6 +381,7 @@ end
 -- @since 1.4
 -- @return table<CTechnology>
 function CCountry:GetCurrentResearch()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CTechnology>',
 		'GetCurrentResearch'
@@ -360,6 +393,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyBalance(goodIndex)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, goodIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -374,6 +408,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyExpense(goodIndex)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, goodIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -388,6 +423,7 @@ end
 -- @param number goodIndex
 -- @return CFixedPoint
 function CCountry:GetDailyIncome(goodIndex)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, goodIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -401,6 +437,7 @@ end
 -- @since 1.3
 -- @return table<CDiplomacyStatus>
 function CCountry:GetDiplomacy()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CDiplomacyStatus>',
 		'GetDiplomacy'
@@ -412,6 +449,7 @@ end
 -- @param CCountryTag countryTag
 -- @return CFixedPoint
 function CCountry:GetDiplomaticDistance(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -425,6 +463,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetDiplomaticInfluence()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetDiplomaticInfluence'
@@ -435,6 +474,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetDissent()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetDissent'
@@ -445,6 +485,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetEffectiveNeutrality()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetEffectiveNeutrality'
@@ -455,6 +496,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetEscortBuildCost()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetEscortBuildCost'
@@ -465,6 +507,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetEscortBuildTime()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetEscortBuildTime'
@@ -475,6 +518,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetEscorts()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetEscorts'
@@ -505,6 +549,7 @@ end
 -- @since 1.3
 -- @return CGovernment
 function CCountry:GetGovernment()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGovernment',
 		'GetGovernment'
@@ -515,6 +560,7 @@ end
 -- @since 1.3
 -- @return CCountryTag
 function CCountry:GetHighestThreat()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CCountryTag',
 		'GetHighestThreat'
@@ -525,6 +571,7 @@ end
 -- @since 2.0
 -- @return CGoodsPool
 function CCountry:GetHomeProduced()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetHomeProduced'
@@ -536,6 +583,7 @@ end
 -- @param number distributionSetting
 -- @return CFixedPoint
 function CCountry:GetICPart(distributionSetting)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, distributionSetting, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -550,6 +598,7 @@ end
 -- @param CLawGroup lawGroup
 -- @return CLaw
 function CCountry:GetLaw(lawGroup)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, lawGroup, 'CLawGroup')
 	
 	return self:loadResultOrImplOrRandom(
@@ -564,6 +613,7 @@ end
 -- @param number groupIndex
 -- @return CLaw
 function CCountry:GetLawFromIndex(groupIndex)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, groupIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -578,6 +628,7 @@ end
 -- @param number distributionSetting
 -- @return CDistributionSetting
 function CCountry:GetLeadershipDistributionAt(distributionSetting)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, distributionSetting, hoi3.TYPE_NUMBER)
 
 	return self:loadResultOrImplOrRandom(
@@ -591,6 +642,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetManpower()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetManpower'
@@ -601,6 +653,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetMaxIC()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetMaxIC'
@@ -612,6 +665,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return CFixedPoint
 function CCountry:GetMaxNeutralityForWarWith(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 
 	return self:loadResultOrImplOrRandom(
@@ -626,6 +680,7 @@ end
 -- @param number positionIndex
 -- @return CMinister
 function CCountry:GetMinister(positionIndex)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, positionIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -639,6 +694,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetMoneyBalanceAverage()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetMoneyBalanceAverage'
@@ -649,6 +705,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetNationalUnity()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetNationalUnity'
@@ -659,6 +716,7 @@ end
 -- @since 1.3
 -- @return table<CProvince>
 function CCountry:GetNavalBases()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CProvince>',
 		'GetNavalBases'
@@ -669,6 +727,7 @@ end
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetNeighbours()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CCountryTag>',
 		'GetNeighbours'
@@ -679,6 +738,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetNeutrality()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetNeutrality'
@@ -689,6 +749,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumberOfControlledProvinces()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetNumberOfControlledProvinces'
@@ -699,6 +760,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumberOfCurrentResearch()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetNumberOfCurrentResearch'
@@ -709,6 +771,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumberOfOwnedProvinces()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetNumberOfOwnedProvinces'
@@ -719,6 +782,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumOfAllies()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetNumOfAllies'
@@ -729,6 +793,7 @@ end
 -- @since 1.3
 -- @return number 
 function CCountry:GetNumOfAirfields()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetNumOfAirfields'
@@ -739,6 +804,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetNumOfPorts()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetNumOfPorts'
@@ -749,6 +815,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetOfficerRatio()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetOfficerRatio'
@@ -759,6 +826,7 @@ end
 -- @since 1.3
 -- @return CCountryTag
 function CCountry:GetOverlord()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CCountryTag',
 		'GetOverlord'
@@ -769,6 +837,7 @@ end
 -- @since 1.3
 -- @return table<number>
 function CCountry:GetOwnedProvinces()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<number>',
 		'GetOwnedProvinces'
@@ -779,6 +848,7 @@ end
 -- @since 1.3
 -- @return CGoodsPool
 function CCountry:GetPool()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetPool'
@@ -789,6 +859,7 @@ end
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetPossibleLiberations()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CCountryTag>',
 		'GetPossibleLiberations'
@@ -799,6 +870,7 @@ end
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetPossiblePuppets()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CCountryTag>',
 		'GetPossiblePuppets'
@@ -810,6 +882,7 @@ end
 -- @param number distributionSetting
 -- @return CDistributionSetting
 function CCountry:GetProductionDistributionAt(distributionSetting)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, distributionSetting, 'CDistributionSetting')
 	
 	return self:loadResultOrImplOrRandom(
@@ -824,6 +897,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return CDiplomacyStatus
 function CCountry:GetRelation(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -837,6 +911,7 @@ end
 -- @since 1.3
 -- @return CRule
 function CCountry:GetRules()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CRule',
 		'GetRules'
@@ -847,6 +922,7 @@ end
 -- @since 1.3
 -- @return CIdeology
 function CCountry:GetRulingIdeology()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CIdeology',
 		'GetRulingIdeology'
@@ -858,6 +934,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return CSpyPresence
 function CCountry:GetSpyPresence(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -871,6 +948,7 @@ end
 -- @since 2.0
 -- @return table<CCountryTag>
 function CCountry:GetSpyingOnUs()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CCountryTag>',
 		'GetSpyingOnUs'
@@ -881,6 +959,7 @@ end
 -- @since 1.3
 -- @return CStrategicWarfare
 function CCountry:GetStrategicWarfare()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CStrategicWarfare',
 		'GetStrategicWarfare'
@@ -891,6 +970,7 @@ end
 -- @since 1.3
 -- @return CAIStrategy
 function CCountry:GetStrategy()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CAIStrategy',
 		'GetStrategy'
@@ -901,6 +981,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetSupplyBalanceAverage()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetSupplyBalanceAverage'
@@ -911,6 +992,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetSurrenderLevel()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetSurrenderLevel'
@@ -921,6 +1003,7 @@ end
 -- @since 1.3
 -- @return CTechnologyStatus
 function CCountry:GetTechnologyStatus()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CTechnologyStatus',
 		'GetTechnologyStatus'
@@ -931,6 +1014,7 @@ end
 -- @since 2.0
 -- @return number 
 function CCountry:GetTotalConvoyTransports()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetTotalConvoyTransports'
@@ -942,6 +1026,7 @@ end
 -- @param number buildingIndex
 -- @return number 
 function CCountry:GetTotalCoreBuildingLevels(buildingIndex)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, buildingIndex, hoi3.TYPE_NUMBER)
 	
 	return self:loadResultOrImplOrRandom(
@@ -955,6 +1040,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetTotalIC()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetTotalIC'
@@ -965,6 +1051,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetTotalLeadership()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetTotalLeadership'
@@ -975,6 +1062,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetTotalNeededConvoyTransports()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetTotalNeededConvoyTransports'
@@ -985,6 +1073,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetTotalNeededTransports()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetTotalNeededTransports'
@@ -995,6 +1084,7 @@ end
 -- @since 1.4
 -- @return CGoodsPool
 function CCountry:GetTotalProduced()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetTotalProduced'
@@ -1005,6 +1095,7 @@ end
 -- @since 1.4
 -- @return CGoodsPool
 function CCountry:GetTradedAway()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetTradedAway'
@@ -1015,6 +1106,7 @@ end
 -- @since 2.0
 -- @return CGoodsPool
 function CCountry:GetTradedAwaySansAlliedSupply()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetTradedAwaySansAlliedSupply'
@@ -1025,6 +1117,7 @@ end
 -- @since 1.4
 -- @return CGoodsPool
 function CCountry:GetTradedFor()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetTradedFor'
@@ -1035,6 +1128,7 @@ end
 -- @since 2.0
 -- @return CGoodsPool
 function CCountry:GetTradedForSansAlliedSupply()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CGoodsPool',
 		'GetTradedForSansAlliedSupply'
@@ -1045,6 +1139,7 @@ end
 -- @since 1.3
 -- @return number
 function CCountry:GetTransports()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_NUMBER,
 		'GetTransports'
@@ -1055,6 +1150,7 @@ end
 -- @since 1.4
 -- @return CUnitList
 function CCountry:GetUnits()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CUnitList',
 		'GetUnits'
@@ -1065,6 +1161,7 @@ end
 -- @since 1.4
 -- @return table<CUnit>
 function CCountry:GetUnitsIterator()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'table<CUnit>',
 		'GetUnitsIterator'
@@ -1075,6 +1172,7 @@ end
 -- @since 1.3
 -- @return CFixedPoint
 function CCountry:GetUsedIC()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		'CFixedPoint',
 		'GetUsedIC'
@@ -1086,6 +1184,7 @@ end
 -- @param string key
 -- @return CFixedPoint
 function CCountry:GetVariable(key)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 	
 	return self:loadResultOrImplOrRandom(
@@ -1098,6 +1197,7 @@ end
 -- @since 1.4
 -- @return CVariables
 function CCountry:GetVariables()
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownReturnType()
 end
 
@@ -1105,6 +1205,7 @@ end
 -- @since 1.3
 -- @return table<CCountryTag>
 function CCountry:GetVassals()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -1112,6 +1213,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:HasConstruction()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'HasConstruction'
@@ -1123,6 +1225,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool
 function CCountry:HasDiplomatEnroute(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -1136,6 +1239,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:HasExtraManpowerLeft()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'HasExtraManpowerLeft'
@@ -1146,6 +1250,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:HasFaction()
+	hoi3.assertNonStatic(self)
 	-- FIXME, check CFaction instead ?
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
@@ -1158,6 +1263,7 @@ end
 -- @param CFaction faction
 -- @return bool
 function CCountry:HasNeighborInFaction(faction)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, faction, 'CFaction')
 	
 	return self:loadResultOrImplOrRandom(
@@ -1171,6 +1277,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:IsAtWar()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsAtWar'
@@ -1183,6 +1290,7 @@ end
 -- @param CProvince  province
 -- @return bool
 function CCountry:IsBuildingAllowed(building, province)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, building, 'CBuilding')
 	hoi3.assertParameterType(2, province, 'CProvince')
 	
@@ -1199,6 +1307,7 @@ end
 -- @param CCountryTag  otherCountryTag
 -- @return bool
 function CCountry:IsEnemy(otherCountryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -1212,6 +1321,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:IsFactionLeader()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsFactionLeader'
@@ -1224,6 +1334,7 @@ end
 -- @param bool unknownFlag
 -- @return bool
 function CCountry:IsFriend(otherCountryTag, unknownFlag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	hoi3.assertParameterType(2, unknownFlag, hoi3.TYPE_BOOLEAN)
 	
@@ -1239,6 +1350,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:IsGovernmentInExile()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsGovernmentInExile'
@@ -1252,13 +1364,15 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:IsMajor()
-	return CCountry:GetTotalIC() >= 60
+	hoi3.assertNonStatic(self)
+	return self:GetTotalIC() >= 60
 end
 
 ---
 -- @since 1.3
 -- @return bool
 function CCountry:IsMobilized()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsMobilized'
@@ -1270,6 +1384,7 @@ end
 -- @param CCountryTag  otherCountryTag
 -- @return bool
 function CCountry:IsNeighbour(otherCountryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, otherCountryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -1285,6 +1400,7 @@ end
 -- @param bool unknownFlag
 -- @return bool
 function CCountry:IsNeighbourToFactionHostile(faction, unknownFlag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, faction, 'CFaction')
 	hoi3.assertParameterType(2, unknownFlag, hoi3.TYPE_BOOLEAN)
 	
@@ -1300,6 +1416,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:isPuppet()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'isPuppet',
@@ -1312,6 +1429,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:IsSubject()
+	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
 		'IsSubject'
@@ -1323,6 +1441,7 @@ end
 -- @param CCountryTag  countryTag
 -- @return bool
 function CCountry:NeedConvoyToTradeWith(countryTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
 	return self:loadResultOrImplOrRandom(
@@ -1336,6 +1455,7 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:MayLiberateCountries()
+	hoi3.assertNonStatic(self)
 	-- TODO: Interrogate Politic Minister 
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,

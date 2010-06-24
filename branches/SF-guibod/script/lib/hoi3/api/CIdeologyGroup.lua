@@ -8,6 +8,7 @@ CIdeologyGroup = hoi3.Hoi3Object:subclass('hoi3.CIdeologyGroup')
 -- @since 1.3
 -- @return CFaction
 function CIdeologyGroup:GetFaction()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -15,5 +16,6 @@ end
 -- @since 1.3
 -- @return unknown
 function CIdeologyGroup:GetPosition(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end

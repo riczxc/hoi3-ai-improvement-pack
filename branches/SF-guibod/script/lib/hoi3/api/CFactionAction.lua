@@ -10,6 +10,7 @@ CFactionAction = CDiplomaticAction:subclass('hoi3.CFactionAction')
 -- @param CCountryTag countryTagB
 -- @return CFactionAction
 function CFactionAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

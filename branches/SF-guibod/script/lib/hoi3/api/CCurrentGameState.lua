@@ -9,8 +9,15 @@ CCurrentGameState = hoi3.AbstractObject:subclass('hoi3.CCurrentGameState')
 -- @since 1.3
 -- @return number 
 function CCurrentGameState.GetAIRand()
-	math.randomseed(os.time())
-	return math.random(100)
+	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
+	r.min = 1
+	r.max = 100
+	
+	return CCurrentGameState.loadResultOrImplOrRandom(
+		CCurrentGameState,
+		r,
+		'GetAIRand'
+	)
 end
 
 ---

@@ -13,6 +13,7 @@ CChangeInvestmentCommand = CCommand:subclass('hoi3.CChangeInvestmentCommand')
 -- @param CFixedPoint ...
 -- @return CChangeInvestmentCommand
 function CChangeInvestmentCommand:initialize(actor, ...)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	for i,v in ipairs(...) do
 		hoi3.assertParameterType(i+2, v, 'CFixedPoint')
@@ -25,6 +26,7 @@ end
 -- @since 1.3
 -- @return CChangeInvestmentCommand 
 function CChangeInvestmentCommand:Clone()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 

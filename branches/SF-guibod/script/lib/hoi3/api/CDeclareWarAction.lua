@@ -10,6 +10,7 @@ CDeclareWarAction = CDiplomaticAction:subclass('hoi3.CDeclareWarAction')
 -- @param CCountryTag countryTagB
 -- @return CDeclareWarAction
 function CDeclareWarAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

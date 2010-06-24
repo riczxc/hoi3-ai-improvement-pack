@@ -8,6 +8,7 @@ CStartResearchCommand = CCommand:subclass('hoi3.CStartResearchCommand')
 -- @since 1.3
 -- @return CChangeInvestmentCommand 
 function CStartResearchCommand:Clone()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -17,6 +18,7 @@ end
 -- @param CTechnology  techno
 -- @return CStartResearchCommand
 function CStartResearchCommand:initialize(country, techno)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, country, 'CCountryTag')
 	hoi3.assertParameterType(2, techno, 'CTechnology')
 

@@ -10,6 +10,7 @@ CLiberateCountryCommand = CCommand:subclass('hoi3.CLiberateCountryCommand')
 -- @param CCountryTag countryTagB
 -- @return CLiberateCountryCommand
 function CLiberateCountryCommand:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 

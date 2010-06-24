@@ -92,6 +92,7 @@ CModifier._MODIFIER_WAR_EXHAUSTION_	= 82
 -- @param number modifier
 -- @return number
 function CModifier:GetValue(modifier)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, modifier, hoi3.TYPE_NUMBER)
 	
 	hoi3.throwNotYetImplemented()

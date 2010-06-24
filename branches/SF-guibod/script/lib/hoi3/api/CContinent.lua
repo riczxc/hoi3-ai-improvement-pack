@@ -7,6 +7,7 @@ CContinent = hoi3.MultitonObject:subclass('hoi3.CContinent')
 ---
 --
 function CContinent:initialize(tag, name)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, tag, hoi3.TYPE_STRING)
 	hoi3.assertParameterType(2, name, hoi3.TYPE_STRING)
 	
@@ -18,6 +19,7 @@ end
 -- @since 1.3
 -- @return string 
 function CContinent:GetName()
+	hoi3.assertNonStatic(self)
 	return self.name
 end
 

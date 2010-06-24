@@ -9,6 +9,7 @@ CArrayFix = hoi3.Hoi3Object:subclass('hoi3.CArrayFix')
 -- @param number size
 -- @return CArrayFix
 function CArrayFix:initialize(size)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, size, hoi3.TYPE_NUMBER)
 	
 	CArrayFix.array = {}
@@ -22,6 +23,7 @@ end
 -- @param number index
 -- @return CFixedPoint 
 function CArrayFix:GetAt(index)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	
 	if index < #CArrayFix.array and 
@@ -38,6 +40,7 @@ end
 -- @param CFixedPoint value
 -- @return void
 function CArrayFix:SetAt(index, value)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, value, 'CFixedPoint')
 	

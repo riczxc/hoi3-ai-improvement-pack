@@ -8,6 +8,7 @@ CConvoy = hoi3.Hoi3Object:subclass('hoi3.CConvoy')
 -- @since 1.3
 -- @return unknown 
 function CConvoy:GetDesiredEscorts(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -15,6 +16,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CConvoy:GetDesiredTransports(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -22,6 +24,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CConvoy:GetEfficiency(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
@@ -29,5 +32,6 @@ end
 -- @since 1.3
 -- @return unknown
 function CConvoy:IsForTradeRoute(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end

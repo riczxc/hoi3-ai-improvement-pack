@@ -9,6 +9,7 @@ CString = hoi3.Hoi3Object:subclass('hoi3.CString')
 -- @param string str
 -- @return Cstring
 function CString:initialize(str)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, str, hoi3.TYPE_STRING)
 
 	self.string = str
@@ -18,6 +19,7 @@ end
 -- @since 1.3
 -- @return string
 function CString:Getstring()
+	hoi3.assertNonStatic(self)
 	return self.string
 end
 
@@ -25,6 +27,7 @@ end
 -- @since 1.3
 -- @return bool
 function CString:GetCharPtr(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 	hoi3.throwUnknownReturnType()
 end

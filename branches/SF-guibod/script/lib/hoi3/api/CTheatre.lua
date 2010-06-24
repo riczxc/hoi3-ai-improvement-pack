@@ -8,5 +8,6 @@ CTheatre = hoi3.Hoi3Object:subclass('hoi3.CTheatre')
 -- @since 1.3
 -- @return number 
 function CTheatre:GetPriority()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end

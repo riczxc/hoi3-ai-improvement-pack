@@ -8,6 +8,7 @@ CUnit = hoi3.Hoi3Object:subclass('hoi3.CUnit')
 -- @since 1.3
 -- @return table<CUnit> (or CSubUnitDefinition ?) 
 function CUnit:GetChildren()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -15,6 +16,7 @@ end
 -- @since 1.3
 -- @return CString
 function CUnit:GetName()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -22,5 +24,6 @@ end
 -- @since 1.3
 -- @return bool
 function CUnit:IsMoving()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end

@@ -10,6 +10,7 @@ CTradeAction = CDiplomaticAction:subclass('hoi3.CTradeAction')
 -- @param CCountryTag countryTagB
 -- @return CTradeAction
 function CTradeAction:initialize(countryTagA, countryTagB)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 
@@ -20,6 +21,7 @@ end
 -- @since 1.3
 -- @return CTradeRoute 
 function CSpyPresence:GetRoute()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -27,6 +29,7 @@ end
 -- @since 1.3
 -- @return CTradeRoute 
 function CSpyPresence:GetRoute()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -36,6 +39,7 @@ end
 -- @param CCountryTag  ministerTag
 -- @return CFixedPoint 
 function CSpyPresence:GetTrading(goodsType, ministerTag)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, ministerTag, 'CCountryTag')
 	
@@ -46,6 +50,7 @@ end
 -- @since 1.3
 -- @return bool 
 function CSpyPresence:IsConvoyPossible()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -54,6 +59,7 @@ end
 -- @param CTradeRoute  route
 -- @return void 
 function CSpyPresence:SetRoute(route)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, route, 'CTradeRoute')
 	
 	hoi3.throwNotYetImplemented()
@@ -65,6 +71,7 @@ end
 -- @param number goodsType
 -- @return void 
 function CSpyPresence:SetTrading(amount, goodsType)
+	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, amount, 'CFixedPoint')
 	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
 	

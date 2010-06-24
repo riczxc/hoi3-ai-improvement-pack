@@ -114,6 +114,7 @@ function testAll()
 	require("hoi3.tests.abstract")
 	require("hoi3.tests.fixedpoint")
 	require("hoi3.tests.random")
+	require("hoi3.tests.cdate")
 	
 	lunit.main()
 end

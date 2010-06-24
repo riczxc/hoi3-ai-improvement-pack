@@ -8,6 +8,7 @@ CDistributionSetting = hoi3.Hoi3Object:subclass('hoi3.CDistributionSetting')
 -- @since 1.3
 -- @return CFixedPoint
 function CDistributionSetting:GetNeeded()
+	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
 end
 
@@ -15,6 +16,7 @@ end
 -- @since 1.3
 -- @return unknown
 function CDistributionSetting:GetPercentage(...)
+	hoi3.assertNonStatic(self)
 	hoi3.throwUnknownSignature()
 end
 
