@@ -9,8 +9,6 @@ Hoi3Object = class('hoi3.Hoi3Object')
 	signature on the same instance of the same object.
 ]]
 
-
-
 function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
 	hoi3.assertReturnType(returnValue, typeAsString)
 	return returnValue
@@ -117,8 +115,7 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, 
 	-- Try Impl method is exists
 	local fImplReference = self[methodName.."Impl"]
 	if fImplReference ~= nil  then
-		assert(type(fImplReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non function reference.")
-		
+		assert(type(fImplReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non-function reference.")
 		computedValue = fImplReference(...)
 	end
 	

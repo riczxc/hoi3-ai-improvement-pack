@@ -75,6 +75,13 @@ function assertReturnType(returnValue, typeAsString)
 	)
 end
 
+function assertNonStatic(self)
+	assert(self~=nil and 
+		type(self)==TYPE_TABLE and 
+		instanceOf(hoi3.Hoi3Object, self), 
+		"Non-static method cannot be referenced from a static context.")
+end
+
 function throwNotYetImplemented()
 	error("Unsupported API feature. Not yet implemented in HOI3 Impl API.")
 end
@@ -85,6 +92,10 @@ end
 
 function throwUnknownReturnType()
 	error("Unknown API return type. Not implemented in HOI3 Impl API.")
+end
+
+function throwDataNotFound()
+	error("Data not found exception.")
 end
 
 function throwNoRandomizerSupport(typeAsString)
