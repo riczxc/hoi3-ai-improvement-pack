@@ -114,6 +114,7 @@ function releaseApiOnGlobalScope()
 	for key, value in pairs(hoi3.api) do
 	 	if type(value) == "table" and 
 	 		subclassOf(hoi3.Hoi3Object, value) then
+	 		--print(key.." is now available in global scope.")
 	 		_G[key] = value
 	 	end
 	end

@@ -11,14 +11,14 @@ function setup()
  	obj = hoi3.Hoi3Object:subclass("test.object")
 	function obj:myFunctionWithoutParam()
 		return self:loadResultOrImplOrRandom(
-  	 		'string', 
+  	 		hoi3.TYPE_STRING, 
 			"myFunctionWithoutParam"
 		)
   	end
   	
   	function obj:myFunctionWithParam(a,b)
 		return self:loadResultOrImplOrRandom(
-  	 		'string', 
+  	 		hoi3.TYPE_STRING, 
 			"myFunctionWithParam",
 			a,
 			b
@@ -28,7 +28,7 @@ function setup()
   	obj.myStaticFunctionWithoutParam = function()
 		return obj.loadResultOrImplOrRandom(
 			obj,
-  	 		'string', 
+  	 		hoi3.TYPE_STRING, 
 			"myStaticFunctionWithoutParam"
 		)
   	end
@@ -36,21 +36,21 @@ function setup()
   	obj.myStaticFunctionWithParam = function(a, b)
 		return obj.loadResultOrImplOrRandom(
 			obj,
-  	 		'string', 
+  	 		hoi3.TYPE_STRING, 
 			"myStaticFunctionWithParam",
 			a,
 			b
 		)
   	end
   	
-  	function obj:myFakableFunction()
+  	function obj:myImplableFunction()
 		return self:loadResultOrImplOrRandom(
-  	 		'string', 
-			"myFakableFunction"
+  	 		hoi3.TYPE_STRING, 
+			"myImplableFunction"
 		)
   	end
   	
-  	function obj:myFakableFunctionImpl()
+  	function obj:myImplableFunctionImpl()
 		return "ImpldValue"
   	end
 end
@@ -129,9 +129,9 @@ function testSavedStaticWithoutParam()
 	assert_equal(obj.myStaticFunctionWithParam(param1, param2),obj.myStaticFunctionWithParam(param1, param2))
 end
 
-function testFakable()
+function testImplable()
   	local myObj = obj()
 		
-	assert_string(obj:myFakableFunction())
-	assert_equal("ImpldValue",obj:myFakableFunction())
+	assert_string(obj:myImplableFunction())
+	assert_equal("ImpldValue",obj:myImplableFunction())
 end

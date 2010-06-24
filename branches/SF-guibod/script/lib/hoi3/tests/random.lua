@@ -5,6 +5,37 @@ module( "hoi3.tests.random", package.seeall, lunit.testcase )
 
 require("hoi3")
 
+local obj = nil
+
+function setup()
+ 	obj = hoi3.Hoi3Object:subclass("test.random")
+	-- Function with no save result and no Impl fallback
+	function obj:myRandFunctionUsingString()
+		return self:loadResultOrImplOrRandom(
+  	 		hoi3.TYPE_STRING, 
+			"myRandFunctionUsingString"
+		)
+  	end
+  	
+  	-- Function with no save result and no Impl fallback
+  	-- returns a not so random value from randomizer configuration
+  	-- expect 2656 as return
+  	function obj:myRandFunctionUsingRandomizer()
+		local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
+		r.min = 2656
+		r.max = 2656
+		
+		return self:loadResultOrImplOrRandom(
+  	 		r, 
+			"myRandFunctionUsingRandomizer"
+		)
+  	end
+end
+
+function teardown()
+  obj = nil
+end
+
 function testNumber()
 	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
 	
@@ -78,4 +109,11 @@ function testConfiguredIterator()
 		assert_string(v)
 		assert_equal(35,string.len(v))
 	end
+end
+
+function testRandomValueThroughSave()
+	local o = obj()
+	
+	assert_string(obj:myRandFunctionUsingString())
+	assert_equal(2656,obj:myRandFunctionUsingRandomizer())
 end
