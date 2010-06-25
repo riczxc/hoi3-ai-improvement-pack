@@ -22,6 +22,14 @@ end
 function CCountryTag:GetCountry()
 	hoi3.assertNonStatic(self)
 	
+	return CCountryTag:loadResultOrImplOrRandom(
+		'CCountry',
+		'GetCountry'
+	)
+end
+
+function CCountryTag:GetCountryImpl()
+	hoi3.assertNonStatic(self)	
 	return CCountry(self)
 end
 
@@ -30,13 +38,33 @@ end
 -- @return number 
 function CCountryTag:GetIndex()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	
+	return CCountryTag:loadResultOrImplOrRandom(
+		hoi3.NUMBER,
+		'GetIndex'
+	)
+end
+
+function CCountryTag:GetIndexImpl()
+	hoi3.assertNonStatic(self)
+	
+	require('hoi3.conf')
+	return self:getIndexInDictionnary(hoi3.conf.countryDatabase())
 end
 
 ---
 -- @since 1.3
 -- @return CCountryTag 
 function CCountryTag:GetTag()
+	hoi3.assertNonStatic(self)
+	
+	return CCountryTag:loadResultOrImplOrRandom(
+		'CCountryTag',
+		'GetTag'
+	)
+end
+
+function CCountryTag:GetTagImpl()
 	hoi3.assertNonStatic(self)
 	return self
 end
@@ -61,4 +89,9 @@ function CCountryTag:IsValid()
 		hoi3.TYPE_BOOLEAN,
 		'IsValid'
 	)
+end
+
+-- A random CountryTag is a random EXISTING tag !
+function CCountryTag.random()
+	return randomTableMember(CCountryTag:getInstances())
 end

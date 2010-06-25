@@ -27,3 +27,7 @@ MultitonObject.getInstance = function(theClass, key)
 		return MultitonObject.instances[theClass][key]
 	end
 end 
+
+MultitonObject.getInstances = function(theClass)
+	return MultitonObject.instances[theClass]
+end

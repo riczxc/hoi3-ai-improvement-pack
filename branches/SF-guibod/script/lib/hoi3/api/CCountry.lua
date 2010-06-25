@@ -1419,9 +1419,7 @@ function CCountry:isPuppet()
 	hoi3.assertNonStatic(self)
 	return self:loadResultOrImplOrRandom(
 		hoi3.TYPE_BOOLEAN,
-		'isPuppet',
-		faction, 
-		unknownFlag
+		'isPuppet'
 	)
 end
 

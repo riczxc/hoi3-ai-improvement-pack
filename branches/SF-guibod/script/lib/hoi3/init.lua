@@ -119,3 +119,14 @@ function testAll()
 	lunit.main()
 end
 
+function randomTableMember(table)
+	if type(table) ~= TYPE_TABLE then return nil end
+	
+	math.randomseed(os.time)
+	local j = math.random(#table)
+	for i, v in pairs(table) do
+		if i == j then
+			return v
+		end
+	end
+end

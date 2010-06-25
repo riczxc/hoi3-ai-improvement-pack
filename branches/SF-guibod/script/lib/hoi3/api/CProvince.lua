@@ -2,7 +2,15 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CProvince = hoi3.Hoi3Object:subclass('hoi3.CProvince')
+CProvince = hoi3.MultitonObject:subclass('hoi3.CProvince')
+
+---
+-- @param number provinceId
+function CProvince:initialize(id)
+	hoi3.assertNonStatic(self)
+	
+	self.id = id
+end
 
 ---
 -- @since 1.4 
@@ -151,4 +159,9 @@ end
 function CProvince:IsFrontProvince(unknownFlag)
 	hoi3.assertNonStatic(self)
 	hoi3.throwNotYetImplemented()
+end
+
+-- A random CProvince is a random EXISTING tag !
+function CProvince.random()
+	return randomTableMember(CProvince:getInstances())
 end

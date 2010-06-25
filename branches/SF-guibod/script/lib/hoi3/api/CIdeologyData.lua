@@ -20,5 +20,8 @@ function CIdeologyData:GetValue(ideology)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, ideology, 'CIdeology')
 	
-	hoi3.throwNotYetImplemented()
+	return CIdeologyData:loadResultOrImplOrRandom(
+		'CFixedPoint',
+		'GetValue'
+	)
 end
