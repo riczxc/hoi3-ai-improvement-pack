@@ -15,7 +15,7 @@ end
 
 function Randomizer:__tostring()
 	if self.type == hoi3.TYPE_TABLE and self.subtype ~= nil then
-		return self.type.."<"..self.subtype..">"
+		return self.type.."<"..tostring(self.subtype)..">"
 	else
 		return self.type
 	end

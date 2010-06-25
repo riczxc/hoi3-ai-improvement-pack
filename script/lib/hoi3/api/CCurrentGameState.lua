@@ -22,10 +22,9 @@ end
 
 ---
 -- @since 1.3
+-- @static
 -- @return table<CCountry> 
 function CCurrentGameState.GetCountries()
-	--TODO: get infos from CCountryDatabase
-	
 	return CCurrentGameState.loadResultOrImplOrRandom(
 		CCurrentGameState
 		'table<CCountry>',
@@ -33,11 +32,18 @@ function CCurrentGameState.GetCountries()
 	)
 end
 
+function CCurrentGameState.GetCountriesImpl()
+	require("hoi3.conf")
+	return hoi3.conf.countryDatabase()
+end
+
 ---
 -- @since 1.3
+-- @static
 -- @return CDate
 function CCurrentGameState.GetCurrentDate()
-	return CCurrentGameState:loadResultOrImplOrRandom(
+	return CCurrentGameState.loadResultOrImplOrRandom(
+		CCurrentGameState,
 		'CDate',
 		'GetCurrentDate'
 	)
@@ -45,12 +51,14 @@ end
 
 ---
 -- @since 1.3
+-- @static
 -- @param string faction
 -- @return CFaction
 function CCurrentGameState.GetFaction(faction)
 	hoi3.assertParameterType(1, faction, hoi3.TYPE_STRING)
 	
-	return CCurrentGameState:loadResultOrImplOrRandom(
+	return CCurrentGameState.loadResultOrImplOrRandom(
+		CCurrentGameState,
 		'CFaction',
 		'GetFaction',
 		faction
@@ -60,18 +68,18 @@ end
 function CCurrentGameState.GetFactionImpl(faction)
 	hoi3.assertParameterType(1, faction, hoi3.TYPE_STRING)
 	
-	for i,k in ipairs(CCurrentGameState.GetFactions()) do
-		if k.GetName() == faction then
-			return k
-		end
-	end
+	-- create instance for all factions
+	hoi3.conf.factionDatabase()
+	return CFaction:getInstance(faction)
 end
 
 ---
 -- @since 1.3
+-- @static
 -- @return table<CFaction>
 function CCurrentGameState.GetFactions()
-	return CCurrentGameState:loadResultOrImplOrRandom(
+	return CCurrentGameState.loadResultOrImplOrRandom(
+		CCurrentGameState,
 		'table<CFaction>',
 		'GetFactions',
 		faction
@@ -79,11 +87,8 @@ function CCurrentGameState.GetFactions()
 end
 
 function CCurrentGameState.GetFactionsImpl()
-	return {
-		CFaction('axis'),
-		CFaction('allies'),
-		CFaction('comintern')
-	}
+	require("hoi3.conf")
+	return hoi3.conf.factionDatabase()
 end
 
 ---
@@ -95,9 +100,11 @@ end
 
 ---
 -- @since 1.3
+-- @static
 -- @return CCountryTag
 function CCurrentGameState.GetPlayer()
-	return CCurrentGameState:loadResultOrImplOrRandom(
+	return CCurrentGameState.loadResultOrImplOrRandom(
+		CCurrentGameState,
 		'CCountryTag',
 		'GetPlayer'
 	)
@@ -105,16 +112,26 @@ end
 
 ---
 -- @since 1.3
+-- @static
 -- @param number provinceId
 -- @return CProvince
 function CCurrentGameState.GetProvince(provinceId)
 	hoi3.assertParameterType(1, provinceId, hoi3.TYPE_NUMBER)
 
-	return CCurrentGameState:loadResultOrImplOrRandom(
+	return CCurrentGameState.loadResultOrImplOrRandom(
+		CCurrentGameState,
 		'CProvince',
 		'GetProvince',
 		provinceId
 	)
+end
+
+function CCurrentGameState.GetProvinceImpl(provinceId)
+	hoi3.assertParameterType(1, provinceId, hoi3.TYPE_NUMBER)
+	
+	-- create instance for all factions
+	hoi3.conf.provinceDatabase()
+	return CProvince:getInstance(provinceId)
 end
 
 ---
@@ -124,5 +141,9 @@ end
 function CCurrentGameState.IsGlobalFlagSet(flagName)
 	hoi3.assertParameterType(1, flagName, hoi3.TYPE_STRING)
 
-	hoi3.throwNotYetImplemented()
+	return CCurrentGameState:loadResultOrImplOrRandom(
+		hoi3.TYPE_BOOLEAN,
+		'IsGlobalFlagSet',
+		flagName
+	)
 end

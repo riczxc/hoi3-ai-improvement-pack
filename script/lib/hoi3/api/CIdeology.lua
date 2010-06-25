@@ -9,5 +9,9 @@ CIdeology = hoi3.Hoi3Object:subclass('hoi3.CIdeology')
 -- @return CIdeologyGroup
 function CIdeology:GetGroup()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	
+	return CIdeology:loadResultOrImplOrRandom(
+		'CIdeologyGroup',
+		'GetGroup'
+	)
 end

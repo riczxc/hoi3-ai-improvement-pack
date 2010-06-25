@@ -46,6 +46,8 @@ Hoi3Object.saveResult = function(self, value, method, ...)
 	if Hoi3Object.resultTable[self][method] == nil then
 		Hoi3Object.resultTable[self][method] = {}
 	end
+	
+	--dtools.debug("Result cached for "..tostring(self.class).."."..tostring(method).."("..hash..")")
 	Hoi3Object.resultTable[self][method][hash] = value
 end
 
@@ -117,11 +119,8 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, 
 	if fImplReference ~= nil  then
 		assert(type(fImplReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non-function reference.")
 		computedValue = fImplReference(...)
-	end
-	
-	-- No Impl method result ?
-	-- Create a randomized result (depending on expected return type)
-	if computedValue == nil then
+	else-- No Impl method result ?
+		-- Create a randomized result (depending on expected return type)
 		-- May throw a specific exception "no randomizer"
 		computedValue = expectedType:compute(def)
 	end
@@ -142,9 +141,23 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, 
 			Hoi3Object.resultTable[self][fReference][hash],
 			expectedType:__tostring()
 		)
-	end
-	
-	hoi3.throwNotYetImplemented()	
+	else
+		return nil
+	end 
 end
 
+--- 
+-- Find object index in a dictionnary
+-- @param table dict
+-- @return number (or nil if not in table)
+function Hoi3Object.getIndexInDictionnary(dict)
+	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, dict, hoi3.TYPE_TABLE)
+	
+	for i, v in dict do
+		if v == self then
+			return i
+		end
+	end
+end
 
