@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Germany File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/20/2010
+-- Date Last Modified: 6/26/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -653,15 +653,32 @@ function P.ProposeDeclareWar(minister)
 			if ministerCountry:IsAtWar() or year >= 1940 then
 				local fraTag = CCountryDataBase.GetTag("FRA")
 				local norTag = CCountryDataBase.GetTag("NOR")
+				local engTag = CCountryDataBase.GetTag("ENG")
+				local usaTag = CCountryDataBase.GetTag("USA")
+				
+				local sprTag = CCountryDataBase.GetTag("SPR")
+				local spaTag = CCountryDataBase.GetTag("SPA")
+				
 				local liTotalNeighborWars = 0
-				local lbNorwayNeighbor = false
 				
 				for neighborTag in ministerCountry:GetNeighbours() do
 					if ministerCountry:GetRelation(neighborTag):HasWar() then
 						
 						-- Do not count Norway as we are invading them
 						if not(norTag == neighborTag) then
-							liTotalNeighborWars = liTotalNeighborWars + 1
+							-- Only count a front with the UK if they are allied with the USA
+							if neighborTag == engTag then
+								if engTag:GetCountry():GetRelation(usaTag):HasAlliance() then
+									liTotalNeighborWars = liTotalNeighborWars + 1
+								end
+							elseif neighborTag == sprTag or neighborTag == spaTag then
+								-- Gibraltar check, if UK no longer controls Gibralatar do not count Spain anymore
+								if CCurrentGameState.GetProvince(5191):GetController() == engTag then 
+									liTotalNeighborWars = liTotalNeighborWars + 1
+								end
+							else
+								liTotalNeighborWars = liTotalNeighborWars + 1
+							end
 						end
 					end
 				end
