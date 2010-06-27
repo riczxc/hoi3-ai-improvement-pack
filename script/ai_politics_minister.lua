@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/16/2010
+-- Date Last Modified: 6/26/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws
@@ -246,72 +246,6 @@ function OfficeManagement(minister)
 	end
 end
 
-function OfficeManagement_OLD(minister)
-	local ai = minister:GetOwnerAI()
-	local ministerCountry = minister:GetCountry()
-	local ministerTag = minister:GetCountryTag()
-	local loGroup = ministerCountry:GetRulingIdeology():GetGroup()
-	
-	local laDummy = {}
-	local laPositions = {laDummy, laDummy, laDummy, laDummy, laDummy, laDummy, laDummy, laDummy, laDummy, laDummy}
-	
-	local loChiefOfAir = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_CHIEF_OF_AIR_)
-	local loChiefOfNavy = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_CHIEF_OF_NAVY_)
-	local loChiefOfArmy = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_CHIEF_OF_ARMY_)
-	local loChiefOfStaff = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_CHIEF_OF_STAFF_)
-	local loMinisterOfIntelligence = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_MINISTER_OF_INTELLIGENCE_)
-	local loMinisterOfSecurity = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_MINISTER_OF_SECURITY_)
-	local loArmamentMinister = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_ARMAMENT_MINISTER_)
-	local loForeignMinister = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(_FOREIGN_MINISTER_)
-	
-	-- Organize the ministers by positions they can take
-	for loMinister in ministerCountry:GetPossibleMinisters() do
-		-- Make sure we are the same Ideology
-		if loGroup == loMinister:GetIdeology():GetGroup() then
-			if loMinister:CanTakePosition(loChiefOfAir) then
-				table.insert(laPositions[_CHIEF_OF_AIR_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loChiefOfNavy) then
-				table.insert(laPositions[_CHIEF_OF_NAVY_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loChiefOfArmy) then
-				table.insert(laPositions[_CHIEF_OF_ARMY_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loChiefOfStaff) then
-				table.insert(laPositions[_CHIEF_OF_STAFF_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loMinisterOfIntelligence) then
-				table.insert(laPositions[_MINISTER_OF_INTELLIGENCE_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loMinisterOfSecurity) then
-				table.insert(laPositions[_MINISTER_OF_SECURITY_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loArmamentMinister) then
-				table.insert(laPositions[_ARMAMENT_MINISTER_], loMinister)
-			end
-			
-			if loMinister:CanTakePosition(loForeignMinister) then
-				table.insert(laPositions[_FOREIGN_MINISTER_], loMinister)
-			end
-		end
-	end
-
-	MinisterOfSecurity(ai, ministerTag, ministerCountry, laPositions[_MINISTER_OF_SECURITY_], loMinisterOfSecurity)
-	ArmamentMinister(ai, ministerTag, ministerCountry, laPositions[_ARMAMENT_MINISTER_], loArmamentMinister)
-	ForeignMinister(ai, ministerTag, ministerCountry, laPositions[_FOREIGN_MINISTER_], loForeignMinister)
-	ChiefOfStaff(ai, ministerTag, ministerCountry, laPositions[_CHIEF_OF_STAFF_], loChiefOfStaff)
-	MinisterOfIntelligence(ai, ministerTag, ministerCountry, laPositions[_MINISTER_OF_INTELLIGENCE_], loMinisterOfIntelligence)
-	ChiefOfArmy(ai, ministerTag, ministerCountry, laPositions[_CHIEF_OF_ARMY_], loChiefOfArmy)
-	ChiefOfNavy(ai, ministerTag, ministerCountry, laPositions[_CHIEF_OF_NAVY_], loChiefOfNavy)
-	ChiefOfAir(ai, ministerTag, ministerCountry, laPositions[_CHIEF_OF_AIR_], loChiefOfAir)
-end
-
 --################
 -- Office Management sub-methods
 --################
@@ -324,29 +258,57 @@ function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPos
 		if Utils.HasCountryAIFunction(ministerTag, "Call_MinisterOfSecurity") then
 			loMinister = Utils.CallCountryAI(ministerTag, "Call_MinisterOfSecurity", ministerCountry, vaMinisters)
 		else
-			for i = 1, table.getn(vaMinisters) do
-				local liScore = 0
-				local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+			if ministerCountry:IsAtWar() then
+				for i = 1, table.getn(vaMinisters) do
+					local liScore = 0
+					local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
 
-				if lsMinisterType == "man_of_the_people" then
-					liScore = 70
-				elseif lsMinisterType == "efficient_sociopath" then
-					liScore = 60
-				elseif lsMinisterType == "crime_fighter" then
-					liScore = 50
-				elseif lsMinisterType == "compassionate_gentleman" then
-					liScore = 40
-				elseif lsMinisterType == "silent_lawyer" then
-					liScore = 30
-				elseif lsMinisterType == "prince_of_terror" then
-					liScore = 20
-				elseif lsMinisterType == "back_stabber" then
-					liScore = 10
-				end
+					if lsMinisterType == "man_of_the_people" then
+						liScore = 70
+					elseif lsMinisterType == "efficient_sociopath" then
+						liScore = 60
+					elseif lsMinisterType == "crime_fighter" then
+						liScore = 50
+					elseif lsMinisterType == "compassionate_gentleman" then
+						liScore = 40
+					elseif lsMinisterType == "silent_lawyer" then
+						liScore = 30
+					elseif lsMinisterType == "prince_of_terror" then
+						liScore = 20
+					elseif lsMinisterType == "back_stabber" then
+						liScore = 10
+					end
 
-				if liScore > liCurrentScore then
-					liCurrentScore = liScore
-					loMinister = vaMinisters[i]
+					if liScore > liCurrentScore then
+						liCurrentScore = liScore
+						loMinister = vaMinisters[i]
+					end
+				end			
+			else
+				for i = 1, table.getn(vaMinisters) do
+					local liScore = 0
+					local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+
+					if lsMinisterType == "man_of_the_people" then
+						liScore = 70
+					elseif lsMinisterType == "compassionate_gentleman" then
+						liScore = 60
+					elseif lsMinisterType == "silent_lawyer" then
+						liScore = 50
+					elseif lsMinisterType == "efficient_sociopath" then
+						liScore = 40
+					elseif lsMinisterType == "crime_fighter" then
+						liScore = 30
+					elseif lsMinisterType == "prince_of_terror" then
+						liScore = 20
+					elseif lsMinisterType == "back_stabber" then
+						liScore = 10
+					end
+
+					if liScore > liCurrentScore then
+						liCurrentScore = liScore
+						loMinister = vaMinisters[i]
+					end
 				end
 			end
 		end
@@ -472,27 +434,64 @@ function ChiefOfStaff(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 		if Utils.HasCountryAIFunction(ministerTag, "Call_ChiefOfStaff") then
 			loMinister = Utils.CallCountryAI(ministerTag, "Call_ChiefOfStaff", ministerCountry, vaMinisters)
 		else
-			for i = 1, table.getn(vaMinisters) do
-				local liScore = 0
-				local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+		
+			if ministerCountry:IsAtWar() then
+				local liManpower = ministerCountry:GetManpower():Get()
 				
-				if lsMinisterType == "school_of_mass_combat" then
-					liScore = 60
-				elseif lsMinisterType == "school_of_psychology" then
-					liScore = 50
-				elseif lsMinisterType == "logistics_specialist" then
-					liScore = 40
-				elseif lsMinisterType == "school_of_fire_support" then
-					liScore = 30
-				elseif lsMinisterType == "school_of_defence" then
-					liScore = 20
-				elseif lsMinisterType == "school_of_manoeuvre" then
-					liScore = 10
+				for i = 1, table.getn(vaMinisters) do
+					local liScore = 0
+					local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+					
+					if lsMinisterType == "school_of_mass_combat" then
+						if liManpower < 200 then
+							liScore = 60
+						else
+							liScore = 50
+						end
+					elseif lsMinisterType == "school_of_psychology" then
+						if liManpower < 200 then
+							liScore = 50
+						else
+							liScore = 60
+						end
+					elseif lsMinisterType == "logistics_specialist" then
+						liScore = 40
+					elseif lsMinisterType == "school_of_fire_support" then
+						liScore = 30
+					elseif lsMinisterType == "school_of_defence" then
+						liScore = 20
+					elseif lsMinisterType == "school_of_manoeuvre" then
+						liScore = 10
+					end
+					
+					if liScore > liCurrentScore then
+						liCurrentScore = liScore
+						loMinister = vaMinisters[i]
+					end
 				end
-
-				if liScore > liCurrentScore then
-					liCurrentScore = liScore
-					loMinister = vaMinisters[i]
+			else
+				for i = 1, table.getn(vaMinisters) do
+					local liScore = 0
+					local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+					
+					if lsMinisterType == "school_of_mass_combat" then
+						liScore = 60
+					elseif lsMinisterType == "logistics_specialist" then
+						liScore = 50
+					elseif lsMinisterType == "school_of_fire_support" then
+						liScore = 40
+					elseif lsMinisterType == "school_of_defence" then
+						liScore = 30
+					elseif lsMinisterType == "school_of_manoeuvre" then
+						liScore = 20
+					elseif lsMinisterType == "school_of_psychology" then
+						liScore = 10
+					end
+					
+					if liScore > liCurrentScore then
+						liCurrentScore = liScore
+						loMinister = vaMinisters[i]
+					end
 				end
 			end
 		end
