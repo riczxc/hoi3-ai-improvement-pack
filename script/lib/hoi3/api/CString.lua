@@ -23,6 +23,8 @@ function CString:Getstring()
 	return self.string
 end
 
+CString.test = hoi3.FunctionObject(CString, 'test', hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+
 ---
 -- @since 1.3
 -- @return bool

@@ -42,8 +42,11 @@ require('ai_strategic')
 
 dtools.setLogContext("","DEVEL")
 
---hoi3.testAll()
+local x = CString('niii')
+x.test(1,2)
 
+--hoi3.testAll()
+--[[ 
 CCurrentGameState.saveResult(CCurrentGameState, 7,CCurrentGameState.GetAIRand)
 
 local minister = CAIPoliticsMinister(CCountryTag('GER'))
@@ -51,3 +54,4 @@ print(minister:GetCountry())
 print(minister:GetCountry():IsMobilized())
      
 PoliticsMinister_Tick(minister)
+]]

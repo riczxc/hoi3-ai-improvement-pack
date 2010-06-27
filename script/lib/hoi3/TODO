@@ -8,3 +8,7 @@ see "eq" at http://www.lua.org/manual/5.1/manual.html#2.5.9
 Impl or randomly generated content in order to get a working set of province,
 country, building...
 Most likely some convenience function/method to be deployed inside MethodImpl()
+
+- Replace tons of self:loadResultOrImplOrRandom by a new callable FunctionObject
+Maybe extend Hoi3Oject to use a static function definition list
+Change Hoi3Object object in order to use function NAME and class NAME (instead of referenc) 
