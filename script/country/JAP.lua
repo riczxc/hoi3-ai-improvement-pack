@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Japan File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 6/26/2010
 -----------------------------------------------------------
 local FLAG_LIMITED_CONTINENTAL_WAR = "JAP_LIMITED_CONTINENTAL_WAR"
 local FLAG_TOTAL_CONTINENTAL_WAR = "JAP_TOTAL_CONTINENTAL_WAR"
@@ -572,6 +572,58 @@ function P.CallLaw_training_laws(minister, voCurrentLaw)
 	else
 		return CLawDataBase.GetLaw(_SPECIALIST_TRAINING_)
 	end
+end
+
+--########################
+--  Political Overides
+
+function P.Call_ArmamentMinister(ministerCountry, vaMinisters)
+	local loMinister = nil
+	local liCurrentScore = 0
+	
+	for i = 1, table.getn(vaMinisters) do
+		local liScore = 0
+		local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+		
+		if lsMinisterType == "resource_industrialist" then
+			liScore = 150
+		elseif lsMinisterType == "military_entrepreneu" then
+			liScore = 140
+		elseif lsMinisterType == "administrative_genius" then
+			liScore = 130
+		elseif lsMinisterType == "laissez_faires_capitalist" then
+			liScore = 120
+		elseif lsMinisterType == "theoretical_scientist" then
+			liScore = 110
+		elseif lsMinisterType == "infantry_proponent" then
+			liScore = 100
+		elseif lsMinisterType == "air_to_ground_proponent" then
+			liScore = 90
+		elseif lsMinisterType == "air_superiority_proponent" then
+			liScore = 80
+		elseif lsMinisterType == "battle_fleet_proponent" then
+			liScore = 70
+		elseif lsMinisterType == "air_to_sea_proponent" then
+			liScore = 60
+		elseif lsMinisterType == "strategic_air_proponent" then
+			liScore = 50
+		elseif lsMinisterType == "submarine_proponent" then
+			liScore = 40
+		elseif lsMinisterType == "tank_proponent" then
+			liScore = 30
+		elseif lsMinisterType == "corrupt_kleptocrat" then
+			liScore = 20
+		elseif lsMinisterType == "crooked_kleptocrat" then
+			liScore = 10
+		end
+
+		if liScore > liCurrentScore then
+			liCurrentScore = liScore
+			loMinister = vaMinisters[i]
+		end
+	end
+	
+	return loMinister
 end
 
 return AI_JAP

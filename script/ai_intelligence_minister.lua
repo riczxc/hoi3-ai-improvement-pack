@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Spy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/8/2010
+-- Date Last Modified: 6/26/2010
 -----------------------------------------------------------
 
 -- ###################################
@@ -196,10 +196,26 @@ function PickBestMission(SpyPresence, cRelation, isFriend, isNeighbor, voTCountr
 	else
 		-- Are the two countries NOT at war
 		if not cRelation:HasWar() then
-			-- We are not at war with each other so lets help realtions by 
-			--    suporting our part, atworst it will prevent (slow down) them from joining our enemies
-			nMission = SpyMission.SPYMISSION_BOOST_OUR_PARTY
-			
+			local LastMissionDate = SpyPresence:GetLastMissionChangeDate()
+			LastMissionDate:AddDays(60)
+
+			-- If the missions is more than 60 days old change it
+			if LastMissionDate:GetTotalDays() >= currentDays and not (SpyPresence:GetMission() == SpyMission.SPYMISSION_NONE)  then
+				nMission = SpyPresence:GetMission()
+			else
+				-- We are not at war with each other so only pick passive spy missions
+				local RandomMission = math.random(4)
+				
+				if RandomMission == 1 then
+					nMission = SpyMission.SPYMISSION_MILITARY
+				elseif RandomMission == 2 then
+					nMission = SpyMission.SPYMISSION_TECH
+				elseif RandomMission == 3 then
+					nMission = SpyMission.SPYMISSION_POLITICAL
+				elseif RandomMission == 4 then
+					nMission = SpyMission.SPYMISSION_BOOST_OUR_PARTY
+				end
+			end
 		-- The two countries are at war
 		else
 			-- If we are neighbors and they are close to surrendering
@@ -215,15 +231,17 @@ function PickBestMission(SpyPresence, cRelation, isFriend, isNeighbor, voTCountr
 				if LastMissionDate:GetTotalDays() >= currentDays and not (SpyPresence:GetMission() == SpyMission.SPYMISSION_NONE)  then
 					nMission = SpyPresence:GetMission()
 				else
-					local RandomMission = math.random(4)
+					local RandomMission = math.random(5)
 									
 					if RandomMission == 1 then
 						nMission = SpyMission.SPYMISSION_MILITARY
 					elseif RandomMission == 2 then
 						nMission = SpyMission.SPYMISSION_TECH
 					elseif RandomMission == 3 then
-						nMission = SpyMission.SPYMISSION_DISRUPT_RESEARCH
+						nMission = SpyMission.SPYMISSION_POLITICAL
 					elseif RandomMission == 4 then
+						nMission = SpyMission.SPYMISSION_DISRUPT_RESEARCH
+					elseif RandomMission == 5 then
 						nMission = SpyMission.SPYMISSION_DISRUPT_PRODUCTION
 					end
 				end

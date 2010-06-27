@@ -34,3 +34,18 @@
 - AI fixed a bug where if a minor went to war it could cause them to mass build structures instead of units.
 - AI France will no longer research militia nor build garrison units.
 - AI France production shifted to build more land units.
+
+- AI Germany will no longer count a front with the UK unless the USA is involved so it will DOW the Soviets.
+- AI Germany will no longer count Spain as a front once Gibraltar is taken.
+- AI Japan now has special Armament Minister Code
+- AI Italy now has special Armament Minister Code
+- AI Minister of Security code enhanced to have an atwar and not atwar selection prio list.
+- AI Chief of Staff assignment enhanced for atwar and not atwar versions plus a manpower check.
+- AI Build CAGs now go against Naval portion of IC instead of Air IC
+- AI Build has a new Land to Air ratio (which can be overide by country specific files). AI will shift Air IC to Land if ratio is met.
+- AI Bulgaria will start aligning with Germany if they get ownership of the provinces from Romania.
+- AI Romania will start aligning with Germany if the Soviets take their border lands.
+- AI Finland will start aligning with Germany if the Soviets and Fins are atwar.
+- AI added a new hook in the Foreign Minister to do country specific politics etc... Call_ForeignMinister(minister)
+- AI passive spying will now use other missions including support our party.
+- AI slider supply AI enhanced for major powers so they will have larger stockpiles.
