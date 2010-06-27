@@ -9,7 +9,10 @@ CDecision = hoi3.Hoi3Object:subclass('hoi3.CDecision')
 -- @return CString 
 function CDecision:GetKey()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CDecision:loadResultOrImplOrRandom(
+		'CString',
+		'GetKey'
+	)
 end
 
 ---
@@ -17,7 +20,10 @@ end
 -- @return bool
 function CDecision:IsAllowed()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CDecision:loadResultOrImplOrRandom(
+		hoi3.TYPE_BOOLEAN,
+		'IsAllowed'
+	)
 end
 
 ---
@@ -25,5 +31,8 @@ end
 -- @return bool
 function CDecision:IsPotential()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CDecision:loadResultOrImplOrRandom(
+		hoi3.TYPE_BOOLEAN,
+		'IsPotential'
+	)
 end

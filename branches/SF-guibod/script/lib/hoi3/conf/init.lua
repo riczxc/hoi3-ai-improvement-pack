@@ -260,14 +260,30 @@ function countryDatabase()
 	def['YUG'] = {"Yugoslavia",nil,true,true,nil,75,60.0,7.0,26.0,1.9,19.0,38.0,40.0,12.0,nil,8.0,6.0,9.0,-15.0,0.61,39.30,1.37,13.68,0.10}
 
 	local db = {}
-	for k,v in pairs(def) do
+	for k,ctyDef in pairs(def) do
 		local tag = CCountryTag(k)
-		local country = CCountry(tag)
+		local cty = CCountry(tag)
 		
-		-- 
+		-- CCountryTag
+		-- IsReal
+		tag:saveResult(ctyDef[3],CCountryTag.IsReal)
+		-- IsValid
+		tag:saveResult(ctyDef[4],CCountryTag.IsValid)
+		
+		-- CCountry
+		-- GetOverlord
+		if ctyDef[5] ~= nil then
+			tag:saveResult(CCountryTag(ctyDef[5]),CCountry.GetOverlord)
+			tag:saveResult(true,CCountry.isPuppet)
+			tag:saveResult(true,CCountry.IsSubject)
+		else
+			tag:saveResult(CNullTag(),CCountry.GetOverlord)
+			tag:saveResult(false,CCountry.isPuppet)
+			tag:saveResult(false,CCountry.IsSubject)
+		end
 		 
 		-- Save reference to db  
-		db[country] = country
+		db[cty] = cty
 	end
 
 	return db
