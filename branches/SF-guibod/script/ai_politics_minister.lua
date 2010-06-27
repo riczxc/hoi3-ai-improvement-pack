@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/16/2010
+-- Date Last Modified: 6/26/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws
@@ -118,10 +118,11 @@ function Mobilization(minister)
 			local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
 			
 			for loCountryTag in ministerCountry:GetNeighbours() do
-				local loCountry = loCountryTag:GetCountry()
 				local liThreat = ministerCountry:GetRelation(loCountryTag):GetThreat():Get()
 				
 				if (liNeutrality - liThreat) < 10 then
+					local loCountry = loCountryTag:GetCountry()
+					
 					liThreat = liThreat * CalculateAlignmentFactor(ai, ministerCountry, loCountry)
 					
 					if liTotalIC > 50 and loCountry:GetTotalIC() < liTotalIC then
@@ -200,7 +201,6 @@ function OfficeManagement(minister)
 	local loGroup = ministerCountry:GetRulingIdeology():GetGroup()
 	
 	-- Positions definitions
-	-- unlike 1.4 code we now assert values from configuration in order to save resources
 	-- Each position has an index, a callback function, a government position index, and a list of available CMinister objects
 	-- We assert the existance of 8 changeable positions, and bind them to a lua callback function
 	local laPositions = {}
@@ -275,13 +275,24 @@ end
 
 function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local laPersonalityScore = {}
-	laPersonalityScore["man_of_the_people"] = 70
-	laPersonalityScore["efficient_sociopath"] = 60
-	laPersonalityScore["crime_fighter"] = 50
-	laPersonalityScore["compassionate_gentleman"] = 40
-	laPersonalityScore["silent_lawyer"] = 30
-	laPersonalityScore["prince_of_terror"] = 20
-	laPersonalityScore["back_stabber"] = 10
+	
+	if ministerCountry:IsAtWar() then
+		laPersonalityScore["man_of_the_people"] = 70
+		laPersonalityScore["efficient_sociopath"] = 60
+		laPersonalityScore["crime_fighter"] = 50
+		laPersonalityScore["compassionate_gentleman"] = 40
+		laPersonalityScore["silent_lawyer"] = 30
+		laPersonalityScore["prince_of_terror"] = 20
+		laPersonalityScore["back_stabber"] = 10
+	else
+		laPersonalityScore["man_of_the_people"] = 70
+		laPersonalityScore["compassionate_gentleman"] = 60
+		laPersonalityScore["silent_lawyer"] = 50
+		laPersonalityScore["efficient_sociopath"] = 40
+		laPersonalityScore["crime_fighter"] = 30
+		laPersonalityScore["prince_of_terror"] = 20
+		laPersonalityScore["back_stabber"] = 10
+	end
 	
 	OfficeManagement_PickMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition, laPersonalityScore, "Call_MinisterOfSecurity")
 end
@@ -335,12 +346,28 @@ end
 
 function ChiefOfStaff(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local laPersonalityScore = {}
-	laPersonalityScore["school_of_mass_combat"] = 60
-	laPersonalityScore["school_of_psychology"] = 50
-	laPersonalityScore["logistics_specialist"] = 40
-	laPersonalityScore["school_of_fire_support"] = 30
-	laPersonalityScore["school_of_defence"] = 20
-	laPersonalityScore["school_of_manoeuvre"] = 10
+	if ministerCountry:IsAtWar() then
+		local liManpower = ministerCountry:GetManpower():Get()
+		
+		if liManpower < 200 then
+			laPersonalityScore["school_of_mass_combat"] = 60
+			laPersonalityScore["school_of_psychology"] = 50
+		else
+			laPersonalityScore["school_of_mass_combat"] = 50
+			laPersonalityScore["school_of_psychology"] = 60
+		end		
+		laPersonalityScore["logistics_specialist"] = 40
+		laPersonalityScore["school_of_fire_support"] = 30
+		laPersonalityScore["school_of_defence"] = 20
+		laPersonalityScore["school_of_manoeuvre"] = 10
+	else
+		laPersonalityScore["school_of_mass_combat"] = 60
+		laPersonalityScore["logistics_specialist"] = 50
+		laPersonalityScore["school_of_fire_support"] = 40
+		laPersonalityScore["school_of_defence"] = 30
+		laPersonalityScore["school_of_manoeuvre"] = 20
+		laPersonalityScore["school_of_psychology"] = 10
+	end
 	
 	OfficeManagement_PickMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition, laPersonalityScore, "Call_ChiefOfStaff")
 end

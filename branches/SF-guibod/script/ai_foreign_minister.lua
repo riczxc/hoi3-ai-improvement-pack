@@ -33,6 +33,14 @@ function ForeignMinister_Tick(minister)
 	-- run any decisions available
 	minister:ExecuteDiploDecisions()
 
+	-- Call for special AI Political checks
+    if math.mod( CCurrentGameState.GetAIRand(), 12) == 0 then
+		if Utils.HasCountryAIFunction( minister:GetCountryTag(), "Call_ForeignMinister") then
+			Utils.CallCountryAI(minister:GetCountryTag(), "Call_ForeignMinister", minister)							
+		end
+	end
+	
+	
 	if math.mod( CCurrentGameState.GetAIRand(), 7) == 0 then
 		Utils.CallCountryAI( minister:GetCountryTag(), "ProposeDeclareWar", minister )
 		ForeignMinister_HandlePeace(minister)

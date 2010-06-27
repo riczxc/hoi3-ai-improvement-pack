@@ -162,7 +162,7 @@ end
 
 function DiploScore_Alliance(ai, actor, recipient, observer, action)
 	if observer == actor then 
-       		local recipientCountry = recipient:GetCountry()
+       	local recipientCountry = recipient:GetCountry()
 		local actorCountry = actor:GetCountry()
 		local strategy = actorCountry:GetStrategy()
 		
