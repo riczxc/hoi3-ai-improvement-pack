@@ -13,6 +13,7 @@ require("hoi3.Hoi3Object")
 require("hoi3.AbstractObject")
 require("hoi3.MultitonObject")
 require("hoi3.SingletonObject")
+require("hoi3.FunctionObject")
 require("hoi3.Randomizer")
 
 TYPE_NIL	 	= 'nil'
