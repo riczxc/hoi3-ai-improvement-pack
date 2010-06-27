@@ -1198,7 +1198,10 @@ end
 -- @return CVariables
 function CCountry:GetVariables()
 	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownReturnType()
+	return self:loadResultOrImplOrRandom(
+		'CVariables',
+		'GetVariables'
+	)
 end
 
 ---
@@ -1206,7 +1209,10 @@ end
 -- @return table<CCountryTag>
 function CCountry:GetVassals()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return self:loadResultOrImplOrRandom(
+		'table<CCountryTag>',
+		'GetVassals'
+	)
 end
 
 ---
@@ -1364,6 +1370,14 @@ end
 -- @since 1.3
 -- @return bool
 function CCountry:IsMajor()
+	hoi3.assertNonStatic(self)
+	return self:loadResultOrImplOrRandom(
+		hoi3.TYPE_BOOLEAN,
+		'IsMajor'
+	)
+end
+
+function CCountry:IsMajorImpl()
 	hoi3.assertNonStatic(self)
 	return self:GetTotalIC() >= 60
 end

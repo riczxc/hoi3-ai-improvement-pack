@@ -20,7 +20,10 @@ function CProvince:GetBuilding(pBuilding)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, pBuilding, 'CBuilding')
 	
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CProvinceBuilding',
+		'GetBuilding'
+	)
 end
 
 ---
@@ -28,7 +31,15 @@ end
 -- @return number
 function CProvince:GetCoastalFortLevel()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	
+	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
+	r.min = 0
+	r.max = 10
+	
+	return CProvince:loadResultOrImplOrRandom(
+		r,
+		'GetCoastalFortLevel'
+	)
 end
 
 ---
@@ -36,7 +47,10 @@ end
 -- @return CContinent
 function CProvince:GetContinent()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CContinent',
+		'GetContinent'
+	)
 end
 
 ---
@@ -44,7 +58,10 @@ end
 -- @return CCountryTag
 function CProvince:GetController()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CCountryTag',
+		'GetController'
+	)
 end
 
 ---
@@ -55,7 +72,15 @@ function CProvince:GetCurrentConstructionLevel(pBuilding)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, pBuilding, 'CBuilding')
 	
-	hoi3.throwNotYetImplemented()
+	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
+	r.min = 0
+	r.max = 10
+	
+	return CProvince:loadResultOrImplOrRandom(
+		r,
+		'GetCurrentConstructionLevel',
+		pBuilding
+	)
 end
 
 ---
@@ -63,23 +88,24 @@ end
 -- @return number
 function CProvince:GetFortLevel()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
+	r.min = 0
+	r.max = 10
+	
+	return CProvince:loadResultOrImplOrRandom(
+		r,
+		'GetCurrentConstructionLevel'
+	)
 end
-
----
--- @since 1.3
--- @return CContinent
-function CProvince:GetContinent()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
 ---
 -- @since 1.3
 -- @return CFixedPoint
 function CProvince:GetInfrastructure()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CFixedPoint',
+		'GetInfrastructure'
+	)
 end
 
 ---
@@ -90,7 +116,11 @@ function CProvince:GetIntelLevel(observer)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, observer, 'CCountryTag')
 	
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		hoi3.TYPE_NUMBER,
+		'GetIntelLevel',
+		observer
+	)
 end
 
 ---
@@ -98,7 +128,10 @@ end
 -- @return CFixedPoint
 function CProvince:GetMaxInfrastructure()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CFixedPoint',
+		'GetMaxInfrastructure'
+	)
 end
 
 ---
@@ -106,7 +139,10 @@ end
 -- @return number
 function CProvince:GetNumberOfUnits()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		hoi3.TYPE_NUMBER,
+		'GetNumberOfUnits'
+	)
 end
 
 ---
@@ -114,7 +150,10 @@ end
 -- @return CCountryTag
 function CProvince:GetOwner()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CCountryTag',
+		'GetOwner'
+	)
 end
 
 ---
@@ -122,7 +161,10 @@ end
 -- @return number
 function CProvince:GetProvinceID()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		hoi3.TYPE_NUMBER,
+		'GetProvinceID'
+	)
 end
 
 ---
@@ -130,7 +172,10 @@ end
 -- @return CUnitList
 function CProvince:GetUnits()
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		'CUnitList',
+		'GetUnits'
+	)
 end
 
 ---
@@ -149,7 +194,11 @@ function CProvince:HasBuilding(building)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, building, 'CBuilding')
 	
-	hoi3.throwNotYetImplemented()
+	return CProvince:loadResultOrImplOrRandom(
+		hoi3.TYPE_BOOLEAN,
+		'HasBuilding',
+		building
+	)
 end
 
 ---
@@ -158,7 +207,13 @@ end
 -- @return bool
 function CProvince:IsFrontProvince(unknownFlag)
 	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
+	hoi3.assertParameterType(1, unknownFlag, hoi3.TYPE_BOOLEAN)
+
+	return CProvince:loadResultOrImplOrRandom(
+		hoi3.TYPE_BOOLEAN,
+		'IsFrontProvince',
+		unknownFlag
+	)
 end
 
 -- A random CProvince is a random EXISTING tag !
