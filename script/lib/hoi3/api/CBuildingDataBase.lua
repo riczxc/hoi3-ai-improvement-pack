@@ -6,37 +6,11 @@ CBuildingDataBase = hoi3.AbstractObject:subclass('hoi3.CBuildingDataBase')
 
 ---
 -- @since 1.3
+-- @static
 -- @param string name
 -- @return CBuilding 
-function CBuildingDataBase.GetBuilding(name)
-	hoi3.assertParameterType(1, name, hoi3.TYPE_STRING)
-	
-	return CBuildingDataBase.loadResultOrImplOrRandom(
-		CBuildingDataBase,
-		'CBuilding',
-		'GetBuilding',
-		name
-	)
-end
+hoi3.f(CBuildingDataBase, 'GetBuilding', true, 'CBuilding', hoi3.TYPE_STRING)
 
----
--- @since 1.3
--- @param number index
--- @return CBuilding 
-function CBuildingDataBase.GetBuildingFromIndex(index)
-	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
-	
-	return CBuildingDataBase.loadResultOrImplOrRandom(
-		CBuildingDataBase,
-		'CBuilding',
-		'GetBuildingFromIndex',
-		index
-	)
-end
-
----
---- Implementations
----
 function CBuildingDataBase.GetBuildingImpl(name)
 	require('hoi3.conf')
 	
@@ -48,6 +22,17 @@ function CBuildingDataBase.GetBuildingImpl(name)
 	end
 	hoi3.throwDataNotFound()
 end
+
+---
+-- @since 1.3
+-- @param number index
+-- @return CBuilding 
+hoi3.f(CBuildingDataBase, 'GetBuildingFromIndex', false, 'CBuilding', hoi3.TYPE_NUMBER)
+
+---
+--- Implementations
+---
+
 
 function CBuildingDataBase.GetBuildingFromIndexImpl(index)
 	require('hoi3.conf')

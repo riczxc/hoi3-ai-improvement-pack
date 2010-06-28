@@ -18,5 +18,8 @@ function CConstructBuildingCommand:initialize(actor, building, provinceId, quant
 	hoi3.assertParameterType(3, provinceId, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(4, quantity, hoi3.TYPE_NUMBER)
 
-	hoi3.throwNotYetImplemented()
+	self.actor = actor
+	self.target = target
+	self.province = province
+	self.quantity = quantity
 end

@@ -18,35 +18,21 @@ end
 ---
 -- @since 1.3
 -- @return string 
-function CContinent:GetName()
-	hoi3.assertNonStatic(self)
+hoi3.f(CContinent, 'GetName', false, hoi3.TYPE_STRING)
+
+function CContinent:GetNameImpl()
 	return self.name
 end
 
 ---
 -- @since 1.3
 -- @return string
-function CContinent:GetTag()
+hoi3.f(CContinent, 'GetTag', false, hoi3.TYPE_STRING)
+
+function CContinent:GetTagImpl()
 	return self.tag
 end
 
 function CContinent.random()
-	local a = {}
-	a['ASI'] = 'asia'
-	a['EUR'] = 'europe'
-	a['AFR'] = 'africa'
-	a['AME'] = 'america'
-	a['OCE'] = 'oceania'
-	
-	math.randomseed(os.time())
-	local i = math.random(#a)
-	
-	for k,v in pairs(a) do
-		i = i - 1
-		if i < 0 then 
-			break
-		end
-	end
-	
-	return CContinent(k,v)
+	return randomTableMember(CContinent:getInstances())
 end

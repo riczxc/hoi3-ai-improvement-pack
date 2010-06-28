@@ -14,14 +14,12 @@ function CCancelUnitConstructionCommand:initialize(countryTag, cID)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	hoi3.assertParameterType(2, cID, 'CID')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = countryTag
+	self.cid = cID
 end
 
 ---
 -- @since 1.3
 -- @return CCancelUnitConstructionCommand 
-function CCancelUnitConstructionCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CCallAllyAction, 'Clone', false, 'CCancelUnitConstructionCommand')
 
