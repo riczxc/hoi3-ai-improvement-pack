@@ -4,6 +4,8 @@
 -- Based on Unrealscript's stateful objects
 -----------------------------------------------------------------------------------
 
+module("middleclass", package.seeall)
+
 assert(Object~=nil and class~=nil, 'MiddleClass not detected. Please require it before using MindState')
 
 --[[ StatefulObject declaration

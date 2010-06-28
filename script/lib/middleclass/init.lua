@@ -6,6 +6,8 @@
 
 local _classes = setmetatable({}, {__mode = "k"})   -- weak table storing references to all declared _classes
 
+module("middleclass", package.seeall)
+
 -- The 'Object' class
 Object = { name = "Object" }
 

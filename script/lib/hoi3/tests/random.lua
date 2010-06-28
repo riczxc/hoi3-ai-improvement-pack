@@ -9,27 +9,16 @@ local obj = nil
 
 function setup()
  	obj = hoi3.Hoi3Object:subclass("test.random")
+	
+	hoi3.f(obj, 'myRandFunctionUsingString', false, hoi3.TYPE_STRING)
+	
 	-- Function with no save result and no Impl fallback
-	function obj:myRandFunctionUsingString()
-		return self:loadResultOrImplOrRandom(
-  	 		hoi3.TYPE_STRING, 
-			"myRandFunctionUsingString"
-		)
-  	end
-  	
-  	-- Function with no save result and no Impl fallback
   	-- returns a not so random value from randomizer configuration
   	-- expect 2656 as return
-  	function obj:myRandFunctionUsingRandomizer()
-		local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
-		r.min = 2656
-		r.max = 2656
-		
-		return self:loadResultOrImplOrRandom(
-  	 		r, 
-			"myRandFunctionUsingRandomizer"
-		)
-  	end
+	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
+	r.min = 2656
+	r.max = 2656
+	hoi3.f(obj, 'myRandFunctionUsingRandomizer', false, r)
 end
 
 function teardown()
@@ -114,6 +103,6 @@ end
 function testRandomValueThroughSave()
 	local o = obj()
 	
-	assert_string(obj:myRandFunctionUsingString())
-	assert_equal(2656,obj:myRandFunctionUsingRandomizer())
+	assert_string(o:myRandFunctionUsingString())
+	assert_equal(2656,o:myRandFunctionUsingRandomizer())
 end

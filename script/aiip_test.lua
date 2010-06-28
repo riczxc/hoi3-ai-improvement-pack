@@ -42,10 +42,7 @@ require('ai_strategic')
 
 dtools.setLogContext("","DEVEL")
 
-local x = CString('niii')
-x.test(1,2)
-
---hoi3.testAll()
+hoi3.testAll()
 --[[ 
 CCurrentGameState.saveResult(CCurrentGameState, 7,CCurrentGameState.GetAIRand)
 

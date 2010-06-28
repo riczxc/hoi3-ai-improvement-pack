@@ -25,6 +25,9 @@ TYPE_FUNCTION 	= 'function'
 TYPE_THREAD 	= 'thread'
 TYPE_USERDATA 	= 'userdata'
 
+require("middleclass")
+Object = middleclass.Object
+
 ---
 -- hoi3.testType is able to test Object:subclass() existence
 -- but subclasses MUST be defined in hoi3.api module.
@@ -47,15 +50,14 @@ function testType(value, typeAsString)
 		return t==typeAsString
 	elseif t == TYPE_TABLE then
 		-- Where to find class definition ?
-		
 		-- inside hoi3 package objects
 		if hoi3[typeAsString] then
-			return instanceOf(hoi3[typeAsString], value)
+			return middleclass.instanceOf(hoi3[typeAsString], value)
 		else
-			-- must be a hoi3.api package member
+ 			-- must be a hoi3.api package member
 			require('hoi3.api')
 			
-			return instanceOf(hoi3.api[typeAsString], value)
+			return middleclass.instanceOf(hoi3.api[typeAsString], value)
 		end
 	else
 		--thread, userdata, nil or function
@@ -80,7 +82,7 @@ end
 function assertNonStatic(self)
 	assert(self~=nil and 
 		type(self)==TYPE_TABLE and 
-		instanceOf(hoi3.Hoi3Object, self), 
+		middleclass.instanceOf(middleclass.Object, self), 
 		"Non-static method cannot be referenced from a static context.")
 end
 

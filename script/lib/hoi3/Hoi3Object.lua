@@ -2,7 +2,7 @@ require('middleclass')
 
 module( "hoi3", package.seeall)
 
-Hoi3Object = class('hoi3.Hoi3Object')
+Hoi3Object = middleclass.class('hoi3.Hoi3Object')
 
 --[[
 	Easy way to define constant result for the same call 
@@ -37,7 +37,9 @@ Hoi3Object.resultTable = {}
 -- Save a value for a object instance (or object definition for static method),
 -- method, and parameters.
 Hoi3Object.saveResult = function(self, value, method, ...)
-	assert(type(method)==hoi3.TYPE_FUNCTION, "Unable to save value. Unknown function or method.")
+	assert(middleclass.instanceOf(hoi3.Hoi3Object, self)or
+		middleclass.subclassOf(hoi3.Hoi3Object, self), "Unable to recover value. Unknown object or class.")
+	assert(middleclass.instanceOf(hoi3.FunctionObject, method), "Unable to recover value. Unknown function or method.")
 	
 	local hash = Hoi3Object.hashArgs(...)
 	if Hoi3Object.resultTable[self] == nil then
@@ -47,7 +49,7 @@ Hoi3Object.saveResult = function(self, value, method, ...)
 		Hoi3Object.resultTable[self][method] = {}
 	end
 	
-	--dtools.debug("Result cached for "..tostring(self.class).."."..tostring(method).."("..hash..")")
+	--dtools.debug("Result cached for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(value))
 	Hoi3Object.resultTable[self][method][hash] = value
 end
 
@@ -55,29 +57,31 @@ end
 -- FakeCAI:runAndSaveResult(CAI.CanDeclareWar,"GER", "FRA")
 -- FakeCAI:runAndSaveResult(CAI.CanDeclareWar,"GER", "ENG")
 -- FakeCAI:serialize()
-Hoi3Object.runAndSaveResult = function(self, method, value, ...)
+function Hoi3Object:runAndSaveResult(method, value, ...)
 	Hoi3Object.saveResult(self, method(...), method, ...)
 end
 
 ---
 -- Test cached result existance for object instance, method and parameter
 -- @return bool
-Hoi3Object.hasResult = function(self, method, ...)
-	local hash = Hoi3Object.hashArgs(...) 	
+function Hoi3Object:hasResult(method, ...)
+	local hash = Hoi3Object.hashArgs(...)
+	 
 	return
 		Hoi3Object.resultTable[self] ~= nil and
 		Hoi3Object.resultTable[self][method] ~= nil and
 		Hoi3Object.resultTable[self][method][hash] ~= nil
 end
 
-Hoi3Object.loadResult = function(self, method, ...)
-	assert(type(method)==hoi3.TYPE_FUNCTION, "Unable to recover value. Unknown function or method.")
+function Hoi3Object:loadResult(method, ...)
+	assert(middleclass.instanceOf(hoi3.FunctionObject, method), "Unable to recover value. Unknown function or method.")
 	
 	local hash = Hoi3Object.hashArgs(...) 	
 	assert(Hoi3Object.resultTable[self] ~= nil, "Unable to recover value. Unknown object reference.")
 	assert(Hoi3Object.resultTable[self][method] ~= nil, "Unable to recover value. Unknown function or method.")
 	assert(Hoi3Object.resultTable[self][method][hash] ~= nil, "Unable to recover value. Unknown signature.")
 	
+	--dtools.debug("Result loaded for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(Hoi3Object.resultTable[self][method][hash]))
 	return Hoi3Object.resultTable[self][method][hash]
 end
 
@@ -87,25 +91,17 @@ end
 	or use return hint in order to provide a randomized value
 	or throw a notimplemented error
 ]]
-Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, ...)
-	-- expectedType can be either a string
-	-- or a more complex Randomizer object instance
-	if type(expectedType) == hoi3.TYPE_STRING then
-		expectedType = hoi3.Randomizer:new(expectedType)
-	end
-	
-	-- Real method
-	local fReference = self[methodName]
-	if fReference == nil or
-		type(fReference) ~= hoi3.TYPE_FUNCTION then
-		error("Unable to recover value. Function name refers to a non function reference.")
-	end
+Hoi3Object.loadResultOrImplOrRandom  = function(self, fObj, ...)
+	assert(
+		middleclass.instanceOf(hoi3.FunctionObject, fObj),
+		"Unable to recover value. Function name refers to a non function reference (hoi.FunctionObject)."
+	)
 	
 	-- If cached result, return cached result...	
-	if self:hasResult(fReference, ...) then
+	if self:hasResult(fObj, ...) then
 		return Hoi3Object.assertReturnTypeAndReturn(
-			self:loadResult(fReference, ...),
-			expectedType:__tostring()
+			self:loadResult(fObj, ...),
+			fObj.ret:__tostring()
 		)
 	end
 	
@@ -114,15 +110,17 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, 
 	-- and to cheat it as real function result.
 	local computedValue
 	
-	-- Try Impl method is exists
-	local fImplReference = self[methodName.."Impl"]
-	if fImplReference ~= nil  then
-		assert(type(fImplReference) == hoi3.TYPE_FUNCTION, "Unable to recover value. Function name refers to a non-function reference.")
-		computedValue = fImplReference(...)
+	-- Try Impl method is exists ( real method this time, not a FunctionObject)
+	if fObj:hasImpl() then
+		if middleclass.instanceOf(hoi3.Hoi3Object,self) then
+			computedValue = fObj:runImpl(self,...)
+		else
+			computedValue = fObj:runImpl(...)
+		end
 	else-- No Impl method result ?
 		-- Create a randomized result (depending on expected return type)
 		-- May throw a specific exception "no randomizer"
-		computedValue = expectedType:compute(def)
+		computedValue = fObj.ret:compute(def)
 	end
 	
 	if computedValue ~= nil then
@@ -131,15 +129,15 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, expectedType, methodName, 
 		if Hoi3Object.resultTable[self] == nil then
 			Hoi3Object.resultTable[self] = {}
 		end
-		if Hoi3Object.resultTable[self][fReference] == nil then
-			Hoi3Object.resultTable[self][fReference] = {}
+		if Hoi3Object.resultTable[self][fObj] == nil then
+			Hoi3Object.resultTable[self][fObj] = {}
 		end
-		Hoi3Object.resultTable[self][fReference][hash] = computedValue
+		Hoi3Object.resultTable[self][fObj][hash] = computedValue
 		
 		-- And return (with a test on returned value type)
 		return Hoi3Object.assertReturnTypeAndReturn(
-			Hoi3Object.resultTable[self][fReference][hash],
-			expectedType:__tostring()
+			Hoi3Object.resultTable[self][fObj][hash],
+			fObj.ret:__tostring()
 		)
 	else
 		return nil

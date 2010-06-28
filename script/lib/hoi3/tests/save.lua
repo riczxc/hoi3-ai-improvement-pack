@@ -8,113 +8,85 @@ require("hoi3")
 local obj = nil
 
 function setup()
- 	obj = hoi3.Hoi3Object:subclass("test.object")
-	function obj:myFunctionWithoutParam()
-		return self:loadResultOrImplOrRandom(
-  	 		hoi3.TYPE_STRING, 
-			"myFunctionWithoutParam"
-		)
+ 	objClass = hoi3.Hoi3Object:subclass("test.object")
+	function objClass:initialize(x)
+		self.x = x
+	end
+	
+	hoi3.FunctionObject(objClass, 'myFunctionWithoutParam', false, hoi3.TYPE_STRING)
+ 	hoi3.FunctionObject(objClass, 'myFunctionWithParam', false, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_STRING)
+ 	--hoi3.f is synonym for hoi3.FunctionObject
+ 	hoi3.f(objClass, 'myStaticFunctionWithoutParam', true, hoi3.TYPE_STRING)
+ 	hoi3.f(objClass, 'myStaticFunctionWithParam', true, hoi3.TYPE_STRING, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER)
+	hoi3.f(objClass, 'myImplableFunction', false, hoi3.TYPE_STRING)
+	hoi3.f(objClass, 'myStaticImplableFunction', true, hoi3.TYPE_STRING)
+
+  	function objClass:myImplableFunctionImpl()
+		return tostring(self.x).."Impl"
   	end
   	
-  	function obj:myFunctionWithParam(a,b)
-		return self:loadResultOrImplOrRandom(
-  	 		hoi3.TYPE_STRING, 
-			"myFunctionWithParam",
-			a,
-			b
-		)
-  	end
-  	
-  	obj.myStaticFunctionWithoutParam = function()
-		return obj.loadResultOrImplOrRandom(
-			obj,
-  	 		hoi3.TYPE_STRING, 
-			"myStaticFunctionWithoutParam"
-		)
-  	end
-  	
-  	obj.myStaticFunctionWithParam = function(a, b)
-		return obj.loadResultOrImplOrRandom(
-			obj,
-  	 		hoi3.TYPE_STRING, 
-			"myStaticFunctionWithParam",
-			a,
-			b
-		)
-  	end
-  	
-  	function obj:myImplableFunction()
-		return self:loadResultOrImplOrRandom(
-  	 		hoi3.TYPE_STRING, 
-			"myImplableFunction"
-		)
-  	end
-  	
-  	function obj:myImplableFunctionImpl()
+  	function objClass:myStaticImplableFunctionImpl()
 		return "ImpldValue"
   	end
 end
 
 function teardown()
-  obj = nil
+  objClass = nil
 end
 
 function testSavedWithoutParam()
-	local myObj = obj()
+	local myObj = objClass("x")
 	local myResult = "abcdefgh"
 
-	myObj:saveResult(myResult,obj.myFunctionWithoutParam)
+	myObj:saveResult(myResult,objClass.myFunctionWithoutParam)
 	assert_equal(myResult,myObj:myFunctionWithoutParam())
 	assert_equal(myResult,myObj:myFunctionWithoutParam())
 end
 
 function testSavedStaticWithoutParam()
-  	local myObj = obj()
 	local myResult = "ijklmnop"
 
-	obj.saveResult(obj, myResult,obj.myStaticFunctionWithoutParam)
-	assert_equal(myResult,obj.myStaticFunctionWithoutParam())
-	assert_equal(myResult,obj.myStaticFunctionWithoutParam())
+	objClass.saveResult(objClass, myResult,objClass.myStaticFunctionWithoutParam)
+	assert_equal(myResult,objClass.myStaticFunctionWithoutParam())
+	assert_equal(myResult,objClass.myStaticFunctionWithoutParam())
 
-	obj.saveResult(obj, 5,obj.myStaticFunctionWithoutParam)
-	assert_equal(5,obj.myStaticFunctionWithoutParam())
-	assert_equal(5,obj.myStaticFunctionWithoutParam())
+	objClass.saveResult(objClass, 5,objClass.myStaticFunctionWithoutParam)
+	assert_equal(5,objClass.myStaticFunctionWithoutParam())
+	assert_equal(5,objClass.myStaticFunctionWithoutParam())
 end
 
 function testSavedWithParam()
-	local myObj = obj()
+	local myObj = objClass("x")
 	local myResult = "qrstuvw"
 
-	myObj:saveResult(myResult,obj.myFunctionWithParam, 1, "a")
+	myObj:saveResult(myResult,objClass.myFunctionWithParam, 1, "a")
 	assert_equal(myResult,myObj:myFunctionWithParam(1, "a"))
 	assert_equal(myResult,myObj:myFunctionWithParam(1, "a"))
 end
 
 function testSavedStaticWithoutParam()
-  	local myObj = obj()
+  	local myObj = objClass("x")
 	local myResult = "xyz1234"
 
-	obj.saveResult(obj, myResult,obj.myStaticFunctionWithParam, "xyz", 23)
-	assert_equal(myResult,obj.myStaticFunctionWithParam("xyz", 23))
-	assert_equal(myResult,obj.myStaticFunctionWithParam("xyz", 23))
+	obj.saveResult(obj, myResult,objClass.myStaticFunctionWithParam, "xyz", 23)
+	assert_equal(myResult,objClass.myStaticFunctionWithParam("xyz", 23))
+	assert_equal(myResult,objClass.myStaticFunctionWithParam("xyz", 23))
 end
 
 function testRandomWithoutParam()
-	local myObj = obj()
+	local myObj = objClass("x")
 	
 	assert_equal(myObj:myFunctionWithoutParam(),myObj:myFunctionWithoutParam())
 	assert_equal(myObj:myFunctionWithoutParam(),myObj:myFunctionWithoutParam())
 end
 
 function testRandomStaticWithoutParam()
-  	local myObj = obj()
-	
-	assert_equal(obj.myStaticFunctionWithoutParam(),obj.myStaticFunctionWithoutParam())
-	assert_equal(obj.myStaticFunctionWithoutParam(),obj.myStaticFunctionWithoutParam())
+  	assert_equal(objClass.myStaticFunctionWithoutParam(),objClass.myStaticFunctionWithoutParam())
+	assert_equal(objClass.myStaticFunctionWithoutParam(),objClass.myStaticFunctionWithoutParam())
 end
 
 function testRandomWithParam()
-	local myObj = obj()
+	local myObj = objClass("x")
 	local param1 = 3.14
 	local param2 = "abd"
 	
@@ -124,18 +96,22 @@ function testRandomWithParam()
 end
 
 function testSavedStaticWithoutParam()
-  	local myObj = obj()
-	local param1 = true
+	local param1 = "mystring"
 	local param2 = 23
 	
-	assert_string(obj.myStaticFunctionWithParam(param1, param2))
-	assert_equal(obj.myStaticFunctionWithParam(param1, param2),obj.myStaticFunctionWithParam(param1, param2))
-	assert_equal(obj.myStaticFunctionWithParam(param1, param2),obj.myStaticFunctionWithParam(param1, param2))
+	assert_string(objClass.myStaticFunctionWithParam(param1, param2))
+	assert_equal(objClass.myStaticFunctionWithParam(param1, param2),objClass.myStaticFunctionWithParam(param1, param2))
+	assert_equal(objClass.myStaticFunctionWithParam(param1, param2),objClass.myStaticFunctionWithParam(param1, param2))
 end
 
 function testImplable()
-  	local myObj = obj()
+  	local myObj = objClass("x")
 		
-	assert_string(obj:myImplableFunction())
-	assert_equal("ImpldValue",obj:myImplableFunction())
+	assert_string(myObj:myImplableFunction())
+	assert_equal("xImpl",myObj:myImplableFunction())
+end
+
+function testStaticImplable()
+  	assert_string(objClass.myStaticImplableFunction())
+	assert_equal("ImpldValue",objClass.myStaticImplableFunction())
 end
