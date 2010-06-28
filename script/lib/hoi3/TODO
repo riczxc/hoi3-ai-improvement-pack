@@ -2,8 +2,6 @@
 middleclass "__eq" method.
 see "eq" at http://www.lua.org/manual/5.1/manual.html#2.5.9
 
-- math.random is not really random :)
-
 - Add some configuration support to define a list of plausible result for
 Impl or randomly generated content in order to get a working set of province,
 country, building...

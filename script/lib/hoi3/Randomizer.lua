@@ -31,6 +31,13 @@ Randomizer.getIteratorTypeFromString = function(str)
 end
 
 
+Randomizer.curseed = 0
+function Randomizer.seed()
+	Randomizer.curseed = Randomizer.curseed + (os.clock()*1000)
+	math.randomseed(Randomizer.curseed) 
+end
+
+
 --- Below Static methods
 
 ---
@@ -42,7 +49,7 @@ end
 -- self.subtype = a nested self table for iterator member (may be another iterator!)
 -- @self table self
 function Randomizer:compute()
-	math.randomseed( os.clock() )
+	Randomizer.seed()
 	-- trigger some random before to delegate results, random fails on some OS.
 	math.random(); math.random(); math.random()
 
