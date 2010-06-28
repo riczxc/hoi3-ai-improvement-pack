@@ -16,6 +16,8 @@ require("hoi3.SingletonObject")
 require("hoi3.FunctionObject")
 require("hoi3.Randomizer")
 
+TYPE_UNKNOWN 	= 'unknown'
+TYPE_VOID	 	= 'void'
 TYPE_NIL	 	= 'nil'
 TYPE_NUMBER 	= 'number'
 TYPE_BOOLEAN 	= 'boolean'

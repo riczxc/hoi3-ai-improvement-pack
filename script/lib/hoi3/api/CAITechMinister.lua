@@ -11,35 +11,14 @@ CAITechMinister.initialize = CAIAgent.initalize
 -- @since 1.3
 -- @param CTechnology tech
 -- @return bool
-function CAITechMinister:CanResearch(tech)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, tech, 'CTechnology')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'CanResearch',
-		tech
-	)
-end
+hoi3.f(CAITechMinister, 'CanResearch', false, hoi3.TYPE_BOOLEAN, 'CTechnology')
 
 ---
 -- @since 1.3
 -- @return CArrayFix
-function CAITechMinister:GetFolderModifers()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'CArrayFix',
-		'GetFolderModifers'
-	)
-end  
+hoi3.f(CAITechMinister, 'GetFolderModifers', false,'CArrayFix')
 
 ---
 -- @since 1.3
 -- @return CArrayFix
-function CAITechMinister:GetTechModifers()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'CArrayFix',
-		'GetTechModifers'
-	)
-end  
+hoi3.f(CAITechMinister, 'GetTechModifers', false,'CArrayFix')

@@ -10,51 +10,24 @@ CAIProductionMinister.initialize = CAIAgent.initalize
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinister:CountEscortsUnderConstruction()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'CountEscortsUnderConstruction'
-	)
-end
+hoi3.f(CAIProductionMinister, 'CountEscortsUnderConstruction', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinister:CountTotalDesiredEscorts()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'CountTotalDesiredEscorts'
-	)
-end
+hoi3.f(CAIProductionMinister, 'CountTotalDesiredEscorts', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinister:CountTransportsUnderConstruction()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'CountTransportsUnderConstruction'
-	)
-end
+hoi3.f(CAIProductionMinister, 'CountTransportsUnderConstruction', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CAIProductionMinister:GetDesperation()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetDesperation'
-	)
-end
+hoi3.f(CAIProductionMinister, 'GetDesperation', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return void
-function CAIProductionMinister:PrioritizeBuildQueue()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CAIProductionMinister, 'PrioritizeBuildQueue', false, hoi3.TYPE_VOID)
