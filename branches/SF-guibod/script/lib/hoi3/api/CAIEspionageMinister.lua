@@ -10,10 +10,4 @@ CAIEspionageMinister.initialize = CAIAgent.initalize
 ---
 -- @since 1.3
 -- @return bool
-function CAIEspionageMinister:IsAligningToFaction()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsAligningToFaction'
-	)
-end  
+hoi3.f(CAIEspionageMinister, 'IsAligningToFaction', false, hoi3.TYPE_BOOLEAN)

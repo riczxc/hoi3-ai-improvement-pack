@@ -16,25 +16,26 @@ end
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CAIAgent:GetCountryTag()
-	hoi3.assertNonStatic(self)
+hoi3.f(CAIAgent, 'GetCountryTag', false, 'CCountryTag')
+
+function CAIAgent:GetCountryTagImpl()
 	return self.countryTag
 end
 
 ---
 -- @since 1.3
 -- @return CCountry
-function CAIAgent:GetCountry()
-	hoi3.assertNonStatic(self)
-	-- returns current instance
+hoi3.f(CAIAgent, 'GetCountry', false, 'CCountry')
+
+function CAIAgent:GetCountryImpl()
 	return CCountry(self.countryTag)
 end
   
 ---
 -- @since 1.3
 -- @return CAI
-function CAIAgent:GetOwnerAI()
-	hoi3.assertNonStatic(self)
-	-- returns current instance
+hoi3.f(CAIAgent, 'GetOwnerAI', false, 'CAI')
+
+function CAIAgent:GetOwnerAIImpl()
 	return CAI(self.countryTag)
 end

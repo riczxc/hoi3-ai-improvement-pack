@@ -17,7 +17,8 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	self.static = static
 	self.name = name
 
-	if type(ret) == hoi3.TYPE_STRING then
+	if type(ret) == hoi3.TYPE_STRING
+		and ret ~= hoi3.TYPE_UNKNOWN then
 		self.ret = hoi3.Randomizer:new(ret)
 	else
 		self.ret = ret
@@ -52,6 +53,11 @@ end
 
 function FunctionObject:__call(s, ...)
 	hoi3.assertNonStatic(self)
+	
+	if self.ret == hoi3.TYPE_UNKNOWN then
+		hoi3.throwUnknownSignature()
+	end
+	
 	local myparams = {...}
 	
 	-- if this function is static, 1st parameter is
@@ -68,6 +74,9 @@ function FunctionObject:__call(s, ...)
 	
 	-- Assert real function call parameter
 	for i, v in ipairs(self.param) do
+		if myparams[i] == hoi3.TYPE_UNKNOWN then
+			hoi3.throwUnknownSignature()
+		end
 		hoi3.assertParameterType(i, myparams[i], v)
 	end
 	

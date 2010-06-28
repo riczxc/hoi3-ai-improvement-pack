@@ -21,59 +21,30 @@ end
 ---
 -- @since 1.3
 -- @return number 
-function CAIIntel:CalculateOurMilitaryStrength()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'CalculateOurMilitaryStrength'
-	)
-end
+hoi3.f(CAIIntel, 'CalculateOurMilitaryStrength', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CAIIntel:CalculateTheirPercievedMilitaryStrengh()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'CalculateTheirPercievedMilitaryStrengh'
-	)
-end  
+hoi3.f(CAIIntel, 'CalculateTheirPercievedMilitaryStrengh', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CAIIntel:GetFactor()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetFactor'
-	)
-end  
+hoi3.f(CAIIntel, 'GetFactor', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAIIntel:GetTheirFactor(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIIntel, 'GetTheirFactor', false, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CAIIntel:GetUncertaintyFactor(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIIntel, 'GetUncertaintyFactor', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CAIIntel:HasNoIntel()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'GetFactor'
-	)
-end  
+hoi3.f(CAIIntel, 'HasNoIntel', false, hoi3.TYPE_BOOLEAN)

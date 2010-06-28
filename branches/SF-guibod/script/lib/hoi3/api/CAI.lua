@@ -26,89 +26,34 @@ CAI._TECHNOLOGY_ = 5
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool 
-function CAI:AlreadyTradingDisabledResource(route)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, route, 'CTradeRoute')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN, 
-		"AlreadyTradingDisabledResource", 
-		route
-	)
-end
+hoi3.f(CAI, 'AlreadyTradingDisabledResource', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute') 
 
 ---
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool 
-function CAI:AlreadyTradingResourceOtherWay(route)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, route, 'CTradeRoute')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN, 
-		"AlreadyTradingResourceOtherWay", 
-		route
-	)
-end 
+hoi3.f(CAI, 'AlreadyTradingResourceOtherWay', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute') 
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:CanDeclareWar(countryTagA, countryTagB)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN, 
-		"CanDeclareWar", 
-		countryTagA, 
-		countryTagB
-	)
-end
+hoi3.f(CAI, 'CanDeclareWar', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag') 
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:CanTradeFreeResources(countryTagA,  countryTagB)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN, 
-		"CanTradeFreeResources", 
-		countryTagA, 
-		countryTagB
-	)
-end
+hoi3.f(CAI, 'CanTradeFreeResources', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @param number needs
 -- @param number goodsType
 -- @return CFixedPoint
-function CAI:EvaluateCancelTrades(needs,  goodsType)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, needs, hoi3.TYPE_NUMBER)
-	hoi3.assertParameterType(2, goodsType, hoi3.TYPE_NUMBER)
-
-	assert(goodsType < CGoodsPool._GC_NUMOF_ + 1, string.format("goodsType must be lower than %d", CGoodsPool._GC_NUMOF_ + 1))
-	assert(goodsType > 0, string.format("goodsType must be greater than %d", 0))
-	
-	return self:loadResultOrImplOrRandom(
-		'CFixedPoint', 
-		"EvaluateCancelTrades", 
-		needs,  
-		goodsType
-	)
-end
-
+hoi3.f(CAI, 'EvaluateCancelTrades', false, 'CFixedPoint', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
@@ -116,334 +61,155 @@ end
 -- @param CCountryTag from
 -- @param CCountryTag to
 -- @return CFixedPoint
-function CAI:GetAmountTradedFrom(goodsType, from,  to)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
-	hoi3.assertParameterType(2, from, 'CCountryTag')
-	hoi3.assertParameterType(3, to, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		'CFixedPoint',
-		"GetAmountTradedFrom", 
-		goodsType, 
-		from,  
-		to
-	)
-end
+hoi3.f(CAI, 'GetAmountTradedFrom', false, 'CFixedPoint', hoi3.TYPE_NUMBER, 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return CCountry
-function CAI:GetCountry(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CAI, 'GetCountry', false, 'CCountry', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCountry countryA
 -- @param CCountry countryB
 -- @return CFixedPoint
-function CAI:GetCountryAlignmentDistance(countryA, countryB)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryA, 'CCountry')
-	hoi3.assertParameterType(2, countryB, 'CCountry')
-	
-	return self:loadResultOrImplOrRandom(
-		'CFixedPoint',
-		"GetCountryAlignmentDistance", 
-		countryA, 
-		countryB
-	)
-end
+hoi3.f(CAI, 'GetCountryAlignmentDistance', false, 'CFixedPoint', 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @return CDate
--- @static
-function CAI.GetCurrentDate()
-	return CAI.loadResultOrImplOrRandom(
-		--loadResultOrImpl is used statically, we pass "self" paramater as class reference
-		--instead of class instance !
-		CAI,
-		'CDate',
-		"GetCurrentDate"
-	)	
-end
+hoi3.f(CAI, 'GetCurrentDate', false, 'CDate')
 
----
--- @since 1.3
--- @return string
--- @static
-function CAI.GetCommonModDirectory()
-	return CAI.loadResultOrImplOrRandom(
-		CAI,
-		hoi3.TYPE_STRING,
-		"GetCommonModDirectory"
-	)
+function CAI:GetCurrentDateImpl()
+	return CCurrentGameState.GetCurrentDate()
 end
 
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetDeployedSubUnitCounts()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'CArrayFix',
-		"GetDeployedSubUnitCounts"
-	)
-end
+hoi3.f(CAI, 'GetDeployedSubUnitCounts', false, 'CArrayFix')
 
 ---
 -- @since 1.3
 -- @return string
 -- @static
-function CAI.GetModDirectory()
-	return CAI.loadResultOrImplOrRandom(
-		CAI,
-		hoi3.TYPE_STRING,
-		"GetModDirectory"
-	)
-end
+hoi3.f(CAI, 'GetModDirectory', true, hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
 -- @param CCountry country
 -- @param CFaction faction
 -- @return CFixedPoint
-function CAI:GetNormalizedAlignmentDistance(country, faction)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, country, 'CCountry')
-	hoi3.assertParameterType(2, faction, 'CFaction')
-	
-	return self:loadResultOrImplOrRandom(
-		'CFixedPoint',
-		"GetNormalizedAlignmentDistance",
-		country, 
-		faction
-	)
-end
+hoi3.f(CAI, 'GetNormalizedAlignmentDistance', false, 'CFixedPoint', 'CCountry', 'CFaction')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAI:GetNumberOfOwnedProvinces(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, country, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		"GetNumberOfOwnedProvinces",
-		countryTag
-	)
-end
+hoi3.f(CAI, 'GetNumberOfOwnedProvinces', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetProductionSubUnitCounts()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'CArrayFix',
-		"GetProductionSubUnitCounts"
-	)
-end
+hoi3.f(CAI, 'GetProductionSubUnitCounts', false, 'CArrayFix')
 
 ---
 -- @since 1.3
 -- @return CSubUnitConstructionEntryList
-function CAI:GetReqProdQueue()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'CSubUnitConstructionEntryList',
-		"GetReqProdQueue"
-	)
-end
+hoi3.f(CAI, 'GetReqProdQueue', false, 'CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3
 -- @return table<CSubUnitConstructionEntry>
-function CAI:GetReqProdQueueIter()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'table<CSubUnitConstructionEntry>',
-		"GetReqProdQueueIter"
-	)
-end
+hoi3.f(CAI, 'GetReqProdQueueIter', false, 'table<CSubUnitConstructionEntry>')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return CDiplomacyStatus
-function CAI:GetRelation(countryTagA, countryTagB)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		'CDiplomacyStatus',
-		"GetRelation",
-		countryTagA, 
-		countryTagB
-	)
-end
+hoi3.f(CAI, 'GetRelation', false, 'CDiplomacyStatus', 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAI:GetSpamPenalty(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		"number",
-		"GetSpamPenalty",
-		countryTag
-	)
-end
+hoi3.f(CAI, 'GetSpamPenalty', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @return CArrayFix
-function CAI:GetTheatreSubUnitNeedCounts()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		"CArrayFix",
-		"GetTheatreSubUnitNeedCounts"
-	)
-end
+hoi3.f(CAI, 'GetTheatreSubUnitNeedCounts', false, 'CArrayFix')
 
 ---
 -- @since 1.3
 -- @return bool
 -- @static
-function CAI.HasCommonExtension()
-	hoi3.assertNonStatic(self)
-	return CAI.loadResultOrImplOrRandom(
-		CAI,
-		hoi3.TYPE_BOOLEAN,
-		"HasCommonExtension"
-	)
-end
+hoi3.f(CAI, 'HasCommonExtension', true, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.4
 -- @return bool
-function CAI:HasFilledProdQueue()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'HasFilledProdQueue'
-	)
-end
+hoi3.f(CAI, 'HasFilledProdQueue', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param  CTradeRoute route
 -- @return bool
-function CAI:HasTradeGoneStale(route)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, route, 'CTradeRoute')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'HasTradeGoneStale',
-		route
-	)	
-end
+hoi3.f(CAI, 'HasTradeGoneStale', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @return bool
 -- @static
-function CAI.HasUserExtension()
-	return CAI.loadResultOrImplOrRandom(
-		CAI,
-		hoi3.TYPE_BOOLEAN,
-		"HasUserExtension"
-	)
-end
+hoi3.f(CAI, 'HasUserExtension', true, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.4
 -- @param number automationtype
 -- @return bool
 -- @static
-function CAI.IsAIControlledForPlayer(automationtype)
-	hoi3.assertParameterType(1, automationtype, hoi3.TYPE_NUMBER)
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsAIControlledForPlayer',
-		automationtype
-	)	
-end
+hoi3.f(CAI, 'IsAIControlledForPlayer', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-function CAI:IsInfluencing(countryTagA, countryTagB)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsInfluencing',
-		countryTagA, 
-		countryTagB
-	)
-end
+hoi3.f(CAI, 'IsInfluencing', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool
-function CAI:IsTradeingAwayNeededResource(route)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, route, 'CTradeRoute')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsTradeingAwayNeededResource',
-		route
-	)
-end
+hoi3.f(CAI, 'IsTradeingAwayNeededResource', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute')
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CAI:MoveToNeighbor(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CAI, 'MoveToNeighbor', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CAI:MoveUnit(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CAI, 'MoveUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CAI:RequestSubUnit(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CAI, 'RequestSubUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCommand command
 -- @return void
-function CAI:Post(command)
+hoi3.f(CAI, 'Post', false, hoi3.TYPE_VOID, 'CCommand')
+
+function CAI:PostImpl(command)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, command, 'CCommand')
 	
@@ -456,7 +222,9 @@ end
 -- @since 1.3
 -- @param CAction action
 -- @return void
-function CAI:PostAction(action)
+hoi3.f(CAI, 'PostAction', false, hoi3.TYPE_VOID, 'CAction')
+
+function CAI:PostActionImpl(action)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, action, 'CAction')
 	
@@ -469,7 +237,9 @@ end
 -- @since 1.3
 -- @param string message
 -- @return void
-function CAI:PrintConsole(message)
+hoi3.f(CAI, 'PrintConsole', false, hoi3.TYPE_VOID, hoi3.TYPE_STRING)
+
+function CAI:PrintConsoleImpl(message)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, message, hoi3.TYPE_STRING)
 	

@@ -23,244 +23,125 @@ end
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown 
-function CAIStrategy:AddSubUnit(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CAIStrategy, 'AddSubUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return void
-function CAIStrategy:CancelPrepareWar(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CAIStrategy, 'CancelPrepareWar', false, hoi3.TYPE_VOID, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAIStrategy:GetAccessScore(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetAccessScore',
-		countryTag
-	)
-end  
+hoi3.f(CAIStrategy, 'GetAccessScore', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAIStrategy:GetAntagonism(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetAntagonism',
-		countryTag
-	)
-end  
+hoi3.f(CAIStrategy, 'GetAntagonism', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @return CCountry
-function CAIStrategy:GetCountry()
-	hoi3.assertNonStatic(self)
-	return self.countryTag:GetCountry()
-end  
+hoi3.f(CAIStrategy, 'GetCountry', false, 'CCountry')
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CAIStrategy:GetCountryTag()
-	hoi3.assertNonStatic(self)
-	return self.countryTag
-end  
+hoi3.f(CAIStrategy, 'GetCountryTag', false, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAIStrategy:GetFriendliness(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetFriendliness',
-		countryTag
-	)
-end  
+hoi3.f(CAIStrategy, 'GetFriendliness', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CAIStrategy:GetPersonality(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIStrategy, 'GetPersonality', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-function CAIStrategy:GetProtectionism(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetProtectionism',
-		countryTag
-	)
-end  
+hoi3.f(CAIStrategy, 'GetProtectionism', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @return table<CTheatre>
-function CAIStrategy:GetTheatres(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIStrategy, 'GetTheatres', false, 'table<CTheatre>', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return CFixedPoint
-function CAIStrategy:GetThreat(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		'CFixedPoint',
-		'GetThreat',
-		countryTag
-	)
-end  
+hoi3.f(CAIStrategy, 'GetThreat', false, 'CFixedPoint', 'CCountryTag')
+
+---
+-- @since 1.3
+-- @param unknown
+-- @return unknown
+hoi3.f(CAIStrategy, 'GetWantedSubUnits', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)  
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAIStrategy:GetWantedSubUnits(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIStrategy, 'GetWarScoreWith', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN) 
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAIStrategy:GetWarScoreWith(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIStrategy, 'GetWarTarget', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return unknown
-function CAIStrategy:GetWarTarget(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
-
----
--- @since 1.3
--- @return unknown
-function CAIStrategy:GetWarTargets(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end  
+hoi3.f(CAIStrategy, 'GetWarTargets', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CAIStrategy:IsBalanced()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsBalanced'
-	)
-end  
+hoi3.f(CAIStrategy, 'IsBalanced', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CAIStrategy:IsDiplomat()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsDiplomat'
-	)
-end  
+hoi3.f(CAIStrategy, 'IsDiplomat', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CAIStrategy:IsIndustrialist()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsIndustrialist'
-	)
-end  
+hoi3.f(CAIStrategy, 'IsIndustrialist', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CAIStrategy:IsMilitarist()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsMilitarist'
-	)
-end  
+hoi3.f(CAIStrategy, 'IsMilitarist', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CAIStrategy:IsPreparingWar()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsPreparingWar'
-	)
-end  
+hoi3.f(CAIStrategy, 'IsPreparingWar', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return bool
-function CAIStrategy:IsPreparingWarWith(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsPreparingWar',
-		countryTag
-	)
-end  
+hoi3.f(CAIStrategy, 'IsPreparingWarWith', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @param number score
 -- @return void
-function CAIStrategy:PrepareWar(countryTag, score)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
-	
-	hoi3.throwNotYetImplemented()
-end  
+hoi3.f(CAIStrategy, 'PrepareWar', false, hoi3.TYPE_VOID, 'CCountryTag', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
@@ -268,11 +149,4 @@ end
 -- @param number score
 -- @param CDecision decision
 -- @return void
-function CAIStrategy:PrepareWarDecision(countryTag, score, decision)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, score, hoi3.TYPE_NUMBER)
-	hoi3.assertParameterType(3, decision, 'CDecision')
-	
-	hoi3.throwNotYetImplemented()
-end  
+hoi3.f(CAIStrategy, 'PrepareWarDecision', false, hoi3.TYPE_VOID, 'CCountryTag', hoi3.TYPE_NUMBER, 'CDecision')

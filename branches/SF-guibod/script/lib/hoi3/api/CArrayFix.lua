@@ -22,10 +22,9 @@ end
 -- @since 1.3
 -- @param number index
 -- @return CFixedPoint 
-function CArrayFix:GetAt(index)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
-	
+hoi3.f(CArrayFix, 'GetAt', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
+
+function CArrayFix:GetAtImpl(index)
 	if index < #CArrayFix.array and 
 		CArrayFix.array[index] ~= nil then
 		return CArrayFix.array[index]
@@ -39,11 +38,9 @@ end
 -- @param number index
 -- @param CFixedPoint value
 -- @return void
-function CArrayFix:SetAt(index, value)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
-	hoi3.assertParameterType(2, value, 'CFixedPoint')
-	
+hoi3.f(CArrayFix, 'SetAt', false, hoi3.TYPE_VOID, hoi3.TYPE_NUMBER, 'CFixedPoint')
+
+function CArrayFix:SetAtImpl(index, value)
 	if index < #CArrayFix.array then
 		CArrayFix.array[index] = value
 	else

@@ -11,24 +11,9 @@ CAIPoliticsMinister.initialize = CAIAgent.initalize
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return bool
-function CAIPoliticsMinister:IsCapitalSafeToLiberate(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsCapitalSafeToLiberate',
-		countryTag
-	)
-end
+hoi3.f(CAIIntel, 'IsCapitalSafeToLiberate', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @return table<CMinister>
-function CAIPoliticsMinister:GetPossibleMinisters()
-	hoi3.assertNonStatic(self)
-	return self:loadResultOrImplOrRandom(
-		'table<CMinister>',
-		'GetPossibleMinisters'
-	)
-end
+hoi3.f(CAIIntel, 'GetPossibleMinisters', false, 'table<CMinister>')
