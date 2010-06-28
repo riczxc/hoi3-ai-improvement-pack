@@ -30,7 +30,4 @@ end
 ---
 -- @since 1.3
 -- @return CConstructUnitCommand 
-function CConstructUnitCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CConstructUnitCommand, 'Clone', false, 'CConstructUnitCommand')

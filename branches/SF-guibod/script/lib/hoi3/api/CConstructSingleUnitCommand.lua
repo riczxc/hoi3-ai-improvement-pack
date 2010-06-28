@@ -6,8 +6,5 @@ CConstructSingleUnitCommand = CCommand:subclass('hoi3.CConstructSingleUnitComman
 
 ---
 -- @since 1.3
--- @return CConstructSingleUnitCommand 
-function CConstructSingleUnitCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return CCancelUnitConstructionCommand 
+hoi3.f(CConstructSingleUnitCommand, 'Clone', false, 'CConstructSingleUnitCommand')

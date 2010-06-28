@@ -16,5 +16,7 @@ function CChangeLawCommand:initialize(actor, law, lawGroup)
 	hoi3.assertParameterType(2, law, 'CLaw')
 	hoi3.assertParameterType(3, lawGroup, 'CLawGroup')
 
-	hoi3.throwNotYetImplemented()
+	self.actor = actor
+	self.law = law
+	self.lawGroup = lawGroup
 end

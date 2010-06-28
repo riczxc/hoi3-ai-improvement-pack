@@ -16,5 +16,7 @@ function CChangeSpyMission:initialize(actor, target, spyMission)
 	hoi3.assertParameterType(2, target, 'CCountryTag')
 	hoi3.assertParameterType(3, spyMission, hoi3.TYPE_NUMBER)
 
-	hoi3.throwNotYetImplemented()
+	self.actor = actor
+	self.target = target
+	self.spyMission = spyMission
 end

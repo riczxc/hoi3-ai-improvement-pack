@@ -16,14 +16,14 @@ function CChangePriorityCommand:initialize(actor, cid, priority)
 	hoi3.assertParameterType(2, cid, 'CID')
 	hoi3.assertParameterType(3, priority, hoi3.TYPE_NUMBER)
 
-	hoi3.throwNotYetImplemented()
+	self.tag = actor
+	self.cid = cid
+	self.priority = priority
+	
 end
 
 ---
 -- @since 1.3
--- @return CChangeInvestmentCommand 
-function CChangePriorityCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return CChangePriorityCommand 
+hoi3.f(CCallAllyAction, 'Clone', false, 'CChangePriorityCommand')
 

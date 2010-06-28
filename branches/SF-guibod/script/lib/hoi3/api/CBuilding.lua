@@ -19,15 +19,21 @@ end
 ---
 -- @since 1.3
 -- @return string 
-function CBuilding:GetName()
-	hoi3.assertNonStatic(self)
+hoi3.f(CBuilding, 'GetName', false, hoi3.TYPE_STRING)
+
+function CBuilding:GetNameImpl()
 	return self.name
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CBuilding:GetIndex()
-	hoi3.assertNonStatic(self)
+hoi3.f(CBuilding, 'GetIndex', false, hoi3.TYPE_NUMBER)
+
+function CBuilding:GetIndexImpl()
 	return self.index
+end
+
+function CBuilding.random()
+	return randomTableMember(CBuilding:getInstances())
 end

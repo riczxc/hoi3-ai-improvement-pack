@@ -25,8 +25,4 @@ end
 ---
 -- @since 1.3
 -- @return CChangeInvestmentCommand 
-function CChangeInvestmentCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
+hoi3.f(CCallAllyAction, 'Clone', false, 'CChangeInvestmentCommand')

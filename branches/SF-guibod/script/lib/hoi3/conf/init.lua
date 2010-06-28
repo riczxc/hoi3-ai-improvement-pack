@@ -8,6 +8,26 @@
 
 module("hoi3.conf", package.seeall)
 
+function continentDatabase()
+	local def = {}
+	--name, ideologygroup
+	def['ASI'] = 'asia'
+	def['EUR'] = 'europe'
+	def['AFR'] = 'africa'
+	def['AME'] = 'america'
+	def['OCE'] = 'oceania'
+	
+	local db = {}
+	for k,v in pairs(def) do
+		local continent = CContinent(k,v)
+		
+		-- Save to DB
+		db[continent] = continent
+	end
+	
+	return db
+end
+
 function ideologyDatabase()
 	local def = {}
 	--name, ideologygroup
