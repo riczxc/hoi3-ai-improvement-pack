@@ -7,191 +7,117 @@ CSubUnitDefinition = hoi3.Hoi3Object:subclass('hoi3.CSubUnitDefinition')
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetBuildCostIC()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetBuildCostIC', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetBuildCostMP()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetBuildCostMP', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetBuildTime()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetBuildTime', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetCombatWidth()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetCombatWidth', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetCompletionSize()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetCompletionSize', false, hoi3.TYPE_NUMBER)
+---
+-- @since 1.3
+-- @return number
+hoi3.f(CSubUnitDefinition, 'GetDefaultStrength', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetDefaultStrength()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @return number
-function CSubUnitDefinition:GetDefensivness()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetDefensivness', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return Cstring
-function CSubUnitDefinition:GetKey()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetKey', false, 'CString')
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetIndex()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetIndex', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return string
-function CSubUnitDefinition:GetName()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetName', false, hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetSoftness()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetSoftness', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CSubUnitDefinition:GetToughness()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'GetToughness', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:CanParadrop()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'CanParadrop', false, hoi3.TYPE_BOOLEAN)
+---
+-- @since 1.3
+-- @return bool
+hoi3.f(CSubUnitDefinition, 'IsBomber', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsBomber()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsBuildable', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsBuildable()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsCag', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsCag()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsCapitalShip', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsCapitalShip()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsCarrier', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsCarrier()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsRegiment', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsRegiment()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsSecondRank', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsSecondRank()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsShip', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsShip()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsSub', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsSub()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsTransport', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CSubUnitDefinition:IsTransport()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @return bool
-function CSubUnitDefinition:IsValid()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSubUnitDefinition, 'IsValid', false, hoi3.TYPE_BOOLEAN)

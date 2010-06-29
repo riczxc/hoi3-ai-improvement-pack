@@ -9,24 +9,16 @@ CTechnologyDataBase = hoi3.AbstractObject:subclass('hoi3.CTechnologyDataBase')
 -- @static
 -- @param string folderName
 -- @return number 
-function CTechnologyDataBase.GetFolderIndex(folderName)
-	hoi3.assertParameterType(1, folderName, hoi3.TYPE_STRING)
-	
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTechnologyDataBase, 'GetFolderIndex', false, hoi3.TYPE_NUMBER, hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
 -- @static
 -- @return table<CTechnologyCategory>
-function CTechnologyDataBase.GetCategories()
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTechnologyDataBase, 'GetCategories', false, 'table<CTechnologyCategory>')
 
 ---
 -- @since 1.3
 -- @static
 -- @return table<CTechnology>
-function CTechnologyDataBase.GetTechnologies()
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTechnologyDataBase, 'GetTechnologies', false, 'table<CTechnology>')

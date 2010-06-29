@@ -6,14 +6,6 @@ CSetVariableCommand = CCommand:subclass('hoi3.CSetVariableCommand')
 
 ---
 -- @since 1.3
--- @return CChangeInvestmentCommand 
-function CSetVariableCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
----
--- @since 1.3
 -- @param CCountryTag  Which
 -- @param string Flag
 -- @param CFixedPoint bSet

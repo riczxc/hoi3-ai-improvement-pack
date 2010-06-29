@@ -17,9 +17,3 @@ function CCancelUnitConstructionCommand:initialize(countryTag, cID)
 	self.tag = countryTag
 	self.cid = cID
 end
-
----
--- @since 1.3
--- @return CCancelUnitConstructionCommand 
-hoi3.f(CCallAllyAction, 'Clone', false, 'CCancelUnitConstructionCommand')
-

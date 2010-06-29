@@ -21,9 +21,3 @@ function CChangePriorityCommand:initialize(actor, cid, priority)
 	self.priority = priority
 	
 end
-
----
--- @since 1.3
--- @return CChangePriorityCommand 
-hoi3.f(CCallAllyAction, 'Clone', false, 'CChangePriorityCommand')
-

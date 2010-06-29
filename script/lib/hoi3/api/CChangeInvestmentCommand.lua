@@ -21,8 +21,3 @@ function CChangeInvestmentCommand:initialize(actor, ...)
 
 	hoi3.throwNotYetImplemented()
 end
-
----
--- @since 1.3
--- @return CChangeInvestmentCommand 
-hoi3.f(CCallAllyAction, 'Clone', false, 'CChangeInvestmentCommand')

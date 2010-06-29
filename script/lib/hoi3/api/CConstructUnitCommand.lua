@@ -26,8 +26,3 @@ function CConstructUnitCommand:initialize(actor, orderlist, capitalProvId, quant
 
 	hoi3.throwNotYetImplemented()
 end
-
----
--- @since 1.3
--- @return CConstructUnitCommand 
-hoi3.f(CConstructUnitCommand, 'Clone', false, 'CConstructUnitCommand')

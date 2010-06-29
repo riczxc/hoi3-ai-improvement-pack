@@ -6,14 +6,6 @@ CSetFlagCommand = CCommand:subclass('hoi3.CSetFlagCommand')
 
 ---
 -- @since 1.3
--- @return CChangeInvestmentCommand 
-function CSetFlagCommand:Clone()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
----
--- @since 1.3
 -- @param CCountryTag  Which
 -- @param string Flag
 -- @param bool bSet = true
