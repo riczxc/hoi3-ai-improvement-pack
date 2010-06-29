@@ -6,24 +6,15 @@ CLawGroup = hoi3.Hoi3Object:subclass('hoi3.CLawGroup')
 
 ---
 -- @since 1.3
--- @return string
-function CLawGroup:GetIndex()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return number
+hoi3.f(CLawGroup, 'GetIndex', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
--- @return number
-function CLawGroup:GetKey()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return string
+hoi3.f(CLawGroup, 'GetKey', false, hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
 -- @return bool
-function CLawGroup:IsValid()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CLawGroup, 'IsValid', false, hoi3.TYPE_BOOLEAN)

@@ -6,11 +6,6 @@ CCountryList = CList:subclass('hoi3.CCountryList')
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return bool
-function CCountryList:IsEnemy()
-	hoi3.assertNonStatic(self)
-	return CCountryList:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsEnemy'
-	)
-end  
+hoi3.f(CCountryList, 'IsEnemy', false, hoi3.TYPE_BOOLEAN, hoi3.TYPE_UNKNOWN)

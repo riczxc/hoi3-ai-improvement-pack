@@ -97,7 +97,9 @@ function Randomizer:computeString()
 	local str = ""
 	
 	self = self or {}
-	self.len = self.len or 10
+	self.minlen = self.minlen or 10
+	self.maxlen = self.maxlen or 10
+	self.len = self.len or math.random(self.minlen,self.maxlen)
 	if self.chr == nil then
 		self.chr = {}
 		self.chr[0] = {"b","c","d","f","g","h","j","k","l","m","n","p","r","s","t","v","w","x","y","z","_"}
@@ -180,3 +182,30 @@ Randomizer.computeIterator = function(self)
 	
 	return t
 end
+
+---
+-- Named randomizer instances
+RAND_BOOL = Randomizer(hoi3.TYPE_BOOLEAN)
+
+RAND_BOOL_IMPOSSIBLE = Randomizer(hoi3.TYPE_BOOLEAN)
+RAND_BOOL_IMPOSSIBLE.perc = 0
+
+RAND_BOOL_VUNLIKELY = Randomizer(hoi3.TYPE_BOOLEAN)
+RAND_BOOL_VUNLIKELY.perc = 20
+
+RAND_BOOL_UNLIKELY = Randomizer(hoi3.TYPE_BOOLEAN)
+RAND_BOOL_UNLIKELY.perc = 40
+
+RAND_BOOL_LIKELY = Randomizer(hoi3.TYPE_BOOLEAN)
+RAND_BOOL_LIKELY.perc = 60
+
+RAND_BOOL_VLIKELY = Randomizer(hoi3.TYPE_BOOLEAN)
+RAND_BOOL_VLIKELY.perc = 80
+
+RAND_PERC = Randomizer(hoi3.TYPE_NUMBER)
+RAND_PERC.min = 0
+RAND_PERC.max = 100
+
+RAND_0TO10 = Randomizer(hoi3.TYPE_NUMBER)
+RAND_0TO10.min = 0
+RAND_0TO10.max = 10

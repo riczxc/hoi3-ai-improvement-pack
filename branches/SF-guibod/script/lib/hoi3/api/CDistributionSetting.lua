@@ -7,19 +7,13 @@ CDistributionSetting = hoi3.Hoi3Object:subclass('hoi3.CDistributionSetting')
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CDistributionSetting:GetNeeded()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CDistributionSetting, 'GetNeeded', false, 'CFixedPoint')
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CDistributionSetting:GetPercentage(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
-
+hoi3.f(CDistributionSetting, 'GetPercentage', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 CDistributionSetting._LEADERSHIP_DIPLOMACY_ = 1
 CDistributionSetting._LEADERSHIP_ESPIONAGE_ = 2

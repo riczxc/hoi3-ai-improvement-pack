@@ -11,6 +11,8 @@ local objectB = nil
 function setup()
  	objectA = hoi3.MultitonObject:subclass("test.multitonA")
  	objectB = hoi3.MultitonObject:subclass("test.multitonB")
+ 	objectC = hoi3.MultitonObject:subclass("test.multitonC")
+ 	objectC.numkeys = 3 --The first two parameters are considered as keys !
 end
 
 function teardown()
@@ -45,4 +47,23 @@ function test4()
 	obj2 = objectB("X")
 	
 	assert_not_equal(obj1,obj2)
+end
+
+function test5()
+	-- Two distinct object type don't shares the same pool
+	obj1 = objectC("X","Y","Z")
+	obj2 = objectC("X","Y","Z")
+	obj3 = objectC("X","Z","Y")
+	
+	assert_equal(obj1,obj2)
+	assert_not_equal(obj1,obj3)
+	assert_not_equal(obj2,obj3)
+	
+	local instances = objectC:getInstances()
+	for k, v in pairs(instances) do
+		assert(middleclass.instanceOf(objectC, v))
+	end
+	
+	objectC:clearInstances()
+	assert_equal(0,#objectC:getInstances())
 end

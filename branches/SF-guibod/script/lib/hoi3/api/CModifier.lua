@@ -2,7 +2,12 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CModifier = hoi3.AbstractObject:subclass('hoi3.CModifier')
+CModifier = hoi3.MultitonObject:subclass('hoi3.CModifier')
+
+function CModifier:initialize(countryTag)
+	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	self.tag = countryTag 
+end
 
 CModifier._MODIFIER_AIR_CAPACITY_	= 1
 CModifier._MODIFIER_AIR_ORGANISATION_	= 2
@@ -91,9 +96,4 @@ CModifier._MODIFIER_WAR_EXHAUSTION_	= 82
 -- @since 2.0
 -- @param number modifier
 -- @return number
-function CModifier:GetValue(modifier)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, modifier, hoi3.TYPE_NUMBER)
-	
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CMinister, 'GetValue', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)

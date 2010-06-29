@@ -11,47 +11,32 @@ CDiplomaticAction.PROPOSE	= 3
 ---
 -- @since 1.3
 -- @return number
-function CDiplomaticAction:GetAIAcceptance()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CDiplomaticAction, 'GetAIAcceptance', false)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CDiplomaticAction:GetValue(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CDiplomaticAction, 'GetValue', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CDiplomaticAction:GetType(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CDiplomaticAction, 'GetType', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomaticAction:IsValid()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CDiplomaticAction, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CDiplomaticAction:IsSelectable()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CDiplomaticAction, 'IsSelectable', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CDiplomaticAction:SetValue(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CDiplomaticAction, 'SetValue', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)

@@ -9,13 +9,6 @@
 
 module( "hoi3", package.seeall)
 
-require("hoi3.Hoi3Object")
-require("hoi3.AbstractObject")
-require("hoi3.MultitonObject")
-require("hoi3.SingletonObject")
-require("hoi3.FunctionObject")
-require("hoi3.Randomizer")
-
 TYPE_UNKNOWN 	= 'unknown'
 TYPE_VOID	 	= 'void'
 TYPE_NIL	 	= 'nil'
@@ -27,6 +20,12 @@ TYPE_FUNCTION 	= 'function'
 TYPE_THREAD 	= 'thread'
 TYPE_USERDATA 	= 'userdata'
 
+require("hoi3.Hoi3Object")
+require("hoi3.AbstractObject")
+require("hoi3.MultitonObject")
+require("hoi3.SingletonObject")
+require("hoi3.FunctionObject")
+require("hoi3.Randomizer")
 require("middleclass")
 Object = middleclass.Object
 

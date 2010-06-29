@@ -15,103 +15,48 @@ end
 ---
 -- @since 1.3
 -- @return CCountryTag
-function CFaction:GetFactionLeader()
-	hoi3.assertNonStatic(self)
-	
-	return self:loadResultOrImplOrRandom(
-		'CCountryTag',
-		'GetFactionLeader'
-	)
-end
+hoi3.f(CFaction, 'GetFactionLeader', false, 'CCountryTag')
 
 --- Faction leader is random faction member
 function CFaction:GetFactionLeaderImpl()
-	hoi3.assertNonStatic(self)
-	
-	math.randomseed(os.time)
-	local members = self:GetMembers()
-	local j = math.random(#members)
-	for i, v in pairs(members) do
-		if i == j then
-			return v
-		end
-	end
+	return randomTableMember(self:GetMembers())
 end
 
 ---
 -- @since 1.3
 -- @return CIdeologyGroup
-function CFaction:GetIdeologyGroup()
-	hoi3.assertNonStatic(self)
-	
-	return self:loadResultOrImplOrRandom(
-		'CIdeologyGroup',
-		'GetIdeologyGroup'
-	)
-end
+hoi3.f(CFaction, 'GetIdeologyGroup', false, 'CIdeologyGroup')
 
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
-function CFaction:GetMembers()
-	hoi3.assertNonStatic(self)
-	
-	return self:loadResultOrImplOrRandom(
-		'table<CCountryTag>',
-		'GetMembers'
-	)
-end
+hoi3.f(CFaction, 'GetMembers', false, 'table<CCountryTag>')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CFaction:GetNormalizedProgress()
-	hoi3.assertNonStatic(self)
-	
-	return self:loadResultOrImplOrRandom(
-		'CFixedPoint',
-		'GetNormalizedProgress'
-	)
-end
+hoi3.f(CFaction, 'GetNormalizedProgress', false, 'CFixedPoint')
 
 ---
 -- @since 1.3
 -- @derived CFaction:GetMembers()
 -- @return number
-function CFaction:GetNumberOfMembers()
-	hoi3.assertNonStatic(self)
-	
-	return self:loadResultOrImplOrRandom(
-		number,
-		'GetNumberOfMembers'
-	)
-end
+hoi3.f(CFaction, 'GetNumberOfMembers', false, hoi3.TYPE_NUMBER)
 
 function CFaction:GetNumberOfMembersImpl()
-	hoi3.assertNonStatic(self)
-	
 	return #self:GetMembers()
 end
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CFaction:GetProgress(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CFaction, 'GetProgress', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return bool
-function CFaction:IsValid()
-	hoi3.assertNonStatic(self)
-	
-	return self:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsValid'
-	)
-end
+hoi3.f(CFaction, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 -- A random CFaction is a random EXISTING factiojn !
 function CFaction.random()

@@ -7,23 +7,14 @@ CMilitaryConstruction = hoi3.Hoi3Object:subclass('hoi3.CMilitaryConstruction')
 ---
 -- @since 2.0
 -- @return bool
-function CMilitaryConstruction:IsLand()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CMilitaryConstruction, 'IsLand', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 2.0
 -- @return bool
-function CMilitaryConstruction:IsAir()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CMilitaryConstruction, 'IsAir', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 2.0
 -- @return bool
-function CMilitaryConstruction:IsNaval()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CMilitaryConstruction, 'IsNaval', false, hoi3.TYPE_BOOLEAN)

@@ -6,22 +6,11 @@ CIdeologyData = hoi3.Hoi3Object:subclass('hoi3.CIdeologyData')
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown
-function CIdeologyData:CalculateTotalSum(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
-
+hoi3.f(CIdeologyData, 'CalculateTotalSum', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 ---
 -- @since 1.3
 -- @param CIdeology ideology
 -- @return CFixedPoint
-function CIdeologyData:GetValue(ideology)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, ideology, 'CIdeology')
-	
-	return CIdeologyData:loadResultOrImplOrRandom(
-		'CFixedPoint',
-		'GetValue'
-	)
-end
+hoi3.f(CIdeologyData, 'GetValue', false, 'CFixedPoint', 'CIdeology')
