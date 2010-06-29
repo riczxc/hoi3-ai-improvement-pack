@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CLaw = hoi3.Hoi3Object:subclass('hoi3.CLaw')
+CLaw = hoi3.MultitonObject:subclass('hoi3.CLaw')
 
 function CLaw:initialize(key)
 	hoi3.assertNonStatic(self)
@@ -13,71 +13,29 @@ end
 ---
 -- @since 1.3
 -- @return CLawGroup
-function CLaw:GetGroup()
-	hoi3.assertNonStatic(self)
-	
-	return CIdeologyData:loadResultOrImplOrRandom(
-		'CLawGroup',
-		'GetGroup'
-	)
-end
+hoi3.f(CLaw, 'GetGroup', false, 'CLawGroup')
 
 ---
 -- @since 1.3
 -- @return number
-function CLaw:GetIndex()
-	hoi3.assertNonStatic(self)
-	
-	return CIdeologyData:loadResultOrImplOrRandom(
-		hoi3.TYPE_NUMBER,
-		'GetIndex'
-	)
-end
+hoi3.f(CLaw, 'GetIndex', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return string
-function CLaw:GetKey()
-	hoi3.assertNonStatic(self)
-	
-	return CIdeologyData:loadResultOrImplOrRandom(
-		hoi3.TYPE_STRING,
-		'GetKey'
-	)
-end
+hoi3.f(CLaw, 'GetKey', false, hoi3.TYPE_STRING)
 
----
--- @since 1.3
--- @return string
 function CLaw:GetKeyImpl()
-	hoi3.assertNonStatic(self)
-	
 	return self.key
 end
 
 ---
 -- @since 1.3
 -- @return bool
-function CLaw:IsValid()
-	hoi3.assertNonStatic(self)
-	
-	return CIdeologyData:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'IsValid'
-	)
-end
+hoi3.f(CLaw, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return bool
-function CLaw:ValidFor(countryTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-
-	return CIdeologyData:loadResultOrImplOrRandom(
-		hoi3.TYPE_BOOLEAN,
-		'ValidFor',
-		countryTag
-	)
-end
+hoi3.f(CLaw, 'ValidFor', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')

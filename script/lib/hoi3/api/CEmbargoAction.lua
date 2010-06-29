@@ -14,5 +14,6 @@ function CEmbargoAction:initialize(countryTagA, countryTagB)
 	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
 	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.countryTagA = countryTagA
+	self.countryTagB = countryTagB
 end

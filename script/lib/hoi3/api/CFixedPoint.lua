@@ -18,22 +18,23 @@ end
 ---
 -- @since 1.3
 -- @return number
-function CFixedPoint:Get()
-	hoi3.assertNonStatic(self)
-	return self.value
-end
+hoi3.f(CCountryTag, 'Get', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-function CFixedPoint:GetTruncated()
+hoi3.f(CCountryTag, 'GetTruncated', false, hoi3.TYPE_NUMBER)
+
+function CFixedPoint:GetTruncatedImpl()
 	return math.floor(self.value)
 end
 
 ---
 -- @since 1.3
 -- @return number
-function CFixedPoint:GetRounded()
+hoi3.f(CCountryTag, 'GetRounded', false, hoi3.TYPE_NUMBER)
+
+function CFixedPoint:GetRoundedImpl()
   	return math.floor(self.value + 0.5)
 end
 

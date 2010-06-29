@@ -33,6 +33,10 @@ end
 -- @static
 Hoi3Object.resultTable = {}
 
+Hoi3Object.clearResult = function(self)
+	 Hoi3Object.resultTable[self] = nil
+end
+
 ---
 -- Save a value for a object instance (or object definition for static method),
 -- method, and parameters.

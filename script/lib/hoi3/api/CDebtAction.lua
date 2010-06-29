@@ -14,5 +14,6 @@ function CDebtAction:initialize(actor, debtor)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, debtor, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.actor = actor
+	self.debtor = debtor
 end

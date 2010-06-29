@@ -14,31 +14,6 @@ CSendExpeditionaryForceAction.TAKE = 1
 CSendExpeditionaryForceAction.SEND = 1
 
 ---
--- @since 2.0
--- @return unknown
-function CSendExpeditionaryForceAction:GetClaimType(...)	
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-	hoi3.throwUnknownReturnType()
-end
-
----
--- @since 2.0
--- @return unknown
-function CSendExpeditionaryForceAction:GetUnit(...)	
-	hoi3.throwUnknownSignature()
-	hoi3.throwUnknownReturnType()
-end
-
----
--- @since 2.0
--- @return unknown
-function CSendExpeditionaryForceAction:GetTag(...)	
-	hoi3.throwUnknownSignature()
-	hoi3.throwUnknownReturnType()
-end
-
----
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
@@ -49,3 +24,22 @@ function CSendExpeditionaryForceAction:initialize(countryTagA, countryTagB)
 
 	hoi3.throwNotYetImplemented()
 end
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CSendExpeditionaryForceAction, 'GetClaimType', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CSendExpeditionaryForceAction, 'GetUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CSendExpeditionaryForceAction, 'GetTag', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
