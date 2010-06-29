@@ -9,6 +9,8 @@ CDecision = hoi3.MultitonObject:subclass('hoi3.CDecision')
 -- @param CString key
 -- @return CDebtAction
 function CDecision:initialize(key)
+	hoi3.assertNonStatic(self)
+	if type(key) == hoi3.TYPE_STRING then key = CString(key) end
 	hoi3.assertParameterType(1, key, 'CString')
 	
 	self.key = key
@@ -38,9 +40,5 @@ end
 hoi3.f(CDecision, 'IsPotential', false, hoi3.RAND_VUNLIKELY)
 
 function CDecision.random()
-	local r = hoi3.Randomizer(hoi3.TYPE_STRING)
-	r.minlen = 6
-	r.maxlen = 20
-	
-	return CDecision(CString(r))
+	return randomTableMember(CDecision:getInstances())
 end

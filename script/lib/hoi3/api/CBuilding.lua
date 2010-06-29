@@ -7,12 +7,10 @@ CBuilding = hoi3.MultitonObject:subclass('hoi3.CBuilding')
 -- @param number index
 -- @param string name
 -- @return string 
-function CBuilding:initialize(index, name)
+function CBuilding:initialize(name)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, index, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(2, name, hoi3.TYPE_STRING)
 	
-	self.index = index
 	self.name = name
 end
 
@@ -31,7 +29,7 @@ end
 hoi3.f(CBuilding, 'GetIndex', false, hoi3.TYPE_NUMBER)
 
 function CBuilding:GetIndexImpl()
-	return self.index
+	return self:getIndexInDictionnary(CBuilding:getInstances())
 end
 
 function CBuilding.random()

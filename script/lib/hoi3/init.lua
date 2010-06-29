@@ -135,3 +135,14 @@ function randomTableMember(table)
 		end
 	end
 end
+
+function fromIndexTableMember(table, index)
+	if type(table) ~= TYPE_TABLE then return nil end
+	if type(index) ~= TYPE_NUMBER then return nil end
+
+	for i, v in ipairs(table) do
+		if i == index then
+			return v
+		end
+	end
+end

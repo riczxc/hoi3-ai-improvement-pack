@@ -9,3 +9,7 @@ CCountryDataBase = hoi3.AbstractObject:subclass('hoi3.CCountryDataBase')
 -- @param string countryCode
 -- @return CCountryTag 
 hoi3.f(CCountryDataBase, 'GetTag', true, 'CCountryTag', hoi3.TYPE_STRING)
+
+function CCountryDataBase.GetTagImpl(tag)
+	return CCountryTag:getInstance(tag)
+end

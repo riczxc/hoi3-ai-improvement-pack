@@ -728,5 +728,5 @@ end
 
 
 function CCountry.random()
-	return CCountry:new(CCountryTag.random())
+	return randomTableMember(CCountry:getInstances())
 end
