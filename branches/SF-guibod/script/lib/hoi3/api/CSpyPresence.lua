@@ -10,40 +10,25 @@ CSpyPresence.MAX_SPY_PRIORITY = 4
 ---
 -- @since 1.3
 -- @return CDate 
-function CSpyPresence:GetLastMissionChangeDate()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSpyPresence, 'GetLastMissionChangeDate', false, 'CDate')
 
 ---
 -- @since 1.3
 -- @return number 
-function CSpyPresence:GetLevel()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSpyPresence, 'GetLevel', false, self.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number 
-function CSpyPresence:GetMission()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSpyPresence, 'GetMission', false, self.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number 
-function CSpyPresence:GetPriority()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CSpyPresence, 'GetPriority', false, self.TYPE_NUMBER)
 
 ---
 -- @since 1.3
+-- @param unknown
 -- @return unknown 
-function CSpyPresence:MissionAllowed(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-	hoi3.throwUnknownReturnType()
-end
+hoi3.f(CSpyPresence, 'MissionAllowed', false, self.TYPE_UNKNOWN, self.TYPE_UNKNOWN)

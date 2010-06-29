@@ -7,35 +7,25 @@ CSimpleRandom = hoi3.Hoi3Object:subclass('hoi3.CSimpleRandom')
 ---
 -- @since 1.3
 -- @return CFixedPoint
-function CSimpleRandom:GetFixedPoint(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CSimpleRandom, 'GetFixedPoint', false, 'GetFixedPoint')
 
 ---
 -- @since 1.3
 -- @return number
-function CSimpleRandom:GetInteger(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
-
+hoi3.f(CSimpleRandom, 'GetInteger', false, hoi3.TYPE_NUMBER)
 ---
 -- @since 1.3
 -- @return number
-function CSimpleRandom:GetNumber(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-end
+hoi3.f(CSimpleRandom, 'GetNumber', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @param number seed
 -- @return void
-function CSimpleRandom:Seed(seed)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, seed, hoi3.TYPE_NUMBER)
-	
-	hoi3.throwNotYetImplemented()
+hoi3.f(CSimpleRandom, 'Seed', false, hoi3.TYPE_VOID, hoi3.TYPE_NUMBER)
+
+function CSimpleRandom.SeedImpl(seed)
+	--TODO: find a workaround to provide non persitant values
+	self:clearResult()
 end
 
