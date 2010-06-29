@@ -10,16 +10,20 @@ module("hoi3.conf", package.seeall)
 
 function continentDatabase()
 	local def = {}
-	--name, ideologygroup
-	def['ASI'] = 'asia'
-	def['EUR'] = 'europe'
-	def['AFR'] = 'africa'
-	def['AME'] = 'america'
-	def['OCE'] = 'oceania'
+	--tag, name
+	table.insert(def,{'ASI','asia'})
+	table.insert(def,{'EUR','europe'})
+	table.insert(def,{'AFR','africa'})
+	table.insert(def,{'AME','america'})
+	table.insert(def,{'OCE','oceania'})
 	
 	local db = {}
-	for k,v in pairs(def) do
-		local continent = CContinent(k,v)
+	for i,contidef in ipairs(def) do
+		local continent = CContinent(contidef[1])
+		
+		-- Save values
+		-- GetName
+		continent:saveResult(contidef[2],CContinent.GetName)
 		
 		-- Save to DB
 		db[continent] = continent
@@ -107,8 +111,8 @@ function buildingDatabase()
 	def:insert({'nuclear_reactor'})
 	
 	local db = {}
-	for i,v in pairs(def) do
-		local building = CBuilding(i, def[i][0])
+	for i,builddef in ipairs(def) do
+		local building = CBuilding(builddef[1])
 		db[building] = building
 	end
 	

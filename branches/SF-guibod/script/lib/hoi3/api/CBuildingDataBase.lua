@@ -11,16 +11,8 @@ CBuildingDataBase = hoi3.AbstractObject:subclass('hoi3.CBuildingDataBase')
 -- @return CBuilding 
 hoi3.f(CBuildingDataBase, 'GetBuilding', true, 'CBuilding', hoi3.TYPE_STRING)
 
-function CBuildingDataBase.GetBuildingImpl(name)
-	require('hoi3.conf')
-	
-	local db = hoi3.conf.buildingDatabase()
-	for k, v in pairs(db) do
-		if v:GetName() == name then
-			return v
-		end
-	end
-	hoi3.throwDataNotFound()
+function CBuildingDataBase.GetBuildingImpl(key)
+	return CBuilding:getInstance(key)
 end
 
 ---
@@ -29,19 +21,6 @@ end
 -- @return CBuilding 
 hoi3.f(CBuildingDataBase, 'GetBuildingFromIndex', false, 'CBuilding', hoi3.TYPE_NUMBER)
 
----
---- Implementations
----
-
-
 function CBuildingDataBase.GetBuildingFromIndexImpl(index)
-	require('hoi3.conf')
-	
-	local db = hoi3.conf.buildingDatabase()
-	for k, v in pairs(db) do
-		if v:GetIndex() == index then
-			return v
-		end
-	end
-	hoi3.throwDataNotFound()
+	return fromIndexTableMember(CBuilding:GetInstances(), index)
 end

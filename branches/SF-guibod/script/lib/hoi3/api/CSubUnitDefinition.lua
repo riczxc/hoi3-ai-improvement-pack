@@ -2,7 +2,15 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CSubUnitDefinition = hoi3.Hoi3Object:subclass('hoi3.CSubUnitDefinition')
+CSubUnitDefinition = hoi3.MultitonObject:subclass('hoi3.CSubUnitDefinition')
+
+function CPersonality:initialize(key)
+	hoi3.assertNonStatic(self)
+	if type(key) == hoi3.TYPE_STRING then key = CString(key) end
+	hoi3.assertParameterType(1, key, 'CString')
+	
+	self.key = key
+end
 
 ---
 -- @since 1.3
@@ -43,10 +51,18 @@ hoi3.f(CSubUnitDefinition, 'GetDefensivness', false, hoi3.TYPE_NUMBER)
 -- @return Cstring
 hoi3.f(CSubUnitDefinition, 'GetKey', false, 'CString')
 
+function CSubUnitDefinition:GetKeyImpl()
+	return self.key
+end
+
 ---
 -- @since 1.3
 -- @return number
 hoi3.f(CSubUnitDefinition, 'GetIndex', false, hoi3.TYPE_NUMBER)
+
+function CSubUnitDefinition:GetIndexImpl()
+	return self:getIndexInDictionnary(CSubUnitDefinition:getInstances())
+end
 
 ---
 -- @since 1.3
@@ -121,3 +137,7 @@ hoi3.f(CSubUnitDefinition, 'IsTransport', false, hoi3.TYPE_BOOLEAN)
 -- @since 1.3
 -- @return bool
 hoi3.f(CSubUnitDefinition, 'IsValid', false, hoi3.TYPE_BOOLEAN)
+
+function CSubUnitDefinition.random()
+	return randomTableMember(CSubUnitDefinition:getInstances())
+end
