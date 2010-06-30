@@ -6,24 +6,15 @@ CUnit = hoi3.Hoi3Object:subclass('hoi3.CUnit')
 
 ---
 -- @since 1.3
--- @return table<CUnit> (or CSubUnitDefinition ?) 
-function CUnit:GetChildren()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return iterator<CUnit> (or CSubUnitDefinition ?) 
+hoi3.f(CUnit, 'GetChildren', false, 'iterator<CUnit>')
 
 ---
 -- @since 1.3
 -- @return CString
-function CUnit:GetName()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CUnit, 'GetName', false, 'CString')
 
 ---
 -- @since 1.3
 -- @return bool
-function CUnit:IsMoving()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CUnit, 'IsMoving', false, hoi3.TYPE_BOOLEAN)

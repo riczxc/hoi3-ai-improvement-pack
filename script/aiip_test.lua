@@ -43,20 +43,16 @@ require('ai_strategic')
 dtools.setLogContext("","DEVEL")
 
 --Run all test suites
-hoi3.testAll()
+--hoi3.testAll()
 
 --Load and create instance for some preconfigured objects (countries, continent, ...)
---require('hoi3.conf')
---hoi3.conf.generateAll()
---print(#CCountry:getInstances())
---for x in CLawDataBase.GetGroups() do
---	print(x)
---end
---[[
+require('hoi3.conf')
+hoi3.conf.generateAll()
+
 CCurrentGameState.saveResult(CCurrentGameState, 7,CCurrentGameState.GetAIRand)
 
 local minister = CAIPoliticsMinister(CCountryTag('GER'))
      
 PoliticsMinister_Tick(minister)
-]]
+
 print(tostring(hoi3.FunctionObject.numApiCalls).." api calls")
