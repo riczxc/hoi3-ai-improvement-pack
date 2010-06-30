@@ -8,77 +8,46 @@ CTradeRoute = hoi3.Hoi3Object:subclass('hoi3.CTradeRoute')
 ---
 -- @since 1.3
 -- @return CCountryTag 
-function CTradeRoute:GetConvoyResponsible()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeRoute, 'GetConvoyResponsible', false, 'CCountryTag')
 
 ---
 -- @since 1.3
--- @return CCountryTag 
-function CTradeRoute:GetFrom()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return CCountryTag
+hoi3.f(CTradeRoute, 'GetFrom', false, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @return unknown
-function CTradeRoute:GetCost(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-	hoi3.throwUnknownReturnType()
-end
+hoi3.f(CTradeRoute, 'GetCost', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return unknown
-function CTradeRoute:GetLastInactive(...)
-	hoi3.assertNonStatic(self)
-	hoi3.throwUnknownSignature()
-	hoi3.throwUnknownReturnType()
-end
+hoi3.f(CTradeRoute, 'GetLastInactive', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
--- @return CCountryTag 
-function CTradeRoute:GetTo()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return CCountryTag
+hoi3.f(CTradeRoute, 'GetTo', false, 'CCountryTag')
+
+---
+-- @since 1.3
+-- @param number goodsType
+-- @return CFixedPoint
+hoi3.f(CTradeRoute, 'GetTradedFromOf', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @param number goodsType
 -- @return CFixedPoint 
-function CTradeRoute:GetTradedFromOf(goodsType)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
-	hoi3.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @param number goodsType
--- @return CFixedPoint 
-function CTradeRoute:GetTradedToOf(goodsType)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeRoute, 'GetTradedToOf', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return bool 
-function CTradeRoute:IsInactive()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeRoute, 'IsInactive', false, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
--- @return bool 
-function CTradeRoute:IsValid()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+-- @return bool
+hoi3.f(CTradeRoute, 'IsValid', false, hoi3.TYPE_BOOLEAN)
