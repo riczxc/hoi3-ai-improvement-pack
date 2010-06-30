@@ -199,19 +199,6 @@ Randomizer.computeTable = function(self)
 	return t
 end
 
-function IterMap(table, function_)
-    if not function_ then
-        return pairs(table)
-    end
-    return function (state, index)
-        local newIndex, value = next(state, index)
-        if value then
-            return function_(newIndex, value)
-        end
-        return newIndex, value
-    end, table, nil
-end
-
 ---
 -- Named randomizer instances
 RAND_BOOL = Randomizer(hoi3.TYPE_BOOLEAN)
