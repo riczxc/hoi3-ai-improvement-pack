@@ -6,17 +6,23 @@ CChangeLawCommand = CCommand:subclass('hoi3.CChangeLawCommand')
 
 ---
 -- @since 1.3
--- @param CCountryTag actor
+-- @param CCountryTag tag
 -- @param CLaw law
--- @param CLawGroup lawGroup
+-- @param CLawGroup group
 -- @return CChangeLawCommand
-function CChangeLawCommand:initialize(actor, law, lawGroup)
+function CChangeLawCommand:initialize(tag, law, group)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	hoi3.assertParameterType(2, law, 'CLaw')
-	hoi3.assertParameterType(3, lawGroup, 'CLawGroup')
+	hoi3.assertParameterType(3, group, 'CLawGroup')
 
-	self.actor = actor
+	self.tag = tag
 	self.law = law
-	self.lawGroup = lawGroup
+	self.group = group
+end
+
+function CChangeLawCommand:desc()
+	return "Changed law to "..tostring(self.law:GetKey())..
+		" in "..tostring(self.group:GetKey()).." group"..
+		" by "..tostring(self.countryTag).."."
 end

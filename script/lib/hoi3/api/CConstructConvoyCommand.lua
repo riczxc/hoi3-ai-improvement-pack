@@ -10,13 +10,21 @@ CConstructConvoyCommand = CCommand:subclass('hoi3.CConstructConvoyCommand')
 -- @param bool isEscort (true = escort, false = convoy)
 -- @param number quantity
 -- @return CConstructConvoyCommand
-function CConstructConvoyCommand:initialize(actor, isEscort, quantity)
+function CConstructConvoyCommand:initialize(tag, isEscort, quantity)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	hoi3.assertParameterType(2, isEscort, hoi3.TYPE_BOOLEAN)
 	hoi3.assertParameterType(3, quantity, hoi3.TYPE_NUMBER)
 
-	self.actor = actor
+	self.tag = tag
 	self.isEscort = isEscort
 	self.quantity = quantity
+end
+
+function CConstructConvoyCommand:desc()
+	local str
+	
+	if self.isEscort then str = "escort" else str = "convoy" end
+	return "Issued construction of "..tostring(self.quantity).." "..str..
+		" by "..tostring(self.tag).."."
 end

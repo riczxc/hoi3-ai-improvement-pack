@@ -213,9 +213,11 @@ function CAI:PostImpl(command)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, command, 'CCommand')
 	
-	print("Command posted!")
-	--TODO: do log something in here through dtools. It is quite interresting to 
-	--have a function posted.
+	local message = tostring(command.class).." posted"
+	if type(command.desc) == hoi3.TYPE_FUNCTION then 
+		message = message.." : "..command:desc()
+	end
+	dtools.info(message)
 end
 
 ---
@@ -228,9 +230,11 @@ function CAI:PostActionImpl(action)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, action, 'CAction')
 	
-	print("Action posted!")
-	--TODO: do log something in here through dtools. It is quite interresting to 
-	--have a function posted.
+	local message = tostring(action.class).." posted"
+	if action.class.__tostring then 
+		message = message.." : "..tostring(action)
+	end
+	dtools.info(message)
 end
 
 ---
