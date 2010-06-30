@@ -31,5 +31,5 @@ function CTechnologyCategory:GetIndexImpl()
 end
 
 function CTechnologyCategory.random()
-	return randomTableMember(CTechnologyCategory:getInstances())
+	return hoi3.randomTableMember(CTechnologyCategory:getInstances())
 end

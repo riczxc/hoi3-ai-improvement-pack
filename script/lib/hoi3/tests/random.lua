@@ -19,6 +19,8 @@ function setup()
 	r.min = 2656
 	r.max = 2656
 	hoi3.f(obj, 'myRandFunctionUsingRandomizer', false, r)
+	
+	hoi3.f(obj, 'myIterator', true, 'iterator<number>')
 end
 
 function teardown()
@@ -74,27 +76,27 @@ function testTable()
 	end
 end
 
-function testIterator()	
+function testObjectTable()	
 	local r = hoi3.Randomizer('table<string>')
-	local iterator = r:compute()
+	local table = r:compute()
 	
-	assert_table(iterator)
-	assert_true(#iterator > 0)
-	for k,v in pairs(iterator) do
+	assert_table(table)
+	assert_true(#table > 0)
+	for k,v in pairs(table) do
 		assert_string(v)
 	end
 end
 
-function testConfiguredIterator()
+function testConfiguredObjectTable()
 	local r = hoi3.Randomizer(hoi3.TYPE_TABLE)
 	r.subtype = hoi3.Randomizer(hoi3.TYPE_STRING)
 	r.subtype.len = 35
 	
-	local iterator = r:compute()
+	local table = r:compute()
 	
-	assert_table(iterator)
-	assert_true(#iterator > 0)
-	for k,v in pairs(iterator) do
+	assert_table(table)
+	assert_true(#table > 0)
+	for k,v in pairs(table) do
 		assert_string(v)
 		assert_equal(35,string.len(v))
 	end
@@ -105,4 +107,14 @@ function testRandomValueThroughSave()
 	
 	assert_string(o:myRandFunctionUsingString())
 	assert_equal(2656,o:myRandFunctionUsingRandomizer())
+end
+
+function testIterator()
+	local o = obj()
+	local i = 0
+	for n in obj:myIterator() do
+		i = i + 1
+		assert_number(n)
+	end
+	assert(i > 0, "Not a single loop from iterator !")
 end

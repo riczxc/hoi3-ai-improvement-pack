@@ -16,27 +16,27 @@ function setup()
 end
 
 function testBoolean()
-	assert_true(hoi3.testType(true, 'boolean'))
-	assert_true(hoi3.testType(false, 'boolean'))
-	assert_false(hoi3.testType('string', 'boolean'))
-	assert_false(hoi3.testType(1, 'boolean'))
-	assert_false(hoi3.testType({}, 'boolean'))
+	assert_true(hoi3.testType(true, hoi3.TYPE_BOOLEAN))
+	assert_true(hoi3.testType(false, hoi3.TYPE_BOOLEAN))
+	assert_false(hoi3.testType(hoi3.TYPE_STRING, hoi3.TYPE_BOOLEAN))
+	assert_false(hoi3.testType(1, hoi3.TYPE_BOOLEAN))
+	assert_false(hoi3.testType({}, hoi3.TYPE_BOOLEAN))
 end
 
 function testString()
-	assert_true(hoi3.testType('a', 'string'))
-	assert_true(hoi3.testType('', 'string'))
-	assert_false(hoi3.testType(true, 'string'))
-	assert_false(hoi3.testType(1, 'string'))
-	assert_false(hoi3.testType({}, 'string'))
+	assert_true(hoi3.testType('a', hoi3.TYPE_STRING))
+	assert_true(hoi3.testType('', hoi3.TYPE_STRING))
+	assert_false(hoi3.testType(true, hoi3.TYPE_STRING))
+	assert_false(hoi3.testType(1, hoi3.TYPE_STRING))
+	assert_false(hoi3.testType({}, hoi3.TYPE_STRING))
 end
 
 function testNumber()
-	assert_true(hoi3.testType(0, 'number'))
-	assert_true(hoi3.testType(-120, 'number'))
-	assert_false(hoi3.testType("e", 'number'))
-	assert_false(hoi3.testType(true, 'number'))
-	assert_false(hoi3.testType({}, 'number'))
+	assert_true(hoi3.testType(0, hoi3.TYPE_NUMBER))
+	assert_true(hoi3.testType(-120, hoi3.TYPE_NUMBER))
+	assert_false(hoi3.testType("e", hoi3.TYPE_NUMBER))
+	assert_false(hoi3.testType(true, hoi3.TYPE_NUMBER))
+	assert_false(hoi3.testType({}, hoi3.TYPE_NUMBER))
 end
 
 function testObject()
@@ -47,20 +47,20 @@ function testObject()
 end
 
 function testBasicIterator()
-	local iterator = {1,2,3,4}
+	local table = {1,2,3,4}
 	
-	assert_true(hoi3.testType(iterator, 'table<number>'))
-	assert_false(hoi3.testType(iterator, 'number'))
-	assert_false(hoi3.testType(iterator, 'table<Object>'))
-	assert_false(hoi3.testType(iterator, 'table<string>'))
+	assert_true(hoi3.testType(table, 'table<number>'))
+	assert_false(hoi3.testType(table, hoi3.TYPE_NUMBER))
+	assert_false(hoi3.testType(table, 'table<Object>'))
+	assert_false(hoi3.testType(table, 'table<string>'))
 end
 
 function testObjectIterator()
-	local iterator = {myClass(),myClass:new(),myClass:new(),myClass()}
+	local table = {myClass(),myClass:new(),myClass:new(),myClass()}
 	
-	assert_true(hoi3.testType(iterator, 'table<myClass>'))
-	assert_true(hoi3.testType(iterator, 'table<Object>'))
-	assert_false(hoi3.testType(iterator, 'table<NothingButRealObject>'))
-	assert_false(hoi3.testType(iterator, 'number'))
-	assert_false(hoi3.testType(iterator, 'table<string>'))
+	assert_true(hoi3.testType(table, 'table<myClass>'))
+	assert_true(hoi3.testType(table, 'table<Object>'))
+	assert_false(hoi3.testType(table, 'table<NothingButRealObject>'))
+	assert_false(hoi3.testType(table, hoi3.TYPE_NUMBER))
+	assert_false(hoi3.testType(table, 'table<string>'))
 end

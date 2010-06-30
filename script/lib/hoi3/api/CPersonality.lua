@@ -31,5 +31,5 @@ function CPersonality:GetIndexImpl()
 end
 
 function CPersonality.random()
-	return randomTableMember(CPersonality:getInstances())
+	return hoi3.randomTableMember(CPersonality:getInstances())
 end

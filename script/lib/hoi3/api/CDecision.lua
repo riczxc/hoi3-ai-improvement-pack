@@ -31,7 +31,7 @@ end
 hoi3.f(CDecision, 'IsAllowed', false, hoi3.TYPE_BOOLEAN)
 
 function CDecision:IsAllowed()
-	return self:IsPotential() and hoi3.RAND_LIKELY.compute()
+	return self:IsPotential() and hoi3.RAND_LIKELY:compute()
 end
 
 ---
@@ -40,5 +40,5 @@ end
 hoi3.f(CDecision, 'IsPotential', false, hoi3.RAND_VUNLIKELY)
 
 function CDecision.random()
-	return randomTableMember(CDecision:getInstances())
+	return hoi3.randomTableMember(CDecision:getInstances())
 end

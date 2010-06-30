@@ -78,5 +78,5 @@ hoi3.f(CTechnology, 'IsOneLevelOnly', false, hoi3.TYPE_BOOLEAN)
 hoi3.f(CTechnology, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 function CTechnology.random()
-	return randomTableMember(CTechnology:getInstances())
+	return hoi3.randomTableMember(CTechnology:getInstances())
 end

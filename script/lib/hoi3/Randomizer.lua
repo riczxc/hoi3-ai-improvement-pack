@@ -6,15 +6,18 @@ Randomizer = Hoi3Object:subclass("hoi3.Randomizer")
 
 function Randomizer:initialize(typeAsString)
 	if Randomizer.isIteratorTypeString(typeAsString) then
-		self.type = hoi3.TYPE_TABLE
+		self.type = hoi3.TYPE_ITERATOR
 		self.subtype = Randomizer(Randomizer.getIteratorTypeFromString(typeAsString))
+	elseif Randomizer.isTableTypeString(typeAsString) then
+		self.type = hoi3.TYPE_TABLE
+		self.subtype = Randomizer(Randomizer.getTableTypeFromString(typeAsString))
 	else
 		self.type = typeAsString
 	end
 end
 
 function Randomizer:__tostring()
-	if self.type == hoi3.TYPE_TABLE and self.subtype ~= nil then
+	if (self.type == hoi3.TYPE_TABLE or self.type == hoi3.TYPE_ITERATOR) and self.subtype ~= nil then
 		return self.type.."<"..tostring(self.subtype)..">"
 	else
 		return self.type
@@ -26,6 +29,15 @@ Randomizer.isIteratorTypeString = function(str)
 end
 
 Randomizer.getIteratorTypeFromString = function(str)
+	local found0, found1, capture1 = string.find(str, hoi3.TYPE_ITERATOR.."<(%a+)>")
+	return capture1
+end
+
+Randomizer.isTableTypeString = function(str)
+	return nil ~= Randomizer.getTableTypeFromString(str)
+end
+
+Randomizer.getTableTypeFromString = function(str)
 	local found0, found1, capture1 = string.find(str, hoi3.TYPE_TABLE.."<(%a+)>")
 	return capture1
 end
@@ -56,8 +68,9 @@ function Randomizer:compute()
 	local typeAsString = self.type
 
 	-- isIteratorType support either string or table
-	if typeAsString ~= nil and typeAsString == hoi3.TYPE_TABLE then
-		return self:computeIterator()
+	-- iterator is stored and handle as a table
+	if typeAsString ~= nil and (typeAsString == hoi3.TYPE_ITERATOR or typeAsString == hoi3.TYPE_TABLE) then
+		return self:computeTable()
 	elseif typeAsString == hoi3.TYPE_FUNCTION or
 		typeAsString == hoi3.TYPE_THREAD or
 		typeAsString == hoi3.TYPE_USERDATA then
@@ -152,15 +165,18 @@ Randomizer.computeNumber = function(self)
 	
 	assert(self.min <= self.max, "Number min value > max value, can't compute randomized value")
 	
+	local number
 	if self.float ~= true then
-		return math.random(self.min, self.max)
+		number = math.random(self.min, self.max)
 	else
 		local span = self.max - self.min
-		return self.min + (math.random() * self.max)
+		number = self.min + (math.random() * self.max)
 	end	
+	dtools.debug("Randomized number content : "..tostring(number))
+	return number
 end
 
-Randomizer.computeIterator = function(self)
+Randomizer.computeTable = function(self)
 	self = self or {}
 	self.sizemin = self.sizemin or 1
 	self.sizemax = self.sizemax or 5
@@ -181,6 +197,19 @@ Randomizer.computeIterator = function(self)
 	end
 	
 	return t
+end
+
+function IterMap(table, function_)
+    if not function_ then
+        return pairs(table)
+    end
+    return function (state, index)
+        local newIndex, value = next(state, index)
+        if value then
+            return function_(newIndex, value)
+        end
+        return newIndex, value
+    end, table, nil
 end
 
 ---

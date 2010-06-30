@@ -19,7 +19,7 @@ hoi3.f(CFaction, 'GetFactionLeader', false, 'CCountryTag')
 
 --- Faction leader is random faction member
 function CFaction:GetFactionLeaderImpl()
-	return randomTableMember(self:GetMembers())
+	return hoi3.randomTableMember(self:GetMembers())
 end
 
 ---
@@ -60,5 +60,5 @@ hoi3.f(CFaction, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 -- A random CFaction is a random EXISTING factiojn !
 function CFaction.random()
-	return randomTableMember(CFaction:getInstances())
+	return hoi3.randomTableMember(CFaction:getInstances())
 end

@@ -15,20 +15,20 @@ hoi3.f(CSpyPresence, 'GetLastMissionChangeDate', false, 'CDate')
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CSpyPresence, 'GetLevel', false, self.TYPE_NUMBER)
+hoi3.f(CSpyPresence, 'GetLevel', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CSpyPresence, 'GetMission', false, self.TYPE_NUMBER)
+hoi3.f(CSpyPresence, 'GetMission', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CSpyPresence, 'GetPriority', false, self.TYPE_NUMBER)
+hoi3.f(CSpyPresence, 'GetPriority', false, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown 
-hoi3.f(CSpyPresence, 'MissionAllowed', false, self.TYPE_UNKNOWN, self.TYPE_UNKNOWN)
+hoi3.f(CSpyPresence, 'MissionAllowed', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)

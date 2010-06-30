@@ -33,5 +33,5 @@ function CBuilding:GetIndexImpl()
 end
 
 function CBuilding.random()
-	return randomTableMember(CBuilding:getInstances())
+	return hoi3.randomTableMember(CBuilding:getInstances())
 end

@@ -36,5 +36,5 @@ end
 hoi3.f(CLawGroup, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 function CLawGroup.random()
-	return randomTableMember(CLawGroup:getInstances())
+	return hoi3.randomTableMember(CLawGroup:getInstances())
 end
