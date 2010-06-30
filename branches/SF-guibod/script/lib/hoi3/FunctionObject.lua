@@ -51,6 +51,13 @@ function FunctionObject:runImpl(...)
 	end
 end
 
+-- This boolean static property serves to define
+-- whereas we are running a nested API call or not
+FunctionObject.isRunningApiCall = false
+-- This static property is incremented each time
+-- a non-nested api call is triggered.
+FunctionObject.numApiCalls = 0
+
 function FunctionObject:__call(s, ...)
 	hoi3.assertNonStatic(self)
 	
@@ -59,6 +66,13 @@ function FunctionObject:__call(s, ...)
 	end
 	
 	local myparams = {...}
+	local ret
+	local isnestedapicall = false
+	if FunctionObject.isRunningApiCall == true then
+		isnestedapicall = true
+	else
+		FunctionObject.isRunningApiCall = true
+	end
 	
 	-- if this function is static, 1st parameter is
 	-- not caller object self instance reference. 
@@ -81,10 +95,17 @@ function FunctionObject:__call(s, ...)
 	end
 	
 	if self.static == true then
-		return self.myclass.loadResultOrImplOrRandom(
+		ret1, ret2, ret3 = self.myclass.loadResultOrImplOrRandom(
 			self.myclass, self, s, ...
 		)
 	else
-		return s:loadResultOrImplOrRandom(self, ...)
+		ret1, ret2, ret3 = s:loadResultOrImplOrRandom(self, ...)
 	end
+	
+	if not(isnestedapicall) then
+		FunctionObject.isRunningApiCall = false
+		FunctionObject.numApiCalls = FunctionObject.numApiCalls + 1 
+	end
+	
+	return ret1, ret2, ret3
 end

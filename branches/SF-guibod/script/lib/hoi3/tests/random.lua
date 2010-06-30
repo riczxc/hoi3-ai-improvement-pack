@@ -20,7 +20,8 @@ function setup()
 	r.max = 2656
 	hoi3.f(obj, 'myRandFunctionUsingRandomizer', false, r)
 	
-	hoi3.f(obj, 'myIterator', true, 'iterator<number>')
+	hoi3.f(obj, 'myStaticIterator', true, 'iterator<number>')
+	hoi3.f(obj, 'myIterator', false, 'iterator<number>')
 end
 
 function teardown()
@@ -112,7 +113,15 @@ end
 function testIterator()
 	local o = obj()
 	local i = 0
-	for n in obj:myIterator() do
+	
+	for n in obj.myStaticIterator() do
+		i = i + 1
+		assert_number(n)
+	end
+	assert(i > 0, "Not a single loop from static iterator !")
+	
+	local i = 0
+	for n in o:myIterator() do
 		i = i + 1
 		assert_number(n)
 	end
