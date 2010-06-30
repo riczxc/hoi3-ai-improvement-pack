@@ -9,11 +9,15 @@ CCancelUnitConstructionCommand = CCommand:subclass('hoi3.CCancelUnitConstruction
 -- @param CCountryTag countryTag
 -- @param CID cID
 -- @return CCancelUnitConstructionCommand
-function CCancelUnitConstructionCommand:initialize(countryTag, cID)
+function CCancelUnitConstructionCommand:initialize(tag, cid)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, cID, 'CID')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, cid, 'CID')
 
-	self.tag = countryTag
-	self.cid = cID
+	self.tag = tag
+	self.cid = cid
+end
+
+function CCancelUnitConstructionCommand:desc()
+	return "Unit construction "..tostring(self.cid).." canceled by "..tostring(self.tag).."."
 end

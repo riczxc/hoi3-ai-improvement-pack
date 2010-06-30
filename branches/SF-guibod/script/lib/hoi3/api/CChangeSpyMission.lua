@@ -6,17 +6,40 @@ CChangeSpyMission = CCommand:subclass('hoi3.CChangeSpyMission')
 
 ---
 -- @since 1.3
--- @param CCountryTag actor
+-- @param CCountryTag tag
 -- @param CCountryTag target
--- @param number spyMission
+-- @param number mission
 -- @return CChangeSpyMission
-function CChangeSpyMission:initialize(actor, target, spyMission)
+function CChangeSpyMission:initialize(tag, target, mission)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	hoi3.assertParameterType(2, target, 'CCountryTag')
-	hoi3.assertParameterType(3, spyMission, hoi3.TYPE_NUMBER)
+	hoi3.assertParameterType(3, mission, hoi3.TYPE_NUMBER)
 
-	self.actor = actor
+	self.tag = tag
 	self.target = target
-	self.spyMission = spyMission
+	self.mission = mission
+end
+
+function CChangeSpyMission:desc()
+	local m = {}
+	m[1] = "SPYMISSION_BOOST_OUR_PARTY"
+	m[2] = "SPYMISSION_BOOST_RULING_PARTY"
+	m[3] = "SPYMISSION_COUNTER_ESPIONAGE"
+	m[4] = "SPYMISSION_DISRUPT_PRODUCTION"
+	m[5] = "SPYMISSION_DISRUPT_RESEARCH"
+	m[6] = "SPYMISSION_INCREASE_THREAT"
+	m[7] = "SPYMISSION_LOWER_NATIONAL_UNITY"
+	m[8] = "SPYMISSION_LOWER_NEUTRALITY"
+	m[9] = "SPYMISSION_MAX"
+	m[10] = "SPYMISSION_MILITARY"
+	m[11] = "SPYMISSION_NONE"
+	m[12] = "SPYMISSION_POLITICAL"
+	m[13] = "SPYMISSION_RAISE_NATIONAL_UNITY"
+	m[14] = "SPYMISSION_SUPPORT_RESISTANCE"
+	m[15] = "SPYMISSION_TECH"
+	
+	return "Spy mission changed toward "..tostring(self.target).." to "..
+		tostring(m[self.mission] or "UNKNOWN INDEX")..
+		" by "..tostring(self.countryTag).."."
 end
