@@ -47,5 +47,5 @@ hoi3.f(CLaw, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 hoi3.f(CLaw, 'ValidFor', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
 
 function CLaw.random()
-	return randomTableMember(CLaw:getInstances())
+	return hoi3.randomTableMember(CLaw:getInstances())
 end

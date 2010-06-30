@@ -55,5 +55,5 @@ hoi3.f(CCountryTag, 'IsValid', false, hoi3.RAND_BOOL_VLIKELY)
 
 -- A random CountryTag is a random EXISTING tag !
 function CCountryTag.random()
-	return randomTableMember(CCountryTag:getInstances())
+	return hoi3.randomTableMember(CCountryTag:getInstances())
 end

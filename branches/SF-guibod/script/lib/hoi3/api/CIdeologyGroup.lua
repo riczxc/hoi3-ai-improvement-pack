@@ -31,5 +31,5 @@ hoi3.f(CIdeologyGroup, 'GetPosition', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOW
 
 -- A random CIdeologyGroup is a random EXISTING ideology group !
 function CIdeologyGroup.random()
-	return randomTableMember(CIdeologyGroup:getInstances())
+	return hoi3.randomTableMember(CIdeologyGroup:getInstances())
 end

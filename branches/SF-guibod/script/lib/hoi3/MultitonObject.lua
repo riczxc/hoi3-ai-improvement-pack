@@ -14,7 +14,7 @@ MultitonObject.new = function(theClass, key1, key2, key3, ...)
   	
   	-- Force table creation
   	MultitonObject.instances[theClass] = MultitonObject.instances[theClass] or {}
-  
+  	
   	--
   	local doCreate = false
   	if numkeys >= 1 and MultitonObject.instances[theClass][key1] == nil then
@@ -48,47 +48,44 @@ MultitonObject.new = function(theClass, key1, key2, key3, ...)
   	return MultitonObject.getInstance(theClass, key1, key2, key3)
 end
 
-MultitonObject.getInstance = function(theClass, key1, key2, key3)
+function MultitonObject:getInstance(key1, key2, key3)
 	local params = {key1, key2, key3}
-  	local numkeys = theClass.numkeys or 1
+  	local numkeys = self.numkeys or 1
   	assert(1<=numkeys and numkeys<=4, "Multiton numkeys property must be between 1 and 3")
   	assert(#params >= numkeys, "Multiton constructor requires "..tostring(numkeys).." keys parameters, "..tostring(#params).." given.")
   	
-  	if MultitonObject.instances[theClass] ~= nil and
-		MultitonObject.instances[theClass][key1] ~= nil then
+  	if MultitonObject.instances[self] ~= nil and
+		MultitonObject.instances[self][key1] ~= nil then
 		
 		if numkeys == 1 then
-			return MultitonObject.instances[theClass][key1]
+			return MultitonObject.instances[self][key1]
 		end
 		
-		if MultitonObject.instances[theClass][key1][key2] ~= nil then
+		if MultitonObject.instances[self][key1][key2] ~= nil then
 			if numkeys == 2 then
-				return MultitonObject.instances[theClass][key1][key2]
+				return MultitonObject.instances[self][key1][key2]
 			end
 		
-			if MultitonObject.instances[theClass][key1][key2][key3] ~= nil then
+			if MultitonObject.instances[self][key1][key2][key3] ~= nil then
 				if numkeys == 3 then
-					return MultitonObject.instances[theClass][key1][key2][key3]
+					return MultitonObject.instances[self][key1][key2][key3]
 				end
 			end
 		end
 	end
 end 
 
-MultitonObject.getInstances = function(theClass)
-	local numkeys = theClass.numkeys or 1
-	
-	if numkeys == 1 then
-		-- Simple case, return the flat instance array
-		return MultitonObject.instances[theClass]
-	else
-		-- return a flatten X dimension array, as an array of instances
-		return MultitonObject._getInstancesRecursor(MultitonObject.instances[theClass], numkeys)
-	end
+function MultitonObject:clearInstances()
+	MultitonObject.instances[self] = {}
 end
 
-MultitonObject.clearInstances = function(theClass)
-	MultitonObject.instances[theClass] = {}
+-- instance table returns a table of instance using instance as its own-key
+-- this is VERY important for iterator with value only such the one
+-- returned by HOI3 api.
+function MultitonObject:getInstances()
+	local numkeys = self.numkeys or 1
+	
+	return MultitonObject._getInstancesRecursor(MultitonObject.instances[self], numkeys)
 end
 
 MultitonObject._getInstancesRecursor = function(ref, level, db)
@@ -97,7 +94,7 @@ MultitonObject._getInstancesRecursor = function(ref, level, db)
 		if level > 1 then
 			db = MultitonObject._getInstancesRecursor(v, (level - 1), db)
 		else
-			table.insert(db, v)
+			db[v] = v
 		end
 	end
 	return db

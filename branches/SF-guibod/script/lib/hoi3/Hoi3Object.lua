@@ -4,14 +4,18 @@ module( "hoi3", package.seeall)
 
 Hoi3Object = middleclass.class('hoi3.Hoi3Object')
 
---[[
-	Easy way to define constant result for the same call 
-	signature on the same instance of the same object.
-]]
-
 function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
-	hoi3.assertReturnType(returnValue, typeAsString)
-	return returnValue
+	-- special case, transform a table (table) into iterator (func, table)
+	-- this is a workaround in order to avoid support for multiple result
+	-- caching as well as caching function references...
+	-- An HOI3 iterator is not an array (ipairs) or dictionnary (pairs) but a true list (next)
+	if hoi3.Randomizer.isIteratorTypeString(typeAsString) then
+		hoi3.assertReturnType(returnValue, hoi3.TYPE_TABLE.."<"..hoi3.Randomizer.getIteratorTypeFromString(typeAsString)..">")
+		return next, returnValue, nil
+	else
+		hoi3.assertReturnType(returnValue, typeAsString)
+		return returnValue
+	end
 end
 
 ---
@@ -45,6 +49,7 @@ Hoi3Object.saveResult = function(self, value, method, ...)
 		middleclass.subclassOf(hoi3.Hoi3Object, self), "Unable to recover value. Unknown object or class.")
 	assert(middleclass.instanceOf(hoi3.FunctionObject, method), "Unable to recover value. Unknown function or method.")
 	
+	
 	local hash = Hoi3Object.hashArgs(...)
 	if Hoi3Object.resultTable[self] == nil then
 		Hoi3Object.resultTable[self] = {}
@@ -52,7 +57,7 @@ Hoi3Object.saveResult = function(self, value, method, ...)
 	if Hoi3Object.resultTable[self][method] == nil then
 		Hoi3Object.resultTable[self][method] = {}
 	end
-	
+		
 	--dtools.debug("Result cached for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(value))
 	Hoi3Object.resultTable[self][method][hash] = value
 end
@@ -109,7 +114,7 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, fObj, ...)
 		)
 	end
 	
-	-- No real method result, we'll have to compute value
+	-- No cached method result, we'll have to compute value
 	-- (either by Impl method or randomized result)
 	-- and to cheat it as real function result.
 	local computedValue
@@ -129,37 +134,14 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, fObj, ...)
 	
 	if computedValue ~= nil then
 		-- Now cache results as if it was the original function/method result
-		local hash = Hoi3Object.hashArgs(...)
-		if Hoi3Object.resultTable[self] == nil then
-			Hoi3Object.resultTable[self] = {}
-		end
-		if Hoi3Object.resultTable[self][fObj] == nil then
-			Hoi3Object.resultTable[self][fObj] = {}
-		end
-		Hoi3Object.resultTable[self][fObj][hash] = computedValue
+		self:saveResult(computedValue, fObj, ...)
 		
 		-- And return (with a test on returned value type)
 		return Hoi3Object.assertReturnTypeAndReturn(
-			Hoi3Object.resultTable[self][fObj][hash],
+			computedValue,
 			fObj.ret:__tostring()
 		)
 	else
 		return nil
 	end 
 end
-
---- 
--- Find object index in a dictionnary
--- @param table dict
--- @return number (or nil if not in table)
-function Hoi3Object.getIndexInDictionnary(dict)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, dict, hoi3.TYPE_TABLE)
-	
-	for i, v in dict do
-		if v == self then
-			return i
-		end
-	end
-end
-

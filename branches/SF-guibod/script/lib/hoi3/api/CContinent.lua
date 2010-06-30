@@ -28,5 +28,5 @@ function CContinent:GetTagImpl()
 end
 
 function CContinent.random()
-	return randomTableMember(CContinent:getInstances())
+	return hoi3.randomTableMember(CContinent:getInstances())
 end

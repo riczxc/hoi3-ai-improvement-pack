@@ -104,5 +104,5 @@ hoi3.f(CProvince, 'IsFrontProvince', false, hoi3.TYPE_BOOLEAN, hoi3.TYPE_BOOLEAN
 
 -- A random CProvince is a random EXISTING tag !
 function CProvince.random()
-	return randomTableMember(CProvince:getInstances())
+	return hoi3.randomTableMember(CProvince:getInstances())
 end

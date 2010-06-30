@@ -6,7 +6,7 @@ CCountry = hoi3.MultitonObject:subclass('hoi3.CCountry')
 
 ---
 -- @param CCountryTag countryTag
-function CCountry:initalize(countryTag)
+function CCountry:initialize(countryTag)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
@@ -341,7 +341,7 @@ hoi3.f(CCountry, 'GetNavalBases', false, 'table<CProvince>')
 ---
 -- @since 1.3
 -- @return table<CCountryTag>
-hoi3.f(CCountry, 'GetNeighbours', false, 'table<CCountryTag>')
+hoi3.f(CCountry, 'GetNeighbours', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.3
@@ -477,6 +477,11 @@ hoi3.f(CCountry, 'GetStrategicWarfare', false, 'CStrategicWarfare')
 -- @since 1.3
 -- @return CAIStrategy
 hoi3.f(CCountry, 'GetStrategy', false, 'CAIStrategy')
+
+function CCountry:GetStrategyImpl()
+	return CAIStrategy(self:GetCountryTag())
+end
+
 
 ---
 -- @since 1.3
@@ -646,7 +651,7 @@ hoi3.f(CCountry, 'IsEnemy', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
 hoi3.f(CCountry, 'IsFactionLeader', false, hoi3.TYPE_BOOLEAN)
 
 function CCountry:IsFactionLeaderImpl()
-	for faction in CFaction.getInstances() do
+	for faction in CFaction:getInstances() do
 		if faction:GetFactionLeader() == self:GetCountryTag() then
 			return true
 		end
@@ -681,7 +686,7 @@ end
 hoi3.f(CCountry, 'IsMobilized', false, hoi3.TYPE_BOOLEAN)
 
 function CCountry:IsMobilized()
-	return self:IsAtWar() or hoi3.RAND_BOOL_VUNLIKELY.compute()
+	return self:IsAtWar() or hoi3.RAND_BOOL_VUNLIKELY:compute()
 end
 
 ---
@@ -728,5 +733,5 @@ end
 
 
 function CCountry.random()
-	return randomTableMember(CCountry:getInstances())
+	return hoi3.randomTableMember(CCountry:getInstances())
 end

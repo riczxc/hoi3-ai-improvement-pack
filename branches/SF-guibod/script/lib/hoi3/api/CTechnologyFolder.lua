@@ -36,5 +36,5 @@ end
 hoi3.f(CTechnologyFolder, 'IsValid', false, hoi3.RAND_BOOL_VLIKELY)
 
 function CTechnologyFolder.random()
-	return randomTableMember(CTechnologyFolder:getInstances())
+	return hoi3.randomTableMember(CTechnologyFolder:getInstances())
 end

@@ -19,6 +19,7 @@ TYPE_TABLE	 	= 'table'
 TYPE_FUNCTION 	= 'function'
 TYPE_THREAD 	= 'thread'
 TYPE_USERDATA 	= 'userdata'
+TYPE_ITERATOR 	= 'iterator'
 
 require("hoi3.Hoi3Object")
 require("hoi3.AbstractObject")
@@ -35,9 +36,10 @@ Object = middleclass.Object
 function testType(value, typeAsString)
 	local t = type(value)
 	
-	if Randomizer.isIteratorTypeString(typeAsString) then
+	if Randomizer.isTableTypeString(typeAsString) or
+		Randomizer.isIteratorTypeString(typeAsString) then
 		if(t~=TYPE_TABLE) then return false end
-		local myType = Randomizer.getIteratorTypeFromString(typeAsString)
+		local myType = Randomizer.getTableTypeFromString(typeAsString)
 		for i,v in pairs(value) do
 			if not testType(v, myType) then
 				return false
@@ -49,6 +51,9 @@ function testType(value, typeAsString)
 		typeAsString==TYPE_STRING or 
 		typeAsString==TYPE_BOOLEAN then
 		return t==typeAsString
+	elseif typeAsString == TYPE_ITERATOR then
+		return t==TYPE_FUNCTION or 
+			(t==TYPE_TABLE and type(getmetatable(t).__call)==TYPE_FUNCTION )
 	elseif t == TYPE_TABLE then
 		-- Where to find class definition ?
 		-- inside hoi3 package objects
@@ -126,8 +131,9 @@ end
 
 function randomTableMember(table)
 	if type(table) ~= TYPE_TABLE then return nil end
+	if #table == 0 then return nil end
 	
-	math.randomseed(os.time)
+	Randomizer.seed()
 	local j = math.random(#table)
 	for i, v in pairs(table) do
 		if i == j then

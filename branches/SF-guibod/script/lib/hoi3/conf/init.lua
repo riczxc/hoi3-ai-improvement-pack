@@ -8,7 +8,16 @@
 
 module("hoi3.conf", package.seeall)
 
-function continentDatabase()
+function generateAll()
+	generateContinentDatabase()
+	generateIdeologyDatabase()
+	generateFactionDatabase()
+	generateBuildingDatabase()
+	generateLawDatabase()
+	generateCountryDatabase()
+end
+
+function generateContinentDatabase()
 	local def = {}
 	--tag, name
 	table.insert(def,{'ASI','asia'})
@@ -32,7 +41,7 @@ function continentDatabase()
 	return db
 end
 
-function ideologyDatabase()
+function generateIdeologyDatabase()
 	local def = {}
 	--name, ideologygroup
 	table.insert(def,{'national_socialist','fascism'})
@@ -52,7 +61,7 @@ function ideologyDatabase()
 		
 		-- Save values
 		-- GetIdeologyGroup
-		ideology:saveResult(CIdeologyGroup(factdef[2]),CIdeology.GetIdeologyGroup)
+		ideology:saveResult(CIdeologyGroup(ideodef[2]),CIdeology.GetGroup)
 		
 		-- Save to DB
 		db[ideology] = ideology
@@ -61,7 +70,7 @@ function ideologyDatabase()
 	return db
 end
 
-function factionDatabase()
+function generateFactionDatabase()
 	local def = {}
 	--name, leadertag, members, valid, ideologygroup
 	table.insert(def,{'cominterm','SOV',{'SOV'},true,'communism'})
@@ -96,19 +105,19 @@ function factionDatabase()
 	return db
 end
 
-function buildingDatabase()
+function generateBuildingDatabase()
 	local def = {}
-	def:insert({'air_base'})
-	def:insert({'air_base'})
-	def:insert({'naval_base'})
-	def:insert({'radar_station'})
-	def:insert({'land_fort'})
-	def:insert({'coastal_fort'})
-	def:insert({'anti_air'})
-	def:insert({'industry'})
-	def:insert({'infra'})
-	def:insert({'rocket_test'})
-	def:insert({'nuclear_reactor'})
+	table.insert(def,{'air_base'})
+	table.insert(def,{'air_base'})
+	table.insert(def,{'naval_base'})
+	table.insert(def,{'radar_station'})
+	table.insert(def,{'land_fort'})
+	table.insert(def,{'coastal_fort'})
+	table.insert(def,{'anti_air'})
+	table.insert(def,{'industry'})
+	table.insert(def,{'infra'})
+	table.insert(def,{'rocket_test'})
+	table.insert(def,{'nuclear_reactor'})
 	
 	local db = {}
 	for i,builddef in ipairs(def) do
@@ -119,63 +128,60 @@ function buildingDatabase()
 	return db
 end
 
-function lawDatabase()
+function generateLawDatabase()
 	local def = {}
 	-- index, name, group
 	
-	def:insert({'open_society', 1, 'civil_law'})
-	def:insert({'limited_restrictions', 2, 'civil_law'})
-	def:insert({'repression', 3, 'civil_law'})
-	def:insert({'totalitarian_system',  4, 'civil_law'})
+	table.insert(def,{'open_society', 1, 'civil_law'})
+	table.insert(def,{'limited_restrictions', 2, 'civil_law'})
+	table.insert(def,{'repression', 3, 'civil_law'})
+	table.insert(def,{'totalitarian_system',  4, 'civil_law'})
 
-	def:insert({'volunteer_army',  6, 'conscription_law'})
-	def:insert({'one_year_draft',  7, 'conscription_law'})
-	def:insert({'two_year_draft',  8, 'conscription_law'})
-	def:insert({'three_year_draft',  9, 'conscription_law'})
-	def:insert({'service_by_requirement',  10, 'conscription_law'})
+	table.insert(def,{'volunteer_army',  6, 'conscription_law'})
+	table.insert(def,{'one_year_draft',  7, 'conscription_law'})
+	table.insert(def,{'two_year_draft',  8, 'conscription_law'})
+	table.insert(def,{'three_year_draft',  9, 'conscription_law'})
+	table.insert(def,{'service_by_requirement',  10, 'conscription_law'})
 
-	def:insert({'full_civilian_economy',  11, 'economic_law'})
-	def:insert({'basic_mobilisation',  12, 'economic_law'})
-	def:insert({'full_mobilisation',  13, 'economic_law'})
-	def:insert({'war_economy',  14, 'economic_law'})
-	def:insert({'total_economic_mobilisation',  15, 'economic_law'})
+	table.insert(def,{'full_civilian_economy',  11, 'economic_law'})
+	table.insert(def,{'basic_mobilisation',  12, 'economic_law'})
+	table.insert(def,{'full_mobilisation',  13, 'economic_law'})
+	table.insert(def,{'war_economy',  14, 'economic_law'})
+	table.insert(def,{'total_economic_mobilisation',  15, 'economic_law'})
 
-	def:insert({'minimal_education_investment',  16, 'education_investment_law'})
-	def:insert({'average_education_investment',  17, 'education_investment_law'})
-	def:insert({'medium_large_education_investment',  18, 'education_investment_law'})
-	def:insert({'big_education_investment',  19, 'education_investment_law'})
+	table.insert(def,{'minimal_education_investment',  16, 'education_investment_law'})
+	table.insert(def,{'average_education_investment',  17, 'education_investment_law'})
+	table.insert(def,{'medium_large_education_investment',  18, 'education_investment_law'})
+	table.insert(def,{'big_education_investment',  19, 'education_investment_law'})
 	
-	def:insert({'consumer_product_orientation',  20, 'industrial_policy_laws'})
-	def:insert({'mixed_industry',  21, 'industrial_policy_laws'})
-	def:insert({'heavy_industry_emphasis',  22, 'industrial_policy_laws'})
+	table.insert(def,{'consumer_product_orientation',  20, 'industrial_policy_laws'})
+	table.insert(def,{'mixed_industry',  21, 'industrial_policy_laws'})
+	table.insert(def,{'heavy_industry_emphasis',  22, 'industrial_policy_laws'})
 
-	def:insert({'free_press',  23, 'press_laws'})
-	def:insert({'censored_press',  24, 'press_laws'})
-	def:insert({'state_press',  25, 'press_laws'})
-	def:insert({'propaganda_press',  26, 'press_laws'})
+	table.insert(def,{'free_press',  23, 'press_laws'})
+	table.insert(def,{'censored_press',  24, 'press_laws'})
+	table.insert(def,{'state_press',  25, 'press_laws'})
+	table.insert(def,{'propaganda_press',  26, 'press_laws'})
 
-	def:insert({'minimal_training',  27, 'training_laws'})
-	def:insert({'basic_training',  28, 'training_laws'})
-	def:insert({'advanced_training',  29, 'training_laws'})
-	def:insert({'specialist_training',  30, 'training_laws'})
+	table.insert(def,{'minimal_training',  27, 'training_laws'})
+	table.insert(def,{'basic_training',  28, 'training_laws'})
+	table.insert(def,{'advanced_training',  29, 'training_laws'})
+	table.insert(def,{'specialist_training',  30, 'training_laws'})
 	
 	local db = {}
 	for i,lawdef in pairs(def) do
-		local law = CLaw(i, v[1])
+		local law = CLaw(lawdef[1])
 		
 		-- GetGroup
 		law:saveResult(CLawGroup(lawdef[3]),CLaw.GetGroup)
-		
-		-- GetIndex
-		law:saveResult(lawdef[2],CLaw.GetIndex)
-		
-		db[building] = building
+				
+		db[law] = law
 	end
 	
 	return db
 end
 
-function countryDatabase()
+function generateCountryDatabase()
 	-- key is country TAG string
 	-- value is Ccountry
 	
@@ -297,18 +303,17 @@ function countryDatabase()
 		-- CCountry
 		-- GetOverlord
 		if ctyDef[5] ~= nil then
-			tag:saveResult(CCountryTag(ctyDef[5]),CCountry.GetOverlord)
-			tag:saveResult(true,CCountry.isPuppet)
-			tag:saveResult(true,CCountry.IsSubject)
+			cty:saveResult(CCountryTag(ctyDef[5]),CCountry.GetOverlord)
+			cty:saveResult(true,CCountry.isPuppet)
+			cty:saveResult(true,CCountry.IsSubject)
 		else
-			tag:saveResult(CNullTag(),CCountry.GetOverlord)
-			tag:saveResult(false,CCountry.isPuppet)
-			tag:saveResult(false,CCountry.IsSubject)
+			cty:saveResult(CNullTag(),CCountry.GetOverlord)
+			cty:saveResult(false,CCountry.isPuppet)
+			cty:saveResult(false,CCountry.IsSubject)
 		end
-		 
+
 		-- Save reference to db  
 		db[cty] = cty
 	end
-
 	return db
 end

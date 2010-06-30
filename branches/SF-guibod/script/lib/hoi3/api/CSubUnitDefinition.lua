@@ -139,5 +139,5 @@ hoi3.f(CSubUnitDefinition, 'IsTransport', false, hoi3.TYPE_BOOLEAN)
 hoi3.f(CSubUnitDefinition, 'IsValid', false, hoi3.TYPE_BOOLEAN)
 
 function CSubUnitDefinition.random()
-	return randomTableMember(CSubUnitDefinition:getInstances())
+	return hoi3.randomTableMember(CSubUnitDefinition:getInstances())
 end

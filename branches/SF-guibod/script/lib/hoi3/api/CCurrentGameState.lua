@@ -14,8 +14,8 @@ hoi3.f(CCurrentGameState, 'GetAIRand', true, hoi3.RAND_PERC)
 ---
 -- @since 1.3
 -- @static
--- @return table<CCountry> 
-hoi3.f(CCurrentGameState, 'GetCountries', true, 'table<CCountry>')
+-- @return iterator<CCountry> 
+hoi3.f(CCurrentGameState, 'GetCountries', true, 'iterator<CCountry>')
 
 function CCurrentGameState.GetCountriesImpl()
 	return CCountry:getInstances()
