@@ -6,75 +6,50 @@ CTradeAction = CDiplomaticAction:subclass('hoi3.CTradeAction')
 
 ---
 -- @since 1.3
--- @param CCountryTag countryTagA
--- @param CCountryTag countryTagB
+-- @param CCountryTag tag
+-- @param CCountryTag target
 -- @return CTradeAction
-function CTradeAction:initialize(countryTagA, countryTagB)
+function CTradeAction:initialize(tag, target)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.target = target
 end
 
 ---
 -- @since 1.3
 -- @return CTradeRoute 
-function CSpyPresence:GetRoute()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
-
----
--- @since 1.3
--- @return CTradeRoute 
-function CSpyPresence:GetRoute()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeAction, 'GetRoute', true, 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @param number goodsType
 -- @param CCountryTag  ministerTag
 -- @return CFixedPoint 
-function CSpyPresence:GetTrading(goodsType, ministerTag)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
-	hoi3.assertParameterType(2, ministerTag, 'CCountryTag')
-	
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeAction, 'GetTrading', true, 'CFixedPoint', hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @return bool 
-function CSpyPresence:IsConvoyPossible()
-	hoi3.assertNonStatic(self)
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeAction, 'IsConvoyPossible', true, hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CTradeRoute  route
 -- @return void 
-function CSpyPresence:SetRoute(route)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, route, 'CTradeRoute')
-	
-	hoi3.throwNotYetImplemented()
-end
+hoi3.f(CTradeAction, 'SetRoute', true, hoi3.TYPE_VOID, 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @param CFixedPoint  amount
 -- @param number goodsType
 -- @return void 
-function CSpyPresence:SetTrading(amount, goodsType)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, amount, 'CFixedPoint')
-	hoi3.assertParameterType(1, goodsType, hoi3.TYPE_NUMBER)
-	
-	hoi3.throwNotYetImplemented()
+hoi3.f(CTradeAction, 'SetTrading', true, hoi3.TYPE_VOID, 'CFixedPoint', hoi3.TYPE_NUMBER)
+
+function CTradeAction:desc()
+	return tostring(self.tag).." propose trade with "..tostring(self.target).. "."
 end
+
 

@@ -15,14 +15,16 @@ CSendExpeditionaryForceAction.SEND = 1
 
 ---
 -- @since 1.3
--- @param CCountryTag countryTagA
--- @param CCountryTag countryTagB
+-- @param CCountryTag ,
+-- @param CCountryTag target
 -- @return CSendExpeditionaryForceAction
-function CSendExpeditionaryForceAction:initialize(countryTagA, countryTagB)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+function CSendExpeditionaryForceAction:initialize(tag, target)
+	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.target = target
 end
 
 ---
@@ -43,3 +45,7 @@ hoi3.f(CSendExpeditionaryForceAction, 'GetUnit', false, hoi3.TYPE_UNKNOWN, hoi3.
 -- @return unknown
 hoi3.f(CSendExpeditionaryForceAction, 'GetTag', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
+
+function CSendExpeditionaryForceAction:desc()
+	return tostring(self.tag).." sends expeditionnary to "..tostring(self.target).. "."
+end

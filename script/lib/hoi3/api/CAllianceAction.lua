@@ -7,10 +7,15 @@ CAllianceAction = CDiplomaticAction:subclass('hoi3.CAllianceAction')
 ---
 -- @since 1.3
 -- @return CAllianceAction
-function CAllianceAction:initialize(countryTagA,  countryTagB)
+function CAllianceAction:initialize(tag,  ally)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, ally, 'CCountryTag')
 	
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.ally = ally
+end
+
+function CAllianceAction:desc()
+	return tostring(self.tag).." is now "..tostring(self.ally).. " ally."
 end

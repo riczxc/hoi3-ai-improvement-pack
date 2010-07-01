@@ -9,11 +9,15 @@ CDebtAction = CDiplomaticAction:subclass('hoi3.CDebtAction')
 -- @param CCountryTag actor
 -- @param CCountryTag debtor
 -- @return CDebtAction
-function CDebtAction:initialize(actor, debtor)
+function CDebtAction:initialize(tag, debtor)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	hoi3.assertParameterType(2, debtor, 'CCountryTag')
 
-	self.actor = actor
+	self.tag = tag
 	self.debtor = debtor
+end
+
+function CDebtAction:desc()
+	return tostring(self.tag).." now allows "..tostring(self.debtor).. " debt."
 end

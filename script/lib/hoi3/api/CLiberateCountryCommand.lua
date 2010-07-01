@@ -9,10 +9,15 @@ CLiberateCountryCommand = CCommand:subclass('hoi3.CLiberateCountryCommand')
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return CLiberateCountryCommand
-function CLiberateCountryCommand:initialize(countryTagA, countryTagB)
+function CLiberateCountryCommand:initialize(tag, libtag)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, libtag, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.libtag = libtag
+end
+
+function CLiberateCountryCommand:desc()
+	return tostring(self.tag).." liberated "..tostring(self.libtag).."."
 end

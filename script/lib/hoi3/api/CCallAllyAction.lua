@@ -10,15 +10,16 @@ CCallAllyAction = CDiplomaticAction:subclass('hoi3.CCallAllyAction')
 -- @param CCountryTag ally
 -- @param CCountryTag target
 -- @return CCallAllyAction
-function CCallAllyAction:initialize(actor, ally, target)
+function CCallAllyAction:initialize(tag, ally, target)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, actor, 'CCountryTag')
 	hoi3.assertParameterType(2, ally, 'CCountryTag')
 	hoi3.assertParameterType(3, target, 'CCountryTag')
 
-	self.actor = actor
+	self.tag = tag
 	self.ally = ally
 	self.target = target
+	self.isLimited = false
 end
 
 ---
@@ -32,3 +33,19 @@ hoi3.f(CCallAllyAction, 'GetVersus', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN
 -- @param unknown
 -- @return unknown
 hoi3.f(CCallAllyAction, 'SetVersus', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 1.3
+-- @param boolean isLimited
+-- @return void
+hoi3.f(CCallAllyAction, 'SetValue', false, hoi3.TYPE_VOID, hoi3.TYPE_BOOLEAN)
+
+function CCallAllyAction:SetValue(islimited)
+	self.isLimited = islimited
+end
+
+function CCallAllyAction:desc()
+	local str
+	if self.isLimited then str = "limited " end
+	return tostring(self.tag).." calls "..tostring(self.ally).. " to "..str.."war against "..tostring(self.target).."."
+end

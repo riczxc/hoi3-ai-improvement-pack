@@ -6,13 +6,18 @@ COfferMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.COfferMilitaryAcce
 
 ---
 -- @since 1.3
--- @param CCountryTag countryTagA
--- @param CCountryTag countryTagB
+-- @param CCountryTag tag
+-- @param CCountryTag target
 -- @return COfferMilitaryAccessAction
-function COfferMilitaryAccessAction:initialize(countryTagA, countryTagB)
+function COfferMilitaryAccessAction:initialize(tag, target)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.target = target
+end
+
+function COfferMilitaryAccessAction:desc()
+	return tostring(self.tag).." asks "..tostring(self.target).. " military access."
 end
