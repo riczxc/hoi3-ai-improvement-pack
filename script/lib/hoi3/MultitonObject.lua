@@ -94,7 +94,7 @@ MultitonObject._getInstancesRecursor = function(ref, level, db)
 		if level > 1 then
 			db = MultitonObject._getInstancesRecursor(v, (level - 1), db)
 		else
-			table.insert(db,v)
+			db[v] = v
 		end
 	end
 	return db

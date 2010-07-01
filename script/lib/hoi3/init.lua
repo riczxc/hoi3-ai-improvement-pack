@@ -131,14 +131,23 @@ end
 
 function randomTableMember(table)
 	if type(table) ~= TYPE_TABLE then return nil end
-	if #table == 0 then return nil end
+	
+	-- Lua can't be trusted for counting dict members for some reason
+	-- hence #table won't work
+	local size = 0
+	for _,_ in pairs(table) do
+		size = size + 1
+	end
+	if size == 0 then return nil end
 	
 	Randomizer.seed()
-	local j = math.random(#table)
-	for i, v in pairs(table) do
+	local j = math.random(size)
+	local i = 1
+	for _, v in pairs(table) do
 		if i == j then
 			return v
 		end
+		i = i + 1
 	end
 end
 

@@ -41,3 +41,8 @@ hoi3.f(CAIForeignMinister, 'Propose', false, hoi3.TYPE_VOID, 'CDiplomaticAction'
 -- @param number warDesirability
 -- @return void
 hoi3.f(CAIForeignMinister, 'ProposeWar', false, hoi3.TYPE_VOID, 'CCountryTag', hoi3.TYPE_NUMBER)
+
+---
+-- @since 1.2
+-- @return void
+hoi3.f(CAIForeignMinister, 'ExecuteDiploDecisions', false, hoi3.TYPE_VOID)
