@@ -53,47 +53,76 @@ function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, vo
 		local loTradeRoute = voTradeAction:GetRoute()
 		local loBuyerTag
 		local loSellerTag
+		local loBuyerCountry = nil
+		local loSellerCountry = nil
 		local liMoney
 		local laResourceRequested = {}
 		
 		-- Two way trade get out!
-		if (voTradedTo.vMoney > 0 and voTradedFrom.vMoney > 0)
-		or (voTradedTo.vMoney == 0 and voTradedFrom.vMoney == 0) then
+		if voTradedTo.vMoney > 0 and voTradedFrom.vMoney > 0 then
 			return liScore
+			
+		-- 0 cost trade but make sure they are not Commiterm
+		elseif voTradedTo.vMoney == 0 and voTradedFrom.vMoney == 0 then
+			local loGetToCountry = loTradeRoute:GetTo():GetCountry()
+			local loGetFromCountry = loTradeRoute:GetFrom():GetCountry()
+
+			-- Check to see if Commiterm trade
+			if loGetToCountry:HasFaction() and loGetFromCountry:HasFaction() then
+				local lsGetToFaction = tostring(loGetToCountry:GetFaction():GetTag()) 
+				local lsGetFromFaction = tostring(loGetFromCountry:GetFaction():GetTag()) 
+				
+				if lsGetToFaction ~= lsGetFromFaction or lsGetToFaction ~= "comintern" then
+					return liScore
+				else
+					liMoney = 0
+					
+					local liFromCount = voTradedFrom.vMetal + voTradedFrom.vEnergy + voTradedFrom.vRareMaterials + voTradedFrom.vCrudeOil + voTradedFrom.vSupplies + voTradedFrom.vFuel
+					local liToCount = voTradedTo.vMetal + voTradedTo.vEnergy + voTradedTo.vRareMaterials + voTradedTo.vCrudeOil + voTradedTo.vSupplies + voTradedTo.vFuel
+				
+					if liFromCount > 0 and liToCount <= 0 then
+						laResourceRequested = SetupResourceArray(voTradedFrom)
+					
+						loBuyerTag = loTradeRoute:GetTo()
+						loSellerTag = loTradeRoute:GetFrom()
+						loBuyerCountry = loGetToCountry
+						loSellerCountry = loGetFromCountry
+					
+					elseif liToCount > 0 and liFromCount <= 0 then
+						laResourceRequested = SetupResourceArray(voTradedTo)
+						loBuyerTag = loTradeRoute:GetFrom()
+						loSellerTag = loTradeRoute:GetTo()
+						loBuyerCountry = loGetFromCountry
+						loSellerCountry = loGetToCountry
+						
+					else
+						return liScore
+					end
+				end
+			else
+				return liScore
+			end
 		elseif voTradedTo.vMoney > 0  then
 			-- Get the Money amount
 			liMoney = voTradedTo.vMoney
 			
-			-- Get the list of resources being requested
-			laResourceRequested[_MONEY_] = 0
-			laResourceRequested[_METAL_] = voTradedFrom.vMetal
-			laResourceRequested[_ENERGY_] = voTradedFrom.vEnergy
-			laResourceRequested[_RARE_MATERIALS_] = voTradedFrom.vRareMaterials
-			laResourceRequested[_CRUDE_OIL_] = voTradedFrom.vCrudeOil
-			laResourceRequested[_SUPPLIES_] = voTradedFrom.vSupplies
-			laResourceRequested[_FUEL_] = voTradedFrom.vFuel
-			
+			laResourceRequested = SetupResourceArray(voTradedFrom)
 			loBuyerTag = loTradeRoute:GetTo()
 			loSellerTag = loTradeRoute:GetFrom()
+			loBuyerCountry = loBuyerTag:GetCountry()
+			loSellerCountry = loSellerTag:GetCountry()
+			
 		else
 			-- Get the Money amount
 			liMoney = voTradedFrom.vMoney
 			
-			-- Get the list of resources being requested
-			laResourceRequested[_MONEY_] = 0
-			laResourceRequested[_METAL_] = voTradedTo.vMetal
-			laResourceRequested[_ENERGY_] = voTradedTo.vEnergy
-			laResourceRequested[_RARE_MATERIALS_] = voTradedTo.vRareMaterials
-			laResourceRequested[_CRUDE_OIL_] = voTradedTo.vCrudeOil
-			laResourceRequested[_SUPPLIES_] = voTradedTo.vSupplies
-			laResourceRequested[_FUEL_] = voTradedTo.vFuel
-			
+			laResourceRequested = SetupResourceArray(voTradedTo)
 			loBuyerTag = loTradeRoute:GetFrom()
 			loSellerTag = loTradeRoute:GetTo()
+			loBuyerCountry = loBuyerTag:GetCountry()
+			loSellerCountry = loSellerTag:GetCountry()
 		end
 		
-		local loBuyerCountry = loBuyerTag:GetCountry()
-		local loSellerCountry = loSellerTag:GetCountry()
 		local lbConvoyNeeded = loBuyerCountry:NeedConvoyToTradeWith(loSellerTag)
 
 		-- We need transports to trade
@@ -158,6 +187,21 @@ function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, vo
 		return liScore
 	end
 end
+function SetupResourceArray(voTrade)
+	local laResourceRequested = {}
+	
+	laResourceRequested[_MONEY_] = 0
+	laResourceRequested[_METAL_] = voTrade.vMetal
+	laResourceRequested[_ENERGY_] = voTrade.vEnergy
+	laResourceRequested[_RARE_MATERIALS_] = voTrade.vRareMaterials
+	laResourceRequested[_CRUDE_OIL_] = voTrade.vCrudeOil
+	laResourceRequested[_SUPPLIES_] = voTrade.vSupplies
+	laResourceRequested[_FUEL_] = voTrade.vFuel
+
+	return laResourceRequested
+end
+
+
 function SellResources(ai, voBuyerTag, voSellerTag, voSellerCountry, vaResourceRequested, viMoney)
 	local liScore = 0
 	local lbExit = false

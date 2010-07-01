@@ -175,12 +175,19 @@ function ForeignMinister_HandlePeace(minister)
 	local loInfluenceCountry = {}
 	local loInfluenceScore = {}
 	local laInfluenceIgnore = {}
+	local laInfluenceMonitor = {}
 
-	-- Retrieve the influence ignore list if your a major power
+	-- Major power only parameter loading
 	if lbIsMajor then
+		-- Retrieve the influence ignore list if your a major power
 		if Utils.HasCountryAIFunction(ministerTag, "InfluenceIgnore") then
 			laInfluenceIgnore = Utils.CallCountryAI(ministerTag, "InfluenceIgnore", minister)
 		end
+
+		-- Retrieve the list of countries to monitor in case they start joining our enemies
+		if Utils.HasCountryAIFunction(ministerTag, "InfluenceMonitor") then
+			laInfluenceMonitor = Utils.CallCountryAI(ministerTag, "InfluenceMonitor", minister)
+		end		
 	end
 	
 	-- Main Country processing loop
@@ -199,6 +206,8 @@ function ForeignMinister_HandlePeace(minister)
 			if lbIsMajor then
 				-- Calls in here Require Major be in a faction and target is not in a faction
 				if ministerCountry:HasFaction() and not(loTargetCountry:HasFaction()) then
+					local lsTargetCountryTag = tostring(loTargetCountryTag)
+					
 					-- Invite into faction
 					local loAction = CFactionAction(ministerTag, loTargetCountryTag)
 					loAction:SetValue(false)
@@ -214,7 +223,7 @@ function ForeignMinister_HandlePeace(minister)
 					end			
 
 					-- Make sure the country is not on my ignore list
-					if not(CheckInfluenceIgnore(laInfluenceIgnore, tostring(loTargetCountryTag))) then
+					if not(CheckInfluenceParameter(laInfluenceIgnore, lsTargetCountryTag)) then
 						-- Influence a country
 						local lbIsInfluencing = ai:IsInfluencing(ministerTag, loTargetCountryTag)
 						
@@ -228,7 +237,8 @@ function ForeignMinister_HandlePeace(minister)
 								loInfluenceAction = CInfluenceNation(ministerTag, loTargetCountryTag)
 							
 							-- Help try and keep neighbors from joining my enemies
-							elseif ministerCountry:IsNeighbour(loTargetCountryTag) then
+							elseif ministerCountry:IsNeighbour(loTargetCountryTag)
+							or CheckInfluenceParameter(laInfluenceMonitor, lsTargetCountryTag) then
 								if not(Utils.IsFriend(ai, loFaction, loTargetCountry)) then
 									if liScore < loInfluenceActionWorstScore then
 										loInfluenceActionWorstScore = liScore
@@ -243,7 +253,8 @@ function ForeignMinister_HandlePeace(minister)
 							table.insert(loInfluenceScore, DiploScore_InfluenceNation( ai, ministerTag, loTargetCountryTag, ministerTag ))
 							
 						-- Help try and keep neighbors from joining my enemies
-						elseif ministerCountry:IsNeighbour(loTargetCountryTag) then
+						elseif ministerCountry:IsNeighbour(loTargetCountryTag)
+						or CheckInfluenceParameter(laInfluenceMonitor, lsTargetCountryTag) then
 							if not(Utils.IsFriend(ai, loFaction, loTargetCountry)) then
 								local liScore = DiploScore_InfluenceNation( ai, ministerTag, loTargetCountryTag, ministerTag )
 								
@@ -491,12 +502,13 @@ function ForeignMinister_HandlePeace(minister)
 	end
 end
 
-function CheckInfluenceIgnore(vaInfluenceIgnore, vsCountryTag)
+function CheckInfluenceParameter(vaInfluenceParameter, vsCountryTag)
 	local lbValue = false
+	local liTableLength = table.getn(vaInfluenceParameter)
 	
-	if table.getn(vaInfluenceIgnore) > 0 then
-		for i = 1, table.getn(vaInfluenceIgnore) do
-			if vaInfluenceIgnore[i] == vsCountryTag then
+	if liTableLength > 0 then
+		for i = 1, liTableLength do
+			if vaInfluenceParameter[i] == vsCountryTag then
 				lbValue = true
 				break
 			end

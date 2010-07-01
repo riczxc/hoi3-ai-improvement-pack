@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Diplomacy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 6/30/2010
 -----------------------------------------------------------
 require('utils')
 
@@ -493,6 +493,11 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 		local recipientCountry = recipient:GetCountry()
 		local actorCountry = actor:GetCountry()
 		local actorFaction = actorCountry:GetFaction()
+		
+		-- Performance Check, are they already in our corner if so exit out do not influence
+		if ai:GetNormalizedAlignmentDistance(recipientCountry, actorFaction):Get() < 0.2 then
+			return 0
+		end
 		
 		-- Calculate Importance based on IC
 		---   Remember on Majors can Influence
