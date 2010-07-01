@@ -85,6 +85,8 @@ function Randomizer:compute()
 		return self:computeNumber()
 	elseif typeAsString == hoi3.TYPE_BOOLEAN then
 		return self:computeBoolean()
+	elseif typeAsString == hoi3.TYPE_VOID then
+		return
 	else
 		require('hoi3.api')
 		

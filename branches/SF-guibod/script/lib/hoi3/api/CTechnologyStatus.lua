@@ -46,3 +46,7 @@ hoi3.f(CTechnologyStatus, 'IsUnitAvailable', false, hoi3.TYPE_BOOLEAN, 'CSubUnit
 -- @param CBuilding  building
 -- @return bool 
 hoi3.f(CTechnologyStatus, 'IsBuildingAvailable', false, hoi3.TYPE_BOOLEAN, 'CBuilding')
+
+function CTechnologyStatus.random()
+	return CTechnologyStatus()
+end

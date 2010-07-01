@@ -51,16 +51,16 @@ require('ai_trade')
 require('ai_strategic')
 
 tickFunctions = {
-	ForeignMinister_OnWar,
-	ForeignMinister_EvaluateDecision,
-	ForeignMinister_Tick,
-	ForeignMinister_ManageTrade,
-	DiploScore_OfferTrade,
-	IntelligenceMinister_Tick,
-	PoliticsMinister_Tick,
-	ProductionMinister_Tick,
-	BalanceProductionSliders,
-	TechMinister_Tick
+	{ForeignMinister_OnWar,hoi3.api.CAIForeignMinister},
+	{ForeignMinister_EvaluateDecision,hoi3.api.CAIForeignMinister},
+	{ForeignMinister_Tick,hoi3.api.CAIForeignMinister},
+	{ForeignMinister_ManageTrade,hoi3.api.CAIForeignMinister},
+	{DiploScore_OfferTrade,hoi3.api.CAIForeignMinister},
+	{IntelligenceMinister_Tick,hoi3.api.CAIEspionageMinister},
+	{PoliticsMinister_Tick,hoi3.api.CAIPoliticsMinister},
+	{ProductionMinister_Tick,hoi3.api.CAIProductionMinister},
+	{BalanceProductionSliders,hoi3.api.CAIProductionMinister},
+	{TechMinister_Tick,hoi3.api.CAITechMinister}
 }
 
 for i=0,1000  do
@@ -71,7 +71,15 @@ for i=0,1000  do
 	local minister = CAIPoliticsMinister(tag)
     
     for k,v in ipairs(tickFunctions) do
-    	v(minister)
+    	tickFunc = v[1]
+    	mnstFunc = v[2]
+    	if tickFunc == BalanceProductionSliders then
+    		-- sepcial signature, i feel lazy to complexify this code only for this
+    		hoi3.Randomizer.seed()
+    		tickFunc(CAI(tag),CCountry(tag),math.random(0,4))
+    	else
+    		tickFunc(mnstFunc(tag))
+    	end
     	
     	print(tostring(hoi3.FunctionObject.numApiCalls).." api calls")
     	hoi3.FunctionObject.numApiCalls = 0
