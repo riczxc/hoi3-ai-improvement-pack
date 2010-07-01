@@ -231,8 +231,8 @@ function CAI:PostActionImpl(action)
 	hoi3.assertParameterType(1, action, 'CAction')
 	
 	local message = tostring(action.class).." posted"
-	if action.class.__tostring then 
-		message = message.." : "..tostring(action)
+	if type(action.desc) == hoi3.TYPE_FUNCTION then 
+		message = message.." : "..action:desc()
 	end
 	dtools.info(message)
 end

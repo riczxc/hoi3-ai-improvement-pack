@@ -9,10 +9,19 @@ CToggleMobilizationCommand = CCommand:subclass('hoi3.CToggleMobilizationCommand'
 -- @param CCountryTag  countryTag
 -- @param boolean  bMobilize
 -- @return CToggleMobilizationCommand
-function CToggleMobilizationCommand:initialize(countryTag, bMobilize)
+function CToggleMobilizationCommand:initialize(tag, domobilize)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
-	hoi3.assertParameterType(2, bMobilize, hoi3.TYPE_BOOLEAN)
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, domobilize, hoi3.TYPE_BOOLEAN)
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.domobilize = domobilize
+end
+
+function CToggleMobilizationCommand:desc()
+	if self.domobilize then
+		return "Mobilization triggered by "..tostring(self.tag).."."
+	else
+		return "Demobilization triggered by "..tostring(self.tag).."."
+	end
 end

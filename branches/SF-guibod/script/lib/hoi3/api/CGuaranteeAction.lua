@@ -6,13 +6,18 @@ CGuaranteeAction = CDiplomaticAction:subclass('hoi3.CGuaranteeAction')
 
 ---
 -- @since 1.3
--- @param CCountryTag countryTagA
--- @param CCountryTag countryTagB
+-- @param CCountryTag tag
+-- @param CCountryTag guarantee
 -- @return CGuaranteeAction
-function CGuaranteeAction:initialize(countryTagA, countryTagB)
+function CGuaranteeAction:initialize(tag, guarantee)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, guarantee, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.guarantee = guarantee
+end
+
+function CGuaranteeAction:desc()
+	return tostring(self.tag).." guarantees "..tostring(self.ally).. "."
 end

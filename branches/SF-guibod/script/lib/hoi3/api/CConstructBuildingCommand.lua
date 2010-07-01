@@ -24,7 +24,7 @@ function CConstructBuildingCommand:initialize(tag, building, province, quantity)
 	self.quantity = quantity
 end
 
-function CConstructConvoyCommand:desc()
+function CConstructBuildingCommand:desc()
 	return "Issued construction of "..tostring(self.quantity).." "..tostring(self.building:GetName())..
 		" in province #"..tostring(self.province).." by "..tostring(self.tag).."."
 end

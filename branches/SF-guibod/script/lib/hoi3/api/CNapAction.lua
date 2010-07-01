@@ -6,13 +6,18 @@ CNapAction = CDiplomaticAction:subclass('hoi3.CNapAction')
 
 ---
 -- @since 1.3
--- @param CCountryTag countryTagA
--- @param CCountryTag countryTagB
+-- @param CCountryTag tag
+-- @param CCountryTag target
 -- @return CNapAction
-function CNapAction:initialize(countryTagA, countryTagB)
+function CNapAction:initialize(tag, target)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTagA, 'CCountryTag')
-	hoi3.assertParameterType(2, countryTagB, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
+	hoi3.assertParameterType(2, target, 'CCountryTag')
 
-	hoi3.throwNotYetImplemented()
+	self.tag = tag
+	self.target = target
+end
+
+function CNapAction:desc()
+	return tostring(self.tag).." propose non-aggression pact to "..tostring(self.target).. "."
 end
