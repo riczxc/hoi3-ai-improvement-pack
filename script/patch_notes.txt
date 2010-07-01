@@ -49,3 +49,11 @@
 - AI added a new hook in the Foreign Minister to do country specific politics etc... Call_ForeignMinister(minister)
 - AI passive spying will now use other missions including support our party.
 - AI slider supply AI enhanced for major powers so they will have larger stockpiles.
+- AI Added new weights using the Land to Air code for Japan, USA and UK.
+- AI did some performance and redability changes to the ai_politics_minister.lua
+- AI added a InfluenceMonitor hook for country specific files. It tells the AI which countries to monitor so they do not join other factions.
+- AI if the target influence country is already in their corner the AI should stop influencing it and move to another target
+- AI Home spies for Communist countries will stop trying to lower neutrality once it hits 70
+- AI Utils.IsFriend method was checking distance of 25 or less it has been changed to 5 or less.
+- AI fixed an issue where Commiterm nations could not trade to eachother.
+- AI Chinese Warlods will no longer build Cavalry and Garrisons.

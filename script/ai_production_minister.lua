@@ -397,10 +397,12 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		-- If major power has less than 20 weeks supplies then increase the stockpile produce 10% more
 		-- If we have less than 70k supplies produce 5% more
 		-- If we have more than 80k supplies then cut production by 10%
-		if (supplyStockpile < weeksSupplyUse * 20.0) then
+		if (supplyStockpile < weeksSupplyUse * 20.0) and supplyStockpile < 50000 then
 			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.25)
 		elseif supplyStockpile < 70000 then
 			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.15)
+		elseif supplyStockpile > 90000 then
+			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.5)
 		elseif supplyStockpile > 80000 then
 			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.1)
 		end
@@ -408,12 +410,14 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		-- If has less than 8 weeks supplies then increase the stockpile produce 10% more
 		-- If has less than 20 weeks supplies then increase the stockpile produce 5% more
 		-- If has more than 20 weeks supplies and 4k stockpile then decrease the stockpile produce 10% more
-		if (supplyStockpile < weeksSupplyUse * 8.0) then
+		if (supplyStockpile < weeksSupplyUse * 8.0) and supplyStockpile < 2000 then
 			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.25)
-		elseif (supplyStockpile < weeksSupplyUse * 20.0) then
+		elseif (supplyStockpile < weeksSupplyUse * 20.0) and supplyStockpile < 4000 then
 			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.15)
 		elseif (supplyStockpile > weeksSupplyUse * 20.0) and supplyStockpile > 4000 then
 			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.1)
+		elseif supplyStockpile > 10000 then
+			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.5)
 		end
 	end
 	
