@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Utility7 File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/18/2010
+-- Date Last Modified: 6/30/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -299,14 +299,14 @@ function P.Round(viNumber)
 end
 
 function P.IsFriend(ai, voFaction, voCountry)
-	-- If they are a 25 or more distance from us then consider them a potential enemy
-	-- 45 or more is real bad they are heavily aligning to someone else.
+	-- If they are a 5 or more to another faction consider them a potential enemy
 	local rValue = true
 	
 	for loFaction in CCurrentGameState.GetFactions() do
 		if loFaction ~= voFaction then
 			-- They are aligning with another faction
-			if ai:GetNormalizedAlignmentDistance(voCountry, loFaction):Get() < 25 then
+			if ai:GetNormalizedAlignmentDistance(voCountry, loFaction):Get() < 10 then
+			
 				rValue = false
 				break
 			end
