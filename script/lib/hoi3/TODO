@@ -9,4 +9,4 @@ Most likely some convenience function/method to be deployed inside MethodImpl()
 
 - Replace tons of self:loadResultOrImplOrRandom by a new callable FunctionObject
 Maybe extend Hoi3Oject to use a static function definition list
-Change Hoi3Object object in order to use function NAME and class NAME (instead of referenc) 
+Change Hoi3Object object in order to use function NAME and class NAME (instead of referenc) 

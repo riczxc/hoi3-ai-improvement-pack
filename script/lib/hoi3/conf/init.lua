@@ -15,6 +15,8 @@ function generateAll()
 	generateBuildingDatabase()
 	generateLawDatabase()
 	generateCountryDatabase()
+	generateProvinceDatabase()
+	generateSubUnitDatabase()
 end
 
 function generateContinentDatabase()
@@ -314,6 +316,85 @@ function generateCountryDatabase()
 
 		-- Save reference to db  
 		db[cty] = cty
+	end
+	
+	return db
+end
+
+function generateProvinceDatabase()
+	local db = {}
+	
+	for i=1,12000 do
+		local prov = CProvince(i)
+		
+		-- Save reference to db  
+		db[prov] = prov
+	end
+	
+	return db
+end
+
+function generateSubUnitDatabase()
+	local def = {}
+	-- key, name, group
+	
+	table.insert(def,{'anti_air_brigade'})
+	table.insert(def,{'anti_tank_brigade'})
+	table.insert(def,{'armor_brigade'})
+	table.insert(def,{'armored_car_brigade'})
+	table.insert(def,{'artillery_brigade'})
+	table.insert(def,{'battlecruiser'})
+	table.insert(def,{'battleship'})
+	table.insert(def,{'bergsjaeger_brigade'})
+	table.insert(def,{'cag'})
+	table.insert(def,{'carrier'})
+	table.insert(def,{'cas'})
+	table.insert(def,{'cavalry_brigade'})
+	table.insert(def,{'destroyer'})
+	table.insert(def,{'engineer_brigade'})
+	table.insert(def,{'escort_carrier'})
+	table.insert(def,{'flying_bomb'})
+	table.insert(def,{'flying_rocket'})
+	table.insert(def,{'garrison_brigade'})
+	table.insert(def,{'heavy_armor_brigade'})
+	table.insert(def,{'heavy_cruiser'})
+	table.insert(def,{'hq_brigade'})
+	table.insert(def,{'infantry_brigade'})
+	table.insert(def,{'interceptor'})
+	table.insert(def,{'light_armor_brigade'})
+	table.insert(def,{'light_cruiser'})
+	table.insert(def,{'marine_brigade'})
+	table.insert(def,{'mechanized_brigade'})
+	table.insert(def,{'militia_brigade'})
+	table.insert(def,{'motorized_brigade'})
+	table.insert(def,{'multi_role'})
+	table.insert(def,{'naval_bomber'})
+	table.insert(def,{'nuclear_submarine'})
+	table.insert(def,{'paratrooper_brigade'})
+	table.insert(def,{'partisan_brigade'})
+	table.insert(def,{'police_brigade'})
+	table.insert(def,{'rocket_artillery_brigade'})
+	table.insert(def,{'rocket_interceptor'})
+	table.insert(def,{'sp_artillery_brigade'})
+	table.insert(def,{'sp_rct_artillery_brigade'})
+	table.insert(def,{'strategic_bomber'})
+	table.insert(def,{'submarine'})
+	table.insert(def,{'super_heavy_armor_brigade'})
+	table.insert(def,{'super_heavy_battleship'})
+	table.insert(def,{'tactical_bomber'})
+	table.insert(def,{'tank_destroyer_brigade'})
+	table.insert(def,{'transport'})
+	table.insert(def,{'transport_plane'})
+	
+	local db = {}
+	for k,unitDef in pairs(def) do
+		local unit = CSubUnitDefinition(unitDef[1])
+		
+		-- IsReal
+		--tag:saveResult(ctyDef[3],CCountryTag.IsReal)
+
+		-- Save reference to db  
+		db[unit] = unit
 	end
 	
 	return db

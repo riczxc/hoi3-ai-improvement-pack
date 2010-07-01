@@ -32,3 +32,7 @@ hoi3.f(CSpyPresence, 'GetPriority', false, hoi3.TYPE_NUMBER)
 -- @param unknown
 -- @return unknown 
 hoi3.f(CSpyPresence, 'MissionAllowed', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+function CSpyPresence.random()
+	return CSpyPresence()
+end

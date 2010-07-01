@@ -7,17 +7,17 @@ CConstructUnitCommand = CCommand:subclass('hoi3.CConstructUnitCommand')
 ---
 -- @since 1.3
 -- @param CCountryTag  tag
--- @param table<CSubUnitDefinition>  order
+-- @param iterator<CSubUnitDefinition>  order
 -- @param number capital
 -- @param number quantity
 -- @param bool isReserve
 -- @param CCountryTag  tag2
 -- @param CID cid
 -- @return CConstructUnitCommand
-function CConstructUnitCommand:initialize(tag, order, capital, quantity, isReserve, tag2, cid)
+function CConstructUnitCommand:initialize(tag, list, capital, quantity, isReserve, tag2, cid)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, tag, 'CCountryTag')
-	hoi3.assertParameterType(2, order, 'table<CSubUnitDefinition>')
+	hoi3.assertParameterType(2, list, 'SubUnitList')
 	hoi3.assertParameterType(3, capital, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(4, quantity, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(5, isReserve, hoi3.TYPE_BOOLEAN)
@@ -25,7 +25,7 @@ function CConstructUnitCommand:initialize(tag, order, capital, quantity, isReser
 	hoi3.assertParameterType(7, cID, 'CID')
 
 	self.tag = tag
-	self.order = order
+	self.list = list
 	self.capital = capital
 	self.quantity = quantity
 	self.isReserve = isReserve
@@ -38,7 +38,7 @@ function CConstructUnitCommand:desc()
 	
 	if self.isReserve then str = "reserve " end
 	
-	for k, v in self.order do
+	for k, v in self.list do
 		str = str .. tostring(v:GetKey()) .. "-"
 	end
 	

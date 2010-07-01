@@ -18,3 +18,13 @@ hoi3.f(CMilitaryConstruction, 'IsAir', false, hoi3.TYPE_BOOLEAN)
 -- @since 2.0
 -- @return bool
 hoi3.f(CMilitaryConstruction, 'IsNaval', false, hoi3.TYPE_BOOLEAN)
+
+---
+-- @since 2.0
+-- @return iterator<CBrigade>
+hoi3.f(CMilitaryConstruction, 'GetBrigades', false, 'iterator<CBrigade>')
+
+
+function CMilitaryConstruction.random()
+	return CMilitaryConstruction()
+end

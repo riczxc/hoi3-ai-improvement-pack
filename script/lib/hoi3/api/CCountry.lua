@@ -6,11 +6,11 @@ CCountry = hoi3.MultitonObject:subclass('hoi3.CCountry')
 
 ---
 -- @param CCountryTag countryTag
-function CCountry:initialize(countryTag)
+function CCountry:initialize(tag)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	
-	self.countryTag = countryTag
+	self.tag = tag
 end
 
 ---
@@ -67,8 +67,8 @@ hoi3.f(CCountry, 'GetActingCapitalLocation', false, 'CProvince')
 
 ---
 -- @since 1.3
--- @return table<CProvince> 
-hoi3.f(CCountry, 'GetAirBases', false, 'table<CProvince>')
+-- @return iterator<CProvince> 
+hoi3.f(CCountry, 'GetAirBases', false, 'iterator<CProvince>')
 
 ---
 -- @since 1.3
@@ -130,18 +130,18 @@ hoi3.f(CCountry, 'GetCapitalLocation', false, 'CProvince')
 
 ---
 -- @since 1.4
--- @return table<CProvince> 
-hoi3.f(CCountry, 'GetControlledProvinces', false, 'table<CProvince>')
+-- @return iterator<CProvince> 
+hoi3.f(CCountry, 'GetControlledProvinces', false, 'iterator<CProvince>')
 
 ---
 -- @since 1.4
--- @return table<CProvince>
-hoi3.f(CCountry, 'GetCoreProvinces', false, 'table<CProvince>') 
+-- @return iterator<CProvince>
+hoi3.f(CCountry, 'GetCoreProvinces', false, 'iterator<CProvince>') 
 
 ---
 -- @since 2.0
--- @return table<CConstruction>
-hoi3.f(CCountry, 'GetConstructions', false, 'table<CConstruction>') 
+-- @return iterator<CConstruction>
+hoi3.f(CCountry, 'GetConstructions', false, 'iterator<CConstruction>') 
 
 ---
 -- @since 1.3
@@ -165,8 +165,8 @@ hoi3.f(CCountry, 'GetConvoyedOut', false, 'CGoodsPool')
 
 ---
 -- @since 1.3
--- @return table<CConvoy> 
-hoi3.f(CCountry, 'GetConvoys', false, 'table<CConvoy>')
+-- @return iterator<CConvoy> 
+hoi3.f(CCountry, 'GetConvoys', false, 'iterator<CConvoy>')
 
 ---
 -- @since 1.3
@@ -174,18 +174,18 @@ hoi3.f(CCountry, 'GetConvoys', false, 'table<CConvoy>')
 hoi3.f(CCountry, 'GetCountryTag', false, 'CCountryTag')
 
 function CCountry:GetCountryTagImpl()
-	return self.countryTag
+	return self.tag
 end
 
 ---
 -- @since 1.3
--- @return table<CCountryTag> 
-hoi3.f(CCountry, 'GetCurrentAtWarWith', false, 'table<CCountryTag>')
+-- @return iterator<CCountryTag> 
+hoi3.f(CCountry, 'GetCurrentAtWarWith', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.4
--- @return table<CTechnology>
-hoi3.f(CCountry, 'GetCurrentResearch', false, 'table<CTechnology>')
+-- @return iterator<CTechnology>
+hoi3.f(CCountry, 'GetCurrentResearch', false, 'iterator<CTechnology>')
 
 ---
 -- @since 1.3
@@ -207,8 +207,17 @@ hoi3.f(CCountry, 'GetDailyIncome', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
--- @return table<CDiplomacyStatus>
-hoi3.f(CCountry, 'GetDiplomacy', false, 'table<CDiplomacyStatus>')
+-- @return iterator<CDiplomacyStatus>
+hoi3.f(CCountry, 'GetDiplomacy', false, 'iterator<CDiplomacyStatus>')
+
+function CCountry:GetDiplomacy()
+	local dtable = {}
+	for _, tag in CCountryTag:GetInstances() do
+		local diplo = CDiplomacyStatus(self.tag, tag)
+		dtable[diplo] = diplo
+	end
+	return dtable
+end
 
 ---
 -- @since 1.3
@@ -335,12 +344,12 @@ hoi3.f(CCountry, 'GetNationalUnity', false, 'CFixedPoint')
 
 ---
 -- @since 1.3
--- @return table<CProvince>
-hoi3.f(CCountry, 'GetNavalBases', false, 'table<CProvince>')
+-- @return iterator<CProvince>
+hoi3.f(CCountry, 'GetNavalBases', false, 'iterator<CProvince>')
 
 ---
 -- @since 1.3
--- @return table<CCountryTag>
+-- @return iterator<CCountryTag>
 hoi3.f(CCountry, 'GetNeighbours', false, 'iterator<CCountryTag>')
 
 ---
@@ -363,7 +372,8 @@ end
 hoi3.f(CCountry, 'GetNumberOfCurrentResearch', false, hoi3.TYPE_NUMBER)
 
 function CCountry:GetNumberOfCurrentResearchImpl()
-	return #self:GetCurrentResearch()
+	local f, s = self:GetCurrentResearch()
+	return #s
 end
 
 ---
@@ -372,7 +382,8 @@ end
 hoi3.f(CCountry, 'GetNumberOfOwnedProvinces', false, hoi3.TYPE_NUMBER)
  
 function CCountry:GetNumberOfOwnedProvincesImpl()
-	return #self:GetOwnedProvinces()
+	local f, s = self:GetOwnedProvinces()
+	return #s
 end
 
 ---
@@ -386,7 +397,8 @@ hoi3.f(CCountry, 'GetNumOfAllies', false, hoi3.TYPE_NUMBER)
 hoi3.f(CCountry, 'GetNumOfAirfields', false, hoi3.TYPE_NUMBER)
 
 function CCountry:GetNumOfAirfieldsImpl()
-	return #self:GetAirBases()
+	local f, s = self:GetAirBases()
+	return #s
 end
 
 ---
@@ -395,7 +407,8 @@ end
 hoi3.f(CCountry, 'GetNumOfPorts', false, hoi3.TYPE_NUMBER)
 
 function CCountry:GetNumOfPortsImpl()
-	return #self:GetNavalBases()
+	local f, s = self:GetNavalBases()
+	return #s
 end
 
 ---
@@ -416,9 +429,9 @@ end
 
 ---
 -- @since 1.3
--- @return table<number>
+-- @return iterator<number>
 -- TODO: make impl method for Navalbases etc. that use this.
-hoi3.f(CCountry, 'GetOwnedProvinces', false, 'table<number>')
+hoi3.f(CCountry, 'GetOwnedProvinces', false, 'iterator<number>')
 
 ---
 -- @since 1.3
@@ -427,13 +440,13 @@ hoi3.f(CCountry, 'GetPool', false, 'CGoodsPool')
 
 ---
 -- @since 1.3
--- @return table<CCountryTag>
-hoi3.f(CCountry, 'GetPossibleLiberations', false, 'table<CCountryTag>')
+-- @return iterator<CCountryTag>
+hoi3.f(CCountry, 'GetPossibleLiberations', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.3
--- @return table<CCountryTag>
-hoi3.f(CCountry, 'GetPossiblePuppets', false, 'table<CCountryTag>')
+-- @return iterator<CCountryTag>
+hoi3.f(CCountry, 'GetPossiblePuppets', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.3
@@ -446,6 +459,10 @@ hoi3.f(CCountry, 'GetProductionDistributionAt', false, 'CDistributionSetting', h
 -- @param CCountryTag  countryTag
 -- @return CDiplomacyStatus
 hoi3.f(CCountry, 'GetRelation', false, 'CDiplomacyStatus', 'CCountryTag')
+
+function CCountry:GetRelationImpl(tag)
+	return CDiplomacyStatus(self.tag,tag)
+end
 
 ---
 -- @since 1.3
@@ -465,8 +482,8 @@ hoi3.f(CCountry, 'GetSpyPresence', false, 'CSpyPresence', 'CCountryTag')
 
 ---
 -- @since 2.0
--- @return table<CCountryTag>
-hoi3.f(CCountry, 'GetSpyingOnUs', false, 'table<CCountryTag>')
+-- @return iterator<CCountryTag>
+hoi3.f(CCountry, 'GetSpyingOnUs', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.3
@@ -566,9 +583,9 @@ hoi3.f(CCountry, 'GetUnits', false, 'CUnitList')
 
 ---
 -- @since 1.4
--- @return table<CUnit>
+-- @return iterator<CUnit>
 -- TODO: synchronize impl for GetUnits and GetUnitsIterator
-hoi3.f(CCountry, 'GetUnitsIterator', false, 'table<CUnit>')
+hoi3.f(CCountry, 'GetUnitsIterator', false, 'iterator<CUnit>')
 
 ---
 -- @since 1.3
@@ -588,8 +605,8 @@ hoi3.f(CCountry, 'GetVariables', false, 'CVariables')
 
 ---
 -- @since 1.3
--- @return table<CCountryTag>
-hoi3.f(CCountry, 'GetVassals', false, 'table<CCountryTag>')
+-- @return iterator<CCountryTag>
+hoi3.f(CCountry, 'GetVassals', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.3
@@ -730,6 +747,17 @@ hoi3.f(CCountry, 'MayLiberateCountries', false, hoi3.TYPE_BOOLEAN)
 function CCountry:MayLiberateCountriesImpl()
 	return #self:GetPossibleLiberations() > 0
 end
+
+
+---
+-- @since 1.3
+-- @return iterator<TradeRoute>
+hoi3.f(CCountry, 'AIGetTradeRoutes', false, 'iterator<CTradeRoute>')
+
+---
+-- @since 2.0
+-- @return iterator<CCountryTag>
+hoi3.f(CCountry, 'GetAllies', false, 'iterator<CCountryTag>')
 
 
 function CCountry.random()

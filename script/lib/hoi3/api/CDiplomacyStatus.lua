@@ -41,8 +41,8 @@ hoi3.f(CDiplomacyStatus, 'GetThreat', false, 'CFixedPoint')
 
 ---
 -- @since 1.3
--- @return table<CTradeRoute>
-hoi3.f(CDiplomacyStatus, 'GetTradeRoutes', false, 'table<CTradeRoute>')
+-- @return iterator<CTradeRoute>
+hoi3.f(CDiplomacyStatus, 'GetTradeRoutes', false, 'iterator<CTradeRoute>')
 
 ---
 -- @since 1.3
@@ -124,3 +124,7 @@ hoi3.f(CDiplomacyStatus, 'IsGuaranting', false, hoi3.TYPE_BOOLEAN)
 -- @param CFixedPoint relation
 -- @return void
 hoi3.f(CDiplomacyStatus, 'SetValue', false, hoi3.TYPE_VOID, 'CFixedPoint')
+
+function CDiplomacyStatus.random()
+	error("There cannot be randomizer for DiploStatus sine it relies on two deterministic parameters")
+end

@@ -9,7 +9,7 @@ CSubUnitDataBase = hoi3.AbstractObject:subclass('hoi3.CSubUnitDataBase')
 -- @static
 -- @param string subUnitName
 -- @return CSubUnitDefinition 
-hoi3.f(CSubUnitDataBase, 'GetSubUnit', false, 'CSubUnitDefinition', hoi3.TYPE_STRING)
+hoi3.f(CSubUnitDataBase, 'GetSubUnit', true, 'CSubUnitDefinition', hoi3.TYPE_STRING)
 
 function CSubUnitDataBase.GetSubUnit(key)
 	return CSubUnitDefinition:getInstance(key)
@@ -18,9 +18,9 @@ end
 ---
 -- @since 1.3
 -- @static
--- @return table<CSubUnitDefinition>
-hoi3.f(CSubUnitDataBase, 'GetSubUnitList', false, 'table<CSubUnitDefinition>')
+-- @return iterator<CSubUnitDefinition>
+hoi3.f(CSubUnitDataBase, 'GetSubUnitList', true, 'iterator<CSubUnitDefinition>')
 
-function CSubUnitDataBase.GetSubUnitList()
+function CSubUnitDataBase.GetSubUnitListImpl()
 	return CSubUnitDefinition:getInstances()
 end

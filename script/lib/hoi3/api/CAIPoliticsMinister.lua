@@ -15,5 +15,5 @@ hoi3.f(CAIIntel, 'IsCapitalSafeToLiberate', false, hoi3.TYPE_BOOLEAN, 'CCountryT
 
 ---
 -- @since 2.0
--- @return table<CMinister>
-hoi3.f(CAIIntel, 'GetPossibleMinisters', false, 'table<CMinister>')
+-- @return iterator<CMinister>
+hoi3.f(CAIIntel, 'GetPossibleMinisters', false, 'iterator<CMinister>')

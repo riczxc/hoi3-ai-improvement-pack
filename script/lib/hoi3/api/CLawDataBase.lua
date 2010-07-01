@@ -6,8 +6,8 @@ CLawDataBase = hoi3.AbstractObject:subclass('hoi3.CLawDataBase')
 
 ---
 -- @since 1.3
--- @return table<CLawGroup>
-hoi3.f(CLawDataBase, 'GetGroups', true, 'table<CLawGroup>')
+-- @return iterator<CLawGroup>
+hoi3.f(CLawDataBase, 'GetGroups', true, 'iterator<CLawGroup>')
 
 function CLawDataBase.GetGroupsImpl()	
 	return CLawGroup:getInstances()
@@ -35,8 +35,8 @@ end
 
 ---
 -- @since 1.3
--- @return table<CLaw>
-hoi3.f(CLawDataBase, 'GetLawList', true, 'table<CLaw>')
+-- @return iterator<CLaw>
+hoi3.f(CLawDataBase, 'GetLawList', true, 'iterator<CLaw>')
 
 function CLawDataBase.GetLawListImpl()	
 	return CLaw:getInstances()
@@ -60,6 +60,6 @@ function CLawDataBase.GetNumberOfLawsImpl()
 	return #CLawDataBase.GetLawList()
 end
 
--- TODO add functions
+-- TODO add functions
 -- GetLawIndexByName
 -- GetLawGroupIndexByName

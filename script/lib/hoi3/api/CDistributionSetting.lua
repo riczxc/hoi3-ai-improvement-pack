@@ -20,9 +20,13 @@ CDistributionSetting._LEADERSHIP_ESPIONAGE_ = 2
 CDistributionSetting._LEADERSHIP_NCO_ = 3
 CDistributionSetting._LEADERSHIP_numof_ = 4
 CDistributionSetting._LEADERSHIP_RESEARCH_ = 5
-CDistributionSetting._PRODUCTION_CONSUMER_ = 6
+CDistributionSetting._PRODUCTION_CONSUMER_ = 1
 CDistributionSetting._PRODUCTION_numof_ = 5
-CDistributionSetting._PRODUCTION_PRODUCTION_ = 8
-CDistributionSetting._PRODUCTION_REINFORCEMENT_ = 9
-CDistributionSetting._PRODUCTION_SUPPLY_ = 10
-CDistributionSetting._PRODUCTION_UPGRADE_ = 11
+CDistributionSetting._PRODUCTION_PRODUCTION_ = 2
+CDistributionSetting._PRODUCTION_REINFORCEMENT_ = 3
+CDistributionSetting._PRODUCTION_SUPPLY_ = 4
+CDistributionSetting._PRODUCTION_UPGRADE_ = 0
+
+function CDistributionSetting:random()
+	return CDistributionSetting()
+end

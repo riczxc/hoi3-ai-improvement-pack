@@ -9,8 +9,8 @@ MultitonObject.instances = {}
 MultitonObject.new = function(theClass, key1, key2, key3, ...)
   	local params = {key1, key2, key3, ...}
   	local numkeys = theClass.numkeys or 1
-  	assert(1<=numkeys and numkeys<=4, "Multiton numkeys property must be between 1 and 3")
-  	assert(#params == numkeys, "Multiton constructor requires "..tostring(numkeys).." keys parameters, "..tostring(#params).." given.")
+  	assert(1<=numkeys and numkeys<=4, tostring(theClass).." numkeys property must be between 1 and 3")
+  	assert(#params == numkeys, tostring(theClass).." constructor requires "..tostring(numkeys).." keys parameters, "..tostring(#params).." given.")
   	
   	-- Force table creation
   	MultitonObject.instances[theClass] = MultitonObject.instances[theClass] or {}

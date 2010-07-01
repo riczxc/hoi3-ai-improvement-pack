@@ -291,7 +291,7 @@ function Logger:_formatStackTrace(pattern)
 
     for line in string.gmatch(stackTrace, "[^\n]-\.lua:%d+: in [^\n]+") do
         if 	not string.match(line, ".-log4lua.-\.lua:%d+:") and
-			-- AIIP added utils.lua in list not to refer to wrapper
+			-- AIIP added utils.lua in list not to refer to wrapper
 			not string.match(line, "utils\.lua") and
 			not string.match(line, ".-dtools.-\.lua:%d+:")
 		then

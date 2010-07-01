@@ -23,19 +23,19 @@ local techFolder = tech:GetFolder()
 ---
 -- @since 1.3
 -- @static
--- @return table<CTechnologyCategory>
-hoi3.f(CTechnologyDataBase, 'GetCategories', false, 'table<CTechnologyCategory>')
+-- @return iterator<CTechnologyCategory>
+hoi3.f(CTechnologyDataBase, 'GetCategories', false, 'iterator<CTechnologyCategory>')
 
 function CSubUnitDataBase.GetCategories()
 	return CTechnologyCategory:getInstances()
 end
 
 ---
--- @since 1.3
+-- @since 2.0
 -- @static
--- @return table<CTechnology>
-hoi3.f(CTechnologyDataBase, 'GetTechnologies', false, 'table<CTechnology>')
+-- @return CTechnology
+hoi3.f(CTechnologyDataBase, 'GetTechnology', false, 'CTechnology')
 
-function CSubUnitDataBase.GetTechnologies()
-	return CTechnology:getInstances()
+function CSubUnitDataBase.GetTechnology(key)
+	return CTechnology:getInstance(key)
 end

@@ -40,6 +40,6 @@ function CChangeSpyMission:desc()
 	m[15] = "SPYMISSION_TECH"
 	
 	return "Spy mission changed toward "..tostring(self.target).." to "..
-		tostring(m[self.mission] or "UNKNOWN INDEX")..
+		tostring(m[self.mission] or "UNKNOWN INDEX")..
 		" by "..tostring(self.countryTag).."."
 end

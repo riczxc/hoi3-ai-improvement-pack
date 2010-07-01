@@ -51,7 +51,7 @@ function _module.harvest() end
 
 -- Wrapper function that file both a simple file and the log manager
 --
--- Usefull to trap an error before to PI fallback to a standard code
+-- Usefull to trap an error before to PI fallback to a standard code
 function _module.wrap(f, ...)
 	if devtools.enabled then
 		local retOK, ret = pcall(f, ...)
@@ -65,7 +65,7 @@ function _module.wrap(f, ...)
 			--attempt to call log
 			pcall(_module.fatal, ret )
 
-			--Throw the error as it should and let PI manage our error
+			--Throw the error as it should and let PI manage our error
 			error(ret)
 		end
 		return ret
@@ -138,7 +138,7 @@ if devtools.enabled then
 	-- a static filter for logging system
 	-- (from semicolon separated value from environnement variable HOI3_DEVTOOLS_FILTERTAG)
 	--
-	-- Will only display Germany and USA minister logs. This feature affect all categories !
+	-- Will only display Germany and USA minister logs. This feature affect all categories !
 	-- Add nil to the table to enable log entry attached to no particular country
 
 	local filterTag = {}
@@ -174,7 +174,7 @@ if devtools.enabled then
 			--Most likely CCountryTag
 			countryString = tostring(ministerCountryOrTag)
 		else
-			--No country set a 3 blank character string
+			--No country set a 3 blank character string
 			countryString = "   "
 		end
 

@@ -69,8 +69,10 @@ function Randomizer:compute()
 
 	-- isIteratorType support either string or table
 	-- iterator is stored and handle as a table
-	if typeAsString ~= nil and (typeAsString == hoi3.TYPE_ITERATOR or typeAsString == hoi3.TYPE_TABLE) then
+	if typeAsString ~= nil and typeAsString == hoi3.TYPE_TABLE then
 		return self:computeTable()
+	elseif typeAsString ~= nil and typeAsString == hoi3.TYPE_ITERATOR then
+		return self:computeIterator()
 	elseif typeAsString == hoi3.TYPE_FUNCTION or
 		typeAsString == hoi3.TYPE_THREAD or
 		typeAsString == hoi3.TYPE_USERDATA then
@@ -199,6 +201,26 @@ Randomizer.computeTable = function(self)
 	end
 	
 	return t
+end
+
+--[[
+An iterator in LUA (or a generator) is a mulitple result set composed
+of a function (such as next()), an invariant table and a initial position (nil for 1st member)
+In order not to implement multiple value result randomizer as well as save/load state mechanisms
+only works with invariant state part, so it is a table.
+
+HOI3 api iterator don't handle keys, this mean in lua term that the key IS also the value.
+
+In conclusion, HOI3 api iterator randomizer is cloning the result of an table randomizer
+swicthing numeric keys for the value itself.
+]]
+Randomizer.computeIterator = function(self)
+	local it = {}
+	for k, v in pairs(Randomizer.computeTable(self)) do
+		it[v] = v
+	end
+	
+	return it
 end
 
 ---

@@ -18,3 +18,10 @@ hoi3.f(CConstruction, 'GetMilitary', false, 'CMilitaryConstruction')
 -- @since 2.0
 -- @return bool
 hoi3.f(CConstruction, 'IsMilitary', false, hoi3.TYPE_BOOLEAN)
+
+-- A random CConstruction is a random EXISTING tag !
+function CConstruction.random()
+	local ret = CConstruction()
+	print(ret)
+	return ret
+end

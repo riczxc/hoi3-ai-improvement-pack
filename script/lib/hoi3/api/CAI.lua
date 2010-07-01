@@ -87,8 +87,8 @@ end
 
 ---
 -- @since 2.0
--- @return CArrayFix
-hoi3.f(CAI, 'GetDeployedSubUnitCounts', false, 'CArrayFix')
+-- @return CArrayFloat
+hoi3.f(CAI, 'GetDeployedSubUnitCounts', false, 'CArrayFloat')
 
 ---
 -- @since 1.3
@@ -111,8 +111,8 @@ hoi3.f(CAI, 'GetNumberOfOwnedProvinces', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 2.0
--- @return CArrayFix
-hoi3.f(CAI, 'GetProductionSubUnitCounts', false, 'CArrayFix')
+-- @return CArrayFloat
+hoi3.f(CAI, 'GetProductionSubUnitCounts', false, 'CArrayFloat')
 
 ---
 -- @since 1.3
@@ -121,8 +121,8 @@ hoi3.f(CAI, 'GetReqProdQueue', false, 'CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3
--- @return table<CSubUnitConstructionEntry>
-hoi3.f(CAI, 'GetReqProdQueueIter', false, 'table<CSubUnitConstructionEntry>')
+-- @return iterator<CSubUnitConstructionEntry>
+hoi3.f(CAI, 'GetReqProdQueueIter', false, 'iterator<CSubUnitConstructionEntry>')
 
 ---
 -- @since 1.3
@@ -130,6 +130,12 @@ hoi3.f(CAI, 'GetReqProdQueueIter', false, 'table<CSubUnitConstructionEntry>')
 -- @param CCountryTag countryTagB
 -- @return CDiplomacyStatus
 hoi3.f(CAI, 'GetRelation', false, 'CDiplomacyStatus', 'CCountryTag', 'CCountryTag')
+
+function CAI:GetRelationImpl(tagA, tagB)
+	print(tagA)
+	print(tagB)
+	return CDiplomacyStatus(tagA, tagB)
+end
 
 ---
 -- @since 1.3
@@ -139,8 +145,8 @@ hoi3.f(CAI, 'GetSpamPenalty', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 2.0
--- @return CArrayFix
-hoi3.f(CAI, 'GetTheatreSubUnitNeedCounts', false, 'CArrayFix')
+-- @return CArrayFloat
+hoi3.f(CAI, 'GetTheatreSubUnitNeedCounts', false, 'CArrayFloat')
 
 ---
 -- @since 1.3

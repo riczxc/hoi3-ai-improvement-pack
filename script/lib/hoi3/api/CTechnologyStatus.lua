@@ -39,7 +39,7 @@ hoi3.f(CTechnologyStatus, 'GetYear', false, 'CFixedPoint', 'CTechnology', hoi3.T
 -- @since 1.3
 -- @param CSubUnitDefinition  unit
 -- @return bool
-hoi3.f(CTechnologyStatus, 'IsUnitAvailable', false, hoi3.TYPE_BOOLEAN, 'CSubUnitDefinition')
+hoi3.f(CTechnologyStatus, 'IsUnitAvailable', false, hoi3.TYPE_BOOLEAN)
  
 ---
 -- @since 1.3

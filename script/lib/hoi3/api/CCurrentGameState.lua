@@ -41,8 +41,8 @@ end
 ---
 -- @since 1.3
 -- @static
--- @return table<CFaction>
-hoi3.f(CCurrentGameState, 'GetFactions', true, 'table<CFaction>')
+-- @return iterator<CFaction>
+hoi3.f(CCurrentGameState, 'GetFactions', true, 'iterator<CFaction>')
 
 function CCurrentGameState.GetFactionsImpl()
 	return CFaction:getInstances()
