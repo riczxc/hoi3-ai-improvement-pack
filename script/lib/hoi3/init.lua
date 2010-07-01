@@ -126,7 +126,7 @@ function testAll()
 	require("hoi3.tests.random")
 	require("hoi3.tests.cdate")
 	
-	lunit.main()
+	return lunit.main()
 end
 
 function randomTableMember(table)

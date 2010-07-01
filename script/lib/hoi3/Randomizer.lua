@@ -131,7 +131,7 @@ function Randomizer:computeString()
 		end
 	end
 	
-	dtools.debug("Randomized string content : "..str)
+	--dtools.debug("Randomized string content : "..str)
 	return str	
 end
 
@@ -146,7 +146,7 @@ Randomizer.computeBoolean = function(self)
 	self.perc = self.perc or 50
 	
 	local bool = math.random(100) < self.perc	
-	dtools.debug("Randomized boolean content : "..tostring(bool))
+	--dtools.debug("Randomized boolean content : "..tostring(bool))
 	return bool
 end
 
@@ -172,7 +172,7 @@ Randomizer.computeNumber = function(self)
 		local span = self.max - self.min
 		number = self.min + (math.random() * self.max)
 	end	
-	dtools.debug("Randomized number content : "..tostring(number))
+	--dtools.debug("Randomized number content : "..tostring(number))
 	return number
 end
 
