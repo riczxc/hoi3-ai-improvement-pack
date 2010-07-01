@@ -16,6 +16,7 @@ require('hoi3.api.CAlignment')
 require('hoi3.api.CAllianceAction')
 require('hoi3.api.CArrayFix')
 require('hoi3.api.CArrayFloat')
+require('hoi3.api.CBrigade')
 require('hoi3.api.CBuilding')
 require('hoi3.api.CBuildingDataBase')
 require('hoi3.api.CCallAllyAction')
@@ -79,6 +80,7 @@ require('hoi3.api.CPersonality')
 require('hoi3.api.CProvince')
 require('hoi3.api.CProvinceBuilding')
 require('hoi3.api.CResearchBonus')
+require('hoi3.api.CResourceValues')
 require('hoi3.api.CRule')
 require('hoi3.api.CSendExpeditionaryForceAction')
 require('hoi3.api.CSetFlagCommand')
@@ -106,6 +108,8 @@ require('hoi3.api.CUnitList')
 require('hoi3.api.CWar')
 require('hoi3.api.SpyMission')
 
+require('hoi3.api.defines')
+
 require("middleclass")
 
 ---
@@ -118,4 +122,6 @@ function releaseApiOnGlobalScope()
 	 		_G[key] = value
 	 	end
 	end
+
+	_G.defines = hoi3.api.defines
 end

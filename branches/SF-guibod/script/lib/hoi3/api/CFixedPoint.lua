@@ -8,11 +8,11 @@ CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.CFixedPoint')
 -- @since 1.3
 -- @param CCountryTag actor
 -- @return CFixedPoint
-function CFixedPoint:initialize(val)
+function CFixedPoint:initialize(value)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, val, hoi3.TYPE_NUMBER)
+	hoi3.assertParameterType(1, value, hoi3.TYPE_NUMBER)
 
-	self.value = val
+	self.value = value
 end
 
 ---

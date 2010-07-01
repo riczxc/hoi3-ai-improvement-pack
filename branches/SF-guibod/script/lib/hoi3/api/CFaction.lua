@@ -29,8 +29,8 @@ hoi3.f(CFaction, 'GetIdeologyGroup', false, 'CIdeologyGroup')
 
 ---
 -- @since 1.3
--- @return table<CCountryTag>
-hoi3.f(CFaction, 'GetMembers', false, 'table<CCountryTag>')
+-- @return iterator<CCountryTag>
+hoi3.f(CFaction, 'GetMembers', false, 'iterator<CCountryTag>')
 
 ---
 -- @since 1.3

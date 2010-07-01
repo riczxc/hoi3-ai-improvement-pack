@@ -51,3 +51,7 @@ hoi3.f(CTradeRoute, 'IsInactive', false, hoi3.TYPE_BOOLEAN)
 -- @since 1.3
 -- @return bool
 hoi3.f(CTradeRoute, 'IsValid', false, hoi3.TYPE_BOOLEAN)
+
+function CTradeRoute.random()
+	return CTradeRoute()
+end

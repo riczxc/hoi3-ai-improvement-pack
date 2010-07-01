@@ -15,10 +15,10 @@ hoi3.f(CAITechMinister, 'CanResearch', false, hoi3.TYPE_BOOLEAN, 'CTechnology')
 
 ---
 -- @since 1.3
--- @return CArrayFix
-hoi3.f(CAITechMinister, 'GetFolderModifers', false,'CArrayFix')
+-- @return CArrayFloat
+hoi3.f(CAITechMinister, 'GetFolderModifers', false,'CArrayFloat')
 
 ---
 -- @since 1.3
--- @return CArrayFix
-hoi3.f(CAITechMinister, 'GetTechModifers', false,'CArrayFix')
+-- @return CArrayFloat
+hoi3.f(CAITechMinister, 'GetTechModifers', false,'CArrayFloat')

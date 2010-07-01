@@ -64,8 +64,8 @@ hoi3.f(CTechnology, 'GetOnCompletion', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNO
 
 ---
 -- @since 1.3
--- @return table<CResearchBonus>
-hoi3.f(CTechnology, 'GetResearchBonus', false, 'table<CResearchBonus>')
+-- @return iterator<CResearchBonus>
+hoi3.f(CTechnology, 'GetResearchBonus', false, 'iterator<CResearchBonus>')
 
 ---
 -- @since 1.3

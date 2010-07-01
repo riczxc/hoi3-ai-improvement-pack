@@ -18,9 +18,9 @@ end
 ---
 -- @since 1.3
 -- @return string
-hoi3.f(CString, 'Getstring', false, hoi3.TYPE_STRING)
+hoi3.f(CString, 'GetString', false, hoi3.TYPE_STRING)
 
-function CString:GetstringImpl()
+function CString:GetStringImpl()
 	return self.string
 end
 

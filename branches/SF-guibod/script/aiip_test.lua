@@ -51,11 +51,11 @@ require('ai_trade')
 require('ai_strategic')
 
 tickFunctions = {
-	{ForeignMinister_OnWar,hoi3.api.CAIForeignMinister},
+--	{ForeignMinister_OnWar,hoi3.api.CAIForeignMinister}, --blank function
 	{ForeignMinister_EvaluateDecision,hoi3.api.CAIForeignMinister},
 	{ForeignMinister_Tick,hoi3.api.CAIForeignMinister},
 	{ForeignMinister_ManageTrade,hoi3.api.CAIForeignMinister},
-	{DiploScore_OfferTrade,hoi3.api.CAIForeignMinister},
+--	{DiploScore_OfferTrade,hoi3.api.CAIForeignMinister},
 	{IntelligenceMinister_Tick,hoi3.api.CAIEspionageMinister},
 	{PoliticsMinister_Tick,hoi3.api.CAIPoliticsMinister},
 	{ProductionMinister_Tick,hoi3.api.CAIProductionMinister},
@@ -74,9 +74,13 @@ for i=0,1000  do
     	tickFunc = v[1]
     	mnstFunc = v[2]
     	if tickFunc == BalanceProductionSliders then
-    		-- sepcial signature, i feel lazy to complexify this code only for this
     		hoi3.Randomizer.seed()
     		tickFunc(CAI(tag),CCountry(tag),math.random(0,4))
+    	elseif tickFunc == ForeignMinister_ManageTrade then
+    		-- sepcial signature, i feel lazy to complexify this code only for this
+    		tickFunc(CAI(tag),tag)
+    	elseif tickFunc == ForeignMinister_EvaluateDecision then
+    		tickFunc(minister, CDecision.random(), "scope?")
     	else
     		tickFunc(mnstFunc(tag))
     	end

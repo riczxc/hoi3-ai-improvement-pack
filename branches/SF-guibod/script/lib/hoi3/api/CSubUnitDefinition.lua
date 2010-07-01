@@ -4,7 +4,7 @@ module("hoi3.api", package.seeall)
 
 CSubUnitDefinition = hoi3.MultitonObject:subclass('hoi3.CSubUnitDefinition')
 
-function CPersonality:initialize(key)
+function CSubUnitDefinition:initialize(key)
 	hoi3.assertNonStatic(self)
 	if type(key) == hoi3.TYPE_STRING then key = CString(key) end
 	hoi3.assertParameterType(1, key, 'CString')

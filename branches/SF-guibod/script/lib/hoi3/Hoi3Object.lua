@@ -145,3 +145,20 @@ Hoi3Object.loadResultOrImplOrRandom  = function(self, fObj, ...)
 		return nil
 	end 
 end
+
+--- 
+-- Find object index in a dictionnary
+-- @param table dict
+-- @return number (or nil if not in table)
+function Hoi3Object:getIndexInDictionnary(dict)
+	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, dict, hoi3.TYPE_TABLE)
+	
+	local i = 1
+	for k, v in pairs(dict) do
+		if v == self then
+			return i
+		end
+		i = i + 1
+	end
+end

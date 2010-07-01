@@ -75,8 +75,8 @@ hoi3.f(CAIStrategy, 'GetProtectionism', false, hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
--- @return table<CTheatre>
-hoi3.f(CAIStrategy, 'GetTheatres', false, 'table<CTheatre>', hoi3.TYPE_UNKNOWN)
+-- @return iterator<CTheatre>
+hoi3.f(CAIStrategy, 'GetTheatres', false, 'iterator<CTheatre>', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3

@@ -13,3 +13,7 @@ hoi3.f(CProvinceBuilding, 'GetCurrent', false, 'CFixedPoint')
 -- @since 1.4
 -- @return CFixedPoint
 hoi3.f(CProvinceBuilding, 'GetMax', false, 'CFixedPoint')
+
+function CProvinceBuilding.random()
+	return CProvinceBuilding()
+end

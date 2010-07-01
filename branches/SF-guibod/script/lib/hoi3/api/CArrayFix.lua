@@ -12,9 +12,9 @@ function CArrayFix:initialize(size)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, size, hoi3.TYPE_NUMBER)
 	
-	CArrayFix.array = {}
+	self.array = {}
 	for i = 0, size do
-		table.insert(CArrayFix.array, CFixedPoint())
+		self.array[i] = CFixedPoint(0)
 	end
 end
 
@@ -25,12 +25,8 @@ end
 hoi3.f(CArrayFix, 'GetAt', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CArrayFix:GetAtImpl(index)
-	if index < #CArrayFix.array and 
-		CArrayFix.array[index] ~= nil then
-		return CArrayFix.array[index]
-	else
-		error("Out of bound.")
-	end
+	--TODO maybe restore out of bound exceptions
+	return self.array[index] or CFixedPoint(0)
 end
 
 ---
@@ -41,11 +37,7 @@ end
 hoi3.f(CArrayFix, 'SetAt', false, hoi3.TYPE_VOID, hoi3.TYPE_NUMBER, 'CFixedPoint')
 
 function CArrayFix:SetAtImpl(index, value)
-	if index < #CArrayFix.array then
-		CArrayFix.array[index] = value
-	else
-		error("Out of bound.")
-	end
+	self.array[index] = value
 end
 
 ---
