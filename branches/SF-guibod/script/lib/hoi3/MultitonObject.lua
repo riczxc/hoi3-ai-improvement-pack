@@ -84,17 +84,17 @@ end
 -- returned by HOI3 api.
 function MultitonObject:getInstances()
 	local numkeys = self.numkeys or 1
-	
+	if MultitonObject.instances[self] == nil then return {}	end
 	return MultitonObject._getInstancesRecursor(MultitonObject.instances[self], numkeys)
 end
 
 MultitonObject._getInstancesRecursor = function(ref, level, db)
-	db = db or {}
+	local db = db or {}
 	for k, v in pairs(ref) do
 		if level > 1 then
 			db = MultitonObject._getInstancesRecursor(v, (level - 1), db)
 		else
-			db[v] = v
+			table.insert(db,v)
 		end
 	end
 	return db

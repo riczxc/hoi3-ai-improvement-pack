@@ -315,5 +315,6 @@ function generateCountryDatabase()
 		-- Save reference to db  
 		db[cty] = cty
 	end
+	
 	return db
 end
