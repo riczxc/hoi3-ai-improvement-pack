@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 United Kingdom File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/18/2010
+-- Date Last Modified: 6/30/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -10,6 +10,14 @@ AI_ENG = P
 
 -- #######################################
 -- Static Production Variables overide
+function P.LandToAirRatio(minister)
+	local laArray = {
+		5, -- Land Briages
+		1}; -- Air
+	
+	return laArray
+end
+
 function P._LandRatio_Units_(minister)
 	local laLandRatioUnits = {
 		'garrison_brigade', -- Garrison
@@ -389,10 +397,11 @@ end
 function P.InfluenceIgnore(minister)
 	-- Ignore Afghanistan as they are not worth our time
 	-- Ignore Ethiopia as they are going to get hammered by Italy
-	-- Ignore Austria, Czechoslovakia as we will get them
+	-- Ignore Austria, Czechoslovakia as we will loose them
 	-- Ignore Switzerland as there is no chance of them joining
 	-- Ignore Vichy, they wont join anyone unles DOWed
 	local laIgnoreList = {
+		"SIK",
 		"AFG",
 		"ETH",
 		"AUS",
@@ -403,6 +412,40 @@ function P.InfluenceIgnore(minister)
 		"ITA"};
 	
 	return laIgnoreList
+end
+
+-- Influence Monitor list
+function P.InfluenceMonitor(minister)
+	local laMonitorList = {
+		"TUR", -- Europe
+		"SPA",
+		"SPR",
+		"POR",
+		"SWE",
+		"YUG",
+		"ARG", -- South America
+		"BOL",
+		"BRA",
+		"CHL",
+		"COL",
+		"ECU",
+		"GUY",
+		"PAR",
+		"PRU",
+		"URU",
+		"VEN",
+		"CUB", -- Central America
+		"COS",
+		"DOM",
+		"GUA",
+		"HAI",
+		"HON",
+		"MEX",
+		"NIC",
+		"PAN",
+		"SAL"};
+	
+	return laMonitorList
 end
 
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )

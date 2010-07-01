@@ -2,10 +2,20 @@
 -- LUA Hearts of Iron 3 Japan File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/26/2010
+-- Date Last Modified: 6/28/2010
 -----------------------------------------------------------
 local P = {}
 AI_JAP = P
+
+-- #######################################
+-- Static Production Variables overide
+function P.LandToAirRatio(minister)
+	local laArray = {
+		5, -- Land Briages
+		1}; -- Air
+	
+	return laArray
+end
 
 -- Tech weights
 --   1.0 = 100% the total needs to equal 1.0
@@ -462,53 +472,42 @@ end
 --  Political Overides
 
 function P.Call_ArmamentMinister(ministerCountry, vaMinisters)
-	local loMinister = nil
+	local loSelectedMinister = nil
 	local liCurrentScore = 0
+	local laPersonalityScore = {}
 	
-	for i = 1, table.getn(vaMinisters) do
-		local liScore = 0
-		local lsMinisterType = tostring(vaMinisters[i]:GetPersonality(voPosition):GetKey())
+	laPersonalityScore["resource_industrialist"] = 150 
+	laPersonalityScore["military_entrepreneur"] = 140 
+	laPersonalityScore["administrative_genius"] = 130 
+	laPersonalityScore["laissez_faires_capitalist"] = 120 
+	laPersonalityScore["theoretical_scientist"] = 110 
+	laPersonalityScore["infantry_proponent"] = 100 
+	laPersonalityScore["air_to_ground_proponent"] = 90 
+	laPersonalityScore["air_superiority_proponent"] = 80 
+	laPersonalityScore["battle_fleet_proponent"] = 70 
+	laPersonalityScore["air_to_sea_proponent"] = 60 
+	laPersonalityScore["strategic_air_proponent"] = 50 
+	laPersonalityScore["submarine_proponent"] = 40 
+	laPersonalityScore["tank_proponent"] = 30 
+	laPersonalityScore["corrupt_kleptocrat"] = 20 
+	laPersonalityScore["crooked_kleptocrat"] = 10 
 		
-		if lsMinisterType == "resource_industrialist" then
-			liScore = 150
-		elseif lsMinisterType == "military_entrepreneu" then
-			liScore = 140
-		elseif lsMinisterType == "administrative_genius" then
-			liScore = 130
-		elseif lsMinisterType == "laissez_faires_capitalist" then
-			liScore = 120
-		elseif lsMinisterType == "theoretical_scientist" then
-			liScore = 110
-		elseif lsMinisterType == "infantry_proponent" then
-			liScore = 100
-		elseif lsMinisterType == "air_to_ground_proponent" then
-			liScore = 90
-		elseif lsMinisterType == "air_superiority_proponent" then
-			liScore = 80
-		elseif lsMinisterType == "battle_fleet_proponent" then
-			liScore = 70
-		elseif lsMinisterType == "air_to_sea_proponent" then
-			liScore = 60
-		elseif lsMinisterType == "strategic_air_proponent" then
-			liScore = 50
-		elseif lsMinisterType == "submarine_proponent" then
-			liScore = 40
-		elseif lsMinisterType == "tank_proponent" then
-			liScore = 30
-		elseif lsMinisterType == "corrupt_kleptocrat" then
-			liScore = 20
-		elseif lsMinisterType == "crooked_kleptocrat" then
-			liScore = 10
-		end
+	for liIndex, loMinister in pairs(vaMinisters) do 
+		local liScore = 0 
+		local lsMinisterType = tostring(loMinister:GetPersonality(voPosition):GetKey()) 
 
-		if liScore > liCurrentScore then
-			liCurrentScore = liScore
-			loMinister = vaMinisters[i]
-		end
-	end
-	
-	return loMinister
+		-- Check to make sure its a minister whose trait gets a score
+		if laPersonalityScore[lsMinisterType] ~= nil then 
+			liScore = laPersonalityScore[lsMinisterType] 
+			
+			if liScore > liCurrentScore then 
+				liCurrentScore = liScore 
+				loSelectedMinister = loMinister 
+			end 
+		end 
+	end 
+		
+	return loSelectedMinister
 end
-
 
 return AI_JAP
