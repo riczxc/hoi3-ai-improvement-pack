@@ -73,8 +73,9 @@ end
 
 function assertParameterType(index, parameterValue, typeAsString)
 	local foundtype = type(parameterValue)
-	if instanceOf(aClass, obj)foundtype == hoi3.TYPE_TABLE and parameterValue.class ~= nil then
-		parameterValue = tostring(parameterValue.class)
+	if foundtype == hoi3.table and 
+		middleclass.instanceOf(hoi3.Object, parameterValue) then
+		parameterValue = getmetatable(parameterValue).class
 	end
 	assert(
 		testType(parameterValue, typeAsString),
