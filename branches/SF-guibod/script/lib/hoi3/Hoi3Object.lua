@@ -153,11 +153,9 @@ end
 function Hoi3Object:getIndexInDictionnary(dict)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, dict, hoi3.TYPE_TABLE)
-	print("searching "..tostring(self.class).." instance ("..tostring(self)..") index in "..tostring(dict))
-	if self.name then print(self.name) end
+	
 	local i = 1
 	for k, v in pairs(dict) do
-		print("loop #"..i.." "..tostring(v))
 		if v == self then
 			return i
 		end

@@ -45,3 +45,19 @@ hoi3.f(CWar, 'IsLimited', false, hoi3.TYPE_BOOLEAN)
 -- @param CCountryTag  countryTag
 -- @return bool
 hoi3.f(CWar, 'IsPartOfWar', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
+
+function CWar.random()
+	local r = hoi3.RAND_PERC
+	
+	-- pick an existing war !
+	local ret = hoi3.randomTableMember(CWar:getInstances())
+	
+	if ret == nil or r.compute() < 50 then
+		-- a new war !
+		local rt = hoi3.Randomizer(hoi3.TYPE_STRING)
+		return CWar(rt.compute())
+	else
+		return ret
+	end
+	
+end
