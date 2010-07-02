@@ -18,8 +18,8 @@ function CConstructBuildingCommand:initialize(tag, building, province, quantity)
 	hoi3.assertParameterType(3, province, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(4, quantity, hoi3.TYPE_NUMBER)
 
-	self.tag = actor
-	self.building = target
+	self.tag = tag
+	self.building = building
 	self.province = province
 	self.quantity = quantity
 end
