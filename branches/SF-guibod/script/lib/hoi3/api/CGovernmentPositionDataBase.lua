@@ -7,7 +7,7 @@ CGovernmentPositionDataBase = hoi3.AbstractObject:subclass('hoi3.CGovernmentPosi
 ---
 -- @since 2.0
 -- @return number
-hoi3.f(CGovernmentPositionDataBase, 'GetGovernmentPositionByIndex', true, 'GovernmentPosition', hoi3.TYPE_NUMBER)
+hoi3.f(CGovernmentPositionDataBase, 'GetGovernmentPositionByIndex', true, 'CGovernmentPosition', hoi3.TYPE_NUMBER)
 
 function CGovernmentPositionDataBase.GetGovernmentPositionByIndexImpl(index)	
 	return hoi3.fromIndexTableMember(CGovernmentPosition:getInstances(), index)
