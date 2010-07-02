@@ -33,7 +33,6 @@ hoi3.f(CGoodsPool, 'Get', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetImpl(type)
 	assert(type > 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
-	print(self.goods[type])
 	return CFixedPoint(self.goods[type])
 end
 
