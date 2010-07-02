@@ -210,9 +210,9 @@ hoi3.f(CCountry, 'GetDailyIncome', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 -- @return iterator<CDiplomacyStatus>
 hoi3.f(CCountry, 'GetDiplomacy', false, 'iterator<CDiplomacyStatus>')
 
-function CCountry:GetDiplomacy()
+function CCountry:GetDiplomacyImpl()
 	local dtable = {}
-	for _, tag in CCountryTag:GetInstances() do
+	for _, tag in pairs(CCountryTag:getInstances()) do
 		local diplo = CDiplomacyStatus(self.tag, tag)
 		dtable[diplo] = diplo
 	end
@@ -524,7 +524,7 @@ hoi3.f(CCountry, 'GetTotalConvoyTransports', false, hoi3.TYPE_NUMBER)
 -- @since 2.0
 -- @param number buildingIndex
 -- @return number 
-hoi3.f(CCountry, 'GetTotalCoreBuildingLevels', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CCountry, 'GetTotalCoreBuildingLevels', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3

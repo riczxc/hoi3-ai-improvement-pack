@@ -17,6 +17,7 @@ function generateAll()
 	generateCountryDatabase()
 	generateProvinceDatabase()
 	generateSubUnitDatabase()
+	generateTechDatabase()
 end
 
 function generateContinentDatabase()
@@ -395,6 +396,177 @@ function generateSubUnitDatabase()
 
 		-- Save reference to db  
 		db[unit] = unit
+	end
+	
+	return db
+end
+
+function generateTechDatabase()
+	local def = {}
+	-- key, name, group
+	-- key = {group}
+	-- Still missing tons of tech since, I don't have access to common file ATM
+	def['cavalry_smallarms'] = {'infantry_folder'} 
+	def['cavalry_support'] = {'infantry_folder'}
+	def['cavalry_guns'] = {'infantry_folder'} 
+	def['cavalry_at'] = {'infantry_folder'}
+	def['militia_smallarms'] = {'infantry_folder'}
+	def['militia_support'] = {'infantry_folder'}
+	def['militia_guns'] = {'infantry_folder'}
+	def['militia_at'] = {'infantry_folder'}
+	def['armored_car_armour'] = {'armour_folder'}
+	def['armored_car_gun'] = {'armour_folder'}
+	def['paratrooper_infantry'] = {'infantry_folder'}
+	def['marine_infantry'] = {'infantry_folder'}
+	def['imporved_police_brigade'] = {'infantry_folder'}
+	def['desert_warfare_equipment'] = {'infantry_folder'}
+	def['jungle_warfare_equipment'] = {'infantry_folder'}
+	def['artic_warfare_equipment'] = {'infantry_folder'}
+	def['amphibious_warfare_equipment'] = {'infantry_folder'}
+	def['airborne_warfare_equipment'] = {'infantry_folder'}
+	def['lighttank_brigade'] = {'armour_folder'}
+	def['lighttank_gun'] = {'armour_folder'}
+	def['lighttank_engine'] = {'armour_folder'}
+	def['lighttank_armour'] = {'armour_folder'}
+	def['lighttank_reliability'] = {'armour_folder'}
+	def['tank_brigade'] = {'armour_folder'}
+	def['tank_gun'] = {'armour_folder'}
+	def['tank_engine'] = {'armour_folder'}
+	def['tank_armour'] = {'armour_folder'}
+	def['tank_reliability'] = {'armour_folder'}
+	def['heavy_tank_brigade'] = {'armour_folder'}
+	def['heavy_tank_gun'] = {'armour_folder'}
+	def['heavy_tank_engine'] = {'armour_folder'}
+	def['heavy_tank_armour'] = {'armour_folder'}
+	def['heavy_tank_reliability'] = {'armour_folder'}
+	def['SP_brigade'] = {'armour_folder'}
+	def['mechanised_infantry'] = {'infantry_folder'}
+	def['super_heavy_tank_brigade'] = {'armour_folder'}
+	def['super_heavy_tank_gun'] = {'armour_folder'}
+	def['super_heavy_tank_engine'] = {'armour_folder'}
+	def['super_heavy_tank_armour'] = {'armour_folder'}
+	def['super_heavy_tank_reliability'] = {'armour_folder'}
+	def['rocket_art'] = {'armour_folder'}
+	def['rocket_art_ammo'] = {'armour_folder'}
+	def['rocket_carriage_sights'] = {'armour_folder'}
+	def['mobile_warfare'] = {'land_doctrine_folder'}
+	def['elastic_defence'] = {'land_doctrine_folder'}
+	def['spearhead_doctrine'] = {'land_doctrine_folder'}
+	def['schwerpunkt'] = {'land_doctrine_folder'}
+	def['blitzkrieg'] = {'land_doctrine_folder'}
+	def['operational_level_command_structure'] = {'land_doctrine_folder'}
+	def['tactical_command_structure'] = {'land_doctrine_folder'}
+	def['delay_doctrine'] = {'land_doctrine_folder'}
+	def['integrated_support_doctrine'] = {'land_doctrine_folder'}
+	def['superior_firepower'] = {'land_doctrine_folder'}
+	def['mechanized_offensive'] = {'land_doctrine_folder'}
+	def['combined_arms_warfare'] = {'land_doctrine_folder'}
+	def['grand_battle_plan'] = {'land_doctrine_folder'}
+	def['large_front'] = {'land_doctrine_folder'}
+	def['guerilla_warfare'] = {'land_doctrine_folder'}
+	def['peoples_army'] = {'land_doctrine_folder'}
+	def['large_formations'] = {'land_doctrine_folder'}
+	def['basic_four_engine_airframe'] = {'bomber_folder'}
+	def['basic_strategic_bomber'] = {'bomber_folder'}
+	def['large_fueltank'] = {'bomber_folder'}
+	def['four_engine_airframe'] = {'bomber_folder'}
+	def['strategic_bomber_armament'] = {'bomber_folder'}
+	def['cargo_hold'] = {'bomber_folder'}
+	def['large_bomb'] = {'bomber_folder'}
+	def['advanced_aircraft_design'] = {'fighter_folder'}
+	def['small_airsearch_radar'] = {'fighter_folder'}
+	def['medium_airsearch_radar'] = {'bomber_folder'}
+	def['large_airsearch_radar'] = {'bomber_folder'}
+	def['small_navagation_radar'] = {'fighter_folder'}
+	def['medium_navagation_radar'] = {'bomber_folder'}
+	def['large_navagation_radar'] = {'bomber_folder'}
+	def['rocket_interceptor_tech'] = {'fighter_folder'}
+	def['drop_tanks'] = {'fighter_folder'}
+	def['jet_engine'] = {'fighter_folder'}
+	def['forward_air_control'] = {'air_doctrine_folder'}
+	def['battlefield_interdiction'] = {'air_doctrine_folder'}
+	def['bomber_targerting_focus'] = {'air_doctrine_folder'}
+	def['fighter_targerting_focus'] = {'air_doctrine_folder'} 
+	def['heavy_bomber_pilot_training'] = {'air_doctrine_folder'}
+	def['heavy_bomber_groundcrew_training'] = {'air_doctrine_folder'}
+	def['strategic_bombardment_tactics'] = {'air_doctrine_folder'}
+	def['airborne_assault_tactics'] = {'air_doctrine_folder'}
+	def['strategic_air_command'] = {'air_doctrine_folder'}
+	def['heavycruiser_technology'] = {'capitalship_folder'}
+	def['heavycruiser_armament'] = {'capitalship_folder'}
+	def['heavycruiser_antiaircraft'] = {'capitalship_folder'}
+	def['heavycruiser_engine'] = {'capitalship_folder'}
+	def['heavycruiser_armour'] = {'capitalship_folder'}
+	def['battlecruiser_technology'] = {'capitalship_folder'}
+	def['battleship_technology'] = {'capitalship_folder'}
+	def['capitalship_armament'] = {'capitalship_folder'}
+	def['battlecruiser_antiaircraft'] = {'capitalship_folder'}
+	def['battlecruiser_engine'] = {'capitalship_folder'}
+	def['battlecruiser_armour'] = {'capitalship_folder'}
+	def['battleship_antiaircraft'] = {'capitalship_folder'}
+	def['battleship_engine'] = {'capitalship_folder'}
+	def['battleship_armour'] = {'capitalship_folder'}
+	def['super_heavy_battleship_technology'] = {'capitalship_folder'}
+	def['cag_development'] = {'capitalship_folder'}
+	def['escort_carrier_technology'] = {'capitalship_folder'}
+	def['carrier_technology'] = {'capitalship_folder'}
+	def['carrier_antiaircraft'] = {'capitalship_folder'}
+	def['carrier_engine'] = {'capitalship_folder'}
+	def['carrier_armour'] = {'capitalship_folder'}
+	def['carrier_hanger'] = {'capitalship_folder'}
+	def['largewarship_radar'] = {'capitalship_folder'}
+	def['carrier_group_doctrine'] = {'naval_doctrine_folder'}
+	def['carrier_crew_training'] = {'naval_doctrine_folder'}
+	def['carrier_task_force'] = {'naval_doctrine_folder'}
+	def['naval_underway_repleshment'] = {'naval_doctrine_folder'}
+	def['radar_training'] = {'naval_doctrine_folder'}
+	def['battlefleet_concentration_doctrine'] = {'naval_doctrine_folder'}
+	def['battleship_crew_training'] = {'naval_doctrine_folder'}
+	def['cruiser_warfare'] = {'naval_doctrine_folder'}
+	def['cruiser_crew_training'] = {'naval_doctrine_folder'}
+	def['basing'] = {'naval_doctrine_folder'}
+	def['oil_to_coal_conversion'] = {'industry_folder'}
+	def['heavy_aa_guns'] = {'industry_folder'}
+	def['radio_detection_equipment'] = {'industry_folder'}
+	def['radar'] = {'industry_folder'}
+	def['decryption_machine'] = {'industry_folder'}
+	def['encryption_machine'] = {'industry_folder'}
+	def['rocket_tests'] = {'industry_folder'}
+	def['rocket_engine'] = {'industry_folder'}
+	def['theorical_jet_engine'] = {'industry_folder'}
+	def['atomic_research'] = {'industry_folder'}
+	def['nuclear_research'] = {'industry_folder'}
+	def['isotope_seperation'] = {'industry_folder'}
+	def['civil_nuclear_research'] = {'industry_folder'}
+	def['oil_refinning'] = {'industry_folder'}
+	def['steel_production'] = {'industry_folder'}
+	def['raremetal_refinning_techniques'] = {'industry_folder'}
+	def['coal_processing_technologies'] = {'industry_folder'}
+	def['naval_engineering_research'] = {'theory_folder'}
+	def['submarine_engineering_research'] = {'theory_folder'}
+	def['aeronautic_engineering_research'] = {'theory_folder'}
+	def['rocket_science_research'] = {'theory_folder'}
+	def['chemical_engineering_research'] = {'theory_folder'}
+	def['nuclear_physics_research'] = {'theory_folder'}
+	def['jetengine_research'] = {'theory_folder'}
+	def['mechanicalengineering_research'] = {'theory_folder'}
+	def['automotive_research'] = {'theory_folder'}
+	def['electornicegineering_research'] = {'theory_folder'}
+	def['artillery_research'] = {'theory_folder'}
+	def['mobile_research'] = {'theory_folder'}
+	def['militia_research'] = {'theory_folder'}
+	def['infantry_research'] = {'theory_folder'}
+	def['civil_defence'] = {'theory_folder'}
+	
+	local db = {}
+	for k,techDef in pairs(def) do
+		local tech = CTechnology(k)
+		
+		-- IsReal
+		tech:saveResult(CTechnologyFolder(techDef[1]),CTechnology.GetFolder)
+
+		-- Save reference to db  
+		db[tech] = tech
 	end
 	
 	return db

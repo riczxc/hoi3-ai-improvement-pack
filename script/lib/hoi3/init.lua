@@ -72,9 +72,13 @@ function testType(value, typeAsString)
 end
 
 function assertParameterType(index, parameterValue, typeAsString)
+	local foundtype = type(parameterValue)
+	if instanceOf(aClass, obj)foundtype == hoi3.TYPE_TABLE and parameterValue.class ~= nil then
+		parameterValue = tostring(parameterValue.class)
+	end
 	assert(
 		testType(parameterValue, typeAsString),
-		"passed argument #"..index.." is not type "..typeAsString..", "..type(parameterValue).." found."
+		"passed argument #"..index.." is not type "..typeAsString..", "..foundtype.." found."
 	)
 end
 

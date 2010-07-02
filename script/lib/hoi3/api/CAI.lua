@@ -74,7 +74,7 @@ hoi3.f(CAI, 'GetCountry', false, 'CCountry', hoi3.TYPE_UNKNOWN)
 -- @param CCountry countryA
 -- @param CCountry countryB
 -- @return CFixedPoint
-hoi3.f(CAI, 'GetCountryAlignmentDistance', false, 'CFixedPoint', 'CCountryTag', 'CCountryTag')
+hoi3.f(CAI, 'GetCountryAlignmentDistance', false, 'CFixedPoint', 'CCountry', 'CCountry')
 
 ---
 -- @since 1.3
@@ -132,8 +132,6 @@ hoi3.f(CAI, 'GetReqProdQueueIter', false, 'iterator<CSubUnitConstructionEntry>')
 hoi3.f(CAI, 'GetRelation', false, 'CDiplomacyStatus', 'CCountryTag', 'CCountryTag')
 
 function CAI:GetRelationImpl(tagA, tagB)
-	print(tagA)
-	print(tagB)
 	return CDiplomacyStatus(tagA, tagB)
 end
 
