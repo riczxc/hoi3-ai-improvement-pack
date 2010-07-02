@@ -22,7 +22,7 @@ function CConstructUnitCommand:initialize(tag, list, capital, quantity, isReserv
 	hoi3.assertParameterType(4, quantity, hoi3.TYPE_NUMBER)
 	hoi3.assertParameterType(5, isReserve, hoi3.TYPE_BOOLEAN)
 	hoi3.assertParameterType(6, tag2, 'CCountryTag')
-	hoi3.assertParameterType(7, cID, 'CID')
+	hoi3.assertParameterType(7, cid, 'CID')
 
 	self.tag = tag
 	self.list = list
@@ -34,11 +34,11 @@ function CConstructUnitCommand:initialize(tag, list, capital, quantity, isReserv
 end
 
 function CConstructUnitCommand:desc()
-	local str
+	local str = ""
 	
 	if self.isReserve then str = "reserve " end
 	
-	for k, v in self.list do
+	for k, v in pairs(self.list.list) do
 		str = str .. tostring(v:GetKey()) .. "-"
 	end
 	

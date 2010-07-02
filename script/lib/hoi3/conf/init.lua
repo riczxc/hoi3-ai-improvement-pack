@@ -18,6 +18,7 @@ function generateAll()
 	generateProvinceDatabase()
 	generateSubUnitDatabase()
 	generateTechDatabase()
+	generateGovernementPositionDatabase()
 end
 
 function generateContinentDatabase()
@@ -130,6 +131,37 @@ function generateBuildingDatabase()
 	
 	return db
 end
+
+function generateGovernementPositionDatabase()
+	local def = {}
+	
+	def[1] = {'head_of_state'}
+	def[2] = {'head_of_government'}
+	def[3] = {'foreign_minister'}
+	def[4] = {'armament_minister'}
+	def[5] = {'minister_of_security'}
+	def[6] = {'minister_of_intelligence'}
+	def[7] = {'chief_of_staff'}
+	def[8] = {'chief_of_army'}
+	def[9] = {'chief_of_navy'}
+	def[10] = {'chief_of_air'}
+	
+	local db = {}
+	for i,posdef in ipairs(def) do
+		local pos = CGovernmentPosition(posdef[1])
+	
+		CGovernmentPositionDataBase.saveResult(
+			CGovernmentPositionDataBase,
+			pos,
+			CGovernmentPositionDataBase.GetGovernmentPositionByIndex,
+			i
+		)
+		db[pos] = pos
+	end
+	
+	return db
+end
+
 
 function generateLawDatabase()
 	local def = {}

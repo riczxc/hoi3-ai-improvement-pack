@@ -66,6 +66,7 @@ tickFunctions = {
 for i=0,1000  do
 	print("--------- loop #"..i.."--------------------")
 	hoi3.MultitonObject.instances = {}
+	hoi3.Hoi3Object.resultTable = {}
 	hoi3.conf.generateAll()	
 	local tag = CCountryTag:random()
 	local minister = CAIPoliticsMinister(tag)

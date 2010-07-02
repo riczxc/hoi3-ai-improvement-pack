@@ -29,9 +29,7 @@ end
 hoi3.f(CBuilding, 'GetIndex', false, hoi3.TYPE_NUMBER)
 
 function CBuilding:GetIndexImpl()
-	ret = self:getIndexInDictionnary(CBuilding:getInstances())
-	print(self.name.." index = "..tostring(ret))
-	return ret
+	return self:getIndexInDictionnary(CBuilding:getInstances())
 end
 
 function CBuilding.random()

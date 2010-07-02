@@ -48,7 +48,8 @@ end
 hoi3.f(CLawDataBase, 'GetNumberOfLawGroups', true, hoi3.TYPE_NUMBER)
 
 function CLawDataBase.GetNumberOfLawGroupsImpl()	
-	return #CLawDataBase.GetGroups()
+	local _, s = CLawDataBase.GetGroups()
+	return #s
 end
 
 ---
@@ -57,7 +58,8 @@ end
 hoi3.f(CLawDataBase, 'GetNumberOfLaws', true, hoi3.TYPE_NUMBER)
 
 function CLawDataBase.GetNumberOfLawsImpl()	
-	return #CLawDataBase.GetLawList()
+	local _, s = CLawDataBase.GetLawList()
+	return #s
 end
 
 -- TODO add functions

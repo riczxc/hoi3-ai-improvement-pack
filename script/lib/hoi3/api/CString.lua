@@ -32,3 +32,6 @@ end
 hoi3.f(CString, 'GetCharPtr', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 
+function CString.random()
+	return hoi3.RAND_STRING:compute() 
+end
