@@ -157,12 +157,12 @@ function Laws(minister)
 	-- Each law group has an key and a callback function
 	local laLawGroups = {}
 	laLawGroups["civil_law"] = {Callback=CivilLaw}
-	laPositions["conscription_law"] = {Callback=ConscriptionLaw}
-	laPositions["economic_law"] = {Callback=EconomicLaw}
-	laPositions["education_investment_law"] = {Callback=EducationInvestment}
-	laPositions["industrial_policy_laws"] = {Callback=IndustrialPolicies}
-	laPositions["press_laws"] = {Callback=PressLaws}
-	laPositions["training_laws"] = {Callback=TrainingLaws}	
+	laLawGroups["conscription_law"] = {Callback=ConscriptionLaw}
+	laLawGroups["economic_law"] = {Callback=EconomicLaw}
+	laLawGroups["education_investment_law"] = {Callback=EducationInvestment}
+	laLawGroups["industrial_policy_laws"] = {Callback=IndustrialPolicies}
+	laLawGroups["press_laws"] = {Callback=PressLaws}
+	laLawGroups["training_laws"] = {Callback=TrainingLaws}	
 	
 	for loGroup in CLawDataBase.GetGroups() do
 		local loGroupName = tostring(loGroup:GetKey())
@@ -173,8 +173,8 @@ function Laws(minister)
 		if Utils.HasCountryAIFunction(ministerTag, lsMethodCall) then
 			loNewLaw = Utils.CallCountryAI(ministerTag, lsMethodCall, minister, loCurrentLaw)
 			
-		elseif laPositions[loGroupName] ~= nil then
-			loNewLaw = laPositions[loGroupName].Callback(ministerTag, ministerCountry, loCurrentLaw)
+		elseif laLawGroups[loGroupName] ~= nil then
+			loNewLaw = laLawGroups[loGroupName].Callback(ministerTag, ministerCountry, loCurrentLaw)
 
 		-- Unknown Law so just increase it by 1
 		else

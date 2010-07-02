@@ -52,10 +52,10 @@ function CWar.random()
 	-- pick an existing war !
 	local ret = hoi3.randomTableMember(CWar:getInstances())
 	
-	if ret == nil or r.compute() < 50 then
+	if ret == nil or r:compute() < 50 then
 		-- a new war !
 		local rt = hoi3.Randomizer(hoi3.TYPE_STRING)
-		return CWar(rt.compute())
+		return CWar(rt:compute())
 	else
 		return ret
 	end

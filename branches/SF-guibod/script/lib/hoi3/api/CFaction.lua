@@ -15,6 +15,11 @@ end
 ---
 -- @since 1.3
 -- @return CCountryTag
+hoi3.f(CFaction, 'GetTag', false, 'CCountryTag')
+
+---
+-- @since 1.3
+-- @return CCountryTag
 hoi3.f(CFaction, 'GetFactionLeader', false, 'CCountryTag')
 
 --- Faction leader is random faction member

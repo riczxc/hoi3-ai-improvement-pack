@@ -23,10 +23,10 @@ end
 
 ---
 -- @since 1.3
--- @return string
+-- @return CString
 hoi3.f(CLawGroup, 'GetKey', false, 'CString')
 
-function CLaw:GetKeyImpl()
+function CLawGroup:GetKeyImpl()
 	return self.key
 end
 

@@ -12,7 +12,7 @@ CCallAllyAction = CDiplomaticAction:subclass('hoi3.CCallAllyAction')
 -- @return CCallAllyAction
 function CCallAllyAction:initialize(tag, ally, target)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, actor, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	hoi3.assertParameterType(2, ally, 'CCountryTag')
 	hoi3.assertParameterType(3, target, 'CCountryTag')
 

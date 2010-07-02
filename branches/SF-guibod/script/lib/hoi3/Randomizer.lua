@@ -249,3 +249,5 @@ RAND_PERC.max = 100
 RAND_0TO10 = Randomizer(hoi3.TYPE_NUMBER)
 RAND_0TO10.min = 0
 RAND_0TO10.max = 10
+
+RAND_STRING = Randomizer(hoi3.TYPE_STRING)

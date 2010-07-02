@@ -33,6 +33,20 @@ hoi3.f(CProvince, 'GetContinent', false, 'CContinent')
 -- @return CCountryTag
 hoi3.f(CProvince, 'GetController', false, 'CCountryTag')
 
+function CProvince:GetControllerImpl()
+	local tag = self:GetOwner()
+	if tag:GetCountry():IsAtWar() then
+		local r = hoi3.RAND_BOOL_UNLIKELY
+		if r:compute() then
+			while not tag:IsReal() do
+				tag = CCountryTag.random() 
+			end
+		end
+	end
+	
+	return tag
+end
+
 ---
 -- @since 1.4
 -- @param CBuilding  pBuilding
@@ -69,6 +83,14 @@ hoi3.f(CProvince, 'GetNumberOfUnits', false, hoi3.TYPE_NUMBER)
 -- @since 1.3
 -- @return CCountryTag
 hoi3.f(CProvince, 'GetOwner', false, 'CCountryTag')
+
+function CProvince:GetOwnerImpl()
+	local tag = CCountryTag.random() 
+	while not tag:IsReal() do
+		tag = CCountryTag.random() 
+	end
+	return tag
+end
 
 ---
 -- @since 1.3

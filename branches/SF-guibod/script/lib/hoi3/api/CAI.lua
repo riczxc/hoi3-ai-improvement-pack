@@ -53,7 +53,7 @@ hoi3.f(CAI, 'CanTradeFreeResources', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'C
 -- @param number needs
 -- @param number goodsType
 -- @return CFixedPoint
-hoi3.f(CAI, 'EvaluateCancelTrades', false, 'CFixedPoint', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CAI, 'EvaluateCancelTrades', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3

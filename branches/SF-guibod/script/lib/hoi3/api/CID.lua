@@ -8,6 +8,4 @@ CID = hoi3.Hoi3Object:subclass('hoi3.CID')
 -- @return CID
 function CID:initialize()
 	hoi3.assertNonStatic(self)
-	
-	print("new CID!")
 end

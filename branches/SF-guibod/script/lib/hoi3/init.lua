@@ -73,9 +73,9 @@ end
 
 function assertParameterType(index, parameterValue, typeAsString)
 	local foundtype = type(parameterValue)
-	if foundtype == hoi3.table and 
+	if foundtype == hoi3.TYPE_TABLE and 
 		middleclass.instanceOf(hoi3.Object, parameterValue) then
-		parameterValue = getmetatable(parameterValue).class
+		foundtype = tostring(parameterValue.class)
 	end
 	assert(
 		testType(parameterValue, typeAsString),
@@ -132,6 +132,10 @@ function testAll()
 	require("hoi3.tests.cdate")
 	
 	return lunit.main()
+end
+
+function randomIteratorMember(iterator, invariant, index)
+	return randomTableMember(invariant)
 end
 
 function randomTableMember(table)

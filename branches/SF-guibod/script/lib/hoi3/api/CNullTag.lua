@@ -18,3 +18,7 @@ end
 function CNullTag:initialize()
 	
 end
+
+function CNullTag:__tostring()
+	return ""
+end

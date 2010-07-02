@@ -123,20 +123,48 @@ hoi3.f(CCountry, 'GetBuildTime', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 -- @return number  
 hoi3.f(CCountry, 'GetCapital', false, hoi3.TYPE_NUMBER)
 
+function CCountry:GetCapitalImpl()
+	return self:GetCapitalLocation():GetProvinceID()
+end
+
 ---
 -- @since 1.3
 -- @return CProvince
 hoi3.f(CCountry, 'GetCapitalLocation', false, 'CProvince')
 
+function CCountry:GetCapitalLocationImpl()
+	return hoi3.randomIteratorMember(self:GetCoreProvinces())
+end
+
 ---
 -- @since 1.4
 -- @return iterator<CProvince> 
-hoi3.f(CCountry, 'GetControlledProvinces', false, 'iterator<CProvince>')
+hoi3.f(CCountry, 'GetControlledProvinces', false, 'iterator<number>')
+
+function CCountry:GetControlledProvincesImpl()
+	local t = {}
+	for k,v in pairs(CProvince:getInstances()) do
+		if v:GetController() == self.tag then
+			t[k:GetProvinceID()] = v:GetProvinceID()
+		end
+	end
+	return t
+end
 
 ---
 -- @since 1.4
 -- @return iterator<CProvince>
-hoi3.f(CCountry, 'GetCoreProvinces', false, 'iterator<CProvince>') 
+hoi3.f(CCountry, 'GetCoreProvinces', false, 'iterator<number>') 
+
+function CCountry:GetCoreProvincesImpl()
+	local t = {}
+	for k,v in pairs(CProvince:getInstances()) do
+		if v:GetOwner() == self.tag then
+			t[k:GetProvinceID()] = v:GetProvinceID()
+		end
+	end
+	return t
+end
 
 ---
 -- @since 2.0
@@ -304,7 +332,7 @@ hoi3.f(CCountry, 'GetLaw', false, 'CLaw', 'CLawGroup')
 -- @return CLaw
 hoi3.f(CCountry, 'GetLawFromIndex', false, 'CLaw', hoi3.TYPE_NUMBER)
 
-function CCountry.GetLawFromIndexImpl(index)	
+function CCountry:GetLawFromIndexImpl(index)	
 	return fromIndexTableMember(CLaw:GetInstances(), index)
 end
 
@@ -367,7 +395,8 @@ hoi3.f(CCountry, 'GetNeutrality', false, 'CFixedPoint')
 hoi3.f(CCountry, 'GetNumberOfControlledProvinces', false, hoi3.TYPE_NUMBER)
  
 function CCountry:GetNumberOfControlledProvincesImpl()
-	return #self:GetControlledProvinces()
+	local f, s = #self:GetControlledProvinces()
+	return #s
 end
 
 ---
@@ -639,7 +668,7 @@ hoi3.f(CCountry, 'HasFaction', false, hoi3.RAND_BOOL_VUNLIKELY)
 -- @return bool
 hoi3.f(CCountry, 'HasNeighborInFaction', false, hoi3.TYPE_BOOLEAN, 'CFaction')
 
-function HasNeighborInFactionImpl(faction)
+function CCountry:HasNeighborInFactionImpl(faction)
 	for k, v in self:GetNeighbours() do
 		if v:GetCountry():HasFaction() and v:GetCountry():GetFaction() == faction then
 			return true
@@ -706,7 +735,7 @@ end
 -- @return bool
 hoi3.f(CCountry, 'IsMobilized', false, hoi3.TYPE_BOOLEAN)
 
-function CCountry:IsMobilized()
+function CCountry:IsMobilizedImpl()
 	return self:IsAtWar() or hoi3.RAND_BOOL_VUNLIKELY:compute()
 end
 
@@ -749,13 +778,14 @@ hoi3.f(CCountry, 'NeedConvoyToTradeWith', false, hoi3.RAND_BOOL_VUNLIKELY, 'CCou
 hoi3.f(CCountry, 'MayLiberateCountries', false, hoi3.TYPE_BOOLEAN)
 
 function CCountry:MayLiberateCountriesImpl()
-	return #self:GetPossibleLiberations() > 0
+	local _, s = self:GetPossibleLiberations() 
+	return #s > 0
 end
 
 
 ---
 -- @since 1.3
--- @return iterator<TradeRoute>
+-- @return iterator<CTradeRoute>
 hoi3.f(CCountry, 'AIGetTradeRoutes', false, 'iterator<CTradeRoute>')
 
 ---
@@ -763,6 +793,10 @@ hoi3.f(CCountry, 'AIGetTradeRoutes', false, 'iterator<CTradeRoute>')
 -- @return iterator<CCountryTag>
 hoi3.f(CCountry, 'GetAllies', false, 'iterator<CCountryTag>')
 
+---
+-- @since 2.0
+-- @return iterator<CMinister>
+hoi3.f(CCountry, 'GetPossibleMinisters', false, 'iterator<CMinister>')
 
 function CCountry.random()
 	return hoi3.randomTableMember(CCountry:getInstances())
