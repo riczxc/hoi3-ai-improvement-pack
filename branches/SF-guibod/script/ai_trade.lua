@@ -584,6 +584,11 @@ function ProposeTrades(ai, ministerTag)
 	local loMinisterPool = ministerCountry:GetPool()
 	
 	
+	--FIXME
+	for k,v in pairs(laResourceNeeds) do
+		print(k.." "..type(v))
+	end
+	
 	-- Check to see if we need to cancel anything
 	for i = _METAL_, _FUEL_ do
 		-- First see if we can solve our problem by cancelling old trades

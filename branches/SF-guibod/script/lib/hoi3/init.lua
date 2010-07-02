@@ -84,9 +84,14 @@ function assertParameterType(index, parameterValue, typeAsString)
 end
 
 function assertReturnType(returnValue, typeAsString)
+	local foundtype = type(returnValue)
+	if foundtype == hoi3.TYPE_TABLE and 
+		middleclass.instanceOf(hoi3.Object, returnValue) then
+		foundtype = tostring(returnValue.class)
+	end
 	assert(
 		testType(returnValue, typeAsString),
-		"returned value is not type "..typeAsString..", "..type(returnValue).." found."
+		"returned value is not type "..typeAsString..", "..foundtype.." found."
 	)
 end
 
