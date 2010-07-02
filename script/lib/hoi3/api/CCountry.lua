@@ -304,6 +304,10 @@ hoi3.f(CCountry, 'GetLaw', false, 'CLaw', 'CLawGroup')
 -- @return CLaw
 hoi3.f(CCountry, 'GetLawFromIndex', false, 'CLaw', hoi3.TYPE_NUMBER)
 
+function CCountry.GetLawFromIndexImpl(index)	
+	return fromIndexTableMember(CLaw:GetInstances(), index)
+end
+
 ---
 -- @since 1.3
 -- @param number distributionSetting
