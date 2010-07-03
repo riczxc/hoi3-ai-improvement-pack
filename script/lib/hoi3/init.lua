@@ -178,7 +178,7 @@ function countTableMember(t)
 end
 
 function fromIndexTableMember(table, index)
-print("Search index "..index.." in "..table)
+print("Search index "..index.." in "..tostring(table))
 	if type(table) ~= TYPE_TABLE then return nil end
 	if type(index) ~= TYPE_NUMBER then return nil end
 

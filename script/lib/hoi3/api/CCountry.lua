@@ -133,7 +133,7 @@ end
 hoi3.f(CCountry, 'GetCapitalLocation', false, 'CProvince')
 
 function CCountry:GetCapitalLocationImpl()
-	return hoi3.randomIteratorMember(self:GetCoreProvinces())
+	return CProvince(hoi3.randomIteratorMember(self:GetCoreProvinces()))
 end
 
 ---

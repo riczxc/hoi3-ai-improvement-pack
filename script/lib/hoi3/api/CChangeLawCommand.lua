@@ -23,6 +23,6 @@ end
 
 function CChangeLawCommand:desc()
 	return "Changed law to "..tostring(self.law:GetKey())..
-		" in "..tostring(self.group:GetKey()).." group"..
-		" by "..tostring(self.countryTag).."."
+		" in "..tostring(self.group:GetKey():GetString()).." group"..
+		" by "..tostring(self.tag).."."
 end

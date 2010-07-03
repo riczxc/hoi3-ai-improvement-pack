@@ -448,7 +448,7 @@ function Laws_pickNextValidSiblingLaw(ministerTag, voCurrentLaw)
 	
 	if liIndex < CLawDataBase.GetNumberOfLaws() then
 		loNewLaw = CLawDataBase.GetLaw(liIndex)
-		if not(voCurrentLaw:GetGroup():GetIndex() == loNewLaw:GetGroup():GetIndex()) then 
+		if loNewLaw == nil or not(voCurrentLaw:GetGroup():GetIndex() == loNewLaw:GetGroup():GetIndex()) then 
 			return nil
 		end
 	end

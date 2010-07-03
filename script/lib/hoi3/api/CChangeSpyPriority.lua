@@ -24,5 +24,5 @@ end
 function CChangeSpyPriority:desc()
 	return "Spy priority changed toward "..tostring(self.target).." to "..
 		tostring(self.priority)..
-		" by "..tostring(self.countryTag).."."
+		" by "..tostring(self.tag).."."
 end

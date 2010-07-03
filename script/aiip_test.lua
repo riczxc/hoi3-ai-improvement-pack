@@ -51,16 +51,16 @@ require('ai_trade')
 require('ai_strategic')
 
 tickFunctions = {
---	{ForeignMinister_OnWar,hoi3.api.CAIForeignMinister}, --blank function
-	{ForeignMinister_EvaluateDecision,hoi3.api.CAIForeignMinister},
-	{ForeignMinister_Tick,hoi3.api.CAIForeignMinister},
-	{ForeignMinister_ManageTrade,hoi3.api.CAIForeignMinister},
---	{DiploScore_OfferTrade,hoi3.api.CAIForeignMinister},
-	{IntelligenceMinister_Tick,hoi3.api.CAIEspionageMinister},
-	{PoliticsMinister_Tick,hoi3.api.CAIPoliticsMinister},
-	{ProductionMinister_Tick,hoi3.api.CAIProductionMinister},
-	{BalanceProductionSliders,hoi3.api.CAIProductionMinister},
-	{TechMinister_Tick,hoi3.api.CAITechMinister}
+--	{'ForeignMinister_OnWar',hoi3.api.CAIForeignMinister}, --blank function
+	{'ForeignMinister_EvaluateDecision',hoi3.api.CAIForeignMinister},
+	{'ForeignMinister_Tick',hoi3.api.CAIForeignMinister},
+	{'ForeignMinister_ManageTrade',hoi3.api.CAIForeignMinister},
+--	{'DiploScore_OfferTrade',hoi3.api.CAIForeignMinister},
+	{'IntelligenceMinister_Tick',hoi3.api.CAIEspionageMinister},
+	{'PoliticsMinister_Tick',hoi3.api.CAIPoliticsMinister},
+	{'ProductionMinister_Tick',hoi3.api.CAIProductionMinister},
+	{'BalanceProductionSliders',hoi3.api.CAIProductionMinister},
+	{'TechMinister_Tick',hoi3.api.CAITechMinister}
 }
 
 for i=0,1000  do
@@ -72,7 +72,7 @@ for i=0,1000  do
 	local minister = CAIPoliticsMinister(tag)
     
     for k,v in ipairs(tickFunctions) do
-    	tickFunc = v[1]
+    	tickFunc = _G[v[1]]
     	mnstFunc = v[2]
     	if tickFunc == BalanceProductionSliders then
     		hoi3.Randomizer.seed()
@@ -86,7 +86,7 @@ for i=0,1000  do
     		tickFunc(mnstFunc(tag))
     	end
     	
-    	print(tostring(hoi3.FunctionObject.numApiCalls).." api calls")
+    	print(v[1].." "..tostring(hoi3.FunctionObject.numApiCalls).." api calls")
     	hoi3.FunctionObject.numApiCalls = 0
     end
 end

@@ -514,7 +514,7 @@ function generateSubUnitDatabase()
 	table.insert(def,{'super_heavy_battleship'})
 	table.insert(def,{'tactical_bomber'})
 	table.insert(def,{'tank_destroyer_brigade'})
-	table.insert(def,{'transport'})
+	table.insert(def,{'transport_ship'})
 	table.insert(def,{'transport_plane'})
 	
 	local db = {}

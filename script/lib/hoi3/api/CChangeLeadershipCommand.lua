@@ -24,7 +24,7 @@ function CChangeLeadershipCommand:initialize(tag, ...)
 end
 
 function CChangeLeadershipCommand:__tostring()
-	local str = "Changed leadership by "..tostring(self.countryTag).."."
+	local str = "Changed leadership by "..tostring(self.tag).."."
 	
 	for i,v in ipairs(self.changes) do
 		str = str .. " #"..i.."="..v:Get()
