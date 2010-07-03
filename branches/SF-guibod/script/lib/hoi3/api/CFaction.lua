@@ -49,7 +49,7 @@ hoi3.f(CFaction, 'GetNormalizedProgress', false, 'CFixedPoint')
 hoi3.f(CFaction, 'GetNumberOfMembers', false, hoi3.TYPE_NUMBER)
 
 function CFaction:GetNumberOfMembersImpl()
-	return #self:GetMembers()
+	return hoi3.countTableMember(self:GetMembers())
 end
 
 ---

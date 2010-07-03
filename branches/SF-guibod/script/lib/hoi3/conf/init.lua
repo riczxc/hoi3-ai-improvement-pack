@@ -19,6 +19,7 @@ function generateAll()
 	generateSubUnitDatabase()
 	generateTechDatabase()
 	generateGovernementPositionDatabase()
+	generatePersonalityDatabase()
 end
 
 function generateContinentDatabase()
@@ -162,6 +163,100 @@ function generateGovernementPositionDatabase()
 	return db
 end
 
+function generatePersonalityDatabase()
+	local def = {}
+	
+	table.insert(def,{'biased_intellectual'})
+	table.insert(def,{'ideological_crusader'})
+	table.insert(def,{'apologetic_clerk'})
+	table.insert(def,{'iron_fisted_brute'})
+	table.insert(def,{'great_compromiser'})
+	table.insert(def,{'general_staffer'})
+	table.insert(def,{'the_cloak_n_dagger_schemer'})
+	table.insert(def,{'administrative_genius'})
+	table.insert(def,{'resource_industrialist'})
+	table.insert(def,{'laissez_faires_capitalist'})
+	table.insert(def,{'theoretical_scientist'})
+	table.insert(def,{'military_entrepreneur'})
+	table.insert(def,{'battle_fleet_proponent'})
+	table.insert(def,{'submarine_proponent'})
+	table.insert(def,{'tank_proponent'})
+	table.insert(def,{'infantry_proponent'})
+	table.insert(def,{'air_to_ground_proponent'})
+	table.insert(def,{'air_to_sea_proponent'})
+	table.insert(def,{'strategic_air_proponent'})
+	table.insert(def,{'silent_lawyer'})
+	table.insert(def,{'compassionate_gentleman'})
+	table.insert(def,{'crime_fighter'})
+	table.insert(def,{'prince_of_terror'})
+	table.insert(def,{'back_stabber'})
+	table.insert(def,{'man_of_the_people'})
+	table.insert(def,{'efficient_sociopath'})
+	table.insert(def,{'technical_specialist'})
+	table.insert(def,{'research_specialist'})
+	table.insert(def,{'political_specialist'})
+	table.insert(def,{'dismal_enigma'})
+	table.insert(def,{'industrial_specialist'})
+	table.insert(def,{'naval_intelligence_specialist'})
+	table.insert(def,{'school_of_manoeuvre'})
+	table.insert(def,{'school_of_fire_support'})
+	table.insert(def,{'school_of_mass_combat'})
+	table.insert(def,{'school_of_psychology'})
+	table.insert(def,{'school_of_defence'})
+	table.insert(def,{'logistics_specialist'})
+	table.insert(def,{'elastic_defence_doctrine'})
+	table.insert(def,{'static_defence_doctrine'})
+	table.insert(def,{'decisive_battle_doctrine'})
+	table.insert(def,{'armoured_spearhead_doctrine'})
+	table.insert(def,{'guns_and_butter_doctrine'})
+	table.insert(def,{'open_seas_doctrine'})
+	table.insert(def,{'decisive_naval_battle_doctrine'}) 
+	table.insert(def,{'power_projection_doctrine'})
+	table.insert(def,{'indirect_approach_doctrine'})
+	table.insert(def,{'base_control_doctrine'})
+	table.insert(def,{'air_superiority_doctrine'})
+	table.insert(def,{'naval_aviation_doctrine'})
+	table.insert(def,{'army_aviation_doctrine'})
+	table.insert(def,{'carpet_bombing_doctrine'})
+	table.insert(def,{'vertical_envelopment_doctrine'})
+	table.insert(def,{'undistinguished_suit'})
+	table.insert(def,{'air_superiority_proponent'})
+	table.insert(def,{'corrupt_kleptocrat'})
+	table.insert(def,{'crooked_kleptocrat'})
+	table.insert(def,{'power_hungry_demagogue'})
+	table.insert(def,{'barking_buffoon'})
+	table.insert(def,{'stern_imperialist'})
+	table.insert(def,{'ruthless_powermonger'})
+	table.insert(def,{'autocratic_charmer'})
+	table.insert(def,{'resigned_generalissimo'})
+	table.insert(def,{'benevolent_gentleman'})
+	table.insert(def,{'weary_stiff_neck'})
+	table.insert(def,{'insignificant_layman'})
+	table.insert(def,{'die_hard_reformer'})
+	table.insert(def,{'pig_headed_isolationist'})
+	table.insert(def,{'popular_figurehead'})
+	table.insert(def,{'silent_workhorse'})
+	table.insert(def,{'naive_optimist'})
+	table.insert(def,{'flamboyant_tough_guy'})
+	table.insert(def,{'happy_amateur'})
+	table.insert(def,{'backroom_backstabber'})
+	table.insert(def,{'smiling_oilman'})
+	table.insert(def,{'old_general'})
+	table.insert(def,{'old_admiral'})
+	table.insert(def,{'old_air_marshal'})
+	table.insert(def,{'political_protege'})
+	table.insert(def,{'ambitious_union_boss'})
+	table.insert(def,{'corporate_suit'})
+	
+	local db = {}
+	for i,persodef in ipairs(def) do
+		local perso = CPersonality(persodef[1])
+	
+		db[perso] = perso
+	end
+	
+	return db
+end
 
 function generateLawDatabase()
 	local def = {}
@@ -209,6 +304,9 @@ function generateLawDatabase()
 		
 		-- GetGroup
 		law:saveResult(CLawGroup(lawdef[3]),CLaw.GetGroup)
+
+		-- GetGroup
+		CLawDataBase.saveResult(CLawDataBase, law, CLawDataBase.GetLaw, lawdef[2])
 				
 		db[law] = law
 	end

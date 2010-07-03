@@ -22,5 +22,5 @@ end
 hoi3.f(CBuildingDataBase, 'GetBuildingFromIndex', false, 'CBuilding', hoi3.TYPE_NUMBER)
 
 function CBuildingDataBase.GetBuildingFromIndexImpl(index)
-	return fromIndexTableMember(CBuilding:GetInstances(), index)
+	return hoi3.fromIndexTableMember(CBuilding:getInstances(), index)
 end

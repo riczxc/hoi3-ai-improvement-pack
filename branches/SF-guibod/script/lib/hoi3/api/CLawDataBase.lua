@@ -20,7 +20,7 @@ end
 hoi3.f(CLawDataBase, 'GetLawGroup', true, 'CLawGroup', hoi3.TYPE_NUMBER)
 
 function CLawDataBase.GetLawGroupImpl(index)
-	return fromIndexTableMember(CLawGroup:GetInstances(), index)
+	return hoi3.fromIndexTableMember(CLawGroup:getInstances(), index)
 end
 
 ---
@@ -29,8 +29,11 @@ end
 -- @return CLaw 
 hoi3.f(CLawDataBase, 'GetLaw', true, 'CLaw', hoi3.TYPE_NUMBER)
 
-function CLawDataBase.GetLawImpl(faction)
-	return fromIndexTableMember(CLaw:GetInstances(), index)
+function CLawDataBase.GetLawImpl(index)
+	print("Trying to access law "..index)
+	ret = hoi3.fromIndexTableMember(CLaw:getInstances(), index)
+	print(ret)
+	return ret
 end
 
 ---
@@ -48,8 +51,7 @@ end
 hoi3.f(CLawDataBase, 'GetNumberOfLawGroups', true, hoi3.TYPE_NUMBER)
 
 function CLawDataBase.GetNumberOfLawGroupsImpl()	
-	local _, s = CLawDataBase.GetGroups()
-	return #s
+	return hoi3.countIteratorMember(CLawDataBase.GetGroups())
 end
 
 ---
@@ -58,8 +60,7 @@ end
 hoi3.f(CLawDataBase, 'GetNumberOfLaws', true, hoi3.TYPE_NUMBER)
 
 function CLawDataBase.GetNumberOfLawsImpl()	
-	local _, s = CLawDataBase.GetLawList()
-	return #s
+	return hoi3.countIteratorMember(CLawDataBase.GetLawList())
 end
 
 -- TODO add functions

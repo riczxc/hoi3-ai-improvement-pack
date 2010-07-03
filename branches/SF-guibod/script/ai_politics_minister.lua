@@ -453,7 +453,7 @@ function Laws_pickNextValidSiblingLaw(ministerTag, voCurrentLaw)
 		end
 	end
 
-	if loNewLaw:ValidFor(ministerTag) then
+	if loNewLaw ~= nil and loNewLaw:ValidFor(ministerTag) then
 		return loNewLaw
 	else
 		return nil
