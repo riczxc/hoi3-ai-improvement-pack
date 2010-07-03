@@ -18,7 +18,7 @@ function CAIStrategy:initalize(countryTag)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	self.countryTag = countryTag
+	self.tag = tag
 end
 
 ---

@@ -24,7 +24,7 @@ function CChangeInvestmentCommand:initialize(tag, ...)
 end
 
 function CChangeInvestmentCommand:desc()
-	local str = "Changed investment by "..tostring(self.countryTag).."."
+	local str = "Changed investment by "..tostring(self.tag).."."
 	
 	for i,v in ipairs(self.changes) do
 		str = str .. " #"..i.."="..v

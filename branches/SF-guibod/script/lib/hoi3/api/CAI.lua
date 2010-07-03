@@ -6,11 +6,11 @@ CAI = hoi3.MultitonObject:subclass('hoi3.CAI')
 
 ---
 -- @param CCountryTag countryTag
-function CAI:initalize(countryTag)
+function CAI:initalize(tag)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
-	self.countryTag = countryTag
+	self.tag = tag
 end
 
 --- 

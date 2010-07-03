@@ -30,10 +30,7 @@ end
 hoi3.f(CLawDataBase, 'GetLaw', true, 'CLaw', hoi3.TYPE_NUMBER)
 
 function CLawDataBase.GetLawImpl(index)
-	print("Trying to access law "..index)
-	ret = hoi3.fromIndexTableMember(CLaw:getInstances(), index)
-	print(ret)
-	return ret
+	return hoi3.fromIndexTableMember(CLaw:getInstances(), index)
 end
 
 ---

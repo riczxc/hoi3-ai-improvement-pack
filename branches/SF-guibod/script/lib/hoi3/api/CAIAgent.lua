@@ -6,11 +6,11 @@ CAIAgent = CAISubscriber:subclass('hoi3.CAIAgent')
 
 ---
 -- @param CCountryTag countryTag
-function CAIAgent:initalize(countryTag)
+function CAIAgent:initalize(tag)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 
-	self.countryTag = countryTag
+	self.tag = tag
 end
 
 ---
@@ -19,7 +19,7 @@ end
 hoi3.f(CAIAgent, 'GetCountryTag', false, 'CCountryTag')
 
 function CAIAgent:GetCountryTagImpl()
-	return self.countryTag
+	return self.tag
 end
 
 ---
@@ -28,7 +28,7 @@ end
 hoi3.f(CAIAgent, 'GetCountry', false, 'CCountry')
 
 function CAIAgent:GetCountryImpl()
-	return CCountry(self.countryTag)
+	return CCountry(self.tag)
 end
   
 ---
@@ -37,5 +37,5 @@ end
 hoi3.f(CAIAgent, 'GetOwnerAI', false, 'CAI')
 
 function CAIAgent:GetOwnerAIImpl()
-	return CAI(self.countryTag)
+	return CAI(self.tag)
 end
