@@ -4,6 +4,8 @@ module( "hoi3", package.seeall)
 
 Hoi3Object = middleclass.class('hoi3.Hoi3Object')
 
+Hoi3Object.resultTable = {}
+
 function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
 	-- special case, transform a table (table) into iterator (func, table)
 	-- this is a workaround in order to avoid support for multiple result
@@ -34,64 +36,79 @@ function Hoi3Object.hashArgs(...)
 	return hash
 end
 
--- @static
-Hoi3Object.resultTable = {}
-
 Hoi3Object.clearResult = function(self)
 	 Hoi3Object.resultTable[self] = nil
 end
 
 ---
+-- @param MiddleClass class or instance
+-- @return string
+function Hoi3Object.getInstanceOrClassDescriptor(instanceOrClass)
+	local isInstance = middleclass.instanceOf(hoi3.Hoi3Object, instanceOrClass)
+	local isSubclass = middleclass.subclassOf(hoi3.Hoi3Object, instanceOrClass)
+	
+	assert(isInstance or isSubclass, "Unknown object or class.")
+	
+	return instanceOrClass
+end
+
+---
+-- @param FunctionObject
+-- @return string
+function Hoi3Object.getMethodDescriptor(method)
+	assert(middleclass.instanceOf(hoi3.FunctionObject, method), "Unable to recover value. Unknown function or method.")
+	return method
+end
+
+---
 -- Save a value for a object instance (or object definition for static method),
 -- method, and parameters.
-Hoi3Object.saveResult = function(self, value, method, ...)
-	assert(middleclass.instanceOf(hoi3.Hoi3Object, self)or
-		middleclass.subclassOf(hoi3.Hoi3Object, self), "Unable to recover value. Unknown object or class.")
-	assert(middleclass.instanceOf(hoi3.FunctionObject, method), "Unable to recover value. Unknown function or method.")
-	
-	
+Hoi3Object.saveResult = function(instanceOrClass, value, method, ...)
+	local c = Hoi3Object.getInstanceOrClassDescriptor(instanceOrClass)
+	local m = Hoi3Object.getMethodDescriptor(method)
 	local hash = Hoi3Object.hashArgs(...)
-	if Hoi3Object.resultTable[self] == nil then
-		Hoi3Object.resultTable[self] = {}
-	end
-	if Hoi3Object.resultTable[self][method] == nil then
-		Hoi3Object.resultTable[self][method] = {}
-	end
+	
+	-- No nil, force tables
+	Hoi3Object.resultTable[c] = Hoi3Object.resultTable[c] or {}
+	Hoi3Object.resultTable[c][m] = Hoi3Object.resultTable[c][m] or {}
 		
 	--dtools.debug("Result cached for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(value))
-	Hoi3Object.resultTable[self][method][hash] = value
+	Hoi3Object.resultTable[c][m][hash] = value
 end
 
 -- Intends to be used in a HOI3 (needs to renamed fake LUA object to something else tough)
 -- FakeCAI:runAndSaveResult(CAI.CanDeclareWar,"GER", "FRA")
 -- FakeCAI:runAndSaveResult(CAI.CanDeclareWar,"GER", "ENG")
 -- FakeCAI:serialize()
-function Hoi3Object:runAndSaveResult(method, value, ...)
-	Hoi3Object.saveResult(self, method(...), method, ...)
+Hoi3Object.runAndSaveResult = function (instanceOrClass, method, value, ...)
+	Hoi3Object.saveResult(instanceOrClass, method(...), method, ...)
 end
 
 ---
 -- Test cached result existance for object instance, method and parameter
 -- @return bool
-function Hoi3Object:hasResult(method, ...)
+Hoi3Object.hasResult = function(instanceOrClass, method, ...)
+	local c = Hoi3Object.getInstanceOrClassDescriptor(instanceOrClass)
+	local m = Hoi3Object.getMethodDescriptor(method)
 	local hash = Hoi3Object.hashArgs(...)
 	 
 	return
-		Hoi3Object.resultTable[self] ~= nil and
-		Hoi3Object.resultTable[self][method] ~= nil and
-		Hoi3Object.resultTable[self][method][hash] ~= nil
+		Hoi3Object.resultTable[c] ~= nil and
+		Hoi3Object.resultTable[c][m] ~= nil and
+		Hoi3Object.resultTable[c][m][hash] ~= nil
 end
 
-function Hoi3Object:loadResult(method, ...)
-	assert(middleclass.instanceOf(hoi3.FunctionObject, method), "Unable to recover value. Unknown function or method.")
+Hoi3Object.loadResult = function(instanceOrClass, method, ...)
+	local c = Hoi3Object.getInstanceOrClassDescriptor(instanceOrClass)
+	local m = Hoi3Object.getMethodDescriptor(method)
+	local hash = Hoi3Object.hashArgs(...)
 	
-	local hash = Hoi3Object.hashArgs(...) 	
-	assert(Hoi3Object.resultTable[self] ~= nil, "Unable to recover value. Unknown object reference.")
-	assert(Hoi3Object.resultTable[self][method] ~= nil, "Unable to recover value. Unknown function or method.")
-	assert(Hoi3Object.resultTable[self][method][hash] ~= nil, "Unable to recover value. Unknown signature.")
+	assert(Hoi3Object.resultTable[c] ~= nil, "Unable to recover value. Unknown object reference.")
+	assert(Hoi3Object.resultTable[c][m] ~= nil, "Unable to recover value. Unknown function or method.")
+	assert(Hoi3Object.resultTable[c][m][hash] ~= nil, "Unable to recover value. Unknown signature.")
 	
 	--dtools.debug("Result loaded for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(Hoi3Object.resultTable[self][method][hash]))
-	return Hoi3Object.resultTable[self][method][hash]
+	return Hoi3Object.resultTable[c][m][hash]
 end
 
 --[[
