@@ -907,3 +907,6 @@ function Need_Resource_Check(ministerCountry, voResourceType, vbCancelOveride)
 	end
 end
 
+-- Wrap CORE-TO-LUA hooks functions
+dtools.wrapFunction("DiploScore_OfferTrade","DIPLO")
+dtools.wrapFunction("ForeignMinister_ManageTrade","DIPLO")

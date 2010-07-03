@@ -72,8 +72,8 @@ for i=0,1000  do
 	local minister = CAIPoliticsMinister(tag)
     
     for k,v in ipairs(tickFunctions) do
-    	tickFunc = _G[v[1]]
-    	mnstFunc = v[2]
+    	local tickFunc = _G[v[1]]
+    	local mnstFunc = v[2]
     	if tickFunc == BalanceProductionSliders then
     		hoi3.Randomizer.seed()
     		tickFunc(CAI(tag),CCountry(tag),math.random(0,4))
