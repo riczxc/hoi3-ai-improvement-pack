@@ -517,3 +517,8 @@ function CheckInfluenceParameter(vaInfluenceParameter, vsCountryTag)
 	
 	return lbValue
 end
+
+-- Wrap CORE-TO-LUA hooks functions
+dtools.wrapFunction("ForeignMinister_OnWar","DIPLO")
+dtools.wrapFunction("ForeignMinister_EvaluateDecision","DIPLO")
+dtools.wrapFunction("ForeignMinister_Tick","DIPLO")

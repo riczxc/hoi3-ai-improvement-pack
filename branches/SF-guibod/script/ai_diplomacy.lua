@@ -682,10 +682,3 @@ function DiploScore_BreakAlliance(ai, actor, recipient, observer)
 	
 	return liScore
 end
-
--- Wrap CORE-TO-LUA hooks functions
-dtools.wrapFunction("ForeignMinister_OnWar","DIPLO")
-dtools.wrapFunction("ForeignMinister_EvaluateDecision","DIPLO")
-dtools.wrapFunction("ForeignMinister_Tick","DIPLO")
-dtools.wrapFunction("ForeignMinister_ManageTrade","DIPLO")
-dtools.wrapFunction("DiploScore_OfferTrade","DIPLO")
