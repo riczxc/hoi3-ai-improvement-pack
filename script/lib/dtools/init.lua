@@ -35,6 +35,7 @@ module("dtools", package.seeall)
 local devtools = {}
 devtools.__index = devtools
 devtools.enabled = true
+devtools.wrapoff = true
 
 local _module = devtools
 
@@ -53,7 +54,7 @@ function _module.harvest() end
 --
 -- Usefull to trap an error before to PI fallback to a standard code
 function _module.wrap(f, ...)
-	if devtools.enabled then
+	if devtools.enabled and not devtools.enabled then
 		local retOK, ret = pcall(f, ...)
 		if retOK == false then
 			--Write the error to a file
