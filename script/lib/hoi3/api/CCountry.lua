@@ -16,12 +16,12 @@ end
 ---
 -- @since 1.3
 -- @return CIdeology 
-hoi3.f(CCountry, 'AccessIdeologyOrganization', false, 'CIdeology')
+hoi3.f(CCountry, 'AccessIdeologyOrganization', false, 'CIdeologyData')
 
 ---
 -- @since 1.3
 -- @return CIdeology 
-hoi3.f(CCountry, 'AccessIdeologyPopularity', false, 'CIdeology')
+hoi3.f(CCountry, 'AccessIdeologyPopularity', false, 'CIdeologyData')
 
 ---
 -- @since 1.3
@@ -291,6 +291,8 @@ hoi3.f(CCountry, 'GetFaction', false, 'CFaction')
 function CCountry:GetFactionImpl()
 	if self:HasFaction() then
 		return CFaction.random()
+	else
+		return CNullFaction()
 	end
 end
 
@@ -333,7 +335,7 @@ hoi3.f(CCountry, 'GetLaw', false, 'CLaw', 'CLawGroup')
 hoi3.f(CCountry, 'GetLawFromIndex', false, 'CLaw', hoi3.TYPE_NUMBER)
 
 function CCountry:GetLawFromIndexImpl(index)	
-	return fromIndexTableMember(CLaw:GetInstances(), index)
+	return hoi3.fromIndexTableMember(CLaw:getInstances(), index)
 end
 
 ---
@@ -395,8 +397,7 @@ hoi3.f(CCountry, 'GetNeutrality', false, 'CFixedPoint')
 hoi3.f(CCountry, 'GetNumberOfControlledProvinces', false, hoi3.TYPE_NUMBER)
  
 function CCountry:GetNumberOfControlledProvincesImpl()
-	local f, s = #self:GetControlledProvinces()
-	return #s
+	return hoi3.countIteratorMember(self:GetControlledProvinces())
 end
 
 ---
@@ -405,8 +406,7 @@ end
 hoi3.f(CCountry, 'GetNumberOfCurrentResearch', false, hoi3.TYPE_NUMBER)
 
 function CCountry:GetNumberOfCurrentResearchImpl()
-	local f, s = self:GetCurrentResearch()
-	return #s
+	return hoi3.countIteratorMember(self:GetCurrentResearch())
 end
 
 ---
@@ -415,8 +415,7 @@ end
 hoi3.f(CCountry, 'GetNumberOfOwnedProvinces', false, hoi3.TYPE_NUMBER)
  
 function CCountry:GetNumberOfOwnedProvincesImpl()
-	local f, s = self:GetOwnedProvinces()
-	return #s
+	return hoi3.countIteratorMember(self:GetOwnedProvinces())
 end
 
 ---
@@ -430,8 +429,7 @@ hoi3.f(CCountry, 'GetNumOfAllies', false, hoi3.TYPE_NUMBER)
 hoi3.f(CCountry, 'GetNumOfAirfields', false, hoi3.TYPE_NUMBER)
 
 function CCountry:GetNumOfAirfieldsImpl()
-	local f, s = self:GetAirBases()
-	return #s
+	return hoi3.countIteratorMember(self:GetAirBases())
 end
 
 ---
@@ -440,8 +438,7 @@ end
 hoi3.f(CCountry, 'GetNumOfPorts', false, hoi3.TYPE_NUMBER)
 
 function CCountry:GetNumOfPortsImpl()
-	local f, s = self:GetNavalBases()
-	return #s
+	return hoi3.countIteratorMember(self:GetNavalBases())
 end
 
 ---
@@ -778,8 +775,7 @@ hoi3.f(CCountry, 'NeedConvoyToTradeWith', false, hoi3.RAND_BOOL_VUNLIKELY, 'CCou
 hoi3.f(CCountry, 'MayLiberateCountries', false, hoi3.TYPE_BOOLEAN)
 
 function CCountry:MayLiberateCountriesImpl()
-	local _, s = self:GetPossibleLiberations() 
-	return #s > 0
+	return hoi3.countIteratorMember(self:GetPossibleLiberations()) > 0
 end
 
 

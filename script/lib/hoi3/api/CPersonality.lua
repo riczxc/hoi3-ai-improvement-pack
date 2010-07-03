@@ -17,7 +17,7 @@ end
 -- @return CString
 hoi3.f(CPersonality, 'GetKey', false, 'CString')
 
-function CLaw:GetKeyImpl()
+function CPersonality:GetKeyImpl()
 	return self.key
 end
 

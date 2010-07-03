@@ -165,13 +165,29 @@ function randomTableMember(table)
 	end
 end
 
+function countIteratorMember(iterator, invariant, index)
+	return countTableMember(invariant)
+end
+
+function countTableMember(t)
+	local i = 0
+	for k,v in pairs(t) do
+		i = i + 1
+	end
+	return i
+end
+
 function fromIndexTableMember(table, index)
+print("Search index "..index.." in "..table)
 	if type(table) ~= TYPE_TABLE then return nil end
 	if type(index) ~= TYPE_NUMBER then return nil end
 
+print("ok!")
 	for i, v in ipairs(table) do
 		if i == index then
+			print("Found!")
 			return v
 		end
 	end
+	print("not found")
 end

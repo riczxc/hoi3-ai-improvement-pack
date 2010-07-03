@@ -19,7 +19,7 @@ hoi3.f(CMinister, 'GetIdeology', false, 'CIdeology')
 -- @since 2.0
 -- @param number positionIndex
 -- @return CPersonality
-hoi3.f(CMinister, 'GetPersonality', false, 'CPersonality', hoi3.TYPE_NUMBER)
+hoi3.f(CMinister, 'GetPersonality', false, 'CPersonality', 'CGovernmentPosition')
 
 function CMinister.random()
 	return CMinister()

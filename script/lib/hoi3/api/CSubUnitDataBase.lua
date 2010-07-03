@@ -12,7 +12,9 @@ CSubUnitDataBase = hoi3.AbstractObject:subclass('hoi3.CSubUnitDataBase')
 hoi3.f(CSubUnitDataBase, 'GetSubUnit', true, 'CSubUnitDefinition', hoi3.TYPE_STRING)
 
 function CSubUnitDataBase.GetSubUnit(key)
-	return CSubUnitDefinition:getInstance(key)
+	print("Trying to access subunit "..key)
+	local ret = CSubUnitDefinition:getInstance(key)
+	return ret
 end
 
 ---

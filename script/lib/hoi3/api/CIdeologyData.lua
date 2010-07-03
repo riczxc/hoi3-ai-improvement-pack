@@ -14,3 +14,7 @@ hoi3.f(CIdeologyData, 'CalculateTotalSum', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_U
 -- @param CIdeology ideology
 -- @return CFixedPoint
 hoi3.f(CIdeologyData, 'GetValue', false, 'CFixedPoint', 'CIdeology')
+
+function CIdeologyData.random()
+	return CIdeologyData()
+end
