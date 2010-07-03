@@ -64,7 +64,7 @@ end
 package.cpath = package.cpath .. ";" .. mod_package_path.."\\?.dll"
 
 -- Load dtools as a package
-dtools = require('dtools')
+require('dtools')
 
 -- Read log4lua conf from mod directory
 if CAI ~= nil and CAI.HasUserExtension() then

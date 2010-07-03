@@ -23,15 +23,25 @@ require('utils')
 -- Now uses homemade pure LUA fake HOI3 API
 -- relies on aiip_enabler.lua that is called
 -- from utils.lua
+require("dtools.table")
 require('hoi3')
 require('hoi3.api')
 
 dtools.setLogContext("","DEVEL")
 
 --Run all test suites
-if not(hoi3.testAll()) then
-	os.exit()
-end
+require("lunit")
+require("dtools.tests.dtools")
+require("dtools.tests.table")
+require("hoi3.tests.unit")
+require("hoi3.tests.type")
+require("hoi3.tests.save")
+require("hoi3.tests.multiton")
+require("hoi3.tests.abstract")
+require("hoi3.tests.fixedpoint")
+require("hoi3.tests.random")
+require("hoi3.tests.cdate")
+lunit.main()
 
 --Load and create instance for some preconfigured objects (countries, continent, ...)
 require('hoi3.conf')
@@ -63,7 +73,7 @@ tickFunctions = {
 	{'TechMinister_Tick',hoi3.api.CAITechMinister}
 }
 
-for i=0,1000  do
+for i=1,1  do
 	print("--------- loop #"..i.."--------------------")
 	hoi3.MultitonObject.instances = {}
 	hoi3.Hoi3Object.resultTable = {}
@@ -89,4 +99,7 @@ for i=0,1000  do
     	print(v[1].." "..tostring(hoi3.FunctionObject.numApiCalls).." api calls")
     	hoi3.FunctionObject.numApiCalls = 0
     end
+    
+    
+    table.save(hoi3.Hoi3Object.resultTable,"results.txt")
 end

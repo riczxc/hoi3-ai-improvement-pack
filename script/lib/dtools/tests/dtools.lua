@@ -29,22 +29,9 @@
 -- @author Guibod <guibod@users.sf.net>
 -- @release $Date$ $Rev$
 
-module("dtools.test", package.seeall)
+module( "dtools.tests.dtools", package.seeall, lunit.testcase )
 
--- Class definition
-local Test = {}
-Test.__index = Test
-
-local _module = Test
-
-local dtools = require('dtools')
-
-function _module.run()
-	_module.log()
-	_module.harvest()
-end
-
-function _module.log()
+function testLog()
 	dtools.debug('Debug message')
 	dtools.info('Info message')
 	dtools.warn('Warn message')
@@ -52,7 +39,7 @@ function _module.log()
 	dtools.fatal('Fatal message')
 end
 
-function _module.harvest()
+function harvestTest()
 	local start, duration
 
 	-- Try to insert 10000 lines without transaction
@@ -72,5 +59,3 @@ function _module.harvest()
 	duration = os.difftime(os.time(), start)
 	dtools.info('10000 insertion with transaction : '..tostring(duration))
 end
-
-return _module

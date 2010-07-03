@@ -125,20 +125,6 @@ function throwNoRandomizerSupport(typeAsString)
 	error("Missing randomizer support for "..typeAsString..". Not implemented in HOI3 Impl API.")
 end
 
-function testAll()
-	require("lunit")
-	require("hoi3.tests.unit")
-	require("hoi3.tests.type")
-	require("hoi3.tests.save")
-	require("hoi3.tests.multiton")
-	require("hoi3.tests.abstract")
-	require("hoi3.tests.fixedpoint")
-	require("hoi3.tests.random")
-	require("hoi3.tests.cdate")
-	
-	return lunit.main()
-end
-
 function randomIteratorMember(iterator, invariant, index)
 	return randomTableMember(invariant)
 end

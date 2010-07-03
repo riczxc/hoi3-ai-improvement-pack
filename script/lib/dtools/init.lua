@@ -31,30 +31,25 @@
 
 module("dtools", package.seeall)
 
--- Class definition
-local devtools = {}
-devtools.__index = devtools
-devtools.enabled = true
-devtools.wrapoff = true
-
-local _module = devtools
+enabled = true
+wrapoff = true
 
 -- initial set of stub methods (if devtools are disabled)
-function _module.loadConfig() end
-function _module.log() end
-function _module.setLogContext() end
-function _module.debug() end
-function _module.info() end
-function _module.warn() end
-function _module.error() end
-function _module.fatal() end
-function _module.harvest() end
+function loadConfig() end
+function log() end
+function setLogContext() end
+function debug() end
+function info() end
+function warn() end
+function error() end
+function fatal() end
+function harvest() end
 
 -- Wrapper function that file both a simple file and the log manager
 --
 -- Usefull to trap an error before to PI fallback to a standard code
-function _module.wrap(f, ...)
-	if devtools.enabled and not devtools.enabled then
+function wrap(f, ...)
+	if enabled and not enabled then
 		local retOK, ret = pcall(f, ...)
 		if retOK == false then
 			--Write the error to a file
@@ -64,7 +59,7 @@ function _module.wrap(f, ...)
 			f:close()
 
 			--attempt to call log
-			pcall(_module.fatal, ret )
+			pcall(fatal, ret )
 
 			--Throw the error as it should and let PI manage our error
 			error(ret)
@@ -78,8 +73,8 @@ end
 -- Renames a function with "DtoolsWrapped" prefix
 -- Creates a new function named as previous one
 -- that relies uses dtools.wrap() on renamed function
-function _module.wrapFunction(strFname, strLogGroup )
-	if devtools.enabled then
+function wrapFunction(strFname, strLogGroup )
+	if enabled then
 		if _G[strFname] ~= nil and type(_G[strFname]) == "function" then
 			if strLogGroup == nil then
 				strLogGroup = "ROOT"
@@ -108,11 +103,11 @@ end
 -- To disable all log functionalities, please replace "if true then" by "if false then"
 --
 -- if false then
-if devtools.enabled then
-	_module.Log4Lua = require('log4lua.logger')
+if enabled then
+	Log4Lua = require('log4lua.logger')
 
-	_module._lastLogCategory = nil
-	_module._lastLogCountry = nil
+	_lastLogCategory = nil
+	_lastLogCountry = nil
 
 	-- Log specific content
 	--
@@ -148,22 +143,22 @@ if devtools.enabled then
 	if os.getenv("HOI3_DEVTOOLS_FILTERTAG") then
 		filterTag = os.getenv("HOI3_DEVTOOLS_FILTERTAG").split(";")
 
-		_module.Log4Lua.getLogger():log(_module.Log4Lua.INFO, "Filtering out tags (from env HOI3_DEVTOOLS_FILTERTAG)")
-		_module.Log4Lua.getLogger():log(_module.Log4Lua.INFO, filterTag)
+		Log4Lua.getLogger():log(Log4Lua.INFO, "Filtering out tags (from env HOI3_DEVTOOLS_FILTERTAG)")
+		Log4Lua.getLogger():log(Log4Lua.INFO, filterTag)
 	end
 
-	function _module.loadConfig(file)
-		_module.Log4Lua.loadConfig(file)
+	function loadConfig(file)
+		Log4Lua.loadConfig(file)
 	end
 
 	-- Main log method.
 	-- category is not mandatory. it may fallback too ROOT or use static context
 	-- ministerCountryOrTag is a non mandatory information may be filtered
 	--                      accepting either CCountryTag, CCountry or string
-	function _module.log(level, message, ministerCountryOrTag, category)
+	function log(level, message, ministerCountryOrTag, category)
 		message = message or ""
-		category = category or _module._curLogCategory
-		ministerCountryOrTag = ministerCountryOrTag or _module._curLogCountry
+		category = category or _curLogCategory
+		ministerCountryOrTag = ministerCountryOrTag or _curLogCountry
 
 		--Test ministerCountryOrTag around a bit to determine either
 		countryString = nil
@@ -197,33 +192,33 @@ if devtools.enabled then
 		end
 
 
-		_module.Log4Lua.getLogger(category):log(level, message, nil, countryString)
+		Log4Lua.getLogger(category):log(level, message, nil, countryString)
 	end
 
-	function _module.setLogContext(ministerCountryOrTag, category)
-		_module._curLogCategory = category
-		_module._curLogCountry = ministerCountryOrTag
+	function setLogContext(ministerCountryOrTag, category)
+		_curLogCategory = category
+		_curLogCountry = ministerCountryOrTag
 	end
 
 	-- Convinience shortcut methods
-	function _module.debug(message, ministerCountryOrTag, category)
-		_module.log(_module.Log4Lua.DEBUG, message, ministerCountryOrTag, category)
+	function debug(message, ministerCountryOrTag, category)
+		log(Log4Lua.DEBUG, message, ministerCountryOrTag, category)
 	end
 
-	function _module.info(message, ministerCountryOrTag, category)
-		_module.log(_module.Log4Lua.INFO, message, ministerCountryOrTag, category)
+	function info(message, ministerCountryOrTag, category)
+		log(Log4Lua.INFO, message, ministerCountryOrTag, category)
 	end
 
-	function _module.warn(message, ministerCountryOrTag, category)
-		_module.log(_module.Log4Lua.WARN, message, ministerCountryOrTag, category)
+	function warn(message, ministerCountryOrTag, category)
+		log(Log4Lua.WARN, message, ministerCountryOrTag, category)
 	end
 
-	function _module.error(message, ministerCountryOrTag, category)
-		_module.log(_module.Log4Lua.ERROR, message, ministerCountryOrTag, category)
+	function error(message, ministerCountryOrTag, category)
+		log(Log4Lua.ERROR, message, ministerCountryOrTag, category)
 	end
 
-	function _module.fatal(message, ministerCountryOrTag, category)
-		_module.log(_module.Log4Lua.FATAL, message, ministerCountryOrTag, category)
+	function fatal(message, ministerCountryOrTag, category)
+		log(Log4Lua.FATAL, message, ministerCountryOrTag, category)
 	end
 end
 
@@ -262,15 +257,15 @@ end
 --
 -- if false then
 if false then
-	function _module.harvest(t, data, commit)
-		local Harvester = require("dtools.harvester")
-		Harvester.harvest(t, data, commit)
+	function harvest(t, data, commit)
+		require("dtools.harvester")
+		dtools.harvester.harvest(t, data, commit)
 	end
 end
 
 -- Extend table class to support has_value
 -- A function which shows compareable behaviour to php's in_array.
-function _module.in_table ( e, t )
+function in_table ( e, t )
  	for _,v in pairs(t) do
 		if (v==e) then return true end
 	end
@@ -280,9 +275,7 @@ end
 -- Replace HOI3 limited log functions
 if Utils and Utils.LUA_DEBUGOUT ~= nil then
 	Utils.LUA_DEBUGOUT = function (s)
-		local dtools = require('dtools')
+		require('dtools')
 		dtools.debug(s)
 	end
 end
-
-return _module
