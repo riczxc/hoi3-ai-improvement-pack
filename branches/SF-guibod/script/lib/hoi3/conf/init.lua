@@ -37,7 +37,7 @@ function generateContinentDatabase()
 		
 		-- Save values
 		-- GetName
-		continent:saveResult(contidef[2],CContinent.GetName)
+		CContinent.GetName:save(contidef[2],continent)
 		
 		-- Save to DB
 		db[continent] = continent
@@ -66,7 +66,7 @@ function generateIdeologyDatabase()
 		
 		-- Save values
 		-- GetIdeologyGroup
-		ideology:saveResult(CIdeologyGroup(ideodef[2]),CIdeology.GetGroup)
+		CIdeology.GetGroup:save(CIdeologyGroup(ideodef[2]),ideology)
 		
 		-- Save to DB
 		db[ideology] = ideology
@@ -88,20 +88,20 @@ function generateFactionDatabase()
 		
 		-- Save values
 		-- GetFactionLeader
-		faction:saveResult(CCountryTag(factdef[2]),CFaction.GetFactionLeader)
+		CFaction.GetFactionLeader:save(CCountryTag(factdef[2]),faction)
 		
 		-- GetMembers
 		local members = {}
 		for k, v in pairs(factdef[3]) do
 			table.insert(members,CCountryTag(v))
 		end
-		faction:saveResult(members,CFaction.GetMembers)
+		CFaction.GetMembers:save(members,faction)
 
 		-- IsValid
-		faction:saveResult(factdef[4],CFaction.IsValid)
+		CFaction.IsValid:save(factdef[4],faction)
 		
 		-- GetIdeologyGroup
-		faction:saveResult(CIdeologyGroup(factdef[5]),CFaction.GetIdeologyGroup)
+		CFaction.GetIdeologyGroup:save(CIdeologyGroup(factdef[5]),faction)
 		
 		-- Save to DB
 		db[faction] = faction
@@ -151,12 +151,7 @@ function generateGovernementPositionDatabase()
 	for i,posdef in ipairs(def) do
 		local pos = CGovernmentPosition(posdef[1])
 	
-		CGovernmentPositionDataBase.saveResult(
-			CGovernmentPositionDataBase,
-			pos,
-			CGovernmentPositionDataBase.GetGovernmentPositionByIndex,
-			i
-		)
+		CGovernmentPositionDataBase.GetGovernmentPositionByIndex:save(pos,i)
 		db[pos] = pos
 	end
 	
@@ -303,10 +298,10 @@ function generateLawDatabase()
 		local law = CLaw(lawdef[1])
 		
 		-- GetGroup
-		law:saveResult(CLawGroup(lawdef[3]),CLaw.GetGroup)
+		CLaw.GetGroup:save(CLawGroup(lawdef[3]),law)
 
 		-- GetGroup
-		CLawDataBase.saveResult(CLawDataBase, law, CLawDataBase.GetLaw, lawdef[2])
+		CLawDataBase.GetLaw:save(law,lawdef[2])
 				
 		db[law] = law
 	end
@@ -429,20 +424,19 @@ function generateCountryDatabase()
 		
 		-- CCountryTag
 		-- IsReal
-		tag:saveResult(ctyDef[3],CCountryTag.IsReal)
+		CCountryTag.IsReal:save(ctyDef[3],tag)
 		-- IsValid
-		tag:saveResult(ctyDef[4],CCountryTag.IsValid)
+		CCountryTag.IsValid:save(ctyDef[4],tag)
 		
 		-- CCountry
 		-- GetOverlord
 		if ctyDef[5] ~= nil then
-			cty:saveResult(CCountryTag(ctyDef[5]),CCountry.GetOverlord)
-			cty:saveResult(true,CCountry.isPuppet)
-			cty:saveResult(true,CCountry.IsSubject)
+			CCountry.GetOverlord:save(CCountry(CCountryTag(ctyDef[5])),cty)
+			CCountry.isPuppet:save(true,cty)
+			CCountry.IsSubject:save(true,cty)
 		else
-			cty:saveResult(CNullTag(),CCountry.GetOverlord)
-			cty:saveResult(false,CCountry.isPuppet)
-			cty:saveResult(false,CCountry.IsSubject)
+			CCountry.isPuppet:save(false,cty)
+			CCountry.IsSubject:save(false,cty)
 		end
 
 		-- Save reference to db  
@@ -693,7 +687,7 @@ function generateTechDatabase()
 		local tech = CTechnology(k)
 		
 		-- IsReal
-		tech:saveResult(CTechnologyFolder(techDef[1]),CTechnology.GetFolder)
+		CTechnology.GetFolder:save(CTechnologyFolder(techDef[1]),tech)
 
 		-- Save reference to db  
 		db[tech] = tech

@@ -4,6 +4,17 @@ module( "hoi3", package.seeall)
 
 Hoi3Object = middleclass.class('hoi3.Hoi3Object')
 
+function Hoi3Object.registerInstance(i)
+	Hoi3Object.instances = Hoi3Object.instances or {}
+	Hoi3Object.instances[#Hoi3Object.instances+1] = i
+end
+
+function Hoi3Object:initialize(...)
+	super.initialize(self, ...)
+	
+	Hoi3Object.registerInstance(self)
+end
+
 function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
 	-- special case, transform a table (table) into iterator (func, table)
 	-- this is a workaround in order to avoid support for multiple result
