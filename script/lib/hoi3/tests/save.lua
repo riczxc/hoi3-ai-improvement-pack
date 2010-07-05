@@ -15,7 +15,7 @@ function setup()
 	
 	hoi3.FunctionObject(objClass, 'myFunctionWithoutParam', false, hoi3.TYPE_STRING)
  	hoi3.FunctionObject(objClass, 'myFunctionWithParam', false, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_STRING)
- 	--hoi3.f is synonym for hoi3.FunctionObject
+ 	--hoi3.f and hoi3.fs are synonyms for hoi3.FunctionObject
  	hoi3.fs(objClass, 'myStaticFunctionWithoutParam', hoi3.TYPE_STRING)
  	hoi3.fs(objClass, 'myStaticFunctionWithParam', hoi3.TYPE_STRING, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER)
 	hoi3.f(objClass, 'myImplableFunction', hoi3.TYPE_STRING)
@@ -38,7 +38,7 @@ function testSavedWithoutParam()
 	local myObj = objClass("x")
 	local myResult = "abcdefgh"
 
-	objClass.myFunctionWithoutParam:save(myObj,myResult)
+	objClass.myFunctionWithoutParam:save(myResult, myObj)
 	assert_equal(myResult,myObj:myFunctionWithoutParam())
 	assert_equal(myResult,myObj:myFunctionWithoutParam())
 end
@@ -59,7 +59,7 @@ function testSavedWithParam()
 	local myObj = objClass("x")
 	local myResult = "qrstuvw"
 
-	objClass.myFunctionWithParam:save(myObj,myResult, 1, "a")
+	objClass.myFunctionWithParam:save(myResult, myObj, 1, "a")
 	assert_equal(myResult,myObj:myFunctionWithParam(1, "a"))
 	assert_equal(myResult,myObj:myFunctionWithParam(1, "a"))
 end

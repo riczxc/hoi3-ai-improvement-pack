@@ -42,7 +42,7 @@ require("hoi3.tests.fixedpoint")
 require("hoi3.tests.random")
 require("hoi3.tests.cdate")
 lunit.main()
-os.exit()
+
 --Load and create instance for some preconfigured objects (countries, continent, ...)
 require('hoi3.conf')
 
@@ -73,10 +73,10 @@ tickFunctions = {
 	{'TechMinister_Tick',hoi3.api.CAITechMinister}
 }
 
-for i=1,1  do
-	print("--------- loop #"..i.."--------------------")
-	hoi3.MultitonObject.instances = {}
-	hoi3.Hoi3Object.resultTable = {}
+	--for i=1,1  do
+	--print("--------- loop #"..i.."--------------------")
+	--hoi3.MultitonObject.instances = {}
+	--hoi3.Hoi3Object.resultTable = {}
 	hoi3.conf.generateAll()	
 	local tag = CCountryTag:random()
 	local minister = CAIPoliticsMinister(tag)
@@ -101,5 +101,4 @@ for i=1,1  do
     end
     
     
-    table.save(hoi3.Hoi3Object.resultTable,"results.txt")
-end
+    table.save(hoi3.Hoi3Object.instances,"results.txt")
