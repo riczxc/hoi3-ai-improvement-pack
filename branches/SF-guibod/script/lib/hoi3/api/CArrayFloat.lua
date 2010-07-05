@@ -22,7 +22,7 @@ end
 -- @since 1.3
 -- @param number index
 -- @return CFixedPoint 
-hoi3.f(CArrayFloat, 'GetAt', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CArrayFloat, 'GetAt', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 function CArrayFloat:GetAtImpl(index)
 	return self.array[index] or 0
@@ -33,7 +33,7 @@ end
 -- @param number index
 -- @param CFixedPoint value
 -- @return void
-hoi3.f(CArrayFloat, 'SetAt', false, hoi3.TYPE_VOID, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CArrayFloat, 'SetAt', hoi3.TYPE_VOID, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 function CArrayFloat:SetAtImpl(index, value)
 	self.array[index] = value

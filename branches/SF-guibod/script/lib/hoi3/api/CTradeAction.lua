@@ -21,32 +21,32 @@ end
 ---
 -- @since 1.3
 -- @return CTradeRoute 
-hoi3.f(CTradeAction, 'GetRoute', false, 'CTradeRoute')
+hoi3.f(CTradeAction, 'GetRoute', 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @param number goodsType
 -- @param CCountryTag  ministerTag
 -- @return CFixedPoint 
-hoi3.f(CTradeAction, 'GetTrading', false, 'CFixedPoint', hoi3.TYPE_NUMBER, 'CCountryTag')
+hoi3.f(CTradeAction, 'GetTrading', 'CFixedPoint', hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @return bool 
-hoi3.f(CTradeAction, 'IsConvoyPossible', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CTradeAction, 'IsConvoyPossible', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CTradeRoute  route
 -- @return void 
-hoi3.f(CTradeAction, 'SetRoute', false, hoi3.TYPE_VOID, 'CTradeRoute')
+hoi3.f(CTradeAction, 'SetRoute', hoi3.TYPE_VOID, 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @param CFixedPoint  amount
 -- @param number goodsType
 -- @return void 
-hoi3.f(CTradeAction, 'SetTrading', false, hoi3.TYPE_VOID, 'CFixedPoint', hoi3.TYPE_NUMBER)
+hoi3.f(CTradeAction, 'SetTrading', hoi3.TYPE_VOID, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CTradeAction:desc()
 	return tostring(self.tag).." propose trade with "..tostring(self.target).. "."

@@ -31,19 +31,19 @@ end
 -- @since 2.0
 -- @param unknown
 -- @return unknown
-hoi3.f(CSendExpeditionaryForceAction, 'GetClaimType', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CSendExpeditionaryForceAction, 'GetClaimType', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 2.0
 -- @param unknown
 -- @return unknown
-hoi3.f(CSendExpeditionaryForceAction, 'GetUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CSendExpeditionaryForceAction, 'GetUnit', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 2.0
 -- @param unknown
 -- @return unknown
-hoi3.f(CSendExpeditionaryForceAction, 'GetTag', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CSendExpeditionaryForceAction, 'GetTag', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 
 function CSendExpeditionaryForceAction:desc()

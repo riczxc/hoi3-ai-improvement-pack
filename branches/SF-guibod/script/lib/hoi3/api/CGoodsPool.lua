@@ -29,7 +29,7 @@ end
 -- @since 1.3
 -- @param number goodtype
 -- @return CFixedPoint
-hoi3.f(CGoodsPool, 'Get', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
+hoi3.f(CGoodsPool, 'Get', 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetImpl(type)
 	assert(type > 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
@@ -40,7 +40,7 @@ end
 -- @since 2.0
 -- @param number goodtype
 -- @return number
-hoi3.f(CGoodsPool, 'GetFloat', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CGoodsPool, 'GetFloat', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetFloatImpl(type)
 	assert(type > 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")

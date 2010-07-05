@@ -8,4 +8,4 @@ CCountryTagList = CList:subclass('hoi3.CCountryTagList')
 -- @since 1.3
 -- @param unknown
 -- @return bool
-hoi3.f(CCountryTagList, 'IsEnemy', false, hoi3.TYPE_BOOLEAN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CCountryTagList, 'IsEnemy', hoi3.TYPE_BOOLEAN, hoi3.TYPE_UNKNOWN)

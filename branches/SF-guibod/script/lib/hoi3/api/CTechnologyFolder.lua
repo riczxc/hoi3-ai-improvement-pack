@@ -15,7 +15,7 @@ end
 ---
 -- @since 1.3 
 -- @return number
-hoi3.f(CTechnologyFolder, 'GetIndex', false, hoi3.TYPE_NUMBER)
+hoi3.f(CTechnologyFolder, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CTechnologyFolder:GetIndexImpl()
 	return self:getIndexInDictionnary(CTechnologyFolder:getInstances())
@@ -24,7 +24,7 @@ end
 ---
 -- @since 1.3 
 -- @return CString
-hoi3.f(CTechnologyFolder, 'GetKey', false, 'CString')
+hoi3.f(CTechnologyFolder, 'GetKey', 'CString')
 
 function CTechnologyCategory:GetKeyImpl()
 	return self.key
@@ -33,7 +33,7 @@ end
 ---
 -- @since 1.3 
 -- @return bool
-hoi3.f(CTechnologyFolder, 'IsValid', false, hoi3.RAND_BOOL_VLIKELY)
+hoi3.f(CTechnologyFolder, 'IsValid', hoi3.RAND_BOOL_VLIKELY)
 
 function CTechnologyFolder.random()
 	return hoi3.randomTableMember(CTechnologyFolder:getInstances())

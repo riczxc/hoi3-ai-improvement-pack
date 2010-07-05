@@ -4,8 +4,12 @@ module( "hoi3", package.seeall)
 
 FunctionObject = middleclass.Object:subclass('hoi3.FunctionObject')
 
-function f(class, name, static, ret, ...)
-	return FunctionObject(class, name, static, ret, ...)
+function f(class, name, ret, ...)
+	return FunctionObject(class, name, false, ret, ...)
+end
+
+function fs(class, name, ret, ...)
+	return FunctionObject(class, name, true, ret, ...)
 end
 
 function FunctionObject:initialize(class, name, static, ret, ...)
@@ -23,7 +27,8 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	else
 		self.ret = ret
 	end
-	self.param = {...}
+	self.args = {...}
+	self.result = {}
 	
 	-- self reference in parent object
 	self.myclass[name] = self
@@ -58,18 +63,19 @@ FunctionObject.isRunningApiCall = false
 -- a non-nested api call is triggered.
 FunctionObject.numApiCalls = 0
 
-function FunctionObject:__call(s, ...)
+function FunctionObject:__call(instanceOrFirstParameter, ...)
 	hoi3.assertNonStatic(self)
 	
 	if self.ret == hoi3.TYPE_UNKNOWN then
 		hoi3.throwUnknownSignature()
 	end
 	
-	local myparams = {...}
-	local ret
-	local isnestedapicall = false
+	local args = {...}
+	local instanceOrClass
+	local ret1, ret2, ret3
+	local isNestedApiCall = false
 	if FunctionObject.isRunningApiCall == true then
-		isnestedapicall = true
+		isNestedApiCall = true
 	else
 		FunctionObject.isRunningApiCall = true
 	end
@@ -81,31 +87,169 @@ function FunctionObject:__call(s, ...)
 	-- parameter.
 	-- Long story short, parameter reordering.
 	if self.static == true then
-		myparams = {s, ...}
+		args = {instanceOrFirstParameter, ...}
+		instanceOrClass = self.myclass
 	else
-		hoi3.assertNonStatic(s)
+		hoi3.assertNonStatic(instanceOrFirstParameter)
+		instanceOrClass = instanceOrFirstParameter
 	end
-	
-	-- Assert real function call parameter
-	for i, v in ipairs(self.param) do
-		if myparams[i] == hoi3.TYPE_UNKNOWN then
+
+	-- Assert real function call arguments
+	for i, v in ipairs(self.args) do
+		if args[i] == hoi3.TYPE_UNKNOWN then
 			hoi3.throwUnknownSignature()
 		end
-		hoi3.assertParameterType(i, myparams[i], v)
+		hoi3.assertParameterType(i, args[i], v)
 	end
 	
-	if self.static == true then
-		ret1, ret2, ret3 = self.myclass.loadResultOrImplOrRandom(
-			self.myclass, self, s, ...
-		)
-	else
-		ret1, ret2, ret3 = s:loadResultOrImplOrRandom(self, ...)
-	end
+	ret1, ret2, ret3 = self:loadResultOrImplOrRandom(instanceOrClass, ...)
 	
-	if not(isnestedapicall) then
+	if not(isNestedApiCall) then
 		FunctionObject.isRunningApiCall = false
 		FunctionObject.numApiCalls = FunctionObject.numApiCalls + 1 
 	end
 	
 	return ret1, ret2, ret3
+end
+
+
+
+-- Save/Load support
+
+---
+-- @return void
+function FunctionObject:clearResult()
+	 hoi3.assertNonStatic(self)
+	 
+	 self.result = {}
+end
+
+---
+-- Transform parameters list to a string (hashable)
+-- @param ...
+-- @return string
+-- @static
+function FunctionObject.hashArgs(...)
+	local hash = ""
+	local args = {...}
+	
+	for i,k in ipairs(args) do
+		hash = hash .. " #" .. i .. "=" .. tostring(k)
+	end
+	
+	return hash
+end
+
+
+---
+-- @param MiddleClass class or instance
+-- @return string
+function FunctionObject.getInstanceOrClassDescriptor(instanceOrClass)
+	local isInstance = middleclass.instanceOf(hoi3.Hoi3Object, instanceOrClass)
+	local isSubclass = middleclass.subclassOf(hoi3.Hoi3Object, instanceOrClass)
+	assert(isInstance or isSubclass, "Unknown object or class.")
+	
+	return instanceOrClass
+end
+
+---
+-- Save a value for a object instance (or object definition for static method),
+-- method, and parameters.
+function FunctionObject:save(instanceOrClass, value, ...)
+	hoi3.assertNonStatic(self)
+	
+	local c = FunctionObject.getInstanceOrClassDescriptor(instanceOrClass)
+	local h = FunctionObject.hashArgs(...)
+	
+	-- No nil, force tables
+	self.result = self.result or {}
+	self.result[c] = self.result[c] or {}
+		
+	--dtools.debug("Result cached for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(value))
+	self.result[c][h] = value
+end
+
+-- Intends to be used in a HOI3 (needs to renamed fake LUA object to something else tough)
+-- FakeCAI:runAndSaveResult(CAI.CanDeclareWar,"GER", "FRA")
+-- FakeCAI:runAndSaveResult(CAI.CanDeclareWar,"GER", "ENG")
+-- FakeCAI:serialize()
+function FunctionObject:runAndSave(instanceOrClass, ...)
+	self:saveResult(instanceOrClass, self(...), ...)
+end
+
+---
+-- Test cached result existance for object instance, method and parameter
+-- @return bool
+function FunctionObject:hasResult(instanceOrClass, ...)
+	hoi3.assertNonStatic(self)
+	
+	local c = FunctionObject.getInstanceOrClassDescriptor(instanceOrClass)
+	local h = FunctionObject.hashArgs(...)
+	 
+	return
+		self.result[c] ~= nil and
+		self.result[c][h] ~= nil
+end
+
+function FunctionObject:load(instanceOrClass, ...)
+	hoi3.assertNonStatic(self)
+	
+	local c = FunctionObject.getInstanceOrClassDescriptor(instanceOrClass)
+	local h = FunctionObject.hashArgs(...)
+	
+	assert(self.result[c] ~= nil, "Unable to recover value. Unknown object reference.")
+	assert(self.result[c][h] ~= nil, "Unable to recover value. Unknown signature.")
+	
+	--dtools.debug("Result loaded for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(Hoi3Object.resultTable[self][method][hash]))
+	return self.result[c][h]
+end
+
+--[[
+	If a result is defined, get it
+	or fallback to function name+"Impl"suffix
+	or use return hint in order to provide a randomized value
+	or throw a notimplemented error
+]]
+function FunctionObject:loadResultOrImplOrRandom(instanceOrClass, ...)
+	local c = FunctionObject.getInstanceOrClassDescriptor(instanceOrClass)
+	
+	-- If cached result, return cached result...	
+	if self:hasResult(instanceOrClass, ...) then
+		return Hoi3Object.assertReturnTypeAndReturn(
+			self:load(c, ...),
+			self.ret:__tostring()
+		)
+	end
+	
+	-- No cached method result, we'll have to compute value
+	-- (either by Impl method or randomized result)
+	-- and to cheat it as real function result.
+	local computedValue
+	
+	-- Try Impl method is exists ( real method this time, not a FunctionObject)
+	if self:hasImpl() then
+		if self.static then 
+			computedValue = self:runImpl(...)
+		else
+			computedValue = self:runImpl(c,...)
+		end
+	else
+		-- No Impl method result ?
+		-- Create a randomized result (depending on expected return type)
+		-- May throw a specific exception "no randomizer"
+		computedValue = self.ret:compute(def)
+	end
+	
+	if computedValue ~= nil then
+		-- Now cache results as if it was the original function/method result
+		self:save(c, computedValue, ...)
+		
+		-- And return (with a test on returned value type)
+		return Hoi3Object.assertReturnTypeAndReturn(
+			computedValue,
+			self.ret:__tostring()
+		)
+	else
+		return nil
+	end 
 end

@@ -9,7 +9,7 @@ CTechnologyDataBase = hoi3.AbstractObject:subclass('hoi3.CTechnologyDataBase')
 -- @static
 -- @param string folderName
 -- @return number 
-hoi3.f(CTechnologyDataBase, 'GetFolderIndex', false, hoi3.TYPE_NUMBER, hoi3.TYPE_STRING)
+hoi3.f(CTechnologyDataBase, 'GetFolderIndex', hoi3.TYPE_NUMBER, hoi3.TYPE_STRING)
 
 --[[
 local techFolder = tech:GetFolder()
@@ -24,7 +24,7 @@ local techFolder = tech:GetFolder()
 -- @since 1.3
 -- @static
 -- @return iterator<CTechnologyCategory>
-hoi3.f(CTechnologyDataBase, 'GetCategories', false, 'iterator<CTechnologyCategory>')
+hoi3.f(CTechnologyDataBase, 'GetCategories', 'iterator<CTechnologyCategory>')
 
 function CSubUnitDataBase.GetCategories()
 	return CTechnologyCategory:getInstances()
@@ -34,7 +34,7 @@ end
 -- @since 2.0
 -- @static
 -- @return CTechnology
-hoi3.f(CTechnologyDataBase, 'GetTechnology', true, 'CTechnology')
+hoi3.fs(CTechnologyDataBase, 'GetTechnology', 'CTechnology')
 
 function CSubUnitDataBase.GetTechnology(key)
 	return CTechnology:getInstance(key)

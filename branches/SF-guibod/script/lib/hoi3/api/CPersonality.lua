@@ -15,7 +15,7 @@ end
 ---
 -- @since 2.0
 -- @return CString
-hoi3.f(CPersonality, 'GetKey', false, 'CString')
+hoi3.f(CPersonality, 'GetKey', 'CString')
 
 function CPersonality:GetKeyImpl()
 	return self.key
@@ -24,7 +24,7 @@ end
 ---
 -- @since 2.0
 -- @return number
-hoi3.f(CPersonality, 'GetIndex', false, hoi3.TYPE_NUMBER)
+hoi3.f(CPersonality, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CPersonality:GetIndexImpl()
 	return self:getIndexInDictionnary(CPersonality:getInstances())

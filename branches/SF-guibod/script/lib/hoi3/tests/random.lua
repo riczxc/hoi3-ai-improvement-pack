@@ -10,7 +10,7 @@ local obj = nil
 function setup()
  	obj = hoi3.Hoi3Object:subclass("test.random")
 	
-	hoi3.f(obj, 'myRandFunctionUsingString', false, hoi3.TYPE_STRING)
+	hoi3.f(obj, 'myRandFunctionUsingString', hoi3.TYPE_STRING)
 	
 	-- Function with no save result and no Impl fallback
   	-- returns a not so random value from randomizer configuration
@@ -18,10 +18,10 @@ function setup()
 	local r = hoi3.Randomizer(hoi3.TYPE_NUMBER)
 	r.min = 2656
 	r.max = 2656
-	hoi3.f(obj, 'myRandFunctionUsingRandomizer', false, r)
+	hoi3.f(obj, 'myRandFunctionUsingRandomizer', r)
 	
-	hoi3.f(obj, 'myStaticIterator', true, 'iterator<number>')
-	hoi3.f(obj, 'myIterator', false, 'iterator<number>')
+	hoi3.fs(obj, 'myStaticIterator', 'iterator<number>')
+	hoi3.f(obj, 'myIterator', 'iterator<number>')
 end
 
 function teardown()

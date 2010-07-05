@@ -15,7 +15,7 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CLawGroup, 'GetIndex', false, hoi3.TYPE_NUMBER)
+hoi3.f(CLawGroup, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CLawGroup:GetIndexImpl()
 	return self:getIndexInDictionnary(CLawGroup:getInstances())
@@ -24,7 +24,7 @@ end
 ---
 -- @since 1.3
 -- @return CString
-hoi3.f(CLawGroup, 'GetKey', false, 'CString')
+hoi3.f(CLawGroup, 'GetKey', 'CString')
 
 function CLawGroup:GetKeyImpl()
 	return self.key
@@ -33,7 +33,7 @@ end
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CLawGroup, 'IsValid', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CLawGroup, 'IsValid', hoi3.TYPE_BOOLEAN)
 
 function CLawGroup.random()
 	return hoi3.randomTableMember(CLawGroup:getInstances())

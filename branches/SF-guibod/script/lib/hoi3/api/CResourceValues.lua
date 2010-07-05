@@ -19,7 +19,7 @@ end
 -- @param CCountry
 -- @param number goodstype
 -- @return table 
-hoi3.f(CResourceValues, 'GetResourceValues', false, hoi3.TYPE_VOID, 'CCountry', hoi3.TYPE_NUMBER)
+hoi3.f(CResourceValues, 'GetResourceValues', hoi3.TYPE_VOID, 'CCountry', hoi3.TYPE_NUMBER)
 
 function CResourceValues:GetResourceValuesImpl(country, goodtype)
 	self.vDailyBalance = country:GetDailyBalance(goodtype):Get()

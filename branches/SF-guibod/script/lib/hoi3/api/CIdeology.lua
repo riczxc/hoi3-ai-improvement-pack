@@ -14,7 +14,7 @@ end
 ---
 -- @since 1.3
 -- @return CIdeologyGroup
-hoi3.f(CIdeology, 'GetGroup', false, 'CIdeologyGroup')
+hoi3.f(CIdeology, 'GetGroup', 'CIdeologyGroup')
 
 -- A random CIdeology is a random EXISTING tag !
 function CIdeology.random()

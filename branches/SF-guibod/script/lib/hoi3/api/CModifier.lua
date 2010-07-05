@@ -96,4 +96,4 @@ CModifier._MODIFIER_WAR_EXHAUSTION_	= 82
 -- @since 2.0
 -- @param number modifier
 -- @return number
-hoi3.f(CMinister, 'GetValue', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CMinister, 'GetValue', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)

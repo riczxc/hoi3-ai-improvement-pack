@@ -1,9 +1,7 @@
 --[[
 	Save/Load HOI3OBJECT test case
 ]]
-module( "hoi3.tests.abstract", package.seeall, lunit.testcase )
-
-require("hoi3.AbstractObject")
+module( "hoi3.tests.date", package.seeall, lunit.testcase )
 
 function testDate()
 	local d = hoi3.api.CDate.random()

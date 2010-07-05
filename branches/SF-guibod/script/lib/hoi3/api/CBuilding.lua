@@ -17,7 +17,7 @@ end
 ---
 -- @since 1.3
 -- @return string 
-hoi3.f(CBuilding, 'GetName', false, hoi3.TYPE_STRING)
+hoi3.f(CBuilding, 'GetName', hoi3.TYPE_STRING)
 
 function CBuilding:GetNameImpl()
 	return self.name
@@ -26,7 +26,7 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CBuilding, 'GetIndex', false, hoi3.TYPE_NUMBER)
+hoi3.f(CBuilding, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CBuilding:GetIndexImpl()
 	return self:getIndexInDictionnary(CBuilding:getInstances())
