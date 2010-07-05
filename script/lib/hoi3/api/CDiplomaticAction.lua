@@ -11,32 +11,32 @@ CDiplomaticAction.PROPOSE	= 3
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CDiplomaticAction, 'GetAIAcceptance', false, hoi3.RAND_PERC)
+hoi3.f(CDiplomaticAction, 'GetAIAcceptance', hoi3.RAND_PERC)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CDiplomaticAction, 'GetValue', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CDiplomaticAction, 'GetValue', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CDiplomaticAction, 'GetType', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CDiplomaticAction, 'GetType', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomaticAction, 'IsValid', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomaticAction, 'IsValid', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomaticAction, 'IsSelectable', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomaticAction, 'IsSelectable', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param bool
 -- @return void
-hoi3.f(CDiplomaticAction, 'SetValue', false, hoi3.TYPE_VOID, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomaticAction, 'SetValue', hoi3.TYPE_VOID, hoi3.TYPE_BOOLEAN)

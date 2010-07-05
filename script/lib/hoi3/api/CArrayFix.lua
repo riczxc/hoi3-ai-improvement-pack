@@ -22,7 +22,7 @@ end
 -- @since 1.3
 -- @param number index
 -- @return CFixedPoint 
-hoi3.f(CArrayFix, 'GetAt', false, 'CFixedPoint', hoi3.TYPE_NUMBER)
+hoi3.f(CArrayFix, 'GetAt', 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CArrayFix:GetAtImpl(index)
 	--TODO maybe restore out of bound exceptions
@@ -34,7 +34,7 @@ end
 -- @param number index
 -- @param CFixedPoint value
 -- @return void
-hoi3.f(CArrayFix, 'SetAt', false, hoi3.TYPE_VOID, hoi3.TYPE_NUMBER, 'CFixedPoint')
+hoi3.f(CArrayFix, 'SetAt', hoi3.TYPE_VOID, hoi3.TYPE_NUMBER, 'CFixedPoint')
 
 function CArrayFix:SetAtImpl(index, value)
 	self.array[index] = value

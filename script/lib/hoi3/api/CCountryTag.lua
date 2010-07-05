@@ -19,7 +19,7 @@ end
 ---
 -- @since 1.3
 -- @return CCountry 
-hoi3.f(CCountryTag, 'GetCountry', false, 'CCountry')
+hoi3.f(CCountryTag, 'GetCountry', 'CCountry')
 
 function CCountryTag:GetCountryImpl()
 	return CCountry(self)
@@ -28,7 +28,7 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CCountryTag, 'GetIndex', false, hoi3.NUMBER)
+hoi3.f(CCountryTag, 'GetIndex', hoi3.NUMBER)
 
 function CCountryTag:GetIndexImpl()
 	return self:getIndexInDictionnary(CCountryTag:getInstances())
@@ -37,7 +37,7 @@ end
 ---
 -- @since 1.3
 -- @return CCountryTag 
-hoi3.f(CCountryTag, 'GetTag', false, 'CCountryTag')
+hoi3.f(CCountryTag, 'GetTag', 'CCountryTag')
 
 function CCountryTag:GetTagImpl()
 	return self
@@ -46,12 +46,12 @@ end
 ---
 -- @since 1.3
 -- @return bool 
-hoi3.f(CCountryTag, 'IsReal', false, hoi3.RAND_BOOL_VLIKELY)
+hoi3.f(CCountryTag, 'IsReal', hoi3.RAND_BOOL_VLIKELY)
 
 ---
 -- @since 1.3
 -- @return bool 
-hoi3.f(CCountryTag, 'IsValid', false, hoi3.RAND_BOOL_VLIKELY)
+hoi3.f(CCountryTag, 'IsValid', hoi3.RAND_BOOL_VLIKELY)
 
 
 function CCountryTag:__tostring()

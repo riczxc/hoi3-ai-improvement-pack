@@ -15,12 +15,12 @@ end
 ---
 -- @since 1.3
 -- @return CLawGroup
-hoi3.f(CLaw, 'GetGroup', false, 'CLawGroup')
+hoi3.f(CLaw, 'GetGroup', 'CLawGroup')
 
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CLaw, 'GetIndex', false, hoi3.TYPE_NUMBER)
+hoi3.f(CLaw, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CLaw:GetIndexImpl()
 	return self:getIndexInDictionnary(CLaw:getInstances())
@@ -29,7 +29,7 @@ end
 ---
 -- @since 1.3
 -- @return string
-hoi3.f(CLaw, 'GetKey', false, 'CString')
+hoi3.f(CLaw, 'GetKey', 'CString')
 
 function CLaw:GetKeyImpl()
 	return self.key
@@ -38,13 +38,13 @@ end
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CLaw, 'IsValid', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CLaw, 'IsValid', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return bool
-hoi3.f(CLaw, 'ValidFor', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
+hoi3.f(CLaw, 'ValidFor', hoi3.TYPE_BOOLEAN, 'CCountryTag')
 
 function CLaw.random()
 	return hoi3.randomTableMember(CLaw:getInstances())

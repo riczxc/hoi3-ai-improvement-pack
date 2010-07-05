@@ -13,7 +13,7 @@ end
 ---
 -- @since 1.3
 -- @return CFaction
-hoi3.f(CIdeologyGroup, 'GetFaction', false, 'CFaction')
+hoi3.f(CIdeologyGroup, 'GetFaction', 'CFaction')
 
 -- @see CFaction:GetIdeology
 function CIdeologyGroup:GetFactionImpl()
@@ -27,7 +27,7 @@ end
 ---
 -- @since 1.3
 -- @return unknown
-hoi3.f(CIdeologyGroup, 'GetPosition', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CIdeologyGroup, 'GetPosition', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 -- A random CIdeologyGroup is a random EXISTING ideology group !
 function CIdeologyGroup.random()

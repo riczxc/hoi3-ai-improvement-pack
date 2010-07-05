@@ -42,7 +42,7 @@ require("hoi3.tests.fixedpoint")
 require("hoi3.tests.random")
 require("hoi3.tests.cdate")
 lunit.main()
-
+os.exit()
 --Load and create instance for some preconfigured objects (countries, continent, ...)
 require('hoi3.conf')
 

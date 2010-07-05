@@ -18,33 +18,33 @@ end
 ---
 -- @since 1.3
 -- @return unknown 
-hoi3.f(CWar, 'GetAttackers', false, hoi3.TYPE_UNKNOWN)
+hoi3.f(CWar, 'GetAttackers', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CWar, 'GetCurrentRunningTimeInMonths', false, hoi3.TYPE_NUMBER)
+hoi3.f(CWar, 'GetCurrentRunningTimeInMonths', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return unknown
-hoi3.f(CWar, 'GetDefenders', false, hoi3.TYPE_UNKNOWN)
+hoi3.f(CWar, 'GetDefenders', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return CDate
-hoi3.f(CWar, 'GetStartDate', false, 'CDate')
+hoi3.f(CWar, 'GetStartDate', 'CDate')
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CWar, 'IsLimited', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CWar, 'IsLimited', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CCountryTag  countryTag
 -- @return bool
-hoi3.f(CWar, 'IsPartOfWar', false, hoi3.TYPE_BOOLEAN, 'CCountryTag')
+hoi3.f(CWar, 'IsPartOfWar', hoi3.TYPE_BOOLEAN, 'CCountryTag')
 
 function CWar.random()
 	local r = hoi3.RAND_PERC

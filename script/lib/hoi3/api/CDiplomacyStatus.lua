@@ -23,12 +23,12 @@ end
 ---
 -- @since 1.3
 -- @return bool 
-hoi3.f(CDiplomacyStatus, 'AllowDebts', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'AllowDebts', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return CCountryTag
-hoi3.f(CDiplomacyStatus, 'GetTarget', false, 'CCountryTag')
+hoi3.f(CDiplomacyStatus, 'GetTarget', 'CCountryTag')
 
 function CDiplomacyStatus:GetTarget()
 	return self.target 
@@ -37,93 +37,93 @@ end
 ---
 -- @since 1.3
 -- @return CFixedPoint
-hoi3.f(CDiplomacyStatus, 'GetThreat', false, 'CFixedPoint')
+hoi3.f(CDiplomacyStatus, 'GetThreat', 'CFixedPoint')
 
 ---
 -- @since 1.3
 -- @return iterator<CTradeRoute>
-hoi3.f(CDiplomacyStatus, 'GetTradeRoutes', false, 'iterator<CTradeRoute>')
+hoi3.f(CDiplomacyStatus, 'GetTradeRoutes', 'iterator<CTradeRoute>')
 
 ---
 -- @since 1.3
 -- @return CFixedPoint
-hoi3.f(CDiplomacyStatus, 'GetValue', false, 'CFixedPoint')
+hoi3.f(CDiplomacyStatus, 'GetValue', 'CFixedPoint')
 
 ---
 -- @since 1.3
 -- @return CWar
-hoi3.f(CDiplomacyStatus, 'GetWar', false, 'CWar')
+hoi3.f(CDiplomacyStatus, 'GetWar', 'CWar')
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasAlliance', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasAlliance', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasAnyAgreement', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasAnyAgreement', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasEmbargo', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasEmbargo', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasFriendlyAgreement', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasFriendlyAgreement', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasHostileAgreement', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasHostileAgreement', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasMilitaryAccess', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasMilitaryAccess', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasNap', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasNap', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasTruce', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasTruce', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'HasWar', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'HasWar', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'IsBeingInfluenced', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'IsBeingInfluenced', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'IsFightingWarTogether', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'IsFightingWarTogether', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'IsGuaranteed', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'IsGuaranteed', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDiplomacyStatus, 'IsGuaranting', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CDiplomacyStatus, 'IsGuaranting', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param CFixedPoint relation
 -- @return void
-hoi3.f(CDiplomacyStatus, 'SetValue', false, hoi3.TYPE_VOID, 'CFixedPoint')
+hoi3.f(CDiplomacyStatus, 'SetValue', hoi3.TYPE_VOID, 'CFixedPoint')
 
 function CDiplomacyStatus.random()
 	error("There cannot be randomizer for DiploStatus sine it relies on two deterministic parameters")

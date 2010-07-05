@@ -15,7 +15,7 @@ end
 ---
 -- @since1.3 
 -- @return CString
-hoi3.f(CTechnologyCategory, 'GetKey', false, 'CString')
+hoi3.f(CTechnologyCategory, 'GetKey', 'CString')
 
 function CTechnologyCategory:GetKeyImpl()
 	return self.key
@@ -24,7 +24,7 @@ end
 ---
 -- @since 1.3 
 -- @return number
-hoi3.f(CTechnologyCategory, 'GetIndex', false, hoi3.TYPE_NUMBER)
+hoi3.f(CTechnologyCategory, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CTechnologyCategory:GetIndexImpl()
 	return self:getIndexInDictionnary(CTechnologyCategory:getInstances())

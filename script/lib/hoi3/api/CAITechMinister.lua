@@ -11,14 +11,14 @@ CAITechMinister.initialize = CAIAgent.initalize
 -- @since 1.3
 -- @param CTechnology tech
 -- @return bool
-hoi3.f(CAITechMinister, 'CanResearch', false, hoi3.TYPE_BOOLEAN, 'CTechnology')
+hoi3.f(CAITechMinister, 'CanResearch', hoi3.TYPE_BOOLEAN, 'CTechnology')
 
 ---
 -- @since 1.3
 -- @return CArrayFloat
-hoi3.f(CAITechMinister, 'GetFolderModifers', false,'CArrayFloat')
+hoi3.f(CAITechMinister, 'GetFolderModifers','CArrayFloat')
 
 ---
 -- @since 1.3
 -- @return CArrayFloat
-hoi3.f(CAITechMinister, 'GetTechModifers', false,'CArrayFloat')
+hoi3.f(CAITechMinister, 'GetTechModifers','CArrayFloat')

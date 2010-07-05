@@ -10,4 +10,4 @@ CAIEspionageMinister.initialize = CAIAgent.initalize
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CAIEspionageMinister, 'IsAligningToFaction', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CAIEspionageMinister, 'IsAligningToFaction', hoi3.TYPE_BOOLEAN)

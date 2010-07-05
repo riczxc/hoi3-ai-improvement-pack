@@ -18,7 +18,7 @@ end
 ---
 -- @since 1.3
 -- @return string
-hoi3.f(CString, 'GetString', false, hoi3.TYPE_STRING)
+hoi3.f(CString, 'GetString', hoi3.TYPE_STRING)
 
 function CString:GetStringImpl()
 	return self.string
@@ -29,7 +29,7 @@ end
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CString, 'GetCharPtr', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CString, 'GetCharPtr', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 
 function CString.random()

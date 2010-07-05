@@ -18,7 +18,7 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CFixedPoint, 'Get', false, hoi3.TYPE_NUMBER)
+hoi3.f(CFixedPoint, 'Get', hoi3.TYPE_NUMBER)
 
 function CFixedPoint:GetImpl()
 	return self.value
@@ -27,7 +27,7 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CFixedPoint, 'GetTruncated', false, hoi3.TYPE_NUMBER)
+hoi3.f(CFixedPoint, 'GetTruncated', hoi3.TYPE_NUMBER)
 
 function CFixedPoint:GetTruncatedImpl()
 	return math.floor(self.value)
@@ -36,7 +36,7 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CFixedPoint, 'GetRounded', false, hoi3.TYPE_NUMBER)
+hoi3.f(CFixedPoint, 'GetRounded', hoi3.TYPE_NUMBER)
 
 function CFixedPoint:GetRoundedImpl()
   	return math.floor(self.value + 0.5)

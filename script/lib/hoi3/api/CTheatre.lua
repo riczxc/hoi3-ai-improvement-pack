@@ -7,4 +7,4 @@ CTheatre = hoi3.Hoi3Object:subclass('hoi3.CTheatre')
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CTheatre, 'GetPriority', false, hoi3.TYPE_NUMBER)
+hoi3.f(CTheatre, 'GetPriority', hoi3.TYPE_NUMBER)

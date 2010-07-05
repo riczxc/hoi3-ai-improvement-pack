@@ -9,8 +9,8 @@ local obj = nil
 
 function setup()
  	obj = hoi3.Hoi3Object:subclass("test.object")
- 	obj.testInstance = hoi3.f(obj, 'testInstance', false, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
- 	obj.testStatic = hoi3.f(obj, 'testStatic', true, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+ 	obj.testInstance = hoi3.f(obj, 'testInstance', hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+ 	obj.testStatic = hoi3.fs(obj, 'testStatic', hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
  	function obj:initialize(str)
  		self.string = str

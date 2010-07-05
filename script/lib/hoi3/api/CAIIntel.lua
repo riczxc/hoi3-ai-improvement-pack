@@ -21,30 +21,30 @@ end
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CAIIntel, 'CalculateOurMilitaryStrength', false, hoi3.TYPE_NUMBER)
+hoi3.f(CAIIntel, 'CalculateOurMilitaryStrength', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CAIIntel, 'CalculateTheirPercievedMilitaryStrengh', false, hoi3.TYPE_NUMBER)
+hoi3.f(CAIIntel, 'CalculateTheirPercievedMilitaryStrengh', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CAIIntel, 'GetFactor', false, hoi3.TYPE_NUMBER)
+hoi3.f(CAIIntel, 'GetFactor', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return unknown
-hoi3.f(CAIIntel, 'GetTheirFactor', false, hoi3.TYPE_UNKNOWN)
+hoi3.f(CAIIntel, 'GetTheirFactor', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CAIIntel, 'GetUncertaintyFactor', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CAIIntel, 'GetUncertaintyFactor', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CAIIntel, 'HasNoIntel', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CAIIntel, 'HasNoIntel', hoi3.TYPE_BOOLEAN)

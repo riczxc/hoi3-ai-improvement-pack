@@ -16,12 +16,12 @@ end
 ---
 -- @since 1.3
 -- @return string 
-hoi3.f(CContinent, 'GetName', false, hoi3.TYPE_STRING)
+hoi3.f(CContinent, 'GetName', hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
 -- @return string
-hoi3.f(CContinent, 'GetTag', false, hoi3.TYPE_STRING)
+hoi3.f(CContinent, 'GetTag', hoi3.TYPE_STRING)
 
 function CContinent:GetTagImpl()
 	return self.tag

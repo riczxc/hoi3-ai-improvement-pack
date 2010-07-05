@@ -10,28 +10,28 @@ CSpyPresence.MAX_SPY_PRIORITY = 4
 ---
 -- @since 1.3
 -- @return CDate 
-hoi3.f(CSpyPresence, 'GetLastMissionChangeDate', false, 'CDate')
+hoi3.f(CSpyPresence, 'GetLastMissionChangeDate', 'CDate')
 
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CSpyPresence, 'GetLevel', false, hoi3.TYPE_NUMBER)
+hoi3.f(CSpyPresence, 'GetLevel', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CSpyPresence, 'GetMission', false, hoi3.TYPE_NUMBER)
+hoi3.f(CSpyPresence, 'GetMission', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number 
-hoi3.f(CSpyPresence, 'GetPriority', false, hoi3.TYPE_NUMBER)
+hoi3.f(CSpyPresence, 'GetPriority', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown 
-hoi3.f(CSpyPresence, 'MissionAllowed', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CSpyPresence, 'MissionAllowed', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 function CSpyPresence.random()
 	return CSpyPresence()

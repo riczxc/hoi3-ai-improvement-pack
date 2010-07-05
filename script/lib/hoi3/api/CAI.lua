@@ -26,34 +26,34 @@ CAI._TECHNOLOGY_ = 5
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool 
-hoi3.f(CAI, 'AlreadyTradingDisabledResource', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute') 
+hoi3.f(CAI, 'AlreadyTradingDisabledResource', hoi3.TYPE_BOOLEAN, 'CTradeRoute') 
 
 ---
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool 
-hoi3.f(CAI, 'AlreadyTradingResourceOtherWay', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute') 
+hoi3.f(CAI, 'AlreadyTradingResourceOtherWay', hoi3.TYPE_BOOLEAN, 'CTradeRoute') 
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-hoi3.f(CAI, 'CanDeclareWar', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag') 
+hoi3.f(CAI, 'CanDeclareWar', hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag') 
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-hoi3.f(CAI, 'CanTradeFreeResources', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag')
+hoi3.f(CAI, 'CanTradeFreeResources', hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @param number needs
 -- @param number goodsType
 -- @return CFixedPoint
-hoi3.f(CAI, 'EvaluateCancelTrades', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CAI, 'EvaluateCancelTrades', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
@@ -61,25 +61,25 @@ hoi3.f(CAI, 'EvaluateCancelTrades', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER, h
 -- @param CCountryTag from
 -- @param CCountryTag to
 -- @return CFixedPoint
-hoi3.f(CAI, 'GetAmountTradedFrom', false, 'CFixedPoint', hoi3.TYPE_NUMBER, 'CCountryTag', 'CCountryTag')
+hoi3.f(CAI, 'GetAmountTradedFrom', 'CFixedPoint', hoi3.TYPE_NUMBER, 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return CCountry
-hoi3.f(CAI, 'GetCountry', false, 'CCountry', hoi3.TYPE_UNKNOWN)
+hoi3.f(CAI, 'GetCountry', 'CCountry', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCountry countryA
 -- @param CCountry countryB
 -- @return CFixedPoint
-hoi3.f(CAI, 'GetCountryAlignmentDistance', false, 'CFixedPoint', 'CCountry', 'CCountry')
+hoi3.f(CAI, 'GetCountryAlignmentDistance', 'CFixedPoint', 'CCountry', 'CCountry')
 
 ---
 -- @since 1.3
 -- @return CDate
-hoi3.f(CAI, 'GetCurrentDate', false, 'CDate')
+hoi3.f(CAI, 'GetCurrentDate', 'CDate')
 
 function CAI:GetCurrentDateImpl()
 	return CCurrentGameState.GetCurrentDate()
@@ -88,48 +88,48 @@ end
 ---
 -- @since 2.0
 -- @return CArrayFloat
-hoi3.f(CAI, 'GetDeployedSubUnitCounts', false, 'CArrayFloat')
+hoi3.f(CAI, 'GetDeployedSubUnitCounts', 'CArrayFloat')
 
 ---
 -- @since 1.3
 -- @return string
 -- @static
-hoi3.f(CAI, 'GetModDirectory', true, hoi3.TYPE_STRING)
+hoi3.fs(CAI, 'GetModDirectory', hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
 -- @param CCountry country
 -- @param CFaction faction
 -- @return CFixedPoint
-hoi3.f(CAI, 'GetNormalizedAlignmentDistance', false, 'CFixedPoint', 'CCountry', 'CFaction')
+hoi3.f(CAI, 'GetNormalizedAlignmentDistance', 'CFixedPoint', 'CCountry', 'CFaction')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-hoi3.f(CAI, 'GetNumberOfOwnedProvinces', false, hoi3.TYPE_NUMBER, 'CCountryTag')
+hoi3.f(CAI, 'GetNumberOfOwnedProvinces', hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @return CArrayFloat
-hoi3.f(CAI, 'GetProductionSubUnitCounts', false, 'CArrayFloat')
+hoi3.f(CAI, 'GetProductionSubUnitCounts', 'CArrayFloat')
 
 ---
 -- @since 1.3
 -- @return CSubUnitConstructionEntryList
-hoi3.f(CAI, 'GetReqProdQueue', false, 'CSubUnitConstructionEntryList')
+hoi3.f(CAI, 'GetReqProdQueue', 'CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3
 -- @return iterator<CSubUnitConstructionEntry>
-hoi3.f(CAI, 'GetReqProdQueueIter', false, 'iterator<CSubUnitConstructionEntry>')
+hoi3.f(CAI, 'GetReqProdQueueIter', 'iterator<CSubUnitConstructionEntry>')
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return CDiplomacyStatus
-hoi3.f(CAI, 'GetRelation', false, 'CDiplomacyStatus', 'CCountryTag', 'CCountryTag')
+hoi3.f(CAI, 'GetRelation', 'CDiplomacyStatus', 'CCountryTag', 'CCountryTag')
 
 function CAI:GetRelationImpl(tagA, tagB)
 	return CDiplomacyStatus(tagA, tagB)
@@ -139,79 +139,79 @@ end
 -- @since 1.3
 -- @param CCountryTag countryTag
 -- @return number
-hoi3.f(CAI, 'GetSpamPenalty', false, hoi3.TYPE_NUMBER, 'CCountryTag')
+hoi3.f(CAI, 'GetSpamPenalty', hoi3.TYPE_NUMBER, 'CCountryTag')
 
 ---
 -- @since 2.0
 -- @return CArrayFloat
-hoi3.f(CAI, 'GetTheatreSubUnitNeedCounts', false, 'CArrayFloat')
+hoi3.f(CAI, 'GetTheatreSubUnitNeedCounts', 'CArrayFloat')
 
 ---
 -- @since 1.3
 -- @return bool
 -- @static
-hoi3.f(CAI, 'HasCommonExtension', true, hoi3.TYPE_BOOLEAN)
+hoi3.fs(CAI, 'HasCommonExtension', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.4
 -- @return bool
-hoi3.f(CAI, 'HasFilledProdQueue', false, hoi3.TYPE_BOOLEAN)
+hoi3.f(CAI, 'HasFilledProdQueue', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
 -- @param  CTradeRoute route
 -- @return bool
-hoi3.f(CAI, 'HasTradeGoneStale', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute')
+hoi3.f(CAI, 'HasTradeGoneStale', hoi3.TYPE_BOOLEAN, 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @return bool
 -- @static
-hoi3.f(CAI, 'HasUserExtension', true, hoi3.TYPE_BOOLEAN)
+hoi3.fs(CAI, 'HasUserExtension', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.4
 -- @param number automationtype
 -- @return bool
 -- @static
-hoi3.f(CAI, 'IsAIControlledForPlayer', false, hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+hoi3.f(CAI, 'IsAIControlledForPlayer', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA
 -- @param CCountryTag countryTagB
 -- @return bool
-hoi3.f(CAI, 'IsInfluencing', false, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag')
+hoi3.f(CAI, 'IsInfluencing', hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CCountryTag')
 
 ---
 -- @since 1.3
 -- @param CTradeRoute route
 -- @return bool
-hoi3.f(CAI, 'IsTradeingAwayNeededResource', false, hoi3.TYPE_BOOLEAN, 'CTradeRoute')
+hoi3.f(CAI, 'IsTradeingAwayNeededResource', hoi3.TYPE_BOOLEAN, 'CTradeRoute')
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CAI, 'MoveToNeighbor', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CAI, 'MoveToNeighbor', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CAI, 'MoveUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CAI, 'MoveUnit', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param unknown
 -- @return unknown
-hoi3.f(CAI, 'RequestSubUnit', false, hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.f(CAI, 'RequestSubUnit', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
 -- @param CCommand command
 -- @return void
-hoi3.f(CAI, 'Post', false, hoi3.TYPE_VOID, 'CCommand')
+hoi3.f(CAI, 'Post', hoi3.TYPE_VOID, 'CCommand')
 
 function CAI:PostImpl(command)
 	hoi3.assertNonStatic(self)
@@ -228,7 +228,7 @@ end
 -- @since 1.3
 -- @param CAction action
 -- @return void
-hoi3.f(CAI, 'PostAction', false, hoi3.TYPE_VOID, 'CAction')
+hoi3.f(CAI, 'PostAction', hoi3.TYPE_VOID, 'CAction')
 
 function CAI:PostActionImpl(action)
 	hoi3.assertNonStatic(self)
@@ -245,7 +245,7 @@ end
 -- @since 1.3
 -- @param string message
 -- @return void
-hoi3.f(CAI, 'PrintConsole', false, hoi3.TYPE_VOID, hoi3.TYPE_STRING)
+hoi3.f(CAI, 'PrintConsole', hoi3.TYPE_VOID, hoi3.TYPE_STRING)
 
 function CAI:PrintConsoleImpl(message)
 	hoi3.assertNonStatic(self)

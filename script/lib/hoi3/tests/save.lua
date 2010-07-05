@@ -16,10 +16,10 @@ function setup()
 	hoi3.FunctionObject(objClass, 'myFunctionWithoutParam', false, hoi3.TYPE_STRING)
  	hoi3.FunctionObject(objClass, 'myFunctionWithParam', false, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER, hoi3.TYPE_STRING)
  	--hoi3.f is synonym for hoi3.FunctionObject
- 	hoi3.f(objClass, 'myStaticFunctionWithoutParam', true, hoi3.TYPE_STRING)
- 	hoi3.f(objClass, 'myStaticFunctionWithParam', true, hoi3.TYPE_STRING, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER)
-	hoi3.f(objClass, 'myImplableFunction', false, hoi3.TYPE_STRING)
-	hoi3.f(objClass, 'myStaticImplableFunction', true, hoi3.TYPE_STRING)
+ 	hoi3.fs(objClass, 'myStaticFunctionWithoutParam', hoi3.TYPE_STRING)
+ 	hoi3.fs(objClass, 'myStaticFunctionWithParam', hoi3.TYPE_STRING, hoi3.TYPE_STRING, hoi3.TYPE_NUMBER)
+	hoi3.f(objClass, 'myImplableFunction', hoi3.TYPE_STRING)
+	hoi3.fs(objClass, 'myStaticImplableFunction', hoi3.TYPE_STRING)
 
   	function objClass:myImplableFunctionImpl()
 		return tostring(self.x).."Impl"
@@ -38,7 +38,7 @@ function testSavedWithoutParam()
 	local myObj = objClass("x")
 	local myResult = "abcdefgh"
 
-	myObj:saveResult(myResult,objClass.myFunctionWithoutParam)
+	objClass.myFunctionWithoutParam:save(myObj,myResult)
 	assert_equal(myResult,myObj:myFunctionWithoutParam())
 	assert_equal(myResult,myObj:myFunctionWithoutParam())
 end
@@ -46,11 +46,11 @@ end
 function testSavedStaticWithoutParam()
 	local myResult = "ijklmnop"
 
-	objClass.saveResult(objClass, myResult,objClass.myStaticFunctionWithoutParam)
+	objClass.myStaticFunctionWithoutParam:save(myResult)
 	assert_equal(myResult,objClass.myStaticFunctionWithoutParam())
 	assert_equal(myResult,objClass.myStaticFunctionWithoutParam())
 
-	objClass.saveResult(objClass, 5,objClass.myStaticFunctionWithoutParam)
+	objClass.myStaticFunctionWithoutParam:save(5)
 	assert_equal(5,objClass.myStaticFunctionWithoutParam())
 	assert_equal(5,objClass.myStaticFunctionWithoutParam())
 end
@@ -59,7 +59,7 @@ function testSavedWithParam()
 	local myObj = objClass("x")
 	local myResult = "qrstuvw"
 
-	myObj:saveResult(myResult,objClass.myFunctionWithParam, 1, "a")
+	objClass.myFunctionWithParam:save(myObj,myResult, 1, "a")
 	assert_equal(myResult,myObj:myFunctionWithParam(1, "a"))
 	assert_equal(myResult,myObj:myFunctionWithParam(1, "a"))
 end
@@ -68,7 +68,7 @@ function testSavedStaticWithoutParam()
   	local myObj = objClass("x")
 	local myResult = "xyz1234"
 
-	obj.saveResult(obj, myResult,objClass.myStaticFunctionWithParam, "xyz", 23)
+	objClass.myStaticFunctionWithParam:save(myResult, "xyz", 23)
 	assert_equal(myResult,objClass.myStaticFunctionWithParam("xyz", 23))
 	assert_equal(myResult,objClass.myStaticFunctionWithParam("xyz", 23))
 end
