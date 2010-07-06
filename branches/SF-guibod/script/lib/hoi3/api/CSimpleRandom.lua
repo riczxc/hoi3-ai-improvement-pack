@@ -26,6 +26,6 @@ hoi3.f(CSimpleRandom, 'Seed', hoi3.TYPE_VOID, hoi3.TYPE_NUMBER)
 
 function CSimpleRandom.SeedImpl(seed)
 	--TODO: find a workaround to provide non persitant values
-	self:clearResult()
+	self:clearResults()
 end
 

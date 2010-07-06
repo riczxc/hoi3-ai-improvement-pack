@@ -13,7 +13,7 @@ function fs(class, name, ret, ...)
 end
 
 function FunctionObject:initialize(class, name, static, ret, ...)
-	assert(middleclass.subclassOf(hoi3.Object,class), "First parameter function must be a valid middleclass.Object.")
+	assert(middleclass.subclassOf(hoi3.Hoi3Object,class), "First parameter function must be a valid hoi3.Hoi3Object.")
 	assertParameterType(2, name, hoi3.TYPE_STRING)
 	assertParameterType(3, static, hoi3.TYPE_BOOLEAN)
 	
@@ -200,11 +200,16 @@ end
 -- Save/Load support
 
 ---
+-- @param instanceOrClassOrNil
 -- @return void
-function FunctionObject:clearResult()
+function FunctionObject:clearResults(instanceOrClassOrNil)
 	 hoi3.assertNonStatic(self)
 	 
-	 self.result = {}
+	 if instanceOrClassOrNil == nil then
+	 	self.result = {}
+	 else
+	 	self.result[instanceOrClassOrNil] = nil
+	 end
 end
 
 ---

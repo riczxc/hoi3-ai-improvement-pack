@@ -4,15 +4,34 @@ module( "hoi3", package.seeall)
 
 Hoi3Object = middleclass.class('hoi3.Hoi3Object')
 
-function Hoi3Object.registerInstance(i)
-	Hoi3Object.instances = Hoi3Object.instances or {}
-	Hoi3Object.instances[#Hoi3Object.instances+1] = i
-end
-
 function Hoi3Object:initialize(...)
 	super.initialize(self, ...)
+end
+
+function Hoi3Object.getApiFunctions(instanceOrClass)
+	local t = {}
 	
-	Hoi3Object.registerInstance(self)
+	-- if we have an instance, get its class
+	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
+		instanceOrClass = instanceOrClass.class
+	end
+	
+	-- a class have a __classDict, if nothing, not a class object.
+	if instanceOrClass.__classDict ~= nil then
+		for k, v in pairs(instanceOrClass.__classDict) do
+			if type(v) == hoi3.TYPE_TABLE and 
+				middleclass.instanceOf(hoi3.FunctionObject, v) then
+				table.insert(t,v)
+			end
+		end
+	end
+	return t
+end
+
+function Hoi3Object.clearResults(instanceOrClass)
+	for k, v in pairs(Hoi3Object.getApiFunctions(instanceOrClass)) do
+		v:clearResults(instanceOrClass)
+	end
 end
 
 function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)

@@ -57,10 +57,7 @@ hoi3.f(CDate, 'AddDays', hoi3.TYPE_VOID, hoi3.TYPE_NUMBER)
 
 function CDate:AddDaysImpl(daysToAdd)
 	self.time = self.time + (daysToAdd*60*60*24)
-	self.GetDayOfMonth:clearResult()
-	self.GetMonthOfYear:clearResult()
-	self.GetTotalDays:clearResult()
-	self.GetYear:clearResult()
+	self:clearResults()
 end
 
 function CDate.random()
