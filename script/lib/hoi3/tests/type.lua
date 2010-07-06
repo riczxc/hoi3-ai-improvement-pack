@@ -41,8 +41,11 @@ end
 function testObject()
 	assert_true(hoi3.testType(myClass(), 'Object'))
 	assert_true(hoi3.testType(myClass(), 'Hoi3Object'))
-	assert_true(hoi3.testType(myClass(), 'myClass'))
-	assert_true(hoi3.testType(myClass:new(), 'myClass'))
+	
+	assert_true(hoi3.testType(hoi3.api.CNullTag(), 'Object'))
+	assert_true(hoi3.testType(hoi3.api.CNullTag(), 'Hoi3Object'))
+	assert_true(hoi3.testType(hoi3.api.CNullTag(), 'CNullTag'))
+	assert_true(hoi3.testType(hoi3.api.CNullTag:new(), 'CNullTag'))
 end
 
 function testBasicIterator()
@@ -55,9 +58,14 @@ function testBasicIterator()
 end
 
 function testObjectIterator()
-	local table = {myClass(),myClass:new(),myClass:new(),myClass()}
+	local table = {
+		hoi3.api.CNullTag(),
+		hoi3.api.CNullTag:new(),
+		hoi3.api.CNullTag:new(),
+		hoi3.api.CNullTag()
+	}
 	
-	assert_true(hoi3.testType(table, 'table<myClass>'))
+	assert_true(hoi3.testType(table, 'table<CNullTag>'))
 	assert_true(hoi3.testType(table, 'table<Object>'))
 	assert_false(hoi3.testType(table, 'table<NothingButRealObject>'))
 	assert_false(hoi3.testType(table, hoi3.TYPE_NUMBER))

@@ -114,8 +114,8 @@ function throwUnknownReturnType()
 	error("Unknown API return type. Not implemented in HOI3 Impl API.")
 end
 
-function throwDataNotFound()
-	error("Data not found exception.")
+function throwDataNotFound(t, k)
+	error("Data not found ! Cannot find "..tostring(t).." using `"..k.."` as key.")
 end
 
 function throwNoRandomizerSupport(typeAsString)
