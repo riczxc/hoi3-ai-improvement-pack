@@ -73,6 +73,7 @@ tickFunctions = {
 	{'TechMinister_Tick',hoi3.api.CAITechMinister}
 }
 
+if false then
 	--for i=1,1  do
 	--print("--------- loop #"..i.."--------------------")
 	--hoi3.MultitonObject.instances = {}
@@ -100,5 +101,17 @@ tickFunctions = {
     	hoi3.FunctionObject.numApiCalls = 0
     end
     
-    
-    table.save(hoi3.Hoi3Object.instances,"results.txt")
+    --table.save(hoi3.MultitonObject.instances,"results.txt")
+    hoi3.MultitonObject.serializeInstances("SAVE000.lua")
+else
+	hoi3.MultitonObject.deserializeInstances("results.txt")
+	
+	local x = CCountryTag:getInstance("GER")
+	--setmetatable(x, x.class.__classDict)
+	--setmetatable(x.GetCountry, x.GetCountry.class.__classDict)
+	print("ni")
+	print(type(x:GetCountry()))
+	print(x:GetCountry())
+	
+	--print(y:GetCapitalLocation())
+end
