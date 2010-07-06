@@ -119,14 +119,36 @@ require("middleclass")
 
 ---
 -- Allow release hoi3.api.CAction as CAction 
-function releaseApiOnGlobalScope()
-	for key, value in pairs(hoi3.api) do
-	 	if type(value) == "table" and 
-	 		middleclass.subclassOf(hoi3.Hoi3Object, value) then
-	 		--print(key.." is now available in global scope.")
-	 		_G[key] = value
+function getApi()
+	local t = {}
+	for k, v in pairs(hoi3.api) do
+	 	if type(v) == hoi3.TYPE_TABLE and 
+	 		middleclass.subclassOf(hoi3.Hoi3Object, v) then
+	 		t[k] = v
 	 	end
 	end
 
+	return t
+end
+
+---
+-- Allow release hoi3.api.CAction as CAction 
+function releaseApiOnGlobalScope()
+	for key, value in pairs(getApi()) do
+		_G[key] = value
+	end
+
 	_G.defines = hoi3.api.defines
+end
+
+function printApi()
+	print("HOI3 lua API")
+	for className, class in dtools.table.orderedPairs(getApi()) do
+		print("-----------------------")
+		print(className)
+		for methodName, method in dtools.table.orderedPairs(class:getApiFunctions()) do
+			print(method)
+		end
+		print()
+	end
 end
