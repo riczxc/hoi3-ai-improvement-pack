@@ -11,8 +11,7 @@ local myClass
 function setup()
   	-- A Hoi3Object must be defined inside hoi3.api to benefit
   	-- from datatesting based on name (as string)
-  	hoi3.api.myClass = hoi3.Hoi3Object:subclass("test.object")
-  	myClass = hoi3.api.myClass 
+  	myClass = hoi3.Hoi3Object:subclass("test.object")
 end
 
 function testBoolean()
