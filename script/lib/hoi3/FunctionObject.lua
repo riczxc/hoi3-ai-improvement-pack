@@ -29,9 +29,16 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	end
 	self.args = {...}
 	self.result = {}
+	self.runs = 0
+	self.druns = {}
 	
 	-- self reference in parent object
 	self.myclass[name] = self
+end
+
+function FunctionObject:reset()
+	self.runs = 0
+	self.druns = {}
 end
 
 function FunctionObject:__tostring()
@@ -197,6 +204,9 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 	if not(isNestedApiCall) then
 		FunctionObject.isRunningApiCall = false
 		FunctionObject.numApiCalls = FunctionObject.numApiCalls + 1 
+		self.runs = (self.runs + 1) or 1 
+		self.druns[hash] = self.druns[hash] or 0
+		self.druns[hash] = self.druns[hash] + 1
 	end
 	
 	return unpack(ret)
