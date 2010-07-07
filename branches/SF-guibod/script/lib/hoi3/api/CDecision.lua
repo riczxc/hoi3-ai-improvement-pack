@@ -6,12 +6,11 @@ CDecision = hoi3.MultitonObject:subclass('hoi3.api.CDecision')
 
 ---
 -- @since 1.3
--- @param CString key
+-- @param string key
 -- @return CDebtAction
 function CDecision:initialize(key)
 	hoi3.assertNonStatic(self)
-	if type(key) == hoi3.TYPE_STRING then key = CString(key) end
-	hoi3.assertParameterType(1, key, 'CString')
+	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 	
 	self.key = key
 end
@@ -22,7 +21,7 @@ end
 hoi3.f(CDecision, 'GetKey', 'CString')
 
 function CDecision:GetKeyImpl()
-	return self.key
+	return CString(self.key)
 end
 
 ---

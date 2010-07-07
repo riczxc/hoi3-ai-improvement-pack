@@ -6,8 +6,7 @@ CTechnologyFolder = hoi3.MultitonObject:subclass('hoi3.api.CTechnologyFolder')
 
 function CTechnologyFolder:initialize(key)
 	hoi3.assertNonStatic(self)
-	if type(key) == hoi3.TYPE_STRING then key = CString(key) end
-	hoi3.assertParameterType(1, key, 'CString')
+	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 	
 	self.key = key
 end
@@ -27,7 +26,7 @@ end
 hoi3.f(CTechnologyFolder, 'GetKey', 'CString')
 
 function CTechnologyCategory:GetKeyImpl()
-	return self.key
+	return CString(self.key)
 end
 
 ---
