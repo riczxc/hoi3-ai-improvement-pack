@@ -151,7 +151,7 @@ function generateGovernementPositionDatabase()
 	for i,posdef in ipairs(def) do
 		local pos = CGovernmentPosition(posdef[1])
 	
-		CGovernmentPositionDataBase.GetGovernmentPositionByIndex:save(pos,i)
+		--CGovernmentPositionDataBase.GetGovernmentPositionByIndex:save(pos,i)
 		db[pos] = pos
 	end
 	
@@ -301,7 +301,7 @@ function generateLawDatabase()
 		CLaw.GetGroup:save(CLawGroup(lawdef[3]),law)
 
 		-- GetGroup
-		CLawDataBase.GetLaw:save(law,lawdef[2])
+		--CLawDataBase.GetLaw:save(law,lawdef[2])
 				
 		db[law] = law
 	end

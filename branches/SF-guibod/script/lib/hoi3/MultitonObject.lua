@@ -49,7 +49,6 @@ end
 function MultitonObject:new(...)
 	local _classes = middleclass.getClasses()
 	assert(_classes[self]~=nil, "Use class:new instead of class.new")
-	
 	local key = self:_argsToUnid(...)
 	-- Force table creation
   	MultitonObject.instances[self.name] = MultitonObject.instances[self.name] or {}
@@ -162,11 +161,15 @@ function MultitonObject.serializeInstances(filename)
 			if type( v ) ~= "userdata" and type( v ) ~= "function" then
 				-- only handle value
 				if type( v ) == "table" then
-					if not lookup[v] then
-						table.insert( tables, v )
-						lookup[v] = #tables
+					if middleclass.instanceOf(hoi3.FunctionObject,v) then
+						file:write( v.myclass.name.."."..v.name..","..charE )
+					else
+						if not lookup[v] then
+							table.insert( tables, v )
+							lookup[v] = #tables
+						end
+						file:write( charS.."{"..lookup[v].."},"..charE )
 					end
-					file:write( charS.."{"..lookup[v].."},"..charE )
 				else
 					local value =  ( type( v ) == "string" and exportstring( v ) ) or tostring( v )
 					file:write(  charS..value..","..charE )
@@ -177,26 +180,33 @@ function MultitonObject.serializeInstances(filename)
 			-- escape functions and userdata
 			if (not thandled[i]) and type( v ) ~= "userdata" and type( v ) ~= "function" then
 				-- handle index
-				if type( i ) == "table" and not middleclass.instanceOf(hoi3.FunctionObject,i) then
-					if not lookup[i] then
-						table.insert( tables,i )
-						lookup[i] = #tables
+				if type( i ) == "table" then
+					if middleclass.instanceOf(hoi3.FunctionObject,i) then
+						file:write( charS.."["..i.myclass.name.."."..i.name.."]=" )
+					else
+						if not lookup[i] then
+							table.insert( tables,i )
+							lookup[i] = #tables
+						end
+						file:write( charS.."[{"..lookup[i].."}]=" )
 					end
-					file:write( charS.."[{"..lookup[i].."}]=" )
 				else
 					local index = ( type( i ) == "string" and "["..exportstring( i ).."]" ) or string.format( "[%d]",i )
 					file:write( charS..index.."=" )
 				end
 				-- handle value
 				if type( v ) == "table" then
-					if not lookup[v] then
-						table.insert( tables,v )
-						lookup[v] = #tables
-					end
 					
 					if v.__classDict ~= nil then
 						file:write( v.name..","..charE )
+					elseif middleclass.instanceOf(hoi3.FunctionObject,v) then
+						file:write( v.myclass.name.."."..v.name..","..charE )
 					else
+						if not lookup[v] then
+							table.insert( tables,v )
+							lookup[v] = #tables
+						end
+					
 						file:write( "{"..lookup[v].."},"..charE )
 					end
 				else
@@ -243,7 +253,6 @@ local function recursiveRehydrator(table, level)
 		if type(v) == hoi3.TYPE_TABLE and
 			v.class ~= nil and 
 			v.class.__classDict ~= nil then
-			print(prefix.." rehydrated !") 
 			setmetatable(v, v.class.__classDict)
 		end
 		

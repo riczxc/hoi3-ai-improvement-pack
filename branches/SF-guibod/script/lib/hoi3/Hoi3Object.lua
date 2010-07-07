@@ -28,10 +28,8 @@ function Hoi3Object.getApiFunctions(instanceOrClass)
 	return t
 end
 
-function Hoi3Object.clearResults(instanceOrClass)
-	for k, v in pairs(Hoi3Object.getApiFunctions(instanceOrClass)) do
-		v:clearResults(instanceOrClass)
-	end
+function Hoi3Object:clearResults()
+	self.__result = {}
 end
 
 function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)

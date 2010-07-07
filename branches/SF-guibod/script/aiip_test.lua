@@ -80,7 +80,6 @@ if false then
 	--hoi3.Hoi3Object.resultTable = {}
 	hoi3.conf.generateAll()	
 	local tag = CCountryTag:random()
-	local minister = CAIPoliticsMinister(tag)
     
     for k,v in ipairs(tickFunctions) do
     	local tickFunc = _G[v[1]]
@@ -92,7 +91,7 @@ if false then
     		-- sepcial signature, i feel lazy to complexify this code only for this
     		tickFunc(CAI(tag),tag)
     	elseif tickFunc == ForeignMinister_EvaluateDecision then
-    		tickFunc(minister, CDecision.random(), "scope?")
+    		tickFunc(mnstFunc(tag), CDecision.random(), "scope?")
     	else
     		tickFunc(mnstFunc(tag))
     	end
