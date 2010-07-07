@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CIdeologyData = hoi3.Hoi3Object:subclass('hoi3.CIdeologyData')
+CIdeologyData = hoi3.Hoi3Object:subclass('hoi3.api.CIdeologyData')
 
 ---
 -- @since 1.3

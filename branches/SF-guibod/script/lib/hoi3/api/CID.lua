@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CID = hoi3.Hoi3Object:subclass('hoi3.CID')
+CID = hoi3.Hoi3Object:subclass('hoi3.api.CID')
 
 ---
 -- @return CID

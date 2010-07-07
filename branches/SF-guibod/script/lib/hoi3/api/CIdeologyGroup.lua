@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CIdeologyGroup = hoi3.MultitonObject:subclass('hoi3.CIdeologyGroup')
+CIdeologyGroup = hoi3.MultitonObject:subclass('hoi3.api.CIdeologyGroup')
 
 function CIdeologyGroup:initialize(name)
 	hoi3.assertNonStatic(self)

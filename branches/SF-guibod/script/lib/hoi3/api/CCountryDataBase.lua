@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CCountryDataBase = hoi3.AbstractObject:subclass('hoi3.CCountryDataBase')
+CCountryDataBase = hoi3.AbstractObject:subclass('hoi3.api.CCountryDataBase')
 
 ---
 -- @since 1.3

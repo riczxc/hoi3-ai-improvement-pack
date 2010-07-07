@@ -2,7 +2,7 @@ require('hoi3.api.CDiplomaticAction')
 
 module("hoi3.api", package.seeall)
 
-CTradeAction = CDiplomaticAction:subclass('hoi3.CTradeAction')
+CTradeAction = CDiplomaticAction:subclass('hoi3.api.CTradeAction')
 
 ---
 -- @since 1.3

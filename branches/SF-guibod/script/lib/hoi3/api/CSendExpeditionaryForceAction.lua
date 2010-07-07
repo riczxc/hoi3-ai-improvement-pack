@@ -2,7 +2,7 @@ require('hoi3.api.CDiplomaticAction')
 
 module("hoi3.api", package.seeall)
 
-CSendExpeditionaryForceAction = CDiplomaticAction:subclass('hoi3.CSendExpeditionaryForceAction')
+CSendExpeditionaryForceAction = CDiplomaticAction:subclass('hoi3.api.CSendExpeditionaryForceAction')
 
 --[[
 	FIXME: there is a function CSendExpeditionaryForceAction as well

@@ -2,7 +2,7 @@ require('hoi3.api.CDiplomaticAction')
 
 module("hoi3.api", package.seeall)
 
-COfferMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.COfferMilitaryAccessAction')
+COfferMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.api.COfferMilitaryAccessAction')
 
 ---
 -- @since 1.3

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CConvoy = hoi3.Hoi3Object:subclass('hoi3.CConvoy')
+CConvoy = hoi3.Hoi3Object:subclass('hoi3.api.CConvoy')
 
 ---
 -- @since 1.3

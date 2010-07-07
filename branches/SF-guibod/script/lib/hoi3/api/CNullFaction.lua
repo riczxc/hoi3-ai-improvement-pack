@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CNullFaction = CFaction:subclass('hoi3.CNullFaction')
+CNullFaction = CFaction:subclass('hoi3.api.CNullFaction')
 
 CNullFaction.new = function(theClass)
 	if CNullFaction.instance == nil then

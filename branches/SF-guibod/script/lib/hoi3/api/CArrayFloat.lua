@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CArrayFloat = hoi3.Hoi3Object:subclass('hoi3.CArrayFloat')
+CArrayFloat = hoi3.Hoi3Object:subclass('hoi3.api.CArrayFloat')
 
 ---
 -- @since 1.3

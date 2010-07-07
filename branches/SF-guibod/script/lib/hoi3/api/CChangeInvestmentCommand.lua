@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CChangeInvestmentCommand = CCommand:subclass('hoi3.CChangeInvestmentCommand')
+CChangeInvestmentCommand = CCommand:subclass('hoi3.api.CChangeInvestmentCommand')
 
 ---
 -- @since 1.3

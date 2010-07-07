@@ -1,6 +1,6 @@
 require('hoi3')
 
-CBuilding = hoi3.MultitonObject:subclass('hoi3.CBuilding')
+CBuilding = hoi3.MultitonObject:subclass('hoi3.api.CBuilding')
 
 ---
 -- @since 1.3

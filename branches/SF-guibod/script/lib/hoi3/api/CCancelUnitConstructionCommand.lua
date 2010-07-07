@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CCancelUnitConstructionCommand = CCommand:subclass('hoi3.CCancelUnitConstructionCommand')
+CCancelUnitConstructionCommand = CCommand:subclass('hoi3.api.CCancelUnitConstructionCommand')
 
 ---
 -- @since 1.3

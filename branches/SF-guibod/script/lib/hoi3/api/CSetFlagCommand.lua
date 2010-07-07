@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CSetFlagCommand = CCommand:subclass('hoi3.CSetFlagCommand')
+CSetFlagCommand = CCommand:subclass('hoi3.api.CSetFlagCommand')
 
 ---
 -- @since 1.3

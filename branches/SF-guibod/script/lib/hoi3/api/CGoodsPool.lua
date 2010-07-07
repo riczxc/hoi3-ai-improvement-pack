@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CGoodsPool = hoi3.AbstractObject:subclass('hoi3.CGoodsPool')
+CGoodsPool = hoi3.AbstractObject:subclass('hoi3.api.CGoodsPool')
 
 CGoodsPool._MONEY_ = 1
 CGoodsPool._METAL_ = 2

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAISubscriber = hoi3.MultitonObject:subclass('hoi3.CAISubscriber')
+CAISubscriber = hoi3.MultitonObject:subclass('hoi3.api.CAISubscriber')
 
 ---
 -- @since 1.3

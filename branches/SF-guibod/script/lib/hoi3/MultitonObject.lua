@@ -84,9 +84,6 @@ function MultitonObject:getInstance(...)
 	local _classes = middleclass.getClasses()
 	assert(_classes[self]~=nil, "Use class:getInstance instead of class.getInstance")
 	
-	for k,v in pairs(self) do
-		print(tostring(k).." ("..type(k)..") = "..tostring(v).." ("..type(v)..")")
-	end
 	local key = self:_argsToUnid(...)
 	return self:_getInstance(key)
 end 
@@ -162,7 +159,7 @@ function MultitonObject.serializeInstances(filename)
 		for i,v in ipairs( t ) do
 			thandled[i] = true
 			-- escape functions and userdata
-			if type( v ) ~= "userdata" then
+			if type( v ) ~= "userdata" and type( v ) ~= "function" then
 				-- only handle value
 				if type( v ) == "table" then
 					if not lookup[v] then
@@ -170,10 +167,6 @@ function MultitonObject.serializeInstances(filename)
 						lookup[v] = #tables
 					end
 					file:write( charS.."{"..lookup[v].."},"..charE )
-				elseif type( v ) == "function" then
-				-- IGNORE Functions
-					-- file:write( charS.."loadstring("..exportstring(string.dump( v )).."),"..charE )
-					file:write( charS.."nil,"..charE )
 				else
 					local value =  ( type( v ) == "string" and exportstring( v ) ) or tostring( v )
 					file:write(  charS..value..","..charE )
@@ -182,7 +175,7 @@ function MultitonObject.serializeInstances(filename)
 		end
 		for i,v in pairs( t ) do
 			-- escape functions and userdata
-			if (not thandled[i]) and type( v ) ~= "userdata" then
+			if (not thandled[i]) and type( v ) ~= "userdata" and type( v ) ~= "function" then
 				-- handle index
 				if type( i ) == "table" and not middleclass.instanceOf(hoi3.FunctionObject,i) then
 					if not lookup[i] then
@@ -201,15 +194,11 @@ function MultitonObject.serializeInstances(filename)
 						lookup[v] = #tables
 					end
 					
-					if not middleclass.instanceOf(hoi3.FunctionObject,v)  then
-						file:write( "{"..lookup[v].."},"..charE )
+					if v.__classDict ~= nil then
+						file:write( v.name..","..charE )
 					else
-						file:write( "nil,"..charE )
+						file:write( "{"..lookup[v].."},"..charE )
 					end
-				elseif type( v ) == "function" then
-					-- IGNORE Functions
-					--	file:write( "loadstring("..exportstring(string.dump( v )).."),"..charE )
-					file:write( "nil,"..charE )
 				else
 					local value =  ( type( v ) == "string" and exportstring( v ) ) or tostring( v )
 					file:write( value..","..charE )
@@ -251,15 +240,12 @@ local function recursiveRehydrator(table, level)
 	local prefix = string.rep("  ",level)
 
 	for k, v in pairs(table) do		
-		--[[
 		if type(v) == hoi3.TYPE_TABLE and
-			not middleclass.instanceOf(hoi3.Object,v) and
 			v.class ~= nil and 
 			v.class.__classDict ~= nil then
 			print(prefix.." rehydrated !") 
 			setmetatable(v, v.class.__classDict)
 		end
-		]]
 		
 		table[k] = recursiveRehydrator(v, level + 1)
 	end

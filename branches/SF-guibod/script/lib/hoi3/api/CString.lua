@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CString = hoi3.Hoi3Object:subclass('hoi3.CString')
+CString = hoi3.Hoi3Object:subclass('hoi3.api.CString')
 
 ---
 -- @since 1.3

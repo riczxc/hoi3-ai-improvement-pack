@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CGovernmentPositionDataBase = hoi3.AbstractObject:subclass('hoi3.CGovernmentPositionDataBase')
+CGovernmentPositionDataBase = hoi3.AbstractObject:subclass('hoi3.api.CGovernmentPositionDataBase')
 
 ---
 -- @since 2.0

@@ -2,7 +2,7 @@ require('hoi3.api.CDiplomaticAction')
 
 module("hoi3.api", package.seeall)
 
-CPeaceAction = CDiplomaticAction:subclass('hoi3.CPeaceAction')
+CPeaceAction = CDiplomaticAction:subclass('hoi3.api.CPeaceAction')
 
 ---
 -- @since 1.3

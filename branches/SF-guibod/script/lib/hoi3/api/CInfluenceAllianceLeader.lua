@@ -2,7 +2,7 @@ require('hoi3.api.CDiplomaticAction')
 
 module("hoi3.api", package.seeall)
 
-CInfluenceAllianceLeader = CDiplomaticAction:subclass('hoi3.CInfluenceAllianceLeader')
+CInfluenceAllianceLeader = CDiplomaticAction:subclass('hoi3.api.CInfluenceAllianceLeader')
 
 ---
 -- @since 1.3

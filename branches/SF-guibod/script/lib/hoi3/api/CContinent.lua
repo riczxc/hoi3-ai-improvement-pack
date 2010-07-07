@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CContinent = hoi3.MultitonObject:subclass('hoi3.CContinent')
+CContinent = hoi3.MultitonObject:subclass('hoi3.api.CContinent')
 
 ---
 --

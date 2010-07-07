@@ -2,7 +2,7 @@ require('hoi3.api.CDiplomaticAction')
 
 module("hoi3.api", package.seeall)
 
-CGuaranteeAction = CDiplomaticAction:subclass('hoi3.CGuaranteeAction')
+CGuaranteeAction = CDiplomaticAction:subclass('hoi3.api.CGuaranteeAction')
 
 ---
 -- @since 1.3

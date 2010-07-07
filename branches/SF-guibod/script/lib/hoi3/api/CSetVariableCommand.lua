@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CSetVariableCommand = CCommand:subclass('hoi3.CSetVariableCommand')
+CSetVariableCommand = CCommand:subclass('hoi3.api.CSetVariableCommand')
 
 ---
 -- @since 1.3

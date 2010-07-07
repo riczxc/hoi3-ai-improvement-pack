@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CBrigade = hoi3.Hoi3Object:subclass('hoi3.CBrigade')
+CBrigade = hoi3.Hoi3Object:subclass('hoi3.api.CBrigade')
 
 ---
 -- @since 1.3

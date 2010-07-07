@@ -2,7 +2,7 @@ require('hoi3.api.CAIAgent')
 
 module("hoi3.api", package.seeall)
 
-CAIForeignMinister = CAIAgent:subclass('hoi3.CAIForeignMinister')
+CAIForeignMinister = CAIAgent:subclass('hoi3.api.CAIForeignMinister')
 
 -- Same constructor
 CAIForeignMinister.initialize = CAIAgent.initalize

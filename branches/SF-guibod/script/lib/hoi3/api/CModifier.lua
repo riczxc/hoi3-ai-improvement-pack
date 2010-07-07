@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CModifier = hoi3.MultitonObject:subclass('hoi3.CModifier')
+CModifier = hoi3.MultitonObject:subclass('hoi3.api.CModifier')
 
 function CModifier:initialize(countryTag)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')

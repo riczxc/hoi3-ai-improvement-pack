@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CSubUnitDefinition = hoi3.MultitonObject:subclass('hoi3.CSubUnitDefinition')
+CSubUnitDefinition = hoi3.MultitonObject:subclass('hoi3.api.CSubUnitDefinition')
 
 function CSubUnitDefinition:initialize(key)
 	hoi3.assertNonStatic(self)

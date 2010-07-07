@@ -2,7 +2,7 @@ require('hoi3.api.CList')
 
 module("hoi3.api", package.seeall)
 
-CCountryList = CList:subclass('hoi3.CCountryList')
+CCountryList = CList:subclass('hoi3.api.CCountryList')
 
 ---
 -- @since 1.3

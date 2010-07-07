@@ -2,7 +2,7 @@ require('hoi3.api.CAISubscriber')
 
 module("hoi3.api", package.seeall)
 
-CAIAgent = CAISubscriber:subclass('hoi3.CAIAgent')
+CAIAgent = CAISubscriber:subclass('hoi3.api.CAIAgent')
 
 ---
 -- @param CCountryTag countryTag

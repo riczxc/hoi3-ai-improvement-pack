@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CLiberateCountryCommand = CCommand:subclass('hoi3.CLiberateCountryCommand')
+CLiberateCountryCommand = CCommand:subclass('hoi3.api.CLiberateCountryCommand')
 
 ---
 -- @since 1.3
