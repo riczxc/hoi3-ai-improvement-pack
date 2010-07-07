@@ -14,7 +14,7 @@ CAIStrategy._AI_UNDEFINED_	= 5
 
 ---
 -- @param CCountryTag countryTag
-function CAIStrategy:initalize(countryTag)
+function CAIStrategy:initialize(countryTag)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
 	
