@@ -13,6 +13,10 @@ Object = { name = "Object" }
 
 _classes[Object]=Object -- adds Object to the list of _classes
 
+function getClasses()
+	return _classes
+end
+
   -- creates a new instance
 Object.new = function(theClass, ...)
   assert(_classes[theClass]~=nil, "Use class:new instead of class.new")

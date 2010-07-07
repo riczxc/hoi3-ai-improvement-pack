@@ -10,7 +10,10 @@ function MultitonObject:_getUnid()
 	return self._unid
 end
 
-function MultitonObject:argsToUnid(...)
+function MultitonObject:_argsToUnid(...)
+	local _classes = middleclass.getClasses()
+	assert(_classes[self]~=nil, "Use class:_argsToUnid instead of class._argsToUnid")
+	
 	local args = {...}
 	local numkeys = self.numkeys or 1
 	local key = self.name.."["
@@ -44,7 +47,10 @@ function MultitonObject:argsToUnid(...)
 end 
 
 function MultitonObject:new(...)
-	local key = self:argsToUnid(...)
+	local _classes = middleclass.getClasses()
+	assert(_classes[self]~=nil, "Use class:new instead of class.new")
+	
+	local key = self:_argsToUnid(...)
 	-- Force table creation
   	MultitonObject.instances[self.name] = MultitonObject.instances[self.name] or {}
   	
@@ -59,21 +65,36 @@ function MultitonObject:new(...)
 end
 
 function MultitonObject:hasInstance(...)
-	local key = self:argsToUnid(...)
+	local _classes = middleclass.getClasses()
+	assert(_classes[self]~=nil, "Use class:hasInstance instead of class.hasInstance")
+	
+	local key = self:_argsToUnid(...)
 	return self:_hasInstance(key)
 end
 
 function MultitonObject:_hasInstance(key)
+	local _classes = middleclass.getClasses()
+	assert(_classes[self]~=nil, "Use class:_hasInstance instead of class._hasInstance")
+	
 	return MultitonObject.instances[self.name] ~= nil and
 		MultitonObject.instances[self.name][key] ~= nil
 end 
 
 function MultitonObject:getInstance(...)
-	local key = self:argsToUnid(...)
+	local _classes = middleclass.getClasses()
+	assert(_classes[self]~=nil, "Use class:getInstance instead of class.getInstance")
+	
+	for k,v in pairs(self) do
+		print(tostring(k).." ("..type(k)..") = "..tostring(v).." ("..type(v)..")")
+	end
+	local key = self:_argsToUnid(...)
 	return self:_getInstance(key)
 end 
 
 function MultitonObject:_getInstance(key)
+	local _classes = middleclass.getClasses()
+	assert(_classes[self]~=nil, "Use class:_getInstance instead of class._getInstance")
+	
 	if self:_hasInstance(key) then
 		-- the object may need rehydratation
 		-- if is deserialized (no metatable support in dumps and risk of infinite loop)
