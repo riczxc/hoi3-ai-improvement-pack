@@ -19,7 +19,7 @@ function MultitonObject:_argsToUnid(...)
 	local key = self.name.."["
 	
 	assert(1<=numkeys and numkeys<=4, tostring(self).." numkeys property must be between 1 and 3")
-  	assert(#args == numkeys, tostring(self).." constructor requires "..tostring(numkeys).." keys parameters, "..tostring(#args).." given.")
+  	assert(#args == numkeys, tostring(self).." Constructor/getInstance requires "..tostring(numkeys).." keys parameters, "..tostring(#args).." given.")
   	
   	for i=1,numkeys do
   		local t = type(args[i])

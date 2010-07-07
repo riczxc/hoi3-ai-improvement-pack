@@ -41,7 +41,7 @@ function Hoi3Object.assertReturnTypeAndReturn(returnValue, typeAsString)
 	-- An HOI3 iterator is not an array (ipairs) or dictionnary (pairs) but a true list (next)
 	if hoi3.Randomizer.isIteratorTypeString(typeAsString) then
 		hoi3.assertReturnType(returnValue, hoi3.TYPE_TABLE.."<"..hoi3.Randomizer.getIteratorTypeFromString(typeAsString)..">")
-		return next, returnValue, nil
+		return hoi3.hoi3iterator(returnValue)
 	else
 		hoi3.assertReturnType(returnValue, typeAsString)
 		return returnValue

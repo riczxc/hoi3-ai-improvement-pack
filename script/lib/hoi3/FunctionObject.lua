@@ -144,14 +144,16 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 	local instanceOrClass, args, hash = self:_checkArgs(instanceOrFirstParameter, ...)
 	
 	-- Now get return value
-	local ret1, ret2, ret3
+	local ret = {} -- return value return multiple result, we store them as a table, and then unpack() it
 	
 	if self.result[instanceOrClass] ~= nil and
 		self.result[instanceOrClass][hash] ~= nil then
-		ret1, ret2, ret3 = Hoi3Object.assertReturnTypeAndReturn(
-			self.result[instanceOrClass][hash],
-			self.ret:__tostring()
-		)
+		ret = {
+			Hoi3Object.assertReturnTypeAndReturn(
+				self.result[instanceOrClass][hash],
+				self.ret:__tostring()
+			)
+		}
 	else
 		local computedValue
 		
@@ -179,10 +181,12 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 			self.result[instanceOrClass][hash] =  computedValue
 			
 			-- And return (with a test on returned value type)
-			ret1, ret2, ret3 = Hoi3Object.assertReturnTypeAndReturn(
-				computedValue,
-				self.ret:__tostring()
-			)
+			ret = {
+				Hoi3Object.assertReturnTypeAndReturn(
+					computedValue,
+					self.ret:__tostring()
+				)
+			}
 		end
 	end
 	
@@ -192,12 +196,21 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 		FunctionObject.numApiCalls = FunctionObject.numApiCalls + 1 
 	end
 	
-	return ret1, ret2, ret3
+	return unpack(ret)
 end
 
 
 
 -- Save/Load support
+function FunctionObject:hasResult(instanceOrFirstParameter, ...)
+	hoi3.assertNonStatic(self)
+	
+		-- Handle (non-)static context with proper tests.	
+	local instanceOrClass, args, hash = self:_checkArgs(instanceOrFirstParameter, ...)
+	
+	return self.result[instanceOrClass] ~= nil and
+		self.result[instanceOrClass][hash] ~= nil
+end
 
 ---
 -- @param instanceOrClassOrNil

@@ -145,7 +145,7 @@ function CCountry:GetControlledProvincesImpl()
 	local t = {}
 	for k,v in pairs(CProvince:getInstances()) do
 		if v:GetController() == self.tag then
-			t[k:GetProvinceID()] = v:GetProvinceID()
+			t[v:GetProvinceID()] = v:GetProvinceID()
 		end
 	end
 	return t
@@ -160,7 +160,7 @@ function CCountry:GetCoreProvincesImpl()
 	local t = {}
 	for k,v in pairs(CProvince:getInstances()) do
 		if v:GetOwner() == self.tag then
-			t[k:GetProvinceID()] = v:GetProvinceID()
+			t[v:GetProvinceID()] = v:GetProvinceID()
 		end
 	end
 	return t
