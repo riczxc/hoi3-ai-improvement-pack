@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CDate = hoi3.Hoi3Object:subclass('hoi3.CDate')
+CDate = hoi3.Hoi3Object:subclass('hoi3.api.CDate')
 
 CDate.d1976 = 189298800
 

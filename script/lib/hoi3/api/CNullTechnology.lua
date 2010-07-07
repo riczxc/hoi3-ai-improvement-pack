@@ -2,7 +2,7 @@ require('hoi3.api.CTechnology')
 
 module("hoi3.api", package.seeall)
 
-CNullTechnology = CTechnology:subclass('hoi3.CNullTechnology')
+CNullTechnology = CTechnology:subclass('hoi3.api.CNullTechnology')
 
 -- singleton behavior
 CNullTechnology.new = function(theClass, ...)

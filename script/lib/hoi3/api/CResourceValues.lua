@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CResourceValues = hoi3.Hoi3Object:subclass('hoi3.CResourceValues')
+CResourceValues = hoi3.Hoi3Object:subclass('hoi3.api.CResourceValues')
 
 function CResourceValues:initialize()
 	self.vDailyBalance = 0

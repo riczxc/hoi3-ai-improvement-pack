@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CChangeLeadershipCommand = CCommand:subclass('hoi3.CChangeLeadershipCommand')
+CChangeLeadershipCommand = CCommand:subclass('hoi3.api.CChangeLeadershipCommand')
 
 ---
 -- @since 1.3

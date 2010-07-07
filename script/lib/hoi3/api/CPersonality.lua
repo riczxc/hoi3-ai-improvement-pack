@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CPersonality = hoi3.MultitonObject:subclass('hoi3.CPersonality')
+CPersonality = hoi3.MultitonObject:subclass('hoi3.api.CPersonality')
 
 function CPersonality:initialize(key)
 	hoi3.assertNonStatic(self)

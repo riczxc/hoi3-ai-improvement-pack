@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CProvince = hoi3.MultitonObject:subclass('hoi3.CProvince')
+CProvince = hoi3.MultitonObject:subclass('hoi3.api.CProvince')
 
 ---
 -- @param number provinceId

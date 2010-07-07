@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CGovernmentPosition = hoi3.MultitonObject:subclass('hoi3.CGovernmentPosition')
+CGovernmentPosition = hoi3.MultitonObject:subclass('hoi3.api.CGovernmentPosition')
 
 ---
 -- @since 1.3

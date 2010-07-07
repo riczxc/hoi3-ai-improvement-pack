@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CChangeSpyMission = CCommand:subclass('hoi3.CChangeSpyMission')
+CChangeSpyMission = CCommand:subclass('hoi3.api.CChangeSpyMission')
 
 ---
 -- @since 1.3

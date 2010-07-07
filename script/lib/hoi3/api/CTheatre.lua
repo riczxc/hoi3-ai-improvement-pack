@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTheatre = hoi3.Hoi3Object:subclass('hoi3.CTheatre')
+CTheatre = hoi3.Hoi3Object:subclass('hoi3.api.CTheatre')
 
 ---
 -- @since 1.3

@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CConstructConvoyCommand = CCommand:subclass('hoi3.CConstructConvoyCommand')
+CConstructConvoyCommand = CCommand:subclass('hoi3.api.CConstructConvoyCommand')
 
 ---
 -- @since 1.3

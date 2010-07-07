@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-SubUnitList = hoi3.api.CList:subclass('hoi3.SubUnitList')
+SubUnitList = hoi3.api.CList:subclass('hoi3.api.SubUnitList')
 
 function SubUnitList:initialize()
 	self.list = {}

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CDecision = hoi3.MultitonObject:subclass('hoi3.CDecision')
+CDecision = hoi3.MultitonObject:subclass('hoi3.api.CDecision')
 
 ---
 -- @since 1.3

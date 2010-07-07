@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CChangeLawCommand = CCommand:subclass('hoi3.CChangeLawCommand')
+CChangeLawCommand = CCommand:subclass('hoi3.api.CChangeLawCommand')
 
 ---
 -- @since 1.3

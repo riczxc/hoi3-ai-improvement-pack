@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CLaw = hoi3.MultitonObject:subclass('hoi3.CLaw')
+CLaw = hoi3.MultitonObject:subclass('hoi3.api.CLaw')
 
 function CLaw:initialize(key)
 	hoi3.assertNonStatic(self)

@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CStartResearchCommand = CCommand:subclass('hoi3.CStartResearchCommand')
+CStartResearchCommand = CCommand:subclass('hoi3.api.CStartResearchCommand')
 
 ---
 -- @since 1.3

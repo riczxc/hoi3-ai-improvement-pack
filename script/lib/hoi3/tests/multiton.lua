@@ -16,8 +16,16 @@ function setup()
 end
 
 function teardown()
+  objectA:clearResults()
+  objectA:clearInstances()
+  objectB:clearResults()
+  objectB:clearInstances()
+  objectC:clearResults()
+  objectC:clearInstances()
+  
   objectA = nil
   objectB = nil
+  objectC = nil
 end
 
 function test1()

@@ -2,7 +2,7 @@ require('hoi3.api.CList')
 
 module("hoi3.api", package.seeall)
 
-CSubUnitConstructionEntryList = CList:subclass('hoi3.CSubUnitConstructionEntryList')
+CSubUnitConstructionEntryList = CList:subclass('hoi3.api.CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3

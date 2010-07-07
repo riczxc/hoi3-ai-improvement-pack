@@ -2,7 +2,7 @@ require('hoi3.api.CCountryTag')
 
 module("hoi3.api", package.seeall)
 
-CNullTag = CCountryTag:subclass('hoi3.CNullTag')
+CNullTag = CCountryTag:subclass('hoi3.api.CNullTag')
 
 -- singleton behavior
 CNullTag.new = function(theClass, ...)

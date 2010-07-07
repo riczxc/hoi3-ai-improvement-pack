@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-SpyMission = hoi3.AbstractObject:subclass('hoi3.SpyMission')
+SpyMission = hoi3.AbstractObject:subclass('hoi3.api.SpyMission')
 
 SpyMission.SPYMISSION_BOOST_OUR_PARTY  = 1
 SpyMission.SPYMISSION_BOOST_RULING_PARTY = 2

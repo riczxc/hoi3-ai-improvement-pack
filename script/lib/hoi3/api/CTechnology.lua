@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTechnology = hoi3.MultitonObject:subclass('hoi3.CTechnology')
+CTechnology = hoi3.MultitonObject:subclass('hoi3.api.CTechnology')
 
 function CTechnology:initialize(key)
 	hoi3.assertNonStatic(self)

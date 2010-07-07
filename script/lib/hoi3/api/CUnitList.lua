@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CUnitList = hoi3.Hoi3Object:subclass('hoi3.CUnitList')
+CUnitList = hoi3.Hoi3Object:subclass('hoi3.api.CUnitList')
 
 ---
 -- @since 1.4

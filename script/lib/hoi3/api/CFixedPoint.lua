@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.CFixedPoint')
+CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.api.CFixedPoint')
 
 ---
 -- @since 1.3

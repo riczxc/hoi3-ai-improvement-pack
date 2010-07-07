@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CWar = hoi3.MultitonObject:subclass('hoi3.CWar')
+CWar = hoi3.MultitonObject:subclass('hoi3.api.CWar')
 
 ---
 -- @since 1.3

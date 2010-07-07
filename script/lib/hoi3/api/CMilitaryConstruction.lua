@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CMilitaryConstruction = hoi3.Hoi3Object:subclass('hoi3.CMilitaryConstruction')
+CMilitaryConstruction = hoi3.Hoi3Object:subclass('hoi3.api.CMilitaryConstruction')
 
 ---
 -- @since 2.0

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CGovernment = hoi3.Hoi3Object:subclass('hoi3.CGovernment')
+CGovernment = hoi3.Hoi3Object:subclass('hoi3.api.CGovernment')
 
 ---
 -- @since 1.3

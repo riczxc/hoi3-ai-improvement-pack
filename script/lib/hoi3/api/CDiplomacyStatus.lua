@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CDiplomacyStatus = hoi3.MultitonObject:subclass('hoi3.CDiplomacyStatus')
+CDiplomacyStatus = hoi3.MultitonObject:subclass('hoi3.api.CDiplomacyStatus')
 
 -- Multiton pattern for this object use 2 keys
 CDiplomacyStatus.numkeys = 2

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CFaction = hoi3.MultitonObject:subclass('hoi3.CFaction')
+CFaction = hoi3.MultitonObject:subclass('hoi3.api.CFaction')
 
 function CFaction:initialize(name)
 	hoi3.assertNonStatic(self)

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CTechnologyStatus = hoi3.Hoi3Object:subclass('hoi3.CTechnologyStatus')
+CTechnologyStatus = hoi3.Hoi3Object:subclass('hoi3.api.CTechnologyStatus')
 
 ---
 -- @since 1.3

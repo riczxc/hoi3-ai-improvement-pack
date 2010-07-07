@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CChangePriorityCommand = CCommand:subclass('hoi3.CChangePriorityCommand')
+CChangePriorityCommand = CCommand:subclass('hoi3.api.CChangePriorityCommand')
 
 ---
 -- @since 1.3

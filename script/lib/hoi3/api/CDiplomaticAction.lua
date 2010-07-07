@@ -2,7 +2,7 @@ require('hoi3.api.CAction')
 
 module("hoi3.api", package.seeall)
 
-CDiplomaticAction = CAction:subclass('hoi3.CDiplomaticAction')
+CDiplomaticAction = CAction:subclass('hoi3.api.CDiplomaticAction')
 
 CDiplomaticAction.ACCEPT	= 1
 CDiplomaticAction.DECLINE = 2

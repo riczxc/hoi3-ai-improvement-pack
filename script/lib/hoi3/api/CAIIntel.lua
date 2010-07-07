@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAIIntel = hoi3.Hoi3Object:subclass('hoi3.CAIIntel')
+CAIIntel = hoi3.Hoi3Object:subclass('hoi3.api.CAIIntel')
 
 ---
 -- @since 1.3

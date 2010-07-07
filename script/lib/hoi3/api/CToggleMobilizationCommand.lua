@@ -2,7 +2,7 @@ require('hoi3.api.CCommand')
 
 module("hoi3.api", package.seeall)
 
-CToggleMobilizationCommand = CCommand:subclass('hoi3.CToggleMobilizationCommand')
+CToggleMobilizationCommand = CCommand:subclass('hoi3.api.CToggleMobilizationCommand')
 
 ---
 -- @since 1.3
