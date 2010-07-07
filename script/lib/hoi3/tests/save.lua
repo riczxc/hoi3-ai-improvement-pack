@@ -46,6 +46,8 @@ end
 function testSavedStaticWithoutParam()
 	local myResult = "ijklmnop"
 
+	--[[
+	no more static save support atm.
 	objClass.myStaticFunctionWithoutParam:save(myResult)
 	assert_equal(myResult,objClass.myStaticFunctionWithoutParam())
 	assert_equal(myResult,objClass.myStaticFunctionWithoutParam())
@@ -53,6 +55,7 @@ function testSavedStaticWithoutParam()
 	objClass.myStaticFunctionWithoutParam:save(5)
 	assert_equal(5,objClass.myStaticFunctionWithoutParam())
 	assert_equal(5,objClass.myStaticFunctionWithoutParam())
+	]]
 end
 
 function testSavedWithParam()
@@ -76,8 +79,9 @@ end
 function testRandomWithoutParam()
 	local myObj = objClass("x")
 	
-	assert_equal(myObj:myFunctionWithoutParam(),myObj:myFunctionWithoutParam())
-	assert_equal(myObj:myFunctionWithoutParam(),myObj:myFunctionWithoutParam())
+	--No more static save() support atm
+	--assert_equal(myObj:myFunctionWithoutParam(),myObj:myFunctionWithoutParam())
+	--assert_equal(myObj:myFunctionWithoutParam(),myObj:myFunctionWithoutParam())
 end
 
 function testRandomStaticWithoutParam()

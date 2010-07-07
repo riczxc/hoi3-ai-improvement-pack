@@ -105,7 +105,7 @@ function FunctionObject:_checkArgs(instanceOrFirstParameter, ...)
 	
 	--optimization
 	if self.myclass == instanceOrClass then
-		return instanceOrClass, args, hash
+		return instanceOrClass, args, hash, false
 	end
 	
 	local isInstance = middleclass.instanceOf(self.myclass, instanceOrClass)
@@ -122,7 +122,7 @@ function FunctionObject:_checkArgs(instanceOrFirstParameter, ...)
 		error(tostring(self).." first parameter is not "..tostring(self.myclass).." instance or class reference, "..foundtype.." found.")
 	end
 	
-	return instanceOrClass, args, hash
+	return instanceOrClass, args, hash, isInstance
 end
 
 function FunctionObject:__call(instanceOrFirstParameter, ...)
@@ -141,16 +141,18 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 	end
 
 	-- Handle (non-)static context with proper tests.	
-	local instanceOrClass, args, hash = self:_checkArgs(instanceOrFirstParameter, ...)
+	local instanceOrClass, args, hash, isInstance = self:_checkArgs(instanceOrFirstParameter, ...)
 	
 	-- Now get return value
 	local ret = {} -- return value return multiple result, we store them as a table, and then unpack() it
 	
-	if self.result[instanceOrClass] ~= nil and
-		self.result[instanceOrClass][hash] ~= nil then
+	if isInstance and
+		instanceOrClass.__result ~= nil and
+		instanceOrClass.__result[self] ~= nil and
+		instanceOrClass.__result[self][hash] ~= nil then
 		ret = {
 			Hoi3Object.assertReturnTypeAndReturn(
-				self.result[instanceOrClass][hash],
+				instanceOrClass.__result[self][hash],
 				self.ret:__tostring()
 			)
 		}
@@ -177,8 +179,9 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 		
 		if computedValue ~= nil then
 			-- Now cache results as if it was the original function/method result
-			self.result[instanceOrClass] = self.result[instanceOrClass] or {}
-			self.result[instanceOrClass][hash] =  computedValue
+			instanceOrClass.__result = instanceOrClass.__result or {}
+			instanceOrClass.__result[self] = instanceOrClass.__result[self] or {}
+			instanceOrClass.__result[self][hash] = computedValue  
 			
 			-- And return (with a test on returned value type)
 			ret = {
@@ -206,23 +209,12 @@ function FunctionObject:hasResult(instanceOrFirstParameter, ...)
 	hoi3.assertNonStatic(self)
 	
 		-- Handle (non-)static context with proper tests.	
-	local instanceOrClass, args, hash = self:_checkArgs(instanceOrFirstParameter, ...)
+	local instanceOrClass, args, hash, isInstance = self:_checkArgs(instanceOrFirstParameter, ...)
 	
-	return self.result[instanceOrClass] ~= nil and
-		self.result[instanceOrClass][hash] ~= nil
-end
-
----
--- @param instanceOrClassOrNil
--- @return void
-function FunctionObject:clearResults(instanceOrClassOrNil)
-	 hoi3.assertNonStatic(self)
-	 
-	 if instanceOrClassOrNil == nil then
-	 	self.result = {}
-	 else
-	 	self.result[instanceOrClassOrNil] = nil
-	 end
+	return isInstance and
+		instanceOrClass.__result ~= nil and
+		instanceOrClass.__result[self] ~= nil and
+		instanceOrClass.__result[self][hash] ~= nil
 end
 
 ---
@@ -248,12 +240,14 @@ end
 function FunctionObject:save(value, instanceOrFirstParameter, ...)
 	hoi3.assertNonStatic(self)
 	
-	local instanceOrClass, args, hash = self:_checkArgs(instanceOrFirstParameter, ...)
+	local instanceOrClass, args, hash, isInstance = self:_checkArgs(instanceOrFirstParameter, ...)
+	
+	if not isInstance then
+		error("Static method save support is unavailable.")
+	end
 	
 	-- No nil, force tables
-	self.result = self.result or {}
-	self.result[instanceOrClass] = self.result[instanceOrClass] or {}
-		
-	--dtools.debug("Result cached for "..tostring(self).."."..tostring(method).."("..hash..") = "..tostring(value))
-	self.result[instanceOrClass][hash] = value
+	instanceOrClass.__result = instanceOrClass.__result or {}
+	instanceOrClass.__result[self] = instanceOrClass.__result[self] or {}
+	instanceOrClass.__result[self][hash] = value
 end

@@ -21,22 +21,22 @@ end
 ---
 -- @since 1.3
 -- @return CFixedPoint
-hoi3.fs(CLicenceTechnologyAction, 'GetMoney', 'CFixedPoint')
+hoi3.f(CLicenceTechnologyAction, 'GetMoney', 'CFixedPoint')
 
 ---
 -- @since 1.3
 -- @return number
-hoi3.fs(CLicenceTechnologyAction, 'GetParalell', hoi3.TYPE_NUMBER)
+hoi3.f(CLicenceTechnologyAction, 'GetParalell', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return number
-hoi3.fs(CLicenceTechnologyAction, 'GetSerial', hoi3.TYPE_NUMBER)
+hoi3.f(CLicenceTechnologyAction, 'GetSerial', hoi3.TYPE_NUMBER)
 
 ---
 -- @since 1.3
 -- @return CSubUnitDefinition
-hoi3.fs(CLicenceTechnologyAction, 'GetSubunit', 'CSubUnitDefinition')
+hoi3.f(CLicenceTechnologyAction, 'GetSubunit', 'CSubUnitDefinition')
 
 function CLicenceTechnologyAction:desc()
 	return tostring(self.tag).." licences "..tostring(self.target).. "."

@@ -6,10 +6,9 @@ CAIAgent = CAISubscriber:subclass('hoi3.api.CAIAgent')
 
 ---
 -- @param CCountryTag countryTag
-function CAIAgent:initalize(tag)
+function CAIAgent:initialize(tag)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, tag, 'CCountryTag')
-
 	self.tag = tag
 end
 
