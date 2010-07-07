@@ -146,6 +146,14 @@ function printApi()
 	for className, class in dtools.table.orderedPairs(getApi()) do
 		print("-----------------------")
 		print(className)
+		if class._c ~= nil then
+			print(className.."(")
+			for i,v in ipairs(class._c) do
+				print(v..", ")
+			end
+			print(")")
+		end
+		
 		for methodName, method in dtools.table.orderedPairs(class:getApiFunctions()) do
 			print(method)
 		end
