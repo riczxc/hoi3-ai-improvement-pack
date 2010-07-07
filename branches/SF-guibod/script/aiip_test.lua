@@ -101,17 +101,17 @@ if false then
     	hoi3.FunctionObject.numApiCalls = 0
     end
     
+    local ger = CCountryDataBase.GetTag("GER")
+    print(ger:GetCountry():GetCapitalLocation():GetProvinceID())
+    
     --table.save(hoi3.MultitonObject.instances,"results.txt")
     hoi3.MultitonObject.serializeInstances("SAVE000.lua")
 else
-	hoi3.MultitonObject.deserializeInstances("results.txt")
+	hoi3.MultitonObject.deserializeInstances("SAVE000.lua")
 	
-	local x = CCountryTag:getInstance("GER")
-	--setmetatable(x, x.class.__classDict)
-	--setmetatable(x.GetCountry, x.GetCountry.class.__classDict)
-	print("ni")
-	print(type(x:GetCountry()))
-	print(x:GetCountry())
+	local ger = CCountryDataBase.GetTag("GER")
+	print(CCountry.GetCapitalLocation:hasResult(ger:GetCountry()))
+	print(ger:GetCountry():GetCapitalLocation():GetProvinceID())
 	
 	--print(y:GetCapitalLocation())
 end

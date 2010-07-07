@@ -173,3 +173,16 @@ function fromIndexTableMember(table, index)
 		end
 	end
 end
+
+---
+-- A keyless iterator factory
+-- 
+function hoi3iterator(t)
+  local i = {}
+  for k, v in pairs(t) do
+  	i[v] = v
+  end 
+  
+  return next, i, nil
+end
+

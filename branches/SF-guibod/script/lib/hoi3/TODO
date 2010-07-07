@@ -4,6 +4,4 @@ see "eq" at http://www.lua.org/manual/5.1/manual.html#2.5.9
 
 - Do something about # operator support... we can't rely on count through for loop :(
 
-- Support one-table serialization
-
 - Support array (key=numeric) for iterator, find something.
