@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Trade File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -46,147 +46,144 @@ end
 -- Called by the EXE and handles the Analyzing of offered trades
 -- ###########################
 function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, voTradedFrom, voTradedTo)
-	if observer == actor then
-		return 100 -- handled from foreign minister
-	else
-		local liScore = 0
-		local loTradeRoute = voTradeAction:GetRoute()
-		local loBuyerTag
-		local loSellerTag
-		local loBuyerCountry = nil
-		local loSellerCountry = nil
-		local liMoney
-		local laResourceRequested = {}
-		
-		-- Two way trade get out!
-		if voTradedTo.vMoney > 0 and voTradedFrom.vMoney > 0 then
-			return liScore
-			
-		-- 0 cost trade but make sure they are not Commiterm
-		elseif voTradedTo.vMoney == 0 and voTradedFrom.vMoney == 0 then
-			local loGetToCountry = loTradeRoute:GetTo():GetCountry()
-			local loGetFromCountry = loTradeRoute:GetFrom():GetCountry()
-
-			-- Check to see if Commiterm trade
-			if loGetToCountry:HasFaction() and loGetFromCountry:HasFaction() then
-				local lsGetToFaction = tostring(loGetToCountry:GetFaction():GetTag()) 
-				local lsGetFromFaction = tostring(loGetFromCountry:GetFaction():GetTag()) 
-				
-				if lsGetToFaction ~= lsGetFromFaction or lsGetToFaction ~= "comintern" then
-					return liScore
-				else
-					liMoney = 0
-					
-					local liFromCount = voTradedFrom.vMetal + voTradedFrom.vEnergy + voTradedFrom.vRareMaterials + voTradedFrom.vCrudeOil + voTradedFrom.vSupplies + voTradedFrom.vFuel
-					local liToCount = voTradedTo.vMetal + voTradedTo.vEnergy + voTradedTo.vRareMaterials + voTradedTo.vCrudeOil + voTradedTo.vSupplies + voTradedTo.vFuel
-				
-					if liFromCount > 0 and liToCount <= 0 then
-						laResourceRequested = SetupResourceArray(voTradedFrom)
-					
-						loBuyerTag = loTradeRoute:GetTo()
-						loSellerTag = loTradeRoute:GetFrom()
-						loBuyerCountry = loGetToCountry
-						loSellerCountry = loGetFromCountry
-					
-					elseif liToCount > 0 and liFromCount <= 0 then
-						laResourceRequested = SetupResourceArray(voTradedTo)
-						loBuyerTag = loTradeRoute:GetFrom()
-						loSellerTag = loTradeRoute:GetTo()
-						loBuyerCountry = loGetFromCountry
-						loSellerCountry = loGetToCountry
-						
-					else
-						return liScore
-					end
-				end
-			else
-				return liScore
-			end
-		elseif voTradedTo.vMoney > 0  then
-			-- Get the Money amount
-			liMoney = voTradedTo.vMoney
-			
-			laResourceRequested = SetupResourceArray(voTradedFrom)
-			loBuyerTag = loTradeRoute:GetTo()
-			loSellerTag = loTradeRoute:GetFrom()
-			loBuyerCountry = loBuyerTag:GetCountry()
-			loSellerCountry = loSellerTag:GetCountry()
-			
-		else
-			-- Get the Money amount
-			liMoney = voTradedFrom.vMoney
-			
-			laResourceRequested = SetupResourceArray(voTradedTo)
-			loBuyerTag = loTradeRoute:GetFrom()
-			loSellerTag = loTradeRoute:GetTo()
-			loBuyerCountry = loBuyerTag:GetCountry()
-			loSellerCountry = loSellerTag:GetCountry()
-		end
-		
-		local lbConvoyNeeded = loBuyerCountry:NeedConvoyToTradeWith(loSellerTag)
-
-		-- We need transports to trade
-		if lbConvoyNeeded then
-			if loBuyerCountry:GetTransports() == 0 then
-				return liScore
-			end
-		end
-		
-		-- Based on what type of sell it is call a different method.
-		---  This score is purely based on the raw trade itself and has nothing to do with relations.
-		if actor == loSellerTag then
-			liScore = BuyResources(ai, loBuyerTag, loBuyerCountry, loSellerTag, laResourceRequested, liMoney)
-		else
-			liScore = SellResources(ai, loBuyerTag, loSellerTag, loSellerCountry, laResourceRequested, liMoney)
-		end
-			
-		-- Now shift the score based on Diplomatic relations!
-		if liScore > 0 then
-			-- Political checks
-			local loRelation = ai:GetRelation(loSellerTag, loBuyerTag)
-			local loStrategy = loSellerTag:GetCountry():GetStrategy()
-			
-			liScore = liScore - loStrategy:GetAntagonism(loBuyerTag) / 15			
-			liScore = liScore + loStrategy:GetFriendliness(loBuyerTag) / 10
-			liScore = liScore - loRelation:GetThreat():Get() / 5
-			liScore = liScore + tonumber(tostring(loRelation:GetValue():GetTruncated())) / 3
-			
-			if loRelation:IsGuaranteed() then
-				liScore = liScore + 5
-			end
-			if loRelation:HasFriendlyAgreement() then
-				liScore = liScore + 10
-			end
-			if loRelation:AllowDebts() then
-				liScore = liScore + 5
-			end
-			if loRelation:IsFightingWarTogether() then
-				liScore = liScore + 15
-			end
-
-			if loBuyerCountry:IsNeighbour(loSellerTag) then
-				liScore = liScore + 15
-			elseif loSellerCountry:GetActingCapitalLocation():GetContinent() == loBuyerCountry:GetActingCapitalLocation():GetContinent() then
-				liScore = liScore + 10
-			end
-			
-			if Utils.IsFriend(ai, loBuyerCountry:GetFaction(), loSellerCountry) then
-				liScore = liScore + 5
-			end
-			
-			-- Land Route gets bigger bonus
-			if not(lbConvoyNeeded) then
-				liScore = liScore + 5
-			end
-		end
-		
-		if liScore > 0 then
-			liScore = Utils.CallScoredCountryAI(recipient, "DiploScore_OfferTrade", liScore, ai, actor, recipient, observer, voTradedFrom, voTradedTo)
-		end
-		
+	local liScore = 0
+	local loTradeRoute = voTradeAction:GetRoute()
+	local loBuyerTag
+	local loSellerTag
+	local loBuyerCountry = nil
+	local loSellerCountry = nil
+	local liMoney
+	local laResourceRequested = {}
+	
+	-- Two way trade get out!
+	if voTradedTo.vMoney > 0 and voTradedFrom.vMoney > 0 then
 		return liScore
+		
+	-- 0 cost trade but make sure they are not Commiterm
+	elseif voTradedTo.vMoney == 0 and voTradedFrom.vMoney == 0 then
+		local loGetToCountry = loTradeRoute:GetTo():GetCountry()
+		local loGetFromCountry = loTradeRoute:GetFrom():GetCountry()
+
+		-- Check to see if Commiterm trade
+		if loGetToCountry:HasFaction() and loGetFromCountry:HasFaction() then
+			local lsGetToFaction = tostring(loGetToCountry:GetFaction():GetTag()) 
+			local lsGetFromFaction = tostring(loGetFromCountry:GetFaction():GetTag()) 
+			
+			if lsGetToFaction ~= lsGetFromFaction or lsGetToFaction ~= "comintern" then
+				return liScore
+			else
+				liMoney = 0
+				
+				local liFromCount = voTradedFrom.vMetal + voTradedFrom.vEnergy + voTradedFrom.vRareMaterials + voTradedFrom.vCrudeOil + voTradedFrom.vSupplies + voTradedFrom.vFuel
+				local liToCount = voTradedTo.vMetal + voTradedTo.vEnergy + voTradedTo.vRareMaterials + voTradedTo.vCrudeOil + voTradedTo.vSupplies + voTradedTo.vFuel
+			
+				if liFromCount > 0 and liToCount <= 0 then
+					laResourceRequested = SetupResourceArray(voTradedFrom)
+				
+					loBuyerTag = loTradeRoute:GetTo()
+					loSellerTag = loTradeRoute:GetFrom()
+					loBuyerCountry = loGetToCountry
+					loSellerCountry = loGetFromCountry
+				
+				elseif liToCount > 0 and liFromCount <= 0 then
+					laResourceRequested = SetupResourceArray(voTradedTo)
+					loBuyerTag = loTradeRoute:GetFrom()
+					loSellerTag = loTradeRoute:GetTo()
+					loBuyerCountry = loGetFromCountry
+					loSellerCountry = loGetToCountry
+					
+				else
+					return liScore
+				end
+			end
+		else
+			return liScore
+		end
+	elseif voTradedTo.vMoney > 0  then
+		-- Get the Money amount
+		liMoney = voTradedTo.vMoney
+		
+		laResourceRequested = SetupResourceArray(voTradedFrom)
+		loBuyerTag = loTradeRoute:GetTo()
+		loSellerTag = loTradeRoute:GetFrom()
+		loBuyerCountry = loBuyerTag:GetCountry()
+		loSellerCountry = loSellerTag:GetCountry()
+		
+	else
+		-- Get the Money amount
+		liMoney = voTradedFrom.vMoney
+		
+		laResourceRequested = SetupResourceArray(voTradedTo)
+		loBuyerTag = loTradeRoute:GetFrom()
+		loSellerTag = loTradeRoute:GetTo()
+		loBuyerCountry = loBuyerTag:GetCountry()
+		loSellerCountry = loSellerTag:GetCountry()
 	end
+	
+	local lbConvoyNeeded = loBuyerCountry:NeedConvoyToTradeWith(loSellerTag)
+
+	-- We need transports to trade
+	if lbConvoyNeeded then
+		if loBuyerCountry:GetTransports() == 0 then
+			return liScore
+		end
+	end
+	
+	-- Based on what type of sell it is call a different method.
+	---  This score is purely based on the raw trade itself and has nothing to do with relations.
+	if actor == loSellerTag then
+		liScore = BuyResources(ai, loBuyerTag, loBuyerCountry, loSellerTag, laResourceRequested, liMoney)
+	else
+		liScore = SellResources(ai, loBuyerTag, loSellerTag, loSellerCountry, laResourceRequested, liMoney)
+	end
+		
+	-- Now shift the score based on Diplomatic relations!
+	if liScore > 0 then
+		-- Political checks
+		local loRelation = ai:GetRelation(loSellerTag, loBuyerTag)
+		local loStrategy = loSellerTag:GetCountry():GetStrategy()
+		
+		liScore = liScore - loStrategy:GetAntagonism(loBuyerTag) / 15			
+		liScore = liScore + loStrategy:GetFriendliness(loBuyerTag) / 10
+		liScore = liScore - loRelation:GetThreat():Get() / 5
+		liScore = liScore + tonumber(tostring(loRelation:GetValue():GetTruncated())) / 3
+		
+		if loRelation:IsGuaranteed() then
+			liScore = liScore + 5
+		end
+		if loRelation:HasFriendlyAgreement() then
+			liScore = liScore + 10
+		end
+		if loRelation:AllowDebts() then
+			liScore = liScore + 5
+		end
+		if loRelation:IsFightingWarTogether() then
+			liScore = liScore + 15
+		end
+
+		if loBuyerCountry:IsNeighbour(loSellerTag) then
+			liScore = liScore + 15
+		elseif loSellerCountry:GetActingCapitalLocation():GetContinent() == loBuyerCountry:GetActingCapitalLocation():GetContinent() then
+			liScore = liScore + 10
+		end
+		
+		if Utils.IsFriend(ai, loBuyerCountry:GetFaction(), loSellerCountry) then
+			liScore = liScore + 5
+		end
+		
+		-- Land Route gets bigger bonus
+		if not(lbConvoyNeeded) then
+			liScore = liScore + 5
+		end
+	end
+	
+	if liScore > 0 then
+		liScore = Utils.CallScoredCountryAI(recipient, "DiploScore_OfferTrade", liScore, ai, actor, recipient, observer, voTradedFrom, voTradedTo)
+	end
+	
+	return liScore
 end
+
 function SetupResourceArray(voTrade)
 	local laResourceRequested = {}
 	

@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Germany File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/26/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -400,6 +400,7 @@ function P.InfluenceIgnore(minister)
 	-- Ignore Austria, Czechoslovakia as we will get them
 	-- Ignore Switzerland as there is no chance of them joining
 	-- Ignore Vichy, they wont join anyone unles DOWed
+	-- Ignore Australia, Canada, South Africa and New Zealand, they are to heavy already to the allies.
 	local laIgnoreList = {
 		"AUS",
 		"CZE",
@@ -418,13 +419,15 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsRepTag = tostring(recipient)
 	
 	if lsRepTag == "JAP" then
-		score = score + 999
+		score = score + 1500
 	elseif lsRepTag == "ITA" then
-		score = score + 800
-	elseif lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" then
+		score = score + 1200
+	elseif lsRepTag == "ROM" then
+		score = score + 160
+	elseif lsRepTag == "HUN" or lsRepTag == "BUL" or lsRepTag == "FIN" then
 		score = score + 120
 	elseif lsRepTag == "AST" or lsRepTag == "CAN" or lsRepTag == "SAF" or lsRepTag == "NZL" then
-		score = score - 20
+		score = score - 100
 	end
 
 	return score
@@ -484,7 +487,8 @@ end
 -- Foreign Minister Hooks
 
 -- ForeignMinister_EvaluateDecision(score, agent, decision, scope)
--- CallAlly(minister)
+-- Call_Ally(minister)
+-- Call_MilitaryAccess(minister)
 -- ProposeDeclareWar(minister)
 
 function P.ForeignMinister_EvaluateDecision(score, agent, decision, scope)
@@ -542,7 +546,7 @@ function P.ForeignMinister_EvaluateDecision(score, agent, decision, scope)
 	return score
 end
 
-function P.CallAlly(minister)
+function P.Call_Ally(minister)
 	local ministerCountry = minister:GetCountry()
 	local ministerTag = minister:GetCountryTag()
 	local ministerContinent = ministerCountry:GetActingCapitalLocation():GetContinent()
@@ -639,6 +643,72 @@ function P.ExecuteCallAlly(ai, ministerTag, voAllyTag, voTargetTag)
 		ai:PostAction(loAction)
 	end
 end
+
+function P.Call_MilitaryAccess(minister)
+	local ministerTag = minister:GetCountryTag()
+	local ministerCountry = minister:GetCountry()
+	local ai = minister:GetOwnerAI()
+
+	for loCountryTag in ministerCountry:GetNeighbours() do
+		local loCountry = loCountryTag:GetCountry()
+		
+		-- Do not bother asking major powers for military access
+		if not(loCountry:IsMajor()) then
+			-- If they are already in a faction do not bother them
+			-- If they are in a war already do not bother them
+			if not(loCountry:HasFaction()) and not(loCountry:IsAtWar()) then
+				local loRelation = ai:GetRelation(ministerTag, loCountryTag)
+
+				-- Make sure we do not already have military access
+				if not(loRelation:HasMilitaryAccess()) then
+					local lbAsk = false
+					
+					-- Make an exception for Sweden
+					if tostring(loCountryTag) == "SWE" then
+						local norTag = CCountryDataBase.GetTag("NOR")
+						local loNorwayCountry = norTag:GetCountry()
+
+						-- Ask Sweden for Access if Norway is gone or allied
+						if not(loNorwayCountry:Exists())
+						or loNorwayCountry:IsGovernmentInExile() then
+							lbAsk = true
+						else
+							if loNorwayCountry:HasFaction()
+							and loNorwayCountry:GetFaction() == ministerCountry:GetFaction() then
+								lbAsk = true
+							end
+						end
+					else
+						-- Now check their neighbors to see if they touch an enemy
+						for loCountryTag2 in loCountry:GetNeighbours() do
+							if not(loCountryTag2 == ministerTag) then
+								local loRelation2 = ai:GetRelation(ministerTag, loCountryTag2)
+							
+								if loRelation2:HasWar() then
+									lbAsk = true
+									break
+								end
+							end
+						end
+					end
+					
+					if lbAsk then
+						local loAction = CMilitaryAccessAction(ministerTag, loCountryTag)
+
+						if loAction:IsSelectable() then
+							local liScore = DiploScore_DemandMilitaryAccess(ai, ministerTag, loCountryTag, ministerTag)
+
+							if liScore > 50 then
+								minister:Propose(loAction, liScore)
+							end
+						end
+					end					
+				end
+			end
+		end
+	end
+end
+
 
 function P.ProposeDeclareWar(minister)
 	local ministerCountry = minister:GetCountry()
