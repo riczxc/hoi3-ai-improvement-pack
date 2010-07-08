@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 France File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/20/2010
+-- Date Last Modified: 7/6/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -28,14 +28,14 @@ end
 --   1.0 = 100% the total needs to equal 1.0
 function P.TechWeights(minister)
 	local laTechWeights = {
-		0.24, -- landBasedWeight
-		0.18, -- landDoctrinesWeight
-		0.11, -- airBasedWeight
-		0.18, -- airDoctrinesWeight
-		0.06, -- navalBasedWeight
-		0.05, -- navalDoctrinesWeight
-		0.10, -- industrialWeight
-		0.04, -- secretWeaponsWeight
+		0.32, -- landBasedWeight
+		0.27, -- landDoctrinesWeight
+		0.10, -- airBasedWeight
+		0.10, -- airDoctrinesWeight
+		0.05, -- navalBasedWeight
+		0.04, -- navalDoctrinesWeight
+		0.08, -- industrialWeight
+		0.0, -- secretWeaponsWeight
 		0.04, -- otherWeight
 		false}; -- lbLandBased
 	
@@ -170,9 +170,9 @@ end
 --   1.0 = 100% the total needs to equal 1.0
 function P.ProductionWeights(minister)
 	local laArray = {
-		0.60, -- Land
+		0.65, -- Land
 		0.20, -- Air
-		0.15, -- Sea
+		0.10, -- Sea
 		0.05}; -- Other
 	
 	return laArray
@@ -324,6 +324,43 @@ function P.InfluenceIgnore(minister)
 	return laIgnoreList
 end
 
+function P.HandleMobilization(minister)
+	local ai = minister:GetOwnerAI()
+	
+	local ministerTag =  minister:GetCountryTag()
+	local gerTag = CCountryDataBase.GetTag("GER")
+
+	-- If Germany Controls Czechoslovakia then
+	if CCurrentGameState.GetProvince(2562):GetController() == gerTag then -- Praha check
+		ai:Post(CToggleMobilizationCommand( ministerTag, true ))					
+	else
+		-- Check if a neighbor is starting to look threatening
+		-- This code should be idential to the one in ai_politics_minsiter.lua
+		local ministerCountry = minister:GetCountry()
+		local liTotalIC = ministerCountry:GetTotalIC()
+		local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
+		
+		for loCountryTag in ministerCountry:GetNeighbours() do
+			local liThreat = ministerCountry:GetRelation(loCountryTag):GetThreat():Get()
+			
+			if (liNeutrality - liThreat) < 10 then
+				local loCountry = loCountryTag:GetCountry()
+				
+				liThreat = liThreat * CalculateAlignmentFactor(ai, ministerCountry, loCountry)
+				
+				if liTotalIC > 50 and loCountry:GetTotalIC() < liTotalIC then
+					liThreat = liThreat / 2 -- we can handle them if they descide to attack anyway
+				end
+				
+				if liThreat > 30 then
+					if CalculateWarDesirability(ai, loCountry, ministerTag) > 70 then
+						ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+					end
+				end
+			end
+		end
+	end
+end
 
 function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsRepTag = tostring(recipient)

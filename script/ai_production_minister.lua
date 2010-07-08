@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Production File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/19/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -387,37 +387,46 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		changes[ CDistributionSetting._PRODUCTION_CONSUMER_ ] = changes[ CDistributionSetting._PRODUCTION_CONSUMER_ ] + 0.1
 	end
 	
-	-- If the AI has less than 8 weeks of supply increase it by 10%
-	--    If the AI has more than 20 weeks of supply decrease it by 10%
-	local supplyStockpile = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()
-	local weeksSupplyUse = ministerCountry:GetDailyExpense( CGoodsPool._SUPPLIES_ ):Get() * 7
+	-- Performance check make sure its above 0 before we even look at this
+	if changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] > 0 then
+		local supplyStockpile = ministerCountry:GetPool():Get( CGoodsPool._SUPPLIES_ ):Get()
+		local weeksSupplyUse = ministerCountry:GetDailyExpense( CGoodsPool._SUPPLIES_ ):Get() * 7
 	
-	-- Major power check
-	if lbIsMajor then
-		-- If major power has less than 20 weeks supplies then increase the stockpile produce 10% more
-		-- If we have less than 70k supplies produce 5% more
-		-- If we have more than 80k supplies then cut production by 10%
-		if (supplyStockpile < weeksSupplyUse * 20.0) and supplyStockpile < 50000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.25)
-		elseif supplyStockpile < 70000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.15)
-		elseif supplyStockpile > 90000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.5)
-		elseif supplyStockpile > 80000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.1)
-		end
-	else
-		-- If has less than 8 weeks supplies then increase the stockpile produce 10% more
-		-- If has less than 20 weeks supplies then increase the stockpile produce 5% more
-		-- If has more than 20 weeks supplies and 4k stockpile then decrease the stockpile produce 10% more
-		if (supplyStockpile < weeksSupplyUse * 8.0) and supplyStockpile < 2000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.25)
-		elseif (supplyStockpile < weeksSupplyUse * 20.0) and supplyStockpile < 4000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.15)
-		elseif (supplyStockpile > weeksSupplyUse * 20.0) and supplyStockpile > 4000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.1)
-		elseif supplyStockpile > 10000 then
-			changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.5)
+		-- Major power check
+		if lbIsMajor then
+			-- Increase supply production by 25% if less than 20 weeks and stockpile less than 50k
+			if (supplyStockpile < weeksSupplyUse * 20.0) and supplyStockpile < 50000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.25)
+				
+			-- Increase supply production by 15% if stockpile less than 70k
+			elseif supplyStockpile < 70000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.15)
+				
+			-- Decrease supply production by 50% if stockpile greater than 90k
+			elseif supplyStockpile > 90000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.5)
+				
+			-- Decrease supply production by 10% if stockpile greater than 80k
+			elseif supplyStockpile > 80000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.1)
+			end
+		else
+			-- Increase supply production by 25% if less than 8 weeks and stockpile less than 2k
+			if (supplyStockpile < weeksSupplyUse * 8.0) and supplyStockpile < 2000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.25)
+				
+			-- Increase supply production by 15% if less than 20 weeks and stockpile less than 4k
+			elseif (supplyStockpile < weeksSupplyUse * 20.0) and supplyStockpile < 4000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] + (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.15)
+				
+			-- Decrease supply production by 50% if stockpile greater than 10k
+			elseif supplyStockpile > 10000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.5)
+				
+			-- Decrease supply production by 10% if more than 20 weeks and stockpile greater than 4k
+			elseif (supplyStockpile > weeksSupplyUse * 20.0) and supplyStockpile > 4000 then
+				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] - (changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] * 0.1)
+			end
 		end
 	end
 	
@@ -455,12 +464,7 @@ function BalanceProductionSliders(ai, ministerCountry, prioSelection)
 		if dissent > 0.01 then
 			changes[ CDistributionSetting._PRODUCTION_CONSUMER_ ] = changes[ CDistributionSetting._PRODUCTION_CONSUMER_ ] + factor_left
 		else
-			-- Only increase supplies with what is left over if we have over 50k
-			if supplyStockpile < 50000 then
-				changes[ CDistributionSetting._PRODUCTION_SUPPLY_ ] = changes[CDistributionSetting._PRODUCTION_SUPPLY_] + factor_left	
-			else
-				changes[ CDistributionSetting._PRODUCTION_PRODUCTION_ ] = changes[ CDistributionSetting._PRODUCTION_PRODUCTION_ ] + factor_left
-			end
+			changes[ CDistributionSetting._PRODUCTION_PRODUCTION_ ] = changes[ CDistributionSetting._PRODUCTION_PRODUCTION_ ] + factor_left
 		end
 	end
 	
@@ -1200,7 +1204,7 @@ function BuildLandUnits(ic, minister, vbGoOver)
 	-- Build Special Forces Units
 	ic = BuildUnit(ic, minister, _BERGSJAEGER_BRIGADE_, 4, "bergsjaeger_brigade", 3, nil, 0, "Build_Mountain", vbGoOver)
 	ic = BuildUnit(ic, minister, _PARATROOPER_BRIGADE_, 3, "paratrooper_brigade", 3, nil, 0, "Build_Paratrooper", vbGoOver)
-	ic = BuildUnit(ic, minister, _MARINE_BRIGADE_, 3, "marine_brigade", 3, LegUnitArray, 1, "Build_Marine", vbGoOver)
+	ic = BuildUnit(ic, minister, _MARINE_BRIGADE_, 3, "marine_brigade", 3, nil, 1, "Build_Marine", vbGoOver)
 
 	ic = BuildUnit(ic, minister, _SUPER_HEAVY_ARMOR_BRIGADE_, 2, "super_heavy_armor_brigade", 2, ArmorUnitArray, 1, "Build_HeavyArmor", vbGoOver)
 	ic = BuildUnit(ic, minister, _HEAVY_ARMOR_BRIGADE_, 2, "heavy_armor_brigade", 2, ArmorUnitArray, 1, "Build_HeavyArmor", vbGoOver)
@@ -1802,17 +1806,15 @@ function ConstructConvoys(ai, minister, ministerTag, ministerCountry, ic)
 	if TransportsNeeded > TransportsCurrent and PortCount > 0 then
 		local TransportConstruction = minister:CountTransportsUnderConstruction()
 		local TransportsActuallyNeeded = TransportsNeeded - TransportsCurrent - TransportConstruction
-		local maxSerial
+		local maxSerial = 2
 		
-		-- Majors build 20% more than you need
+		-- Majors build 30% more than you need
 		if (ministerCountry:IsMajor()) then
-			maxSerial = 4
-			TransportsActuallyNeeded = ((TransportsNeeded - TransportsCurrent - TransportConstruction) * 1.20)
+			TransportsActuallyNeeded = ((TransportsNeeded - TransportsCurrent - TransportConstruction) * 1.30)
 
 		-- Minors just build exactly what you need or close to it
 		--   - they also do shorter runs since they needed resources more than majors
 		else
-			maxSerial = 2
 			TransportsActuallyNeeded = TransportsNeeded - TransportsCurrent - TransportConstruction
 		end
 		

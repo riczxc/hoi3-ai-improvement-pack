@@ -2,10 +2,9 @@
 -- LUA Hearts of Iron 3 Diplomacy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/30/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 require('utils')
-
 
 function CalculateAlignmentFactor(ai, country1, country2)
 	local dist = ai:GetCountryAlignmentDistance( country1, country2 ):Get()
@@ -85,79 +84,6 @@ function DiploScore_NonAgression(ai, actor, recipient, observer)
 
 		return Utils.CallScoredCountryAI(recipient, 'DiploScore_NonAgression', score, ai, actor, recipient, observer)
 	end
-end
-
-function DiploScore_DemandMilitaryAccess(ai, actor, recipient, observer)
-	local score = 0
-	
-	if observer == actor then -- we demand access of recipient
-		local actorCountry = actor:GetCountry()
-		local strategy = actorCountry:GetStrategy()
-		score = strategy:GetAccessScore(recipient)
-		
-	else -- actor demands access from us
-		--Utils.LUA_DEBUGOUT("DiploScore_DemandMilitaryAccess_________________")
-
-		local rel = ai:GetRelation(recipient, actor)
-		if rel:HasWar() then
-			return 0
-		end
-        
-		-- much bigger than us and bordering
-        local actorCountry = actor:GetCountry()
-		if ( ai:GetNumberOfOwnedProvinces(actor) / 5 > ai:GetNumberOfOwnedProvinces(recipient) )
-        and actorCountry:IsNeighbour( recipient )
-        then 
-			-- if we are not in faction and they are at war
-            if actorCountry:IsAtWar() 
-            and not (recipient:GetCountry():HasFaction())
-            then
-                score = 50
-            end
-		end
-
-		if rel:HasAlliance() then
-			score = 80
-		end
-
-		score = Utils.CallScoredCountryAI(recipient, "DiploScore_DemandMilitaryAccess", score,ai, actor, recipient, observer)
-	end
-	
-	return score
-end
-
-function DiploScore_OfferMilitaryAccess(ai, actor, recipient, observer, action)
-	local score = 0
-	if observer == actor then --should we offer access to recipient
-		local rel = ai:GetRelation(actor, recipient)
-		if rel:HasWar() then
-			return 0
-		end
-		if actor:GetCountry():HasFaction() then
-			return 0
-		end
-		if actor:GetCountry():GetEffectiveNeutrality():Get() > 70 then
-			return	0
-		end
-
-		local recipientCountry = recipient:GetCountry()
-		if recipientCountry:IsNeighbour( actor ) then -- only for neighbors
-			local strategy = actor:GetCountry():GetStrategy()
-			score = ( rel:GetValue():GetTruncated()) / 4
-			score = score + strategy:GetFriendliness(recipient) / 4
-			score = score - strategy:GetAntagonism(recipient) / 4
-			score = score - rel:GetThreat():Get()
-
-			if not recipientCountry:IsAtWar() then
-				score = score / 4 -- why would we if they dont need it
-			end
-		end
-	else
-		score = 100
- 	end
-
-	score = Utils.CallScoredCountryAI(recipient, 'DiploScore_OfferMilitaryAccess', score, ai, actor, recipient, observer, action)
-	return score
 end
 
 function DiploScore_Alliance(ai, actor, recipient, observer, action)
@@ -482,6 +408,103 @@ function DiploScore_CallAlly(ai, actor, recipient, observer, action)
 	end
 end
 
+-- #######################
+-- Military Access
+-- #######################
+function DiploScore_DemandMilitaryAccess(ai, actor, recipient, observer)
+	local liScore = Generate_MilitaryAccess_Score(ai, actor, recipient, observer)
+	
+	if liScore > 0 then
+		-- Same as Offer but reverse the actor and recipient
+		liScore = Utils.CallScoredCountryAI(recipient, "DiploScore_DemandMilitaryAccess", liScore, ai, actor, recipient, observer)			
+	end
+
+	return liScore
+end
+function DiploScore_OfferMilitaryAccess(ai, actor, recipient, observer, action)
+	-- AI never offers military Access so its always 0
+	local liScore = Generate_MilitaryAccess_Score(ai, actor, recipient, observer)
+	
+	if liScore > 0 then
+		-- Same as Demand but reverse the actor and recipient
+		liScore = Utils.CallScoredCountryAI(recipient, "DiploScore_OfferMilitaryAccess", liScore, ai, recipient, actor, observer)			
+	end
+
+	return liScore	
+end
+function Generate_MilitaryAccess_Score(ai, actor, recipient, observer)
+	local liScore = 0
+	local loRelation = ai:GetRelation(recipient, actor)
+	
+	-- If they are atwar with eachother this is impossible
+	if not(loRelation:HasWar()) then
+		local loRecipientCountry = recipient:GetCountry()
+		
+		-- If they are in a faction then exit
+		if not(loRecipientCountry:HasFaction()) then
+			local loActorCountry = actor:GetCountry()
+			local lbMajorNeighborCheck = false
+			local loRecipientGroup = loRecipientCountry:GetRulingIdeology():GetGroup()
+			local loActorGroup = loActorCountry:GetRulingIdeology():GetGroup()
+		
+			-- Same ideology so a small bonus
+			if loRecipientGroup == loActorGroup then
+				liScore = liScore + 25
+			else
+				liScore = liScore - 10
+			end
+			
+			-- Check to see who they are after, if it is another major do not get involved
+			for loCountryTag in loRecipientCountry:GetNeighbours() do
+				local loRelation2 = ai:GetRelation(actor, loCountryTag)
+				
+				if loRelation2:HasWar() then
+					local loCountry2 = loCountryTag:GetCountry()
+					if loCountry2:IsMajor() then
+						lbMajorNeighborCheck = true
+						liScore = liScore - 25
+						break
+					end
+				end
+			end
+			
+			-- They are after a minor so go ahead and give them a small bonus
+			if not(lbMajorNeighborCheck) then
+				liScore = liScore + 25
+			end
+
+			-- Calculate strength based on IC
+			--   The smaller the minor the more likely they will say yes
+			local liRecipientIC = loRecipientCountry:GetMaxIC()
+			local liActorIC = loActorCountry:GetMaxIC()
+			
+			if liActorIC > (liRecipientIC * 7) then
+				liScore = liScore + 25
+			elseif liActorIC > (liRecipientIC * 5) then
+				liScore = liScore + 10
+			elseif liActorIC > (liRecipientIC * 3) then
+				liScore = liScore + 5
+			end
+
+			-- If they are heavily neutral then don't let them through
+			local liEffectiveNeutrality = loRecipientCountry:GetEffectiveNeutrality():Get()
+			if liEffectiveNeutrality > 90 then
+				liScore = liScore - 50
+			elseif liEffectiveNeutrality > 80 then
+				liScore = liScore - 25
+			elseif liEffectiveNeutrality > 70 then
+				liScore = liScore - 10
+			end
+			
+			-- Now Calculate Threat and Relations into the score
+			liScore = liScore - loRelation:GetThreat():Get() / 5
+			liScore = liScore + loRelation:GetValue():GetTruncated() / 3
+		end
+	end
+	
+	return liScore
+end
+-- #######################
 
 -- ############################
 --  Methods that do not use the GetAIAcceptance()
@@ -495,7 +518,7 @@ function DiploScore_InfluenceNation(ai, actor, recipient, observer)
 		local actorFaction = actorCountry:GetFaction()
 		
 		-- Performance Check, are they already in our corner if so exit out do not influence
-		if ai:GetNormalizedAlignmentDistance(recipientCountry, actorFaction):Get() < 0.2 then
+		if ai:GetCountryAlignmentDistance(recipientCountry, actorFaction:GetFactionLeader():GetCountry()):Get() < 10 then
 			return 0
 		end
 		

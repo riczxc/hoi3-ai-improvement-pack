@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/28/2010
+-- Date Last Modified: 7/6/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws
@@ -88,55 +88,60 @@ function Liberation(ai, minister, ministerTag, ministerCountry)
     end	
 end
 function Mobilization(minister)
-	local ai = minister:GetOwnerAI()
-	local ministerTag =  minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
 
-    -- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
-    if not(ministerCountry:IsMobilized()) and ministerCountry:GetStrategy():IsPreparingWar() then
-        local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
-		
-        for loCountry in CCurrentGameState.GetCountries() do
-            local loCountryTag = loCountry:GetCountryTag()
+	-- Performance check
+	if not(ministerCountry:IsMobilized()) then
+		local ai = minister:GetOwnerAI()
+		local ministerTag =  minister:GetCountryTag()
+		local loStrategy = ministerCountry:GetStrategy()
+	
+		-- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
+		if loStrategy:IsPreparingWar() then
+			local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
 			
-			if not(loCountryTag == ministerTag) then
-				if loCountryTag:IsValid() and loCountry:Exists() and loCountryTag:IsReal() then
-					if ministerCountry:GetStrategy():IsPreparingWarWith(loCountryTag) and liNeutrality < ministerCountry:GetMaxNeutralityForWarWith(loCountryTag):Get() then
-						ai:Post(CToggleMobilizationCommand( ministerTag, true ))
-						break
+			for loCountry in CCurrentGameState.GetCountries() do
+				local loCountryTag = loCountry:GetCountryTag()
+				
+				if not(loCountryTag == ministerTag) then
+					if loCountryTag:IsValid() and loCountry:Exists() and loCountryTag:IsReal() then
+						if loStrategy:IsPreparingWarWith(loCountryTag) and liNeutrality < ministerCountry:GetMaxNeutralityForWarWith(loCountryTag):Get() then
+							ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+							break
+						end
 					end
 				end
 			end
-        end
-    elseif not(ministerCountry:IsMobilized()) then
-		if Utils.HasCountryAIFunction( ministerTag, "HandleMobilization") then
-			Utils.CallCountryAI(ministerTag, "HandleMobilization", minister)							
 		else
-			-- check if a neighbor is starting to look threatening
-			local liTotalIC = ministerCountry:GetTotalIC()
-			local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
-			
-			for loCountryTag in ministerCountry:GetNeighbours() do
-				local liThreat = ministerCountry:GetRelation(loCountryTag):GetThreat():Get()
+			if Utils.HasCountryAIFunction( ministerTag, "HandleMobilization") then
+				Utils.CallCountryAI(ministerTag, "HandleMobilization", minister)							
+			else
+				-- check if a neighbor is starting to look threatening
+				local liTotalIC = ministerCountry:GetTotalIC()
+				local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
 				
-				if (liNeutrality - liThreat) < 10 then
-					local loCountry = loCountryTag:GetCountry()
+				for loCountryTag in ministerCountry:GetNeighbours() do
+					local liThreat = ministerCountry:GetRelation(loCountryTag):GetThreat():Get()
 					
-					liThreat = liThreat * CalculateAlignmentFactor(ai, ministerCountry, loCountry)
-					
-					if liTotalIC > 50 and loCountry:GetTotalIC() < liTotalIC then
-						liThreat = liThreat / 2 -- we can handle them if they descide to attack anyway
-					end
-					
-					if liThreat > 30 then
-						if CalculateWarDesirability(ai, loCountry, ministerTag) > 70 then
-							ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+					if (liNeutrality - liThreat) < 10 then
+						local loCountry = loCountryTag:GetCountry()
+						
+						liThreat = liThreat * CalculateAlignmentFactor(ai, ministerCountry, loCountry)
+						
+						if liTotalIC > 50 and loCountry:GetTotalIC() < liTotalIC then
+							liThreat = liThreat / 2 -- we can handle them if they descide to attack anyway
+						end
+						
+						if liThreat > 30 then
+							if CalculateWarDesirability(ai, loCountry, ministerTag) > 70 then
+								ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+							end
 						end
 					end
 				end
 			end
 		end
-    end
+	end
 end
 function Puppets(minister, ministerTag, ministerCountry)
 	-- Puppets are country specific AI countries will not release them automatically and must be scripted

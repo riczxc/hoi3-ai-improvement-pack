@@ -299,14 +299,14 @@ function P.Round(viNumber)
 end
 
 function P.IsFriend(ai, voFaction, voCountry)
-	-- If they are a 5 or more to another faction consider them a potential enemy
+	-- If they are a less than 70 toward another faction consider them a potential enemy
 	local rValue = true
 	
 	for loFaction in CCurrentGameState.GetFactions() do
-		if loFaction ~= voFaction then
+		if not(loFaction == voFaction) then
 			-- They are aligning with another faction
-			if ai:GetNormalizedAlignmentDistance(voCountry, loFaction):Get() < 10 then
-			
+			if ai:GetCountryAlignmentDistance(voCountry, loFaction:GetFactionLeader():GetCountry()):Get() < 70 then
+			--if ai:GetNormalizedAlignmentDistance(voCountry, loFaction):Get() < 10 then
 				rValue = false
 				break
 			end

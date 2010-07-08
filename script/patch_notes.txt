@@ -57,3 +57,17 @@
 - AI Utils.IsFriend method was checking distance of 25 or less it has been changed to 5 or less.
 - AI fixed an issue where Commiterm nations could not trade to eachother.
 - AI Chinese Warlods will no longer build Cavalry and Garrisons.
+- AI Adjusted French build weights to produce more land units.
+- AI Adjusted French tech research weights to concentrate more on land.
+- AI minor performance tweeks to Mobilization code
+- AI France should now mobilize after Czechoslovakia is annexed.
+- AI will no longer attach support units to a marine division when building new ones.
+- AI only major powers will request military access (can be hooked though for minors).
+- AI added a new hook for country specific calls for requesting military access Call_MilitaryAccess
+- LUA renamed CallAlly to Call_Ally to be consistent with other hooks.
+- AI Demand Military Access Algorythm re-written.
+- AI Major powers convoy overbuild increaed from 20% to 30%
+- AI Major power max convoy serial runs changed from 4 to 2.
+- AI Germany has a special Demand Military Access hook for Sweden.
+- AI (minors and majors) should offer military access again.
+- AI shifted when the AI starts lowering neutrality in order as it was causing some minors to come in to early.
