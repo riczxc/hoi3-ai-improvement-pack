@@ -32,6 +32,9 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	self.runs = 0
 	self.druns = {}
 	
+	-- informations
+	self.contructorSignature = nil
+	
 	-- self reference in parent object
 	self.myclass[name] = self
 end
@@ -42,8 +45,7 @@ function FunctionObject:reset()
 end
 
 function FunctionObject:__tostring()
-	--TODO, more details (ret/params values)
-	return self.myclass.name.."."..self.name.."()"
+	return str .. self:returnTypeAsString().." "..self.myclass.name.."."..self:signatureAsString() 
 end
 
 function FunctionObject:hasImpl()
@@ -61,6 +63,44 @@ function FunctionObject:runImpl(...)
 	if self:hasImpl() then
 		return self.myclass[self.name.."Impl"](...)
 	end
+end
+
+function FunctionObject:returnTypeAsString(bWiki)
+	local bWiki = bWiki or false
+	local str = ""
+	if self.static then
+		str = str .. "static "
+	end
+	
+	if self.ret ~= nil and self.ret.getStringDescriptor ~= nil then
+		str = str .. self.ret:getStringDescriptor(bWiki)
+	else
+		str = str .. tostring(self.ret)
+	end
+	return str
+end
+
+function FunctionObject:signatureAsString(bWiki)
+	local bWiki = bWiki or false
+	local str
+	if bWiki then
+		str = "`"..self.name.."`("
+	else
+		str = self.name.."("
+	end
+	for i,v in ipairs(self.args) do
+		if bWiki and hoi3.api[tostring(v)] ~= nil and hoi3.api[tostring(v)].__classDict ~= nil then
+			v = "[#".. tostring(v).." " .. tostring(v).."]"
+		end
+		str = str .. tostring(v)
+		
+		if i ~= #self.args then
+			str = str .. ", "
+		end
+	end
+	str = str .. ")"
+	
+	return str
 end
 
 -- This boolean static property serves to define

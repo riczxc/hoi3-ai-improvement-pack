@@ -131,6 +131,17 @@ function getApi()
 	return t
 end
 
+function getCompleteApi()
+	local t = getApi()
+	t["Object"] = hoi3.Object
+	t["AbstractObject"] = hoi3.AbstractObject
+	t["Hoi3Object"] = hoi3.Hoi3Object
+	t["SingletonObject"] = hoi3.SingletonObject
+	t["MultitonObject"] = hoi3.MultitonObject
+	
+	return t
+end
+
 ---
 -- Allow release hoi3.api.CAction as CAction 
 function releaseApiOnGlobalScope()
@@ -145,10 +156,10 @@ function printApi()
 	print("HOI3 lua API")
 	for className, class in dtools.table.orderedPairs(getApi()) do
 		print("-----------------------")
-		print(className)
-		if class._c ~= nil then
+		print(title(className,2))
+		if class.contructorSignature ~= nil then
 			print(className.."(")
-			for i,v in ipairs(class._c) do
+			for i,v in ipairs(class.contructorSignature) do
 				print(v..", ")
 			end
 			print(")")

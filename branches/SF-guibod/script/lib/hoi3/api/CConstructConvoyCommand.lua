@@ -6,7 +6,7 @@ CConstructConvoyCommand = CCommand:subclass('hoi3.api.CConstructConvoyCommand')
 
 -- Constructor signature
 -- information only, that will be used by documentation generator.
-CConstructConvoyCommand._c = {'CCountryTag', hoi3.TYPE_BOOLEAN, hoi3.TYPE_NUMBER}
+CConstructConvoyCommand.contructorSignature = {'CCountryTag', hoi3.TYPE_BOOLEAN, hoi3.TYPE_NUMBER}
 
 ---
 -- @since 1.3
@@ -14,7 +14,7 @@ CConstructConvoyCommand._c = {'CCountryTag', hoi3.TYPE_BOOLEAN, hoi3.TYPE_NUMBER
 -- @param bool isEscort (true = escort, false = convoy)
 -- @param number quantity
 -- @return CConstructConvoyCommand
-function CConstructConvoyCommand:initializeImpl(tag, isEscort, quantity)
+function CConstructConvoyCommand:initialize(tag, isEscort, quantity)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	hoi3.assertParameterType(2, isEscort, hoi3.TYPE_BOOLEAN)

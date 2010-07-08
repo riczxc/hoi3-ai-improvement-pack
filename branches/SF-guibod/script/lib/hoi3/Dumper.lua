@@ -8,8 +8,7 @@ function dump()
 	
 	-- Start by referencing all databased objects
 	for d in CBuildingDataBase.GetBuilding() do
-		o = hoi3.api.CBuilding(d:GetName)
-		
+		local o = hoi3.api.CBuilding(d:GetName())
 	end
 end
 
