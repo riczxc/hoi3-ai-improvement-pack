@@ -17,38 +17,38 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]></font></td><td><font face="monospace">`GetReqProdQueueIter`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasTradeGoneStale`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PostAction`([#CAction CAction])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFilledProdQueue`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`EvaluateCancelTrades`(number, number)</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`RequestSubUnit`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`MoveUnit`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsInfluencing`([#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AlreadyTradingDisabledResource`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`IsAIControlledForPlayer`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNormalizedAlignmentDistance`([#CCountry CCountry], [#CFaction CFaction])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AlreadyTradingResourceOtherWay`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanDeclareWar`([#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanTradeFreeResources`([#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CSubUnitConstructionEntryList CSubUnitConstructionEntryList]</font></td><td><font face="monospace">`GetReqProdQueue`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`EvaluateCancelTrades`(number, number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetAmountTradedFrom`(number, [#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCountryAlignmentDistance`([#CCountry CCountry], [#CCountry CCountry])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CDate CDate]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetDeployedSubUnitCounts`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetProductionSubUnitCounts`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrintConsole`([#string string])</font></td><td></td></tr>
+<tr><td><font face="monospace">static string</font></td><td><font face="monospace">`GetModDirectory`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNormalizedAlignmentDistance`([#CCountry CCountry], [#CFaction CFaction])</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfOwnedProvinces`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetProductionSubUnitCounts`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CDiplomacyStatus CDiplomacyStatus]</font></td><td><font face="monospace">`GetRelation`([#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CSubUnitConstructionEntryList CSubUnitConstructionEntryList]</font></td><td><font face="monospace">`GetReqProdQueue`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]></font></td><td><font face="monospace">`GetReqProdQueueIter`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSpamPenalty`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetTheatreSubUnitNeedCounts`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`HasCommonExtension`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFilledProdQueue`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasTradeGoneStale`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
+<tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`HasUserExtension`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`IsAIControlledForPlayer`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsInfluencing`([#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsTradeingAwayNeededResource`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`MoveToNeighbor`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`MoveUnit`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`Post`([#CCommand CCommand])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CDate CDate]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#string string]</font></td><td><font face="monospace">`GetModDirectory`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`HasCommonExtension`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSpamPenalty`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`HasUserExtension`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetTheatreSubUnitNeedCounts`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanDeclareWar`([#CCountryTag CCountryTag], [#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AlreadyTradingResourceOtherWay`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCountryAlignmentDistance`([#CCountry CCountry], [#CCountry CCountry])</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PostAction`([#CAction CAction])</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrintConsole`(string)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`RequestSubUnit`(unknown)</font></td><td></td></tr>
 </table>
 -----
 ==CAIAgent==
@@ -57,9 +57,9 @@ Implements [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObje
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 </table>
 -----
 ==CAIEspionageMinister==
@@ -77,12 +77,12 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`ExecuteDiploDecisions`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`ClearWarProposal`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`ExecuteDiploDecisions`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetProposedWarTarget`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`PercOccupied`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`ProposeWar`([#CCountryTag CCountryTag], number)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`Propose`([#CDiplomaticAction CDiplomaticAction], number)</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`ProposeWar`([#CCountryTag CCountryTag], number)</font></td><td></td></tr>
 </table>
 -----
 ==CAIIntel==
@@ -91,11 +91,11 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFactor`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CalculateOurMilitaryStrength`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CalculateTheirPercievedMilitaryStrengh`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetUncertaintyFactor`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFactor`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTheirFactor`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetUncertaintyFactor`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasNoIntel`()</font></td><td></td></tr>
 </table>
 -----
@@ -118,8 +118,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CountEscortsUnderConstruction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CountTotalDesiredEscorts`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CountTransportsUnderConstruction`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrioritizeBuildQueue`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDesperation`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrioritizeBuildQueue`()</font></td><td></td></tr>
 </table>
 -----
 ==CAIStrategy==
@@ -128,29 +128,29 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPreparingWarWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrepareWarDecision`([#CCountryTag CCountryTag], number, [#CDecision CDecision])</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrepareWar`([#CCountryTag CCountryTag], number)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPreparingWar`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarScoreWith`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsIndustrialist`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsDiplomat`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetPersonality`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarTargets`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CTheatre CTheatre]></font></td><td><font face="monospace">`GetTheatres`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarTarget`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMilitarist`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAccessScore`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetThreat`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetProtectionism`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBalanced`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFriendliness`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAntagonism`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`AddSubUnit`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWantedSubUnits`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`CancelPrepareWar`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAccessScore`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAntagonism`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFriendliness`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetPersonality`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetProtectionism`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTheatre CTheatre]></font></td><td><font face="monospace">`GetTheatres`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetThreat`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWantedSubUnits`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarScoreWith`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarTarget`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarTargets`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBalanced`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsDiplomat`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsIndustrialist`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMilitarist`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPreparingWar`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPreparingWarWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrepareWar`([#CCountryTag CCountryTag], number)</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrepareWarDecision`([#CCountryTag CCountryTag], number, [#CDecision CDecision])</font></td><td></td></tr>
 </table>
 -----
 ==CAISubscriber==
@@ -168,11 +168,11 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLastDrift`([#CIdeologyGroup CIdeologyGroup])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`([#CTechnology CTechnology])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetFolderModifers`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetTechModifers`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDistanceFrom`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetFolderModifers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLastDrift`([#CIdeologyGroup CIdeologyGroup])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetTechModifers`()</font></td><td></td></tr>
 </table>
 -----
 ==CAction==
@@ -198,8 +198,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, [#CFixedPoint CFixedPoint])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetAt`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, [#CFixedPoint CFixedPoint])</font></td><td></td></tr>
 </table>
 -----
 ==CArrayFloat==
@@ -208,8 +208,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, number)</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAt`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, number)</font></td><td></td></tr>
 </table>
 -----
 ==CBrigade==
@@ -227,8 +227,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#string string]</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
 </table>
 -----
 ==CBuildingDataBase==
@@ -237,8 +237,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace">static [#CBuilding CBuilding]</font></td><td><font face="monospace">`GetBuilding`(string)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CBuilding CBuilding]</font></td><td><font face="monospace">`GetBuildingFromIndex`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CBuilding CBuilding]</font></td><td><font face="monospace">`GetBuilding`([#string string])</font></td><td></td></tr>
 </table>
 -----
 ==CCallAllyAction==
@@ -247,8 +247,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`SetVersus`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetVersus`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`SetVersus`(unknown)</font></td><td></td></tr>
 </table>
 -----
 ==CCancelUnitConstructionCommand==
@@ -285,8 +285,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCommand CCommand]</font></td><td><font face="monospace">`Clone`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CConstructBuildingCommand==
@@ -311,9 +311,9 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMilitary`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CMilitaryConstruction CMilitaryConstruction]</font></td><td><font face="monospace">`GetMilitary`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCost`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CMilitaryConstruction CMilitaryConstruction]</font></td><td><font face="monospace">`GetMilitary`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMilitary`()</font></td><td></td></tr>
 </table>
 -----
 ==CContinent==
@@ -322,8 +322,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#string string]</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#string string]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
+<tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
+<tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 </table>
 -----
 ==CConvoy==
@@ -332,9 +332,9 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDesiredEscorts`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDesiredTransports`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetEfficiency`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDesiredEscorts`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`IsForTradeRoute`(unknown)</font></td><td></td></tr>
 </table>
 -----
@@ -344,130 +344,130 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfAllies`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetVassals`()</font></td><td></td></tr>
-<tr><td><font face="monospace">CVariables</font></td><td><font face="monospace">`GetVariables`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CUnit CUnit]></font></td><td><font face="monospace">`GetUnitsIterator`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`AIGetTradeRoutes`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CIdeologyData CIdeologyData]</font></td><td><font face="monospace">`AccessIdeologyOrganization`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeologyData CIdeologyData]</font></td><td><font face="monospace">`AccessIdeologyPopularity`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetConvoyedIn`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`CalcDesperation`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CalculateIsAllied`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`CalculateNumberOfActiveInfluences`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`CalculateReinforcementMultiplier`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanCreatePuppet`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`Exists`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`GetAbility`([#CTechnologyCategory CTechnologyCategory])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CProvince CProvince]</font></td><td><font face="monospace">`GetActingCapitalLocation`()</font></td><td></td></tr>
 <tr><td><font face="monospace">iterator`<`[#CProvince CProvince]></font></td><td><font face="monospace">`GetAirBases`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfAirfields`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFriend`([#CCountryTag CCountryTag], boolean)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedFor`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAlignment CAlignment]</font></td><td><font face="monospace">`GetAlignment`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetAlignmentCord`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfOwnedProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedForSansAlliedSupply`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetAllies`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAllowedResearchSlots`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAvailableIC`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCost`([#CBuilding CBuilding])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCostIC`([#CSubUnitDefinition CSubUnitDefinition], number, boolean)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCostMP`([#CSubUnitDefinition CSubUnitDefinition], number, boolean)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetBuildTime`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCapital`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CProvince CProvince]</font></td><td><font face="monospace">`GetCapitalLocation`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CConstruction CConstruction]></font></td><td><font face="monospace">`GetConstructions`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetControlledProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyBuildCost`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyBuildTime`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetConvoyedIn`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetConvoyedOut`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CConvoy CConvoy]></font></td><td><font face="monospace">`GetConvoys`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetCoreProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetCurrentAtWarWith`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTechnology CTechnology]></font></td><td><font face="monospace">`GetCurrentResearch`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyBalance`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyExpense`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyIncome`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CDiplomacyStatus CDiplomacyStatus]></font></td><td><font face="monospace">`GetDiplomacy`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDiplomaticDistance`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDiplomaticInfluence`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDissent`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEffectiveNeutrality`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEscortBuildCost`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEscortBuildTime`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetEscorts`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CModifier CModifier]</font></td><td><font face="monospace">`GetGlobalModifier`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGovernment CGovernment]</font></td><td><font face="monospace">`GetGovernment`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetHighestThreat`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetHomeProduced`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetICPart`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`([#CLawGroup CLawGroup])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CLaw CLaw]</font></td><td><font face="monospace">`GetLawFromIndex`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CDistributionSetting CDistributionSetting]</font></td><td><font face="monospace">`GetLeadershipDistributionAt`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetManpower`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMaxIC`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMaxNeutralityForWarWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CMinister CMinister]</font></td><td><font face="monospace">`GetMinister`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMoneyBalanceAverage`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNationalUnity`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CProvince CProvince]></font></td><td><font face="monospace">`GetNavalBases`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetNeighbours`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNeutrality`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfAirfields`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfAllies`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfPorts`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfControlledProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfCurrentResearch`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfOwnedProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetOfficerRatio`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetOverlord`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetOwnedProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetPool`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossibleLiberations`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossiblePuppets`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CDistributionSetting CDistributionSetting]</font></td><td><font face="monospace">`GetProductionDistributionAt`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CDiplomacyStatus CDiplomacyStatus]</font></td><td><font face="monospace">`GetRelation`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CRule CRule]</font></td><td><font face="monospace">`GetRules`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CIdeology CIdeology]</font></td><td><font face="monospace">`GetRulingIdeology`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CSpyPresence CSpyPresence]</font></td><td><font face="monospace">`GetSpyPresence`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetSpyingOnUs`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CStrategicWarfare CStrategicWarfare]</font></td><td><font face="monospace">`GetStrategicWarfare`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAIStrategy CAIStrategy]</font></td><td><font face="monospace">`GetStrategy`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetSupplyBalanceAverage`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetSurrenderLevel`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CTechnologyStatus CTechnologyStatus]</font></td><td><font face="monospace">`GetTechnologyStatus`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalConvoyTransports`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTotalCoreBuildingLevels`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalIC`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTotalLeadership`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNeededConvoyTransports`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNeededTransports`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTotalProduced`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedAway`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedAwaySansAlliedSupply`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedFor`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedForSansAlliedSupply`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTransports`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CUnitList CUnitList]</font></td><td><font face="monospace">`GetUnits`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CUnit CUnit]></font></td><td><font face="monospace">`GetUnitsIterator`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetUsedIC`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetVariable`(string)</font></td><td></td></tr>
+<tr><td><font face="monospace">CVariables</font></td><td><font face="monospace">`GetVariables`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetVassals`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasConstruction`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasDiplomatEnroute`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasExtraManpowerLeft`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFaction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasNeighborInFaction`([#CFaction CFaction])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAtWar`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDiplomaticDistance`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`GetAbility`([#CTechnologyCategory CTechnologyCategory])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`Exists`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfPorts`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetOfficerRatio`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CAlignment CAlignment]</font></td><td><font face="monospace">`GetAlignment`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetEscorts`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CIdeology CIdeology]</font></td><td><font face="monospace">`GetRulingIdeology`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyBuildCost`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyBalance`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCapital`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAvailableIC`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetHighestThreat`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDiplomaticInfluence`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetBuildTime`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`isPuppet`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CProvince CProvince]</font></td><td><font face="monospace">`GetActingCapitalLocation`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetConvoyedOut`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CSpyPresence CSpyPresence]</font></td><td><font face="monospace">`GetSpyPresence`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`AIGetTradeRoutes`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CAIStrategy CAIStrategy]</font></td><td><font face="monospace">`GetStrategy`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetOwnedProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedAwaySansAlliedSupply`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CProvince CProvince]></font></td><td><font face="monospace">`GetNavalBases`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetOverlord`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFaction`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CTechnologyStatus CTechnologyStatus]</font></td><td><font face="monospace">`GetTechnologyStatus`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetAllies`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetSupplyBalanceAverage`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedAway`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetPool`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetNeighbours`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CStrategicWarfare CStrategicWarfare]</font></td><td><font face="monospace">`GetStrategicWarfare`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGovernment CGovernment]</font></td><td><font face="monospace">`GetGovernment`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetManpower`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNeutrality`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMajor`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CRule CRule]</font></td><td><font face="monospace">`GetRules`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMoneyBalanceAverage`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFactionLeader`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGovernmentInExile`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTotalProduced`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasConstruction`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CDiplomacyStatus CDiplomacyStatus]</font></td><td><font face="monospace">`GetRelation`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetICPart`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEscortBuildTime`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossiblePuppets`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNeededTransports`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCost`([#CBuilding CBuilding])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`MayLiberateCountries`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CLaw CLaw]</font></td><td><font face="monospace">`GetLawFromIndex`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`NeedConvoyToTradeWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEffectiveNeutrality`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsSubject`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNeighbourToFactionHostile`([#CFaction CFaction], boolean)</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfCurrentResearch`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCostMP`([#CSubUnitDefinition CSubUnitDefinition], number, boolean)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNeighbour`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CIdeologyData CIdeologyData]</font></td><td><font face="monospace">`AccessIdeologyOrganization`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetControlledProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CDiplomacyStatus CDiplomacyStatus]></font></td><td><font face="monospace">`GetDiplomacy`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMobilized`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyIncome`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetUsedIC`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDissent`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBuildingAllowed`([#CBuilding CBuilding], [#CProvince CProvince])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalConvoyTransports`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CProvince CProvince]</font></td><td><font face="monospace">`GetCapitalLocation`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasExtraManpowerLeft`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasDiplomatEnroute`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsEnemy`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanCreatePuppet`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNeededConvoyTransports`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfControlledProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetSurrenderLevel`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`CalculateNumberOfActiveInfluences`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`CalcDesperation`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetVariable`([#string string])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`([#CLawGroup CLawGroup])</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetCoreProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CTechnology CTechnology]></font></td><td><font face="monospace">`GetCurrentResearch`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CModifier CModifier]</font></td><td><font face="monospace">`GetGlobalModifier`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMaxIC`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEscortBuildCost`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyBuildTime`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTotalLeadership`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTransports`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalIC`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTotalCoreBuildingLevels`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetHomeProduced`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMaxNeutralityForWarWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCostIC`([#CSubUnitDefinition CSubUnitDefinition], number, boolean)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CUnitList CUnitList]</font></td><td><font face="monospace">`GetUnits`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetSpyingOnUs`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAllowedResearchSlots`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CalculateIsAllied`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CConstruction CConstruction]></font></td><td><font face="monospace">`GetConstructions`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`CalculateReinforcementMultiplier`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyExpense`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CDistributionSetting CDistributionSetting]</font></td><td><font face="monospace">`GetProductionDistributionAt`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossibleLiberations`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CMinister CMinister]</font></td><td><font face="monospace">`GetMinister`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CDistributionSetting CDistributionSetting]</font></td><td><font face="monospace">`GetLeadershipDistributionAt`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CConvoy CConvoy]></font></td><td><font face="monospace">`GetConvoys`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFactionLeader`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFriend`([#CCountryTag CCountryTag], boolean)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGovernmentInExile`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMajor`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMobilized`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNeighbour`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNeighbourToFactionHostile`([#CFaction CFaction], boolean)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsSubject`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`MayLiberateCountries`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`NeedConvoyToTradeWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`isPuppet`()</font></td><td></td></tr>
 </table>
 -----
 ==CCountryDataBase==
@@ -476,7 +476,7 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">static [#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`([#string string])</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`(string)</font></td><td></td></tr>
 </table>
 -----
 ==CCountryList==
@@ -494,11 +494,11 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">nil</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsReal`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`()</font></td><td></td></tr>
+<tr><td><font face="monospace">nil</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsReal`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CCountryTagList==
@@ -516,15 +516,15 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">static iterator`<`[#CFaction CFaction]></font></td><td><font face="monospace">`GetFactions`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CDate CDate]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static iterator`<`[#CCountry CCountry]></font></td><td><font face="monospace">`GetCountries`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CProvince CProvince]</font></td><td><font face="monospace">`GetProvince`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`IsGlobalFlagSet`([#string string])</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetPlayer`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`GetInstance`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetAIRand`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CCountry CCountry]></font></td><td><font face="monospace">`GetCountries`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CDate CDate]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CFaction CFaction]></font></td><td><font face="monospace">`GetFactions`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`GetInstance`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetPlayer`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CProvince CProvince]</font></td><td><font face="monospace">`GetProvince`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`IsGlobalFlagSet`(string)</font></td><td></td></tr>
 </table>
 -----
 ==CDate==
@@ -533,11 +533,11 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetYear`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMonthOfYear`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDayOfMonth`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`AddDays`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDayOfMonth`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMonthOfYear`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalDays`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetYear`()</font></td><td></td></tr>
 </table>
 -----
 ==CDebtAction==
@@ -550,8 +550,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">nil</font></td><td><font face="monospace">`IsPotential`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
+<tr><td><font face="monospace">nil</font></td><td><font face="monospace">`IsPotential`()</font></td><td></td></tr>
 </table>
 -----
 ==CDeclareWarAction==
@@ -564,24 +564,24 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasHostileAgreement`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasEmbargo`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasNap`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasAnyAgreement`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CWar CWar]</font></td><td><font face="monospace">`GetWar`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranteed`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`GetTradeRoutes`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBeingInfluenced`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetValue`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AllowDebts`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranting`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFriendlyAgreement`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasTruce`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFightingWarTogether`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasWar`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasMilitaryAccess`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetThreat`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`GetTradeRoutes`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetValue`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CWar CWar]</font></td><td><font face="monospace">`GetWar`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasAlliance`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasAnyAgreement`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasEmbargo`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFriendlyAgreement`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasHostileAgreement`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasMilitaryAccess`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasNap`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasTruce`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasWar`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBeingInfluenced`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFightingWarTogether`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranteed`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranting`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetValue`([#CFixedPoint CFixedPoint])</font></td><td></td></tr>
 </table>
 -----
@@ -591,11 +591,11 @@ Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAIAcceptance`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetType`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetValue`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsSelectable`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetType`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetValue`(boolean)</font></td><td></td></tr>
 </table>
 -----
@@ -619,13 +619,13 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetMembers`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetProgress`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNormalizedProgress`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetFactionLeader`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeologyGroup CIdeologyGroup]</font></td><td><font face="monospace">`GetIdeologyGroup`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetMembers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNormalizedProgress`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfMembers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetProgress`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
@@ -639,9 +639,9 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTruncated`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetRounded`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`Get`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetRounded`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTruncated`()</font></td><td></td></tr>
 </table>
 -----
 ==CFlags==
@@ -650,7 +650,7 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFlagSet`([#string string])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFlagSet`(string)</font></td><td></td></tr>
 </table>
 -----
 ==CGoodsPool==
@@ -659,8 +659,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFloat`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`Get`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFloat`(number)</font></td><td></td></tr>
 </table>
 -----
 ==CGovernment==
@@ -736,10 +736,10 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CLawGroup CLawGroup]</font></td><td><font face="monospace">`GetGroup`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`ValidFor`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 </table>
 -----
@@ -749,12 +749,12 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLawGroups`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CLawGroup CLawGroup]</font></td><td><font face="monospace">`GetLawGroup`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">static iterator`<`[#CLawGroup CLawGroup]></font></td><td><font face="monospace">`GetGroups`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLaws`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`(number)</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CLawGroup CLawGroup]</font></td><td><font face="monospace">`GetLawGroup`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">static iterator`<`[#CLaw CLaw]></font></td><td><font face="monospace">`GetLawList`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLawGroups`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLaws`()</font></td><td></td></tr>
 </table>
 -----
 ==CLawGroup==
@@ -763,9 +763,9 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CLiberateCountryCommand==
@@ -778,10 +778,10 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetParalell`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CSubUnitDefinition CSubUnitDefinition]</font></td><td><font face="monospace">`GetSubunit`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSerial`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMoney`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetParalell`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSerial`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CSubUnitDefinition CSubUnitDefinition]</font></td><td><font face="monospace">`GetSubunit`()</font></td><td></td></tr>
 </table>
 -----
 ==CList==
@@ -800,8 +800,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">iterator`<`[#CBrigade CBrigade]></font></td><td><font face="monospace">`GetBrigades`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAir`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNaval`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsLand`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNaval`()</font></td><td></td></tr>
 </table>
 -----
 ==CMinister==
@@ -811,9 +811,9 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanTakePosition`([#CGovernmentPosition CGovernmentPosition])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetValue`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeology CIdeology]</font></td><td><font face="monospace">`GetIdeology`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CPersonality CPersonality]</font></td><td><font face="monospace">`GetPersonality`([#CGovernmentPosition CGovernmentPosition])</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetValue`(number)</font></td><td></td></tr>
 </table>
 -----
 ==CModifier==
@@ -830,14 +830,14 @@ Implements [#CFaction CFaction], <font color="grey"><em>[#MultitonObject Multito
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetMembers`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetProgress`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetFactionLeader`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetIdeologyGroup`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetMembers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetNormalizedProgress`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfMembers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetProgress`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetIdeologyGroup`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfMembers`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetNormalizedProgress`()</font></td><td></td></tr>
 </table>
 -----
 ==CNullTag==
@@ -862,8 +862,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 </table>
 -----
 ==CProvince==
@@ -872,22 +872,22 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetOwner`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CContinent CContinent]</font></td><td><font face="monospace">`GetContinent`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasBuilding`([#CBuilding CBuilding])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CUnitList CUnitList]</font></td><td><font face="monospace">`GetUnits`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfUnits`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFrontProvince`(boolean)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CProvinceBuilding CProvinceBuilding]</font></td><td><font face="monospace">`GetBuilding`([#CBuilding CBuilding])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMaxInfrastructure`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetController`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetProvinceID`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasAdjacentEnemyOrCB`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIntelLevel`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetInfrastructure`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCoastalFortLevel`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFortLevel`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CContinent CContinent]</font></td><td><font face="monospace">`GetContinent`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetController`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCurrentConstructionLevel`([#CBuilding CBuilding])</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFortLevel`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetInfrastructure`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIntelLevel`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMaxInfrastructure`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfUnits`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetOwner`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetProvinceID`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CUnitList CUnitList]</font></td><td><font face="monospace">`GetUnits`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasAdjacentEnemyOrCB`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasBuilding`([#CBuilding CBuilding])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFrontProvince`(boolean)</font></td><td></td></tr>
 </table>
 -----
 ==CProvinceBuilding==
@@ -896,8 +896,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMax`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCurrent`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMax`()</font></td><td></td></tr>
 </table>
 -----
 ==CResearchBonus==
@@ -923,8 +923,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTag`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetClaimType`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTag`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetUnit`(unknown)</font></td><td></td></tr>
 </table>
 -----
@@ -942,10 +942,10 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumber`()</font></td><td></td></tr>
 <tr><td><font face="monospace">GetFixedPoint</font></td><td><font face="monospace">`GetFixedPoint`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`Seed`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetInteger`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumber`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`Seed`(number)</font></td><td></td></tr>
 </table>
 -----
 ==CSpyPresence==
@@ -954,11 +954,11 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetPriority`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`MissionAllowed`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CDate CDate]</font></td><td><font face="monospace">`GetLastMissionChangeDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLevel`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMission`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CDate CDate]</font></td><td><font face="monospace">`GetLastMissionChangeDate`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetPriority`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`MissionAllowed`(unknown)</font></td><td></td></tr>
 </table>
 -----
 ==CStartResearchCommand==
@@ -971,9 +971,9 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyImpact`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetAlliesImpact`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBombingImpact`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyImpact`()</font></td><td></td></tr>
 </table>
 -----
 ==CString==
@@ -983,7 +983,7 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetCharPtr`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#string string]</font></td><td><font face="monospace">`GetString`()</font></td><td></td></tr>
+<tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetString`()</font></td><td></td></tr>
 </table>
 -----
 ==CSubUnitConstructionEntry==
@@ -996,13 +996,13 @@ Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em><
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSize`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsEmpty`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CSubUnitConstructionEntry CSubUnitConstructionEntry]</font></td><td><font face="monospace">`GetHeadData`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSize`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CSubUnitConstructionEntry CSubUnitConstructionEntry]</font></td><td><font face="monospace">`GetTailData`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsEmpty`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`Remove`([#CSubUnitConstructionEntry CSubUnitConstructionEntry])</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`RemoveHead`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`RemoveTail`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`Remove`([#CSubUnitConstructionEntry CSubUnitConstructionEntry])</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CSubUnitConstructionEntry CSubUnitConstructionEntry]</font></td><td><font face="monospace">`GetTailData`()</font></td><td></td></tr>
 </table>
 -----
 ==CSubUnitDataBase==
@@ -1020,30 +1020,30 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsRegiment`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanParadrop`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDefensivness`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCarrier`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsTransport`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetBuildCostMP`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsShip`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsSecondRank`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCombatWidth`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBuildable`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDefaultStrength`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCapitalShip`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCag`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetToughness`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#string string]</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBomber`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCompletionSize`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetBuildTime`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSoftness`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetBuildCostIC`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetBuildCostMP`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetBuildTime`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCombatWidth`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCompletionSize`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDefaultStrength`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDefensivness`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
+<tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSoftness`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetToughness`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBomber`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBuildable`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCag`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCapitalShip`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCarrier`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsRegiment`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsSecondRank`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsShip`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsSub`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsTransport`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CTechnology==
@@ -1052,17 +1052,17 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetOnCompletion`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsOneLevelOnly`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator`<`[#CResearchBonus CResearchBonus]></font></td><td><font face="monospace">`GetResearchBonus`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CTechnologyFolder CTechnologyFolder]</font></td><td><font face="monospace">`GetFolder`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanUpgrade`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDifficulty`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`GetEnableUnit`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CTechnologyFolder CTechnologyFolder]</font></td><td><font face="monospace">`GetFolder`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDifficulty`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`GetEnableUnit`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetOnCompletion`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CResearchBonus CResearchBonus]></font></td><td><font face="monospace">`GetResearchBonus`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsOneLevelOnly`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CTechnologyCategory==
@@ -1071,8 +1071,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 </table>
 -----
 ==CTechnologyDataBase==
@@ -1081,9 +1081,9 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFolderIndex`([#string string])</font></td><td></td></tr>
-<tr><td><font face="monospace">static [#CTechnology CTechnology]</font></td><td><font face="monospace">`GetTechnology`()</font></td><td></td></tr>
 <tr><td><font face="monospace">iterator`<`[#CTechnologyCategory CTechnologyCategory]></font></td><td><font face="monospace">`GetCategories`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFolderIndex`(string)</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CTechnology CTechnology]</font></td><td><font face="monospace">`GetTechnology`()</font></td><td></td></tr>
 </table>
 -----
 ==CTechnologyFolder==
@@ -1092,9 +1092,9 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CTechnologyStatus==
@@ -1103,13 +1103,13 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetYear`([#CTechnology CTechnology], number)</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLevel`([#CTechnology CTechnology])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBuildingAvailable`([#CBuilding CBuilding])</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsUnitAvailable`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetEffectiveYear`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCost`([#CTechnology CTechnology], number)</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetEffectiveYear`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLevel`([#CTechnology CTechnology])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetYear`([#CTechnology CTechnology], number)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBuildingAvailable`([#CBuilding CBuilding])</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsUnitAvailable`()</font></td><td></td></tr>
 </table>
 -----
 ==CTheatre==
@@ -1131,11 +1131,11 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTrading`(number, [#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetTrading`([#CFixedPoint CFixedPoint], number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CTradeRoute CTradeRoute]</font></td><td><font face="monospace">`GetRoute`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetRoute`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTrading`(number, [#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsConvoyPossible`()</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetRoute`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
+<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetTrading`([#CFixedPoint CFixedPoint], number)</font></td><td></td></tr>
 </table>
 -----
 ==CTradeRoute==
@@ -1144,15 +1144,15 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetConvoyResponsible`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetCost`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetFrom`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetLastInactive`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTo`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTradedToOf`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTradedFromOf`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetFrom`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetConvoyResponsible`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTradedToOf`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsInactive`()</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetCost`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 -----
 ==CUnit==
@@ -1162,8 +1162,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">iterator`<`[#CUnit CUnit]></font></td><td><font face="monospace">`GetChildren`()</font></td><td></td></tr>
-<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMoving`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMoving`()</font></td><td></td></tr>
 </table>
 -----
 ==CUnitList==
@@ -1173,14 +1173,14 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCount`([#CSubUnitDefinition CSubUnitDefinition])</font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTotalStrength`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfTransports`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfPlanes`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfShips`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalAmountOfArmies`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfRegiments`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalAmountOfDivisions`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfPlanes`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfRegiments`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfShips`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfTransports`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfWarShips`()</font></td><td></td></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTotalStrength`()</font></td><td></td></tr>
 </table>
 -----
 ==CWar==
@@ -1190,11 +1190,11 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetAttackers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCurrentRunningTimeInMonths`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDefenders`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CDate CDate]</font></td><td><font face="monospace">`GetStartDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsLimited`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPartOfWar`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCurrentRunningTimeInMonths`()</font></td><td></td></tr>
 </table>
 -----
 ==Hoi3Object==
