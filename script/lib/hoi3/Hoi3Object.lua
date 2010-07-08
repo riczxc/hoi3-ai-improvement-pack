@@ -21,7 +21,7 @@ function Hoi3Object.getApiFunctions(instanceOrClass)
 		for k, v in pairs(instanceOrClass.__classDict) do
 			if type(v) == hoi3.TYPE_TABLE and 
 				middleclass.instanceOf(hoi3.FunctionObject, v) then
-				table.insert(t,v)
+				t[k] = v
 			end
 		end
 	end

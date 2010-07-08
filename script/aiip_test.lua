@@ -29,6 +29,11 @@ require('hoi3.api')
 
 dtools.setLogContext("","DEVEL")
 
+-- doc
+require("hoi3.doc")
+print(hoi3.doc.genWikiDoc())
+os.exit()
+
 --Run all test suites
 require("lunit")
 require("dtools.tests.dtools")
@@ -73,7 +78,8 @@ tickFunctions = {
 	{'TechMinister_Tick',hoi3.api.CAITechMinister}
 }
 
-if false then
+
+if true then
 	--for i=1,1  do
 	--print("--------- loop #"..i.."--------------------")
 	--hoi3.MultitonObject.instances = {}
@@ -102,6 +108,8 @@ if false then
     
     local ger = CCountryDataBase.GetTag("GER")
     print(ger:GetCountry():GetCapitalLocation():GetProvinceID())
+    
+    
     
     --table.save(hoi3.MultitonObject.instances,"results.txt")
     hoi3.MultitonObject.serializeInstances("SAVE000.lua")

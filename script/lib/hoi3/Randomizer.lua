@@ -17,10 +17,22 @@ function Randomizer:initialize(typeAsString)
 end
 
 function Randomizer:__tostring()
+	return self:getStringDescriptor()
+end
+
+function Randomizer:getStringDescriptor(bWiki)
+	local bWiki = bWiki or false
+	
+	local t = self.type
+	if bWiki and (hoi3.api[t] ~= nil or hoi3[t] ~= nil) and hoi3.api[t].__classDict ~= nil then
+		t = "[#"..(self.type).." "..(self.type).."]"
+	end
+	
 	if (self.type == hoi3.TYPE_TABLE or self.type == hoi3.TYPE_ITERATOR) and self.subtype ~= nil then
-		return self.type.."<"..tostring(self.subtype)..">"
+		local st = self.subtype:getStringDescriptor(bWiki)	
+		return t.."<"..st..">"
 	else
-		return self.type
+		return t
 	end
 end
 
