@@ -1,4 +1,8 @@
+#summary LUA Class Reference
 #labels Featured,Phase-Implementation
+#sidebar LUAClassReferenceSideBar
+
+
 =Hearts of Iron III - LUA class reference=
 -----
 ==AbstractObject==
@@ -8,12 +12,12 @@ This object does not exist in HOI3, and is only used in hoi3 fake api.
 
 -----
 ==CAI==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator<[#CSubUnitConstructionEntry CSubUnitConstructionEntry]></font></td><td><font face="monospace">`GetReqProdQueueIter`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CSubUnitConstructionEntry CSubUnitConstructionEntry]></font></td><td><font face="monospace">`GetReqProdQueueIter`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasTradeGoneStale`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`PostAction`([#CAction CAction])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFilledProdQueue`()</font></td><td></td></tr>
@@ -48,7 +52,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CAIAgent==
-Implements [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -59,7 +63,7 @@ Implements [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#H
 </table>
 -----
 ==CAIEspionageMinister==
-Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -68,7 +72,7 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObjec
 </table>
 -----
 ==CAIForeignMinister==
-Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -82,7 +86,7 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObjec
 </table>
 -----
 ==CAIIntel==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -96,17 +100,17 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CAIPoliticsMinister==
-Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator<[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCapitalSafeToLiberate`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 </table>
 -----
 ==CAIProductionMinister==
-Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -119,7 +123,7 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObjec
 </table>
 -----
 ==CAIStrategy==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -134,7 +138,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsDiplomat`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetPersonality`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarTargets`(unknown)</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CTheatre CTheatre]></font></td><td><font face="monospace">`GetTheatres`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTheatre CTheatre]></font></td><td><font face="monospace">`GetTheatres`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetWarTarget`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMilitarist`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAccessScore`([#CCountryTag CCountryTag])</font></td><td></td></tr>
@@ -150,7 +154,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CAISubscriber==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -159,7 +163,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CAITechMinister==
-Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -172,7 +176,7 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], [#MultitonObjec
 </table>
 -----
 ==CAction==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -181,15 +185,15 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CAlignment==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CAllianceAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CArrayFix==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -199,7 +203,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CArrayFloat==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -209,7 +213,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CBrigade==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -218,7 +222,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CBuilding==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -228,7 +232,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CBuildingDataBase==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -238,7 +242,7 @@ Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CCallAllyAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -248,35 +252,35 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Obj
 </table>
 -----
 ==CCancelUnitConstructionCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CChangeInvestmentCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CChangeLawCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CChangeLeadershipCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CChangePriorityCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CChangeSpyMission==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CChangeSpyPriority==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CCommand==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -286,23 +290,23 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CConstructBuildingCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CConstructConvoyCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CConstructSingleUnitCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CConstructUnitCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CConstruction==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -313,7 +317,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CContinent==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -323,7 +327,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CConvoy==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -335,25 +339,25 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CCountry==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfAllies`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetVassals`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetVassals`()</font></td><td></td></tr>
 <tr><td><font face="monospace">CVariables</font></td><td><font face="monospace">`GetVariables`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CUnit CUnit]></font></td><td><font face="monospace">`GetUnitsIterator`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CUnit CUnit]></font></td><td><font face="monospace">`GetUnitsIterator`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeologyData CIdeologyData]</font></td><td><font face="monospace">`AccessIdeologyPopularity`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetConvoyedIn`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CProvince CProvince]></font></td><td><font face="monospace">`GetAirBases`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CProvince CProvince]></font></td><td><font face="monospace">`GetAirBases`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumOfAirfields`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFriend`([#CCountryTag CCountryTag], boolean)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedFor`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetAlignmentCord`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumberOfOwnedProvinces`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedForSansAlliedSupply`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetCurrentAtWarWith`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetCurrentAtWarWith`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNationalUnity`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasNeighborInFaction`([#CFaction CFaction])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAtWar`()</font></td><td></td></tr>
@@ -376,19 +380,19 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">[#CProvince CProvince]</font></td><td><font face="monospace">`GetActingCapitalLocation`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetConvoyedOut`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CSpyPresence CSpyPresence]</font></td><td><font face="monospace">`GetSpyPresence`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`AIGetTradeRoutes`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`AIGetTradeRoutes`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CAIStrategy CAIStrategy]</font></td><td><font face="monospace">`GetStrategy`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<number></font></td><td><font face="monospace">`GetOwnedProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetOwnedProvinces`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedAwaySansAlliedSupply`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CProvince CProvince]></font></td><td><font face="monospace">`GetNavalBases`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CProvince CProvince]></font></td><td><font face="monospace">`GetNavalBases`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetOverlord`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasFaction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CTechnologyStatus CTechnologyStatus]</font></td><td><font face="monospace">`GetTechnologyStatus`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetAllies`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetAllies`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetSupplyBalanceAverage`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetTradedAway`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGoodsPool CGoodsPool]</font></td><td><font face="monospace">`GetPool`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetNeighbours`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetNeighbours`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CStrategicWarfare CStrategicWarfare]</font></td><td><font face="monospace">`GetStrategicWarfare`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CGovernment CGovernment]</font></td><td><font face="monospace">`GetGovernment`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetManpower`()</font></td><td></td></tr>
@@ -404,7 +408,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">[#CDiplomacyStatus CDiplomacyStatus]</font></td><td><font face="monospace">`GetRelation`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetICPart`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEscortBuildTime`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossiblePuppets`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossiblePuppets`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNeededTransports`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCost`([#CBuilding CBuilding])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`MayLiberateCountries`()</font></td><td></td></tr>
@@ -417,8 +421,8 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCostMP`([#CSubUnitDefinition CSubUnitDefinition], number, boolean)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNeighbour`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeologyData CIdeologyData]</font></td><td><font face="monospace">`AccessIdeologyOrganization`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<number></font></td><td><font face="monospace">`GetControlledProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CDiplomacyStatus CDiplomacyStatus]></font></td><td><font face="monospace">`GetDiplomacy`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetControlledProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CDiplomacyStatus CDiplomacyStatus]></font></td><td><font face="monospace">`GetDiplomacy`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMobilized`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyIncome`(number)</font></td><td></td></tr>
@@ -438,8 +442,8 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`CalcDesperation`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetVariable`([#string string])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`([#CLawGroup CLawGroup])</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<number></font></td><td><font face="monospace">`GetCoreProvinces`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CTechnology CTechnology]></font></td><td><font face="monospace">`GetCurrentResearch`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`number></font></td><td><font face="monospace">`GetCoreProvinces`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTechnology CTechnology]></font></td><td><font face="monospace">`GetCurrentResearch`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CModifier CModifier]</font></td><td><font face="monospace">`GetGlobalModifier`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMaxIC`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetEscortBuildCost`()</font></td><td></td></tr>
@@ -452,22 +456,22 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMaxNeutralityForWarWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBuildCostIC`([#CSubUnitDefinition CSubUnitDefinition], number, boolean)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CUnitList CUnitList]</font></td><td><font face="monospace">`GetUnits`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetSpyingOnUs`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetSpyingOnUs`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAllowedResearchSlots`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CalculateIsAllied`([#CCountryTag CCountryTag])</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CConstruction CConstruction]></font></td><td><font face="monospace">`GetConstructions`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CConstruction CConstruction]></font></td><td><font face="monospace">`GetConstructions`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`CalculateReinforcementMultiplier`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetDailyExpense`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CDistributionSetting CDistributionSetting]</font></td><td><font face="monospace">`GetProductionDistributionAt`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossibleLiberations`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetPossibleLiberations`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CMinister CMinister]</font></td><td><font face="monospace">`GetMinister`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CDistributionSetting CDistributionSetting]</font></td><td><font face="monospace">`GetLeadershipDistributionAt`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CConvoy CConvoy]></font></td><td><font face="monospace">`GetConvoys`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CConvoy CConvoy]></font></td><td><font face="monospace">`GetConvoys`()</font></td><td></td></tr>
 </table>
 -----
 ==CCountryDataBase==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -476,7 +480,7 @@ Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CCountryList==
-Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -485,7 +489,7 @@ Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CCountryTag==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -498,7 +502,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CCountryTagList==
-Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -507,14 +511,14 @@ Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CCurrentGameState==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">static iterator<[#CFaction CFaction]></font></td><td><font face="monospace">`GetFactions`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CFaction CFaction]></font></td><td><font face="monospace">`GetFactions`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CDate CDate]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static iterator<[#CCountry CCountry]></font></td><td><font face="monospace">`GetCountries`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CCountry CCountry]></font></td><td><font face="monospace">`GetCountries`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CProvince CProvince]</font></td><td><font face="monospace">`GetProvince`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`IsGlobalFlagSet`([#string string])</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetPlayer`()</font></td><td></td></tr>
@@ -524,7 +528,7 @@ Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CDate==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -537,11 +541,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CDebtAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CDecision==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -551,11 +555,11 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CDeclareWarAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CDiplomacyStatus==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -566,7 +570,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasAnyAgreement`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CWar CWar]</font></td><td><font face="monospace">`GetWar`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranteed`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`GetTradeRoutes`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`GetTradeRoutes`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBeingInfluenced`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetValue`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AllowDebts`()</font></td><td></td></tr>
@@ -582,7 +586,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CDiplomaticAction==
-Implements [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -596,7 +600,7 @@ Implements [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CDistributionSetting==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -606,16 +610,16 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CEmbargoAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CFaction==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator<[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetMembers`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CCountryTag CCountryTag]></font></td><td><font face="monospace">`GetMembers`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetProgress`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNormalizedProgress`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetFactionLeader`()</font></td><td></td></tr>
@@ -626,11 +630,11 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CFactionAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CFixedPoint==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -641,7 +645,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CFlags==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -650,7 +654,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CGoodsPool==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -660,7 +664,7 @@ Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CGovernment==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -669,11 +673,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CGovernmentPosition==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CGovernmentPositionDataBase==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -682,15 +686,15 @@ Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CGuaranteeAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CID==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CIdeology==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -699,7 +703,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CIdeologyData==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -709,7 +713,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CIdeologyGroup==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -719,15 +723,15 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CInfluenceAllianceLeader==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CInfluenceNation==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CLaw==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -740,7 +744,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CLawDataBase==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -748,13 +752,13 @@ Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLawGroups`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CLawGroup CLawGroup]</font></td><td><font face="monospace">`GetLawGroup`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`(number)</font></td><td></td></tr>
-<tr><td><font face="monospace">static iterator<[#CLawGroup CLawGroup]></font></td><td><font face="monospace">`GetGroups`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CLawGroup CLawGroup]></font></td><td><font face="monospace">`GetGroups`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLaws`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static iterator<[#CLaw CLaw]></font></td><td><font face="monospace">`GetLawList`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CLaw CLaw]></font></td><td><font face="monospace">`GetLawList`()</font></td><td></td></tr>
 </table>
 -----
 ==CLawGroup==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -765,11 +769,11 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CLiberateCountryCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CLicenceTechnologyAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -781,27 +785,27 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Obj
 </table>
 -----
 ==CList==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CMilitaryAccessAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CMilitaryConstruction==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator<[#CBrigade CBrigade]></font></td><td><font face="monospace">`GetBrigades`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CBrigade CBrigade]></font></td><td><font face="monospace">`GetBrigades`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAir`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNaval`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsLand`()</font></td><td></td></tr>
 </table>
 -----
 ==CMinister==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -813,15 +817,15 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CModifier==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CNapAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CNullFaction==
-Implements [#CFaction CFaction], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CFaction CFaction], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -837,23 +841,23 @@ Implements [#CFaction CFaction], [#MultitonObject MultitonObject], [#Hoi3Object 
 </table>
 -----
 ==CNullTag==
-Implements [#CCountryTag CCountryTag], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCountryTag CCountryTag], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CNullTechnology==
-Implements [#CTechnology CTechnology], [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CTechnology CTechnology], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==COfferMilitaryAccessAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CPeaceAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CPersonality==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -863,7 +867,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CProvince==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -887,7 +891,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CProvinceBuilding==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -897,11 +901,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CResearchBonus==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CResourceValues==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -910,11 +914,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CRule==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CSendExpeditionaryForceAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -925,15 +929,15 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Obj
 </table>
 -----
 ==CSetFlagCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CSetVariableCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CSimpleRandom==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -945,7 +949,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CSpyPresence==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -958,11 +962,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CStartResearchCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CStrategicWarfare==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -973,7 +977,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CString==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -983,11 +987,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CSubUnitConstructionEntry==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CSubUnitConstructionEntryList==
-Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1002,16 +1006,16 @@ Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CSubUnitDataBase==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">static iterator<[#CSubUnitDefinition CSubUnitDefinition]></font></td><td><font face="monospace">`GetSubUnitList`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static iterator`<`[#CSubUnitDefinition CSubUnitDefinition]></font></td><td><font face="monospace">`GetSubUnitList`()</font></td><td></td></tr>
 </table>
 -----
 ==CSubUnitDefinition==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1043,7 +1047,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CTechnology==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1051,7 +1055,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetOnCompletion`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsOneLevelOnly`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CResearchBonus CResearchBonus]></font></td><td><font face="monospace">`GetResearchBonus`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CResearchBonus CResearchBonus]></font></td><td><font face="monospace">`GetResearchBonus`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CTechnologyFolder CTechnologyFolder]</font></td><td><font face="monospace">`GetFolder`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanUpgrade`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
@@ -1062,7 +1066,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CTechnologyCategory==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1072,18 +1076,18 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CTechnologyDataBase==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFolderIndex`([#string string])</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CTechnology CTechnology]</font></td><td><font face="monospace">`GetTechnology`()</font></td><td></td></tr>
-<tr><td><font face="monospace">iterator<[#CTechnologyCategory CTechnologyCategory]></font></td><td><font face="monospace">`GetCategories`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CTechnologyCategory CTechnologyCategory]></font></td><td><font face="monospace">`GetCategories`()</font></td><td></td></tr>
 </table>
 -----
 ==CTechnologyFolder==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1094,7 +1098,7 @@ Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object 
 </table>
 -----
 ==CTechnologyStatus==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1109,7 +1113,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CTheatre==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1118,11 +1122,11 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CToggleMobilizationCommand==
-Implements [#CCommand CCommand], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==CTradeAction==
-Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1135,7 +1139,7 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], [#Hoi3Obj
 </table>
 -----
 ==CTradeRoute==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1152,18 +1156,18 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CUnit==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">iterator<[#CUnit CUnit]></font></td><td><font face="monospace">`GetChildren`()</font></td><td></td></tr>
+<tr><td><font face="monospace">iterator`<`[#CUnit CUnit]></font></td><td><font face="monospace">`GetChildren`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMoving`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
 </table>
 -----
 ==CUnitList==
-Implements [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1180,7 +1184,7 @@ Implements [#Hoi3Object Hoi3Object], [#Object Object]
 </table>
 -----
 ==CWar==
-Implements [#MultitonObject MultitonObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
 <table width="100%">
@@ -1216,8 +1220,8 @@ This object does not exist in HOI3, and is only used in hoi3 fake api.
 
 -----
 ==SpyMission==
-Implements [#AbstractObject AbstractObject], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 -----
 ==SubUnitList==
-Implements [#CList CList], [#Hoi3Object Hoi3Object], [#Object Object]
+Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
