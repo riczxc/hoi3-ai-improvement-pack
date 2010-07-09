@@ -4,6 +4,9 @@
 
 
 =Hearts of Iron III - LUA class reference=
+
+This code is as per Semper-Fi, 9th July 2010.
+
 -----
 ==AbstractObject==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
