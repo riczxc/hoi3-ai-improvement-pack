@@ -1,8 +1,8 @@
-require('hoi3.api.CList')
+require('hoi3.CList')
 
 module("hoi3.api", package.seeall)
 
-CCountryList = CList:subclass('hoi3.api.CCountryList')
+CCountryList = hoi3.CList:subclass('hoi3.api.CCountryList')
 
 ---
 -- @since 1.3

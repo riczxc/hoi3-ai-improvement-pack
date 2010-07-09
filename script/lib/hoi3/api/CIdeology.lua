@@ -8,7 +8,18 @@ function CIdeology:initialize(key)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 
+	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
+	
 	self.key = key
+end
+
+---
+-- @since 1.3
+-- @return CString
+hoi3.f(CIdeology, 'GetKey', 'CString')
+
+function CIdeology:GetKeyImpl()
+	return CString(self.key)
 end
 
 ---

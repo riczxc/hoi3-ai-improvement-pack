@@ -27,6 +27,7 @@ require("hoi3.MultitonObject")
 require("hoi3.SingletonObject")
 require("hoi3.FunctionObject")
 require("hoi3.Randomizer")
+require("hoi3.CList")
 require("middleclass")
 Object = middleclass.Object
 

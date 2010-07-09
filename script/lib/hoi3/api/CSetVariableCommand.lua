@@ -6,7 +6,7 @@ CSetVariableCommand = CCommand:subclass('hoi3.api.CSetVariableCommand')
 
 -- Constructor signature
 -- information only, that will be used by documentation generator.
-CSetVariableCommand.constructorSignature = {'CCountryTag',hoi3.TYPE_STRING,'CFixedPoint'}
+CSetVariableCommand.constructorSignature = {'CCountryTag','CString','CFixedPoint'}
 
 ---
 -- @since 1.3
@@ -17,7 +17,7 @@ CSetVariableCommand.constructorSignature = {'CCountryTag',hoi3.TYPE_STRING,'CFix
 function CSetVariableCommand:initialize(tag, var, value)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, tag, 'CCountryTag')
-	hoi3.assertParameterType(2, var, hoi3.TYPE_STRING)
+	hoi3.assertParameterType(2, var, 'CString')
 	hoi3.assertParameterType(3, value, 'CFixedPoint')
 
 	self.tag = tag

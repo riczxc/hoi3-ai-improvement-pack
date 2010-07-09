@@ -8,17 +8,24 @@ function Hoi3Object:initialize(...)
 	super.initialize(self, ...)
 end
 
-function Hoi3Object.getConstructorSignature(instanceOrClass)
+function Hoi3Object.getConstructorSignature(instanceOrClass, bInherited)
+	local bInherited = bInherited or false
+	
 	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
 		instanceOrClass = instanceOrClass.class
 	end
 	
-	return instanceOrClass.constructorSignature
+	if bInherited and instanceOrClass.superclass ~= nil 
+		and instanceOrClass.superclass.__classDict ~= nil
+		and instanceOrClass.superclass.getConstructorSignature then
+		return instanceOrClass.constructorSignature or instanceOrClass.superclass:getConstructorSignature(true)
+	else
+		return instanceOrClass.constructorSignature
+	end
 end
 
 function Hoi3Object.getConstants(instanceOrClass)
 	local t = {}
-	local bInherited = bInherited or false
 	
 	-- if we have an instance, get its class
 	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
@@ -37,6 +44,20 @@ function Hoi3Object.getConstants(instanceOrClass)
 	end
 	
 	return t
+end
+
+function Hoi3Object.getProperties(instanceOrClass)
+	-- if we have an instance, get its class
+	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
+		instanceOrClass = instanceOrClass.class
+	end
+	
+	-- a class have a __classDict, if nothing, not a class object.
+	if instanceOrClass.__classDict ~= nil and 
+		instanceOrClass.__classDict.properties ~= nil then
+		return instanceOrClass.__classDict.properties
+	end
+	return {}
 end
 
 function Hoi3Object.getApiFunctions(instanceOrClass, bInherited)

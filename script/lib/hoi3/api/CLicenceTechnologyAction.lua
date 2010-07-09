@@ -6,7 +6,7 @@ CLicenceTechnologyAction = CDiplomaticAction:subclass('hoi3.api.CLicenceTechnolo
 
 -- Constructor signature
 -- information only, that will be used by documentation generator.
-CLiberateCountryCommand.constructorSignature = {'CCountryTag','CCountryTag'}
+CLicenceTechnologyAction.constructorSignature = {'CCountryTag','CCountryTag'}
 
 ---
 -- @since 1.3

@@ -12,7 +12,7 @@ CChangeSpyMission.constructorSignature = {'CCountryTag','CCountryTag',hoi3.TYPE_
 -- @since 1.3
 -- @param CCountryTag tag
 -- @param CCountryTag target
--- @param number mission
+-- @param number mission (mission may be a SpyMission object)
 -- @return CChangeSpyMission
 function CChangeSpyMission:initialize(tag, target, mission)
 	hoi3.assertNonStatic(self)

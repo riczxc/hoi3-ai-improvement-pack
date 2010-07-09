@@ -36,6 +36,11 @@ end
 
 ---
 -- @since 1.3
+-- @return string 
+hoi3.f(CCountryTag, 'GetTag', hoi3.TYPE_STRING)
+
+---
+-- @since 1.3
 -- @return bool 
 hoi3.f(CCountryTag, 'IsReal', hoi3.RAND_BOOL_VLIKELY)
 

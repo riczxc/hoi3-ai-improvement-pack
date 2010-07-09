@@ -17,8 +17,9 @@ hoi3.f(CTradeRoute, 'GetFrom', 'CCountryTag')
 
 ---
 -- @since 1.3
+-- @static
 -- @return unknown
-hoi3.f(CTradeRoute, 'GetCost', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+hoi3.fs(CTradeRoute, 'GetCost', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3

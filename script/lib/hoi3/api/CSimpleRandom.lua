@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CSimpleRandom = hoi3.Hoi3Object:subclass('hoi3.api.CSimpleRandom')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CFixedPoint.constructorSignature = {}
+
 ---
 -- @since 1.3
 -- @return CFixedPoint

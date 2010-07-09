@@ -39,13 +39,24 @@ hoi3.f(CTechnologyStatus, 'GetYear', 'CFixedPoint', 'CTechnology', hoi3.TYPE_NUM
 -- @since 1.3
 -- @param CSubUnitDefinition  unit
 -- @return bool
-hoi3.f(CTechnologyStatus, 'IsUnitAvailable', hoi3.TYPE_BOOLEAN)
+hoi3.f(CTechnologyStatus, 'IsUnitAvailable', hoi3.TYPE_BOOLEAN, 'CSubUnitDefinition')
+
+---
+-- @since 1.3
+-- @param CSubUnitDefinition  unit
+-- @return bool
+hoi3.f(CTechnologyStatus, 'IsSubUnitAvailable', hoi3.TYPE_BOOLEAN, 'CSubUnitDefinition')
  
 ---
 -- @since 1.3
 -- @param CBuilding  building
 -- @return bool 
 hoi3.f(CTechnologyStatus, 'IsBuildingAvailable', hoi3.TYPE_BOOLEAN, 'CBuilding')
+
+---
+-- @since 2.0
+-- @return unknown
+hoi3.f(CTechnologyStatus, 'GetIcModifier', hoi3.TYPE_UNKNOWN)
 
 function CTechnologyStatus.random()
 	return CTechnologyStatus()

@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CMilitaryConstruction = hoi3.Hoi3Object:subclass('hoi3.api.CMilitaryConstruction')
+CMilitaryConstruction = hoi3.api.CConstruction:subclass('hoi3.api.CMilitaryConstruction')
 
 ---
 -- @since 2.0
@@ -21,8 +21,8 @@ hoi3.f(CMilitaryConstruction, 'IsNaval', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 2.0
--- @return iterator<CBrigade>
-hoi3.f(CMilitaryConstruction, 'GetBrigades', 'iterator<CBrigade>')
+-- @return iterator<CBrigadeConstructionDefinition>
+hoi3.f(CMilitaryConstruction, 'GetBrigades', 'iterator<CBrigadeConstructionDefinition>')
 
 
 function CMilitaryConstruction.random()

@@ -38,16 +38,6 @@ hoi3.f(CCallAllyAction, 'GetVersus', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 -- @return unknown
 hoi3.f(CCallAllyAction, 'SetVersus', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
----
--- @since 1.3
--- @param boolean isLimited
--- @return void
-hoi3.f(CCallAllyAction, 'SetValue', hoi3.TYPE_VOID, hoi3.TYPE_BOOLEAN)
-
-function CCallAllyAction:SetValue(islimited)
-	self.isLimited = islimited
-end
-
 function CCallAllyAction:desc()
 	local str
 	if self.isLimited then str = "limited " end

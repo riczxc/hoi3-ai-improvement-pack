@@ -1,8 +1,8 @@
-require('hoi3.api.CList')
+require('hoi3.CList')
 
 module("hoi3.api", package.seeall)
 
-CSubUnitConstructionEntryList = CList:subclass('hoi3.api.CSubUnitConstructionEntryList')
+CSubUnitConstructionEntryList = hoi3.CList:subclass('hoi3.api.CSubUnitConstructionEntryList')
 
 ---
 -- @since 1.3

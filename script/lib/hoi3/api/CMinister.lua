@@ -18,8 +18,13 @@ hoi3.f(CMinister, 'GetIdeology', 'CIdeology')
 ---
 -- @since 2.0
 -- @param number positionIndex
--- @return CPersonality
-hoi3.f(CMinister, 'GetPersonality', 'CPersonality', 'CGovernmentPosition')
+-- @return CMinisterType
+hoi3.f(CMinister, 'GetPersonality', 'CMinisterType', 'CGovernmentPosition')
+
+---
+-- @since 2.0
+-- @return bool
+hoi3.f(CMinister, 'IsValid', hoi3.TYPE_BOOLEAN)
 
 function CMinister.random()
 	return CMinister()

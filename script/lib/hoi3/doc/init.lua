@@ -66,15 +66,14 @@ local file,err,str
 		end
 		
 		if className == "CString" or 
-			className == "CDate" or
-			className == "CFixedPoint" or
-			className == "CArrayFix" or
-			className == "CArrayFloat" then
+			className == "CEU3Date" or
+			string.find(className,"^CFixedPoint") ~= nil or
+			string.find(className,"^CArray") ~= nil then
 			addToCategory("08- Primitives classes",className, class)
 		end
 		
 		if class.getConstructorSignature ~= nil and 
-			class:getConstructorSignature() ~= nil then
+			class:getConstructorSignature(true) ~= nil then
 			addToCategory("09- With public constructor",className, class)
 		end
 		
@@ -198,8 +197,8 @@ function genWikiDoc(filename)
 		end
 		
 		file:title("Constructor summary",4)
-		if class.getConstructorSignature ~= nil and class:getConstructorSignature() ~= nil then
-			local signature = class:getConstructorSignature()
+		if class.getConstructorSignature ~= nil and class:getConstructorSignature(true) ~= nil then
+			local signature = class:getConstructorSignature(true)
 			str = className.."("
 			for i,v in ipairs(signature) do
 				str = str .. v
@@ -210,7 +209,7 @@ function genWikiDoc(filename)
 			str = str ..")"
 			file:write("<code language=\"lua\">".. str.. "</code>" .. CRLF)
 		else
-			file:write("There is no known constructor for this object.".. CRLF)
+			file:write("There is no constructor for this object, use API reference in order to find a method returning expected type.".. CRLF)
 		end
 		
 		if class.getApiFunctions then
@@ -234,6 +233,23 @@ function genWikiDoc(filename)
 							""
 						)
 					end
+				end
+				file:write("</table>"..CRLF)
+			end
+		end
+		
+		if class.getProperties then
+			local properties = class:getProperties()
+			if hoi3.countTableMember(properties) > 0 then 
+				file:title("Properties summary",4)
+				file:write("<table width=\"100%\" border=\"1\">"..CRLF)
+				file:htab("Property","Type","Since")
+				for propertyName, property in dtools.table.orderedPairs(properties) do	
+					file:tab(
+						"<font face=\"monospace\">`"..property[1].." "..property[2].."`</font>",
+						"<font face=\"monospace\">`"..propertyName.."`</font>",
+						""
+					)
 				end
 				file:write("</table>"..CRLF)
 			end

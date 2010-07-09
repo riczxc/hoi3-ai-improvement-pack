@@ -24,8 +24,8 @@ end
 ---
 -- @since 1.3
 -- @static
--- @return CDate
-hoi3.fs(CCurrentGameState, 'GetCurrentDate', 'CDate')
+-- @return CEU3Date
+hoi3.fs(CCurrentGameState, 'GetCurrentDate', 'CEU3Date')
 
 ---
 -- @since 1.3

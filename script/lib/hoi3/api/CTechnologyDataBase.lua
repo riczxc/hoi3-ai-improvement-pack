@@ -33,6 +33,16 @@ end
 ---
 -- @since 2.0
 -- @static
+-- @return iterator<CTechnology>
+hoi3.f(CTechnologyDataBase, 'GetTechnologies', 'iterator<CTechnology>')
+
+function CSubUnitDataBase.GetTechnologies()
+	return CTechnology:getInstances()
+end
+
+---
+-- @since 2.0
+-- @static
 -- @return CTechnology
 hoi3.fs(CTechnologyDataBase, 'GetTechnology', 'CTechnology', hoi3.TYPE_STRING)
 

@@ -4,7 +4,7 @@
 module( "hoi3.tests.date", package.seeall, lunit.testcase )
 
 function testDate()
-	local d = hoi3.api.CDate.random()
+	local d = hoi3.api.CEU3Date.random()
 	assert_number(d:GetDayOfMonth())
 	assert_true(d:GetDayOfMonth() >= 1)
 	assert_true(d:GetDayOfMonth() <= 31)

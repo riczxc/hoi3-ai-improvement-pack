@@ -6,7 +6,7 @@ CDebtAction = CDiplomaticAction:subclass('hoi3.api.CDebtAction')
 
 -- Constructor signature
 -- information only, that will be used by documentation generator.
-CConstructBuildingCommand.constructorSignature = {'CCountryTag','CCountryTag' }
+CDebtAction.constructorSignature = {'CCountryTag','CCountryTag' }
 
 ---
 -- @since 1.3
