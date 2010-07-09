@@ -4,6 +4,109 @@ local CRLF = "\n"
 
 require("hoi3.api")
 
+function genWikiToc(filename)
+local file,err,str
+
+	--
+	-- File management
+	--
+	-- create a pseudo file that writes to a string and return the string
+	if not filename then
+		file =  { write = function( self,newstr ) self.str = self.str..newstr end, str = "" }
+		charS,charE = "",""
+		-- write table to tmpfile
+	elseif filename == true or filename == 1 then
+		charS,charE,file = "","",io.tmpfile()
+		-- write table to file
+			-- use io.open here rather than io.output, since in windows when clicking on a file opened with io.output will create an error
+	else
+		file,err = io.open( filename, "w" )
+		if err then return _,err end
+	end
+	
+	function file:title(str, level)
+		local level = level or 1
+		local tag = string.rep("=",level)
+		
+		self:write(tag .. str .. tag .. CRLF)
+	end
+	
+	local t = {}
+	
+	local function addToCategory(cat, className, class)
+		t[cat] = t[cat] or {}
+		t[cat][className] = class   
+	end  
+	
+	for className, class in dtools.table.orderedPairs(hoi3.api.getCompleteApi()) do
+		if hoi3.api[className] ~= nil then
+			addToCategory("01- API classes",className, class)
+		else
+			addToCategory("02- Non-API classes",className, class)
+		end
+		
+		if middleclass.subclassOf(hoi3.MultitonObject, class) then
+			addToCategory("03- Named object classes",className, class)
+		end
+		
+		if className:find("DataBase") then
+			addToCategory("04- DataBase classes",className, class)
+		end
+		
+		if middleclass.subclassOf(hoi3.api.CCommand, class) then
+			addToCategory("05- Command classes",className, class)
+		end
+		
+		if middleclass.subclassOf(hoi3.api.CAgent, class) then
+			addToCategory("06- Minister classes",className, class)
+		end
+		
+		if middleclass.subclassOf(hoi3.api.CAction, class) then
+			addToCategory("07- Action classes",className, class)
+		end
+		
+		if className == "CString" or 
+			className == "CDate" or
+			className == "CFixedPoint" or
+			className == "CArrayFix" or
+			className == "CArrayFloat" then
+			addToCategory("08- Primitives classes",className, class)
+		end
+		
+		if class.getConstructorSignature ~= nil and 
+			class:getConstructorSignature() ~= nil then
+			addToCategory("09- With public constructor",className, class)
+		end
+		
+		if class.getConstants ~= nil and 
+			class:getConstants() ~= nil and
+			hoi3.countTableMember(class:getConstants()) > 0 then
+			addToCategory("10- With static constants",className, class)
+		end
+	end
+	
+	for group, v in dtools.table.orderedPairs(t) do
+		file:write("  * [LUAClassReference "..group.."]"..CRLF)
+		for className, class in dtools.table.orderedPairs(v) do
+			file:write("    * [LUAClassReference#"..className.." "..className.."]"..CRLF)
+		end
+	end
+	
+	if not filename then
+		-- set marker for stringtable
+		return file.str.."--|"
+	-- return stringttable from file
+	elseif filename == true or filename == 1 then
+		file:seek ( "set" )
+		-- no need to close file, it gets closed and removed automatically
+		-- set marker for stringtable
+		return file:read( "*a" ).."--|"
+	-- close file and return 1
+	else
+		file:close()
+		return 1
+	end
+end
 
 function genWikiDoc(filename)
 	local file,err,str
