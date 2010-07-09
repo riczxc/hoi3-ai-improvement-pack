@@ -10,12 +10,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CAI==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -67,6 +71,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CAIAgent==
 Implements [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -81,6 +87,8 @@ Implements [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObje
 ==CAIEspionageMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -96,6 +104,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ==CAIForeignMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -116,6 +126,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ==CAIIntel==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CAIIntel(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -132,6 +144,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CAIPoliticsMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -148,6 +162,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ==CAIProductionMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -167,6 +183,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ==CAIStrategy==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -209,6 +227,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CAISubscriber==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -220,6 +240,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CAITechMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -239,6 +261,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 ==CAction==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -250,12 +274,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CAlignment==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CAllianceAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CAllianceAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -273,6 +301,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CArrayFix==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CArrayFix(number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -285,6 +315,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CArrayFloat==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CArrayFloat(number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -297,6 +329,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CBrigade==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -308,6 +342,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CBuilding==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -320,6 +356,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CBuildingDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -332,6 +370,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CCallAllyAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CCallAllyAction(CCountryTag, CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -351,6 +391,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CCancelUnitConstructionCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CCancelUnitConstructionCommand(CCountryTag, CID)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -363,6 +405,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CChangeInvestmentCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CChangeInvestmentCommand(CCountryTag, number, ...)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -375,6 +419,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CChangeLawCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CChangeLawCommand(CCountryTag, CLaw, CLawGroup)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -387,6 +433,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CChangeLeadershipCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CChangeLeadershipCommand(CCountryTag, CFixedPoint, CFixedPoint, ...)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -399,6 +447,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CChangePriorityCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CChangePriorityCommand(CCountryTag, CID, number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -411,6 +461,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CChangeSpyMission==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CChangeSpyMission(CCountryTag, CCountryTag, number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -423,6 +475,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CChangeSpyPriority==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CChangeSpyPriority(CCountryTag, CCountryTag, number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -435,6 +489,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CCommand==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -447,6 +503,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CConstructBuildingCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CConstructBuildingCommand(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -459,6 +517,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CConstructConvoyCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CConstructConvoyCommand(CCountryTag, boolean, number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -471,6 +531,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CConstructSingleUnitCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -483,6 +545,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CConstructUnitCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CConstructUnitCommand(CCountryTag, SubUnitList, number, number, boolean, CCountryTag, CID)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -495,6 +559,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CConstruction==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -508,6 +574,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CContinent==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -520,6 +588,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CConvoy==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -534,6 +604,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CCountry==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -668,6 +740,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CCountryDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -679,6 +753,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CCountryList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -690,6 +766,8 @@ Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em><
 ==CCountryTag==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -705,6 +783,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CCountryTagList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -716,6 +796,8 @@ Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em><
 ==CCurrentGameState==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -735,6 +817,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CDate==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -750,6 +834,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CDebtAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -767,6 +853,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CDecision==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -779,6 +867,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CDeclareWarAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CDeclareWarAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -796,6 +886,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CDiplomacyStatus==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -825,6 +917,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CDiplomaticAction==
 Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -849,6 +943,8 @@ Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</
 ==CDistributionSetting==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -874,6 +970,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CEmbargoAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CEmbargoAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -891,6 +989,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CFaction==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -909,6 +1009,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CFactionAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CFactionAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -926,6 +1028,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CFixedPoint==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CFixedPoint(number)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -939,6 +1043,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CFlags==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -950,6 +1056,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CGoodsPool==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -974,6 +1082,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CGovernment==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -985,12 +1095,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CGovernmentPosition==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CGovernmentPositionDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1002,6 +1116,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CGuaranteeAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CGuaranteeAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1019,12 +1135,16 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CID==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CID()</code>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CIdeology==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1036,6 +1156,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CIdeologyData==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1048,6 +1170,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CIdeologyGroup==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1060,6 +1184,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CInfluenceAllianceLeader==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CInfluenceAllianceLeader(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1077,6 +1203,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CInfluenceNation==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CInfluenceNation(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1094,6 +1222,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CLaw==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1109,6 +1239,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CLawDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1125,6 +1257,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CLawGroup==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1138,6 +1272,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CLiberateCountryCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CLiberateCountryCommand(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1150,6 +1286,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CLicenceTechnologyAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1171,12 +1309,16 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CList==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CMilitaryAccessAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CMilitaryAccessAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1194,6 +1336,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CMilitaryConstruction==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1208,6 +1352,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CMinister==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1222,6 +1368,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CModifier==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
@@ -1314,6 +1462,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CNapAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CNapAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1331,6 +1481,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CNullFaction==
 Implements [#CFaction CFaction], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1349,6 +1501,8 @@ Implements [#CFaction CFaction], <font color="grey"><em>[#MultitonObject Multito
 ==CNullTag==
 Implements [#CCountryTag CCountryTag], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CNullTag()</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1364,6 +1518,8 @@ Implements [#CCountryTag CCountryTag], <font color="grey"><em>[#MultitonObject M
 ==CNullTechnology==
 Implements [#CTechnology CTechnology], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1385,6 +1541,8 @@ Implements [#CTechnology CTechnology], <font color="grey"><em>[#MultitonObject M
 ==COfferMilitaryAccessAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">COfferMilitaryAccessAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1402,6 +1560,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CPeaceAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CPeaceAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1419,6 +1579,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CPersonality==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1431,6 +1593,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CProvince==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1457,6 +1621,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CProvinceBuilding==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1469,12 +1635,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CResearchBonus==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CResourceValues==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1486,6 +1656,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CRule==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
@@ -1500,6 +1672,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CSendExpeditionaryForceAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CSendExpeditionaryForceAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1526,6 +1700,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CSetFlagCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CSetFlagCommand(CCountryTag, string, boolean)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1538,6 +1714,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CSetVariableCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CSetVariableCommand(CCountryTag, string, CFixedPoint)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1550,6 +1728,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CSimpleRandom==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1564,6 +1744,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CSpyPresence==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1585,6 +1767,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CStartResearchCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CStartResearchCommand(CCountryTag, CTechnology)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1597,6 +1781,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CStrategicWarfare==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1610,6 +1796,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CString==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CString(string)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1622,12 +1810,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CSubUnitConstructionEntry==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CSubUnitConstructionEntryList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1645,6 +1837,8 @@ Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em><
 ==CSubUnitDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1656,6 +1850,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CSubUnitDefinition==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1690,6 +1886,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CTechnology==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1711,6 +1909,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CTechnologyCategory==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1723,6 +1923,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CTechnologyDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1736,6 +1938,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==CTechnologyFolder==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1749,6 +1953,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 ==CTechnologyStatus==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1766,6 +1972,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CTheatre==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1777,6 +1985,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CToggleMobilizationCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CToggleMobilizationCommand(CCountryTag, boolean)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1789,6 +1999,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 ==CTradeAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+<code language="lua">CTradeAction(CCountryTag, CCountryTag)</code>
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1811,6 +2023,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 ==CTradeRoute==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1830,6 +2044,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CUnit==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1843,6 +2059,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CUnitList==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1862,6 +2080,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ==CWar==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1880,6 +2100,8 @@ Implements <font color="grey"><em>[#Object Object]</em></font>
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -1888,12 +2110,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==Object==
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -1902,12 +2128,16 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==SpyMission==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
@@ -1933,6 +2163,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 ==SubUnitList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constructor summary====
+There is no known constructor for this object.
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 --|
