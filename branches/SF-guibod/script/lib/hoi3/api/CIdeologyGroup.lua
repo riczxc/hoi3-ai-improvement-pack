@@ -4,10 +4,20 @@ module("hoi3.api", package.seeall)
 
 CIdeologyGroup = hoi3.MultitonObject:subclass('hoi3.api.CIdeologyGroup')
 
-function CIdeologyGroup:initialize(name)
+function CIdeologyGroup:initialize(key)
 	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
 	
-	self.name = name
+	self.key = key
+end
+
+---
+-- @since 1.3
+-- @return CString
+hoi3.f(CIdeologyGroup, 'GetKey', 'CString')
+
+function CIdeologyGroup:GetKeyImpl()
+	return CString(self.key)
 end
 
 ---

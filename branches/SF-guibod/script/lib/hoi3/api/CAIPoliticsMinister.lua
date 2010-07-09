@@ -12,8 +12,3 @@ CAIPoliticsMinister.initialize = CAIAgent.initalize
 -- @param CCountryTag countryTag
 -- @return bool
 hoi3.f(CAIPoliticsMinister, 'IsCapitalSafeToLiberate', hoi3.TYPE_BOOLEAN, 'CCountryTag')
-
----
--- @since 2.0
--- @return iterator<CMinister>
-hoi3.f(CAIPoliticsMinister, 'GetPossibleMinisters', 'iterator<CMinister>')

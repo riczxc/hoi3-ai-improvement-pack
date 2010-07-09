@@ -34,7 +34,7 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	self.druns = {}
 	if self.ret == hoi3.TYPE_UNKNOWN or
 		self.ret == hoi3.TYPE_VOID or
-		(self.ret.type ~= nil and self.ret.type == hoi3.TYPE_VOID) then
+		(self.ret ~= nil and self.ret.type ~= nil and self.ret.type == hoi3.TYPE_VOID) then
 		self.doSave = false
 	else
 		self.doSave = true
@@ -355,3 +355,4 @@ function FunctionObject:runAndSave(userdata)
 			end
 		end 
 	end
+end

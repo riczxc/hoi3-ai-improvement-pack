@@ -103,8 +103,8 @@ end
 
 ---
 -- @since 1.3
--- @return CUnitList
-hoi3.f(CProvince, 'GetUnits', 'CUnitList')
+-- @return iterator<CUnit>
+hoi3.f(CProvince, 'GetUnits', 'iterator<CUnit>')
 
 ---
 -- @since 1.3

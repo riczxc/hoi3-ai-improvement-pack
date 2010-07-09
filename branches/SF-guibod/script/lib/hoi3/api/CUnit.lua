@@ -6,7 +6,7 @@ CUnit = hoi3.Hoi3Object:subclass('hoi3.api.CUnit')
 
 ---
 -- @since 1.3
--- @return iterator<CUnit> (or CSubUnitDefinition ?) 
+-- @return iterator<CUnit>
 hoi3.f(CUnit, 'GetChildren', 'iterator<CUnit>')
 
 ---

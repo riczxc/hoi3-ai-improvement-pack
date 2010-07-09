@@ -78,8 +78,8 @@ hoi3.f(CAI, 'GetCountryAlignmentDistance', 'CFixedPoint', 'CCountry', 'CCountry'
 
 ---
 -- @since 1.3
--- @return CDate
-hoi3.f(CAI, 'GetCurrentDate', 'CDate')
+-- @return CEU3Date
+hoi3.f(CAI, 'GetCurrentDate', 'CEU3Date')
 
 function CAI:GetCurrentDateImpl()
 	return CCurrentGameState.GetCurrentDate()
@@ -95,6 +95,12 @@ hoi3.f(CAI, 'GetDeployedSubUnitCounts', 'CArrayFloat')
 -- @return string
 -- @static
 hoi3.fs(CAI, 'GetModDirectory', hoi3.TYPE_STRING)
+
+---
+-- @since 2.0
+-- @return string
+-- @static
+hoi3.fs(CAI, 'GetCommonModDirectory', hoi3.TYPE_STRING)
 
 ---
 -- @since 1.3
@@ -254,3 +260,9 @@ function CAI:PrintConsoleImpl(message)
 	print(message)
 	dtools.info(message)
 end
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CAI, 'CalculateFriendOfFaction', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)

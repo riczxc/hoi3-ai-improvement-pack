@@ -292,7 +292,7 @@ function CCountry:GetFactionImpl()
 	if self:HasFaction() then
 		return CFaction.random()
 	else
-		return CNullFaction()
+		return nil
 	end
 end
 
@@ -452,7 +452,7 @@ hoi3.f(CCountry, 'GetOfficerRatio', 'CFixedPoint')
 hoi3.f(CCountry, 'GetOverlord', 'CCountryTag')
 
 function CCountry:GetOverlordImpl()
-	if self:isPuppet() then
+	if self:IsPuppet() then
 		return CCountryTag.random()
 	end
 end
@@ -624,12 +624,6 @@ hoi3.f(CCountry, 'GetUsedIC', 'CFixedPoint')
 
 ---
 -- @since 1.4
--- @param string key
--- @return CFixedPoint
-hoi3.f(CCountry, 'GetVariable', 'CFixedPoint', hoi3.TYPE_STRING)
-
----
--- @since 1.4
 -- @return CVariables
 hoi3.f(CCountry, 'GetVariables', 'CVariables')
 
@@ -752,7 +746,7 @@ hoi3.f(CCountry, 'IsNeighbourToFactionHostile', hoi3.TYPE_BOOLEAN, 'CFaction', h
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CCountry, 'isPuppet', hoi3.TYPE_BOOLEAN)
+hoi3.f(CCountry, 'IsPuppet', hoi3.TYPE_BOOLEAN)
 
 ---
 -- @since 1.3
@@ -797,3 +791,58 @@ hoi3.f(CCountry, 'GetPossibleMinisters', 'iterator<CMinister>')
 function CCountry.random()
 	return hoi3.randomTableMember(CCountry:getInstances())
 end
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'GetDailyNeed', 'CFixedPoint', hoi3.TYPE_NUMBER)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'GetNumberOfFreeSpies', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'CanBreakNAPWith', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'GetFlags', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'HasIncomingTradeOffer', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return iterator<unknown>
+hoi3.f(CCountry, 'GetHistoricalMinisters', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return iterator<unknown>
+hoi3.f(CCountry, 'GetMinisters', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'AICalculateExpense', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+---
+-- @since 2.0
+-- @param unknown
+-- @return unknown
+hoi3.f(CCountry, 'GetAreActingCapitalsOnSameContinent', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)

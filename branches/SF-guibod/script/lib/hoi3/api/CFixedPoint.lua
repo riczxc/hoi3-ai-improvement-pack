@@ -8,9 +8,39 @@ CFixedPoint = hoi3.Hoi3Object:subclass('hoi3.api.CFixedPoint')
 -- information only, that will be used by documentation generator.
 CFixedPoint.constructorSignature = {hoi3.TYPE_NUMBER}
 
+--[[
+TODO implement this :
+.def( constructor<>() )
+        .def( constructor<float>() )
+        .def( "Get", &CFixedPoint::Get )
+        .def( "GetTruncated", &CFixedPoint::GetTruncated )
+        .def( const_self + const_self )
+        .def( const_self - const_self )
+        .def( const_self * const_self )
+        .def( const_self / const_self )
+        .def( const_self == const_self )
+        .def( const_self < const_self )
+        .def( const_self <= const_self )
+        .def( const_self + float() )
+        .def( const_self - float() )
+        .def( const_self * float() )
+        .def( const_self / float() )
+        .def( const_self == float() )
+        .def( const_self < float() )
+        .def( const_self <= float() )
+        .def( float() + const_self )
+        .def( float() - const_self )
+        .def( float() * const_self )
+        .def( float() / const_self )
+        .def( float() == const_self )
+        .def( float() < const_self )
+        .def( float() <= const_self )
+        .def( tostring(const_self) ),
+]]
+
 ---
 -- @since 1.3
--- @param CCountryTag actor
+-- @param number
 -- @return CFixedPoint
 function CFixedPoint:initialize(value)
 	hoi3.assertNonStatic(self)
@@ -35,15 +65,6 @@ hoi3.f(CFixedPoint, 'GetTruncated', hoi3.TYPE_NUMBER)
 
 function CFixedPoint:GetTruncatedImpl()
 	return math.floor(self.value)
-end
-
----
--- @since 1.3
--- @return number
-hoi3.f(CFixedPoint, 'GetRounded', hoi3.TYPE_NUMBER)
-
-function CFixedPoint:GetRoundedImpl()
-  	return math.floor(self.value + 0.5)
 end
 
 

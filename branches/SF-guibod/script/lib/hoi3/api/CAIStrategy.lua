@@ -150,3 +150,8 @@ hoi3.f(CAIStrategy, 'PrepareWar', hoi3.TYPE_VOID, 'CCountryTag', hoi3.TYPE_NUMBE
 -- @param CDecision decision
 -- @return void
 hoi3.f(CAIStrategy, 'PrepareWarDecision', hoi3.TYPE_VOID, 'CCountryTag', hoi3.TYPE_NUMBER, 'CDecision')
+
+---
+-- @since 1.3
+-- @return unknown
+hoi3.f(CAIStrategy, 'PrepareLimitedWar', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)

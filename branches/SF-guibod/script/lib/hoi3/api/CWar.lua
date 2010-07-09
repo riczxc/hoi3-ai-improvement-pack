@@ -32,8 +32,8 @@ hoi3.f(CWar, 'GetDefenders', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
--- @return CDate
-hoi3.f(CWar, 'GetStartDate', 'CDate')
+-- @return CEU3Date
+hoi3.f(CWar, 'GetStartDate', 'CEU3Date')
 
 ---
 -- @since 1.3

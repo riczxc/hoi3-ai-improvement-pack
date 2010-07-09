@@ -50,6 +50,11 @@ hoi3.f(CDiplomacyStatus, 'GetTradeRoutes', 'iterator<CTradeRoute>')
 hoi3.f(CDiplomacyStatus, 'GetValue', 'CFixedPoint')
 
 ---
+-- @since 2.0
+-- @return number
+hoi3.f(CDiplomacyStatus, 'GetFloatValue', hoi3.TYPE_NUMBER)
+
+---
 -- @since 1.3
 -- @return CWar
 hoi3.f(CDiplomacyStatus, 'GetWar', 'CWar')
