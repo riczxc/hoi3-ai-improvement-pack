@@ -10,12 +10,14 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAI==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AlreadyTradingDisabledResource`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AlreadyTradingResourceOtherWay`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
@@ -50,46 +52,72 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrintConsole`(string)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`RequestSubUnit`(unknown)</font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CAI._DIPLOMACY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._INTELLIGENCE_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._POLITICS_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._PRODUCTION_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._TECHNOLOGY_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIAgent==
 Implements [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIEspionageMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAligningToFaction`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIForeignMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`ClearWarProposal`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`ExecuteDiploDecisions`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetProposedWarTarget`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`PercOccupied`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`Propose`([#CDiplomaticAction CDiplomaticAction], number)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`ProposeWar`([#CCountryTag CCountryTag], number)</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIIntel==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CalculateOurMilitaryStrength`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CalculateTheirPercievedMilitaryStrengh`()</font></td><td></td></tr>
@@ -98,35 +126,49 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetUncertaintyFactor`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasNoIntel`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIPoliticsMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">iterator`<`[#CMinister CMinister]></font></td><td><font face="monospace">`GetPossibleMinisters`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCapitalSafeToLiberate`([#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIProductionMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CountEscortsUnderConstruction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CountTotalDesiredEscorts`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`CountTransportsUnderConstruction`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDesperation`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrioritizeBuildQueue`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAIStrategy==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`AddSubUnit`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`CancelPrepareWar`([#CCountryTag CCountryTag])</font></td><td></td></tr>
@@ -152,197 +194,348 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrepareWar`([#CCountryTag CCountryTag], number)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrepareWarDecision`([#CCountryTag CCountryTag], number, [#CDecision CDecision])</font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_BALANCED_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_DIPLOMAT_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_INDUSTRIALIST_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_MILITARIST_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_UNDEFINED_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAISubscriber==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`WantTicks`(unknown)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAITechMinister==
 Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`([#CTechnology CTechnology])</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDistanceFrom`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetFolderModifers`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLastDrift`([#CIdeologyGroup CIdeologyGroup])</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetTechModifers`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAction==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`Create`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAlignment==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CAllianceAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CArrayFix==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetAt`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, [#CFixedPoint CFixedPoint])</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CArrayFloat==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAt`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, number)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CBrigade==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CSubUnitDefinition CSubUnitDefinition]</font></td><td><font face="monospace">`GetType`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CBuilding==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CBuildingDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static [#CBuilding CBuilding]</font></td><td><font face="monospace">`GetBuilding`(string)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CBuilding CBuilding]</font></td><td><font face="monospace">`GetBuildingFromIndex`(number)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCallAllyAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetVersus`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`SetVersus`(unknown)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCancelUnitConstructionCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CChangeInvestmentCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CChangeLawCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CChangeLeadershipCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CChangePriorityCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CChangeSpyMission==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CChangeSpyPriority==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CCommand==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CCommand CCommand]</font></td><td><font face="monospace">`Clone`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CConstructBuildingCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CConstructConvoyCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CConstructSingleUnitCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CConstructUnitCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CConstruction==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCost`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CMilitaryConstruction CMilitaryConstruction]</font></td><td><font face="monospace">`GetMilitary`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMilitary`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CContinent==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
 <tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CConvoy==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDesiredEscorts`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDesiredTransports`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetEfficiency`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`IsForTradeRoute`(unknown)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCountry==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">iterator`<`[#CTradeRoute CTradeRoute]></font></td><td><font face="monospace">`AIGetTradeRoutes`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeologyData CIdeologyData]</font></td><td><font face="monospace">`AccessIdeologyOrganization`()</font></td><td></td></tr>
@@ -469,30 +662,36 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`NeedConvoyToTradeWith`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`isPuppet`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCountryDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static [#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`(string)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCountryList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsEnemy`(unknown)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCountryTag==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`()</font></td><td></td></tr>
 <tr><td><font face="monospace">nil</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
@@ -500,21 +699,25 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsReal`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCountryTagList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsEnemy`(unknown)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CCurrentGameState==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetAIRand`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static iterator`<`[#CCountry CCountry]></font></td><td><font face="monospace">`GetCountries`()</font></td><td></td></tr>
@@ -526,12 +729,14 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 <tr><td><font face="monospace">static [#CProvince CProvince]</font></td><td><font face="monospace">`GetProvince`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">static boolean</font></td><td><font face="monospace">`IsGlobalFlagSet`(string)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CDate==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`AddDays`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDayOfMonth`()</font></td><td></td></tr>
@@ -539,30 +744,60 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalDays`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetYear`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CDebtAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CDecision==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">nil</font></td><td><font face="monospace">`IsPotential`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CDeclareWarAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CDiplomacyStatus==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`AllowDebts`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetThreat`()</font></td><td></td></tr>
@@ -584,13 +819,16 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranting`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetValue`([#CFixedPoint CFixedPoint])</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CDiplomaticAction==
 Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAIAcceptance`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetType`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetValue`(unknown)</font></td><td></td></tr>
@@ -598,26 +836,63 @@ Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetValue`(boolean)</font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CDiplomaticAction.ACCEPT`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDiplomaticAction.DECLINE`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDiplomaticAction.PROPOSE`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CDistributionSetting==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNeeded`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetPercentage`(unknown)</font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_DIPLOMACY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_ESPIONAGE_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_NCO_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_RESEARCH_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_CONSUMER_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_PRODUCTION_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_REINFORCEMENT_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_SUPPLY_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_UPGRADE_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CEmbargoAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CFaction==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetFactionLeader`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeologyGroup CIdeologyGroup]</font></td><td><font face="monospace">`GetIdeologyGroup`()</font></td><td></td></tr>
@@ -628,113 +903,199 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CFactionAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CFixedPoint==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`Get`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetRounded`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTruncated`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CFlags==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFlagSet`(string)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CGoodsPool==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`Get`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFloat`(number)</font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CGoodsPool._CRUDE_OIL_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._ENERGY_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._FUEL_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._GC_NUMOF_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._METAL_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._MONEY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._RARE_MATERIALS_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._SUPPLIES_`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CGovernment==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CGovernmentPosition==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CGovernmentPositionDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static [#CGovernmentPosition CGovernmentPosition]</font></td><td><font face="monospace">`GetGovernmentPositionByIndex`(number)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CGuaranteeAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CID==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CIdeology==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CIdeologyGroup CIdeologyGroup]</font></td><td><font face="monospace">`GetGroup`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CIdeologyData==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`CalculateTotalSum`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetValue`([#CIdeology CIdeology])</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CIdeologyGroup==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetPosition`(unknown)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CInfluenceAllianceLeader==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CInfluenceNation==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CLaw==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CLawGroup CLawGroup]</font></td><td><font face="monospace">`GetGroup`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
@@ -742,12 +1103,14 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`ValidFor`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CLawDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static iterator`<`[#CLawGroup CLawGroup]></font></td><td><font face="monospace">`GetGroups`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CLaw CLaw]</font></td><td><font face="monospace">`GetLaw`(number)</font></td><td></td></tr>
@@ -756,79 +1119,220 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLawGroups`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetNumberOfLaws`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CLawGroup==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CLiberateCountryCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CLicenceTechnologyAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMoney`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetParalell`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSerial`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CSubUnitDefinition CSubUnitDefinition]</font></td><td><font face="monospace">`GetSubunit`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CList==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CMilitaryAccessAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CMilitaryConstruction==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">iterator`<`[#CBrigade CBrigade]></font></td><td><font face="monospace">`GetBrigades`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAir`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsLand`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsNaval`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CMinister==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanTakePosition`([#CGovernmentPosition CGovernmentPosition])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeology CIdeology]</font></td><td><font face="monospace">`GetIdeology`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CPersonality CPersonality]</font></td><td><font face="monospace">`GetPersonality`([#CGovernmentPosition CGovernmentPosition])</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetValue`(number)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CModifier==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_AIR_CAPACITY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_AIR_ORGANISATION_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ALIGN_TOWARDS_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ATTACK_REINFORCE_CHANCE_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ATTRITION_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COASTAL_FORT_LEVEL_`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COMBAT_MOVEMENT_SPEED_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COMBAT_WIDTH_`</font></td><td><font face="monospace">8</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COUNTER_ESPIONAGE_`</font></td><td><font face="monospace">9</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COUNTER_INTELLIGENCE_`</font></td><td><font face="monospace">10</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_DEFEND_REINFORCE_CHANCE_`</font></td><td><font face="monospace">11</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_DISSENT_`</font></td><td><font face="monospace">12</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_DRIFT_SPEED_`</font></td><td><font face="monospace">13</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ESPIONAGE_BONUS_`</font></td><td><font face="monospace">14</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_FORT_LEVEL_`</font></td><td><font face="monospace">15</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_CRUDE_OIL_`</font></td><td><font face="monospace">16</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_ENERGY_`</font></td><td><font face="monospace">17</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_FUEL_`</font></td><td><font face="monospace">18</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_IC_`</font></td><td><font face="monospace">19</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_INFRASTRUCTURE_`</font></td><td><font face="monospace">20</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_LEADERSHIP_`</font></td><td><font face="monospace">21</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_`</font></td><td><font face="monospace">22</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MANPOWER_`</font></td><td><font face="monospace">23</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MANPOWER_MODIFIER_`</font></td><td><font face="monospace">24</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_METAL_`</font></td><td><font face="monospace">25</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MONEY_`</font></td><td><font face="monospace">26</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_RARE_MATERIALS_`</font></td><td><font face="monospace">27</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_REVOLT_RISK_`</font></td><td><font face="monospace">28</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_SUPPLIES_`</font></td><td><font face="monospace">29</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_IC_`</font></td><td><font face="monospace">30</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_INCORPORATE_COST_`</font></td><td><font face="monospace">31</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_INDUSTRIAL_EFFICIENCY_`</font></td><td><font face="monospace">32</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_INFRASTRUCTURE_`</font></td><td><font face="monospace">33</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LAND_ORGANISATION_`</font></td><td><font face="monospace">34</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_ANTI_AIR_`</font></td><td><font face="monospace">35</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_CRUDE_OIL_`</font></td><td><font face="monospace">36</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_ENERGY_`</font></td><td><font face="monospace">37</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_FUEL_`</font></td><td><font face="monospace">38</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_IC_`</font></td><td><font face="monospace">39</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_INFRASTRUCTURE_`</font></td><td><font face="monospace">40</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_LEADERSHIP_`</font></td><td><font face="monospace">41</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_LEADERSHIP_MODIFIER_`</font></td><td><font face="monospace">42</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MANPOWER_`</font></td><td><font face="monospace">43</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MANPOWER_MODIFIER_`</font></td><td><font face="monospace">44</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_METAL_`</font></td><td><font face="monospace">45</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MONEY_`</font></td><td><font face="monospace">46</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_PARTISAN_SUPPORT_`</font></td><td><font face="monospace">47</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_RARE_MATERIALS_`</font></td><td><font face="monospace">48</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_REVOLT_RISK_`</font></td><td><font face="monospace">49</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_SUPPLIES_`</font></td><td><font face="monospace">50</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_MAX_WAR_EXHAUSTION_`</font></td><td><font face="monospace">51</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_MINIMUM_REVOLT_RISK_`</font></td><td><font face="monospace">52</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NATIONAL_UNITY_`</font></td><td><font face="monospace">53</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NATIONAL_UNITY_EFFECT_`</font></td><td><font face="monospace">54</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_BASE_EFFICIENCY_`</font></td><td><font face="monospace">55</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_CAPACITY_`</font></td><td><font face="monospace">56</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_ORGANISATION_`</font></td><td><font face="monospace">57</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NEUTRALITY_CHANGE_`</font></td><td><font face="monospace">58</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFICER_RECRUITMENT_`</font></td><td><font face="monospace">59</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_INDUSTRY_INTEL_`</font></td><td><font face="monospace">60</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_LAND_INTEL_`</font></td><td><font face="monospace">61</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_NAVAL_INTEL_`</font></td><td><font face="monospace">62</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_POLITICAL_INTEL_`</font></td><td><font face="monospace">63</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ORG_REGAIN_`</font></td><td><font face="monospace">64</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PARTISAN_EFFICENCY_`</font></td><td><font face="monospace">65</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PEACETIME_MANPOWER_ROTATION_`</font></td><td><font face="monospace">68</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_`</font></td><td><font face="monospace">66</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PEACE_OFFMAP_INTEL_`</font></td><td><font face="monospace">67</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RADAR_LEVEL_`</font></td><td><font face="monospace">69</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RESEARCH_EFFICIENCY_`</font></td><td><font face="monospace">70</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RESERVES_PENALTY_SIZE_`</font></td><td><font face="monospace">71</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RULING_PARTY_SUPPORT_`</font></td><td><font face="monospace">72</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_SUPPLY_CONSUMPTION_`</font></td><td><font face="monospace">73</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_SUPPLY_THROUGHPUT_`</font></td><td><font face="monospace">74</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_SUSEPTIBILITY_`</font></td><td><font face="monospace">75</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_TERRITORIAL_PRIDE_`</font></td><td><font face="monospace">76</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_THREAT_IMPACT_`</font></td><td><font face="monospace">77</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_RECRUITMENT_TIME_`</font></td><td><font face="monospace">78</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_REPAIR_`</font></td><td><font face="monospace">79</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_START_EXPERIENCE_`</font></td><td><font face="monospace">80</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_WAR_CONSUMER_GOODS_DEMAND_`</font></td><td><font face="monospace">81</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_WAR_EXHAUSTION_`</font></td><td><font face="monospace">82</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CNapAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CNullFaction==
 Implements [#CFaction CFaction], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetFactionLeader`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetIdeologyGroup`()</font></td><td></td></tr>
@@ -839,38 +1343,96 @@ Implements [#CFaction CFaction], <font color="grey"><em>[#MultitonObject Multito
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetTag`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CNullTag==
 Implements [#CCountryTag CCountryTag], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>nil</i></font></td><td><font face="monospace" color="grey"><i>`GetIndex`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetTag`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsReal`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CNullTechnology==
 Implements [#CTechnology CTechnology], <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`CanResearch`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`CanUpgrade`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetDifficulty`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`GetEnableUnit`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CTechnologyFolder CTechnologyFolder]</i></font></td><td><font face="monospace" color="grey"><i>`GetFolder`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetIndex`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CString CString]</i></font></td><td><font face="monospace" color="grey"><i>`GetKey`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetOnCompletion`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>iterator`<`[#CResearchBonus CResearchBonus]></i></font></td><td><font face="monospace" color="grey"><i>`GetResearchBonus`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsOneLevelOnly`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==COfferMilitaryAccessAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CPeaceAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CPersonality==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CProvince==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CProvinceBuilding CProvinceBuilding]</font></td><td><font face="monospace">`GetBuilding`([#CBuilding CBuilding])</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCoastalFortLevel`()</font></td><td></td></tr>
@@ -889,70 +1451,121 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`HasBuilding`([#CBuilding CBuilding])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFrontProvince`(boolean)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CProvinceBuilding==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCurrent`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetMax`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CResearchBonus==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CResourceValues==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`GetResourceValues`([#CCountry CCountry], number)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CRule==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CRule._RULE_ALLIANCE_GUARANTEE_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_FREE_RESOURCE_GIFTS_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_LIMITED_WAR_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_NONE_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CSendExpeditionaryForceAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetClaimType`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTag`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetUnit`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CSendExpeditionaryForceAction.SEND`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CSendExpeditionaryForceAction.TAKE`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CSetFlagCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CSetVariableCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CSimpleRandom==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">GetFixedPoint</font></td><td><font face="monospace">`GetFixedPoint`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetInteger`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetNumber`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`Seed`(number)</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CSpyPresence==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CDate CDate]</font></td><td><font face="monospace">`GetLastMissionChangeDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLevel`()</font></td><td></td></tr>
@@ -960,41 +1573,63 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetPriority`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`MissionAllowed`(unknown)</font></td><td></td></tr>
 </table>
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`CSpyPresence.MAX_SPY_LEVEL`</font></td><td><font face="monospace">10</font></td><td></td></tr>
+<tr><td><font face="monospace">`CSpyPresence.MAX_SPY_PRIORITY`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CStartResearchCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CStrategicWarfare==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetAlliesImpact`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetBombingImpact`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetConvoyImpact`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CString==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetCharPtr`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">string</font></td><td><font face="monospace">`GetString`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CSubUnitConstructionEntry==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CSubUnitConstructionEntryList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CSubUnitConstructionEntry CSubUnitConstructionEntry]</font></td><td><font face="monospace">`GetHeadData`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetSize`()</font></td><td></td></tr>
@@ -1004,21 +1639,25 @@ Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em><
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`RemoveHead`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`RemoveTail`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CSubUnitDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static iterator`<`[#CSubUnitDefinition CSubUnitDefinition]></font></td><td><font face="monospace">`GetSubUnitList`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CSubUnitDefinition==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanParadrop`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetBuildCostIC`()</font></td><td></td></tr>
@@ -1045,12 +1684,14 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsTransport`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTechnology==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanUpgrade`(unknown)</font></td><td></td></tr>
@@ -1064,44 +1705,52 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsOneLevelOnly`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTechnologyCategory==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTechnologyDataBase==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">iterator`<`[#CTechnologyCategory CTechnologyCategory]></font></td><td><font face="monospace">`GetCategories`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetFolderIndex`(string)</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CTechnology CTechnology]</font></td><td><font face="monospace">`GetTechnology`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTechnologyFolder==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTechnologyStatus==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCost`([#CTechnology CTechnology], number)</font></td><td></td></tr>
@@ -1111,38 +1760,59 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsBuildingAvailable`([#CBuilding CBuilding])</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsUnitAvailable`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTheatre==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetPriority`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CToggleMobilizationCommand==
 Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>[#CCommand CCommand]</i></font></td><td><font face="monospace" color="grey"><i>`Clone`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==CTradeAction==
 Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace" color="grey"><i>static unknown</i></font></td><td><font face="monospace" color="grey"><i>`Create`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>number</i></font></td><td><font face="monospace" color="grey"><i>`GetAIAcceptance`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">[#CTradeRoute CTradeRoute]</font></td><td><font face="monospace">`GetRoute`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetTrading`(number, [#CCountryTag CCountryTag])</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetType`(unknown)</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`GetValue`(unknown)</i></font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsConvoyPossible`()</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsSelectable`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>boolean</i></font></td><td><font face="monospace" color="grey"><i>`IsValid`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetRoute`([#CTradeRoute CTradeRoute])</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetTrading`([#CFixedPoint CFixedPoint], number)</font></td><td></td></tr>
+<tr><td><font face="monospace" color="grey"><i>void</i></font></td><td><font face="monospace" color="grey"><i>`SetValue`(boolean)</i></font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CTradeRoute==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetConvoyResponsible`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetCost`(unknown)</font></td><td></td></tr>
@@ -1154,23 +1824,27 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsInactive`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CUnit==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">iterator`<`[#CUnit CUnit]></font></td><td><font face="monospace">`GetChildren`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetName`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsMoving`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CUnitList==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCount`([#CSubUnitDefinition CSubUnitDefinition])</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalAmountOfArmies`()</font></td><td></td></tr>
@@ -1182,12 +1856,14 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetTotalNumOfWarShips`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetTotalStrength`()</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==CWar==
 Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
 ====Method summary====
-<table width="100%">
+<table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetAttackers`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCurrentRunningTimeInMonths`()</font></td><td></td></tr>
@@ -1196,11 +1872,15 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsLimited`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPartOfWar`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 </table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==Hoi3Object==
 Implements <font color="grey"><em>[#Object Object]</em></font>
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==MultitonObject==
@@ -1208,9 +1888,13 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==Object==
 This object does not exist in HOI3, and is only used in hoi3 fake api.
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
 ==SingletonObject==
@@ -1218,10 +1902,37 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 This object does not exist in HOI3, and is only used in hoi3 fake api.
 
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==SpyMission==
 Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
 
+====Constant summary====
+<table width="100%" border="1">
+<tr><th>Constant</th><th>Value</th><th>Since</th></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_BOOST_OUR_PARTY`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_BOOST_RULING_PARTY`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_COUNTER_ESPIONAGE`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_DISRUPT_PRODUCTION`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_DISRUPT_RESEARCH`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_INCREASE_THREAT`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY`</font></td><td><font face="monospace">7</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_LOWER_NEUTRALITY`</font></td><td><font face="monospace">8</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_MAX`</font></td><td><font face="monospace">9</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_MILITARY`</font></td><td><font face="monospace">10</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_NONE`</font></td><td><font face="monospace">11</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_POLITICAL`</font></td><td><font face="monospace">12</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY`</font></td><td><font face="monospace">13</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_SUPPORT_RESISTANCE`</font></td><td><font face="monospace">14</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_TECH`</font></td><td><font face="monospace">15</font></td><td></td></tr>
+</table>
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
 -----
 ==SubUnitList==
 Implements [#CList CList], <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
+
+<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
+--|
