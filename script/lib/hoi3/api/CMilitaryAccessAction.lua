@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CMilitaryAccessAction = CDiplomaticAction:subclass('hoi3.api.CMilitaryAccessAction')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CMilitaryAccessAction.constructorSignature = {'CCountryTag','CCountryTag'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag tag

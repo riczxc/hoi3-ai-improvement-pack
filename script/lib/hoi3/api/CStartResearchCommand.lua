@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CStartResearchCommand = CCommand:subclass('hoi3.api.CStartResearchCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CStartResearchCommand.constructorSignature = {'CCountryTag','CTechnology'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag  country

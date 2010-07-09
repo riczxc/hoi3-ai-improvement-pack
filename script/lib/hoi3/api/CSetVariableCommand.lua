@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CSetVariableCommand = CCommand:subclass('hoi3.api.CSetVariableCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CSetVariableCommand.constructorSignature = {'CCountryTag',hoi3.TYPE_STRING,'CFixedPoint'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag  Which

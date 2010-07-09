@@ -6,7 +6,7 @@ CConstructConvoyCommand = CCommand:subclass('hoi3.api.CConstructConvoyCommand')
 
 -- Constructor signature
 -- information only, that will be used by documentation generator.
-CConstructConvoyCommand.contructorSignature = {'CCountryTag', hoi3.TYPE_BOOLEAN, hoi3.TYPE_NUMBER}
+CConstructConvoyCommand.constructorSignature = {'CCountryTag', hoi3.TYPE_BOOLEAN, hoi3.TYPE_NUMBER}
 
 ---
 -- @since 1.3

@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CAllianceAction = CDiplomaticAction:subclass('hoi3.api.CAllianceAction')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CAllianceAction.constructorSignature = {'CCountryTag', 'CCountryTag'}
+
 ---
 -- @since 1.3
 -- @return CAllianceAction

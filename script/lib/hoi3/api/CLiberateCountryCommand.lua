@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CLiberateCountryCommand = CCommand:subclass('hoi3.api.CLiberateCountryCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CLiberateCountryCommand.constructorSignature = {'CCountryTag','CCountryTag'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag countryTagA

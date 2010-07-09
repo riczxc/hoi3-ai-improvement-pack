@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CArrayFix = hoi3.Hoi3Object:subclass('hoi3.api.CArrayFix')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CArrayFix.constructorSignature = {hoi3.TYPE_NUMBER}
+
 ---
 -- @since 1.3
 -- @param number size
@@ -25,7 +29,7 @@ end
 hoi3.f(CArrayFix, 'GetAt', 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CArrayFix:GetAtImpl(index)
-	--TODO maybe restore out of bound exceptions
+	--TODOï¿½maybe restore out of bound exceptions
 	return self.array[index] or CFixedPoint(0)
 end
 

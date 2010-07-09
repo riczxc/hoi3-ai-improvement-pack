@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CConstructBuildingCommand = CCommand:subclass('hoi3.api.CConstructBuildingCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CConstructBuildingCommand.constructorSignature = {'CCountryTag','CBuilding',hoi3.TYPE_NUMBER,hoi3.TYPE_NUMBER}
+
 ---
 -- @since 1.3
 -- @param CCountryTag actor

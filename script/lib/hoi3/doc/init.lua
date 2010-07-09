@@ -55,7 +55,9 @@ function genWikiDoc(filename)
   	file:write("#sidebar LUAClassReferenceSideBar"..CRLF)
  	file:write(CRLF..CRLF)
  	
-	file:title("Hearts of Iron III - LUA class reference")
+ 	local head = "Hearts of Iron III - LUA class reference"
+ 	local linkToHead = "<font size=\"2\">[#"..head:gsub(" ","_").." Back To Top]</font>"
+	file:title(head)
 	
 	for className, class in dtools.table.orderedPairs(hoi3.api.getCompleteApi()) do
 		file:write("-----".. CRLF)
@@ -92,35 +94,66 @@ function genWikiDoc(filename)
 			file:write("This object does not exist in HOI3, and is only used in hoi3 fake api.".. CRLF.. CRLF)
 		end
 		
-		if class.constructorSignature ~= nil then
-			file:title("Constructor summary",4)
+		file:title("Constructor summary",4)
+		if class.getConstructorSignature ~= nil and class:getConstructorSignature() ~= nil then
+			local signature = class:getConstructorSignature()
 			str = className.."("
-			for i,v in ipairs(class.constructorSignature) do
+			for i,v in ipairs(signature) do
 				str = str .. v
-				if i ~= #constructorSignature then
+				if i ~= #signature then
 					str = str .. ", "
 				end
 			end
 			str = str ..")"
-			file:write(str.. CRLF)
+			file:write("<code language=\"lua\">".. str.. "</code>" .. CRLF)
+		else
+			file:write("There is no known constructor for this object.".. CRLF)
 		end
 		
 		if class.getApiFunctions then
-			local functions = class:getApiFunctions()
+			local functions = class:getApiFunctions(true)
 			if hoi3.countTableMember(functions) > 0 then 
 				file:title("Method summary",4)
-				file:write("<table width=\"100%\">"..CRLF)
+				file:write("<table width=\"100%\" border=\"1\">"..CRLF)
 				file:htab("Type","Method","Since")
 				for methodName, method in dtools.table.orderedPairs(functions) do	
+					if(method.myclass ~= class) then
+						-- Inherited
+						file:tab(
+							"<font face=\"monospace\" color=\"grey\"><i>"..method:returnTypeAsString(true):gsub("<","`<`").."</i></font>",
+							"<font face=\"monospace\" color=\"grey\"><i>"..method:signatureAsString(true):gsub("<","`<`").."</i></font>",
+							""
+						)
+					else
+						file:tab(
+							"<font face=\"monospace\">"..method:returnTypeAsString(true):gsub("<","`<`").."</font>",
+							"<font face=\"monospace\">"..method:signatureAsString(true):gsub("<","`<`").."</font>",
+							""
+						)
+					end
+				end
+				file:write("</table>"..CRLF)
+			end
+		end
+		
+		if class.getConstants then
+			local constants = class:getConstants()
+			if hoi3.countTableMember(constants) > 0 then 
+				file:title("Constant summary",4)
+				file:write("<table width=\"100%\" border=\"1\">"..CRLF)
+				file:htab("Constant","Value","Since")
+				for constantName, constant in dtools.table.orderedPairs(constants) do	
+					-- We escape wiki since _MYCONSTANT_ would result in italic MYCONSTANT !
 					file:tab(
-						"<font face=\"monospace\">"..method:returnTypeAsString(true):gsub("<","`<`").."</font>",
-						"<font face=\"monospace\">"..method:signatureAsString(true):gsub("<","`<`").."</font>",
+						"<font face=\"monospace\">`"..className.."."..constantName.."`</font>",
+						"<font face=\"monospace\">"..constant.."</font>",
 						""
 					)
 				end
 				file:write("</table>"..CRLF)
 			end
 		end
+		file:write(linkToHead..CRLF..CRLF)
 	end
 
 	if not filename then

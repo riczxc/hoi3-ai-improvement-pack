@@ -8,8 +8,17 @@ function Hoi3Object:initialize(...)
 	super.initialize(self, ...)
 end
 
-function Hoi3Object.getApiFunctions(instanceOrClass)
+function Hoi3Object.getConstructorSignature(instanceOrClass)
+	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
+		instanceOrClass = instanceOrClass.class
+	end
+	
+	return instanceOrClass.constructorSignature
+end
+
+function Hoi3Object.getConstants(instanceOrClass)
 	local t = {}
+	local bInherited = bInherited or false
 	
 	-- if we have an instance, get its class
 	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
@@ -18,6 +27,35 @@ function Hoi3Object.getApiFunctions(instanceOrClass)
 	
 	-- a class have a __classDict, if nothing, not a class object.
 	if instanceOrClass.__classDict ~= nil then
+		for k, v in pairs(instanceOrClass.__classDict) do				
+			if (type(v) == hoi3.TYPE_NUMBER or 
+				type(v) == hoi3.TYPE_STRING) and 
+				string.find(k,"^[A-Z_]+$") ~= nil then
+				t[k] = v
+			end
+		end
+	end
+	
+	return t
+end
+
+function Hoi3Object.getApiFunctions(instanceOrClass, bInherited)
+	local t = {}
+	local bInherited = bInherited or false
+	
+	-- if we have an instance, get its class
+	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
+		instanceOrClass = instanceOrClass.class
+	end
+	
+	-- a class have a __classDict, if nothing, not a class object.
+	if instanceOrClass.__classDict ~= nil then
+		if bInherited and instanceOrClass.superclass ~= nil 
+			and instanceOrClass.superclass.__classDict ~= nil
+			and instanceOrClass.superclass.getApiFunctions then
+			t = instanceOrClass.superclass:getApiFunctions(true)
+		end
+		
 		for k, v in pairs(instanceOrClass.__classDict) do
 			if type(v) == hoi3.TYPE_TABLE and 
 				middleclass.instanceOf(hoi3.FunctionObject, v) then

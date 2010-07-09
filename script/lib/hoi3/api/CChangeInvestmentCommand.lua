@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CChangeInvestmentCommand = CCommand:subclass('hoi3.api.CChangeInvestmentCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CChangeInvestmentCommand.constructorSignature = {'CCountryTag',hoi3.TYPE_NUMBER,'...'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag actor

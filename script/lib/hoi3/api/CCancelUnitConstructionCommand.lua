@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CCancelUnitConstructionCommand = CCommand:subclass('hoi3.api.CCancelUnitConstructionCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CCancelUnitConstructionCommand.constructorSignature = {'CCountryTag','CID'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag countryTag
