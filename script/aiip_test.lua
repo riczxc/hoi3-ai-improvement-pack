@@ -31,7 +31,20 @@ dtools.setLogContext("","DEVEL")
 
 -- doc
 require("hoi3.doc")
-print(hoi3.doc.genWikiDoc())
+
+t = {}
+for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
+	for methodName, method in pairs(class:getApiFunctions()) do
+		for k,v in pairs(method.args) do
+			t[v] = v
+		end
+	end
+end
+
+for k,v in dtools.table.orderedPairs(t) do
+	print(k)
+end
+
 os.exit()
 
 --Run all test suites

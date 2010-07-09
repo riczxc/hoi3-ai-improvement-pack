@@ -100,3 +100,19 @@ function Hoi3Object:getIndexInDictionnary(dict)
 		i = i + 1
 	end
 end
+
+function Hoi3Object:bind(userdata)
+	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, userdata, hoi3.TYPE_USERDATA)
+	
+	self.__userdata = userdata
+end
+
+function Hoi3Object:runRealApiAndSave()
+	hoi3.assertNonStatic(self)
+	assert(self.__userdata ~= nil, "Object not binded yet ! Please use object:bind(userdata).")
+	
+	for n, m in pairs(self:getApiFunctions()) do
+		m:runAndSave(self.__userdata)
+	end
+end
