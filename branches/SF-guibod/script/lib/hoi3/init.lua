@@ -36,7 +36,10 @@ Object = middleclass.Object
 function testType(value, typeAsString)
 	local t = type(value)
 	
-	if Randomizer.isTableTypeString(typeAsString) or
+	if t==TYPE_USERDATA then
+		-- Always consider USERDATA as expected type !
+		return true
+	elseif Randomizer.isTableTypeString(typeAsString) or
 		Randomizer.isIteratorTypeString(typeAsString) then
 		if(t~=TYPE_TABLE) then return false end
 		local myType = Randomizer.getTableTypeFromString(typeAsString)
@@ -66,7 +69,7 @@ function testType(value, typeAsString)
 			return middleclass.instanceOf(hoi3.api[typeAsString], value)
 		end
 	else
-		--thread, userdata, nil or function
+		--thread, nil or function
 		return false
 	end
 end

@@ -23,6 +23,7 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 
 	if type(ret) == hoi3.TYPE_STRING
 		and ret ~= hoi3.TYPE_UNKNOWN then
+		
 		self.ret = hoi3.Randomizer:new(ret)
 	else
 		self.ret = ret
@@ -31,7 +32,14 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	self.result = {}
 	self.runs = 0
 	self.druns = {}
-	
+	if self.ret == hoi3.TYPE_UNKNOWN or
+		self.ret == hoi3.TYPE_VOID or
+		(self.ret.type ~= nil and self.ret.type == hoi3.TYPE_VOID) then
+		self.doSave = false
+	else
+		self.doSave = true
+	end
+		
 	-- informations
 	self.contructorSignature = nil
 	
@@ -101,6 +109,27 @@ function FunctionObject:signatureAsString(bWiki)
 	str = str .. ")"
 	
 	return str
+end
+
+function FunctionObject:canRun()
+	if self.ret == hoi3.TYPE_UNKNOWN then 
+		return false
+	end
+	
+	for i,v in ipairs(self.args) do
+		if v == hoi3.TYPE_UNKNOWN then
+			return false
+		end
+	end
+	return true
+end
+
+function FunctionObject:canSave()
+	if not self.doSave then 
+		return false
+	end
+	
+	return self:canRun()
 end
 
 -- This boolean static property serves to define
@@ -225,10 +254,12 @@ function FunctionObject:__call(instanceOrFirstParameter, ...)
 		end
 		
 		if computedValue ~= nil then
-			-- Now cache results as if it was the original function/method result
-			instanceOrClass.__result = instanceOrClass.__result or {}
-			instanceOrClass.__result[self] = instanceOrClass.__result[self] or {}
-			instanceOrClass.__result[self][hash] = computedValue  
+			if self:canSave() then
+				-- Now cache results as if it was the original function/method result
+				instanceOrClass.__result = instanceOrClass.__result or {}
+				instanceOrClass.__result[self] = instanceOrClass.__result[self] or {}
+				instanceOrClass.__result[self][hash] = computedValue  
+			end
 			
 			-- And return (with a test on returned value type)
 			ret = {
@@ -290,6 +321,9 @@ end
 function FunctionObject:save(value, instanceOrFirstParameter, ...)
 	hoi3.assertNonStatic(self)
 	
+	-- Don't save if not allowed to
+	if not self:canSave() then return end
+	
 	local instanceOrClass, args, hash, isInstance = self:_checkArgs(instanceOrFirstParameter, ...)
 	
 	if not isInstance then
@@ -301,3 +335,23 @@ function FunctionObject:save(value, instanceOrFirstParameter, ...)
 	instanceOrClass.__result[self] = instanceOrClass.__result[self] or {}
 	instanceOrClass.__result[self][hash] = value
 end
+
+function FunctionObject:runAndSave(userdata)
+	hoi3.assertNonStatic(self)
+	
+	if not self:canSave() then
+		dtools.info(tostring(self).." ignored by runAndSave() because of void return type or explicitly cache free.")
+	elseif not self:canRun() then
+		dtools.warn(tostring(self).." ignored by runAndSave() because of unknown return type or parameter.")
+	else
+		if userdata[self.name] == nil or type(userdata[self.name]) ~= hoi3.TYPE_FUNCTION then
+			dtools.warn(tostring(self).." does not exists in real API !")
+		else
+			-- prepare all parameters combinations as a table of table
+			local arg_combination = {}
+			
+			for i, args in ipairs(arg_combination) do
+				userdata[self.name](unpack(args))
+			end
+		end 
+	end

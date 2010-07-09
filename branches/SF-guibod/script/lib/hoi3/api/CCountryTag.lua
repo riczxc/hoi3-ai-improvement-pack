@@ -28,19 +28,10 @@ end
 ---
 -- @since 1.3
 -- @return number
-hoi3.f(CCountryTag, 'GetIndex', hoi3.NUMBER)
+hoi3.f(CCountryTag, 'GetIndex', hoi3.TYPE_NUMBER)
 
 function CCountryTag:GetIndexImpl()
 	return self:getIndexInDictionnary(CCountryTag:getInstances())
-end
-
----
--- @since 1.3
--- @return CCountryTag 
-hoi3.f(CCountryTag, 'GetTag', 'CCountryTag')
-
-function CCountryTag:GetTagImpl()
-	return self
 end
 
 ---

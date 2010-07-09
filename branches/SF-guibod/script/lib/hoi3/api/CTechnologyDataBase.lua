@@ -34,7 +34,7 @@ end
 -- @since 2.0
 -- @static
 -- @return CTechnology
-hoi3.fs(CTechnologyDataBase, 'GetTechnology', 'CTechnology')
+hoi3.fs(CTechnologyDataBase, 'GetTechnology', 'CTechnology', hoi3.TYPE_STRING)
 
 function CSubUnitDataBase.GetTechnology(key)
 	return CTechnology:getInstance(key)
