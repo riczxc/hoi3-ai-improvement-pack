@@ -1072,8 +1072,8 @@ There is no constructor for this object, use API reference in order to find a me
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
-<tr><td><font face="monospace">`read/write unknown`</font></td><td><font face="monospace">_Country</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">_nProvince</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write unknown`</font></td><td><font face="monospace">`_Country`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`_nProvince`</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1193,13 +1193,13 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vCrudeOil</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vEnergy</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vFuel</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vMetal</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vMoney</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vRareMaterials</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vSupplies</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vCrudeOil`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vEnergy`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vFuel`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vMetal`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vMoney`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vRareMaterials`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vSupplies`</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1765,8 +1765,8 @@ There is no constructor for this object, use API reference in order to find a me
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
-<tr><td><font face="monospace">`read only CTechnologyCategory`</font></td><td><font face="monospace">_pCategory</font></td><td></td></tr>
-<tr><td><font face="monospace">`read only CFixedPoint`</font></td><td><font face="monospace">_vWeight</font></td><td></td></tr>
+<tr><td><font face="monospace">`read only CTechnologyCategory`</font></td><td><font face="monospace">`_pCategory`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read only CFixedPoint`</font></td><td><font face="monospace">`_vWeight`</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1784,12 +1784,12 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vConvoyedIn</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vDailyBalance</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vDailyExpense</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vDailyHome</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vDailyIncome</font></td><td></td></tr>
-<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">vPool</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vConvoyedIn`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vDailyBalance`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vDailyExpense`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vDailyHome`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vDailyIncome`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read/write number`</font></td><td><font face="monospace">`vPool`</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1961,9 +1961,9 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
-<tr><td><font face="monospace">`read only number`</font></td><td><font face="monospace">nPrio</font></td><td></td></tr>
-<tr><td><font face="monospace">`read only number`</font></td><td><font face="monospace">nSequence</font></td><td></td></tr>
-<tr><td><font face="monospace">`read only CSubUnitDefinition`</font></td><td><font face="monospace">pUnit</font></td><td></td></tr>
+<tr><td><font face="monospace">`read only number`</font></td><td><font face="monospace">`nPrio`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read only number`</font></td><td><font face="monospace">`nSequence`</font></td><td></td></tr>
+<tr><td><font face="monospace">`read only CSubUnitDefinition`</font></td><td><font face="monospace">`pUnit`</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -2358,3 +2358,5 @@ Implements <font color="grey"><em>[#CList CList]</em></font>, <font color="grey"
 <tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`RemoveAll`(unknown)</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
+
+--|
