@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CAIIntel = hoi3.Hoi3Object:subclass('hoi3.api.CAIIntel')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CAIIntel.constructorSignature = {'CCountryTag', 'CCountryTag'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag source

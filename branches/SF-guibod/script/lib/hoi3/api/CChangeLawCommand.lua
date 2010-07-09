@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CChangeLawCommand = CCommand:subclass('hoi3.api.CChangeLawCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CChangeLawCommand.constructorSignature = {'CCountryTag','CLaw','CLawGroup'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag tag

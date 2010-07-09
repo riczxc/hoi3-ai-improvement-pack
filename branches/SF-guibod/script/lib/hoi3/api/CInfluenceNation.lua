@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CInfluenceNation = CDiplomaticAction:subclass('hoi3.api.CInfluenceNation')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CInfluenceNation.constructorSignature = {'CCountryTag','CCountryTag'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag tag

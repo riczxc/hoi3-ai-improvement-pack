@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CGuaranteeAction = CDiplomaticAction:subclass('hoi3.api.CGuaranteeAction')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CGuaranteeAction.constructorSignature = {'CCountryTag','CCountryTag'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag tag

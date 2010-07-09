@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CEmbargoAction = CDiplomaticAction:subclass('hoi3.api.CEmbargoAction')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CEmbargoAction.constructorSignature = {'CCountryTag','CCountryTag' }
+
 ---
 -- @since 1.3
 -- @param CCountryTag tag

@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CArrayFloat = hoi3.Hoi3Object:subclass('hoi3.api.CArrayFloat')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CArrayFloat.constructorSignature = {hoi3.TYPE_NUMBER}
+
 ---
 -- @since 1.3
 -- @param number size

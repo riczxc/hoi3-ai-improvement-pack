@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CChangeLeadershipCommand = CCommand:subclass('hoi3.api.CChangeLeadershipCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CChangeLeadershipCommand.constructorSignature = {'CCountryTag','CFixedPoint','CFixedPoint','...'}
+
 ---
 -- @since 1.3
 -- @param CCountryTag actor

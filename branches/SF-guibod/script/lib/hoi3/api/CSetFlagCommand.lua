@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CSetFlagCommand = CCommand:subclass('hoi3.api.CSetFlagCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CSetFlagCommand.constructorSignature = {'CCountryTag',hoi3.TYPE_STRING,hoi3.TYPE_BOOLEAN}
+
 ---
 -- @since 1.3
 -- @param CCountryTag  Which

@@ -4,12 +4,10 @@ module("hoi3.api", package.seeall)
 
 CSendExpeditionaryForceAction = CDiplomaticAction:subclass('hoi3.api.CSendExpeditionaryForceAction')
 
---[[
-	FIXME: there is a function CSendExpeditionaryForceAction as well
-	as static properties for CSendExpeditionaryForceAction  ?!
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CSendExpeditionaryForceAction.constructorSignature = {'CCountryTag','CCountryTag'}
 
-	There something i don't understand with lua :) 
-]]
 CSendExpeditionaryForceAction.TAKE = 1
 CSendExpeditionaryForceAction.SEND = 1
 

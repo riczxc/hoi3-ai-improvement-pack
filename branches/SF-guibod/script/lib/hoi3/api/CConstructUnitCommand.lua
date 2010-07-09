@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CConstructUnitCommand = CCommand:subclass('hoi3.api.CConstructUnitCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CConstructUnitCommand.constructorSignature = {'CCountryTag','SubUnitList', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER, hoi3.TYPE_BOOLEAN, 'CCountryTag', 'CID'} 
+
 ---
 -- @since 1.3
 -- @param CCountryTag  tag

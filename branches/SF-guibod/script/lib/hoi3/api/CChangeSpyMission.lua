@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CChangeSpyMission = CCommand:subclass('hoi3.api.CChangeSpyMission')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CChangeSpyMission.constructorSignature = {'CCountryTag','CCountryTag',hoi3.TYPE_NUMBER }
+
 ---
 -- @since 1.3
 -- @param CCountryTag tag

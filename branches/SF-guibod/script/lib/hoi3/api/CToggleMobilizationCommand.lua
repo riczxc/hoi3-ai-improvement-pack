@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CToggleMobilizationCommand = CCommand:subclass('hoi3.api.CToggleMobilizationCommand')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CToggleMobilizationCommand.constructorSignature = {'CCountryTag',hoi3.TYPE_BOOLEAN}
+
 ---
 -- @since 1.3
 -- @param CCountryTag  countryTag

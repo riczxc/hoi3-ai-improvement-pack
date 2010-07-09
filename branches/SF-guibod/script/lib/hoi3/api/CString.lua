@@ -4,6 +4,10 @@ module("hoi3.api", package.seeall)
 
 CString = hoi3.Hoi3Object:subclass('hoi3.api.CString')
 
+-- Constructor signature
+-- information only, that will be used by documentation generator.
+CString.constructorSignature = {hoi3.TYPE_STRING}
+
 ---
 -- @since 1.3
 -- @param string str
