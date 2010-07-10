@@ -70,6 +70,10 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		elseif liNationalUnity < 90 then
 			newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
 			
+		-- Nothing really to do but our unity is not 90 so raise it
+		elseif liNationalUnity < 90 then
+			newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
+
 		-- If there is nothing else to do just counter		
 		else
 			newMission = SpyMission.SPYMISSION_COUNTER_ESPIONAGE

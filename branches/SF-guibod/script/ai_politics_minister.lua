@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/28/2010
+-- Date Last Modified: 7/9/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws
@@ -87,66 +87,68 @@ function Liberation(ai, minister, ministerTag, ministerCountry)
         end
     end	
 end
-
 function Mobilization(minister)
-	local ai = minister:GetOwnerAI()
-	local ministerTag =  minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
 
-    -- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
-    if not(ministerCountry:IsMobilized()) and ministerCountry:GetStrategy():IsPreparingWar() then
-        local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
-		
-        for loCountry in CCurrentGameState.GetCountries() do
-            local loCountryTag = loCountry:GetCountryTag()
+	-- Performance check
+	if not(ministerCountry:IsMobilized()) then
+		local ai = minister:GetOwnerAI()
+		local ministerTag =  minister:GetCountryTag()
+		local loStrategy = ministerCountry:GetStrategy()
+	
+		-- Note: we are automatically mobilized when war breaks out, so this is for kicking off mobilization early.
+		if loStrategy:IsPreparingWar() then
+			local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
 			
-			if not(loCountryTag == ministerTag) then
-				if loCountryTag:IsValid() and loCountry:Exists() and loCountryTag:IsReal() then
-					if ministerCountry:GetStrategy():IsPreparingWarWith(loCountryTag) and liNeutrality < ministerCountry:GetMaxNeutralityForWarWith(loCountryTag):Get() then
-						ai:Post(CToggleMobilizationCommand( ministerTag, true ))
-						break
+			for loCountry in CCurrentGameState.GetCountries() do
+				local loCountryTag = loCountry:GetCountryTag()
+				
+				if not(loCountryTag == ministerTag) then
+					if loCountryTag:IsValid() and loCountry:Exists() and loCountryTag:IsReal() then
+						if loStrategy:IsPreparingWarWith(loCountryTag) and liNeutrality < ministerCountry:GetMaxNeutralityForWarWith(loCountryTag):Get() then
+							ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+							break
+						end
 					end
 				end
 			end
-        end
-    elseif not(ministerCountry:IsMobilized()) then
-		if Utils.HasCountryAIFunction( ministerTag, "HandleMobilization") then
-			Utils.CallCountryAI(ministerTag, "HandleMobilization", minister)							
 		else
-			-- check if a neighbor is starting to look threatening
-			local liTotalIC = ministerCountry:GetTotalIC()
-			local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
-			
-			for loCountryTag in ministerCountry:GetNeighbours() do
-				local liThreat = ministerCountry:GetRelation(loCountryTag):GetThreat():Get()
+			if Utils.HasCountryAIFunction( ministerTag, "HandleMobilization") then
+				Utils.CallCountryAI(ministerTag, "HandleMobilization", minister)							
+			else
+				-- check if a neighbor is starting to look threatening
+				local liTotalIC = ministerCountry:GetTotalIC()
+				local liNeutrality = ministerCountry:GetNeutrality():Get() * 0.9
 				
-				if (liNeutrality - liThreat) < 10 then
-					local loCountry = loCountryTag:GetCountry()
+				for loCountryTag in ministerCountry:GetNeighbours() do
+					local liThreat = ministerCountry:GetRelation(loCountryTag):GetThreat():Get()
 					
-					liThreat = liThreat * CalculateAlignmentFactor(ai, ministerCountry, loCountry)
-					
-					if liTotalIC > 50 and loCountry:GetTotalIC() < liTotalIC then
-						liThreat = liThreat / 2 -- we can handle them if they descide to attack anyway
-					end
-					
-					if liThreat > 30 then
-						if CalculateWarDesirability(ai, loCountry, ministerTag) > 70 then
-							ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+					if (liNeutrality - liThreat) < 10 then
+						local loCountry = loCountryTag:GetCountry()
+						
+						liThreat = liThreat * CalculateAlignmentFactor(ai, ministerCountry, loCountry)
+						
+						if liTotalIC > 50 and loCountry:GetTotalIC() < liTotalIC then
+							liThreat = liThreat / 2 -- we can handle them if they descide to attack anyway
+						end
+						
+						if liThreat > 30 then
+							if CalculateWarDesirability(ai, loCountry, ministerTag) > 70 then
+								ai:Post(CToggleMobilizationCommand( ministerTag, true ))
+							end
 						end
 					end
 				end
 			end
 		end
-    end
+	end
 end
-
 function Puppets(minister, ministerTag, ministerCountry)
 	-- Puppets are country specific AI countries will not release them automatically and must be scripted
     if ministerCountry:CanCreatePuppet() then
         Utils.CallCountryAI( ministerTag, "HandlePuppets", minister )
     end
 end
-
 function Laws(minister)
 	local ministerCountry = minister:GetCountry()
 	local ministerTag = minister:GetCountryTag()
@@ -179,7 +181,13 @@ function Laws(minister)
 		-- Unknown Law so just increase it by 1
 		else
 			-- Try to increase by 1 if the group is different do not do anything!
-			loNewLaw = Laws_pickNextValidSiblingLaw(ministerTag, loCurrentLaw)
+			local liLawIndex = loCurrentLaw:GetIndex() + 1
+			if liLawIndex < CLawDataBase.GetNumberOfLaws() then
+				loNewLaw = CLawDataBase.GetLaw(liLawIndex)
+				if not (loGroup:GetIndex() == loNewLaw:GetGroup():GetIndex()) then 
+					loNewLaw = nil
+				end
+			end
 		end        
 
 		-- Execute the new law
@@ -192,7 +200,6 @@ function Laws(minister)
 		end
 	end
 end
-
 
 function OfficeManagement(minister)
 	local ai = minister:GetOwnerAI()
@@ -300,23 +307,65 @@ function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPos
 end
 function ArmamentMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local laPersonalityScore = {}
+
+	local lbResourceShort = false
+	local loEnergy = CResourceValues()
+	local loMetal = CResourceValues()
+	local loRare = CResourceValues()
+	local liExpenseFactor = 0
+	local liHomeFactor = 0
+	
+	loEnergy:GetResourceValues( ministerCountry, CGoodsPool._ENERGY_ )
+	loMetal:GetResourceValues( ministerCountry, CGoodsPool._METAL_ )
+	loRare:GetResourceValues( ministerCountry, CGoodsPool._RARE_MATERIALS_ )
+	
+	liExpenseFactor = loEnergy.vDailyExpense * 0.5
+	liExpenseFactor = liExpenseFactor + loMetal.vDailyExpense
+	liExpenseFactor = liExpenseFactor + (loRare.vDailyExpense * 2)
+	
+	liHomeFactor = Utils.CalculateHomeProduced(loEnergy) * 0.5
+	liHomeFactor = liHomeFactor + Utils.CalculateHomeProduced(loMetal)
+	liHomeFactor = liHomeFactor + (Utils.CalculateHomeProduced(loRare) * 2)
+	
+	-- We are short on resources
+	if liExpenseFactor > liHomeFactor then
+		lbResourceShort = true
+	end
 	
 	if not(Utils.HasCountryAIFunction(ministerTag, "Call_ArmamentMinister")) then
-		laPersonalityScore["administrative_genius"] = 150 
-		laPersonalityScore["resource_industrialist"] = 140 
-		laPersonalityScore["laissez_faires_capitalist"] = 130 
-		laPersonalityScore["military_entrepreneur"] = 120 
-		laPersonalityScore["theoretical_scientist"] = 110 
-		laPersonalityScore["infantry_proponent"] = 100 
-		laPersonalityScore["air_to_ground_proponent"] = 90 
-		laPersonalityScore["air_superiority_proponent"] = 80 
-		laPersonalityScore["battle_fleet_proponent"] = 70 
-		laPersonalityScore["air_to_sea_proponent"] = 60 
-		laPersonalityScore["strategic_air_proponent"] = 50 
-		laPersonalityScore["submarine_proponent"] = 40 
-		laPersonalityScore["tank_proponent"] = 30 
-		laPersonalityScore["corrupt_kleptocrat"] = 20 
-		laPersonalityScore["crooked_kleptocrat"] = 10 
+		if lbResourceShort then
+			laPersonalityScore["resource_industrialist"] = 150 
+			laPersonalityScore["military_entrepreneur"] = 140 
+			laPersonalityScore["administrative_genius"] = 130 
+			laPersonalityScore["laissez_faires_capitalist"] = 120 
+			laPersonalityScore["theoretical_scientist"] = 110 
+			laPersonalityScore["infantry_proponent"] = 100 
+			laPersonalityScore["air_to_ground_proponent"] = 90 
+			laPersonalityScore["air_superiority_proponent"] = 80 
+			laPersonalityScore["battle_fleet_proponent"] = 70 
+			laPersonalityScore["air_to_sea_proponent"] = 60 
+			laPersonalityScore["strategic_air_proponent"] = 50 
+			laPersonalityScore["submarine_proponent"] = 40 
+			laPersonalityScore["tank_proponent"] = 30 
+			laPersonalityScore["corrupt_kleptocrat"] = 20 
+			laPersonalityScore["crooked_kleptocrat"] = 10 		
+		else
+			laPersonalityScore["administrative_genius"] = 150 
+			laPersonalityScore["resource_industrialist"] = 140 
+			laPersonalityScore["laissez_faires_capitalist"] = 130 
+			laPersonalityScore["military_entrepreneur"] = 120 
+			laPersonalityScore["theoretical_scientist"] = 110 
+			laPersonalityScore["infantry_proponent"] = 100 
+			laPersonalityScore["air_to_ground_proponent"] = 90 
+			laPersonalityScore["air_superiority_proponent"] = 80 
+			laPersonalityScore["battle_fleet_proponent"] = 70 
+			laPersonalityScore["air_to_sea_proponent"] = 60 
+			laPersonalityScore["strategic_air_proponent"] = 50 
+			laPersonalityScore["submarine_proponent"] = 40 
+			laPersonalityScore["tank_proponent"] = 30 
+			laPersonalityScore["corrupt_kleptocrat"] = 20 
+			laPersonalityScore["crooked_kleptocrat"] = 10 
+		end
 	end
 	
 	OfficeManagement_PickMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition, laPersonalityScore, "Call_ArmamentMinister") 
@@ -518,7 +567,6 @@ function IndustrialPolicies(ministerTag, ministerCountry, voCurrentLaw)
 	
 	return nil
 end
-
 function PressLaws(ministerTag, ministerCountry, voCurrentLaw)
 	-- Performance Check do we really need to do anything?
 	-- Switch Democracies back to Free Press if no longer atwar!
