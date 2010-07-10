@@ -4,12 +4,6 @@
 -- Modified By: Lothos
 -- Date Last Modified: 6/28/2010
 -----------------------------------------------------------
-local FLAG_LIMITED_CONTINENTAL_WAR = "JAP_LIMITED_CONTINENTAL_WAR"
-local FLAG_TOTAL_CONTINENTAL_WAR = "JAP_TOTAL_CONTINENTAL_WAR"
-local FLAG_LOST_CONTINENTAL_WAR = "JAP_TOTAL_CONTINENTAL_WAR"
-local FLAG_PACIFIC_WAR = "JAP_PACIFIC_WAR"
-local FLAG_GOTTERDAMMERUNG = "JAP_GOTTERDAMMERUNG"
-
 local P = {}
 AI_JAP = P
 
@@ -188,21 +182,8 @@ end
 --   1.0 = 100% the total needs to equal 1.0
 function P.ProductionWeights(minister)
 	local rValue
-	local loFlags = minister:GetCountry():GetFlags()
 	
-	-- Strong navy/air emphasis if no more troops on continent 
-	-- or ongoing pacific war with no major engagement on continent
-	if loFlags:IsFlagSet(FLAG_LOST_CONTINENTAL_WAR) or 
-		loFlags:IsFlagSet(FLAG_PACIFIC_WAR) and not(loFlags:IsFlagSet(FLAG_TOTAL_CONTINENTAL_WAR)) then
-		
-		local laArray = {
-			0.30, -- Land
-			0.25, -- Air
-			0.40, -- Sea
-			0.05}; -- Other
-		
-		rValue = laArray	
-	else
+	if CCurrentGameState.GetCurrentDate():GetYear() <= 1938 and not(minister:GetCountry():IsAtWar()) then
 		local laArray = {
 			0.55, -- Land
 			0.15, -- Air
@@ -210,6 +191,14 @@ function P.ProductionWeights(minister)
 			0.05}; -- Other
 		
 		rValue = laArray
+	else
+		local laArray = {
+			0.30, -- Land
+			0.25, -- Air
+			0.40, -- Sea
+			0.05}; -- Other
+		
+		rValue = laArray	
 	end
 	
 	return rValue
@@ -237,24 +226,12 @@ function P.SpecialForcesRatio(minister)
 end
 -- Air ratio distribution
 function P.AirRatio(minister)
-	local loFlags = minister:GetCountry():GetFlags()
-	
-	-- No needs for NAV if no pacific war
-	if loFlags:IsFlagSet(FLAG_PACIFIC_WAR) then 
-		local laArray = {
-			5, -- Fighter
-			1, -- CAS
-			2, -- Tactical
-			2, -- Naval Bomber
-			0}; -- Strategic
-	else
-		local laArray = {
-			5, -- Fighter
-			1, -- CAS
-			4, -- Tactical
-			0, -- Naval Bomber
-			0}; -- Strategic
-	end
+	local laArray = {
+		5, -- Fighter
+		1, -- CAS
+		2, -- Tactical
+		2, -- Naval Bomber
+		0}; -- Strategic
 	
 	return laArray
 end
