@@ -37,8 +37,6 @@
 
 - AI Germany will no longer count a front with the UK unless the USA is involved so it will DOW the Soviets.
 - AI Germany will no longer count Spain as a front once Gibraltar is taken.
-- AI Japan now has special Armament Minister Code
-- AI Italy now has special Armament Minister Code
 - AI Minister of Security code enhanced to have an atwar and not atwar selection prio list.
 - AI Chief of Staff assignment enhanced for atwar and not atwar versions plus a manpower check.
 - AI Build CAGs now go against Naval portion of IC instead of Air IC
@@ -70,4 +68,8 @@
 - AI Major power max convoy serial runs changed from 4 to 2.
 - AI Germany has a special Demand Military Access hook for Sweden.
 - AI (minors and majors) should offer military access again.
-- AI shifted when the AI starts lowering neutrality in order as it was causing some minors to come in to early.
+- AI invite to faction score re-written to take into account neutrality
+- AI fixed an issue with trading and Allowing Debts.
+- AI Armament minister assignment will now take into account resources produced in the country
+- LUA Moved CalculateHomeProduced from ai_production_minsiter to utils
+- LUA Modified ai_trade to use CalculateHomeProduced from utils

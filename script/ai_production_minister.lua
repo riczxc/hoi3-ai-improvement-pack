@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Production File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 7/7/2010
+-- Date Last Modified: 7/9/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -1686,23 +1686,6 @@ function ConstructBuildings(ai, minister, ministerTag, ministerCountry, ic, vbGo
 	return ic
 end
 
-function CalculateHomeProduced(loResource)
-	local liDailyHome = loResource.vDailyHome
-	
-	if loResource.vConvoyedIn > 0 then
-		-- If the Convoy in exceeds Home Produced by 10% it means they have a glutten coming in or
-		--   are a sea bearing country like ENG or JAP
-		--   so go ahead and count this as home produced up to 80% of it just in case something happens!
-		if liDailyHome > loResource.vDailyExpense then
-			liDailyHome = liDailyHome + loResource.vConvoyedIn
-		elseif loResource.vConvoyedIn > (liDailyHome * 0.1) then
-			liDailyHome = liDailyHome + (loResource.vConvoyedIn * 0.9)
-		end
-	end	
-	
-	return liDailyHome
-end
-
 function CoreProvincesLoop(ministerCountry, voTechStatus, viRocketCap, viReactorCap)
 	local liExpenseFactor = 0
 	local liHomeFactor = 0
@@ -1721,9 +1704,9 @@ function CoreProvincesLoop(ministerCountry, voTechStatus, viRocketCap, viReactor
 	liExpenseFactor = liExpenseFactor + loMetal.vDailyExpense
 	liExpenseFactor = liExpenseFactor + (loRare.vDailyExpense * 2)
 	
-	liHomeFactor = CalculateHomeProduced(loEnergy) * 0.5
-	liHomeFactor = liHomeFactor + CalculateHomeProduced(loMetal)
-	liHomeFactor = liHomeFactor + (CalculateHomeProduced(loRare) * 2)
+	liHomeFactor = Utils.CalculateHomeProduced(loEnergy) * 0.5
+	liHomeFactor = liHomeFactor + Utils.CalculateHomeProduced(loMetal)
+	liHomeFactor = liHomeFactor + (Utils.CalculateHomeProduced(loRare) * 2)
 	
 	-- We produce more than what we use so build more industry
 	if liHomeFactor > liExpenseFactor then

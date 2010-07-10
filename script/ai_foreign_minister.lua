@@ -241,11 +241,11 @@ function ForeignMinister_HandlePeace(minister)
 					loAction:SetValue(false)
 
 					if loAction:IsSelectable() then
-						local liScore = loAction:GetAIAcceptance()
+						local liScore = DiploScore_InviteToFaction(ai, ministerTag, loTargetCountryTag, ministerTag)
 						
 						if liScore > 50 then
 							if liScore > 50 then
-								minister:Propose(loAction, liScore )
+								minister:Propose(loAction, liScore)
 							end
 						end
 					end			
@@ -258,7 +258,7 @@ function ForeignMinister_HandlePeace(minister)
 						-- Do we have any slots actually open
 						--   Only do one influence per tick
 						if liInfluenceLeft > 0 and not(lbIsInfluencing) then
-							local liScore = DiploScore_InfluenceNation( ai, ministerTag, loTargetCountryTag, ministerTag )
+							local liScore = DiploScore_InfluenceNation(ai, ministerTag, loTargetCountryTag, ministerTag)
 							
 							if liScore > loInfluenceActionScore then
 								loInfluenceActionScore = liScore

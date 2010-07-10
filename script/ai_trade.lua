@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Trade File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 7/7/2010
+-- Date Last Modified: 7/9/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -54,52 +54,31 @@ function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, vo
 	local loSellerCountry = nil
 	local liMoney
 	local laResourceRequested = {}
+	local lbFreeTrader = false
+	
+	-- These two variables are only used if Free Trading
+	--   this is typicaly Commiterm only
+	local liFromCount = 0
+	local liToCount = 0
+	
+	-- Commiterm Check
+	if ai:CanTradeFreeResources(actor, recipient) then
+		local liFromCount = voTradedFrom.vMetal + voTradedFrom.vEnergy + voTradedFrom.vRareMaterials + voTradedFrom.vCrudeOil + voTradedFrom.vSupplies + voTradedFrom.vFuel
+		local liToCount = voTradedTo.vMetal + voTradedTo.vEnergy + voTradedTo.vRareMaterials + voTradedTo.vCrudeOil + voTradedTo.vSupplies + voTradedTo.vFuel
+	
+		lbFreeTrader = true
+	end
 	
 	-- Two way trade get out!
 	if voTradedTo.vMoney > 0 and voTradedFrom.vMoney > 0 then
 		return liScore
 		
 	-- 0 cost trade but make sure they are not Commiterm
-	elseif voTradedTo.vMoney == 0 and voTradedFrom.vMoney == 0 then
-		local loGetToCountry = loTradeRoute:GetTo():GetCountry()
-		local loGetFromCountry = loTradeRoute:GetFrom():GetCountry()
-
-		-- Check to see if Commiterm trade
-		if loGetToCountry:HasFaction() and loGetFromCountry:HasFaction() then
-			local lsGetToFaction = tostring(loGetToCountry:GetFaction():GetTag()) 
-			local lsGetFromFaction = tostring(loGetFromCountry:GetFaction():GetTag()) 
-			
-			if lsGetToFaction ~= lsGetFromFaction or lsGetToFaction ~= "comintern" then
-				return liScore
-			else
-				liMoney = 0
-				
-				local liFromCount = voTradedFrom.vMetal + voTradedFrom.vEnergy + voTradedFrom.vRareMaterials + voTradedFrom.vCrudeOil + voTradedFrom.vSupplies + voTradedFrom.vFuel
-				local liToCount = voTradedTo.vMetal + voTradedTo.vEnergy + voTradedTo.vRareMaterials + voTradedTo.vCrudeOil + voTradedTo.vSupplies + voTradedTo.vFuel
-			
-				if liFromCount > 0 and liToCount <= 0 then
-					laResourceRequested = SetupResourceArray(voTradedFrom)
-				
-					loBuyerTag = loTradeRoute:GetTo()
-					loSellerTag = loTradeRoute:GetFrom()
-					loBuyerCountry = loGetToCountry
-					loSellerCountry = loGetFromCountry
-				
-				elseif liToCount > 0 and liFromCount <= 0 then
-					laResourceRequested = SetupResourceArray(voTradedTo)
-					loBuyerTag = loTradeRoute:GetFrom()
-					loSellerTag = loTradeRoute:GetTo()
-					loBuyerCountry = loGetFromCountry
-					loSellerCountry = loGetToCountry
-					
-				else
-					return liScore
-				end
-			end
-		else
-			return liScore
-		end
-	elseif voTradedTo.vMoney > 0  then
+	elseif voTradedTo.vMoney == 0 and voTradedFrom.vMoney == 0 and not(lbFreeTrader) then
+		return liScore
+		
+	elseif (voTradedTo.vMoney > 0)
+	or (lbFreeTrader and liFromCount > 0 and liToCount <= 0) then
 		-- Get the Money amount
 		liMoney = voTradedTo.vMoney
 		
@@ -129,18 +108,19 @@ function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, vo
 		end
 	end
 	
+	local loRelation = ai:GetRelation(loBuyerTag, loSellerTag)
+	
 	-- Based on what type of sell it is call a different method.
 	---  This score is purely based on the raw trade itself and has nothing to do with relations.
 	if actor == loSellerTag then
-		liScore = BuyResources(ai, loBuyerTag, loBuyerCountry, loSellerTag, laResourceRequested, liMoney)
+		liScore = BuyResources(ai, lbFreeTrader, loRelation, loBuyerTag, loBuyerCountry, loSellerTag, laResourceRequested, liMoney)
 	else
-		liScore = SellResources(ai, loBuyerTag, loSellerTag, loSellerCountry, laResourceRequested, liMoney)
+		liScore = SellResources(ai, lbFreeTrader, loRelation, loBuyerTag, loSellerTag, loSellerCountry, laResourceRequested, liMoney)
 	end
 		
 	-- Now shift the score based on Diplomatic relations!
 	if liScore > 0 then
 		-- Political checks
-		local loRelation = ai:GetRelation(loSellerTag, loBuyerTag)
 		local loStrategy = loSellerTag:GetCountry():GetStrategy()
 		
 		liScore = liScore - loStrategy:GetAntagonism(loBuyerTag) / 15			
@@ -153,9 +133,6 @@ function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, vo
 		end
 		if loRelation:HasFriendlyAgreement() then
 			liScore = liScore + 10
-		end
-		if loRelation:AllowDebts() then
-			liScore = liScore + 5
 		end
 		if loRelation:IsFightingWarTogether() then
 			liScore = liScore + 15
@@ -198,8 +175,7 @@ function SetupResourceArray(voTrade)
 	return laResourceRequested
 end
 
-
-function SellResources(ai, voBuyerTag, voSellerTag, voSellerCountry, vaResourceRequested, viMoney)
+function SellResources(ai, vbFreeTrader, voRelation, voBuyerTag, voSellerTag, voSellerCountry, vaResourceRequested, viMoney)
 	local liScore = 0
 	local lbExit = false
 	local lbResourceShortCount = 0		
@@ -266,7 +242,7 @@ function SellResources(ai, voBuyerTag, voSellerTag, voSellerCountry, vaResourceR
 		liScore = liScore + 50
 		
 		-- Free stuff who cares about cost
-		if ai:CanTradeFreeResources(voBuyerTag, voSellerTag) then
+		if voRelation:AllowDebts() or vbFreeTrader then
 			liScore = liScore + 100
 		end
 					
@@ -341,7 +317,7 @@ function SellResources(ai, voBuyerTag, voSellerTag, voSellerCountry, vaResourceR
 	
 	return liScore
 end
-function BuyResources(ai, voBuyerTag, voBuyerCountry, voSellerTag, vaResourceRequested, viMoney)
+function BuyResources(ai, vbFreeTrader, voRelation, voBuyerTag, voBuyerCountry, voSellerTag, vaResourceRequested, viMoney)
 	local liScore = 0
 	local lbExit = false
 	local liQuantityTrade = 0
@@ -409,7 +385,7 @@ function BuyResources(ai, voBuyerTag, voBuyerCountry, voSellerTag, vaResourceReq
 		liScore = liScore + 50
 		
 		-- Free stuff who cares about cost
-		if ai:CanTradeFreeResources(voBuyerTag, voSellerTag) then
+		if voRelation:AllowDebts() or vbFreeTrader then
 			liScore = liScore + 100
 			
 		-- Human player trying to sell to the AI
@@ -418,7 +394,7 @@ function BuyResources(ai, voBuyerTag, voBuyerCountry, voSellerTag, vaResourceReq
 				liScore = 0
 			end
 		end
-					
+		
 		-- Economic checks
 		if liScore > 0 then
 			-- Fuel is precious don't sell
@@ -847,24 +823,9 @@ function Need_Resource_Check(ministerCountry, voResourceType, vbCancelOveride)
 	
 	local liDailyBalance = loResource.vDailyBalance
 	local liDailyExpense = loResource.vDailyExpense
-	local liDailyHome = loResource.vDailyHome
+	local liDailyHome = Utils.CalculateHomeProduced(loResource)
 	local liDailyIncome = loResource.vDailyIncome
 	local liPool = loResource.vPool
-	local liConvoyedIn = loResource.vConvoyedIn
-	
-	--local liTradedFor = ministerCountry:GetTradedForSansAlliedSupply():GetFloat(voResourceType)
-	--local liTradedAway = ministerCountry:GetTradedAwaySansAlliedSupply():GetFloat(voResourceType)
-	
-	if liConvoyedIn > 0 then
-		-- If the Convoy in exceeds Home Produced by 10% it means they have a glutten coming in or
-		--   are a sea bearing country like ENG or JAP
-		--   so go ahead and count this as home produced up to 70% of it just in case something happens!
-		if liDailyHome > liDailyExpense then
-			liDailyHome = liDailyHome + liConvoyedIn
-		elseif liConvoyedIn > (liDailyHome * 0.1) then
-			liDailyHome = liDailyHome + (liConvoyedIn * 0.7)
-		end
-	end
 	
 	-- Process it if the daily balance meets conditions
 	--   AI will always try and strive to have a small increase on each resource
