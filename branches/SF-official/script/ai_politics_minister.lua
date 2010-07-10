@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Political File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 7/6/2010
+-- Date Last Modified: 7/9/2010
 -----------------------------------------------------------
 
 --Reference for the index numbers of laws
@@ -313,23 +313,65 @@ function MinisterOfSecurity(ai, ministerTag, ministerCountry, vaMinisters, voPos
 end
 function ArmamentMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition)
 	local laPersonalityScore = {}
+
+	local lbResourceShort = false
+	local loEnergy = CResourceValues()
+	local loMetal = CResourceValues()
+	local loRare = CResourceValues()
+	local liExpenseFactor = 0
+	local liHomeFactor = 0
+	
+	loEnergy:GetResourceValues( ministerCountry, CGoodsPool._ENERGY_ )
+	loMetal:GetResourceValues( ministerCountry, CGoodsPool._METAL_ )
+	loRare:GetResourceValues( ministerCountry, CGoodsPool._RARE_MATERIALS_ )
+	
+	liExpenseFactor = loEnergy.vDailyExpense * 0.5
+	liExpenseFactor = liExpenseFactor + loMetal.vDailyExpense
+	liExpenseFactor = liExpenseFactor + (loRare.vDailyExpense * 2)
+	
+	liHomeFactor = Utils.CalculateHomeProduced(loEnergy) * 0.5
+	liHomeFactor = liHomeFactor + Utils.CalculateHomeProduced(loMetal)
+	liHomeFactor = liHomeFactor + (Utils.CalculateHomeProduced(loRare) * 2)
+	
+	-- We are short on resources
+	if liExpenseFactor > liHomeFactor then
+		lbResourceShort = true
+	end
 	
 	if not(Utils.HasCountryAIFunction(ministerTag, "Call_ArmamentMinister")) then
-		laPersonalityScore["administrative_genius"] = 150 
-		laPersonalityScore["resource_industrialist"] = 140 
-		laPersonalityScore["laissez_faires_capitalist"] = 130 
-		laPersonalityScore["military_entrepreneur"] = 120 
-		laPersonalityScore["theoretical_scientist"] = 110 
-		laPersonalityScore["infantry_proponent"] = 100 
-		laPersonalityScore["air_to_ground_proponent"] = 90 
-		laPersonalityScore["air_superiority_proponent"] = 80 
-		laPersonalityScore["battle_fleet_proponent"] = 70 
-		laPersonalityScore["air_to_sea_proponent"] = 60 
-		laPersonalityScore["strategic_air_proponent"] = 50 
-		laPersonalityScore["submarine_proponent"] = 40 
-		laPersonalityScore["tank_proponent"] = 30 
-		laPersonalityScore["corrupt_kleptocrat"] = 20 
-		laPersonalityScore["crooked_kleptocrat"] = 10 
+		if lbResourceShort then
+			laPersonalityScore["resource_industrialist"] = 150 
+			laPersonalityScore["military_entrepreneur"] = 140 
+			laPersonalityScore["administrative_genius"] = 130 
+			laPersonalityScore["laissez_faires_capitalist"] = 120 
+			laPersonalityScore["theoretical_scientist"] = 110 
+			laPersonalityScore["infantry_proponent"] = 100 
+			laPersonalityScore["air_to_ground_proponent"] = 90 
+			laPersonalityScore["air_superiority_proponent"] = 80 
+			laPersonalityScore["battle_fleet_proponent"] = 70 
+			laPersonalityScore["air_to_sea_proponent"] = 60 
+			laPersonalityScore["strategic_air_proponent"] = 50 
+			laPersonalityScore["submarine_proponent"] = 40 
+			laPersonalityScore["tank_proponent"] = 30 
+			laPersonalityScore["corrupt_kleptocrat"] = 20 
+			laPersonalityScore["crooked_kleptocrat"] = 10 		
+		else
+			laPersonalityScore["administrative_genius"] = 150 
+			laPersonalityScore["resource_industrialist"] = 140 
+			laPersonalityScore["laissez_faires_capitalist"] = 130 
+			laPersonalityScore["military_entrepreneur"] = 120 
+			laPersonalityScore["theoretical_scientist"] = 110 
+			laPersonalityScore["infantry_proponent"] = 100 
+			laPersonalityScore["air_to_ground_proponent"] = 90 
+			laPersonalityScore["air_superiority_proponent"] = 80 
+			laPersonalityScore["battle_fleet_proponent"] = 70 
+			laPersonalityScore["air_to_sea_proponent"] = 60 
+			laPersonalityScore["strategic_air_proponent"] = 50 
+			laPersonalityScore["submarine_proponent"] = 40 
+			laPersonalityScore["tank_proponent"] = 30 
+			laPersonalityScore["corrupt_kleptocrat"] = 20 
+			laPersonalityScore["crooked_kleptocrat"] = 10 
+		end
 	end
 	
 	OfficeManagement_PickMinister(ai, ministerTag, ministerCountry, vaMinisters, voPosition, laPersonalityScore, "Call_ArmamentMinister") 

@@ -468,46 +468,4 @@ function P.DiploScore_Alliance(score, ai, actor, recipient, observer, action)
 	return P.DiploScore_InviteToFaction( score, ai, actor, recipient, observer)	
 end
 
---########################
---  Political Overides
-
-function P.Call_ArmamentMinister(ministerCountry, vaMinisters)
-	local loSelectedMinister = nil
-	local liCurrentScore = 0
-	local laPersonalityScore = {}
-	
-	laPersonalityScore["resource_industrialist"] = 150 
-	laPersonalityScore["military_entrepreneur"] = 140 
-	laPersonalityScore["administrative_genius"] = 130 
-	laPersonalityScore["laissez_faires_capitalist"] = 120 
-	laPersonalityScore["theoretical_scientist"] = 110 
-	laPersonalityScore["infantry_proponent"] = 100 
-	laPersonalityScore["air_to_ground_proponent"] = 90 
-	laPersonalityScore["air_superiority_proponent"] = 80 
-	laPersonalityScore["battle_fleet_proponent"] = 70 
-	laPersonalityScore["air_to_sea_proponent"] = 60 
-	laPersonalityScore["strategic_air_proponent"] = 50 
-	laPersonalityScore["submarine_proponent"] = 40 
-	laPersonalityScore["tank_proponent"] = 30 
-	laPersonalityScore["corrupt_kleptocrat"] = 20 
-	laPersonalityScore["crooked_kleptocrat"] = 10 
-		
-	for liIndex, loMinister in pairs(vaMinisters) do 
-		local liScore = 0 
-		local lsMinisterType = tostring(loMinister:GetPersonality(voPosition):GetKey()) 
-
-		-- Check to make sure its a minister whose trait gets a score
-		if laPersonalityScore[lsMinisterType] ~= nil then 
-			liScore = laPersonalityScore[lsMinisterType] 
-			
-			if liScore > liCurrentScore then 
-				liCurrentScore = liScore 
-				loSelectedMinister = loMinister 
-			end 
-		end 
-	end 
-		
-	return loSelectedMinister
-end
-
 return AI_JAP

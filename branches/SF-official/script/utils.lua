@@ -341,5 +341,21 @@ function P.Split(str, delim, maxNb)
     return result
 end
 
+function P.CalculateHomeProduced(loResource)
+	local liDailyHome = loResource.vDailyHome
+	
+	if loResource.vConvoyedIn > 0 then
+		-- If the Convoy in exceeds Home Produced by 10% it means they have a glutten coming in or
+		--   are a sea bearing country like ENG or JAP
+		--   so go ahead and count this as home produced up to 80% of it just in case something happens!
+		if liDailyHome > loResource.vDailyExpense then
+			liDailyHome = liDailyHome + loResource.vConvoyedIn
+		elseif loResource.vConvoyedIn > (liDailyHome * 0.1) then
+			liDailyHome = liDailyHome + (loResource.vConvoyedIn * 0.9)
+		end
+	end	
+	
+	return liDailyHome
+end
 
 return Utils
