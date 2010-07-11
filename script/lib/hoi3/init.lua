@@ -30,13 +30,13 @@ require("hoi3.Randomizer")
 require("hoi3.CList")
 require("middleclass")
 Object = middleclass.Object
-
+require('dtools')
 ---
 -- hoi3.testType is able to test Object:subclass() existence
 -- but subclasses MUST be defined in hoi3.api module.
 function testType(value, typeAsString)
 	local t = type(value)
-	
+
 	if t==TYPE_USERDATA then
 		-- Always consider USERDATA as expected type !
 		return true
@@ -59,15 +59,11 @@ function testType(value, typeAsString)
 		return t==TYPE_FUNCTION or 
 			(t==TYPE_TABLE and type(getmetatable(t).__call)==TYPE_FUNCTION )
 	elseif t == TYPE_TABLE then
-		-- Where to find class definition ?
-		-- inside hoi3 package objects
-		if hoi3[typeAsString] then
-			return middleclass.instanceOf(hoi3[typeAsString], value)
-		else
- 			-- must be a hoi3.api package member
-			require('hoi3.api')
-			
+		if hoi3.api[typeAsString] then
+			-- must be a hoi3.api package member
 			return middleclass.instanceOf(hoi3.api[typeAsString], value)
+		else
+			return middleclass.instanceOf(hoi3[typeAsString], value)
 		end
 	else
 		--thread, nil or function

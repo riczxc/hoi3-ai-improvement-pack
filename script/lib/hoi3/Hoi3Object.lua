@@ -134,6 +134,9 @@ function Hoi3Object:runRealApiAndSave()
 	assert(self.__userdata ~= nil, "Object not binded yet ! Please use object:bind(userdata).")
 	
 	for n, m in pairs(self:getApiFunctions()) do
-		m:runAndSave(self.__userdata)
+		dtools.debug("Running method "..m:signatureAsString())
+		m:runAndSave(self.__userdata,self)
+		
+		dtools.debug(m.realruns.." runs in "..m.realtime.." ("..(m.realtime / m.realruns)..")")
 	end
 end

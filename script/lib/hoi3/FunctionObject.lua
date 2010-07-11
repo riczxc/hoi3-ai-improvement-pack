@@ -32,6 +32,10 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	self.result = {}
 	self.runs = 0
 	self.druns = {}
+	
+	self.realruns = 0
+	self.realtime = 0
+	
 	if self.ret == hoi3.TYPE_UNKNOWN or
 		self.ret == hoi3.TYPE_VOID or
 		(self.ret ~= nil and self.ret.type ~= nil and self.ret.type == hoi3.TYPE_VOID) then
@@ -53,7 +57,7 @@ function FunctionObject:reset()
 end
 
 function FunctionObject:__tostring()
-	return str .. self:returnTypeAsString().." "..self.myclass.name.."."..self:signatureAsString() 
+	return self:returnTypeAsString().." "..self.myclass.name.."."..self:signatureAsString() 
 end
 
 function FunctionObject:hasImpl()
@@ -336,7 +340,7 @@ function FunctionObject:save(value, instanceOrFirstParameter, ...)
 	instanceOrClass.__result[self][hash] = value
 end
 
-function FunctionObject:runAndSave(userdata)
+function FunctionObject:runAndSave(userdata, instance)
 	hoi3.assertNonStatic(self)
 	
 	if not self:canSave() then
@@ -347,11 +351,25 @@ function FunctionObject:runAndSave(userdata)
 		if userdata[self.name] == nil or type(userdata[self.name]) ~= hoi3.TYPE_FUNCTION then
 			dtools.warn(tostring(self).." does not exists in real API !")
 		else
-			-- prepare all parameters combinations as a table of table
-			local arg_combination = {}
-			
-			for i, args in ipairs(arg_combination) do
-				userdata[self.name](unpack(args))
+			if #self.args > 0 then
+				dtools.warn(tostring(self).." not (yet) supported because of multiple parameters !")
+			else
+				-- prepare all parameters combinations as a table of table
+				--local arg_combination = {}
+				
+				local mytime = os.clock()
+				
+				--for i, args in ipairs(arg_combination) do
+				local ret, value = pcall(userdata[self.name],userdata)
+				if ret == false then
+					dtools.error(tostring(self).." failed to run ! "..value)
+				else
+					self:save(value,instance)
+					--end
+					
+					self.realruns = self.realruns + 1
+					self.realtime = self.realtime + os.clock() - mytime
+				end
 			end
 		end 
 	end
