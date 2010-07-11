@@ -4,9 +4,6 @@
 
 
 =Hearts of Iron III - LUA class reference=
-
-This code is as per Semper-Fi, 9th July 2010.
-
 -----
 ==AbstractObject==
 Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
@@ -36,7 +33,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace">static string</font></td><td><font face="monospace">`GetCommonModDirectory`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetCountryAlignmentDistance`([#CCountry CCountry], [#CCountry CCountry])</font></td><td></td></tr>
-<tr><td><font face="monospace"> CEU3Date</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CEU3Date CEU3Date]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetDeployedSubUnitCounts`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static string</font></td><td><font face="monospace">`GetModDirectory`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetNormalizedAlignmentDistance`([#CCountry CCountry], [#CFaction CFaction])</font></td><td></td></tr>
@@ -64,11 +61,11 @@ There is no constructor for this object, use API reference in order to find a me
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`CAI._DIPLOMACY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAI._INTELLIGENCE_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._DIPLOMACY_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._INTELLIGENCE_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
 <tr><td><font face="monospace">`CAI._POLITICS_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAI._PRODUCTION_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAI._TECHNOLOGY_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._PRODUCTION_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAI._TECHNOLOGY_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -83,7 +80,6 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CCountry CCountry]</font></td><td><font face="monospace">`GetCountry`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetCountryTag`()</font></td><td></td></tr>
-<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
@@ -99,7 +95,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
-<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsAligningToFaction`()</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
@@ -118,7 +114,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`ExecuteDiploDecisions`()</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
-<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CCountryTag CCountryTag]</font></td><td><font face="monospace">`GetProposedWarTarget`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`PercOccupied`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`Propose`([#CDiplomaticAction CDiplomaticAction], number)</font></td><td></td></tr>
@@ -156,7 +152,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
-<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsCapitalSafeToLiberate`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
@@ -177,7 +173,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetDesperation`()</font></td><td></td></tr>
-<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`PrioritizeBuildQueue`()</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
@@ -220,11 +216,11 @@ There is no constructor for this object, use API reference in order to find a me
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`CAIStrategy._AI_BALANCED_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAIStrategy._AI_DIPLOMAT_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAIStrategy._AI_INDUSTRIALIST_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAIStrategy._AI_MILITARIST_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
-<tr><td><font face="monospace">`CAIStrategy._AI_UNDEFINED_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_BALANCED_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_DIPLOMAT_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_INDUSTRIALIST_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_MILITARIST_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CAIStrategy._AI_UNDEFINED_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -253,10 +249,8 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanResearch`([#CTechnology CTechnology])</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountry CCountry]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountry`()</i></font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>[#CCountryTag CCountryTag]</i></font></td><td><font face="monospace" color="grey"><i>`GetCountryTag`()</i></font></td><td></td></tr>
-<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDistanceFrom`(unknown)</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetFolderModifers`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLastDrift`([#CIdeologyGroup CIdeologyGroup])</font></td><td></td></tr>
-<tr><td><font face="monospace" color="grey"><i>[#CAI CAI]</i></font></td><td><font face="monospace" color="grey"><i>`GetOwnerAI`()</i></font></td><td></td></tr>
+<tr><td><font face="monospace">[#CAI CAI]</font></td><td><font face="monospace">`GetOwnerAI`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CArrayFloat CArrayFloat]</font></td><td><font face="monospace">`GetTechModifers`()</font></td><td></td></tr>
 <tr><td><font face="monospace" color="grey"><i>unknown</i></font></td><td><font face="monospace" color="grey"><i>`WantTicks`(unknown)</i></font></td><td></td></tr>
 </table>
@@ -281,6 +275,12 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDistanceFrom`(unknown)</font></td><td></td></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLastDrift`([#CIdeologyGroup CIdeologyGroup])</font></td><td></td></tr>
+</table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -355,19 +355,6 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetAt`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetAt`(number, number)</font></td><td></td></tr>
-</table>
-<font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
-
------
-==CBrigade==
-Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font color="grey"><em>[#Object Object]</em></font>
-
-====Constructor summary====
-There is no constructor for this object, use API reference in order to find a method returning expected type.
-====Method summary====
-<table width="100%" border="1">
-<tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace">[#CSubUnitDefinition CSubUnitDefinition]</font></td><td><font face="monospace">`GetType`()</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -883,7 +870,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">static number</font></td><td><font face="monospace">`GetAIRand`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static iterator`<`[#CCountry CCountry]></font></td><td><font face="monospace">`GetCountries`()</font></td><td></td></tr>
-<tr><td><font face="monospace">static  CEU3Date</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
+<tr><td><font face="monospace">static [#CEU3Date CEU3Date]</font></td><td><font face="monospace">`GetCurrentDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static [#CFaction CFaction]</font></td><td><font face="monospace">`GetFaction`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static iterator`<`[#CFaction CFaction]></font></td><td><font face="monospace">`GetFactions`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`GetInstance`()</font></td><td></td></tr>
@@ -973,7 +960,6 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsFightingWarTogether`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranteed`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsGuaranting`()</font></td><td></td></tr>
-<tr><td><font face="monospace">void</font></td><td><font face="monospace">`SetValue`([#CFixedPoint CFixedPoint])</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -997,9 +983,9 @@ There is no constructor for this object, use API reference in order to find a me
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`CDiplomaticAction.ACCEPT`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDiplomaticAction.DECLINE`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDiplomaticAction.PROPOSE`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDiplomaticAction.ACCEPT`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDiplomaticAction.DECLINE`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDiplomaticAction.PROPOSE`</font></td><td><font face="monospace">0</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1020,13 +1006,13 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
 <tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_DIPLOMACY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
 <tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_ESPIONAGE_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_NCO_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_RESEARCH_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_CONSUMER_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_PRODUCTION_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_NCO_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._LEADERSHIP_RESEARCH_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_CONSUMER_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_PRODUCTION_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
 <tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_REINFORCEMENT_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_SUPPLY_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
-<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_UPGRADE_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_SUPPLY_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CDistributionSetting._PRODUCTION_UPGRADE_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1176,14 +1162,14 @@ There is no constructor for this object, use API reference in order to find a me
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`CGoodsPool._CRUDE_OIL_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
-<tr><td><font face="monospace">`CGoodsPool._ENERGY_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CGoodsPool._FUEL_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._CRUDE_OIL_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._ENERGY_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._FUEL_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
 <tr><td><font face="monospace">`CGoodsPool._GC_NUMOF_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
-<tr><td><font face="monospace">`CGoodsPool._METAL_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`CGoodsPool._MONEY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CGoodsPool._RARE_MATERIALS_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
-<tr><td><font face="monospace">`CGoodsPool._SUPPLIES_`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._METAL_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._MONEY_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._RARE_MATERIALS_`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`CGoodsPool._SUPPLIES_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1225,6 +1211,13 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetIndex`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CString CString]</font></td><td><font face="monospace">`GetKey`()</font></td><td></td></tr>
+<tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsChangeable`()</font></td><td></td></tr>
+</table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -1491,7 +1484,6 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`CanTakePosition`([#CGovernmentPosition CGovernmentPosition])</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CIdeology CIdeology]</font></td><td><font face="monospace">`GetIdeology`()</font></td><td></td></tr>
 <tr><td><font face="monospace">[#CMinisterType CMinisterType]</font></td><td><font face="monospace">`GetPersonality`([#CGovernmentPosition CGovernmentPosition])</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetValue`(number)</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsValid`()</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
@@ -1532,91 +1524,96 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+====Method summary====
+<table width="100%" border="1">
+<tr><th>Type</th><th>Method</th><th>Since</th></tr>
+<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetValue`(number)</font></td><td></td></tr>
+</table>
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_AIR_CAPACITY_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_AIR_ORGANISATION_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_ALIGN_TOWARDS_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_ATTACK_REINFORCE_CHANCE_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_ATTRITION_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_COASTAL_FORT_LEVEL_`</font></td><td><font face="monospace">6</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_COMBAT_MOVEMENT_SPEED_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_COMBAT_WIDTH_`</font></td><td><font face="monospace">8</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_COUNTER_ESPIONAGE_`</font></td><td><font face="monospace">9</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_COUNTER_INTELLIGENCE_`</font></td><td><font face="monospace">10</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_DEFEND_REINFORCE_CHANCE_`</font></td><td><font face="monospace">11</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_DISSENT_`</font></td><td><font face="monospace">12</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_DRIFT_SPEED_`</font></td><td><font face="monospace">13</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_ESPIONAGE_BONUS_`</font></td><td><font face="monospace">14</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_FORT_LEVEL_`</font></td><td><font face="monospace">15</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_CRUDE_OIL_`</font></td><td><font face="monospace">16</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_ENERGY_`</font></td><td><font face="monospace">17</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_FUEL_`</font></td><td><font face="monospace">18</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_IC_`</font></td><td><font face="monospace">19</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_INFRASTRUCTURE_`</font></td><td><font face="monospace">20</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_LEADERSHIP_`</font></td><td><font face="monospace">21</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_`</font></td><td><font face="monospace">22</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MANPOWER_`</font></td><td><font face="monospace">23</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MANPOWER_MODIFIER_`</font></td><td><font face="monospace">24</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_METAL_`</font></td><td><font face="monospace">25</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MONEY_`</font></td><td><font face="monospace">26</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_RARE_MATERIALS_`</font></td><td><font face="monospace">27</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_REVOLT_RISK_`</font></td><td><font face="monospace">28</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_SUPPLIES_`</font></td><td><font face="monospace">29</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_IC_`</font></td><td><font face="monospace">30</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_INCORPORATE_COST_`</font></td><td><font face="monospace">31</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_INDUSTRIAL_EFFICIENCY_`</font></td><td><font face="monospace">32</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_INFRASTRUCTURE_`</font></td><td><font face="monospace">33</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LAND_ORGANISATION_`</font></td><td><font face="monospace">34</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_ANTI_AIR_`</font></td><td><font face="monospace">35</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_CRUDE_OIL_`</font></td><td><font face="monospace">36</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_ENERGY_`</font></td><td><font face="monospace">37</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_FUEL_`</font></td><td><font face="monospace">38</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_IC_`</font></td><td><font face="monospace">39</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_INFRASTRUCTURE_`</font></td><td><font face="monospace">40</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_LEADERSHIP_`</font></td><td><font face="monospace">41</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_LEADERSHIP_MODIFIER_`</font></td><td><font face="monospace">42</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MANPOWER_`</font></td><td><font face="monospace">43</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MANPOWER_MODIFIER_`</font></td><td><font face="monospace">44</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_METAL_`</font></td><td><font face="monospace">45</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MONEY_`</font></td><td><font face="monospace">46</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_PARTISAN_SUPPORT_`</font></td><td><font face="monospace">47</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_RARE_MATERIALS_`</font></td><td><font face="monospace">48</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_REVOLT_RISK_`</font></td><td><font face="monospace">49</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_SUPPLIES_`</font></td><td><font face="monospace">50</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_MAX_WAR_EXHAUSTION_`</font></td><td><font face="monospace">51</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_MINIMUM_REVOLT_RISK_`</font></td><td><font face="monospace">52</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_NATIONAL_UNITY_`</font></td><td><font face="monospace">53</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_NATIONAL_UNITY_EFFECT_`</font></td><td><font face="monospace">54</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_BASE_EFFICIENCY_`</font></td><td><font face="monospace">55</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_CAPACITY_`</font></td><td><font face="monospace">56</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_ORGANISATION_`</font></td><td><font face="monospace">57</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_NEUTRALITY_CHANGE_`</font></td><td><font face="monospace">58</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_OFFICER_RECRUITMENT_`</font></td><td><font face="monospace">59</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_AIR_CAPACITY_`</font></td><td><font face="monospace">46</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_AIR_ORGANISATION_`</font></td><td><font face="monospace">70</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ALIGN_TOWARDS_`</font></td><td><font face="monospace">47</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ATTACK_REINFORCE_CHANCE_`</font></td><td><font face="monospace">63</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ATTRITION_`</font></td><td><font face="monospace">7</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COASTAL_FORT_LEVEL_`</font></td><td><font face="monospace">11</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COMBAT_MOVEMENT_SPEED_`</font></td><td><font face="monospace">62</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COMBAT_WIDTH_`</font></td><td><font face="monospace">65</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COUNTER_ESPIONAGE_`</font></td><td><font face="monospace">55</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_COUNTER_INTELLIGENCE_`</font></td><td><font face="monospace">54</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_DEFEND_REINFORCE_CHANCE_`</font></td><td><font face="monospace">64</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_DISSENT_`</font></td><td><font face="monospace">43</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_DRIFT_SPEED_`</font></td><td><font face="monospace">36</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ESPIONAGE_BONUS_`</font></td><td><font face="monospace">42</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_FORT_LEVEL_`</font></td><td><font face="monospace">10</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_CRUDE_OIL_`</font></td><td><font face="monospace">19</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_ENERGY_`</font></td><td><font face="monospace">21</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_FUEL_`</font></td><td><font face="monospace">29</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_IC_`</font></td><td><font face="monospace">17</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_INFRASTRUCTURE_`</font></td><td><font face="monospace">14</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_LEADERSHIP_`</font></td><td><font face="monospace">33</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_LEADERSHIP_MODIFIER_`</font></td><td><font face="monospace">35</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MANPOWER_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MANPOWER_MODIFIER_`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_METAL_`</font></td><td><font face="monospace">23</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_MONEY_`</font></td><td><font face="monospace">31</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_RARE_MATERIALS_`</font></td><td><font face="monospace">25</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_REVOLT_RISK_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_GLOBAL_SUPPLIES_`</font></td><td><font face="monospace">27</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_IC_`</font></td><td><font face="monospace">15</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_INCORPORATE_COST_`</font></td><td><font face="monospace">38</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_INDUSTRIAL_EFFICIENCY_`</font></td><td><font face="monospace">73</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_INFRASTRUCTURE_`</font></td><td><font face="monospace">12</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LAND_ORGANISATION_`</font></td><td><font face="monospace">69</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_ANTI_AIR_`</font></td><td><font face="monospace">74</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_CRUDE_OIL_`</font></td><td><font face="monospace">18</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_ENERGY_`</font></td><td><font face="monospace">20</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_FUEL_`</font></td><td><font face="monospace">28</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_IC_`</font></td><td><font face="monospace">16</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_INFRASTRUCTURE_`</font></td><td><font face="monospace">13</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_LEADERSHIP_`</font></td><td><font face="monospace">32</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_LEADERSHIP_MODIFIER_`</font></td><td><font face="monospace">34</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MANPOWER_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MANPOWER_MODIFIER_`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_METAL_`</font></td><td><font face="monospace">22</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_MONEY_`</font></td><td><font face="monospace">30</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_PARTISAN_SUPPORT_`</font></td><td><font face="monospace">75</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_RARE_MATERIALS_`</font></td><td><font face="monospace">24</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_REVOLT_RISK_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_LOCAL_SUPPLIES_`</font></td><td><font face="monospace">26</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_MAX_WAR_EXHAUSTION_`</font></td><td><font face="monospace">9</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_MINIMUM_REVOLT_RISK_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NATIONAL_UNITY_`</font></td><td><font face="monospace">44</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NATIONAL_UNITY_EFFECT_`</font></td><td><font face="monospace">67</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_BASE_EFFICIENCY_`</font></td><td><font face="monospace">79</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_CAPACITY_`</font></td><td><font face="monospace">45</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NAVAL_ORGANISATION_`</font></td><td><font face="monospace">71</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_NEUTRALITY_CHANGE_`</font></td><td><font face="monospace">77</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFICER_RECRUITMENT_`</font></td><td><font face="monospace">81</font></td><td></td></tr>
 <tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_INDUSTRY_INTEL_`</font></td><td><font face="monospace">60</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_LAND_INTEL_`</font></td><td><font face="monospace">61</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_NAVAL_INTEL_`</font></td><td><font face="monospace">62</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_POLITICAL_INTEL_`</font></td><td><font face="monospace">63</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_ORG_REGAIN_`</font></td><td><font face="monospace">64</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_PARTISAN_EFFICENCY_`</font></td><td><font face="monospace">65</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_PEACETIME_MANPOWER_ROTATION_`</font></td><td><font face="monospace">68</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_`</font></td><td><font face="monospace">66</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_PEACE_OFFMAP_INTEL_`</font></td><td><font face="monospace">67</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_RADAR_LEVEL_`</font></td><td><font face="monospace">69</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_RESEARCH_EFFICIENCY_`</font></td><td><font face="monospace">70</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_RESERVES_PENALTY_SIZE_`</font></td><td><font face="monospace">71</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_RULING_PARTY_SUPPORT_`</font></td><td><font face="monospace">72</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_SUPPLY_CONSUMPTION_`</font></td><td><font face="monospace">73</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_SUPPLY_THROUGHPUT_`</font></td><td><font face="monospace">74</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_SUSEPTIBILITY_`</font></td><td><font face="monospace">75</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_TERRITORIAL_PRIDE_`</font></td><td><font face="monospace">76</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_THREAT_IMPACT_`</font></td><td><font face="monospace">77</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_RECRUITMENT_TIME_`</font></td><td><font face="monospace">78</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_REPAIR_`</font></td><td><font face="monospace">79</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_START_EXPERIENCE_`</font></td><td><font face="monospace">80</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_WAR_CONSUMER_GOODS_DEMAND_`</font></td><td><font face="monospace">81</font></td><td></td></tr>
-<tr><td><font face="monospace">`CModifier._MODIFIER_WAR_EXHAUSTION_`</font></td><td><font face="monospace">82</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_LAND_INTEL_`</font></td><td><font face="monospace">58</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_NAVAL_INTEL_`</font></td><td><font face="monospace">59</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_OFFMAP_POLITICAL_INTEL_`</font></td><td><font face="monospace">61</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_ORG_REGAIN_`</font></td><td><font face="monospace">66</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PARTISAN_EFFICENCY_`</font></td><td><font face="monospace">78</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PEACETIME_MANPOWER_ROTATION_`</font></td><td><font face="monospace">50</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PEACE_CONSUMER_GOODS_DEMAND_`</font></td><td><font face="monospace">41</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_PEACE_OFFMAP_INTEL_`</font></td><td><font face="monospace">57</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RADAR_LEVEL_`</font></td><td><font face="monospace">48</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RESEARCH_EFFICIENCY_`</font></td><td><font face="monospace">72</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RESERVES_PENALTY_SIZE_`</font></td><td><font face="monospace">76</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_RULING_PARTY_SUPPORT_`</font></td><td><font face="monospace">68</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_SUPPLY_CONSUMPTION_`</font></td><td><font face="monospace">49</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_SUPPLY_THROUGHPUT_`</font></td><td><font face="monospace">80</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_SUSEPTIBILITY_`</font></td><td><font face="monospace">37</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_TERRITORIAL_PRIDE_`</font></td><td><font face="monospace">39</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_THREAT_IMPACT_`</font></td><td><font face="monospace">56</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_RECRUITMENT_TIME_`</font></td><td><font face="monospace">51</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_REPAIR_`</font></td><td><font face="monospace">53</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_UNIT_START_EXPERIENCE_`</font></td><td><font face="monospace">52</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_WAR_CONSUMER_GOODS_DEMAND_`</font></td><td><font face="monospace">40</font></td><td></td></tr>
+<tr><td><font face="monospace">`CModifier._MODIFIER_WAR_EXHAUSTION_`</font></td><td><font face="monospace">8</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1810,10 +1807,10 @@ There is no constructor for this object, use API reference in order to find a me
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`CRule._RULE_ALLIANCE_GUARANTEE_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CRule._RULE_FREE_RESOURCE_GIFTS_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`CRule._RULE_LIMITED_WAR_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`CRule._RULE_NONE_`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_ALLIANCE_GUARANTEE_`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_FREE_RESOURCE_GIFTS_`</font></td><td><font face="monospace">3</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_LIMITED_WAR_`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CRule._RULE_NONE_`</font></td><td><font face="monospace">0</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1841,7 +1838,7 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
 <tr><td><font face="monospace">`CSendExpeditionaryForceAction.SEND`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`CSendExpeditionaryForceAction.TAKE`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`CSendExpeditionaryForceAction.TAKE`</font></td><td><font face="monospace">0</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -1898,7 +1895,7 @@ There is no constructor for this object, use API reference in order to find a me
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
-<tr><td><font face="monospace"> CEU3Date</font></td><td><font face="monospace">`GetLastMissionChangeDate`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CEU3Date CEU3Date]</font></td><td><font face="monospace">`GetLastMissionChangeDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLevel`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMission`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetPriority`()</font></td><td></td></tr>
@@ -1908,7 +1905,7 @@ There is no constructor for this object, use API reference in order to find a me
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
 <tr><td><font face="monospace">`CSpyPresence.MAX_SPY_LEVEL`</font></td><td><font face="monospace">10</font></td><td></td></tr>
-<tr><td><font face="monospace">`CSpyPresence.MAX_SPY_PRIORITY`</font></td><td><font face="monospace">4</font></td><td></td></tr>
+<tr><td><font face="monospace">`CSpyPresence.MAX_SPY_PRIORITY`</font></td><td><font face="monospace">3</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -2276,7 +2273,7 @@ There is no constructor for this object, use API reference in order to find a me
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetAttackers`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetCurrentRunningTimeInMonths`()</font></td><td></td></tr>
 <tr><td><font face="monospace">unknown</font></td><td><font face="monospace">`GetDefenders`()</font></td><td></td></tr>
-<tr><td><font face="monospace"> CEU3Date</font></td><td><font face="monospace">`GetStartDate`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CEU3Date CEU3Date]</font></td><td><font face="monospace">`GetStartDate`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsLimited`()</font></td><td></td></tr>
 <tr><td><font face="monospace">boolean</font></td><td><font face="monospace">`IsPartOfWar`([#CCountryTag CCountryTag])</font></td><td></td></tr>
 </table>
@@ -2329,21 +2326,21 @@ There is no constructor for this object, use API reference in order to find a me
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_BOOST_OUR_PARTY`</font></td><td><font face="monospace">1</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_BOOST_RULING_PARTY`</font></td><td><font face="monospace">2</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_COUNTER_ESPIONAGE`</font></td><td><font face="monospace">3</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_DISRUPT_PRODUCTION`</font></td><td><font face="monospace">4</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_DISRUPT_RESEARCH`</font></td><td><font face="monospace">5</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_INCREASE_THREAT`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_BOOST_OUR_PARTY`</font></td><td><font face="monospace">6</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_BOOST_RULING_PARTY`</font></td><td><font face="monospace">5</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_COUNTER_ESPIONAGE`</font></td><td><font face="monospace">1</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_DISRUPT_PRODUCTION`</font></td><td><font face="monospace">10</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_DISRUPT_RESEARCH`</font></td><td><font face="monospace">9</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_INCREASE_THREAT`</font></td><td><font face="monospace">12</font></td><td></td></tr>
 <tr><td><font face="monospace">`SpyMission.SPYMISSION_LOWER_NATIONAL_UNITY`</font></td><td><font face="monospace">7</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_LOWER_NEUTRALITY`</font></td><td><font face="monospace">8</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_MAX`</font></td><td><font face="monospace">9</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_MILITARY`</font></td><td><font face="monospace">10</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_NONE`</font></td><td><font face="monospace">11</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_POLITICAL`</font></td><td><font face="monospace">12</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_LOWER_NEUTRALITY`</font></td><td><font face="monospace">11</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_MAX`</font></td><td><font face="monospace">14</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_MILITARY`</font></td><td><font face="monospace">2</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_NONE`</font></td><td><font face="monospace">0</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_POLITICAL`</font></td><td><font face="monospace">4</font></td><td></td></tr>
 <tr><td><font face="monospace">`SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY`</font></td><td><font face="monospace">13</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_SUPPORT_RESISTANCE`</font></td><td><font face="monospace">14</font></td><td></td></tr>
-<tr><td><font face="monospace">`SpyMission.SPYMISSION_TECH`</font></td><td><font face="monospace">15</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_SUPPORT_RESISTANCE`</font></td><td><font face="monospace">8</font></td><td></td></tr>
+<tr><td><font face="monospace">`SpyMission.SPYMISSION_TECH`</font></td><td><font face="monospace">3</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
@@ -2361,5 +2358,3 @@ Implements <font color="grey"><em>[#CList CList]</em></font>, <font color="grey"
 <tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`RemoveAll`(unknown)</font></td><td></td></tr>
 </table>
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
-
---|
