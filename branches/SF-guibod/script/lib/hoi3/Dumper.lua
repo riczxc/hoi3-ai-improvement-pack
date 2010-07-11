@@ -1,5 +1,5 @@
 require('hoi3.api')
-
+require('dtools.table')
 module( "hoi3", package.seeall)
 
 --[[
@@ -28,23 +28,56 @@ boolean
 *string -> either void or db lookup
 *unknown -> ignored not supported
 ]]
+local didRun = false
 
 function dump()
-	-- Clean the environment
-	hoi3.api.MultitonObject.clearInstances()
+	if didRun == true then return end
+	
+	hoi3.MultitonObject.clearInstances()
 	
 	-- First of all, check ALL constants !
-	if not checkStatic() or not checkConstant() then
+	--if 
+	checkMethods() 
+	--and 
+	checkConstants()
+	--[[ then
 		report("Failed to dump, either static methods or constants are not synchronize between fake API and real API.")
+		didRun = true
 		return
-	end
+	end]]
 	
 	-- Read all needed objects used in data
+	dtools.debug("About to check db")
 	checkDataBases()
 	
-	-- Start
+	dtools.debug("About to run saveAll")
+	saveAll()
 	
+	-- Serialize
+	dtools.debug("About to Serialize")
+	hoi3.MultitonObject.serializeInstances("SAVE000.lua")
+	
+	-- Start
+	didRun = true
 end
+
+function pingStatic(class,name)
+	local function _pingStatic(class,name)
+		if name ~= nil then 
+			return _G[class][name] ~= nil
+		else
+			return _G[class] ~= nil
+		end
+	end
+
+	local retOK, ret = pcall(_pingStatic, class, name)
+	if retOK == false then
+		return false
+	else
+		return ret
+	end
+end
+
 
 function report(err)
 	dtools.error(err)
@@ -52,7 +85,7 @@ end
 
 function saveAll()
 	for k,v in pairs(hoi3.api.CCountryTag:getInstances()) do
-		CCountryTag:runRealApiAndSave()
+		v:runRealApiAndSave()
 	end 
 end
 
@@ -62,115 +95,130 @@ function checkDataBases()
 	-- Start by referencing all databased objects
 	for d in CCurrentGameState.GetCountries() do
 		local t = hoi3.api.CCountryTag(tostring(d:GetCountryTag()))
-		t:bind(d)
-		
+		t:bind(d:GetCountryTag())
+
 		local o = hoi3.api.CCountry(t)
-		o:bind(d:GetCountryTag())
+		o:bind(d)
 		
 		for pid in d:GetControlledProvinces() do
-			local p = CProvince(pid)
+			local p = hoi3.api.CProvince(pid)
 			p:bind(CCurrentGameState.GetProvince(pid))
 		end
+		
+		for min in d:GetPossibleMinisters() do	
+			local i = hoi3.api.CIdeology(min:GetIdeology():GetKey():GetString())
+			i:bind(min:GetIdeology())
+			
+			local i = hoi3.api.CIdeologyGroup(min:GetIdeology():GetGroup():GetKey():GetString())
+			i:bind(min:GetIdeology():GetGroup())
+		end
 	end
-	
+	dtools.debug("CFaction")
 	for d in CCurrentGameState.GetFactions() do
 		local o = hoi3.api.CFaction(tostring(d:GetTag()))
 		o:bind(d)
 	end
-	
+	dtools.debug("CLawGroup")
 	for d in CLawDataBase.GetGroups() do
-		local o = hoi3.api.CLawGroup(d:GetKey())
+		local o = hoi3.api.CLawGroup(d:GetKey():GetString())
 		o:bind(d)
 	end
-	
+	dtools.debug("CLaw")
 	for d in CLawDataBase.GetLawList() do
-		local o = hoi3.api.CLaw(d:GetKey())
+		local o = hoi3.api.CLaw(d:GetKey():GetString())
 		o:bind(d)
 	end
-	
+	dtools.debug("CSubUnitDefinition")
 	for d in CSubUnitDataBase.GetSubUnitList() do
 		local o = hoi3.api.CSubUnitDefinition(d:GetKey():GetString())
 		o:bind(d)
 	end
-	
+	dtools.debug("CTechnology")
+	for d in CTechnologyDataBase.GetTechnologies() do
+		local o = hoi3.api.CTechnology(d:GetKey():GetString())
+		o:bind(d)
+	end
+	dtools.debug("CTechnologyCategory")
 	for d in CTechnologyDataBase.GetCategories() do
 		local o = hoi3.api.CTechnologyCategory(d:GetKey():GetString())
 		o:bind(d)
 	end
-	
+	dtools.debug("CGovernmentPosition")
+	for d in CGovernmentPositionDataBase.GetGovernmentPositionList() do
+		local o = hoi3.api.CGovernmentPosition(d:GetKey():GetString())
+		o:bind(d)
+	end
+	dtools.debug("CMinisterType")
+	for d in CMinisterTypeDataBase.GetMinisterTypeList() do
+		local o = hoi3.api.CMinisterType(d:GetKey():GetString())
+		o:bind(d)
+	end
+	dtools.debug("CBuilding")
 	-- From here there is no complete iterator, only index
-	for i=0,99 do
+	for i=0,10 do
 		d = CBuildingDataBase.GetBuildingFromIndex(i)
-		local o = hoi3.api.CBuilding(d:GetName())
-		o:bind(d)
+		if d ~= nil then 
+			local o = hoi3.api.CBuilding(d:GetName():GetString())
+			o:bind(d)
+		end
 	end
-	
-	for i=0,99 do
-		d = CGovernmentPositionDataBase.GetGovernmentPositionByIndex(i)
-		local o = hoi3.api.CGovernmentPosition(tostring(i))
-		o:bind(d)
-	end
-	
 	-- Missing :
 	-- * CDecision
-	-- * CIdeology
-	-- * CIdeologyGroup
-	-- * CTechnology
 	-- * CTradeRoute 
 end
 
-function checkStatic()
+function checkMethods()
 	local hasErr = false
 	for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
-		for methodName, method in class:getApiFunctions() do
-			if _G[className] == nil then
-				report("Expected static class "..className.." does not exists")
-				hasErr = true
-			else
-				if _G[className].methodName == nil then
+		if pingStatic(className) and not middleclass.subclassOf(hoi3.api.AbstractObject, class) then
+			for methodName, method in pairs(class:getApiFunctions()) do
+				if not pingStatic(className,methodName) then
 					report("Expected static method "..className.."."..methodName.." does not exists")
 					hasErr = true
 				else
-					local t = type(_G[className].methodName)
+					local t = type(_G[className][methodName])
 					if t ~= hoi3.TYPE_FUNCTION then
 						report("Expected static method "..className.."."..methodName.." is not function !")
 						hasErr = true
 					end 
 				end
 			end
+		else
+			report("Expected static class "..className.." does not exists")
+			hasErr = true
 		end
 	end
 	
-	return hasErr
+	return not hasErr
 end
 
 function checkConstants()
 	local hasErr = false
-	for className, class in dtools.table.orderedPairs(hoi3.api.getCompleteApi()) do
-		for constantName, constant in class:getConstants() do
-			if _G[className] == nil then
-				report("Expected static class "..className.." does not exists")
-				hasErr = true
-			else
-				if _G[className].constantName == nil then
+	for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
+		if pingStatic(className) then
+			for constantName, constant in pairs(class:getConstants()) do
+				if not pingStatic(className,constantName) then
 					report("Expected static constant "..className.."."..constantName.." does not exists")
 					hasErr = true
 				else
 					local t = type(_G[className][constantName])
 					local t2 = type(constant)
 					if t ~= t2 then
-						report("Expected static constant "..className.."."..methodName.." has not the right type, expected "..t2.." got "..t1.." !")
+						report("Expected static constant "..className.."."..constantName.." has not the right type, expected "..t2.." got "..t1.." !")
 						hasErr = true
 					else
 						if _G[className][constantName] ~= constant then
-							report("Expected static constant "..className.."."..methodName.." has not the right value, expected "..constant.." got "..tostring(_G[className][constantName]).." !")
+							report("Expected static constant "..className.."."..constantName.." has not the right value, expected "..constant.." got "..tostring(_G[className][constantName]).." !")
 							hasErr = true
 						end
 					end 
 				end
 			end
+		else
+			report("Expected static class "..className.." does not exists")
+			hasErr = true
 		end
 	end
 	
-	return hasErr
+	return not hasErr
 end

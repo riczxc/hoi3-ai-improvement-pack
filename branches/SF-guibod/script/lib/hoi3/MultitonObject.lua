@@ -101,8 +101,13 @@ function MultitonObject:_getInstance(key)
 	hoi3.throwDataNotFound(self.name, key)
 end
 
-function MultitonObject:clearInstances()
-	MultitonObject.instances[self.name] = {}
+function MultitonObject:clearInstances(bAll)
+	if self ~= nil then
+		hoi3.assertNonStatic(self)
+		MultitonObject.instances[self.name] = {}
+	else
+		MultitonObject.instances = {}
+	end
 end
 
 function MultitonObject:getInstances()
