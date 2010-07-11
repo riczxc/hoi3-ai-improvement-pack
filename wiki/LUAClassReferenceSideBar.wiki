@@ -1,4 +1,3 @@
-DEV_PATH = C:\Games\Hearts of Iron III\mod\AIIP_Guibod
   * [LUAClassReference 01- API classes]
     * [LUAClassReference#CAI CAI]
     * [LUAClassReference#CAIAgent CAIAgent]
