@@ -34,7 +34,7 @@ local laCrossValue = {
 -- ###########################
 -- Called by the EXE and handles the offering of trades
 -- ###########################
-function ForeignMinister_ManageTrade(ai, ministerTag)
+function ForeignMinister_ManageTrade(ai, ministerTag)	
 	if math.mod( CCurrentGameState.GetAIRand(), 6) == 0 then
 		ProposeTrades(ai, ministerTag)
 	elseif math.mod( CCurrentGameState.GetAIRand(), 10) == 0 then
