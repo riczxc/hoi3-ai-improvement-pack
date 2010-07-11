@@ -273,3 +273,4 @@
     * [LUAClassReference#CSendExpeditionaryForceAction CSendExpeditionaryForceAction]
     * [LUAClassReference#CSpyPresence CSpyPresence]
     * [LUAClassReference#SpyMission SpyMission]
+  * [LUAClassReferenceSource 11- LUA C++ Bindings source]
