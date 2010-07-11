@@ -8,7 +8,7 @@ CSendExpeditionaryForceAction = CDiplomaticAction:subclass('hoi3.api.CSendExpedi
 -- information only, that will be used by documentation generator.
 CSendExpeditionaryForceAction.constructorSignature = {'CCountryTag','CCountryTag'}
 
-CSendExpeditionaryForceAction.TAKE = 1
+CSendExpeditionaryForceAction.TAKE = 0
 CSendExpeditionaryForceAction.SEND = 1
 
 ---

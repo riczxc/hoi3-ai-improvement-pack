@@ -11,3 +11,12 @@ CAIEspionageMinister.initialize = CAIAgent.initalize
 -- @since 1.3
 -- @return bool
 hoi3.f(CAIEspionageMinister, 'IsAligningToFaction', hoi3.TYPE_BOOLEAN)
+
+---
+-- @since 1.3
+-- @return CAI
+hoi3.f(CAIEspionageMinister, 'GetOwnerAI', 'CAI')
+
+function CAIEspionageMinister:GetOwnerAIImpl()
+	return CAI(self.tag)
+end

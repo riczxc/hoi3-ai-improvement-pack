@@ -46,3 +46,12 @@ hoi3.f(CAIForeignMinister, 'ProposeWar', hoi3.TYPE_VOID, 'CCountryTag', hoi3.TYP
 -- @since 1.2
 -- @return void
 hoi3.f(CAIForeignMinister, 'ExecuteDiploDecisions', hoi3.TYPE_VOID)
+
+---
+-- @since 1.3
+-- @return CAI
+hoi3.f(CAIForeignMinister, 'GetOwnerAI', 'CAI')
+
+function CAIForeignMinister:GetOwnerAIImpl()
+	return CAI(self.tag)
+end

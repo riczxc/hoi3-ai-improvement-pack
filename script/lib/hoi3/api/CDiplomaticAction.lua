@@ -4,9 +4,9 @@ module("hoi3.api", package.seeall)
 
 CDiplomaticAction = CAction:subclass('hoi3.api.CDiplomaticAction')
 
-CDiplomaticAction.ACCEPT	= 1
-CDiplomaticAction.DECLINE = 2
-CDiplomaticAction.PROPOSE	= 3  
+CDiplomaticAction.ACCEPT	= 2
+CDiplomaticAction.DECLINE 	= 1
+CDiplomaticAction.PROPOSE	= 0  
 
 ---
 -- @since 1.3

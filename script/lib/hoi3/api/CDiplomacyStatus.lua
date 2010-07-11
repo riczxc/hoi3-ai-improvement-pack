@@ -124,12 +124,6 @@ hoi3.f(CDiplomacyStatus, 'IsGuaranteed', hoi3.TYPE_BOOLEAN)
 -- @return bool
 hoi3.f(CDiplomacyStatus, 'IsGuaranting', hoi3.TYPE_BOOLEAN)
 
----
--- @since 1.3
--- @param CFixedPoint relation
--- @return void
-hoi3.f(CDiplomacyStatus, 'SetValue', hoi3.TYPE_VOID, 'CFixedPoint')
-
 function CDiplomacyStatus.random()
 	error("There cannot be randomizer for DiploStatus sine it relies on two deterministic parameters")
 end

@@ -31,3 +31,12 @@ hoi3.f(CAIProductionMinister, 'GetDesperation', hoi3.TYPE_NUMBER)
 -- @since 1.3
 -- @return void
 hoi3.f(CAIProductionMinister, 'PrioritizeBuildQueue', hoi3.TYPE_VOID)
+
+---
+-- @since 1.3
+-- @return CAI
+hoi3.f(CAIProductionMinister, 'GetOwnerAI', 'CAI')
+
+function CAIProductionMinister:GetOwnerAIImpl()
+	return CAI(self.tag)
+end

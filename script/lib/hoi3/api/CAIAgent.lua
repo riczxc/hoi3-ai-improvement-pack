@@ -29,12 +29,3 @@ hoi3.f(CAIAgent, 'GetCountry', 'CCountry')
 function CAIAgent:GetCountryImpl()
 	return CCountry(self.tag)
 end
-  
----
--- @since 1.3
--- @return CAI
-hoi3.f(CAIAgent, 'GetOwnerAI', 'CAI')
-
-function CAIAgent:GetOwnerAIImpl()
-	return CAI(self.tag)
-end

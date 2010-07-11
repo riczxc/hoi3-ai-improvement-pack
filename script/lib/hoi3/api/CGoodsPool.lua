@@ -4,13 +4,13 @@ module("hoi3.api", package.seeall)
 
 CGoodsPool = hoi3.AbstractObject:subclass('hoi3.api.CGoodsPool')
 
-CGoodsPool._MONEY_ = 1
-CGoodsPool._METAL_ = 2
-CGoodsPool._ENERGY_ = 3
-CGoodsPool._RARE_MATERIALS_ = 4
-CGoodsPool._CRUDE_OIL_ = 5
-CGoodsPool._SUPPLIES_ = 6
-CGoodsPool._FUEL_ = 7
+CGoodsPool._MONEY_ = 2
+CGoodsPool._METAL_ = 4
+CGoodsPool._ENERGY_ = 5
+CGoodsPool._RARE_MATERIALS_ = 6
+CGoodsPool._CRUDE_OIL_ = 3
+CGoodsPool._SUPPLIES_ = 0
+CGoodsPool._FUEL_ = 1
 
 CGoodsPool._GC_NUMOF_ = 7
 
