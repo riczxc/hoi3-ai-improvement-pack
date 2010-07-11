@@ -31,8 +31,7 @@
 
 module("dtools", package.seeall)
 
-enabled = true
-wrapoff = true
+local enabled = true
 
 -- initial set of stub methods (if devtools are disabled)
 function loadConfig() end
@@ -45,17 +44,25 @@ function error() end
 function fatal() end
 function harvest() end
 
+function MYLUA_DEBUGOUT(s)
+	-- Uncomment to see debug logging
+	local f = io.open("lua_output.txt", "a")
+	f:write("LUA_DEBUG '" .. tostring(s) .. "' \n")
+	f:close()
+end
+
 -- Wrapper function that file both a simple file and the log manager
 --
 -- Usefull to trap an error before to PI fallback to a standard code
 function wrap(f, ...)
-	if enabled and not enabled then
+	if enabled then
 		local retOK, ret = pcall(f, ...)
 		if retOK == false then
 			--Write the error to a file
 			local f = io.open(os.date("logs/%Y%m%d-fatal.log"), "a")
-			f:write( ret .. "' \n")
-			f:write( debug.traceback() .. "' \n\n")
+			f:write( "Error triggered while calling "..tostring(f).."\n")
+			f:write( ret .. "\n")
+			f:write( _G['debug'].traceback() .. "\n\n")
 			f:close()
 
 			--attempt to call log
@@ -81,17 +88,23 @@ function wrapFunction(strFname, strLogGroup )
 			end
 
 			--copy function
-			_G["DtoolsWrapped"..strFname] = _G[strFname]
-			
-			--change function source
-			_G[strFname] = function(...)
+			_G["DtoolsWrapped"..strFname], _G[strFname] = _G[strFname], function(...)
+				require('dtools')
 				-- we attempt to use 1st parameter as
 				-- an object supporting getTag() or getCountryTag()
 				-- If not, we really don't care.
 				dtools.setLogContext(select(1, ...),strLogGroup)
 				dtools.wrap(_G["DtoolsWrapped"..strFname], ...) 
 			end
-			dtools.info("Function "..strFname.." wrapped to DtoolsWrapped"..strFname)
+			
+			if _G["DtoolsWrapped"..strFname] == nil or
+				_G[strFname] == nil or 
+				type(_G["DtoolsWrapped"..strFname]) ~= "function" or
+				type(_G[strFname]) == nil then
+				dtools.error("Function "..strFname.." failed to be wrapped to DtoolsWrapped"..strFname)
+			end
+			
+			dtools.info("Function "..strFname.." ("..tostring(_G[strFname])..") wrapped to DtoolsWrapped"..strFname.." ("..tostring(_G["DtoolsWrapped"..strFname])..")")
 		else
 			dtools.error("Function "..strFname.." failed to be wrapped to DtoolsWrapped"..strFname)
 		end
@@ -104,7 +117,7 @@ end
 --
 -- if false then
 if enabled then
-	Log4Lua = require('log4lua.logger')
+	--local Log4Lua = require('log4lua.logger')
 
 	_lastLogCategory = nil
 	_lastLogCountry = nil
@@ -138,8 +151,7 @@ if enabled then
 	--
 	-- Will only display Germany and USA minister logs. This feature affect all categories !
 	-- Add nil to the table to enable log entry attached to no particular country
-
-	local filterTag = {}
+	--[[local filterTag = {}
 	if os.getenv("HOI3_DEVTOOLS_FILTERTAG") then
 		filterTag = os.getenv("HOI3_DEVTOOLS_FILTERTAG").split(";")
 
@@ -150,7 +162,7 @@ if enabled then
 	function loadConfig(file)
 		Log4Lua.loadConfig(file)
 	end
-
+	]]
 	-- Main log method.
 	-- category is not mandatory. it may fallback too ROOT or use static context
 	-- ministerCountryOrTag is a non mandatory information may be filtered
@@ -190,9 +202,12 @@ if enabled then
 				return
 			end
 		end
-
-
-		Log4Lua.getLogger(category):log(level, message, nil, countryString)
+		-- FIXME logger is broken under HOI core
+		--Log4Lua.getLogger(category):log(level, message, nil, countryString)
+		
+		local f = io.open("logs/AIIP.txt", "a")
+		f:write(tostring(category).." "..tostring(countryString) .." "..tostring(level) .." "..tostring(message) .. "\n")
+		f:close()
 	end
 
 	function setLogContext(ministerCountryOrTag, category)
@@ -202,23 +217,23 @@ if enabled then
 
 	-- Convinience shortcut methods
 	function debug(message, ministerCountryOrTag, category)
-		log(Log4Lua.DEBUG, message, ministerCountryOrTag, category)
+		log('DEBUG', message, ministerCountryOrTag, category)
 	end
 
 	function info(message, ministerCountryOrTag, category)
-		log(Log4Lua.INFO, message, ministerCountryOrTag, category)
+		log('INFO', message, ministerCountryOrTag, category)
 	end
 
 	function warn(message, ministerCountryOrTag, category)
-		log(Log4Lua.WARN, message, ministerCountryOrTag, category)
+		log('WARN', message, ministerCountryOrTag, category)
 	end
 
 	function error(message, ministerCountryOrTag, category)
-		log(Log4Lua.ERROR, message, ministerCountryOrTag, category)
+		log('ERROR', message, ministerCountryOrTag, category)
 	end
 
 	function fatal(message, ministerCountryOrTag, category)
-		log(Log4Lua.FATAL, message, ministerCountryOrTag, category)
+		log('FATAL', message, ministerCountryOrTag, category)
 	end
 end
 
@@ -258,8 +273,8 @@ end
 -- if false then
 if false then
 	function harvest(t, data, commit)
-		require("dtools.harvester")
-		dtools.harvester.harvest(t, data, commit)
+		local Harvester = require("dtools.harvester")
+		Harvester.harvest(t, data, commit)
 	end
 end
 
@@ -273,8 +288,8 @@ function in_table ( e, t )
 end
 
 -- Replace HOI3 limited log functions
-if Utils and Utils.LUA_DEBUGOUT ~= nil then
-	Utils.LUA_DEBUGOUT = function (s)
+if _G['Utils'] and _G['Utils'].LUA_DEBUGOUT ~= nil then
+	_G['Utils'].LUA_DEBUGOUT = function (s)
 		require('dtools')
 		dtools.debug(s)
 	end
