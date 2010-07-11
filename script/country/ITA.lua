@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Italy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/26/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -364,10 +364,12 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsFaction = tostring(actor:GetCountry():GetFaction():GetTag())
 	
 	if lsFaction == "axis" then
-		if lsRepTag == "HUN" or lsRepTag == "ROM" or lsRepTag == "BUL" or lsRepTag == "FIN" then
-			score = score + 70
+		if lsRepTag == "ROM" then
+			score = score + 160
+		elseif lsRepTag == "HUN" or lsRepTag == "BUL" or lsRepTag == "FIN" then
+			score = score + 120
 		elseif lsRepTag == "AST" or lsRepTag == "CAN" or lsRepTag == "SAF" or lsRepTag == "NZL" then
-			score = score - 20
+			score = score - 100
 		end
 	end
 

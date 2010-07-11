@@ -628,7 +628,6 @@ function Process_Tech(pYear, ResearchSlotsAllowed, ResearchSlotsNeeded, ai, mini
 	for tech in CTechnologyDataBase.GetTechnologies() do
 		if  minister:CanResearch(tech) and tech:IsValid() then
 			local nYear = techStatus:GetYear(tech, (techStatus:GetLevel(tech) + 1))
-			local lsTech = tostring(tech:GetKey())
 			
 			-- Concentrate only on techs for the year requested or less
 			--- Penalties are way to high to go into the future
@@ -637,56 +636,56 @@ function Process_Tech(pYear, ResearchSlotsAllowed, ResearchSlotsNeeded, ai, mini
 				
 				if techFolder == "infantry_folder" or techFolder == "armour_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laLandTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laLandTechsIgnore) == false then
 						table.insert( landBased, tech )
 					end
 
 				elseif techFolder == "land_doctrine_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laLandDoctrinesTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laLandDoctrinesTechsIgnore) == false then
 						table.insert( landDoctrines, tech )
 					end
 				
 				elseif techFolder == "fighter_folder" or techFolder == "bomber_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laAirTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laAirTechsIgnore) == false then
 						table.insert( airBased, tech )
 					end
 				
 				elseif techFolder == "air_doctrine_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laAirDoctrineTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laAirDoctrineTechsIgnore) == false then
 						table.insert( airDoctrines, tech )
 					end
 					
 				elseif techFolder == "smallship_folder" or techFolder == "capitalship_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laNavalTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laNavalTechsIgnore) == false then
 						table.insert( navalBased, tech )
 					end			
 					
 				elseif techFolder == "naval_doctrine_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laNavalDoctrineTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laNavalDoctrineTechsIgnore) == false then
 						table.insert( navalDoctrines, tech )
 					end				
 					
 				elseif techFolder == "industry_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laIndustrialTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laIndustrialTechsIgnore) == false then
 						table.insert( industrial, tech )
 					end					
 					
 				elseif techFolder == "secretweapon_folder" then
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laSecretWeaponTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laSecretWeaponTechsIgnore) == false then
 						table.insert( secretWeapons, tech )
 					end
 				
 				-- Theory Folder gets droped in here and anything else not recognized
 				else
 					-- The tech is good so add it to research list
-					if TechIgnore(techStatus:GetLevel(tech), lsTech, lbLandBased, laOtherTechsTechsIgnore) == false then
+					if TechIgnore(techStatus:GetLevel(tech), tostring(tech:GetKey()), lbLandBased, laOtherTechsTechsIgnore) == false then
 						table.insert( other, tech )
 					end
 				end

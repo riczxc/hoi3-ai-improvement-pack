@@ -59,7 +59,7 @@ local _CHIEF_OF_AIR_ = 10
 -- # Main Method called by the EXE
 -- #####################################
 function PoliticsMinister_Tick(minister)
-    if math.mod( CCurrentGameState.GetAIRand(), 7) == 0 then
+	if math.mod( CCurrentGameState.GetAIRand(), 7) == 0 then
 		Mobilization(minister)
 		
 	elseif math.mod( CCurrentGameState.GetAIRand(), 10) == 0 then

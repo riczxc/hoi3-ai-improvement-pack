@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Spy File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/30/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 
 -- ###################################
@@ -65,10 +65,6 @@ function ManageSpiesAtHome(minister, ministerTag, ministerCountry, ai)
 		elseif (not(ministerCountry:IsAtWar()) and lsFaction ~= "comintern")
 		or (lsFaction == "comintern" and liNeutrality > 70) then
 			newMission = SpyMission.SPYMISSION_LOWER_NEUTRALITY
-		
-		-- Nothing really to do but our unity is not 90 so raise it
-		elseif liNationalUnity < 90 then
-			newMission = SpyMission.SPYMISSION_RAISE_NATIONAL_UNITY
 			
 		-- Nothing really to do but our unity is not 90 so raise it
 		elseif liNationalUnity < 90 then

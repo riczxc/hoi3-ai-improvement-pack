@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Foreign Minister File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/11/2010
+-- Date Last Modified: 7/7/2010
 -----------------------------------------------------------
 
 require('ai_diplomacy')
@@ -30,6 +30,12 @@ function ForeignMinister_EvaluateDecision(agent, decision, scope)
 end
 
 function ForeignMinister_Tick(minister)
+	Utils.LUA_DEBUGOUT("ForeignMinister_Tick")
+	require("hoi3.Dumper")
+	Utils.LUA_DEBUGOUT("ForeignMinister_Tick2")
+	hoi3.dump()
+	Utils.LUA_DEBUGOUT("ForeignMinister_Tick3")
+	
 	-- run any decisions available
 	minister:ExecuteDiploDecisions()
 
@@ -61,23 +67,52 @@ end
 function ForeignMinister_HandleWar(minister)
 	local ministerTag = minister:GetCountryTag()
 	local ministerCountry = minister:GetCountry()
-	local ai = minister:GetOwnerAI() 
+	local ai = minister:GetOwnerAI()
+	local lbIsMajor = ministerCountry:IsMajor()
 
 	-- Request for Military Access
-	for neighborTag in ministerCountry:GetNeighbours() do
-		local loRelation = ai:GetRelation(ministerTag, neighborTag)
-		
-		-- Process all Neighbors as we may just need access through them even though
-		--   they are not a neighbor with any of our enemies (Germany with Sweden for example)
-		if not(loRelation:HasMilitaryAccess())
-		and not(loRelation:HasAlliance()) then
-			local loAction = CMilitaryAccessAction(ministerTag, neighborTag)
+	--  Only major powers will request military access
+	if Utils.HasCountryAIFunction( ministerTag, "Call_MilitaryAccess") then
+		Utils.CallCountryAI(ministerTag, "Call_MilitaryAccess", minister)							
+	elseif lbIsMajor then
+		for loCountryTag in ministerCountry:GetNeighbours() do
+			local loCountry = loCountryTag:GetCountry()
+			
+			-- Do not bother asking major powers for military access
+			if not(loCountry:IsMajor()) then
+				-- If they are already in a faction do not bother them
+				-- If they are in a war already do not bother them
+				if not(loCountry:HasFaction()) and not(loCountry:IsAtWar()) then
+					local loRelation = ai:GetRelation(ministerTag, loCountryTag)
 
-			if loAction:IsSelectable() then
-				local liScore = DiploScore_DemandMilitaryAccess(ai, ministerTag, neighborTag, ministerTag)
+					-- Make sure we do not already have military access
+					if not(loRelation:HasMilitaryAccess()) then
+						local lbAsk = false
+						
+						-- Now check their neighbors to see if they touch an enemy
+						for loCountryTag2 in loCountry:GetNeighbours() do
+							if not(loCountryTag2 == ministerTag) then
+								local loRelation2 = ai:GetRelation(ministerTag, loCountryTag2)
+							
+								if loRelation2:HasWar() then
+									lbAsk = true
+									break
+								end
+							end
+						end
+						
+						if lbAsk then
+							local loAction = CMilitaryAccessAction(ministerTag, loCountryTag)
 
-				if liScore > 50 then
-					minister:Propose(loAction, liScore)
+							if loAction:IsSelectable() then
+								local liScore = DiploScore_DemandMilitaryAccess(ai, ministerTag, loCountryTag, ministerTag)
+
+								if liScore > 50 then
+									minister:Propose(loAction, liScore)
+								end
+							end
+						end
+					end
 				end
 			end
 		end
@@ -85,8 +120,8 @@ function ForeignMinister_HandleWar(minister)
 
 	
 	-- Call our Allies in
-	if Utils.HasCountryAIFunction( ministerTag, "CallAlly") then
-		Utils.CallCountryAI(ministerTag, "CallAlly", minister)							
+	if Utils.HasCountryAIFunction( ministerTag, "Call_Ally") then
+		Utils.CallCountryAI(ministerTag, "Call_Ally", minister)							
 	else
 		for loDiploStatus in ministerCountry:GetDiplomacy() do
 			local loTargetTag = loDiploStatus:GetTarget()
@@ -148,10 +183,9 @@ function ForeignMinister_HandlePeace(minister)
 	-- Alliance (Forming)
 	-- Alliance (Breaking)
 	-- Embargo (Making and Cancelling)	
-	
-	-- Join Faction (or exit)
-	-- Offer Military Access (Think this should be removed, should never offer it!)
+	-- Offer Military Access
 
+	-- Join Faction (or exit)
 
 	local ai = minister:GetOwnerAI()
 	local ministerCountry = minister:GetCountry()
@@ -261,7 +295,21 @@ function ForeignMinister_HandlePeace(minister)
 								if liScore < loInfluenceActionWorstScore then
 									loInfluenceActionWorstScore = liScore
 									loInfluenceActionWorst = CInfluenceNation(ministerTag, loTargetCountryTag)
+									
+								-- Check to see if they have a higher prio than our current influencing country
+								elseif liScore > loInfluenceActionScore then
+									loInfluenceActionScore = liScore
+									loInfluenceAction = CInfluenceNation(ministerTag, loTargetCountryTag)
 								end
+							end
+						
+						-- Check to see if they have a higher prio than our current influencing country
+						else
+							local liScore = DiploScore_InfluenceNation( ai, ministerTag, loTargetCountryTag, ministerTag )
+							
+							if liScore > loInfluenceActionScore then
+								loInfluenceActionScore = liScore
+								loInfluenceAction = CInfluenceNation(ministerTag, loTargetCountryTag)
 							end
 						end
 					end
@@ -285,6 +333,24 @@ function ForeignMinister_HandlePeace(minister)
 			end
 			-- END OF MAJOR POWER ONLY
 
+			-- Offer Military Access
+			if ministerCountry:IsNeighbour(loTargetCountryTag) then
+				if not(loRelation:HasMilitaryAccess()) and loTargetCountry:IsAtWar() then
+					-- Make sure they are the same Ideology Group
+					if loMinisterGroup == loTargetGroup then
+						local loAction = COfferMilitaryAccessAction(ministerTag, loTargetCountryTag)
+
+						if loAction:IsSelectable() then
+							local liScore = DiploScore_OfferMilitaryAccess(ai, ministerTag, loTargetCountryTag, ministerTag)
+							
+							if liScore > 50 then
+								minister:Propose(loAction, liScore)
+							end
+						end
+					end
+				end
+			end
+			
 			-- NAP-ing
 			--   note: if the two have an alliance or part of the same faction (or aligning to the same side) dont bother with a NAP
 			if not(loRelation:HasNap()) 
@@ -471,7 +537,7 @@ function ForeignMinister_HandlePeace(minister)
 			elseif liInfluenceCount > 0 and not(loInfluenceAction == nil) then
 				-- Check your current influence scores and compare them to the ones you have
 				for i = 1, table.getn(loInfluenceScore) do
-					if loInfluenceScore[i] > loInfluenceActionScore then
+					if loInfluenceActionScore > loInfluenceScore[i] then
 						-- Cancel old Influence
 						local loInfluenceActionCancel = CInfluenceNation(ministerTag, loInfluenceCountry[i])
 						loInfluenceActionCancel:SetValue(false)
