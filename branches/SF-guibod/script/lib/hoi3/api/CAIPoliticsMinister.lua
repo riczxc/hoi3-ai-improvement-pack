@@ -12,3 +12,12 @@ CAIPoliticsMinister.initialize = CAIAgent.initalize
 -- @param CCountryTag countryTag
 -- @return bool
 hoi3.f(CAIPoliticsMinister, 'IsCapitalSafeToLiberate', hoi3.TYPE_BOOLEAN, 'CCountryTag')
+
+---
+-- @since 1.3
+-- @return CAI
+hoi3.f(CAIPoliticsMinister, 'GetOwnerAI', 'CAI')
+
+function CAIPoliticsMinister:GetOwnerAIImpl()
+	return CAI(self.tag)
+end

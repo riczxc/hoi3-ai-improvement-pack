@@ -17,15 +17,15 @@ hoi3.f(CDistributionSetting, 'GetPercentage', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNO
 
 CDistributionSetting._LEADERSHIP_DIPLOMACY_ = 1
 CDistributionSetting._LEADERSHIP_ESPIONAGE_ = 2
-CDistributionSetting._LEADERSHIP_NCO_ = 3
+CDistributionSetting._LEADERSHIP_NCO_ = 0
 CDistributionSetting._LEADERSHIP_numof_ = 4
-CDistributionSetting._LEADERSHIP_RESEARCH_ = 5
-CDistributionSetting._PRODUCTION_CONSUMER_ = 1
+CDistributionSetting._LEADERSHIP_RESEARCH_ = 3
+CDistributionSetting._PRODUCTION_CONSUMER_ = 0
 CDistributionSetting._PRODUCTION_numof_ = 5
-CDistributionSetting._PRODUCTION_PRODUCTION_ = 2
+CDistributionSetting._PRODUCTION_PRODUCTION_ = 1
 CDistributionSetting._PRODUCTION_REINFORCEMENT_ = 3
-CDistributionSetting._PRODUCTION_SUPPLY_ = 4
-CDistributionSetting._PRODUCTION_UPGRADE_ = 0
+CDistributionSetting._PRODUCTION_SUPPLY_ = 2
+CDistributionSetting._PRODUCTION_UPGRADE_ = 4
 
 function CDistributionSetting:random()
 	return CDistributionSetting()

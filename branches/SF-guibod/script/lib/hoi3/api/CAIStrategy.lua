@@ -6,11 +6,11 @@ CAIStrategy = hoi3.Hoi3Object:subclass('hoi3.api.CAIStrategy')
 
 --- 
 -- @since 1.3
-CAIStrategy._AI_BALANCED_	= 1 
-CAIStrategy._AI_DIPLOMAT_	= 2
-CAIStrategy._AI_INDUSTRIALIST_ = 3
-CAIStrategy._AI_MILITARIST_	= 4
-CAIStrategy._AI_UNDEFINED_	= 5
+CAIStrategy._AI_UNDEFINED_	= 0
+CAIStrategy._AI_MILITARIST_	= 1
+CAIStrategy._AI_INDUSTRIALIST_ = 2
+CAIStrategy._AI_DIPLOMAT_	= 3
+CAIStrategy._AI_BALANCED_	= 4 
 
 ---
 -- @param CCountryTag countryTag

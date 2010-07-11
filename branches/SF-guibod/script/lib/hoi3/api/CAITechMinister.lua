@@ -22,3 +22,12 @@ hoi3.f(CAITechMinister, 'GetFolderModifers','CArrayFloat')
 -- @since 1.3
 -- @return CArrayFloat
 hoi3.f(CAITechMinister, 'GetTechModifers','CArrayFloat')
+
+---
+-- @since 1.3
+-- @return CAI
+hoi3.f(CAITechMinister, 'GetOwnerAI', 'CAI')
+
+function CAITechMinister:GetOwnerAIImpl()
+	return CAI(self.tag)
+end

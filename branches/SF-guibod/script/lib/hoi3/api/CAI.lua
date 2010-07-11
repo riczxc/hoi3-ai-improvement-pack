@@ -16,11 +16,11 @@ end
 --- 
 -- @since 1.4
 -- @static
-CAI._DIPLOMACY_	= 1 
-CAI._INTELLIGENCE_ = 2
+CAI._DIPLOMACY_	= 0
+CAI._PRODUCTION_ = 1
+CAI._TECHNOLOGY_ = 2
 CAI._POLITICS_ = 3
-CAI._PRODUCTION_ = 4
-CAI._TECHNOLOGY_ = 5
+CAI._INTELLIGENCE_ = 4
 
 ---
 -- @since 1.3

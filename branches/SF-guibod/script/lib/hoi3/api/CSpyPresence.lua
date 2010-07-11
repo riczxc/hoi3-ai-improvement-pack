@@ -5,7 +5,7 @@ module("hoi3.api", package.seeall)
 CSpyPresence = hoi3.Hoi3Object:subclass('hoi3.api.CSpyPresence')
 
 CSpyPresence.MAX_SPY_LEVEL = 10
-CSpyPresence.MAX_SPY_PRIORITY = 4
+CSpyPresence.MAX_SPY_PRIORITY = 3
 
 ---
 -- @since 1.3
