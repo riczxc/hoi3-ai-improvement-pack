@@ -25,3 +25,23 @@ function test3()
 	assert_equal(1.84556,objFP:Get())
 	assert_equal(1,objFP:GetTruncated())
 end
+
+function test4()
+	local objFP = hoi3.api.CFixedPoint(32)
+	local objFP2 = hoi3.api.CFixedPoint(32)
+	
+	assert_equal(32*2,objFP*2)
+	assert_equal(32/2,objFP/2)
+	assert_equal(32+2,objFP+2)
+	assert_equal(32-2,objFP-2)
+	assert_equal(objFP,objFP2)
+end
+
+function test5()
+	local obj = hoi3.api.CString("abced")
+	local obj2 = hoi3.api.CString("abced")
+	
+	assert_equal(tostring(obj),"abced")
+	assert_not_equal(obj,"abced")
+	assert_equal(obj,obj2)
+end

@@ -24,6 +24,74 @@ function Hoi3Object.getConstructorSignature(instanceOrClass, bInherited)
 	end
 end
 
+function Hoi3Object.getMathMetamethods(instanceOrClass)
+	local t = {}
+	
+	-- if we have an instance, get its class
+	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
+		instanceOrClass = instanceOrClass.class
+	end
+	
+	-- a class have a __classDict, if nothing, not a class object.
+	if instanceOrClass.__classDict ~= nil then
+		for k, v in pairs(instanceOrClass.__classDict) do				
+			if (type(v) == hoi3.TYPE_FUNCTION) and 
+				string.find(k,"^__%l+$") ~= nil then
+				
+				local s = {}
+				s["__eq"] = "=="
+				s["__add"] = "+"
+				s["__sub"] = "-"
+				s["__mul"] = "*"
+				s["__div"] = "/"
+				s["__lt"] = "<"
+				s["__le"] = "<="
+				s["__pow"] = "^"
+				s["__unm"] = "unitary minus"
+				
+				if s[k] ~= nil then
+					table.insert(t, s[k])
+				end
+			end
+		end
+	end
+	
+	return t
+end
+
+function Hoi3Object.getSpecialMetamethods(instanceOrClass)
+	local t = {}
+	
+	-- if we have an instance, get its class
+	if middleclass.instanceOf(hoi3.Object,instanceOrClass) then
+		instanceOrClass = instanceOrClass.class
+	end
+	
+	-- a class have a __classDict, if nothing, not a class object.
+	if instanceOrClass.__classDict ~= nil then
+		for k, v in pairs(instanceOrClass.__classDict) do				
+			if (type(v) == hoi3.TYPE_FUNCTION) and 
+				string.find(k,"^__%l+$") ~= nil then
+				
+				local s = {}
+				s["__index"] = "'prototype' inheritance"
+				s["__newindex "] = "property assignment"
+				s["__mode"] = "weak references"
+				s["__call"] = "callable through "..tostring(instanceOrClass.name).."()"
+				s["__metatable"] = "hidden metatable"
+				s["__tostring"] = "supports tostring() operator"
+				s["__gc"] = "userdata finalizer code"
+				
+				if s[k] ~= nil then
+					table.insert(t, s[k])
+				end
+			end
+		end
+	end
+	
+	return t
+end
+
 function Hoi3Object.getConstants(instanceOrClass)
 	local t = {}
 	
