@@ -1,0 +1,3 @@
+This module is based on optivo's log4lua implementation released under GPL.
+
+Complete rework by Guibod using Middleclass

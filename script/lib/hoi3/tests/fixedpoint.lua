@@ -10,7 +10,6 @@ function test1()
 	
 	assert_equal(1,objFP:Get())
 	assert_equal(1,objFP:GetTruncated())
-	assert_equal(1,objFP:GetRounded())
 end
 
 function test2()
@@ -18,7 +17,6 @@ function test2()
 	
 	assert_equal(1.456,objFP:Get())
 	assert_equal(1,objFP:GetTruncated())
-	assert_equal(1,objFP:GetRounded())
 end
 
 function test3()
@@ -26,5 +24,4 @@ function test3()
 	
 	assert_equal(1.84556,objFP:Get())
 	assert_equal(1,objFP:GetTruncated())
-	assert_equal(2,objFP:GetRounded())
 end

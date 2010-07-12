@@ -44,13 +44,6 @@ function error() end
 function fatal() end
 function harvest() end
 
-function MYLUA_DEBUGOUT(s)
-	-- Uncomment to see debug logging
-	local f = io.open("lua_output.txt", "a")
-	f:write("LUA_DEBUG '" .. tostring(s) .. "' \n")
-	f:close()
-end
-
 -- Wrapper function that file both a simple file and the log manager
 --
 -- Usefull to trap an error before to PI fallback to a standard code
@@ -117,52 +110,9 @@ end
 --
 -- if false then
 if enabled then
-	--local Log4Lua = require('log4lua.logger')
-
 	_lastLogCategory = nil
 	_lastLogCountry = nil
 
-	-- Log specific content
-	--
-	-- A simple log framework based on Log4Lua.
-	-- Log are categorized by minister : diplo, intel, politics and production
-	-- Another fallback/main category is available for other stuff (ROOT)
-	--
-	-- Basic usage :
-	-- > Utils.info("Non-Agression pact signed with ITA.", "GER", "DIPLO")
-	--
-	-- Log system is able to remember log context
-	-- > Utils.setLogContext("GER", "DIPLO")
-	-- > Utils.info("Non-Agression pact signed with ITA.")
-	-- > Utils.info("Rejected trade from POR")
-	-- > Utils.setLogContext(nil, nil)
-	-- > Utils.info("No context for this one")
-	--
-	-- AIIP minister tick functions define the current Log Context
-	--
-	-- * Utils.debug(message [, ministerCountryOrTag][, category])
-	-- * Utils.info (message [, ministerCountryOrTag][, category])
-	-- * Utils.warn (message [, ministerCountryOrTag][, category])
-	-- * Utils.error(message [, ministerCountryOrTag][, category])
-	-- * Utils.fatal(message [, ministerCountryOrTag][, category])
-
-	-- a static filter for logging system
-	-- (from semicolon separated value from environnement variable HOI3_DEVTOOLS_FILTERTAG)
-	--
-	-- Will only display Germany and USA minister logs. This feature affect all categories !
-	-- Add nil to the table to enable log entry attached to no particular country
-	--[[local filterTag = {}
-	if os.getenv("HOI3_DEVTOOLS_FILTERTAG") then
-		filterTag = os.getenv("HOI3_DEVTOOLS_FILTERTAG").split(";")
-
-		Log4Lua.getLogger():log(Log4Lua.INFO, "Filtering out tags (from env HOI3_DEVTOOLS_FILTERTAG)")
-		Log4Lua.getLogger():log(Log4Lua.INFO, filterTag)
-	end
-
-	function loadConfig(file)
-		Log4Lua.loadConfig(file)
-	end
-	]]
 	-- Main log method.
 	-- category is not mandatory. it may fallback too ROOT or use static context
 	-- ministerCountryOrTag is a non mandatory information may be filtered
@@ -202,12 +152,9 @@ if enabled then
 				return
 			end
 		end
-		-- FIXME logger is broken under HOI core
-		--Log4Lua.getLogger(category):log(level, message, nil, countryString)
 		
-		local f = io.open("logs/AIIP.txt", "a")
-		f:write(tostring(category).." "..tostring(countryString) .." "..tostring(level) .." "..tostring(message) .. "\n")
-		f:close()
+		require('dtools.log4lua')
+		dtools.log4lua.getLogger(category):log(level, message, nil, countryString)
 	end
 
 	function setLogContext(ministerCountryOrTag, category)
