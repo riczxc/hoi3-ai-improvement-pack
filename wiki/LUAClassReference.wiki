@@ -12,6 +12,8 @@ This object does not exist in HOI3, and is only used in hoi3 fake api.
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -20,6 +22,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -75,6 +79,8 @@ Implements [#CAISubscriber CAISubscriber], <font color="grey"><em>[#MultitonObje
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -90,6 +96,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -107,6 +115,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -129,6 +139,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CAIIntel(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -147,6 +159,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -164,6 +178,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -185,6 +201,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -230,6 +248,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -243,6 +263,8 @@ Implements [#CAIAgent CAIAgent], [#CAISubscriber CAISubscriber], <font color="gr
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -262,6 +284,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -275,6 +299,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -289,6 +315,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CAllianceAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -308,6 +336,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CArrayFix(number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -322,6 +352,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CArrayFix64(number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -336,6 +368,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CArrayFloat(number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -350,6 +384,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CArrayInt(number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -364,6 +400,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -377,6 +415,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -391,6 +431,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -405,6 +447,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CCallAllyAction(CCountryTag, CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -426,6 +470,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CCancelUnitConstructionCommand(CCountryTag, CID)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -440,6 +486,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangeInvestmentCommand(CCountryTag, number, number, number, number, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -454,6 +502,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangeLawCommand(CCountryTag, CLaw, CLawGroup)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -468,6 +518,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangeLeadershipCommand(CCountryTag, number, number, number, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -482,6 +534,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangeMinisterCommand(CCountryTag, CMinister, CGovernmentPosition)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -496,6 +550,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangePriorityCommand(CCountryTag, CID, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -510,6 +566,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangeSpyMission(CCountryTag, CCountryTag, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -524,6 +582,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CChangeSpyPriority(CCountryTag, CCountryTag, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -538,6 +598,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -552,6 +614,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CConstructBuildingCommand(CCountryTag, CBuilding, number, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -566,6 +630,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CConstructConvoyCommand(CCountryTag, boolean, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -580,6 +646,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -594,6 +662,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CConstructUnitCommand(CCountryTag, SubUnitList, number, number, boolean, CCountryTag, CID)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -608,6 +678,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -626,6 +698,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -640,6 +714,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -656,6 +732,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -800,6 +878,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -813,6 +893,8 @@ Implements <font color="grey"><em>[#CList CList]</em></font>, <font color="grey"
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -826,6 +908,11 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+====Metamethod summary====
+This object support LUA special features : 
+  * Special operators : supports tostring() operator
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -843,6 +930,8 @@ Implements <font color="grey"><em>[#CList CList]</em></font>, <font color="grey"
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -851,6 +940,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CCreateVassalCommand(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -865,6 +956,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -886,6 +979,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CDebtAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -905,6 +1000,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -919,6 +1016,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CDeclareWarAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -938,6 +1037,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -969,6 +1070,8 @@ Implements [#CAction CAction], <font color="grey"><em>[#Hoi3Object Hoi3Object]</
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -995,6 +1098,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1022,6 +1127,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1039,6 +1146,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CEmbargoAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1058,6 +1167,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
@@ -1072,6 +1183,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1092,6 +1205,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CFactionAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1111,6 +1226,12 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CFixedPoint()</code>
+====Metamethod summary====
+This object support LUA special features : 
+  * Mathematical operators : `<=,<,==,-,*,/,+`
+  * Special operators : supports tostring() operator
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1125,6 +1246,11 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CFixedPoint64(number)</code>
+====Metamethod summary====
+This object support LUA special features : 
+  * Mathematical operators : `==,*,<=,<,/,+,-`
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1140,6 +1266,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1153,6 +1281,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1179,6 +1309,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CGoodsValues()</code>
+
+
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
@@ -1198,6 +1330,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1211,6 +1345,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1226,6 +1362,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1242,6 +1380,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CGuaranteeAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1261,6 +1401,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CID()</code>
+
+
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -1269,6 +1411,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1283,6 +1427,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1297,6 +1443,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1312,6 +1460,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CInfluenceAllianceLeader(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1331,6 +1481,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CInfluenceNation(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1350,6 +1502,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1367,6 +1521,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1385,6 +1541,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1400,6 +1558,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CLiberateCountryCommand(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1414,6 +1574,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CLicenceTechnologyAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1437,6 +1599,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CMilitaryAccessAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1456,6 +1620,8 @@ Implements [#CConstruction CConstruction], <font color="grey"><em>[#Hoi3Object H
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1478,6 +1644,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1494,6 +1662,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1509,6 +1679,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1524,6 +1696,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1623,6 +1797,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CNapAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1642,6 +1818,11 @@ Implements [#CCountryTag CCountryTag], <font color="grey"><em>[#MultitonObject M
 
 ====Constructor summary====
 <code language="lua">CNullTag()</code>
+====Metamethod summary====
+This object support LUA special features : 
+  * Special operators : supports tostring() operator
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1659,6 +1840,8 @@ Implements [#CTechnology CTechnology], <font color="grey"><em>[#MultitonObject M
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1682,6 +1865,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">COfferMilitaryAccessAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1701,6 +1886,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CPeaceAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1720,6 +1907,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1748,6 +1937,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1762,6 +1953,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
@@ -1776,6 +1969,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CResourceValues()</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1799,6 +1994,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1820,6 +2017,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CSendExpeditionaryForceAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1848,6 +2047,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CSetFlagCommand(CCountryTag, string, boolean)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1862,6 +2063,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CSetVariableCommand(CCountryTag, CString, CFixedPoint)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1876,6 +2079,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1892,6 +2097,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1915,6 +2122,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CStartResearchCommand(CCountryTag, CTechnology)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1929,6 +2138,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1944,6 +2155,12 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CString(string)</code>
+====Metamethod summary====
+This object support LUA special features : 
+  * Mathematical operators : `==`
+  * Special operators : supports tostring() operator
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1958,6 +2175,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 <code language="lua">CSubUnitConstructionEntry(CSubUnitDefinition, number, number)</code>
+
+
 ====Properties summary====
 <table width="100%" border="1">
 <tr><th>Property</th><th>Type</th><th>Since</th></tr>
@@ -1973,6 +2192,8 @@ Implements <font color="grey"><em>[#CList CList]</em></font>, <font color="grey"
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -1992,6 +2213,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2007,6 +2230,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2043,6 +2268,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2066,6 +2293,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2080,6 +2309,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2096,6 +2327,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2111,6 +2344,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2132,6 +2367,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2145,6 +2382,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CToggleMobilizationCommand(CCountryTag, boolean)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2159,6 +2398,8 @@ Implements [#CDiplomaticAction CDiplomaticAction], [#CAction CAction], <font col
 
 ====Constructor summary====
 <code language="lua">CTradeAction(CCountryTag, CCountryTag)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2183,6 +2424,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2204,6 +2447,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2219,6 +2464,8 @@ Implements <font color="grey"><em>[#Hoi3Object Hoi3Object]</em></font>, <font co
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2240,6 +2487,8 @@ Implements [#CCommand CCommand], <font color="grey"><em>[#Hoi3Object Hoi3Object]
 
 ====Constructor summary====
 <code language="lua">CUpgradeRegimentCommand(CSubUnit, number)</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2254,6 +2503,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2267,6 +2518,8 @@ Implements <font color="grey"><em>[#MultitonObject MultitonObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
@@ -2287,6 +2540,8 @@ This object does not exist in HOI3, and is only used in hoi3 fake api.
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -2297,6 +2552,8 @@ This object does not exist in HOI3, and is only used in hoi3 fake api.
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -2315,6 +2572,8 @@ This object does not exist in HOI3, and is only used in hoi3 fake api.
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 <font size="2">[#Hearts_of_Iron_III_-_LUA_class_reference Back To Top]</font>
 
 -----
@@ -2323,6 +2582,8 @@ Implements <font color="grey"><em>[#AbstractObject AbstractObject]</em></font>, 
 
 ====Constructor summary====
 There is no constructor for this object, use API reference in order to find a method returning expected type.
+
+
 ====Constant summary====
 <table width="100%" border="1">
 <tr><th>Constant</th><th>Value</th><th>Since</th></tr>
@@ -2350,6 +2611,8 @@ Implements <font color="grey"><em>[#CList CList]</em></font>, <font color="grey"
 
 ====Constructor summary====
 <code language="lua">SubUnitList()</code>
+
+
 ====Method summary====
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
