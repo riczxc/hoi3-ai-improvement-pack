@@ -301,3 +301,46 @@ function MultitonObject.deserializeInstances( sfile )
 	MultitonObject.instances = recursiveRehydrator(tables[1])
 end
 
+---
+-- Transform a userdata (true api) to a middleclass enabled table (fake api)
+-- Multiton use something different algorithm from base hoi3object
+-- since they must support uniqueness
+-- Default multiton behavior uses GetKey() or falls back to GetCountryTag(), or fall bac to GetTag(), or try to fallback to GetName()
+function MultitonObject.userdataToInstance(myClass, userdata)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	assert(
+		type(myClass) == hoi3.TYPE_TABLE and 
+		middleclass.subclassOf(Hoi3Object,myClass)
+	)
+	assert(
+		type(userdata) == hoi3.TYPE_USERDATA
+	)
+	
+	-- This is default behavior for multiton objects
+	-- most of them supports CString GetKey() as unique key
+	-- if no GetKey, try to fallback to GetCountryTag()
+	-- if no GetCountryTag, try to fallback to GetTag()
+	-- if no GetTag, try to fallback to GetName()
+	if userdata.GetKey ~= nil and type(userdata.GetKey) == hoi3.TYPE_FUNCTION then
+		local key = userdata:GetKey():GetString()
+	elseif userdata.GetCountryTag ~= nil and type(userdata.GetCountryTag) == hoi3.TYPE_FUNCTION and hoi3.api.CCountryTag ~= nil then
+		local key = hoi3.api.CCountryTag(userdata:GetCountryTag():GetTag())
+	elseif userdata.GetTag ~= nil and type(userdata.GetTag) == hoi3.TYPE_FUNCTION then
+		local key = userdata:GetTag()
+	elseif userdata.GetName ~= nil and type(userdata.GetName) == hoi3.TYPE_FUNCTION then
+		local key = userdata:GetName():GetString()
+	else
+		error("Default MultitonObject.userdataToInstance() not supported for "..tostring(myClass).." please implement your own !")
+	end
+	
+	local myInstance = myClass(key)
+	if myInstance.__userdata ~= nil then 
+		-- already instancied, check userdata reference, in order to understand how it works
+		if myInstance.__userdata ~= userdata then
+			dtools.warn("Called userdataToInstance() for a second time, but unexpectedly return another userdata entity for current object ("..self._unid..") !")
+		end
+	else
+		myInstance.__userdata = userdata
+	end
+	return myInstance
+end
