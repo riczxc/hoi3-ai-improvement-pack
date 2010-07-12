@@ -44,9 +44,11 @@ TODO implement this :
 -- @return CFixedPoint
 function CFixedPoint:initialize(value)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, value, hoi3.TYPE_NUMBER)
+	if value ~= nil then
+		hoi3.assertParameterType(1, value, hoi3.TYPE_NUMBER)
+	end
 
-	self.value = value
+	self._value = value or 0
 end
 
 ---
@@ -55,7 +57,7 @@ end
 hoi3.f(CFixedPoint, 'Get', hoi3.TYPE_NUMBER)
 
 function CFixedPoint:GetImpl()
-	return self.value
+	return self._value
 end
 
 ---
@@ -64,10 +66,84 @@ end
 hoi3.f(CFixedPoint, 'GetTruncated', hoi3.TYPE_NUMBER)
 
 function CFixedPoint:GetTruncatedImpl()
-	return math.floor(self.value)
+	return math.floor(self._value)
 end
 
 
 function CFixedPoint.random()
 	return CFixedPoint(math.random()*100)
+end
+
+function CFixedPoint:__tostring()
+	return tostring(self._value)
+end
+
+function CFixedPoint:__eq(value)
+	if type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value == value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value == value
+	end
+	error("Operator not implemented !")
+end
+
+function CFixedPoint:__add(value)
+	if  type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value + value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value + value
+	end
+	error("Operator not implemented !")
+end
+
+function CFixedPoint:__sub(value)
+	if type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value - value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value - value
+	end
+	error("Operator not implemented !")
+end
+
+function CFixedPoint:__mul(value)
+	if type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value * value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value * value
+	end
+	error("Operator not implemented !")
+end
+
+function CFixedPoint:__div(value)
+	if type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value / value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value / value
+	end
+	error("Operator not implemented !")
+end
+
+function CFixedPoint:__lt(value)
+	if type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value < value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value < value
+	end
+	error("Operator not implemented !")
+end
+
+function CFixedPoint:__le(value)
+	if type(value) == hoi3.TYPE_TABLE and
+		middleclass.instanceOf(CFixedPoint,value) then
+		return self._value <= value._value
+	elseif type(value) == hoi3.TYPE_NUMBER then
+		return self._value <= value
+	end
+	error("Operator not implemented !")
 end

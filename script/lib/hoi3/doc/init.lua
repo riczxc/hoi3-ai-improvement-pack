@@ -212,6 +212,36 @@ function genWikiDoc(filename)
 			file:write("There is no constructor for this object, use API reference in order to find a method returning expected type.".. CRLF)
 		end
 		
+		if class.getMathMetamethods and class.getSpecialMetamethods then
+			local mmethods = class:getMathMetamethods()
+			local smethods = class:getSpecialMetamethods()
+			
+			if (#mmethods + #smethods) > 0 then 
+				file:title("Metamethod summary",4)
+				file:write("This object support LUA special features : "..CRLF)
+				
+				if (#mmethods > 0) then
+					file:write("  * Mathematical operators : `")
+					for i,v in ipairs(mmethods) do
+						file:write(v)
+						if i < #mmethods then file:write(",") end
+					end
+					file:write("`"..CRLF)
+				end
+
+				if #smethods > 0 then
+					file:write("  * Special operators : ")
+					for i,v in ipairs(smethods) do
+						file:write(v)
+						if i < #smethods then file:write(",") end
+					end
+					file:write(CRLF)
+				end
+			end
+			
+			file:write(CRLF..CRLF)
+		end
+		
 		if class.getApiFunctions then
 			local functions = class:getApiFunctions(true)
 			if hoi3.countTableMember(functions) > 0 then 

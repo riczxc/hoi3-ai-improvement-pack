@@ -13,7 +13,7 @@ function CCountryTag:initialize(tag)
 	hoi3.assertParameterType(1, tag, hoi3.TYPE_STRING)
 	assert(string.len(tag)==3, "A country tag must be 3 character long.")
 	
-	self.tag = tag
+	self._tag = tag
 end
 
 ---
@@ -51,7 +51,7 @@ hoi3.f(CCountryTag, 'IsValid', hoi3.RAND_BOOL_VLIKELY)
 
 
 function CCountryTag:__tostring()
-	return self.tag
+	return self._tag
 end
 
 -- A random CountryTag is a random EXISTING tag !
