@@ -9,8 +9,7 @@
 	In LUAECLIPSE, scripts are run from project root directory.
     You can change the working directory and program arguments by
     - Right clicking on aiip_test.lua -> Run As -> Run configurations ...
-    - Setting the appropriate values under Arguments tab.
-    
+    - Setting the appropriate values under Arguments tab.  
 ]]
 
 -- CONSTANT
@@ -29,6 +28,7 @@ require('hoi3.api')
 
 dtools.setLogContext("","DEVEL")
 
+
 --Run all test suites
 require("lunit")
 require("dtools.tests.dtools")
@@ -42,6 +42,11 @@ require("hoi3.tests.fixedpoint")
 require("hoi3.tests.random")
 require("hoi3.tests.cdate")
 lunit.main()
+
+require('hoi3.doc')
+
+print(hoi3.doc.genWikiDoc())
+os.exit()
 
 --Load and create instance for some preconfigured objects (countries, continent, ...)
 require('hoi3.conf')

@@ -190,21 +190,32 @@ function Hoi3Object:getIndexInDictionnary(dict)
 	end
 end
 
-function Hoi3Object:bind(userdata)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, userdata, hoi3.TYPE_USERDATA)
+function Hoi3Object.userdataToInstance(myClass, userdata)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	assert(
+		type(myClass) == hoi3.TYPE_TABLE and 
+		middleclass.subclassOf(Hoi3Object,myClass)
+	)
+	assert(
+		type(userdata) == hoi3.TYPE_USERDATA
+	)
 	
-	self.__userdata = userdata
+	local myInstance = myClass:new()
+	myInstance.__userdata = userdata
+	return myInstance
 end
 
 function Hoi3Object:runRealApiAndSave()
 	hoi3.assertNonStatic(self)
 	assert(self.__userdata ~= nil, "Object not binded yet ! Please use object:bind(userdata).")
 	
+	if self.__runningRealApiAndSave then 
+		-- Already running (nested loop)
+		return
+	end
+	
+	self.__runningRealApiAndSave = true
 	for n, m in pairs(self:getApiFunctions()) do
-		dtools.debug("Running method "..m:signatureAsString())
 		m:runAndSave(self.__userdata,self)
-		
-		dtools.debug(m.realruns.." runs in "..m.realtime.." ("..(m.realtime / m.realruns)..")")
 	end
 end

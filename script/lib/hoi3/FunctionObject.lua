@@ -340,6 +340,48 @@ function FunctionObject:save(value, instanceOrFirstParameter, ...)
 	instanceOrClass.__result[self][hash] = value
 end
 
+---
+-- One heavy piece of code to cast expected return to usable fake API objects
+--
+function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
+	-- Now that we have a result what to do ?
+	if self.ret.type == hoi3.TYPE_NUMBER or
+		self.ret.type == hoi3.TYPE_BOOLEAN or
+		self.ret.type == hoi3.TYPE_STRING then
+		-- scalar value, quite straight forward to handle
+		return val1
+		
+	elseif self.ret.type == hoi3.TYPE_ITERATOR or
+		self.ret.type == hoi3.TYPE_TABLE then
+		-- table values
+		
+		-- special case, arg 2 is the good value if iterator
+		if self.ret.type == hoi3.TYPE_ITERATOR then
+			val1 = val2
+		end 
+		
+		-- 
+		local myRet = {}
+		-- we should now scan the tables
+		for i,v in ipairs(val1) do
+			if self.ret.subtype ==  hoi3.TYPE_NUMBER or
+				self.ret.subtype == hoi3.TYPE_BOOLEAN or
+				self.ret.subtype == hoi3.TYPE_STRING then
+				myRet[i] = v
+			else
+				assert(hoi3.api[self.ret.subtype]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.type)
+				--may won't work because of forced numeric index :(
+				myRet[i] = hoi3.api[self.ret.subtype]:userdataToInstance(v)
+			end
+		end
+		return myRet
+	else
+		-- must be USERDATA !
+		assert(hoi3.api[self.ret.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.type)
+		return hoi3.api[self.ret.type]:userdataToInstance(val1)
+	end
+end
+
 function FunctionObject:runAndSave(userdata, instance)
 	hoi3.assertNonStatic(self)
 	
@@ -351,22 +393,35 @@ function FunctionObject:runAndSave(userdata, instance)
 		if userdata[self.name] == nil or type(userdata[self.name]) ~= hoi3.TYPE_FUNCTION then
 			dtools.warn(tostring(self).." does not exists in real API !")
 		else
+			-- prepare all parameters combinations as a table of table
+			local arg_combination = {{}}
 			if #self.args > 0 then
+				-- there are parameters
 				dtools.warn(tostring(self).." not (yet) supported because of multiple parameters !")
-			else
-				-- prepare all parameters combinations as a table of table
-				--local arg_combination = {}
-				
+				return
+			end
+			
+			for i, myargs in ipairs(arg_combination) do
 				local mytime = os.clock()
 				
 				--for i, args in ipairs(arg_combination) do
-				local ret, value = pcall(userdata[self.name],userdata)
+				local ret, value, value2, value3 = pcall(userdata[self.name],userdata,myargs)
 				if ret == false then
 					dtools.error(tostring(self).." failed to run ! "..value)
 				else
-					self:save(value,instance)
-					--end
+					--value is pure API result
+					local fakeApiValue = self:ApiReturnToFakeApiReturn(value)
 					
+					-- if the fakeApiValue is another Hoi3object, then call runRealApiAndSave
+					if type(fakeApiValue) == hoi3.TYPE_TABLE and 
+						middleclass.instanceOf(hoi3.api.Hoi3Object,fakeApiValue) then
+						-- runRealApiAndSave supports something to avoid recursive loops
+						fakeApiValue:runRealApiAndSave()
+					end
+					
+					-- Save transformed userdata to Hoi3Object instance
+					self:save(fakeApiValue,instance)
+										
 					self.realruns = self.realruns + 1
 					self.realtime = self.realtime + os.clock() - mytime
 				end

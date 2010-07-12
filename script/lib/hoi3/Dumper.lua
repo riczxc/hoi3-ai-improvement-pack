@@ -81,9 +81,18 @@ function report(err)
 end
 
 function saveAll()
+	-- Save all object instances from ccountrytag, we should scan
+	-- all object types from here.
 	for k,v in pairs(hoi3.api.CCountryTag:getInstances()) do
 		v:runRealApiAndSave()
 	end 
+	
+	-- Display performance summary
+	for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
+		for methodName, method in pairs(class:getApiFunctions()) do
+			dtools.debug(m:signatureAsString().." "..m.realruns.." runs in "..m.realtime.." sec ("..(m.realtime / m.realruns).." sec per run)")
+		end
+	end			
 end
 
 ---
@@ -91,72 +100,56 @@ end
 function checkDataBases()
 	-- Start by referencing all databased objects
 	for d in CCurrentGameState.GetCountries() do
-		local t = hoi3.api.CCountryTag(tostring(d:GetCountryTag()))
-		t:bind(d:GetCountryTag())
-
-		local o = hoi3.api.CCountry(t)
-		o:bind(d)
+		local t = hoi3.api.CCountryTag:userdataToInstance(d:GetCountryTag())
+		local o = hoi3.api.CCountry:userdataToInstance(d)
 		
 		for pid in d:GetControlledProvinces() do
-			local p = hoi3.api.CProvince(pid)
-			p:bind(CCurrentGameState.GetProvince(pid))
+			local p = hoi3.api.CProvince:userdataToInstance(CCurrentGameState.GetProvince(pid))
 		end
 		
 		for min in d:GetPossibleMinisters() do	
-			local i = hoi3.api.CIdeology(min:GetIdeology():GetKey():GetString())
-			i:bind(min:GetIdeology())
-			
-			local i = hoi3.api.CIdeologyGroup(min:GetIdeology():GetGroup():GetKey():GetString())
-			i:bind(min:GetIdeology():GetGroup())
+			local i = hoi3.api.CIdeology:userdataToInstance(min:GetIdeology())		
+			local i = hoi3.api.CIdeologyGroup:userdataToInstance(min:GetIdeology():GetGroup())
 		end
 	end
 	dtools.debug("CFaction")
 	for d in CCurrentGameState.GetFactions() do
-		local o = hoi3.api.CFaction(tostring(d:GetTag()))
-		o:bind(d)
+		local o = hoi3.api.CFaction:userdataToInstance(d)
 	end
 	dtools.debug("CLawGroup")
 	for d in CLawDataBase.GetGroups() do
-		local o = hoi3.api.CLawGroup(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CLawGroup:userdataToInstance(d)
 	end
 	dtools.debug("CLaw")
 	for d in CLawDataBase.GetLawList() do
-		local o = hoi3.api.CLaw(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CLaw:userdataToInstance(d)
 	end
 	dtools.debug("CSubUnitDefinition")
 	for d in CSubUnitDataBase.GetSubUnitList() do
-		local o = hoi3.api.CSubUnitDefinition(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CSubUnitDefinition:userdataToInstance(d)
 	end
 	dtools.debug("CTechnology")
 	for d in CTechnologyDataBase.GetTechnologies() do
-		local o = hoi3.api.CTechnology(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CTechnology:userdataToInstance(d)
 	end
 	dtools.debug("CTechnologyCategory")
 	for d in CTechnologyDataBase.GetCategories() do
-		local o = hoi3.api.CTechnologyCategory(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CTechnologyCategory:userdataToInstance(d)
 	end
 	dtools.debug("CGovernmentPosition")
 	for d in CGovernmentPositionDataBase.GetGovernmentPositionList() do
-		local o = hoi3.api.CGovernmentPosition(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CGovernmentPosition:userdataToInstance(d)
 	end
 	dtools.debug("CMinisterType")
 	for d in CMinisterTypeDataBase.GetMinisterTypeList() do
-		local o = hoi3.api.CMinisterType(d:GetKey():GetString())
-		o:bind(d)
+		local o = hoi3.api.CMinisterType:userdataToInstance(d)
 	end
 	dtools.debug("CBuilding")
 	-- From here there is no complete iterator, only index
 	for i=0,10 do
 		d = CBuildingDataBase.GetBuildingFromIndex(i)
 		if d ~= nil then 
-			local o = hoi3.api.CBuilding(d:GetName():GetString())
-			o:bind(d)
+			local o = hoi3.api.CBuilding:userdataToInstance(d)
 		end
 	end
 	-- Missing :

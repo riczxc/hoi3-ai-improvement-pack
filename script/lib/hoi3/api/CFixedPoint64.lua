@@ -8,24 +8,6 @@ CFixedPoint64 = hoi3.Hoi3Object:subclass('hoi3.api.CFixedPoint64')
 -- information only, that will be used by documentation generator.
 CFixedPoint64.constructorSignature = {hoi3.TYPE_NUMBER}
 
---[[
-TODO implement this :
-.def( const_self + const_self )
-      .def( constructor<>() )
-        .def( constructor<float>() )
-        .def( "Get", &CFixedPoint6464::Get )
-        .def( "GetTruncated", &CFixedPoint6464::GetTruncated )
-        .def( "GetRounded", &CFixedPoint6464::GetRounded )
-        .def( const_self + const_self )
-        .def( const_self - const_self )
-        .def( const_self * const_self )
-        .def( const_self / const_self )
-        .def( const_self == const_self )
-        .def( const_self < const_self )
-        .def( const_self <= const_self )
-        .def( tostring(const_self) ),
-]]
-
 ---
 -- @since 1.3
 -- @param CCountryTag actor
@@ -68,6 +50,10 @@ end
 
 function CFixedPoint64.random()
 	return CFixedPoint64(math.random()*100)
+end
+
+function CFixedPoint:__tostring()
+	return tostring(self._value)
 end
 
 function CFixedPoint64:__eq(value)
