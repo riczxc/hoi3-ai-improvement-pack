@@ -19,7 +19,7 @@ function generateAll()
 	generateSubUnitDatabase()
 	generateTechDatabase()
 	generateGovernementPositionDatabase()
-	generatePersonalityDatabase()
+	generateMinisterTypeDatabase()
 end
 
 function generateContinentDatabase()
@@ -158,7 +158,7 @@ function generateGovernementPositionDatabase()
 	return db
 end
 
-function generatePersonalityDatabase()
+function generateMinisterTypeDatabase()
 	local def = {}
 	
 	table.insert(def,{'biased_intellectual'})
@@ -245,7 +245,7 @@ function generatePersonalityDatabase()
 	
 	local db = {}
 	for i,persodef in ipairs(def) do
-		local perso = CPersonality(persodef[1])
+		local perso = CMinisterType(persodef[1])
 	
 		db[perso] = perso
 	end
@@ -432,10 +432,10 @@ function generateCountryDatabase()
 		-- GetOverlord
 		if ctyDef[5] ~= nil then
 			CCountry.GetOverlord:save(CCountry(CCountryTag(ctyDef[5])),cty)
-			CCountry.isPuppet:save(true,cty)
+			CCountry.IsPuppet:save(true,cty)
 			CCountry.IsSubject:save(true,cty)
 		else
-			CCountry.isPuppet:save(false,cty)
+			CCountry.IsPuppet:save(false,cty)
 			CCountry.IsSubject:save(false,cty)
 		end
 
@@ -462,7 +462,6 @@ end
 function generateSubUnitDatabase()
 	local def = {}
 	-- key, name, group
-	
 	table.insert(def,{'anti_air_brigade'})
 	table.insert(def,{'anti_tank_brigade'})
 	table.insert(def,{'armor_brigade'})

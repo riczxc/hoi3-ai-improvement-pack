@@ -36,28 +36,25 @@ function dump()
 	hoi3.MultitonObject.clearInstances()
 	
 	-- First of all, check ALL constants !
-	--if 
-	checkMethods() 
-	--and 
-	checkConstants()
-	--[[ then
+	if not checkMethods() or not checkConstants() then
 		report("Failed to dump, either static methods or constants are not synchronize between fake API and real API.")
 		didRun = true
 		return
-	end]]
+	end
 	
 	-- Read all needed objects used in data
-	dtools.debug("About to check db")
+	dtools.debug("hoi3.dump - About to check db")
 	checkDataBases()
 	
-	dtools.debug("About to run saveAll")
+	dtools.debug("hoi3.dump - About to run saveAll")
 	saveAll()
 	
 	-- Serialize
-	dtools.debug("About to Serialize")
+	dtools.debug("hoi3.dump - About to Serialize")
 	hoi3.MultitonObject.serializeInstances("SAVE000.lua")
 	
 	-- Start
+	dtools.debug("hoi3.dump - Done !")
 	didRun = true
 end
 

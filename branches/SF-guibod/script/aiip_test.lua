@@ -29,24 +29,6 @@ require('hoi3.api')
 
 dtools.setLogContext("","DEVEL")
 
--- doc
-require("hoi3.doc")
-
-t = {}
-for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
-	for methodName, method in pairs(class:getApiFunctions()) do
-		for k,v in pairs(method.args) do
-			t[v] = v
-		end
-	end
-end
-
-for k,v in dtools.table.orderedPairs(t) do
-	print(k)
-end
-
-os.exit()
-
 --Run all test suites
 require("lunit")
 require("dtools.tests.dtools")
@@ -115,12 +97,12 @@ if true then
     		tickFunc(mnstFunc(tag))
     	end
     	
-    	print(v[1].." "..tostring(hoi3.FunctionObject.numApiCalls).." api calls")
+    	dtools.info(v[1].." "..tostring(hoi3.FunctionObject.numApiCalls).." api calls")
     	hoi3.FunctionObject.numApiCalls = 0
     end
     
     local ger = CCountryDataBase.GetTag("GER")
-    print(ger:GetCountry():GetCapitalLocation():GetProvinceID())
+    dtools.info(ger:GetCountry():GetCapitalLocation():GetProvinceID())
     
     
     

@@ -32,7 +32,7 @@ end
 hoi3.f(CGoodsPool, 'Get', 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetImpl(type)
-	assert(type > 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
+	assert(type >= 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
 	return CFixedPoint(self.goods[type])
 end
 
@@ -43,7 +43,7 @@ end
 hoi3.f(CGoodsPool, 'GetFloat', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetFloatImpl(type)
-	assert(type > 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
+	assert(type >= 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
 	return self.goods[type]
 end
 

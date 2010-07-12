@@ -69,7 +69,5 @@ function CEU3Date.random()
 	date.month = math.random(1, 12)
 	date.day = math.random(1, 31) --i hope 31 sept would be translated to 01 oct
 	
-	CEU3Date = CEU3Date(os.time(date))
-
-	return CEU3Date
+	return CEU3Date(os.time(date))
 end
