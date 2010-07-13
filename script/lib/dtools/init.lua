@@ -157,6 +157,11 @@ if enabled then
 		dtools.log4lua.getLogger(category):log(level, message, nil, countryString)
 	end
 
+	function loadConfig(file)
+		require('dtools.log4lua')
+		dtools.log4lua.loadConfig(file)
+	end
+	
 	function setLogContext(ministerCountryOrTag, category)
 		_curLogCategory = category
 		_curLogCountry = ministerCountryOrTag
