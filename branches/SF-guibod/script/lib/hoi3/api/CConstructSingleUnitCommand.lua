@@ -9,3 +9,5 @@ CConstructSingleUnitCommand = CCommand:subclass('hoi3.api.CConstructSingleUnitCo
 function CConstructSingleUnitCommand:desc()
 	return "Issued single unit construction. Should not happen 'cause no constructor."
 end
+
+hoi3.f(CConstructSingleUnitCommand, 'Clone', hoi3.TYPE_UNKNOWN)

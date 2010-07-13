@@ -22,6 +22,11 @@ function CFactionAction:initialize(tag, ally)
 	self.ally = ally
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CFactionAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CFactionAction:desc()
 	return tostring(self.tag).." invites "..tostring(self.ally).. " to faction."
 end

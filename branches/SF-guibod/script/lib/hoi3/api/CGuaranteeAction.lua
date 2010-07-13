@@ -22,6 +22,11 @@ function CGuaranteeAction:initialize(tag, guarantee)
 	self.guarantee = guarantee
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CGuaranteeAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CGuaranteeAction:desc()
 	return tostring(self.tag).." guarantees "..tostring(self.ally).. "."
 end

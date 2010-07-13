@@ -122,8 +122,8 @@ hoi3.f(CAI, 'GetProductionSubUnitCounts', 'CArrayFloat')
 
 ---
 -- @since 1.3
--- @return CSubUnitConstructionEntryList
-hoi3.f(CAI, 'GetReqProdQueue', 'CSubUnitConstructionEntryList')
+-- @return CList_CSubUnitConstructionEntry
+hoi3.f(CAI, 'GetReqProdQueue', 'CList_CSubUnitConstructionEntry')
 
 ---
 -- @since 1.3
@@ -232,13 +232,13 @@ end
 
 ---
 -- @since 1.3
--- @param CAction action
+-- @param CDiplomaticAction action
 -- @return void
-hoi3.f(CAI, 'PostAction', hoi3.TYPE_VOID, 'CAction')
+hoi3.f(CAI, 'PostAction', hoi3.TYPE_VOID, 'CDiplomaticAction')
 
 function CAI:PostActionImpl(action)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, action, 'CAction')
+	hoi3.assertParameterType(1, action, 'CDiplomaticAction')
 	
 	local message = tostring(action.class).." posted"
 	if type(action.desc) == hoi3.TYPE_FUNCTION then 

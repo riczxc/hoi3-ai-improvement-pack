@@ -22,6 +22,11 @@ function CNapAction:initialize(tag, target)
 	self.target = target
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CNapAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CNapAction:desc()
 	return tostring(self.tag).." propose non-aggression pact to "..tostring(self.target).. "."
 end

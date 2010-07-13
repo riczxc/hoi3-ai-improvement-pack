@@ -25,6 +25,8 @@ function CChangePriorityCommand:initialize(tag, cid, priority)
 	self.priority = priority
 end
 
+hoi3.f(CChangePriorityCommand, 'Clone', hoi3.TYPE_UNKNOWN)
+
 function CChangePriorityCommand:desc()
 	return "Unit construction "..tostring(self.cid).." priority " ..
 			"changed to "..tostring(self.priority).." "..

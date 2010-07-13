@@ -52,6 +52,12 @@ hoi3.f(CTradeAction, 'SetRoute', hoi3.TYPE_VOID, 'CTradeRoute')
 -- @return void 
 hoi3.f(CTradeAction, 'SetTrading', hoi3.TYPE_VOID, 'CFixedPoint', hoi3.TYPE_NUMBER)
 
+
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CTradeAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CTradeAction:desc()
 	return tostring(self.tag).." propose trade with "..tostring(self.target).. "."
 end

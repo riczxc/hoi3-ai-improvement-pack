@@ -22,6 +22,11 @@ function CDeclareWarAction:initialize(tag, target)
 	self.target = target
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CDeclareWarAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CDeclareWarAction:desc()
 	return tostring(self.tag).." declares war to "..tostring(self.target).. " !"
 end

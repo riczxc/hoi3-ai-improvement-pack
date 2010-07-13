@@ -22,6 +22,11 @@ function CInfluenceNation:initialize(tag, target)
 	self.target = target
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CInfluenceNation, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CInfluenceNation:desc()
 	return tostring(self.tag).." influences "..tostring(self.target).. "."
 end

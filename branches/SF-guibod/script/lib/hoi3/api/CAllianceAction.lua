@@ -20,6 +20,11 @@ function CAllianceAction:initialize(tag,  ally)
 	self.ally = ally
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CAllianceAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CAllianceAction:desc()
 	return tostring(self.tag).." is now "..tostring(self.ally).. " ally."
 end

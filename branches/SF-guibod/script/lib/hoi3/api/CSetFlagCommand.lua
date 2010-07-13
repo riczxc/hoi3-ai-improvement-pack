@@ -25,6 +25,8 @@ function CSetFlagCommand:initialize(tag, flag, value)
 	self.value = value
 end
 
+hoi3.f(CSetFlagCommand, 'Clone', hoi3.TYPE_UNKNOWN)
+
 function CSetFlagCommand:desc()
 	return tostring(self.flag).." set to "..tostring(self.value)..
 		" by "..tostring(self.tag).."."

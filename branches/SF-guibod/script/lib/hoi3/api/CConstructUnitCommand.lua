@@ -37,6 +37,8 @@ function CConstructUnitCommand:initialize(tag, list, capital, quantity, isReserv
 	self.cid = cid
 end
 
+hoi3.f(CConstructUnitCommand, 'Clone', hoi3.TYPE_UNKNOWN)
+
 function CConstructUnitCommand:desc()
 	local str = ""
 	

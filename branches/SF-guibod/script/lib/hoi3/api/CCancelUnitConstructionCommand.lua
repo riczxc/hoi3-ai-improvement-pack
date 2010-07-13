@@ -22,6 +22,8 @@ function CCancelUnitConstructionCommand:initialize(tag, cid)
 	self.cid = cid
 end
 
+hoi3.f(CCancelUnitConstructionCommand, 'Clone', hoi3.TYPE_UNKNOWN)
+
 function CCancelUnitConstructionCommand:desc()
 	return "Unit construction "..tostring(self.cid).." canceled by "..tostring(self.tag).."."
 end
