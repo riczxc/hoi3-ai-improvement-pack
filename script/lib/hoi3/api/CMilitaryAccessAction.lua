@@ -22,6 +22,11 @@ function CMilitaryAccessAction:initialize(tag, target)
 	self.target = target
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CMilitaryAccessAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CMilitaryAccessAction:desc()
 	return tostring(self.tag).." grants "..tostring(self.target).. " military access."
 end

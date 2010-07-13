@@ -1,7 +1,6 @@
 module("hoi3.api", package.seeall)
 
 -- Now declare all HOI3 API objects
-require('hoi3.api.CAction')
 require('hoi3.api.CAI')
 require('hoi3.api.CAIAgent')
 require('hoi3.api.CAIEspionageMinister')
@@ -76,6 +75,7 @@ require('hoi3.api.CLawDataBase')
 require('hoi3.api.CLawGroup')
 require('hoi3.api.CLiberateCountryCommand')
 require('hoi3.api.CLicenceTechnologyAction')
+require('hoi3.api.CList_CSubUnitConstructionEntry')
 require('hoi3.api.CMilitaryAccessAction')
 require('hoi3.api.CMilitaryConstruction')
 require('hoi3.api.CMinister')
@@ -101,7 +101,6 @@ require('hoi3.api.CStartResearchCommand')
 require('hoi3.api.CStrategicWarfare')
 require('hoi3.api.CString')
 require('hoi3.api.CSubUnitConstructionEntry')
-require('hoi3.api.CSubUnitConstructionEntryList')
 require('hoi3.api.CSubUnitDataBase')
 require('hoi3.api.CSubUnitDefinition')
 require('hoi3.api.CTechnology')
@@ -126,7 +125,7 @@ require('hoi3.api.defines')
 require("middleclass")
 
 ---
--- Allow release hoi3.api.CAction as CAction 
+-- Allow release hoi3.api.CDiplomaticAction as CDiplomaticAction 
 function getApi()
 	local t = {}
 	for k, v in pairs(hoi3.api) do
@@ -151,7 +150,7 @@ function getCompleteApi()
 end
 
 ---
--- Allow release hoi3.api.CAction as CAction 
+-- Allow release hoi3.api.CDiplomaticAction as CDiplomaticAction 
 function releaseApiOnGlobalScope()
 	for key, value in pairs(getApi()) do
 		_G[key] = value

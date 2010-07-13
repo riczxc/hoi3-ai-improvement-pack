@@ -22,6 +22,11 @@ function COfferMilitaryAccessAction:initialize(tag, target)
 	self.target = target
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(COfferMilitaryAccessAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function COfferMilitaryAccessAction:desc()
 	return tostring(self.tag).." asks "..tostring(self.target).. " military access."
 end

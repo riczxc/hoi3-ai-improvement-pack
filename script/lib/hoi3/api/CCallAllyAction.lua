@@ -38,6 +38,11 @@ hoi3.f(CCallAllyAction, 'GetVersus', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 -- @return unknown
 hoi3.f(CCallAllyAction, 'SetVersus', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CCallAllyAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CCallAllyAction:desc()
 	local str
 	if self.isLimited then str = "limited " end

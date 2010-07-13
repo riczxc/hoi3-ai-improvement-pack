@@ -22,6 +22,11 @@ function CInfluenceAllianceLeader:initialize(tag, leader)
 	self.leader = leader
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CInfluenceAllianceLeader, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CInfluenceAllianceLeader:desc()
 	return tostring(self.tag).." aligns toward "..tostring(self.leader).. "."
 end

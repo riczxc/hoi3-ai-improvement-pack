@@ -22,6 +22,11 @@ function CEmbargoAction:initialize(tag, target)
 	self.target = target
 end
 
+---
+-- @since 1.3
+-- @return unknown 
+hoi3.fs(CEmbargoAction, 'Create', hoi3.TYPE_UNKNOWN)
+
 function CEmbargoAction:desc()
 	return tostring(self.tag).." embargoes "..tostring(self.target).. " !"
 end

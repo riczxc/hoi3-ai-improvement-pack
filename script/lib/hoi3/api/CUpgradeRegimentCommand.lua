@@ -23,6 +23,8 @@ function CUpgradeRegimentCommand:initialize(unit, num)
 	self.num = num
 end
 
+hoi3.f(CUpgradeRegimentCommand, 'Clone', hoi3.TYPE_UNKNOWN)
+
 function CUpgradeRegimentCommand:desc()
 	return "Issued upgrade command."
 end
