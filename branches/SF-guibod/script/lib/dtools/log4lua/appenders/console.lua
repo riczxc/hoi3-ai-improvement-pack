@@ -26,7 +26,7 @@ module("dtools.log4lua.appenders.console", package.seeall)
 -- @param pattern (optional) the message pattern.
 function new(pattern)
     return
-    function(logger, level, message, excpetion, country)
-        io.stdout:write(logger:formatMessage(pattern, level, message, excpetion, country))
+    function(logger, level, message, exception, country)
+        io.stdout:write(logger:formatMessage(pattern, level, message, exception, country))
     end
 end

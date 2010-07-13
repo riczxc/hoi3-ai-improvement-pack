@@ -95,7 +95,7 @@ Logger.LOG_LEVELS = {
 }
 
 -- Default pattern used for all appenders.
-Logger.DEFAULT_PATTERN = "[%RDATE] [%DATE] [%LEVEL] [%COUNTRY] %MESSAGE at %FILE:%LINE(%METHOD)\n"
+Logger.DEFAULT_PATTERN = "[%DATE] [%RDATE] [%LEVEL] [%COUNTRY] %MESSAGE at %FILE:%LINE(%METHOD)\n"
 
 -- 
 Logger.instances = {}
@@ -110,7 +110,7 @@ end
 
 -- Load default configuration found in environment variable.
 local function initConfig()
-	if (#Logger.instances == 0) then
+	if (Logger.instances ==nil or Logger.instances["ROOT"] == nil) then
 		local configFile = os.getenv(ENV_LOGGING_CONFIG_FILE)
 		if (configFile ~= nil) then
 			Logger.loadConfig(configFile)
@@ -154,17 +154,16 @@ end
 
 --- Load a configuration file.
 -- @param fileName path to a configuration file written in lua. The lua code must return a map (table) with loggers configured for each category.
-function Logger.loadConfig(fileName)
+function loadConfig(fileName)
 	local result, errorMsg = loadfile(fileName)
-
 	if (result) then
-				local loadedLoggers = result()
+		local loadedLoggers = result()
 		assert(loadedLoggers ~= nil and loadedLoggers["ROOT"] ~= nil, "At least a log category 'ROOT' must be specified.")
 		Logger.instances = loadedLoggers
 	else
-				-- Default configuration if no config file has been specified or it could not be loaded.
+		-- Default configuration if no config file has been specified or it could not be loaded.
 		Logger.instances = {}
-		Logger.instances["ROOT"] = Logger.new(console.new(), "ROOT", Logger.INFO)
+		Logger.instances["ROOT"] = Logger.new(dtools.log4lua.appenders.console.new(), "ROOT", Logger.INFO)
 		Logger.getLogger("ROOT"):info("No logging configuration found in file '" .. fileName .. "' (Error: " .. tostring(errorMsg) .. "). Using default (INFO to console).")
 	end
 end
@@ -273,21 +272,31 @@ function Logger:formatMessage(pattern, level, message, exception, country)
 	end
 
 	-- Test CCurrentGameState existance, this script may run from pure LUA without HOI3 bindings
-	local inGameDate = ""
-	if CCurrentGameState ~= nil then		
-		inGameDate = CCurrentGameState.GetCurrentDate()
-		inGameDate = lpad(tostring(inGameDate:GetYear()),4,"0") .. "-" .. lpad(tostring(inGameDate:GetMonthOfYear()+1),2,"0") .. "-" .. lpad(tostring(inGameDate:GetDayOfMonth()+1),2,"0")
+	local inGameDate = "          "
+	if CCurrentGameState ~= nil and 
+		string.match(result, "%%DATE") and
+		country ~= nil and 
+		country ~= "   " then		
+		
+		-- BE VERY CAUTIOUS 
+		-- there's a crasher in 2.0 - 2.03 code that crashes the game in 
+		-- « adapting history » step.
+		-- You can't call CCurrentGameState.GetCurrentDate() before the game to run
+		-- so without proper flag stating that we are ok, use country flag (that means wrappe function)
+		inGameDate = lpad(tostring(CCurrentGameState.GetCurrentDate():GetYear()),4,"0") .. 
+					"-" .. lpad(tostring(CCurrentGameState.GetCurrentDate():GetMonthOfYear()+1),2,"0") ..
+					"-" .. lpad(tostring(CCurrentGameState.GetCurrentDate():GetDayOfMonth()+1),2,"0")	
 	end
-
 	result = string.gsub(result, "%%DATE", inGameDate)
 	result = string.gsub(result, "%%RDATE", tostring(os.date()))
 	result = string.gsub(result, "%%LEVEL", lpad(level,6," "))
 	result = string.gsub(result, "%%MESSAGE", message)
 	result = string.gsub(result, "%%COUNTRY", lpad(country,3," "))
+	
 	-- tweak for AIIP (log4lua is bugged)
-		if exception ~= nil then
-				result = string.gsub(result, "%%ERROR", exception)
-		end
+	if exception ~= nil then
+		result = string.gsub(result, "%%ERROR", exception)
+	end
 
 	return result
 end
@@ -297,7 +306,7 @@ function Logger:_formatStackTrace(pattern)
 	local result = pattern
 
 	-- Handle stack trace and method.
-	local stackTrace = debug.traceback()
+	local stackTrace = _G.debug.traceback()
 
 	for line in string.gmatch(stackTrace, "[^\n]-\.lua:%d+: in [^\n]+") do
 		if not string.match(line, ".-log4lua.-\.lua:%d+:") and
