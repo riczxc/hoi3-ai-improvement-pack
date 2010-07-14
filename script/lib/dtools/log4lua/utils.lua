@@ -20,7 +20,7 @@
 -- @author $Author: peter.romianowski $
 -- @release $Date: 2008-09-19 21:59:49 +0200 (Fr, 19 Sep 2008) $ $Rev: 74 $
 
-module("dtools.logger.utils", package.seeall)
+module("dtools.log4lua.utils", package.seeall)
 
 --- Convert the given table to a string.
 -- @param maxDepth until this depth all tables contained as values in the table will be resolved.
@@ -172,24 +172,4 @@ function utf8Sub(s, first, last)
         end
     end
     return result
-end
-
--- Simply sleep a bit.
--- @param millis number of milliseconds to sleep. NOTE: current implementation waits whole seconds!
-function sleep(millis)
-    local sec = math.ceil(millis / 1000)
-    local start = os.time()
-    while (start + sec > os.time()) do
-        -- Just nothing - busy wait!
-    end
-end
-
--- Return a function that get a table element by index and ensures that it is not out of bounds.
-function saveGetIndex(tab)
-    return
-        function (index)
-                if (index <= #tab) then
-                    return tab[index]
-                end
-            end
 end
