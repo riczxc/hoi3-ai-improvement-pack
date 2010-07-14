@@ -52,6 +52,16 @@ function CFixedPoint64.random()
 	return CFixedPoint64(math.random()*100)
 end
 
+function CFixedPoint64.userdataToInstance(myClass, userdata)
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
+	
+	local myInstance = CFixedPoint64:new(userdata:Get())
+	myInstance.__userdata = userdata
+	return myInstance
+end
+
 function CFixedPoint:__tostring()
 	return tostring(self._value)
 end

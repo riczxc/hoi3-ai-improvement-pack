@@ -29,7 +29,7 @@ end
 ---
 -- @since 1.3
 -- @return string 
-hoi3.f(CCountryTag, 'GetTag', hoi3.TYPE_NIL)
+hoi3.f(CNullTag, 'GetTag', hoi3.TYPE_VOID)
 
 function CNullTag:__tostring()
 	return ""

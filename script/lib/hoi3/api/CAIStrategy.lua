@@ -2,7 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CAIStrategy = hoi3.Hoi3Object:subclass('hoi3.api.CAIStrategy')
+CAIStrategy = hoi3.MultitonObject:subclass('hoi3.api.CAIStrategy')
 
 --- 
 -- @since 1.3
@@ -14,11 +14,11 @@ CAIStrategy._AI_BALANCED_	= 4
 
 ---
 -- @param CCountryTag countryTag
-function CAIStrategy:initialize(countryTag)
+function CAIStrategy:initialize(tag)
 	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, countryTag, 'CCountryTag')
+	hoi3.assertParameterType(1, tag, 'CCountryTag')
 	
-	self.tag = tag
+	self._tag = tag
 end
 
 ---
@@ -155,3 +155,25 @@ hoi3.f(CAIStrategy, 'PrepareWarDecision', hoi3.TYPE_VOID, 'CCountryTag', hoi3.TY
 -- @since 1.3
 -- @return unknown
 hoi3.f(CAIStrategy, 'PrepareLimitedWar', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
+
+function CAIStrategy.userdataToInstance(myClass, userdata)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
+
+	if userdata.GetCountryTag == nil and type(userdata.GetCountryTag) ~= hoi3.TYPE_FUNCTION then
+		hoi3.error("Bad signature for userdata, didn't match CAIStrategy.userdataToInstance() !")
+		return
+	end
+	
+	local key 
+	if userdata:GetCountryTag():GetTag() ~= nil then
+		key = hoi3.api.CCountryTag(userdata:GetCountryTag():GetTag())
+	else
+		key = hoi3.api.CNullTag()
+	end
+	local myInstance = CAIStrategy(key)
+	myInstance.__userdata = userdata
+	return myInstance
+end
