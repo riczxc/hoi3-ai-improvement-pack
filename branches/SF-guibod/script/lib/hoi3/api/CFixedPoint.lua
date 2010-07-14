@@ -55,7 +55,7 @@ function CFixedPoint:__eq(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value == value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint:__add(value)
@@ -65,7 +65,7 @@ function CFixedPoint:__add(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value + value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint:__sub(value)
@@ -75,7 +75,7 @@ function CFixedPoint:__sub(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value - value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint:__mul(value)
@@ -85,7 +85,7 @@ function CFixedPoint:__mul(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value * value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint:__div(value)
@@ -95,7 +95,7 @@ function CFixedPoint:__div(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value / value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint:__lt(value)
@@ -105,7 +105,7 @@ function CFixedPoint:__lt(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value < value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint:__le(value)
@@ -115,5 +115,5 @@ function CFixedPoint:__le(value)
 	elseif type(value) == hoi3.TYPE_NUMBER then
 		return self._value <= value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end

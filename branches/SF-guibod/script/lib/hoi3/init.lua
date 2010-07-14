@@ -71,6 +71,21 @@ function testType(value, typeAsString)
 	end
 end
 
+function assert(v, message)
+	if v == nil or v == false then
+		message = message or ""
+		--add the full traceback that will soon be lost !
+		_G.error( message .. "\n" .. _G.debug.traceback())
+	end
+	return v
+end
+
+function error(message, lvl)
+	message = message or ""
+	--add the full traceback that will soon be lost !
+	_G.error( message .. "\n" .. _G.debug.traceback(), lvl)
+end
+
 function assertParameterType(index, parameterValue, typeAsString)
 	local foundtype = type(parameterValue)
 	if foundtype == hoi3.TYPE_TABLE and 
@@ -80,6 +95,7 @@ function assertParameterType(index, parameterValue, typeAsString)
 	assert(
 		testType(parameterValue, typeAsString),
 		"passed argument #"..index.." is not type "..typeAsString..", "..foundtype.." found."
+		
 	)
 end
 
@@ -99,7 +115,8 @@ function assertNonStatic(self)
 	assert(self~=nil and 
 		type(self)==TYPE_TABLE and 
 		middleclass.instanceOf(middleclass.Object, self), 
-		"Non-static method cannot be referenced from a static context.")
+		"Non-static method cannot be referenced from a static context."
+	)
 end
 
 function throwNotYetImplemented()

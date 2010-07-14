@@ -4,7 +4,7 @@ module( "hoi3", package.seeall)
 
 --[[
 All possible arg type for API calls
-*CAction -> void, don't bother
+*CDiplomaticAction -> void, don't bother
 *CBuilding -> db, but from index or key
 *CCommand -> returns void, don't bother
 *CCountry -> db
@@ -89,7 +89,7 @@ function saveAll()
 	
 	-- Display performance summary
 	for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
-		for methodName, method in pairs(class:getApiFunctions()) do
+		for methodName, m in pairs(class:getApiFunctions()) do
 			dtools.debug(m:signatureAsString().." "..m.realruns.." runs in "..m.realtime.." sec ("..(m.realtime / m.realruns).." sec per run)")
 		end
 	end			
@@ -112,6 +112,7 @@ function checkDataBases()
 			local i = hoi3.api.CIdeologyGroup:userdataToInstance(min:GetIdeology():GetGroup())
 		end
 	end
+	
 	dtools.debug("CFaction")
 	for d in CCurrentGameState.GetFactions() do
 		local o = hoi3.api.CFaction:userdataToInstance(d)

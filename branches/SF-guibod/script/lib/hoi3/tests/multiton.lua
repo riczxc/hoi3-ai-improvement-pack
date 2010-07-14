@@ -69,7 +69,7 @@ function test5()
 	
 	local instances = objectC:getInstances()
 	for k, v in pairs(instances) do
-		assert(middleclass.instanceOf(objectC, v))
+		hoi3.assert(middleclass.instanceOf(objectC, v))
 	end
 	
 	objectC:clearInstances()

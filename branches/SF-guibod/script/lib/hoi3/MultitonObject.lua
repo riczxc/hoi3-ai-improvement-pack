@@ -12,14 +12,14 @@ end
 
 function MultitonObject:_argsToUnid(...)
 	local _classes = middleclass.getClasses()
-	assert(_classes[self]~=nil, "Use class:_argsToUnid instead of class._argsToUnid")
+	hoi3.assert(_classes[self]~=nil, "Use class:_argsToUnid instead of class._argsToUnid")
 	
 	local args = {...}
 	local numkeys = self.numkeys or 1
 	local key = self.name.."["
 	
-	assert(1<=numkeys and numkeys<=4, tostring(self).." numkeys property must be between 1 and 3")
-  	assert(#args == numkeys, tostring(self).." Constructor/getInstance requires "..tostring(numkeys).." keys parameters, "..tostring(#args).." given.")
+	hoi3.assert(1<=numkeys and numkeys<=4, tostring(self).." numkeys property must be between 1 and 3")
+  	hoi3.assert(#args == numkeys, tostring(self).." Constructor/getInstance requires "..tostring(numkeys).." keys parameters, "..tostring(#args).." given.")
   	
   	for i=1,numkeys do
   		local t = type(args[i])
@@ -31,7 +31,7 @@ function MultitonObject:_argsToUnid(...)
 				t == hoi3.TYPE_NUMBER and
 				t == hoi3.TYPE_BOOLEAN then
 				
-				error("Multiton key args must be either Multiton object or scalar !")
+				hoi3.error("Multiton key args must be either Multiton object or scalar !")
 			end
 			
 			key = key .. args[i]				
@@ -48,7 +48,7 @@ end
 
 function MultitonObject:new(...)
 	local _classes = middleclass.getClasses()
-	assert(_classes[self]~=nil, "Use class:new instead of class.new")
+	hoi3.assert(_classes[self]~=nil, "Use class:new instead of class.new")
 	local key = self:_argsToUnid(...)
 	-- Force table creation
   	MultitonObject.instances[self.name] = MultitonObject.instances[self.name] or {}
@@ -65,7 +65,7 @@ end
 
 function MultitonObject:hasInstance(...)
 	local _classes = middleclass.getClasses()
-	assert(_classes[self]~=nil, "Use class:hasInstance instead of class.hasInstance")
+	hoi3.assert(_classes[self]~=nil, "Use class:hasInstance instead of class.hasInstance")
 	
 	local key = self:_argsToUnid(...)
 	return self:_hasInstance(key)
@@ -73,7 +73,7 @@ end
 
 function MultitonObject:_hasInstance(key)
 	local _classes = middleclass.getClasses()
-	assert(_classes[self]~=nil, "Use class:_hasInstance instead of class._hasInstance")
+	hoi3.assert(_classes[self]~=nil, "Use class:_hasInstance instead of class._hasInstance")
 	
 	return MultitonObject.instances[self.name] ~= nil and
 		MultitonObject.instances[self.name][key] ~= nil
@@ -81,7 +81,7 @@ end
 
 function MultitonObject:getInstance(...)
 	local _classes = middleclass.getClasses()
-	assert(_classes[self]~=nil, "Use class:getInstance instead of class.getInstance")
+	hoi3.assert(_classes[self]~=nil, "Use class:getInstance instead of class.getInstance")
 	
 	local key = self:_argsToUnid(...)
 	return self:_getInstance(key)
@@ -89,7 +89,7 @@ end
 
 function MultitonObject:_getInstance(key)
 	local _classes = middleclass.getClasses()
-	assert(_classes[self]~=nil, "Use class:_getInstance instead of class._getInstance")
+	hoi3.assert(_classes[self]~=nil, "Use class:_getInstance instead of class._getInstance")
 	
 	if self:_hasInstance(key) then
 		-- the object may need rehydratation
@@ -103,7 +103,7 @@ end
 
 function MultitonObject:clearInstances()
 	if self ~= nil then
-		assert(middleclass.subclassOf(MultitonObject,self))
+		hoi3.assert(middleclass.subclassOf(MultitonObject,self))
 		MultitonObject.instances[self.name] = {}
 	else
 		MultitonObject.instances = {}
@@ -308,39 +308,55 @@ end
 -- Default multiton behavior uses GetKey() or falls back to GetCountryTag(), or fall bac to GetTag(), or try to fallback to GetName()
 function MultitonObject.userdataToInstance(myClass, userdata)
 	-- intends to be run as myclass:bindToInstance(userdata)
-	assert(
+	hoi3.assert(
 		type(myClass) == hoi3.TYPE_TABLE and 
 		middleclass.subclassOf(Hoi3Object,myClass)
 	)
-	assert(
+	hoi3.assert(
 		type(userdata) == hoi3.TYPE_USERDATA
 	)
-	
+
 	-- This is default behavior for multiton objects
 	-- most of them supports CString GetKey() as unique key
 	-- if no GetKey, try to fallback to GetCountryTag()
 	-- if no GetCountryTag, try to fallback to GetTag()
 	-- if no GetTag, try to fallback to GetName()
+	local key
 	if userdata.GetKey ~= nil and type(userdata.GetKey) == hoi3.TYPE_FUNCTION then
-		local key = userdata:GetKey():GetString()
+		key = userdata:GetKey():GetString()
 	elseif userdata.GetCountryTag ~= nil and type(userdata.GetCountryTag) == hoi3.TYPE_FUNCTION and hoi3.api.CCountryTag ~= nil then
-		local key = hoi3.api.CCountryTag(userdata:GetCountryTag():GetTag())
+		if userdata:GetCountryTag() ~= nil then
+			key = hoi3.api.CCountryTag:userdataToInstance(userdata:GetCountryTag())
+		else
+			key = hoi3.api.CNullTag()
+		end
 	elseif userdata.GetTag ~= nil and type(userdata.GetTag) == hoi3.TYPE_FUNCTION then
-		local key = userdata:GetTag()
+		key = userdata:GetTag()
 	elseif userdata.GetName ~= nil and type(userdata.GetName) == hoi3.TYPE_FUNCTION then
-		local key = userdata:GetName():GetString()
+		key = userdata:GetName():GetString()
 	else
-		error("Default MultitonObject.userdataToInstance() not supported for "..tostring(myClass).." please implement your own !")
+		hoi3.error("Default MultitonObject.userdataToInstance() not supported for "..tostring(myClass).." please implement your own !")
 	end
-	
-	local myInstance = myClass(key)
+
+	local myInstance
+	if key == nil then
+		dtools.error("Called userdataToInstance() for a multiton "..tostring(myClass).." but found NIL as key on case : "..case.." transformed to NullTag() !")
+		myInstance = hoi3.api.CNullTag()
+	else
+		myInstance = myClass(key)
+	end
+
+	--[[
+	-- No such operator defined ! Not able to support == test :(
+-- dispatch this code to multiton class to handle le vilain petit canard
 	if myInstance.__userdata ~= nil then 
 		-- already instancied, check userdata reference, in order to understand how it works
 		if myInstance.__userdata ~= userdata then
 			dtools.warn("Called userdataToInstance() for a second time, but unexpectedly return another userdata entity for current object ("..self._unid..") !")
 		end
 	else
-		myInstance.__userdata = userdata
-	end
+	]]
+	myInstance.__userdata = userdata
+	--end
 	return myInstance
 end

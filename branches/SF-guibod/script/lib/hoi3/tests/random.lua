@@ -118,12 +118,12 @@ function testIterator()
 		i = i + 1
 		assert_number(n)
 	end
-	assert(i > 0, "Not a single loop from static iterator !")
+	hoi3.assert(i > 0, "Not a single loop from static iterator !")
 	
 	local i = 0
 	for n in o:myIterator() do
 		i = i + 1
 		assert_number(n)
 	end
-	assert(i > 0, "Not a single loop from iterator !")
+	hoi3.assert(i > 0, "Not a single loop from iterator !")
 end

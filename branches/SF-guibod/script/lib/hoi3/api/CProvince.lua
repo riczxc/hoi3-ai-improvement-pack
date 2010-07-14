@@ -128,3 +128,31 @@ hoi3.f(CProvince, 'IsFrontProvince', hoi3.TYPE_BOOLEAN, hoi3.TYPE_BOOLEAN)
 function CProvince.random()
 	return hoi3.randomTableMember(CProvince:getInstances())
 end
+
+function CProvince.userdataToInstance(myClass, userdata)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	hoi3.assert(
+		type(myClass) == hoi3.TYPE_TABLE and 
+		middleclass.subclassOf(hoi3.Hoi3Object,myClass)
+	)
+	hoi3.assert(
+		type(userdata) == hoi3.TYPE_USERDATA
+	)
+	
+	if userdata.GetProvinceID == nil and type(userdata.GetProvinceID) ~= hoi3.TYPE_FUNCTION then
+		hoi3.error("Bad signature for userdata, didn't match CProvince.userdataToInstance() !")
+		return
+	end
+	
+	local myInstance = CProvince(userdata:GetProvinceID())
+	-- No such operator defined ! Not able to support == test :(
+	if myInstance.__userdata ~= nil then 
+		-- already instancied, check userdata reference, in order to understand how it works
+		if myInstance.__userdata ~= userdata then
+			dtools.warn("Called userdataToInstance() for a second time, but unexpectedly return another userdata entity for current object ("..self._unid..") !")
+		end
+	else
+		myInstance.__userdata = userdata
+	end
+	return myInstance
+end

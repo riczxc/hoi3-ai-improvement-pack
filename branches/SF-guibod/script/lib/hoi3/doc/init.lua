@@ -61,7 +61,7 @@ local file,err,str
 			addToCategory("06- Minister classes",className, class)
 		end
 		
-		if middleclass.subclassOf(hoi3.api.CAction, class) then
+		if middleclass.subclassOf(hoi3.api.CDiplomaticAction, class) then
 			addToCategory("07- Action classes",className, class)
 		end
 		

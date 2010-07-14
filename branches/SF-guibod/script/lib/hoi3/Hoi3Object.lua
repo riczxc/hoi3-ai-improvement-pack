@@ -192,11 +192,11 @@ end
 
 function Hoi3Object.userdataToInstance(myClass, userdata)
 	-- intends to be run as myclass:bindToInstance(userdata)
-	assert(
+	hoi3.assert(
 		type(myClass) == hoi3.TYPE_TABLE and 
 		middleclass.subclassOf(Hoi3Object,myClass)
 	)
-	assert(
+	hoi3.assert(
 		type(userdata) == hoi3.TYPE_USERDATA
 	)
 	
@@ -207,7 +207,7 @@ end
 
 function Hoi3Object:runRealApiAndSave()
 	hoi3.assertNonStatic(self)
-	assert(self.__userdata ~= nil, "Object not binded yet ! Please use object:bind(userdata).")
+	hoi3.assert(self.__userdata ~= nil, "Object not binded yet ! Please use object:bind(userdata).")
 	
 	if self.__runningRealApiAndSave then 
 		-- Already running (nested loop)

@@ -61,7 +61,7 @@ function CFixedPoint64:__eq(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value == value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint64:__add(value)
@@ -69,7 +69,7 @@ function CFixedPoint64:__add(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value + value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint64:__sub(value)
@@ -77,7 +77,7 @@ function CFixedPoint64:__sub(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value - value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint64:__mul(value)
@@ -85,7 +85,7 @@ function CFixedPoint64:__mul(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value * value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint64:__div(value)
@@ -93,7 +93,7 @@ function CFixedPoint64:__div(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value / value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint64:__lt(value)
@@ -101,7 +101,7 @@ function CFixedPoint64:__lt(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value < value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
 
 function CFixedPoint64:__le(value)
@@ -109,5 +109,5 @@ function CFixedPoint64:__le(value)
 		middleclass.instanceOf(CFixedPoint64,value) then
 		return self._value <= value._value
 	end
-	error("Operator not implemented !")
+	hoi3.error("Operator not implemented !")
 end
