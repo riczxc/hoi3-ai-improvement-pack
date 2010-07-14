@@ -11,7 +11,7 @@ CCountryTag = hoi3.MultitonObject:subclass('hoi3.api.CCountryTag')
 function CCountryTag:initialize(tag)
 	hoi3.assertNonStatic(self)
 	hoi3.assertParameterType(1, tag, hoi3.TYPE_STRING)
-	assert(string.len(tag)==3, "A country tag must be 3 character long.")
+	hoi3.assert(string.len(tag)==3, "A country tag must be 3 character long.")
 	
 	self._tag = tag
 end

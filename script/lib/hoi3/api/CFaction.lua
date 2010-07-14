@@ -5,9 +5,11 @@ module("hoi3.api", package.seeall)
 CFaction = hoi3.MultitonObject:subclass('hoi3.api.CFaction')
 
 function CFaction:initialize(name)
+	dtools.debug("init cfaction")
 	hoi3.assertNonStatic(self)
+	dtools.debug("init cfaction post assertNonStatic")
 	hoi3.assertParameterType(1, name, hoi3.TYPE_STRING)
-	
+	dtools.debug("init cfaction post assertParameterType")
 	self.name = name
 	self.members = {}
 end 
@@ -15,7 +17,7 @@ end
 ---
 -- @since 1.3
 -- @return CCountryTag
-hoi3.f(CFaction, 'GetTag', 'CCountryTag')
+hoi3.f(CFaction, 'GetTag', 'CString')
 
 ---
 -- @since 1.3
@@ -66,4 +68,32 @@ hoi3.f(CFaction, 'IsValid', hoi3.TYPE_BOOLEAN)
 -- A random CFaction is a random EXISTING factiojn !
 function CFaction.random()
 	return hoi3.randomTableMember(CFaction:getInstances())
+end
+
+function CFaction.userdataToInstance(myClass, userdata)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	hoi3.assert(
+		type(myClass) == hoi3.TYPE_TABLE and 
+		middleclass.subclassOf(hoi3.Hoi3Object,myClass)
+	)
+	hoi3.assert(
+		type(userdata) == hoi3.TYPE_USERDATA
+	)
+	
+	if userdata.GetTag == nil and type(userdata.GetTag) ~= hoi3.TYPE_FUNCTION then
+		hoi3.error("Bad signature for userdata, didn't match CFaction.userdataToInstance() !")
+		return
+	end
+	
+	local myInstance = CFaction(userdata:GetTag():GetString())
+	-- No such operator defined ! Not able to support == test :(
+	if myInstance.__userdata ~= nil then 
+		-- already instancied, check userdata reference, in order to understand how it works
+		if myInstance.__userdata ~= userdata then
+			dtools.warn("Called userdataToInstance() for a second time, but unexpectedly return another userdata entity for current object ("..self._unid..") !")
+		end
+	else
+		myInstance.__userdata = userdata
+	end
+	return myInstance
 end

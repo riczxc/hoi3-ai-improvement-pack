@@ -13,7 +13,7 @@ function fs(class, name, ret, ...)
 end
 
 function FunctionObject:initialize(class, name, static, ret, ...)
-	assert(middleclass.subclassOf(hoi3.Hoi3Object,class), "First parameter function must be a valid hoi3.Hoi3Object.")
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,class), "First parameter function must be a valid hoi3.Hoi3Object.")
 	assertParameterType(2, name, hoi3.TYPE_STRING)
 	assertParameterType(3, static, hoi3.TYPE_BOOLEAN)
 	
@@ -165,7 +165,7 @@ function FunctionObject:_checkArgs(instanceOrFirstParameter, ...)
 					foundtype = tostring(instanceOrClass.class)
 				end
 			end
-			error("A non-static API call ("..tostring(self)..
+			hoi3.error("A non-static API call ("..tostring(self)..
 				") did not received a "..(self.myclass.name)..
 				" instance as first parameter. "..foundtype.." found")
 		end
@@ -199,7 +199,7 @@ function FunctionObject:_checkArgs(instanceOrFirstParameter, ...)
 				foundtype = tostring(instanceOrClass.class)
 			end
 		end
-		error(tostring(self).." first parameter is not "..tostring(self.myclass).." instance or class reference, "..foundtype.." found.")
+		hoi3.error(tostring(self).." first parameter is not "..tostring(self.myclass).." instance or class reference, "..foundtype.." found.")
 	end
 	
 	return instanceOrClass, args, hash, isInstance
@@ -331,7 +331,7 @@ function FunctionObject:save(value, instanceOrFirstParameter, ...)
 	local instanceOrClass, args, hash, isInstance = self:_checkArgs(instanceOrFirstParameter, ...)
 	
 	if not isInstance then
-		error("Static method save support is unavailable.")
+		hoi3.error("Static method save support is unavailable.")
 	end
 	
 	-- No nil, force tables
@@ -364,20 +364,30 @@ function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 		local myRet = {}
 		-- we should now scan the tables
 		for i,v in ipairs(val1) do
-			if self.ret.subtype ==  hoi3.TYPE_NUMBER or
-				self.ret.subtype == hoi3.TYPE_BOOLEAN or
-				self.ret.subtype == hoi3.TYPE_STRING then
+			if self.ret.subtype.type ==  hoi3.TYPE_NUMBER or
+				self.ret.subtype.type == hoi3.TYPE_BOOLEAN or
+				self.ret.subtype.type == hoi3.TYPE_STRING then
 				myRet[i] = v
 			else
-				assert(hoi3.api[self.ret.subtype]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.type)
+				dtools.debug(self:signatureAsString())
+				dtools.debug(self.ret.type)
+				dtools.debug(self.ret.subtype.type)
+				dtools.debug("----------------------------")
+				
+				hoi3.assert(hoi3.api[self.ret.subtype.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.subtype.type)
 				--may won't work because of forced numeric index :(
-				myRet[i] = hoi3.api[self.ret.subtype]:userdataToInstance(v)
+				myRet[i] = hoi3.api[self.ret.subtype.type]:userdataToInstance(v)
 			end
 		end
 		return myRet
 	else
+		dtools.debug(self:signatureAsString())
+		dtools.debug(self.ret)
+		dtools.debug(self.ret.type)
+		dtools.debug("----------------------------")
+		
 		-- must be USERDATA !
-		assert(hoi3.api[self.ret.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.type)
+		hoi3.assert(hoi3.api[self.ret.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..tostring(self.ret.type))
 		return hoi3.api[self.ret.type]:userdataToInstance(val1)
 	end
 end
@@ -405,9 +415,9 @@ function FunctionObject:runAndSave(userdata, instance)
 				local mytime = os.clock()
 				
 				--for i, args in ipairs(arg_combination) do
-				local ret, value, value2, value3 = pcall(userdata[self.name],userdata,myargs)
+				local ret, value, value2, value3 = pcall(userdata[self.name],userdata,unpack(myargs))
 				if ret == false then
-					dtools.error(tostring(self).." failed to run ! "..value)
+					dtools.error(tostring(self).." failed to run ! "..tostring(value))
 				else
 					--value is pure API result
 					local fakeApiValue = self:ApiReturnToFakeApiReturn(value)

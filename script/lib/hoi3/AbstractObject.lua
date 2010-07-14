@@ -10,5 +10,5 @@ module( "hoi3", package.seeall)
 AbstractObject = Hoi3Object:subclass('hoi3.AbstractObject')
 
 AbstractObject.initialize = function(instance, ...)
-  assert(false, "An abstract class cannot be instancied.")
+  hoi3.assert(false, "An abstract class cannot be instancied.")
 end

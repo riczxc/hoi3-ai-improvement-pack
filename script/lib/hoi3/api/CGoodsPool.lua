@@ -17,7 +17,7 @@ CGoodsPool._GC_NUMOF_ = 7
 function CGoodsPool:initialize(...)
 	hoi3.assertNonStatic(self)
 	local args = {...}
-	assert(#args == CGoodsPool._GC_NUMOF_, "CGoodsPool needs "..CGoodsPool._GC_NUMOF_.." arguments")
+	hoi3.assert(#args == CGoodsPool._GC_NUMOF_, "CGoodsPool needs "..CGoodsPool._GC_NUMOF_.." arguments")
 	for i=1,CGoodsPool._GC_NUMOF_ do
 		hoi3.assertParameterType(i, args[i], hoi3.TYPE_NUMBER)
 	end
@@ -32,7 +32,7 @@ end
 hoi3.f(CGoodsPool, 'Get', 'CFixedPoint', hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetImpl(type)
-	assert(type >= 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
+	hoi3.assert(type >= 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
 	return CFixedPoint(self.goods[type])
 end
 
@@ -43,7 +43,7 @@ end
 hoi3.f(CGoodsPool, 'GetFloat', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
 
 function CGoodsPool:GetFloatImpl(type)
-	assert(type >= 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
+	hoi3.assert(type >= 0 and type <= CGoodsPool._GC_NUMOF_, "unknown good type")
 	return self.goods[type]
 end
 

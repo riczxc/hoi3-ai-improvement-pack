@@ -89,7 +89,7 @@ function Randomizer:compute()
 		typeAsString == hoi3.TYPE_THREAD or
 		typeAsString == hoi3.TYPE_USERDATA then
 		-- Throw an error, we don't handle such special datatypes !
-		error("Failed to randomize special datatype. function, thread and userdata type are not handled")   
+		hoi3.error("Failed to randomize special datatype. function, thread and userdata type are not handled")   
 	elseif typeAsString == hoi3.TYPE_NIL then
 		return nil
 	elseif typeAsString == hoi3.TYPE_STRING then
@@ -135,12 +135,12 @@ function Randomizer:computeString()
 		self.chr[1] = {"a","e","i","o","u"}  
 	end
 	
-	assert(#self.chr > 0, "Empty character list specified.")
+	hoi3.assert(#self.chr > 0, "Empty character list specified.")
 	
 	while string.len(str) < self.len do
 		for i = 0, #self.chr do
-			assert(type(self.chr[i]) == TYPE_TABLE, "Expected character list for slot #"..i.." got "..type(self.chr[i])..".")
-			assert(#self.chr[i]>0,"Empty character list #"..i.." specified.")
+			hoi3.assert(type(self.chr[i]) == TYPE_TABLE, "Expected character list for slot #"..i.." got "..type(self.chr[i])..".")
+			hoi3.assert(#self.chr[i]>0,"Empty character list #"..i.." specified.")
 			
 			str = str .. self.chr[i][ math.random(#self.chr[i])]
 			if string.len(str) >= self.len then break end
@@ -179,7 +179,7 @@ Randomizer.computeNumber = function(self)
 	self.min = self.min or 0
 	self.max = self.max or 100
 	
-	assert(self.min <= self.max, "Number min value > max value, can't compute randomized value")
+	hoi3.assert(self.min <= self.max, "Number min value > max value, can't compute randomized value")
 	
 	local number
 	if self.float ~= true then
@@ -198,7 +198,7 @@ Randomizer.computeTable = function(self)
 	self.sizemax = self.sizemax or 5
 	self.subtype = self.subtype or hoi3.TYPE_NUMBER
 	
-	assert(self.sizemin <= self.sizemax, "Iterator min > max size, can't compute randomized value")
+	hoi3.assert(self.sizemin <= self.sizemax, "Iterator min > max size, can't compute randomized value")
 	
 	if(type(self.subtype)==hoi3.TYPE_STRING) then
 		self.subtype = Randomizer:new(self.subtype)

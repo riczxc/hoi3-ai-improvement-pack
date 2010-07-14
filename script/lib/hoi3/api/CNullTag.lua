@@ -8,6 +8,13 @@ CNullTag = CCountryTag:subclass('hoi3.api.CNullTag')
 -- information only, that will be used by documentation generator.
 CNullTag.constructorSignature = {}
 
+---
+-- @since 1.3
+-- @return CNullTag 
+function CNullTag:initialize()
+	hoi3.assertNonStatic(self)
+end
+
 -- singleton behavior
 CNullTag.new = function(theClass, ...)
 	if CNullTag.instance == nil then
@@ -19,9 +26,10 @@ CNullTag.new = function(theClass, ...)
   	return CNullTag.instance
 end
 
-function CNullTag:initialize()
-	
-end
+---
+-- @since 1.3
+-- @return string 
+hoi3.f(CCountryTag, 'GetTag', hoi3.TYPE_NIL)
 
 function CNullTag:__tostring()
 	return ""

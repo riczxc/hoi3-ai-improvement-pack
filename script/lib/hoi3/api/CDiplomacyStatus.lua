@@ -125,5 +125,5 @@ hoi3.f(CDiplomacyStatus, 'IsGuaranteed', hoi3.TYPE_BOOLEAN)
 hoi3.f(CDiplomacyStatus, 'IsGuaranting', hoi3.TYPE_BOOLEAN)
 
 function CDiplomacyStatus.random()
-	error("There cannot be randomizer for DiploStatus sine it relies on two deterministic parameters")
+	hoi3.error("There cannot be randomizer for DiploStatus sine it relies on two deterministic parameters")
 end
