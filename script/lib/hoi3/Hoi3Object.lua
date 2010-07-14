@@ -191,14 +191,9 @@ function Hoi3Object:getIndexInDictionnary(dict)
 end
 
 function Hoi3Object.userdataToInstance(myClass, userdata)
-	-- intends to be run as myclass:bindToInstance(userdata)
-	hoi3.assert(
-		type(myClass) == hoi3.TYPE_TABLE and 
-		middleclass.subclassOf(Hoi3Object,myClass)
-	)
-	hoi3.assert(
-		type(userdata) == hoi3.TYPE_USERDATA
-	)
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
 	
 	local myInstance = myClass:new()
 	myInstance.__userdata = userdata
@@ -211,9 +206,11 @@ function Hoi3Object:runRealApiAndSave()
 	
 	if self.__runningRealApiAndSave then 
 		-- Already running (nested loop)
+		dtools.debug("Already run or running save real api for "..tostring(self.class).." instnace "..tostring(self)..".")
+	
 		return
 	end
-	
+	dtools.debug("Starting to run and save real api for "..tostring(self.class).." instnace "..tostring(self)..".")
 	self.__runningRealApiAndSave = true
 	for n, m in pairs(self:getApiFunctions()) do
 		m:runAndSave(self.__userdata,self)

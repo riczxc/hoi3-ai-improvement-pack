@@ -7,7 +7,7 @@ MultitonObject = Hoi3Object:subclass('hoi3.MultitonObject')
 MultitonObject.instances = {}
 
 function MultitonObject:_getUnid()
-	return self._unid
+	return self._unid or ""
 end
 
 function MultitonObject:_argsToUnid(...)
@@ -308,14 +308,10 @@ end
 -- Default multiton behavior uses GetKey() or falls back to GetCountryTag(), or fall bac to GetTag(), or try to fallback to GetName()
 function MultitonObject.userdataToInstance(myClass, userdata)
 	-- intends to be run as myclass:bindToInstance(userdata)
-	hoi3.assert(
-		type(myClass) == hoi3.TYPE_TABLE and 
-		middleclass.subclassOf(Hoi3Object,myClass)
-	)
-	hoi3.assert(
-		type(userdata) == hoi3.TYPE_USERDATA
-	)
-
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
+	
 	-- This is default behavior for multiton objects
 	-- most of them supports CString GetKey() as unique key
 	-- if no GetKey, try to fallback to GetCountryTag()
