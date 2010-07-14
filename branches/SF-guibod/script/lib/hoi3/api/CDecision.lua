@@ -36,7 +36,7 @@ end
 ---
 -- @since 1.3
 -- @return bool
-hoi3.f(CDecision, 'IsPotential', hoi3.RAND_VUNLIKELY)
+hoi3.f(CDecision, 'IsPotential', hoi3.RAND_BOOL_VUNLIKELY)
 
 function CDecision.random()
 	return hoi3.randomTableMember(CDecision:getInstances())

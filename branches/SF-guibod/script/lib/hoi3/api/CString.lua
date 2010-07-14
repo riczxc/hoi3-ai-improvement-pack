@@ -49,3 +49,13 @@ end
 function CString:__tostring()
 	return self._string
 end
+
+function CString.userdataToInstance(myClass, userdata)
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
+	
+	local myInstance = CString:new(userdata:GetString())
+	myInstance.__userdata = userdata
+	return myInstance
+end
