@@ -255,6 +255,7 @@ end
 function Logger:formatMessage(pattern, level, message, exception, country)
 	local result = pattern or Logger.DEFAULT_PATTERN
 	if (type(message) == "table") then
+		require('dtools.log4lua.utils')
 		message = dtools.log4lua.utils.convertTableToString(message, 5)
 	end
 	message = string.gsub(tostring(message), "%%", "%%%%")
