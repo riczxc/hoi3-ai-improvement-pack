@@ -5,6 +5,8 @@ module( "hoi3", package.seeall)
 Randomizer = Hoi3Object:subclass("hoi3.Randomizer")
 
 function Randomizer:initialize(typeAsString)
+	hoi3.assert(typeAsString, "Bad randomizer type.")
+	
 	if Randomizer.isIteratorTypeString(typeAsString) then
 		self.type = hoi3.TYPE_ITERATOR
 		self.subtype = Randomizer(Randomizer.getIteratorTypeFromString(typeAsString))

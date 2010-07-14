@@ -16,6 +16,7 @@ function FunctionObject:initialize(class, name, static, ret, ...)
 	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,class), "First parameter function must be a valid hoi3.Hoi3Object.")
 	assertParameterType(2, name, hoi3.TYPE_STRING)
 	assertParameterType(3, static, hoi3.TYPE_BOOLEAN)
+	--hoi3.assert(ret, "No return value set for "..tostring(class).."."..name.."()")
 	
 	self.myclass= class
 	self.static = static
@@ -345,7 +346,10 @@ end
 --
 function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 	-- Now that we have a result what to do ?
-	if self.ret.type == hoi3.TYPE_NUMBER or
+	if self.ret.type == hoi3.TYPE_VOID or 
+		self.ret.type == hoi3.TYPE_NIL then
+		return
+	elseif self.ret.type == hoi3.TYPE_NUMBER or
 		self.ret.type == hoi3.TYPE_BOOLEAN or
 		self.ret.type == hoi3.TYPE_STRING then
 		-- scalar value, quite straight forward to handle
@@ -360,8 +364,15 @@ function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 			val1 = val2
 		end 
 		
+		-- Iterator seems to return nul values instead of empty array ?!
+		if val1 == nil then return {} end
+		
+		-- Valid value ?
+		assert(type(val1) == hoi3.TYPE_TABLE,"failed to run ApiReturnToFakeApiReturn, expected table but got "..tostring(type(val1)))
+		
 		-- 
 		local myRet = {}
+		
 		-- we should now scan the tables
 		for i,v in ipairs(val1) do
 			if self.ret.subtype.type ==  hoi3.TYPE_NUMBER or
@@ -369,31 +380,23 @@ function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 				self.ret.subtype.type == hoi3.TYPE_STRING then
 				myRet[i] = v
 			else
-				dtools.debug(self:signatureAsString())
-				dtools.debug(self.ret.type)
-				dtools.debug(self.ret.subtype.type)
-				dtools.debug("----------------------------")
-				
 				hoi3.assert(hoi3.api[self.ret.subtype.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.subtype.type)
 				--may won't work because of forced numeric index :(
 				myRet[i] = hoi3.api[self.ret.subtype.type]:userdataToInstance(v)
 			end
 		end
 		return myRet
-	else
-		dtools.debug(self:signatureAsString())
-		dtools.debug(self.ret)
-		dtools.debug(self.ret.type)
-		dtools.debug("----------------------------")
-		
+	else		
 		-- must be USERDATA !
 		hoi3.assert(hoi3.api[self.ret.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..tostring(self.ret.type))
+		dtools.debug("ApiReturnToFakeApiReturn pass to userdataToInstance() "..self.ret.type)
 		return hoi3.api[self.ret.type]:userdataToInstance(val1)
 	end
 end
 
 function FunctionObject:runAndSave(userdata, instance)
 	hoi3.assertNonStatic(self)
+	dtools.debug("Run and save real function "..tostring(self:signatureAsString()).." for instnace "..tostring(instance)..".")
 	
 	if not self:canSave() then
 		dtools.info(tostring(self).." ignored by runAndSave() because of void return type or explicitly cache free.")
@@ -421,10 +424,9 @@ function FunctionObject:runAndSave(userdata, instance)
 				else
 					--value is pure API result
 					local fakeApiValue = self:ApiReturnToFakeApiReturn(value)
-					
 					-- if the fakeApiValue is another Hoi3object, then call runRealApiAndSave
 					if type(fakeApiValue) == hoi3.TYPE_TABLE and 
-						middleclass.instanceOf(hoi3.api.Hoi3Object,fakeApiValue) then
+						middleclass.instanceOf(hoi3.Hoi3Object,fakeApiValue) then
 						-- runRealApiAndSave supports something to avoid recursive loops
 						fakeApiValue:runRealApiAndSave()
 					end
