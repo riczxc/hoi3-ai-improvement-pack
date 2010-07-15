@@ -95,3 +95,21 @@ CModifier._MODIFIER_WAR_EXHAUSTION_	= 8
 -- @param number modifier
 -- @return number
 hoi3.f(CModifier, 'GetValue', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)
+
+function CModifier.userdataToInstance(myClass, userdata, parent)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
+	
+	hoi3.assert(parent ~= nil and 
+		type(parent) == hoi3.TYPE_TABLE and 
+		middleclass.instanceOf(hoi3.api.CCountry, parent),
+		"CModifier.userdataToInstance needs parent argument to be set on a valid CCountry instance.")
+		
+	local source = parent:GetCountryTag()
+		
+	local myInstance = hoi3.api.CModifier(source)
+	myInstance.__userdata = userdata
+	return myInstance
+end

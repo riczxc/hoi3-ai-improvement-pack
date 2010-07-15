@@ -90,7 +90,7 @@ function saveAll()
 	-- Display performance summary
 	for className, class in dtools.table.orderedPairs(hoi3.api.getApi()) do
 		for methodName, m in pairs(class:getApiFunctions()) do
-			dtools.debug(m:signatureAsString().." "..m.realruns.." runs in "..m.realtime.." sec ("..(m.realtime / m.realruns).." sec per run)")
+			dtools.debug(m:signatureAsString().."/"..m.realruns.."/"..m.realtime)
 		end
 	end			
 end

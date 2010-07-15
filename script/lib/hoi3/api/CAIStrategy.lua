@@ -156,7 +156,7 @@ hoi3.f(CAIStrategy, 'PrepareWarDecision', hoi3.TYPE_VOID, 'CCountryTag', hoi3.TY
 -- @return unknown
 hoi3.f(CAIStrategy, 'PrepareLimitedWar', hoi3.TYPE_UNKNOWN, hoi3.TYPE_UNKNOWN)
 
-function CAIStrategy.userdataToInstance(myClass, userdata)
+function CAIStrategy.userdataToInstance(myClass, userdata, parent)
 	-- intends to be run as myclass:bindToInstance(userdata)
 	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
 	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")

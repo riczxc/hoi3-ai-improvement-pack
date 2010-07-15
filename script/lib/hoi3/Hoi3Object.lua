@@ -190,7 +190,12 @@ function Hoi3Object:getIndexInDictionnary(dict)
 	end
 end
 
-function Hoi3Object.userdataToInstance(myClass, userdata)
+function Hoi3Object.userdataToInstance(myClass, userdata, parent)
+	if userdata == nil then
+		dtools.warn("Expected CContinent userdata but got nil !?")
+		return
+	end
+	
 	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
 	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
 	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")

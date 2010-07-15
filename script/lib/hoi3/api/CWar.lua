@@ -2,18 +2,7 @@ require('hoi3')
 
 module("hoi3.api", package.seeall)
 
-CWar = hoi3.MultitonObject:subclass('hoi3.api.CWar')
-
----
--- @since 1.3
--- @param string key --TODO: maybe use a CID() object as key ?
--- @return string 
-function CWar:initialize(key)
-	hoi3.assertNonStatic(self)
-	hoi3.assertParameterType(1, key, hoi3.TYPE_STRING)
-	
-	self.key = key
-end
+CWar = hoi3.Hoi3Object:subclass('hoi3.api.CWar')
 
 ---
 -- @since 1.3

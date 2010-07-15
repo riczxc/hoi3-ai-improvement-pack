@@ -31,7 +31,7 @@ function CContinent.random()
 	return hoi3.randomTableMember(CContinent:getInstances())
 end
 
-function CContinent.userdataToInstance(myClass, userdata)	
+function CContinent.userdataToInstance(myClass, userdata, parent)	
 	if userdata == nil then
 		dtools.warn("Expected CContinent userdata but got nil !?")
 		return
