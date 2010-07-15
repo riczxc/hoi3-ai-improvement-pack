@@ -13,4 +13,4 @@ CRule._RULE_NONE_	= 0
 -- @since 2.0
 -- @param number modifier
 -- @return number
-hoi3.f(CRule, 'GetValue', hoi3.TYPE_NUMBER)
+hoi3.f(CRule, 'GetValue', hoi3.TYPE_NUMBER, hoi3.TYPE_NUMBER)

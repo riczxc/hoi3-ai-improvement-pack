@@ -129,7 +129,7 @@ function CProvince.random()
 	return hoi3.randomTableMember(CProvince:getInstances())
 end
 
-function CProvince.userdataToInstance(myClass, userdata)
+function CProvince.userdataToInstance(myClass, userdata, parent)
 	-- intends to be run as myclass:bindToInstance(userdata)
 	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
 	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")

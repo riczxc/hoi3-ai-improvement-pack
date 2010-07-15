@@ -70,7 +70,7 @@ function CFaction.random()
 	return hoi3.randomTableMember(CFaction:getInstances())
 end
 
-function CFaction.userdataToInstance(myClass, userdata)
+function CFaction.userdataToInstance(myClass, userdata, parent)
 	-- intends to be run as myclass:bindToInstance(userdata)
 	hoi3.assert(
 		type(myClass) == hoi3.TYPE_TABLE and 

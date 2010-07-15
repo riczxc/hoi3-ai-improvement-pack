@@ -127,3 +127,34 @@ hoi3.f(CDiplomacyStatus, 'IsGuaranting', hoi3.TYPE_BOOLEAN)
 function CDiplomacyStatus.random()
 	hoi3.error("There cannot be randomizer for DiploStatus sine it relies on two deterministic parameters")
 end
+
+function CDiplomacyStatus.userdataToInstance(myClass, userdata, parent)
+	-- intends to be run as myclass:bindToInstance(userdata)
+	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
+	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
+	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
+	
+	if userdata.GetTarget == nil and type(userdata.GetTarget) ~= hoi3.TYPE_FUNCTION then
+		hoi3.error("Bad signature for userdata, didn't match CDiplomacyStatus.userdataToInstance() !")
+		return
+	end
+
+	hoi3.assert(parent ~= nil and 
+		type(parent) == hoi3.TYPE_TABLE and 
+		middleclass.instanceOf(hoi3.api.CCountry, parent),
+		"CDiplomacyStatus.userdataToInstance needs _parent property to be set on a valid CCountry instance.")
+		
+	local source = parent:GetCountryTag()
+		
+	if userdata:GetTarget():GetTag() == nil then
+		target = hoi3.api.CNullTag()
+	else
+		target = hoi3.api.CCountryTag:userdataToInstance(userdata:GetTarget())
+	end
+	local myInstance = hoi3.api.CDiplomacyStatus(
+		source,
+		target
+	)
+	myInstance.__userdata = userdata
+	return myInstance
+end

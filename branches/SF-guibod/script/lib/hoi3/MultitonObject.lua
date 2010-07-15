@@ -306,7 +306,7 @@ end
 -- Multiton use something different algorithm from base hoi3object
 -- since they must support uniqueness
 -- Default multiton behavior uses GetKey() or falls back to GetCountryTag(), or fall bac to GetTag(), or try to fallback to GetName()
-function MultitonObject.userdataToInstance(myClass, userdata)
+function MultitonObject.userdataToInstance(myClass, userdata, parent)
 	-- intends to be run as myclass:bindToInstance(userdata)
 	hoi3.assert(type(myClass) == hoi3.TYPE_TABLE, "Class reference is not a table.") 
 	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
@@ -326,21 +326,13 @@ function MultitonObject.userdataToInstance(myClass, userdata)
 		else
 			key = hoi3.api.CNullTag()
 		end
-	elseif userdata.GetTag ~= nil and type(userdata.GetTag) == hoi3.TYPE_FUNCTION then
-		key = userdata:GetTag()
 	elseif userdata.GetName ~= nil and type(userdata.GetName) == hoi3.TYPE_FUNCTION then
 		key = userdata:GetName():GetString()
 	else
 		hoi3.error("Default MultitonObject.userdataToInstance() not supported for "..tostring(myClass).." please implement your own !")
 	end
 
-	local myInstance
-	if key == nil then
-		dtools.error("Called userdataToInstance() for a multiton "..tostring(myClass).." but found NIL as key on case : "..case.." transformed to NullTag() !")
-		myInstance = hoi3.api.CNullTag()
-	else
-		myInstance = myClass(key)
-	end
+	local myInstance = myClass(key)
 
 	--[[
 	-- No such operator defined ! Not able to support == test :(

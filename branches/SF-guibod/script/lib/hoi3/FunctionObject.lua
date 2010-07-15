@@ -344,7 +344,7 @@ end
 ---
 -- One heavy piece of code to cast expected return to usable fake API objects
 --
-function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
+function FunctionObject:ApiReturnToFakeApiReturn(value, parent)
 	-- Now that we have a result what to do ?
 	if self.ret.type == hoi3.TYPE_VOID or 
 		self.ret.type == hoi3.TYPE_NIL then
@@ -353,7 +353,7 @@ function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 		self.ret.type == hoi3.TYPE_BOOLEAN or
 		self.ret.type == hoi3.TYPE_STRING then
 		-- scalar value, quite straight forward to handle
-		return val1
+		return value
 		
 	elseif self.ret.type == hoi3.TYPE_ITERATOR or
 		self.ret.type == hoi3.TYPE_TABLE then
@@ -361,20 +361,27 @@ function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 		
 		-- special case, arg 2 is the good value if iterator
 		if self.ret.type == hoi3.TYPE_ITERATOR then
-			val1 = val2
+			local iteratorTable = {}
+			for x in value do
+				table.insert(iteratorTable,x)
+			end
+			dtools.debug("iterator size = "..(#iteratorTable))
+			value = iteratorTable
 		end 
 		
+		
 		-- Iterator seems to return nul values instead of empty array ?!
-		if val1 == nil then return {} end
+		if value == nil then return {} end
 		
 		-- Valid value ?
-		assert(type(val1) == hoi3.TYPE_TABLE,"failed to run ApiReturnToFakeApiReturn, expected table but got "..tostring(type(val1)))
+		assert(type(value) == hoi3.TYPE_TABLE,"failed to run ApiReturnToFakeApiReturn, expected table but got "..tostring(type(value)))
 		
 		-- 
 		local myRet = {}
-		
+		dtools.debug("iterate througr iterator results...")
 		-- we should now scan the tables
-		for i,v in ipairs(val1) do
+		for i,v in ipairs(value) do
+			dtools.debug(self.ret.subtype.type )
 			if self.ret.subtype.type ==  hoi3.TYPE_NUMBER or
 				self.ret.subtype.type == hoi3.TYPE_BOOLEAN or
 				self.ret.subtype.type == hoi3.TYPE_STRING then
@@ -382,21 +389,32 @@ function FunctionObject:ApiReturnToFakeApiReturn(val1, val2, val3)
 			else
 				hoi3.assert(hoi3.api[self.ret.subtype.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..self.ret.subtype.type)
 				--may won't work because of forced numeric index :(
-				myRet[i] = hoi3.api[self.ret.subtype.type]:userdataToInstance(v)
+				myRet[i] = hoi3.api[self.ret.subtype.type]:userdataToInstance(v, parent)
+				if myRet[i] ~= nil then
+					dtools.debug("Nil value returned for one iterator member of "..tostring(self) )	
+					myRet[i]:runRealApiAndSave()
+				end
 			end
 		end
+		dtools.debug("Returns ITERATOR ! size = "..#myRet )	
 		return myRet
-	else		
+	else	
+	
 		-- must be USERDATA !
 		hoi3.assert(hoi3.api[self.ret.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..tostring(self.ret.type))
-		dtools.debug("ApiReturnToFakeApiReturn pass to userdataToInstance() "..self.ret.type)
-		return hoi3.api[self.ret.type]:userdataToInstance(val1)
+		--dtools.debug("ApiReturnToFakeApiReturn pass to userdataToInstance() "..self.ret.type)
+		myRet = hoi3.api[self.ret.type]:userdataToInstance(value, parent)
+		if myRet ~= nil then
+			dtools.debug("Nil value returned for "..tostring(self) )	
+			myRet:runRealApiAndSave()
+		end
+		return myRet
 	end
 end
 
-function FunctionObject:runAndSave(userdata, instance)
+function FunctionObject:runAndSave(userdata, instance, parent)
 	hoi3.assertNonStatic(self)
-	dtools.debug("Run and save real function "..tostring(self:signatureAsString()).." for instnace "..tostring(instance)..".")
+	dtools.debug(tostring(self:signatureAsString()).." for instance "..tostring(instance)..".")
 	
 	if not self:canSave() then
 		dtools.info(tostring(self).." ignored by runAndSave() because of void return type or explicitly cache free.")
@@ -418,18 +436,12 @@ function FunctionObject:runAndSave(userdata, instance)
 				local mytime = os.clock()
 				
 				--for i, args in ipairs(arg_combination) do
-				local ret, value, value2, value3 = pcall(userdata[self.name],userdata,unpack(myargs))
+				local ret, value = pcall(userdata[self.name],userdata,unpack(myargs))
 				if ret == false then
 					dtools.error(tostring(self).." failed to run ! "..tostring(value))
 				else
 					--value is pure API result
-					local fakeApiValue = self:ApiReturnToFakeApiReturn(value)
-					-- if the fakeApiValue is another Hoi3object, then call runRealApiAndSave
-					if type(fakeApiValue) == hoi3.TYPE_TABLE and 
-						middleclass.instanceOf(hoi3.Hoi3Object,fakeApiValue) then
-						-- runRealApiAndSave supports something to avoid recursive loops
-						fakeApiValue:runRealApiAndSave()
-					end
+					local fakeApiValue = self:ApiReturnToFakeApiReturn(value, instance)
 					
 					-- Save transformed userdata to Hoi3Object instance
 					self:save(fakeApiValue,instance)
