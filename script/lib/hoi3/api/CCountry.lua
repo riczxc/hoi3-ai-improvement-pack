@@ -237,7 +237,6 @@ hoi3.f(CCountry, 'GetDailyIncome', 'CFixedPoint', hoi3.TYPE_NUMBER)
 -- @since 1.3
 -- @return iterator<CDiplomacyStatus>
 hoi3.f(CCountry, 'GetDiplomacy', 'iterator<CDiplomacyStatus>')
-
 function CCountry:GetDiplomacyImpl()
 	local dtable = {}
 	for _, tag in pairs(CCountryTag:getInstances()) do

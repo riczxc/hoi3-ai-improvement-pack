@@ -404,9 +404,10 @@ function FunctionObject:ApiReturnToFakeApiReturn(value, parent)
 		hoi3.assert(hoi3.api[self.ret.type]~=nil, "failed to run ApiReturnToFakeApiReturn, expected userdata but unable to find class for "..tostring(self.ret.type))
 		--dtools.debug("ApiReturnToFakeApiReturn pass to userdataToInstance() "..self.ret.type)
 		myRet = hoi3.api[self.ret.type]:userdataToInstance(value, parent)
-		if myRet ~= nil then
-			dtools.debug("Nil value returned for "..tostring(self) )	
+		if myRet ~= nil then	
 			myRet:runRealApiAndSave()
+		else
+			dtools.debug("Nil value returned for "..tostring(self) )
 		end
 		return myRet
 	end
