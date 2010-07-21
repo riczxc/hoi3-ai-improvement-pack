@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Trade File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 7/9/2010
+-- Date Last Modified: 7/15/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -13,6 +13,7 @@
 local liMinimumTrade = 0.25
 local liMoneyBuffer = 0.10
 local liResourceBuffer = 1
+local liCrudeBuffer = 10 
 
 local _MONEY_ = 1
 local _METAL_ = 2
@@ -110,12 +111,18 @@ function DiploScore_OfferTrade(ai, actor, recipient, observer, voTradeAction, vo
 	
 	local loRelation = ai:GetRelation(loBuyerTag, loSellerTag)
 	
+	if not(lbFreeTrader) then
+		if loRelation:AllowDebts() then
+			lbFreeTrader = true
+		end
+	end
+	
 	-- Based on what type of sell it is call a different method.
 	---  This score is purely based on the raw trade itself and has nothing to do with relations.
 	if actor == loSellerTag then
-		liScore = BuyResources(ai, lbFreeTrader, loRelation, loBuyerTag, loBuyerCountry, loSellerTag, laResourceRequested, liMoney)
+		liScore = BuyResources(ai, lbFreeTrader, loBuyerTag, loBuyerCountry, loSellerTag, laResourceRequested, liMoney)
 	else
-		liScore = SellResources(ai, lbFreeTrader, loRelation, loBuyerTag, loSellerTag, loSellerCountry, laResourceRequested, liMoney)
+		liScore = SellResources(ai, lbFreeTrader, loBuyerTag, loSellerTag, loSellerCountry, laResourceRequested, liMoney)
 	end
 		
 	-- Now shift the score based on Diplomatic relations!
@@ -175,7 +182,7 @@ function SetupResourceArray(voTrade)
 	return laResourceRequested
 end
 
-function SellResources(ai, vbFreeTrader, voRelation, voBuyerTag, voSellerTag, voSellerCountry, vaResourceRequested, viMoney)
+function SellResources(ai, vbFreeTrader, voBuyerTag, voSellerTag, voSellerCountry, vaResourceRequested, viMoney)
 	local liScore = 0
 	local lbExit = false
 	local lbResourceShortCount = 0		
@@ -198,7 +205,7 @@ function SellResources(ai, vbFreeTrader, voRelation, voBuyerTag, voSellerTag, vo
 	-- Figure out if the Seller is short on resources
 	--  Only count Energy, Metal and Rare
 	for i = _METAL_, _RARE_MATERIALS_ do
-		if (laSellerResources[i] + 1) > 0 then
+		if laSellerResources[i] > 0 then
 			lbResourceShortCount = lbResourceShortCount + 1
 		end
 	end		
@@ -242,7 +249,7 @@ function SellResources(ai, vbFreeTrader, voRelation, voBuyerTag, voSellerTag, vo
 		liScore = liScore + 50
 		
 		-- Free stuff who cares about cost
-		if voRelation:AllowDebts() or vbFreeTrader then
+		if vbFreeTrader then
 			liScore = liScore + 100
 		end
 					
@@ -317,7 +324,7 @@ function SellResources(ai, vbFreeTrader, voRelation, voBuyerTag, voSellerTag, vo
 	
 	return liScore
 end
-function BuyResources(ai, vbFreeTrader, voRelation, voBuyerTag, voBuyerCountry, voSellerTag, vaResourceRequested, viMoney)
+function BuyResources(ai, vbFreeTrader, voBuyerTag, voBuyerCountry, voSellerTag, vaResourceRequested, viMoney)
 	local liScore = 0
 	local lbExit = false
 	local liQuantityTrade = 0
@@ -385,7 +392,7 @@ function BuyResources(ai, vbFreeTrader, voRelation, voBuyerTag, voBuyerCountry, 
 		liScore = liScore + 50
 		
 		-- Free stuff who cares about cost
-		if voRelation:AllowDebts() or vbFreeTrader then
+		if vbFreeTrader then
 			liScore = liScore + 100
 			
 		-- Human player trying to sell to the AI
@@ -700,6 +707,11 @@ end
 -- Setup Trades that we need
 -- #######################
 function SetupBuyTrade(ai, FromTag, voTCountry, viQuantity, voResourceType, viMoney)
+
+	-- If we can free trade then set it up no matter what
+	if FreeTradeCheck(ai, FromTag, voTCountry:GetCountryTag(), nil) then
+		viMoney = -999
+	end
 	
 	local liResouce = Need_Resource_Check(voTCountry, voResourceType, true)
 	
@@ -753,10 +765,16 @@ function SetupBuyTrade(ai, FromTag, voTCountry, viQuantity, voResourceType, viMo
 end
 
 function SetupSellTrade(ai, FromTag, voTCountry, viQuantity, voResourceType)
-	
-	local liMoney = Need_Resource_Check(voTCountry, laCrossValue[_MONEY_], false)
 	local liResouce = Need_Resource_Check(voTCountry, voResourceType, true)
 	local liQuantity =  math.max(viQuantity, (liResouce * -1)) 
+	local liMoney
+
+	-- If we can free trade then set it up no matter what
+	if FreeTradeCheck(ai, voTCountry:GetCountryTag(), FromTag, nil) then
+		liMoney = -999
+	else
+		liMoney = Need_Resource_Check(voTCountry, laCrossValue[_MONEY_], false)
+	end
 	
 	-- Resource is negative number so we must invert to compare it to Minmum trade
 	if liMoney < 0 and (liQuantity * -1) >= liMinimumTrade then
@@ -819,25 +837,43 @@ function Need_Resource_Check(ministerCountry, voResourceType, vbCancelOveride)
 
 	local loResource = CResourceValues()
 	
-	loResource:GetResourceValues( ministerCountry, voResourceType )
+	loResource:GetResourceValues(ministerCountry, voResourceType)
 	
 	local liDailyBalance = loResource.vDailyBalance
 	local liDailyExpense = loResource.vDailyExpense
 	local liDailyHome = Utils.CalculateHomeProduced(loResource)
 	local liDailyIncome = loResource.vDailyIncome
 	local liPool = loResource.vPool
+	local liActualBuffer = liResourceBuffer
+	local lbLargeEconomy = (ministerCountry:GetTotalIC() > 50) -- Tells us if they are a strong country or not
+	
+	if voResourceType == CGoodsPool._CRUDE_OIL_ then
+		-- They have a large base of IC so more than likely need fuel
+		if lbLargeEconomy then
+			liActualBuffer = liCrudeBuffer
+		end
+	end
 	
 	-- Process it if the daily balance meets conditions
 	--   AI will always try and strive to have a small increase on each resource
-	if liDailyBalance < liResourceBuffer and not(vbCancelOveride) then
+	if liDailyBalance < liActualBuffer and not(vbCancelOveride) then
 		-- Now check to make sure the reservers are not high, if so no need to panick yet as it could just be a blip
-		if liPool > 25000 then
+		if (liPool > 25000 and not(lbLargeEconomy)) or (liPool > 50000 and lbLargeEconomy) then
 			return 0
 		elseif voResourceType == CGoodsPool._CRUDE_OIL_ then
-			local liFuelIncome = ministerCountry:GetDailyIncome(laCrossValue[_FUEL_]):Get()
-			
-			-- Our Crude is in the negative because of conversion 
-			if (liDailyBalance * -1) < liFuelIncome and liFuelIncome > 0 then
+			local loFuel = CResourceValues()
+			loFuel:GetResourceValues(ministerCountry, CGoodsPool._FUEL_)
+		
+			-- Ignore the crude negative due to conversion as long as we have some reserve
+			if (liDailyBalance * -1) <= loFuel.vDailyIncome and loFuel.vDailyBalance > 0 and loFuel.vPool > 5000 then
+				return 0
+			end
+		elseif voResourceType == CGoodsPool._FUEL_ then
+			local loCrued = CResourceValues()
+			loCrued:GetResourceValues(ministerCountry, CGoodsPool._CRUDE_OIL_)
+		
+			-- Our crude is in the positive so ignore the fuel shortage as long as we have some reserve
+			if loCrued.vDailyBalance > 0 and liPool > 5000 then
 				return 0
 			end
 		end
@@ -846,23 +882,36 @@ function Need_Resource_Check(ministerCountry, voResourceType, vbCancelOveride)
 	-- If our Pool is to small there is a potenital our resources are being reported in positive when
 	--   they really are negative
 	if liPool < 100 or liDailyExpense > liDailyIncome then
-		return (liDailyExpense - liDailyIncome + liResourceBuffer)
+		return (liDailyExpense - liDailyIncome + liActualBuffer)
 
 	-- Check to see if we have resources to trade away
 	--    if so make them negative numbers and don't trade away more than what we really have home produced
-	elseif liDailyBalance > liResourceBuffer and liDailyHome > liDailyExpense then
+	elseif liDailyBalance > liActualBuffer and liDailyHome > liDailyExpense then
 		-- If the Daily Home is very close to the daily Expense the nubmers may invert
 		--    causing the AI to think it needs to buy rather than sell.
-		return math.min(0, (liDailyHome - liDailyExpense - liResourceBuffer) * -1)
+		return math.min(0, (liDailyHome - liDailyExpense - liActualBuffer) * -1)
 
 	-- We have a surplus but it is being generated by trade not by home produced resources
 	---  Exclude supplies
-	elseif liDailyBalance > liResourceBuffer and not(voResourceType == laCrossValue[_SUPPLIES_]) then
+	elseif liDailyBalance > liActualBuffer and not(voResourceType == laCrossValue[_SUPPLIES_]) then
 		return 0
 		
 	-- We have a simple negative balance so just return it
 	else
-		return ((liDailyBalance - liResourceBuffer) * -1)
+		return ((liDailyBalance - liActualBuffer) * -1)
 	end
 end
 
+function FreeTradeCheck(voAI, voBuyerTag, voSellerTag, voRelation)
+	-- If relation object is nil then create it
+	if voRelation == nil then
+		voRelation = voAI:GetRelation(voBuyerTag, voSellerTag)
+	end
+
+	-- Commiterm Check or ALlow Debt check
+	if voAI:CanTradeFreeResources(voSellerTag, voBuyerTag) or voRelation:AllowDebts() then
+		return true
+	else
+		return false
+	end
+end

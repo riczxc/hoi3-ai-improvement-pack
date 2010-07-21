@@ -87,7 +87,7 @@ function P.Call_ForeignMinister(minister)
 			local loAction = CInfluenceAllianceLeader(minister:GetCountryTag(), CCountryDataBase.GetTag("GER"))
 			
 			if loAction:IsSelectable() then
-				minister:Propose(loAction, 1000)
+				minister:GetOwnerAI():PostAction(loAction)
 			end
 		end
 	end

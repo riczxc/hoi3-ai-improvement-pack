@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Soviet File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 6/20/2010
+-- Date Last Modified: 7/15/2010
 -----------------------------------------------------------
 
 local P = {}
@@ -475,8 +475,11 @@ end
 -- Soviets want more troops, let them learn on the battlefield.
 --   helps them produce troops faster
 function P.CallLaw_training_laws(minister, voCurrentLaw)
-	local _MINIMAL_TRAINING_ = 27
-	return CLawDataBase.GetLaw(_MINIMAL_TRAINING_)
+	if minister:GetCountry():IsAtWar() then
+		return CLawDataBase.GetLaw(27) -- _MINIMAL_TRAINING_
+	else
+		return CLawDataBase.GetLaw(28) -- _BASIC_TRAINING_
+	end
 end
 
 return AI_SOV
