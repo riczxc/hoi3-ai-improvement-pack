@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Production File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 7/9/2010
+-- Date Last Modified: 7/10/2010
 -----------------------------------------------------------
 
 -- ######################
@@ -1782,49 +1782,54 @@ end
 -- Convoy Building
 -- #######################
 function ConstructConvoys(ai, minister, ministerTag, ministerCountry, ic)
-	local TransportsNeeded = ministerCountry:GetTotalNeededConvoyTransports()
-	local TransportsCurrent = ministerCountry:GetTotalConvoyTransports()
-	local PortCount = ministerCountry:GetNumOfPorts()
-	
-	if TransportsNeeded > TransportsCurrent and PortCount > 0 then
-		local TransportConstruction = minister:CountTransportsUnderConstruction()
-		local TransportsActuallyNeeded = TransportsNeeded - TransportsCurrent - TransportConstruction
-		local maxSerial = 2
-		
-		-- Majors build 30% more than you need
-		if (ministerCountry:IsMajor()) then
-			TransportsActuallyNeeded = ((TransportsNeeded - TransportsCurrent - TransportConstruction) * 1.30)
-
-		-- Minors just build exactly what you need or close to it
-		--   - they also do shorter runs since they needed resources more than majors
-		else
-			TransportsActuallyNeeded = TransportsNeeded - TransportsCurrent - TransportConstruction
-		end
-		
-		if TransportsActuallyNeeded > 0 then
-			local cost = ministerCountry:GetConvoyBuildCost():Get()
-			local buildRequestCount = TransportsActuallyNeeded / defines.economy.CONVOY_CONSTRUCTION_SIZE
-			buildRequestCount = math.ceil( math.max( buildRequestCount, 1) )
-			ic = BuildTransportOrEscort(ai, ministerTag, buildRequestCount, maxSerial, false, cost, ic)
-		end
-	end
-	
-	-- Now Process Escorts Check
-	--   Performance check make sure they have IC to actually work with
 	if ic > 0 then
-		local EscortsNeeded = minister:CountTotalDesiredEscorts()
-		local EscortsCurrent = ministerCountry:GetEscorts()
+		local PortCount = ministerCountry:GetNumOfPorts()
+		
+		if PortCount > 0 then
+			local liNeeded = ministerCountry:GetTotalNeededConvoyTransports()
+			local liCurrent = ministerCountry:GetTotalConvoyTransports()
+			local liConstruction = minister:CountTransportsUnderConstruction()
+			local liActuallyNeeded
+			local maxSerial = 2
+			
+			-- Majors build 30% more than you need
+			if (ministerCountry:IsMajor()) then
+				liActuallyNeeded = Utils.Round((liNeeded * 1.30) - liCurrent - liConstruction )
 
-		if EscortsNeeded > EscortsCurrent and PortCount > 0 then
-			local EscortsConstruction = minister:CountEscortsUnderConstruction()
-			local EscortsActuallyNeeded = EscortsNeeded - EscortsCurrent - EscortsConstruction
-
-			if EscortsActuallyNeeded > 0 then
-				local cost = ministerCountry:GetEscortBuildCost():Get()
-				local buildRequestCount = EscortsActuallyNeeded / defines.economy.CONVOY_CONSTRUCTION_SIZE
+			-- Minors just build exactly what you need or close to it
+			--   - they also do shorter runs since they needed resources more than majors
+			else
+				liActuallyNeeded = liNeeded - liCurrent - liConstruction
+			end
+			
+			-- Make sure they always have a buffer of atleast 4
+			if liActuallyNeeded >= -1 and liActuallyNeeded <= 1 then
+				liActuallyNeeded = (math.max(0, liActuallyNeeded) + 4)
+			end
+			
+			if liActuallyNeeded > 0 then
+				local cost = ministerCountry:GetConvoyBuildCost():Get()
+				local buildRequestCount = liActuallyNeeded / defines.economy.CONVOY_CONSTRUCTION_SIZE
 				buildRequestCount = math.ceil( math.max( buildRequestCount, 1) )
-				ic = BuildTransportOrEscort(ai, ministerTag, buildRequestCount, 4, true, cost, ic)
-			end 
+				ic = BuildTransportOrEscort(ai, ministerTag, buildRequestCount, maxSerial, false, cost, ic)
+			end
+	
+			-- Now Process Escorts Check
+			--   Performance check make sure they have IC to actually work with
+			local liENeeded = minister:CountTotalDesiredEscorts()
+			local liECurrent = ministerCountry:GetEscorts()
+
+			if liENeeded > liECurrent then
+				local liEConstruction = minister:CountEscortsUnderConstruction()
+				local lEActuallyNeeded = liENeeded - liECurrent - liEConstruction
+
+				if lEActuallyNeeded > 0 then
+					local cost = ministerCountry:GetEscortBuildCost():Get()
+					local buildRequestCount = lEActuallyNeeded / defines.economy.CONVOY_CONSTRUCTION_SIZE
+					buildRequestCount = math.ceil( math.max( buildRequestCount, 1) )
+					ic = BuildTransportOrEscort(ai, ministerTag, buildRequestCount, 4, true, cost, ic)
+				end 
+			end
 		end
 	end
 	

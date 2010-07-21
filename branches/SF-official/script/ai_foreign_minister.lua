@@ -2,7 +2,7 @@
 -- LUA Hearts of Iron 3 Foreign Minister File
 -- Created By: Lothos
 -- Modified By: Lothos
--- Date Last Modified: 7/7/2010
+-- Date Last Modified: 7/12/2010
 -----------------------------------------------------------
 
 require('ai_diplomacy')

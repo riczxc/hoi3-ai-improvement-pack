@@ -331,6 +331,65 @@ function P.DiploScore_OfferTrade(score, ai, actor, recipient, observer, voTraded
 	return score
 end
 
+function P.DiploScore_InviteToFaction(score, ai, actor, recipient, observer)
+	-- Only go through these checks if we are being asked to join the Allies
+	if tostring(actor:GetCountry():GetFaction():GetTag()) == "allies" then
+		local liYear = CCurrentGameState.GetCurrentDate():GetYear()
+		local liMonth = CCurrentGameState.GetCurrentDate():GetMonthOfYear()
+		local chiTag = CCountryDataBase.GetTag("CHI")
+		local lochiTagCountry = chiTag:GetCountry()
+		local lbChinaExists = lochiTagCountry:Exists()
+		
+		-- Date check to make sure they come in within resonable time
+		if liYear >= 1943 then
+			score = score + 30
+		elseif liYear >= 1942 then
+			score = score + 20
+		elseif liYear == 1941 and liMonth >= 10 then
+			score = score + 10
+		end
+		
+		-- China check see if Japan is being aggressive in China
+		if lbChinaExists then
+			local japTag = CCountryDataBase.GetTag("JAP")
+			local loChiJapRelation = lochiTagCountry:GetRelation(japTag)
+			
+			-- Check to see who they are a puppet of
+			if lochiTagCountry:IsPuppet() then
+				local lojapTagCountry = japTag:GetCountry()
+			
+				-- China has been taken over by Japan
+				if (loChiJapRelation:HasAlliance())
+				or (lochiTagCountry:HasFaction() and lochiTagCountry:GetFaction() == lojapTagCountry:GetFaction()) then
+					score = score + 50
+				end
+			else
+				local lbChiJapHasWar = loChiJapRelation:HasWar()
+				
+				if lochiTagCountry:IsGovernmentInExile() and lbChiJapHasWar then
+					score = score + 50
+				elseif lbChiJapHasWar then
+					score = score + 10
+				end
+			end
+		else
+			local loRecipientCountry = recipient:GetCountry()
+			local loControllerTag = CCurrentGameState.GetProvince(4191):GetController()  -- Shangzhi
+			local loControllerCountry = loControllerTag:GetCountry()
+
+			-- If the new owner is in a faction that is not ours then raise our score
+			--   if not it is an unknown factor what happend so do nothing
+			if loControllerCountry:HasFaction() then
+				if not(loControllerCountry:GetFaction() == loRecipientCountry:GetFaction()) then
+					score = score + 50
+				end
+			end
+		end
+	end
+	
+	return score
+end
+
 function P.DiploScore_Guarantee( score, ai, actor, recipient, observer)
 
 	local recipientCountry = recipient:GetCountry()

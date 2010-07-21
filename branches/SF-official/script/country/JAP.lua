@@ -443,7 +443,7 @@ function P.DiploScore_InfluenceNation( score, ai, actor, recipient, observer )
 	local lsRepTag = tostring(recipient)
 	
 	if lsRepTag == "SIA" then
-		score = score + 70
+		score = score + 500
 	elseif lsRepTag == "CHI" then
 		score = score - 20
 	end
