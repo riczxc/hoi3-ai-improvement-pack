@@ -192,7 +192,7 @@ end
 
 function Hoi3Object.userdataToInstance(myClass, userdata, parent)
 	if userdata == nil then
-		dtools.warn("Expected CContinent userdata but got nil !?")
+		dtools.warn("Expected Hoi3Object userdata but got nil !?")
 		return
 	end
 	

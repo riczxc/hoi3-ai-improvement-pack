@@ -30,7 +30,7 @@ function CResearchBonus.userdataToInstance(myClass, userdata, parent)
 	hoi3.assert(middleclass.subclassOf(hoi3.Hoi3Object,myClass), "Class reference is not Hoi3Object Instance.")
 	hoi3.assert( type(userdata) == hoi3.TYPE_USERDATA, "Userdata is not userdata ! "..tostring(type(userdata)).." found !")
 	
-	if userdata._vWeight ~= nil and userdata._pCategory ~= nil then
+	if userdata._vWeight == nil and userdata._pCategory == nil then
 		hoi3.error("Bad signature for userdata, didn't match CResearchBonus.userdataToInstance() !")
 		return
 	end

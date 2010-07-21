@@ -21,8 +21,8 @@ hoi3.f(CWar, 'GetDefenders', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
--- @return CEU3Date
-hoi3.f(CWar, 'GetStartDate', 'CEU3Date')
+-- @return unknown (returns userdata but not CEU3DATE)
+hoi3.f(CWar, 'GetStartDate', hoi3.TYPE_UNKNOWN)
 
 ---
 -- @since 1.3
