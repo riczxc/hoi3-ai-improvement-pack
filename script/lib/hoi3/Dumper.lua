@@ -98,6 +98,7 @@ end
 ---
 -- creates an instance for every named/unique object outthere.
 function checkDataBases()
+	dtools.debug("CCountryTag & CCountry & CProvince & CIdeology & CIdeologyGroup")
 	-- Start by referencing all databased objects
 	for d in CCurrentGameState.GetCountries() do
 		local t = hoi3.api.CCountryTag:userdataToInstance(d:GetCountryTag())
@@ -154,7 +155,6 @@ function checkDataBases()
 		end
 	end
 	-- Missing :
-	-- * CDecision
 	-- * CTradeRoute 
 end
 

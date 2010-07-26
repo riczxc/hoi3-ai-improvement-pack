@@ -413,6 +413,45 @@ function FunctionObject:ApiReturnToFakeApiReturn(value, parent)
 	end
 end
 
+function FunctionObject:generateArgCombinations()
+	if #self.args == 0 then
+		return {{}}
+	end
+	
+	for arg in ipairs(self.args) do
+		
+	end
+end
+
+function FunctionObject:_generateArgCombinations(myTable, level)
+	local level = level or 1
+	local myType = self.args[level].type or self.args[level] or nil
+	if myType == nil then
+		hoi3.error("_generateArgCombinations out of bound !")
+	end
+	
+	if myType == hoi3.TYPE_BOOLEAN then
+		table.insert(myTable, true)
+		table.insert(myTable, false)
+	elseif myType == hoi3.TYPE_STRING or myType == "CString" then
+		hoi3.warn("_generateArgCombinations does not support string generation !")
+	elseif myType == hoi3.TYPE_NUMBER or myType == "CFixedPoint" or myType == "CFixedPoint64" then
+		hoi3.warn("_generateArgCombinations does not support numeric generation !")
+	elseif myType == hoi3.TYPE_TABLE or myType == "CArrayFix" or myType == "CArrayFix64"
+		 or myType == "CArrayFloat" or myType == "CArrayInt" then
+		 hoi3.warn("_generateArgCombinations does not support number table generation !")
+	elseif myType == "CCountryTag" or myType == "CCountry" or myType == "CProvince" or 
+		myType == "CIdeology" or myType == "CIdeologyGroup" or myType == "CFaction" or 
+		myType == "CLawGroup" or myType == "CLaw" or myType == "CSubUnitDefinition" or 
+		myType == "CTechnology" or myType == "CTechnologyCategory" or myType == "CGovernmentPosition" or
+		myType == "CMinisterType" or myType == "CBuilding" then
+		
+		for k,v in pairs(hoi3.api[myType]:getInstances()) do
+			table.insert(myTable, v)
+		end
+	end
+end
+
 function FunctionObject:runAndSave(userdata, instance, parent)
 	hoi3.assertNonStatic(self)
 	dtools.debug(tostring(self:signatureAsString()).." for instance "..tostring(instance)..".")
@@ -426,29 +465,28 @@ function FunctionObject:runAndSave(userdata, instance, parent)
 			dtools.warn(tostring(self).." does not exists in real API !")
 		else
 			-- prepare all parameters combinations as a table of table
-			local arg_combination = {{}}
-			if #self.args > 0 then
-				-- there are parameters
-				dtools.warn(tostring(self).." not (yet) supported because of multiple parameters !")
-				return
-			end
+			local arg_combinations = self:generateArgCombinations()
 			
-			for i, myargs in ipairs(arg_combination) do
-				local mytime = os.clock()
-				
-				--for i, args in ipairs(arg_combination) do
-				local ret, value = pcall(userdata[self.name],userdata,unpack(myargs))
-				if ret == false then
-					dtools.error(tostring(self).." failed to run ! "..tostring(value))
-				else
-					--value is pure API result
-					local fakeApiValue = self:ApiReturnToFakeApiReturn(value, instance)
+			if arg_combinations == false then
+				dtools.warn(tostring(self).." ignored by runAndSave() because of unsuuported parameter combination generator.")
+			else			
+				for i, myargs in ipairs(arg_combinations) do
+					local mytime = os.clock()
 					
-					-- Save transformed userdata to Hoi3Object instance
-					self:save(fakeApiValue,instance)
-										
-					self.realruns = self.realruns + 1
-					self.realtime = self.realtime + os.clock() - mytime
+					--for i, args in ipairs(arg_combination) do
+					local ret, value = pcall(userdata[self.name],userdata,unpack(myargs))
+					if ret == false then
+						dtools.error(tostring(self).." failed to run ! "..tostring(value))
+					else
+						--value is pure API result
+						local fakeApiValue = self:ApiReturnToFakeApiReturn(value, instance)
+						
+						-- Save transformed userdata to Hoi3Object instance
+						self:save(fakeApiValue,instance)
+											
+						self.realruns = self.realruns + 1
+						self.realtime = self.realtime + os.clock() - mytime
+					end
 				end
 			end
 		end 

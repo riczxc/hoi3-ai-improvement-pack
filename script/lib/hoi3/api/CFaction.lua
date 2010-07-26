@@ -5,11 +5,8 @@ module("hoi3.api", package.seeall)
 CFaction = hoi3.MultitonObject:subclass('hoi3.api.CFaction')
 
 function CFaction:initialize(name)
-	dtools.debug("init cfaction")
 	hoi3.assertNonStatic(self)
-	dtools.debug("init cfaction post assertNonStatic")
 	hoi3.assertParameterType(1, name, hoi3.TYPE_STRING)
-	dtools.debug("init cfaction post assertParameterType")
 	self.name = name
 	self.members = {}
 end 

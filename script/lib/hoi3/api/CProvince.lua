@@ -7,7 +7,9 @@ CProvince = hoi3.MultitonObject:subclass('hoi3.api.CProvince')
 ---
 -- @param number provinceId
 function CProvince:initialize(id)
+	dtools.debug("init CProvince")
 	hoi3.assertNonStatic(self)
+	hoi3.assertParameterType(1, id, hoi3.TYPE_NUMBER)
 	
 	self.id = id
 end
