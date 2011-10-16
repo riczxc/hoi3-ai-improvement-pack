@@ -2103,7 +2103,7 @@ There is no constructor for this object, use API reference in order to find a me
 <table width="100%" border="1">
 <tr><th>Type</th><th>Method</th><th>Since</th></tr>
 <tr><td><font face="monospace">[#CEU3Date CEU3Date]</font></td><td><font face="monospace">`GetLastMissionChangeDate`()</font></td><td></td></tr>
-<tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetLevel`()</font></td><td></td></tr>
+<tr><td><font face="monospace">[#CFixedPoint CFixedPoint]</font></td><td><font face="monospace">`GetLevel`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetMission`()</font></td><td></td></tr>
 <tr><td><font face="monospace">number</font></td><td><font face="monospace">`GetPriority`()</font></td><td></td></tr>
 <tr><td><font face="monospace">static unknown</font></td><td><font face="monospace">`MissionAllowed`(unknown)</font></td><td></td></tr>
